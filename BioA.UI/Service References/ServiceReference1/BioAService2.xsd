@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8080/BioAService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/BioA.Service" />
+  <xs:import schemaLocation="http://localhost:8080/BioAService?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/BioA.Common" />
+  <xs:element name="GetData">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="value" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDataResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetDataResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDataUsingDataContract">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/BioA.Service" minOccurs="0" name="composite" nillable="true" type="q1:CompositeType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDataUsingDataContractResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/BioA.Service" minOccurs="0" name="GetDataUsingDataContractResult" nillable="true" type="q2:CompositeType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCommunicationEntity1">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/BioA.Service" minOccurs="0" name="composite" nillable="true" type="q3:CommunicationEntity1" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCommunicationEntity1Response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/BioA.Service" minOccurs="0" name="GetCommunicationEntity1Result" nillable="true" type="q4:CommunicationEntity1" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCommunicationEntityThreeParam1">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/BioA.Service" minOccurs="0" name="composite" nillable="true" type="q5:CommunicationEntityThreeParam1" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCommunicationEntityThreeParam1Response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/BioA.Service" minOccurs="0" name="GetCommunicationEntityThreeParam1Result" nillable="true" type="q6:CommunicationEntityThreeParam1" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RegisterClient">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="strClientName" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ClientSendMsgToClient">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/BioA.Common" minOccurs="0" name="sendClientName" type="q7:ModuleInfo" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/BioA.Common" minOccurs="0" name="RecClientName" type="q8:ModuleInfo" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/BioA.Common" minOccurs="0" name="param" nillable="true" type="q9:CommunicationEntity" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ClientSendMsgToClientResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ClientSendMsgToClientResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ClientSendMsgToService">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/BioA.Common" minOccurs="0" name="sendClientName" type="q10:ModuleInfo" />
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/BioA.Service" minOccurs="0" name="param" nillable="true" type="q11:CommunicationEntity1" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetClients">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetClientsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/BioA.Common" minOccurs="0" name="GetClientsResult" nillable="true" type="q12:ArrayOfModuleInfo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NotifyFunction">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="sender" nillable="true" type="xs:anyType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ClientNotifyFunction">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="strSendClientName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Sender" nillable="true" type="xs:anyType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DatabaseNotifyFunction">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="strMethod" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="sender" nillable="true" type="xs:anyType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="UserInfo" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <alias>
+    <typeAlias alias="UserInfo" type="BioA.Common.UserInfo, BioA.Common" />
+  </alias>
+  <resultMaps>
+    <resultMap id="UserInfoResult" class="UserInfo">
+      <result property="UserID" column="ID" />
+      <result property="UserName" column="USERNAME"/>
+      <result property="UserPassword" column="USERPASSWORD"/>
+      <result property="CreateTime" column="CREATETIME"/>
+      <result property="IsSuperAdmin" column="ISSUPERADMIN"/>
+      <result property="IsServeEngineer" column="ISSERVEENGINEER"/>
+      <result property="IsPermitDelete" column="ISPERMITDELETE"/>
+      <result property="IsLocked" column="ISLOCKED"/>
+    </resultMap>
+  </resultMaps>
+
+  <statement>
+    <insert id="InsertUserName" parameterClass="string">
+      insert into userInfo values name=#value#
+    </insert>
+  </statement>
+  <!--<statements>
+    --><!--用过ID查找用户名--><!--
+    <select id="QueryUserNameById" resultClass="String" parameterClass="int">
+      select USERNAME from userTb where ID=#value#
+    </select>
+    --><!--查找所有用户信息--><!--
+    <select id="QueryUserInfo" resultMap="UserInfoResult">
+      SELECT * FROM USERTB
+    </select>
+    --><!--通过用户名查找用户信息--><!--
+    <select id="QueryUserInfoByUserName" resultMap="UserInfoResult" parameterClass="string">
+      SELECT * FROM USERTB WHERE USERNAME=#value#
+    </select>
+    --><!--动态处理查询条件，当存在查询条件，按条件查询，不存在所需条件，执行CDATA中括号的查询语句--><!--
+    <select id="QueryUserInfoDynamicUserName" parameterClass="System.Collections.IDictionary" resultMap="UserInfoResult">
+      <![CDATA[SELECT * FROM USERTB]]>
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="userName">
+          <![CDATA[USERNAME = #userName#]]>]>
+        </isNotEmpty>
+      </dynamic>
+    </select>
+    --><!--二元条件举例--><!--
+    --><!--<select id="QueryUserInfoDynamicUserId" parameterClass="System.Collection.IDictionary" resultMap="UserInfoResult">
+      <![CDATA[SELECT * FROM USERTB]]>
+      <dynamic prepend="WHERE">
+        <isLessEqual prepend="AND" property="userId" compareValue="10">
+          USERID = #userId#
+        </isLessEqual>
+      </dynamic>
+    </select>
+    --><!--先判断传入参数集是否有SEX参数，如果没有则不执行SEX=#SEX#查询条件，再判断该参数是否为null，不为null才执行查询条件。isPropertyAvailable元素最大的好处是，如果输入的参数集不包括设置的参数时程序不会报错，直接跳过该元素设置内容。--><!--
+    <select id="QueryUserInfoDynamicSexOrStatus" resultMap="UserInfoResult" parameterClass="System.Collection.IDictionary">
+      <![CDATA[ SELECT * FROM USERTB ]]>
+      <dynamic prepend="WHERE">
+        <isPropertyAvilable property="SEX">
+          <isNotNull property="sex" prepend="AND">  
+            SEX = #sex#
+          </isNotNull>
+        </isPropertyAvilable>
+        <isPropertyAvailable property="STATUS">
+          <isNotNull property="status" prepend="AND">
+            STATUS = #status#
+          </isNotNull>
+        </isPropertyAvailable>
+      </dynamic>
+    </select>--><!--
+    --><!--查询遍历集合--><!--
+    <select id="QueryUserInfoDynamicSexOrUserIdList" resultMap="UserInfoResult" parameterClass="System.Collection.IDictionary">
+      <![CDATA[ SELECT * FROM USERTB ]]>
+      <dynamic prepend="WHERE">
+        <isPropertyAvailable property="sex">
+          <isNotNull property="sex" prepend="AND">
+            SEX = #sex#
+          </isNotNull>
+        </isPropertyAvailable>
+        <isNotNull prepend="AND" property="UserIdList">
+          ID in
+          <iterate property="UserIdList" open="(" close=")" conjunction=",">
+            UserIdList[]
+          </iterate>
+        </isNotNull>
+      </dynamic>
+    </select>
+    --><!--连表查询--><!--
+    <select id="MultiTable" resultClass="Hashtable">
+      SELECT A.*, B.RIGHTID FROM USERTB A,USERrIGHT B WHERE A.ID = B.ID
+    </select>
+  </statements>-->
+</sqlMap>

@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ZXC" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <!--<statements>
+    <statement id="GetPostByID" resultClass="string" parameterClass="int">
+      select username from user where id=#id#
+    </statement>
+  </statements>-->
+</sqlMap>

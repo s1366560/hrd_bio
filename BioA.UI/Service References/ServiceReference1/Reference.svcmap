@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="1dcb2603-728a-4b63-8e07-725abf8f2397" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8080/BioAService" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="BioAService.wsdl" MetadataType="Wsdl" ID="dfebee3e-9639-4759-a1bc-88fd0e6c08a0" SourceId="1" SourceUrl="http://localhost:8080/BioAService?wsdl" />
+    <MetadataFile FileName="BioAService.disco" MetadataType="Disco" ID="ba041943-57ba-462d-961f-a83899f6df9d" SourceId="1" SourceUrl="http://localhost:8080/BioAService?disco" />
+    <MetadataFile FileName="BioAService.xsd" MetadataType="Schema" ID="3380bb65-8947-4744-9378-7ba297a57825" SourceId="1" SourceUrl="http://localhost:8080/BioAService?xsd=xsd2" />
+    <MetadataFile FileName="BioAService1.xsd" MetadataType="Schema" ID="7eedb112-1e8d-4cbd-842b-28a2ccb779ad" SourceId="1" SourceUrl="http://localhost:8080/BioAService?xsd=xsd3" />
+    <MetadataFile FileName="BioAService2.xsd" MetadataType="Schema" ID="e377b7f6-d177-4b9e-8e53-40d35a4239a7" SourceId="1" SourceUrl="http://localhost:8080/BioAService?xsd=xsd0" />
+    <MetadataFile FileName="BioAService3.xsd" MetadataType="Schema" ID="5dec6930-1231-4fcf-883e-2d97cee8a608" SourceId="1" SourceUrl="http://localhost:8080/BioAService?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

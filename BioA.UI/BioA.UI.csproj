@@ -1,0 +1,728 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{37E67464-868E-4947-8CE9-80126513F974}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BioA.UI</RootNamespace>
+    <AssemblyName>BioA.UI</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.BonusSkins.v16.1" />
+    <Reference Include="DevExpress.Charts.v16.1.Core, Version=16.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Data.v16.1" />
+    <Reference Include="DevExpress.Mvvm.v16.1, Version=16.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Printing.v16.1.Core" />
+    <Reference Include="DevExpress.Utils.v16.1" />
+    <Reference Include="DevExpress.Xpf.Core.v16.1, Version=16.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraBars.v16.1" />
+    <Reference Include="DevExpress.Sparkline.v16.1.Core" />
+    <Reference Include="DevExpress.XtraCharts.v16.1, Version=16.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraCharts.v16.1.UI, Version=16.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v16.1.Wizard, Version=16.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraEditors.v16.1" />
+    <Reference Include="DevExpress.XtraGrid.v16.1, Version=16.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraLayout.v16.1, Version=16.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraNavBar.v16.1, Version=16.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPrinting.v16.1, Version=16.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraScheduler.v16.1, Version=16.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraScheduler.v16.1.Core, Version=16.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsFormsControlLibrary3">
+      <HintPath>C:\Users\Administrator\Documents\Visual Studio 2013\Projects\WindowsFormsControlLibrary3\WindowsFormsControlLibrary3\bin\Debug\WindowsFormsControlLibrary3.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NotifyCallBack.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\ServiceReference1\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\CalibrationUI\CalibMaintain\CalibAddAndEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\CalibrationUI\CalibMaintain\CalibAddAndEdit.Designer.cs">
+      <DependentUpon>CalibAddAndEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\CalibrationUI\CalibMaintain\CalibMaintain.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\CalibrationUI\CalibMaintain\CalibMaintain.Designer.cs">
+      <DependentUpon>CalibMaintain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\CalibrationUI\CalibrationState\CalibrationCurve.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\CalibrationUI\CalibrationState\CalibrationCurve.Designer.cs">
+      <DependentUpon>CalibrationCurve.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\CalibrationUI\CalibrationState\CalibrationState.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\CalibrationUI\CalibrationState\CalibrationState.Designer.cs">
+      <DependentUpon>CalibrationState.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\CalibrationUI\CalibrationState\CalibrationTrace.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\CalibrationUI\CalibrationState\CalibrationTrace.Designer.cs">
+      <DependentUpon>CalibrationTrace.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\CalibrationUI\CalibrationState\ReactionProcessCB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\CalibrationUI\CalibrationState\ReactionProcessCB.Designer.cs">
+      <DependentUpon>ReactionProcessCB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\QualityControlUI\QCMaintain\QCMaintain.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\QualityControlUI\QCMaintain\QCMaintain.Designer.cs">
+      <DependentUpon>QCMaintain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\QualityControlUI\QCMaintain\QualityControlAddAndEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\QualityControlUI\QCMaintain\QualityControlAddAndEdit.Designer.cs">
+      <DependentUpon>QualityControlAddAndEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\QualityControlUI\QCState\frmHisResultChart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\QualityControlUI\QCState\frmHisResultChart.Designer.cs">
+      <DependentUpon>frmHisResultChart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\QualityControlUI\QCState\QualityControlState.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\QualityControlUI\QCState\QualityControlState.Designer.cs">
+      <DependentUpon>QualityControlState.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\QualityControlUI\QCState\ReactionProcessQC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\QualityControlUI\QCState\ReactionProcessQC.Designer.cs">
+      <DependentUpon>ReactionProcessQC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\ReagentUI\ReagentSetting\frmLoadingReagent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\ReagentUI\ReagentSetting\frmLoadingReagent.Designer.cs">
+      <DependentUpon>frmLoadingReagent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\ReagentUI\ReagentSetting\ReagentSetting.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\ReagentUI\ReagentSetting\ReagentSetting.Designer.cs">
+      <DependentUpon>ReagentSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\ReagentUI\ReagentState\ReagentState.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\ReagentUI\ReagentState\ReagentState.Designer.cs">
+      <DependentUpon>ReagentState.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\CalculateItem\ComputationItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\CalculateItem\ComputationItem.Designer.cs">
+      <DependentUpon>ComputationItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\CalculateItem\AddOrEditCalcItem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\CalculateItem\AddOrEditCalcItem.Designer.cs">
+      <DependentUpon>AddOrEditCalcItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\ChemicalParameter\CalibrationParameter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\ChemicalParameter\CalibrationParameter.Designer.cs">
+      <DependentUpon>CalibrationParameter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\ChemicalParameter\ChemicalParameter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\ChemicalParameter\ChemicalParameter.Designer.cs">
+      <DependentUpon>ChemicalParameter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\ChemicalParameter\ChemicalParamNotifyCallBack.cs" />
+    <Compile Include="Uicomponent\SettingsUI\ChemicalParameter\CheProjectAddOrEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\ChemicalParameter\CheProjectAddOrEdit.Designer.cs">
+      <DependentUpon>CheProjectAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\ChemicalParameter\ProjectParameter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\ChemicalParameter\ProjectParameter.Designer.cs">
+      <DependentUpon>ProjectParameter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\ChemicalParameter\RangeParameter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\ChemicalParameter\RangeParameter.Designer.cs">
+      <DependentUpon>RangeParameter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\CrossPollution\CrossPollution.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\CrossPollution\CrossPollution.Designer.cs">
+      <DependentUpon>CrossPollution.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\CrossPollution\CuvetteAntifouling.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\CrossPollution\CuvetteAntifouling.Designer.cs">
+      <DependentUpon>CuvetteAntifouling.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\CrossPollution\NeddleSamples.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\CrossPollution\NeddleSamples.Designer.cs">
+      <DependentUpon>NeddleSamples.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\CrossPollution\ReagentNeedle.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\CrossPollution\ReagentNeedle.Designer.cs">
+      <DependentUpon>ReagentNeedle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\DataConfig\DataConfig.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\DataConfig\DataConfig.Designer.cs">
+      <DependentUpon>DataConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\Environment\EnvironmentData.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\Environment\EnvironmentData.Designer.cs">
+      <DependentUpon>EnvironmentData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\LISCommunicate\LISCommunicate.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\LISCommunicate\LISCommunicate.Designer.cs">
+      <DependentUpon>LISCommunicate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\CombinationItem\CombinationItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\CombinationItem\CombinationItem.Designer.cs">
+      <DependentUpon>CombinationItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\Configure\Configure.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\Configure\Configure.Designer.cs">
+      <DependentUpon>Configure.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\DepartmentManage\DepartmentManage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\DepartmentManage\DepartmentManage.Designer.cs">
+      <DependentUpon>DepartmentManage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\EquipmentManage\AbsorberDebug.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\EquipmentManage\AbsorberDebug.Designer.cs">
+      <DependentUpon>AbsorberDebug.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\EquipmentManage\AgitatorAdjustment.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\EquipmentManage\AgitatorAdjustment.Designer.cs">
+      <DependentUpon>AgitatorAdjustment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\EquipmentManage\LightSystem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\EquipmentManage\LightSystem.Designer.cs">
+      <DependentUpon>LightSystem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\EquipmentManage\LiquidRoadDebug.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\EquipmentManage\LiquidRoadDebug.Designer.cs">
+      <DependentUpon>LiquidRoadDebug.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\EquipmentManage\ReactionDiskDebug.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\EquipmentManage\ReactionDiskDebug.Designer.cs">
+      <DependentUpon>ReactionDiskDebug.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\EquipmentManage\ReagentPanelDebug.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\EquipmentManage\ReagentPanelDebug.Designer.cs">
+      <DependentUpon>ReagentPanelDebug.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\EquipmentManage\SamplePanelDebug.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\EquipmentManage\SamplePanelDebug.Designer.cs">
+      <DependentUpon>SamplePanelDebug.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\EquipmentManage\TestEquipment.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\EquipmentManage\TestEquipment.Designer.cs">
+      <DependentUpon>TestEquipment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\LogCheck\Alertlog.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\LogCheck\Alertlog.Designer.cs">
+      <DependentUpon>Alertlog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\LogCheck\Log.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\LogCheck\Log.Designer.cs">
+      <DependentUpon>Log.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\Maintenance\CleaningMaintenance.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\Maintenance\CleaningMaintenance.Designer.cs">
+      <DependentUpon>CleaningMaintenance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\Maintenance\PhotometricCalibration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\Maintenance\PhotometricCalibration.Designer.cs">
+      <DependentUpon>PhotometricCalibration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\Maintenance\RMThirdMenu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\Maintenance\RMThirdMenu.Designer.cs">
+      <DependentUpon>RMThirdMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\Maintenance\UltravioletRays.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\Maintenance\UltravioletRays.Designer.cs">
+      <DependentUpon>UltravioletRays.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\Maintenance\WaterBlankCheck.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\Maintenance\WaterBlankCheck.Designer.cs">
+      <DependentUpon>WaterBlankCheck.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\UserManagement\UserCeation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\UserManagement\UserCeation.Designer.cs">
+      <DependentUpon>UserCeation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\UserManagement\UserManagement.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\UserManagement\UserManagement.Designer.cs">
+      <DependentUpon>UserManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\VersionInformation\VersionInformation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\VersionInformation\VersionInformation.Designer.cs">
+      <DependentUpon>VersionInformation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\ApplyTask.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\ApplyTask.Designer.cs">
+      <DependentUpon>ApplyTask.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\PatientInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\PatientInfo.Designer.cs">
+      <DependentUpon>PatientInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\PatientInfoCheck.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\PatientInfoCheck.Designer.cs">
+      <DependentUpon>PatientInfoCheck.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\PatientInfoEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\PatientInfoEdit.Designer.cs">
+      <DependentUpon>PatientInfoEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\ProCombPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\ProCombPage.Designer.cs">
+      <DependentUpon>ProCombPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\ProjectPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\ProjectPage.Designer.cs">
+      <DependentUpon>ProjectPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\CalibDataCheck\CalibDataCheck.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\CalibDataCheck\CalibDataCheck.Designer.cs">
+      <DependentUpon>CalibDataCheck.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\DataCheck\DataCheck.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\DataCheck\DataCheck.Designer.cs">
+      <DependentUpon>DataCheck.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\DataCheck\ReflectionMonitoring.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\DataCheck\ReflectionMonitoring.Designer.cs">
+      <DependentUpon>ReflectionMonitoring.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\DataCheck\TestAudit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\DataCheck\TestAudit.Designer.cs">
+      <DependentUpon>TestAudit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\DataCheck\ScreeningSample.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\DataCheck\ScreeningSample.Designer.cs">
+      <DependentUpon>ScreeningSample.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Uicomponent\CalibrationUI\CalibMaintain\CalibAddAndEdit.resx">
+      <DependentUpon>CalibAddAndEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\CalibrationUI\CalibMaintain\CalibMaintain.resx">
+      <DependentUpon>CalibMaintain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\CalibrationUI\CalibrationState\CalibrationCurve.resx">
+      <DependentUpon>CalibrationCurve.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\CalibrationUI\CalibrationState\CalibrationState.resx">
+      <DependentUpon>CalibrationState.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\CalibrationUI\CalibrationState\CalibrationTrace.resx">
+      <DependentUpon>CalibrationTrace.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\CalibrationUI\CalibrationState\ReactionProcessCB.resx">
+      <DependentUpon>ReactionProcessCB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\QualityControlUI\QCMaintain\QCMaintain.resx">
+      <DependentUpon>QCMaintain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\QualityControlUI\QCMaintain\QualityControlAddAndEdit.resx">
+      <DependentUpon>QualityControlAddAndEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\QualityControlUI\QCState\frmHisResultChart.resx">
+      <DependentUpon>frmHisResultChart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\QualityControlUI\QCState\QualityControlState.resx">
+      <DependentUpon>QualityControlState.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\QualityControlUI\QCState\ReactionProcessQC.resx">
+      <DependentUpon>ReactionProcessQC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\ReagentUI\ReagentSetting\frmLoadingReagent.resx">
+      <DependentUpon>frmLoadingReagent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\ReagentUI\ReagentSetting\ReagentSetting.resx">
+      <DependentUpon>ReagentSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\ReagentUI\ReagentState\ReagentState.resx">
+      <DependentUpon>ReagentState.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SettingsUI\CalculateItem\ComputationItem.resx">
+      <DependentUpon>ComputationItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SettingsUI\CalculateItem\AddOrEditCalcItem.resx">
+      <DependentUpon>AddOrEditCalcItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SettingsUI\ChemicalParameter\CalibrationParameter.resx">
+      <DependentUpon>CalibrationParameter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SettingsUI\ChemicalParameter\ChemicalParameter.resx">
+      <DependentUpon>ChemicalParameter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SettingsUI\ChemicalParameter\CheProjectAddOrEdit.resx">
+      <DependentUpon>CheProjectAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SettingsUI\ChemicalParameter\ProjectParameter.resx">
+      <DependentUpon>ProjectParameter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SettingsUI\ChemicalParameter\RangeParameter.resx">
+      <DependentUpon>RangeParameter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SettingsUI\CrossPollution\CrossPollution.resx">
+      <DependentUpon>CrossPollution.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SettingsUI\CrossPollution\CuvetteAntifouling.resx">
+      <DependentUpon>CuvetteAntifouling.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SettingsUI\CrossPollution\NeddleSamples.resx">
+      <DependentUpon>NeddleSamples.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SettingsUI\CrossPollution\ReagentNeedle.resx">
+      <DependentUpon>ReagentNeedle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SettingsUI\DataConfig\DataConfig.resx">
+      <DependentUpon>DataConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SettingsUI\Environment\EnvironmentData.resx">
+      <DependentUpon>EnvironmentData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SettingsUI\LISCommunicate\LISCommunicate.resx">
+      <DependentUpon>LISCommunicate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SettingsUI\CombinationItem\CombinationItem.resx">
+      <DependentUpon>CombinationItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SystemUI\Configure\Configure.resx">
+      <DependentUpon>Configure.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SystemUI\DepartmentManage\DepartmentManage.resx">
+      <DependentUpon>DepartmentManage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SystemUI\EquipmentManage\AbsorberDebug.resx">
+      <DependentUpon>AbsorberDebug.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SystemUI\EquipmentManage\AgitatorAdjustment.resx">
+      <DependentUpon>AgitatorAdjustment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SystemUI\EquipmentManage\LightSystem.resx">
+      <DependentUpon>LightSystem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SystemUI\EquipmentManage\LiquidRoadDebug.resx">
+      <DependentUpon>LiquidRoadDebug.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SystemUI\EquipmentManage\ReactionDiskDebug.resx">
+      <DependentUpon>ReactionDiskDebug.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SystemUI\EquipmentManage\ReagentPanelDebug.resx">
+      <DependentUpon>ReagentPanelDebug.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SystemUI\EquipmentManage\SamplePanelDebug.resx">
+      <DependentUpon>SamplePanelDebug.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SystemUI\EquipmentManage\TestEquipment.resx">
+      <DependentUpon>TestEquipment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SystemUI\LogCheck\Alertlog.resx">
+      <DependentUpon>Alertlog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SystemUI\LogCheck\Log.resx">
+      <DependentUpon>Log.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SystemUI\Maintenance\CleaningMaintenance.resx">
+      <DependentUpon>CleaningMaintenance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SystemUI\Maintenance\PhotometricCalibration.resx">
+      <DependentUpon>PhotometricCalibration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SystemUI\Maintenance\RMThirdMenu.resx">
+      <DependentUpon>RMThirdMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SystemUI\Maintenance\UltravioletRays.resx">
+      <DependentUpon>UltravioletRays.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SystemUI\Maintenance\WaterBlankCheck.resx">
+      <DependentUpon>WaterBlankCheck.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SystemUI\UserManagement\UserCeation.resx">
+      <DependentUpon>UserCeation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SystemUI\UserManagement\UserManagement.resx">
+      <DependentUpon>UserManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SystemUI\VersionInformation\VersionInformation.resx">
+      <DependentUpon>VersionInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\WorkingAreaUI\ApplyTask\ApplyTask.resx">
+      <DependentUpon>ApplyTask.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\WorkingAreaUI\ApplyTask\PatientInfo.resx">
+      <DependentUpon>PatientInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\WorkingAreaUI\ApplyTask\PatientInfoCheck.resx">
+      <DependentUpon>PatientInfoCheck.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\WorkingAreaUI\ApplyTask\PatientInfoEdit.resx">
+      <DependentUpon>PatientInfoEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\WorkingAreaUI\ApplyTask\ProCombPage.resx">
+      <DependentUpon>ProCombPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\WorkingAreaUI\ApplyTask\ProjectPage.resx">
+      <DependentUpon>ProjectPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\WorkingAreaUI\CalibDataCheck\CalibDataCheck.resx">
+      <DependentUpon>CalibDataCheck.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\WorkingAreaUI\DataCheck\DataCheck.resx">
+      <DependentUpon>DataCheck.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\WorkingAreaUI\DataCheck\ReflectionMonitoring.resx">
+      <DependentUpon>ReflectionMonitoring.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\WorkingAreaUI\DataCheck\TestAudit.resx">
+      <DependentUpon>TestAudit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\WorkingAreaUI\DataCheck\ScreeningSample.resx">
+      <DependentUpon>ScreeningSample.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Service References\ServiceReference1\BioA.UI.ServiceReference1.CommunicationEntity1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference1\BioA.UI.ServiceReference1.CommunicationEntityThreeParam1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference1\BioA.UI.ServiceReference1.CompositeType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference1\BioAService.wsdl" />
+    <None Include="Service References\ServiceReference1\BioAService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReference1\BioAService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReference1\BioAService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReference1\BioAService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1479289692361.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo_hrdbio_com_1479289692361.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\b.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BioA.Common\BioA.Common.csproj">
+      <Project>{e1438a53-5dde-42c0-b2ff-0f4a892e95b6}</Project>
+      <Name>BioA.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\ServiceReference1\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ServiceReference1\BioAService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ServiceReference1\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ServiceReference1\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ServiceReference1\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

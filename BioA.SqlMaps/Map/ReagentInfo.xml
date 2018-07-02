@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<sqlMap namespace="ReagentInfo" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <alias>
+    <typeAlias alias="ReagentSettingsInfo" type="BioA.Common.ReagentSettingsInfo, BioA.Common" />
+    <typeAlias alias="ProjectReagentStateInfo" type="BioA.Common.ProjectReagentStateInfo, BioA.Common" />
+    <typeAlias alias="ReagentStateInfo" type="BioA.Common.ReagentStateInfo, BioA.Common" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ReagentSettingsInfoResult" class="ReagentSettingsInfo">
+      <result property="Pos" column="Pos" />
+      <result property="ProjectName" column="ProjectName" />
+      <result property="ReagentName" column="ReagentName" />
+      <result property="ReagentType" column="ReagentType" />
+      <result property="ReagentChamber" column="ReagentChamber" />
+      <result property="ValidDate" column="ValidDate" />
+      <result property="Barcode" column="Barcode" />
+      <result property="ReagentContainer" column="ReagentContainer" />
+      <result property="BatchNum" column="BatchNum" />
+      <result property="Locked" column="Locked" />
+    </resultMap>
+    <resultMap id="ProjectReagentStateInfoResult" class="ProjectReagentStateInfo">
+      <result property="ProjectName" clumn="ProjectName" />
+      <result property="R1Name" clumn="R1Name" />
+      <result property="R1Pos" clumn="R1Pos" />
+      <result property="R1TestQuantity" clumn="R1TestQuantity" />
+      <result property="R1SurplusQuantity" clumn="R1SurplusQuantity" />
+      <result property="R2Name" clumn="R2Name" />
+      <result property="R2Pos" clumn="R2Pos" />
+      <result property="R2TestQuantity" clumn="R2TestQuantity" />
+      <result property="R2SurplusQuantity" clumn="R2SurplusQuantity" />
+    </resultMap>
+    <resultMap id="ReagentStateInfoResult" class="ReagentStateInfo">
+      <result property="ReagentPos" clumn="ReagentPos"/>
+      <result property="ReagentChamber" clumn="ReagentChamber"/>
+      <result property="ReagentName" clumn="ReagentName"/>
+      <result property="ProjectName" clumn="ProjectName"/>
+      <result property="ReagentUsedVol" clumn="ReagentUsedVol"/>
+      <result property="ReagentSurplusVol" clumn="ReagentSurplusVol"/>
+    </resultMap>
+  </resultMaps>  
+  <statements>
+    <statement id="GetReagentSettingsInfo" parameterClass="System.Collections.IDictionary" resultMap="ReagentSettingsInfoResult">
+      <![CDATA[select * from ReagentSettingsTb]]>
+      <dynamic prepend="where">
+        <isNotEmpty prepend="and" property="ProjectName">
+          <![CDATA[ProjectName=#ProjectName#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="ReagentName">
+          <![CDATA[ReagentName=#ReagentName#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="ReagentType">
+          <![CDATA[ReagentType=#ReagentType#]]>
+        </isNotEmpty>
+      </dynamic>
+    </statement>
+    <statement id="GetReagentStateInfo" parameterClass="string" ResultClass="ReagentStateInfo">
+      select * from ReagentStateTb where ProjectName=#value#
+    </statement>
+  </statements>
+</sqlMap>

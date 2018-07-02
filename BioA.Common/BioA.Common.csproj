@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E1438A53-5DDE-42C0-B2FF-0F4A892E95B6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BioA.Common</RootNamespace>
+    <AssemblyName>BioA.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CalcMethod\AbsCalcMethod.cs" />
+    <Compile Include="Communication\CommunicationEntity.cs" />
+    <Compile Include="Communication\CommunicationEntityThreeParam.cs" />
+    <Compile Include="Graphics\DrawGraphics.cs" />
+    <Compile Include="IO\Files.cs" />
+    <Compile Include="IO\XMLHelper.cs" />
+    <Compile Include="IO\XmlUtility.cs" />
+    <Compile Include="LOG\LogInfo.cs" />
+    <Compile Include="Manager\AssayProjectCalibrationParamInfo.cs" />
+    <Compile Include="Manager\AssayProjectInfo.cs" />
+    <Compile Include="Manager\AssayProjectParamInfo.cs" />
+    <Compile Include="Manager\AssayProjectRangeParamInfo.cs" />
+    <Compile Include="Manager\ProjectReagentStateInfo.cs" />
+    <Compile Include="Manager\ReagentSettingsInfo.cs" />
+    <Compile Include="Manager\ReagentStateInfo.cs" />
+    <Compile Include="Manager\UserInfo.cs" />
+    <Compile Include="ModuleInfo.cs" />
+    <Compile Include="~NetWork\Client.cs" />
+    <Compile Include="~NetWork\DataReadWrite.cs" />
+    <Compile Include="~NetWork\NetWorkCommon.cs" />
+    <Compile Include="~NetWork\Server.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegularRegex.cs" />
+    <Compile Include="RunConfigureUtility.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

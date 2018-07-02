@@ -1,0 +1,1319 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="CreateTables" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <statements>
+    <!--判断表中是否存在某表信息-->
+    <statement id="SelectTableInfo" parameterClass="string" resultClass="int">
+      SELECT count(*) FROM information_schema.tables WHERE table_name = #value#
+    </statement>
+    <!--最新比色杯水空白表-->
+    <statement id="CreateCuvetteBlankNewTb" >
+      create table CuvetteBlankNewTb
+      (
+      WaveLength int Not Null Primary key,
+      Cuv1Blk     float Not Null,
+      Cuv2Blk     float Not Null,
+      Cuv3Blk     float Not Null,
+      Cuv4Blk     float Not Null,
+      Cuv5Blk     float Not Null,
+      Cuv6Blk     float Not Null,
+      Cuv7Blk     float Not Null,
+      Cuv8Blk     float Not Null,
+      Cuv9Blk     float Not Null,
+      Cuv10Blk     float Not Null,
+      Cuv11Blk     float Not Null,
+      Cuv12Blk     float Not Null,
+      Cuv13Blk     float Not Null,
+      Cuv14Blk     float Not Null,
+      Cuv15Blk     float Not Null,
+      Cuv16Blk     float Not Null,
+      Cuv17Blk     float Not Null,
+      Cuv18Blk     float Not Null,
+      Cuv19Blk     float Not Null,
+      Cuv20Blk     float Not Null,
+      Cuv21Blk     float Not Null,
+      Cuv22Blk     float Not Null,
+      Cuv23Blk     float Not Null,
+      Cuv24Blk     float Not Null,
+      Cuv25Blk     float Not Null,
+      Cuv26Blk     float Not Null,
+      Cuv27Blk     float Not Null,
+      Cuv28Blk     float Not Null,
+      Cuv29Blk     float Not Null,
+      Cuv30Blk     float Not Null,
+      Cuv31Blk     float Not Null,
+      Cuv32Blk     float Not Null,
+      Cuv33Blk     float Not Null,
+      Cuv34Blk     float Not Null,
+      Cuv35Blk     float Not Null,
+      Cuv36Blk     float Not Null,
+      Cuv37Blk     float Not Null,
+      Cuv38Blk     float Not Null,
+      Cuv39Blk     float Not Null,
+      Cuv40Blk     float Not Null,
+      Cuv41Blk     float Not Null,
+      Cuv42Blk     float Not Null,
+      Cuv43Blk     float Not Null,
+      Cuv44Blk     float Not Null,
+      Cuv45Blk     float Not Null,
+      Cuv46Blk     float Not Null,
+      Cuv47Blk     float Not Null,
+      Cuv48Blk     float Not Null,
+      Cuv49Blk     float Not Null,
+      Cuv50Blk     float Not Null,
+      Cuv51Blk     float Not Null,
+      Cuv52Blk     float Not Null,
+      Cuv53Blk     float Not Null,
+      Cuv54Blk     float Not Null,
+      Cuv55Blk     float Not Null,
+      Cuv56Blk     float Not Null,
+      Cuv57Blk     float Not Null,
+      Cuv58Blk     float Not Null,
+      Cuv59Blk     float Not Null,
+      Cuv60Blk     float Not Null,
+      Cuv61Blk     float Not Null,
+      Cuv62Blk     float Not Null,
+      Cuv63Blk     float Not Null,
+      Cuv64Blk     float Not Null,
+      Cuv65Blk     float Not Null,
+      Cuv66Blk     float Not Null,
+      Cuv67Blk     float Not Null,
+      Cuv68Blk     float Not Null,
+      Cuv69Blk     float Not Null,
+      Cuv70Blk     float Not Null,
+      Cuv71Blk     float Not Null,
+      Cuv72Blk     float Not Null,
+      Cuv73Blk     float Not Null,
+      Cuv74Blk     float Not Null,
+      Cuv75Blk     float Not Null,
+      Cuv76Blk     float Not Null,
+      Cuv77Blk     float Not Null,
+      Cuv78Blk     float Not Null,
+      Cuv79Blk     float Not Null,
+      Cuv80Blk     float Not Null,
+      Cuv81Blk     float Not Null,
+      Cuv82Blk     float Not Null,
+      Cuv83Blk     float Not Null,
+      Cuv84Blk     float Not Null,
+      Cuv85Blk     float Not Null,
+      Cuv86Blk     float Not Null,
+      Cuv87Blk     float Not Null,
+      Cuv88Blk     float Not Null,
+      Cuv89Blk     float Not Null,
+      Cuv90Blk     float Not Null,
+      Cuv91Blk     float Not Null,
+      Cuv92Blk     float Not Null,
+      Cuv93Blk     float Not Null,
+      Cuv94Blk     float Not Null,
+      Cuv95Blk     float Not Null,
+      Cuv96Blk     float Not Null,
+      Cuv97Blk     float Not Null,
+      Cuv98Blk     float Not Null,
+      Cuv99Blk     float Not Null,
+      Cuv100Blk     float Not Null,
+      Cuv101Blk     float Not Null,
+      Cuv102Blk     float Not Null,
+      Cuv103Blk     float Not Null,
+      Cuv104Blk     float Not Null,
+      Cuv105Blk     float Not Null,
+      Cuv106Blk     float Not Null,
+      Cuv107Blk     float Not Null,
+      Cuv108Blk     float Not Null,
+      Cuv109Blk     float Not Null,
+      Cuv110Blk     float Not Null,
+      Cuv111Blk     float Not Null,
+      Cuv112Blk     float Not Null,
+      Cuv113Blk     float Not Null,
+      Cuv114Blk     float Not Null,
+      Cuv115Blk     float Not Null,
+      Cuv116Blk     float Not Null,
+      Cuv117Blk     float Not Null,
+      Cuv118Blk     float Not Null,
+      Cuv119Blk     float Not Null,
+      Cuv120Blk     float Not Null,
+      Cuv121Blk     float Not Null,
+      Cuv122Blk     float Not Null,
+      Cuv123Blk     float Not Null,
+      Cuv124Blk     float Not Null,
+      Cuv125Blk     float Not Null,
+      Cuv126Blk     float Not Null,
+      Cuv127Blk     float Not Null,
+      Cuv128Blk     float Not Null,
+      Cuv129Blk     float Not Null,
+      Cuv130Blk     float Not Null,
+      Cuv131Blk     float Not Null,
+      Cuv132Blk     float Not Null,
+      Cuv133Blk     float Not Null,
+      Cuv134Blk     float Not Null,
+      Cuv135Blk     float Not Null,
+      Cuv136Blk     float Not Null,
+      Cuv137Blk     float Not Null,
+      Cuv138Blk     float Not Null,
+      Cuv139Blk     float Not Null,
+      Cuv140Blk     float Not Null,
+      Cuv141Blk     float Not Null,
+      Cuv142Blk     float Not Null,
+      Cuv143Blk     float Not Null,
+      Cuv144Blk     float Not Null,
+      Cuv145Blk     float Not Null,
+      Cuv146Blk     float Not Null,
+      Cuv147Blk     float Not Null,
+      Cuv148Blk     float Not Null,
+      Cuv149Blk     float Not Null,
+      Cuv150Blk     float Not Null,
+      Cuv151Blk     float Not Null,
+      Cuv152Blk     float Not Null,
+      Cuv153Blk     float Not Null,
+      Cuv154Blk     float Not Null,
+      Cuv155Blk     float Not Null,
+      Cuv156Blk     float Not Null,
+      Cuv157Blk     float Not Null,
+      Cuv158Blk     float Not Null,
+      Cuv159Blk     float Not Null,
+      Cuv160Blk     float Not Null
+      )
+    </statement>
+    <!--历史比色杯水空白表-->
+    <statement id="CreateCuvetteBlankOldTb" >
+      create table CuvetteBlankOldTb
+      (
+      WaveLength int Not Null Primary key,
+      Cuv1Blk     float Not Null,
+      Cuv2Blk     float Not Null,
+      Cuv3Blk     float Not Null,
+      Cuv4Blk     float Not Null,
+      Cuv5Blk     float Not Null,
+      Cuv6Blk     float Not Null,
+      Cuv7Blk     float Not Null,
+      Cuv8Blk     float Not Null,
+      Cuv9Blk     float Not Null,
+      Cuv10Blk     float Not Null,
+      Cuv11Blk     float Not Null,
+      Cuv12Blk     float Not Null,
+      Cuv13Blk     float Not Null,
+      Cuv14Blk     float Not Null,
+      Cuv15Blk     float Not Null,
+      Cuv16Blk     float Not Null,
+      Cuv17Blk     float Not Null,
+      Cuv18Blk     float Not Null,
+      Cuv19Blk     float Not Null,
+      Cuv20Blk     float Not Null,
+      Cuv21Blk     float Not Null,
+      Cuv22Blk     float Not Null,
+      Cuv23Blk     float Not Null,
+      Cuv24Blk     float Not Null,
+      Cuv25Blk     float Not Null,
+      Cuv26Blk     float Not Null,
+      Cuv27Blk     float Not Null,
+      Cuv28Blk     float Not Null,
+      Cuv29Blk     float Not Null,
+      Cuv30Blk     float Not Null,
+      Cuv31Blk     float Not Null,
+      Cuv32Blk     float Not Null,
+      Cuv33Blk     float Not Null,
+      Cuv34Blk     float Not Null,
+      Cuv35Blk     float Not Null,
+      Cuv36Blk     float Not Null,
+      Cuv37Blk     float Not Null,
+      Cuv38Blk     float Not Null,
+      Cuv39Blk     float Not Null,
+      Cuv40Blk     float Not Null,
+      Cuv41Blk     float Not Null,
+      Cuv42Blk     float Not Null,
+      Cuv43Blk     float Not Null,
+      Cuv44Blk     float Not Null,
+      Cuv45Blk     float Not Null,
+      Cuv46Blk     float Not Null,
+      Cuv47Blk     float Not Null,
+      Cuv48Blk     float Not Null,
+      Cuv49Blk     float Not Null,
+      Cuv50Blk     float Not Null,
+      Cuv51Blk     float Not Null,
+      Cuv52Blk     float Not Null,
+      Cuv53Blk     float Not Null,
+      Cuv54Blk     float Not Null,
+      Cuv55Blk     float Not Null,
+      Cuv56Blk     float Not Null,
+      Cuv57Blk     float Not Null,
+      Cuv58Blk     float Not Null,
+      Cuv59Blk     float Not Null,
+      Cuv60Blk     float Not Null,
+      Cuv61Blk     float Not Null,
+      Cuv62Blk     float Not Null,
+      Cuv63Blk     float Not Null,
+      Cuv64Blk     float Not Null,
+      Cuv65Blk     float Not Null,
+      Cuv66Blk     float Not Null,
+      Cuv67Blk     float Not Null,
+      Cuv68Blk     float Not Null,
+      Cuv69Blk     float Not Null,
+      Cuv70Blk     float Not Null,
+      Cuv71Blk     float Not Null,
+      Cuv72Blk     float Not Null,
+      Cuv73Blk     float Not Null,
+      Cuv74Blk     float Not Null,
+      Cuv75Blk     float Not Null,
+      Cuv76Blk     float Not Null,
+      Cuv77Blk     float Not Null,
+      Cuv78Blk     float Not Null,
+      Cuv79Blk     float Not Null,
+      Cuv80Blk     float Not Null,
+      Cuv81Blk     float Not Null,
+      Cuv82Blk     float Not Null,
+      Cuv83Blk     float Not Null,
+      Cuv84Blk     float Not Null,
+      Cuv85Blk     float Not Null,
+      Cuv86Blk     float Not Null,
+      Cuv87Blk     float Not Null,
+      Cuv88Blk     float Not Null,
+      Cuv89Blk     float Not Null,
+      Cuv90Blk     float Not Null,
+      Cuv91Blk     float Not Null,
+      Cuv92Blk     float Not Null,
+      Cuv93Blk     float Not Null,
+      Cuv94Blk     float Not Null,
+      Cuv95Blk     float Not Null,
+      Cuv96Blk     float Not Null,
+      Cuv97Blk     float Not Null,
+      Cuv98Blk     float Not Null,
+      Cuv99Blk     float Not Null,
+      Cuv100Blk     float Not Null,
+      Cuv101Blk     float Not Null,
+      Cuv102Blk     float Not Null,
+      Cuv103Blk     float Not Null,
+      Cuv104Blk     float Not Null,
+      Cuv105Blk     float Not Null,
+      Cuv106Blk     float Not Null,
+      Cuv107Blk     float Not Null,
+      Cuv108Blk     float Not Null,
+      Cuv109Blk     float Not Null,
+      Cuv110Blk     float Not Null,
+      Cuv111Blk     float Not Null,
+      Cuv112Blk     float Not Null,
+      Cuv113Blk     float Not Null,
+      Cuv114Blk     float Not Null,
+      Cuv115Blk     float Not Null,
+      Cuv116Blk     float Not Null,
+      Cuv117Blk     float Not Null,
+      Cuv118Blk     float Not Null,
+      Cuv119Blk     float Not Null,
+      Cuv120Blk     float Not Null,
+      Cuv121Blk     float Not Null,
+      Cuv122Blk     float Not Null,
+      Cuv123Blk     float Not Null,
+      Cuv124Blk     float Not Null,
+      Cuv125Blk     float Not Null,
+      Cuv126Blk     float Not Null,
+      Cuv127Blk     float Not Null,
+      Cuv128Blk     float Not Null,
+      Cuv129Blk     float Not Null,
+      Cuv130Blk     float Not Null,
+      Cuv131Blk     float Not Null,
+      Cuv132Blk     float Not Null,
+      Cuv133Blk     float Not Null,
+      Cuv134Blk     float Not Null,
+      Cuv135Blk     float Not Null,
+      Cuv136Blk     float Not Null,
+      Cuv137Blk     float Not Null,
+      Cuv138Blk     float Not Null,
+      Cuv139Blk     float Not Null,
+      Cuv140Blk     float Not Null,
+      Cuv141Blk     float Not Null,
+      Cuv142Blk     float Not Null,
+      Cuv143Blk     float Not Null,
+      Cuv144Blk     float Not Null,
+      Cuv145Blk     float Not Null,
+      Cuv146Blk     float Not Null,
+      Cuv147Blk     float Not Null,
+      Cuv148Blk     float Not Null,
+      Cuv149Blk     float Not Null,
+      Cuv150Blk     float Not Null,
+      Cuv151Blk     float Not Null,
+      Cuv152Blk     float Not Null,
+      Cuv153Blk     float Not Null,
+      Cuv154Blk     float Not Null,
+      Cuv155Blk     float Not Null,
+      Cuv156Blk     float Not Null,
+      Cuv157Blk     float Not Null,
+      Cuv158Blk     float Not Null,
+      Cuv159Blk     float Not Null,
+      Cuv160Blk     float Not Null
+      )
+    </statement>
+    <!--光度计增益值-->
+    <statement id="CreatePhotometricGainNewTb" >
+      create table PhotometricGainNewTb
+      (
+      WaveLength  int Not Null Primary key,
+      Wave340Value int Not Null,
+      Wave405Value int Not Null,
+      Wave445Value int Not Null,
+      Wave484Value int Not Null,
+      Wave510Value int Not Null,
+      Wave549Value int Not Null,
+      Wave574Value int Not Null,
+      Wave600Value int Not Null,
+      Wave663Value int Not Null,
+      Wave700Value int Not Null,
+      Wave748Value int Not Null,
+      Wave795Value int Not Null
+      )
+    </statement>
+    <!--历史光度计增益值-->
+    <statement id="CreatePhotometricGainOldTb" >
+      create table PhotometricGainOldTb
+      (
+      WaveLength  int Not Null Primary key,
+      Wave340Value int Not Null,
+      Wave405Value int Not Null,
+      Wave445Value int Not Null,
+      Wave484Value int Not Null,
+      Wave510Value int Not Null,
+      Wave549Value int Not Null,
+      Wave574Value int Not Null,
+      Wave600Value int Not Null,
+      Wave663Value int Not Null,
+      Wave700Value int Not Null,
+      Wave748Value int Not Null,
+      Wave795Value int Not Null
+      )
+    </statement>
+    <!--光路系统-->
+    <statement id="CreateManualPhotometricCheckTb">
+      create table ManualPhotometricCheckTb
+      (
+      WaveLength int Not Null Primary key,
+      offset int Null,
+      Gain int Null,
+      Voltage float Null,
+      Absorbance float Null
+      )
+    </statement>
+    <!--用户信息表-->
+    <statement id="CreateUserInfoTb">
+      create table UserInfoTb
+      (
+      UserID char(20) Not Null Primary Key,
+      UserName char(20) Not Null,
+      UserPassword char(50) Not Null,
+      CreateTime datetime Not Null
+      )
+    </statement>
+    <!--用户权限表-->
+    <statement id="CreateUserAuthorizationTb">
+      create table UserAuthorizationTb
+      (
+      UserID char(20) Not Null,
+      AuthorizationKey char(20) Not Null,
+      Constraint PK_UserAuthorization primary key (UserID, AuthorizationKey)
+      )
+    </statement>
+    <!--申请科室表-->
+    <statement id="CreateApplyDepartmentTb">
+      create table ApplyDepartmentTb
+      (
+      ID int auto_increment primary key,
+      Department char(20) Not Null
+      )
+    </statement>
+    <!--申请医师表-->
+    <statement id="CreateApplyDoctorTb">
+      create table ApplyDoctorTb
+      (
+      ID int auto_increment primary key,
+      Doctor char(20) Not Null
+      )
+    </statement>
+    <!--检验医师-->
+    <statement id="CreateInspectDoctorTb">
+      create table InspectDoctorTb
+      (
+      ID int auto_increment primary key,
+      Doctor char(20) Not Null
+      )
+    </statement>
+    <!--审核医师-->
+    <statement id="CreateAuditDoctorTb">
+      create table AuditDoctorTb
+      (
+      ID int auto_increment primary key,
+      Doctor char(20) Not Null
+      )
+    </statement>
+    <!--配置表-->
+    <statement id="CreateConfigurationTb">
+      create table ConfigurationTb
+      (
+      IsSamPanelBarOpen tinyint Not Null Default 0,
+      IsReaPanelBarOpen tinyint Not Null Default 0,
+      IsHandBarOpen tinyint Not Null Default 0,
+      ReagentOpen char(20) Not Null Default 'close'
+      )
+    </statement>
+    <!--试剂位表-->
+    <statement id="CreateReagentTb">
+      create table ReagentTb
+      (
+      ID int auto_increment primary key Not Null,
+      ReagentPos char(20) Not Null,
+      ReagentChamber char(20) Not Null
+      )
+    </statement>
+    <!--保养日志表-->
+    <statement id="CreateMaintainLogTb">
+      create table MaintainLogTb
+      (
+      ID int auto_increment primary key,
+      UserName char(20)  Not Null,
+      LogDetails char(100)  Not Null,
+      LogDateTime datetime Not Null
+      )
+    </statement>
+    <!--登录日志表-->
+    <statement id="CreateLoginLogTb">
+      create table LoginLogTb
+      (
+      ID int auto_increment primary key,
+      UserName char(20) Not Null,
+      LogDetails char(100) Not Null,
+      LogDateTime datetime Not Null
+      )
+    </statement>
+    <!--操作日志表-->
+    <statement id="CreateOperateLogTb">
+      create table OperateLogTb
+      (
+      ID int auto_increment primary key,
+      UserName char(20) Not Null,
+      LogDetails char(100) Not Null,
+      LogDateTime datetime Not Null
+      )
+    </statement>
+    <!--警报日志表-->
+    <statement id="CreateAlarmLog">
+      create table AlarmLog
+      (
+      ID int auto_increment primary key,
+      FaultCode char(20) Not Null,
+      AlarmReason char(50) Not Null,
+      LogDetails char(100) Null,
+      AlarmLevel char(20) Not Null,
+      UserName char(20) Not Null,
+      LogDateTime datetime Not Null,
+      IsSolve tinyint Not Null
+      )
+    </statement>
+    <!--版本信息表-->
+    <statement id="CreateVersionInfoTb">
+      create table VersionInfoTb
+      (
+      SerialNum char(20) Not Null,
+      LicenseKey char(20) Not Null,
+      ValidDate datetime Not Null
+      )
+    </statement>
+    <!--项目表-->
+    <statement id="CreateAssayProjectInfoTb">
+      create table AssayProjectInfoTb
+
+      (
+
+      ProjectName char(20) Not Null,
+
+      SampleType char(10) Not Null,
+
+      ProFullName char(20) Null,
+
+      ChannelNum char(20) Null,
+
+      Constraint PK_AssayProject primary key (ProjectName, SampleType)
+
+      )
+    </statement>
+    <!--项目参数表-->
+    <statement id="CreateAssayProjectParamInfoTb">
+      create table AssayProjectParamInfoTb
+      (
+      ProjectName char(20) Not Null,
+      SampleType char(10) Not Null,
+      AnalysisMethod char(20) Null,
+      MeasureLightDot1 int Null,
+      MeasureLightDot2 int Null,
+      MeasureLightDot3 int Null,
+      MeasureLightDot4 int Null,
+      MainWaveLength int Null,
+      SecWaveLength int Null,
+      InstrumentFactorA float Null,
+      InstrumentFactorB float Null,
+      ComStosteVol float Null,
+      ComSamVol float Null,
+      ComDilutionVol float Null,
+      DecStosteVol float Null,
+      DecSamVol float Null,
+      DecDilutionVol float Null,
+      IncStosteVol float Null,
+      IncSamVol float Null,
+      IncDilutionVol float Null,
+      DilutionType char(20) Null,
+      FirstSlope float Null,
+      SecondSlope float Null,
+      FirstSlopeHigh float Null,
+      SecondSlopeHigh float Null,
+      ProLowestBound float Null,
+      ProHighestBound float Null,
+      Pmp1 int Null,
+      Pmp2 int Null,
+      Pmp3 int Null,
+      Pmp4 int Null,
+      BoundDirection char(20) Null,
+      Limit1 float Null,
+      Limit2 float Null,
+      LimitValue float Null,
+      ReactionDirection char(10) Null,
+      StirringIntensity char(10) Null,
+      LevelConcentration char(10) Null,
+      Constraint PK_AssayProject primary key (ProjectName, SampleType)
+      )
+    </statement>
+    <!--校准参数-->
+    <statement id="CreateCalibrationParamInfoTb">
+      create table CalibrationParamInfoTb
+      (
+      ProjectName char(20) Not Null,
+      SampleType char(10) Not Null,
+      CalibrationMethod char(20) Not Null,
+      Point int Null,
+      Span int Null,
+      AbsLimit float Null,
+      DuplicatePercent float Null,
+      DuplicateAbs float Null,
+      SensitivityHigh float Null,
+      SensitivityLow float Null,
+      BlankAbsHigh float Null,
+      BlankAbsLow float Null,
+      CalibrationTimes int Not Null,
+      AutoCalibration tinyint Not Null,
+      AutoCalibMask tinyint Not Null,
+      CalibLotCheck tinyint Null,
+      CalibValidDateCheck tinyint Null,
+      ReagentLotCheck tinyint Null,
+      ReagentValidDateCheck tinyint Null,
+      QCFailed tinyint Null,
+      Constraint PK_AssayProject primary key (ProjectName, SampleType)
+      )
+    </statement>
+    <!--范围参数-->
+    <statement id="CreateRangeParamInfoTb">
+      create table RangeParamInfoTb
+      (
+      ProjectName char(20) Not Null,
+      SampleType char(10) Not Null,
+      AutoRerun tinyint Not Null,
+      TechnicalLimitLow int Null,
+      TechnicalLimitHigh int Null,
+      RepeatLimitLow int Null,
+      RepeatLimitHigh int Null,
+      QCDefaultContainer char(10) Not Null,
+      CalibDefaultContainer char(10) Not Null,
+      SerumAgeLow1 int Null,
+      SerumAgeHigh1 int Null,
+      SerumManConsLow1 float Null,
+      SerumManConsHigh1 float Null,
+      SerumWomanConsLow1 float Null,
+      SerumWomanConsHigh1 float Null,
+      UrineAgeLow1 int Null,
+      UrineAgeHigh1 int Null,
+      UrineManConsLow1 float Null,
+      UrineManConsHigh1 float Null,
+      UrineWomanConsLow1 float Null,
+      UrineWomanConsHigh1 float Null,
+      SerumAgeLow2 int Null,
+      SerumAgeHigh2 int Null,
+      SerumManConsLow2 float Null,
+      SerumManConsHigh2 float Null,
+      SerumWomanConsLow2 float Null,
+      SerumWomanConsHigh2 float Null,
+      UrineAgeLow2 int Null,
+      UrineAgeHigh2 int Null,
+      UrineManConsLow2 float Null,
+      UrineManConsHigh2 float Null,
+      UrineWomanConsLow2 float Null,
+      UrineWomanConsHigh2 float Null,
+      SerumAgeLow3 int Null,
+      SerumAgeHigh3 int Null,
+      SerumManConsLow3 float Null,
+      SerumManConsHigh3 float Null,
+      SerumWomanConsLow3 float Null,
+      SerumWomanConsHigh3 float Null,
+      UrineAgeLow3 int Null,
+      UrineAgeHigh3 int Null,
+      UrineManConsLow3 float Null,
+      UrineManConsHigh3 float Null,
+      UrineWomanConsLow3 float Null,
+      UrineWomanConsHigh3 float Null,
+      SerumAgeLow4 int Null,
+      SerumAgeHigh4 int Null,
+      SerumManConsLow4 float Null,
+      SerumManConsHigh4 float Null,
+      SerumWomanConsLow4 float Null,
+      SerumWomanConsHigh4 float Null,
+      UrineAgeLow4 int Null,
+      UrineAgeHigh4 int Null,
+      UrineManConsLow4 float Null,
+      UrineManConsHigh4 float Null,
+      UrineWomanConsLow4 float Null,
+      UrineWomanConsHigh4 float Null,
+      SerumDefaultSex char(5) Not Null,
+      SerumDefaultAgeLow int Null,
+      SerumDefaultAgeHigh int Null,
+      UrineDefaultSex char(5) Not Null,
+      UrineDefaultAgeLow int Null,
+      UrineDefaultAgeHigh int Null
+      )
+    </statement>
+    <!--组合项目表-->
+    <statement id="CreateCombProjectInfoTb">
+      create table CombProjectInfoTb
+      (
+      CombProjectName char(20) Not Null primary key,
+      ProjectName int Not Null
+      )
+    </statement>
+    <!--计算项目表-->
+    <statement id="CreateCalcProjectInfoTb">
+      create table CalcProjectInfoTb
+      (
+      CalcProjectName char(20) Not Null primary key,
+      CalcProjectFullName char(20) Not Null,
+      Unit char(20) Not Null,
+      SampleType char(10) Not Null,
+      ReferenceRange char(50) Null,
+      CalcFormula char(50) Not Null
+      )
+    </statement>
+    <!--环境参数表-->
+    <statement id="CreateEnvironmentParamTb">
+      create table EnvironmentParamTb
+      (
+      ReactionDiscTemp float Not Null,
+      ReagentDiscTemp float Not Null,
+      CuvetteBlankLow float Not Null,
+      CuvetteBlankHigh float Not Null,
+      ReagentSurplus float Not Null,
+      ReagentLeastVol float Not Null,
+      AbluentSurplus float Not Null,
+      AbluentLeastVol float Not Null
+      )
+    </statement>
+    <!--交叉污染-试剂针防污-->
+    <statement id="CreateReagentNeedleAntifoulingStrategyTb">
+      create table ReagentNeedleAntifoulingStrategyTb
+      (
+      ReagentNeedle char(20) Not Null,
+      PolluteSourcePro char(20) Not Null,
+      BePollutedPro char(20) Not NUll,
+      CleaningLiquidName char(20) Not Null,
+      CleaningLiquidUseVol float Not Null,
+      CleanTimes int Not Null
+      )
+    </statement>
+    <!--比色杯防污策略-->
+    <statement id="CreateCuvetteAntifoulingStrategyTb">
+      create table CuvetteAntifoulingStrategyTb
+      (
+      PolluteSourcePro char(20) Not Null,
+      R1CleanLiquidType char(20) Null,
+      R1CleanLiquidUserVol float Null,
+      R1CleanTImes int Null,
+      R2CleanLiquidType char(20) Null,
+      R2CleanLiquidUserVol float Null,
+      R2CleanTImes int Null
+      )
+    </statement>
+    <!--样本针防污策略-->
+    <statement id="CreateSampleNeedleAntifoulingStrategyTb">
+      create table SampleNeedleAntifoulingStrategyTb
+      (
+      PolluteSourcePro char(20) Not Null,
+      CleanLiquidType char(20) Null,
+      CleanLiquidUserVol float Null,
+      CleanTImes int Null
+      )
+    </statement>
+    <!--结果单位表-->
+    <statement id="CreateResultUnitTb">
+      create table ResultUnitTb
+      (
+      ID int auto_increment Not Null primary key,
+      Unit char(20) Not Null
+      )
+    </statement>
+    <!--LIS网口通讯-->
+    <statement id="CreateNetworkCommunicationTb">
+      create table NetworkCommunicationTb
+      (
+      IPAddress char(20) Null,
+      NetworkPort char(10) Null,
+      StartingUp tinyint Not Null,
+      Reconnection tinyint Not Null,
+      RealTimeSendResult tinyint Not Null
+      )
+    </statement>
+    <!--LIS串口通讯-->
+    <statement id="CreateSerialCommunicationTb">
+      create table SerialCommunicationTb
+
+      (
+
+      SerialName char(10) Null,
+
+      BaudRate int Null,
+
+      DataBits int Null,
+
+      StopBits int Null,
+
+      Parity int Null,
+
+      CommunicateionType char(10) Null,
+      CommunicateionOvertime  float Null,
+
+      ReConnectionTime float Null,
+
+      StartingUp tinyint Not Null,
+
+      Reconnection tinyint Not Null,
+
+      RealTimeSendResult tinyint Not Null
+
+      )
+    </statement>
+    <!--质控品表-->
+    <statement id="CreateQualityControlTb">
+      create table QualityControlTb
+      (
+      QCName char(20) Not Null Primary key,
+      LotNum char(20) Not Null,
+      Pos char(10) Not Null,
+      InvalidDate datetime Not Null,
+      HorizonLevel char(10) Not Null
+      )
+    </statement>
+    <!--质控品关联项目列表-->
+    <statement id="CreateQCRelationProjectTb">
+      create table QCRelationProjectTb
+      (
+      ProjectName  char(20) Not Null,
+      QCName  char(20) Not Null,
+      TargetMean float Not Null,
+      TargetSD float Not Null,
+      constraint FK_QCName foreign key (QCName) references QualityControlTb(QCName)
+      )
+    </statement>
+    <!--质控结果表-->
+    <statement id="CreateQualityControlResult">
+      create table QualityControlResult
+      (
+      ProjectName char(20) Not Null,
+      QCName char(20) Not Null,
+      ActualMean float Not Null,
+      ActualSD float Not Null,
+      CVValue float Not Null,
+      StartTime datetime Not Null,
+      QCReason char(128) Not Null
+      )
+    </statement>
+    <!--质控反应进程表-->
+    <statement id="CreateQCReactionProcessTb">
+      create table QCReactionProcessTb
+      (
+      ProjectName char(20) Not Null,
+      QCName char(20) Not Null,
+      QCTime datetime Not Null,
+      CUVNO int Not Null,
+      CuvBlkWm float Null,
+      CuvBlkWs float Null,
+      Cuv1Wm float Null,
+      Cuv1Ws float Null,
+      Cuv2Wm float Null,
+      Cuv2Ws float Null,
+      Cuv3Wm float Null,
+      Cuv3Ws float Null,
+      Cuv4Wm float Null,
+      Cuv4Ws float Null,
+      Cuv5Wm float Null,
+      Cuv5Ws float Null,
+      Cuv6Wm float Null,
+      Cuv6Ws float Null,
+      Cuv7Wm float Null,
+      Cuv7Ws float Null,
+      Cuv8Wm float Null,
+      Cuv8Ws float Null,
+      Cuv9Wm float Null,
+      Cuv9Ws float Null,
+      Cuv10Wm float Null,
+      Cuv10Ws float Null,
+      Cuv11Wm float Null,
+      Cuv11Ws float Null,
+      Cuv12Wm float Null,
+      Cuv12Ws float Null,
+      Cuv13Wm float Null,
+      Cuv13Ws float Null,
+      Cuv14Wm float Null,
+      Cuv14Ws float Null,
+      Cuv15Wm float Null,
+      Cuv15Ws float Null,
+      Cuv16Wm float Null,
+      Cuv16Ws float Null,
+      Cuv17Wm float Null,
+      Cuv17Ws float Null,
+      Cuv18Wm float Null,
+      Cuv18Ws float Null,
+      Cuv19Wm float Null,
+      Cuv19Ws float Null,
+      Cuv20Wm float Null,
+      Cuv20Ws float Null,
+      Cuv21Wm float Null,
+      Cuv21Ws float Null,
+      Cuv22Wm float Null,
+      Cuv22Ws float Null,
+      Cuv23Wm float Null,
+      Cuv23Ws float Null,
+      Cuv24Wm float Null,
+      Cuv24Ws float Null,
+      Cuv25Wm float Null,
+      Cuv25Ws float Null,
+      Cuv26Wm float Null,
+      Cuv26Ws float Null,
+      Cuv27Wm float Null,
+      Cuv27Ws float Null,
+      Cuv28Wm float Null,
+      Cuv28Ws float Null,
+      Cuv29Wm float Null,
+      Cuv29Ws float Null,
+      Cuv30Wm float Null,
+      Cuv30Ws float Null,
+      Cuv31Wm float Null,
+      Cuv31Ws float Null,
+      Cuv32Wm float Null,
+      Cuv32Ws float Null,
+      Cuv33Wm float Null,
+      Cuv33Ws float Null,
+      Cuv34Wm float Null,
+      Cuv34Ws float Null,
+      Cuv35Wm float Null,
+      Cuv35Ws float Null,
+      Cuv36Wm float Null,
+      Cuv36Ws float Null,
+      Cuv37Wm float Null,
+      Cuv37Ws float Null,
+      Cuv38Wm float Null,
+      Cuv38Ws float Null,
+      Cuv39Wm float Null,
+      Cuv39Ws float Null,
+      Cuv40Wm float Null,
+      Cuv40Ws float Null,
+      Cuv41Wm float Null,
+      Cuv41Ws float Null,
+      Cuv42Wm float Null,
+      Cuv42Ws float Null,
+      Cuv43Wm float Null,
+      Cuv43Ws float Null,
+      Cuv44Wm float Null,
+      Cuv44Ws float Null,
+      Cuv45Wm float Null,
+      Cuv45Ws float Null,
+      Cuv46Wm float Null,
+      Cuv46Ws float Null,
+      Cuv47Wm float Null,
+      Cuv47Ws float Null,
+      Cuv48Wm float Null,
+      Cuv48Ws float Null,
+      Cuv49Wm float Null,
+      Cuv49Ws float Null
+      )
+    </statement>
+    <!--校准品表-->
+    <statement id="CreateCalibratorTb">
+      create table CalibratorTb
+      (
+      CalibName char(20) Not Null primary key,
+      Pos char(10) Not Null,
+      LotNum char(20) Not Null,
+      InvalidDate datetime Not Null
+      )
+    </statement>
+    <!--校准品对应校准项目表-->
+    <statement id="CreateCalibratorProjectTb">
+      create table CalibratorProjectTb
+      (
+      ProjectName char(20) Not Null,
+      CalibName char(20) Not Null,
+      CalibConcentration float Not Null,
+      constraint FK_CalibName foreign key (CalibName) references CalibratorTb(CalibName)
+      )
+    </statement>
+    <!--校准结果-->
+    <statement id="CreateCalibrationResultTb">
+      create table CalibrationResultTb
+      (
+      ProjectName char(20) Not Null,
+      CalibMethod char(20) Not Null,
+      CalibratorName char(20) Not Null,
+      BlankAbs float Null,
+      KFactor float Null,
+      AFactor float Null,
+      BFactor float Null,
+      CFactor float Null,
+      CalibAbs float Null,
+      CalibrationState char(50) Null
+      )
+    </statement>
+    <!--校准反应过程表-->
+    <statement id="CreateCalibrationReactionProcessTb">
+      create table CalibrationReactionProcessTb
+      (
+      ProjectName char(20) Not Null,
+      CalibName char(20) Not Null,
+      CalibTime datetime Not Null,
+      CUVNO int Not Null,
+      CuvBlkWm float Null,
+      CuvBlkWs float Null,
+      Cuv1Wm float Null,
+      Cuv1Ws float Null,
+      Cuv2Wm float Null,
+      Cuv2Ws float Null,
+      Cuv3Wm float Null,
+      Cuv3Ws float Null,
+      Cuv4Wm float Null,
+      Cuv4Ws float Null,
+      Cuv5Wm float Null,
+      Cuv5Ws float Null,
+      Cuv6Wm float Null,
+      Cuv6Ws float Null,
+      Cuv7Wm float Null,
+      Cuv7Ws float Null,
+      Cuv8Wm float Null,
+      Cuv8Ws float Null,
+      Cuv9Wm float Null,
+      Cuv9Ws float Null,
+      Cuv10Wm float Null,
+      Cuv10Ws float Null,
+      Cuv11Wm float Null,
+      Cuv11Ws float Null,
+      Cuv12Wm float Null,
+      Cuv12Ws float Null,
+      Cuv13Wm float Null,
+      Cuv13Ws float Null,
+      Cuv14Wm float Null,
+      Cuv14Ws float Null,
+      Cuv15Wm float Null,
+      Cuv15Ws float Null,
+      Cuv16Wm float Null,
+      Cuv16Ws float Null,
+      Cuv17Wm float Null,
+      Cuv17Ws float Null,
+      Cuv18Wm float Null,
+      Cuv18Ws float Null,
+      Cuv19Wm float Null,
+      Cuv19Ws float Null,
+      Cuv20Wm float Null,
+      Cuv20Ws float Null,
+      Cuv21Wm float Null,
+      Cuv21Ws float Null,
+      Cuv22Wm float Null,
+      Cuv22Ws float Null,
+      Cuv23Wm float Null,
+      Cuv23Ws float Null,
+      Cuv24Wm float Null,
+      Cuv24Ws float Null,
+      Cuv25Wm float Null,
+      Cuv25Ws float Null,
+      Cuv26Wm float Null,
+      Cuv26Ws float Null,
+      Cuv27Wm float Null,
+      Cuv27Ws float Null,
+      Cuv28Wm float Null,
+      Cuv28Ws float Null,
+      Cuv29Wm float Null,
+      Cuv29Ws float Null,
+      Cuv30Wm float Null,
+      Cuv30Ws float Null,
+      Cuv31Wm float Null,
+      Cuv31Ws float Null,
+      Cuv32Wm float Null,
+      Cuv32Ws float Null,
+      Cuv33Wm float Null,
+      Cuv33Ws float Null,
+      Cuv34Wm float Null,
+      Cuv34Ws float Null,
+      Cuv35Wm float Null,
+      Cuv35Ws float Null,
+      Cuv36Wm float Null,
+      Cuv36Ws float Null,
+      Cuv37Wm float Null,
+      Cuv37Ws float Null,
+      Cuv38Wm float Null,
+      Cuv38Ws float Null,
+      Cuv39Wm float Null,
+      Cuv39Ws float Null,
+      Cuv40Wm float Null,
+      Cuv40Ws float Null,
+      Cuv41Wm float Null,
+      Cuv41Ws float Null,
+      Cuv42Wm float Null,
+      Cuv42Ws float Null,
+      Cuv43Wm float Null,
+      Cuv43Ws float Null,
+      Cuv44Wm float Null,
+      Cuv44Ws float Null,
+      Cuv45Wm float Null,
+      Cuv45Ws float Null,
+      Cuv46Wm float Null,
+      Cuv46Ws float Null,
+      Cuv47Wm float Null,
+      Cuv47Ws float Null,
+      Cuv48Wm float Null,
+      Cuv48Ws float Null,
+      Cuv49Wm float Null,
+      Cuv49Ws float Null
+      )
+    </statement>
+    <!--试剂设置表-->
+    <statement id="CreateReagentSettingsTb">
+      create table ReagentSettingsTb
+      (
+      Pos char(10) Not Null,
+      ProjectName char(20) Null,
+      ReagentName char(20) Null,
+      ReagentType char(10) Not Null,
+      ReagentChamber char(20) Not Null,
+      ValidDate date Not Null,
+      Barcode char(50) Null,
+      ReagentContainer char(10) Not Null,
+      BatchNum char(20) Not Null,
+      Locked tinyint Not Null
+      )
+    </statement>
+    <!--项目对应试剂表-->
+    <statement id="CreateProjectReagentStateTb">
+      create table ProjectReagentStateTb
+      (
+      ProjectName char(20) Not Null,
+      R1Name char(20) Null,
+      R1Pos char(10) Null,
+      R1TestQuantity int Null,
+      R1SurplusQuantity int Null,
+      R2Name char(20) Null,
+      R2Pos char(10) Null,
+      R2TestQuantity int Null
+      R2SurplusQuantity int Null,
+      )
+    </statement>
+    <!--试剂状态表-->
+    <statement id="CreateReagentStateTb">
+      create table ReagentStateTb
+      (
+      ReagentPos char(10) Not Null,
+      ReagentChamber char(20) Not Null,
+      ReagentName char(20) Null,
+      ProjectName char(20) Null,
+      ReagentUsedVol float Null,
+      ReagentSurplusVol float null
+      )
+    </statement>
+    <!--病人信息表-->
+    <statement id="CreatePatientInfoTb">
+      create table PatientInfoTb
+      (
+      SampleNum int Not Null,
+      SampleID char(20) Null,
+      PatientName char(20) Null,
+      Age int Null,
+      BirthDate date Null,
+      Sex char(10) Null,
+      NativePlace char(50) Null,
+      ApplyDepartmentTb char(20) Null,
+      ApplyDoctor char(20) Null,
+      BedNum char(20) Null,
+      SamplingTime datetime Null,
+      InspectDoctor char(20) Null,
+      AuditDoctor char(20) Null,
+      CaseNum char(20) Null,
+      InspectTime datetime Null,
+      AttendingDoctor char(20) Null,
+      HospitalizationNumber char(20) Null,
+      Telephone char(20) Null,
+      SendInspectTime datetime Null,
+      ClinicalDiagnosis char(128) Null,
+      Remarks char(128) Null
+      )
+    </statement>
+    <!--样本结果状态表-->
+    <statement id="CreateSampleResultStateTb">
+      create table SampleResultStateTb
+      (
+      SampleNum int Not Null,
+      InspectTime datetime Not Null,
+      AuditState char(10) Null,
+      PrintState char(10) Null
+      )
+    </statement>
+    <!--样本表-->
+    <statement id="CreateSampleTb">
+      create table SampleTb
+      (
+      SampleNum int Not Null,
+      CreateTime datetime Not Null,
+      SampleState char(10) Null,
+      SamContainer char(10) Not Null,
+      SampleType char(10) Not Null,
+      Barcode char(50) Null,
+      PanelNum int Not Null,
+      SamplePos int Not Null,
+      SampleDilute char(10) Not Null,
+      DilutedVol float Not Null,
+      IsOperateDilution tinyint Not Null,
+      IsEmergency tinyint Not Null,
+      IsPrinted tinyint Not Null,
+      IsSend tinyint Not Null
+      )
+    </statement>
+    <!--样本结果表-->
+    <statement id="CreateSampleResultTb">
+      create table SampleResultTb
+      (
+      SampleNum int Not Null,
+      ProjectName char(20) Not Null,
+      ConcResult float Null,
+      StartTime datetime Not Null,
+      IsResurvey tinyint Not Null,
+      Remarks char(128) Null
+      )
+    </statement>
+    <!--样本反应进程表-->
+    <statement id="CreateSampleReactionProcessTb">
+      create table SampleReactionProcessTb
+      (
+      ProjectName char(20) Not Null,
+      SampleNum int Not Null,
+      CreateTime datetime Not Null,
+      CUVNO int Not Null,
+      CuvBlkWm float Null,
+      CuvBlkWs float Null,
+      Cuv1Wm float Null,
+      Cuv1Ws float Null,
+      Cuv2Wm float Null,
+      Cuv2Ws float Null,
+      Cuv3Wm float Null,
+      Cuv3Ws float Null,
+      Cuv4Wm float Null,
+      Cuv4Ws float Null,
+      Cuv5Wm float Null,
+      Cuv5Ws float Null,
+      Cuv6Wm float Null,
+      Cuv6Ws float Null,
+      Cuv7Wm float Null,
+      Cuv7Ws float Null,
+      Cuv8Wm float Null,
+      Cuv8Ws float Null,
+      Cuv9Wm float Null,
+      Cuv9Ws float Null,
+      Cuv10Wm float Null,
+      Cuv10Ws float Null,
+      Cuv11Wm float Null,
+      Cuv11Ws float Null,
+      Cuv12Wm float Null,
+      Cuv12Ws float Null,
+      Cuv13Wm float Null,
+      Cuv13Ws float Null,
+      Cuv14Wm float Null,
+      Cuv14Ws float Null,
+      Cuv15Wm float Null,
+      Cuv15Ws float Null,
+      Cuv16Wm float Null,
+      Cuv16Ws float Null,
+      Cuv17Wm float Null,
+      Cuv17Ws float Null,
+      Cuv18Wm float Null,
+      Cuv18Ws float Null,
+      Cuv19Wm float Null,
+      Cuv19Ws float Null,
+      Cuv20Wm float Null,
+      Cuv20Ws float Null,
+      Cuv21Wm float Null,
+      Cuv21Ws float Null,
+      Cuv22Wm float Null,
+      Cuv22Ws float Null,
+      Cuv23Wm float Null,
+      Cuv23Ws float Null,
+      Cuv24Wm float Null,
+      Cuv24Ws float Null,
+      Cuv25Wm float Null,
+      Cuv25Ws float Null,
+      Cuv26Wm float Null,
+      Cuv26Ws float Null,
+      Cuv27Wm float Null,
+      Cuv27Ws float Null,
+      Cuv28Wm float Null,
+      Cuv28Ws float Null,
+      Cuv29Wm float Null,
+      Cuv29Ws float Null,
+      Cuv30Wm float Null,
+      Cuv30Ws float Null,
+      Cuv31Wm float Null,
+      Cuv31Ws float Null,
+      Cuv32Wm float Null,
+      Cuv32Ws float Null,
+      Cuv33Wm float Null,
+      Cuv33Ws float Null,
+      Cuv34Wm float Null,
+      Cuv34Ws float Null,
+      Cuv35Wm float Null,
+      Cuv35Ws float Null,
+      Cuv36Wm float Null,
+      Cuv36Ws float Null,
+      Cuv37Wm float Null,
+      Cuv37Ws float Null,
+      Cuv38Wm float Null,
+      Cuv38Ws float Null,
+      Cuv39Wm float Null,
+      Cuv39Ws float Null,
+      Cuv40Wm float Null,
+      Cuv40Ws float Null,
+      Cuv41Wm float Null,
+      Cuv41Ws float Null,
+      Cuv42Wm float Null,
+      Cuv42Ws float Null,
+      Cuv43Wm float Null,
+      Cuv43Ws float Null,
+      Cuv44Wm float Null,
+      Cuv44Ws float Null,
+      Cuv45Wm float Null,
+      Cuv45Ws float Null,
+      Cuv46Wm float Null,
+      Cuv46Ws float Null,
+      Cuv47Wm float Null,
+      Cuv47Ws float Null,
+      Cuv48Wm float Null,
+      Cuv48Ws float Null,
+      Cuv49Wm float Null,
+      Cuv49Ws float Null
+      )
+    </statement>
+    <!--样本、质控、校准任务表-->
+    <statement id="CreateTaskTb">
+      create table TaskTb
+      (
+      SampleNum char(10) Not Null,
+      CreateDate datetime Not Null,
+      InspectProject char(20) Not Null,
+      WorkType char(20) Not Null,
+      SampleVol float Not Null,
+      InspectTimes int Not Null,
+      SendTimes int Not Null,
+      FinishTimes int Not Null,
+      IsPerformed tinyint Not Null
+      )
+    </statement>
+  </statements>
+</sqlMap>
