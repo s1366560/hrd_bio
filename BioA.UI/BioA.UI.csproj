@@ -37,7 +37,11 @@
     <Reference Include="DevExpress.Charts.v16.1.Core, Version=16.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Data.v16.1" />
     <Reference Include="DevExpress.Mvvm.v16.1, Version=16.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Office.v16.1.Core, Version=16.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Pdf.v16.1.Core, Version=16.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Pdf.v16.1.Drawing, Version=16.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Printing.v16.1.Core" />
+    <Reference Include="DevExpress.RichEdit.v16.1.Core, Version=16.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Utils.v16.1" />
     <Reference Include="DevExpress.Xpf.Core.v16.1, Version=16.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraBars.v16.1" />
@@ -50,6 +54,7 @@
     <Reference Include="DevExpress.XtraLayout.v16.1, Version=16.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraNavBar.v16.1, Version=16.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraPrinting.v16.1, Version=16.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraRichEdit.v16.1, Version=16.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraScheduler.v16.1, Version=16.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraScheduler.v16.1.Core, Version=16.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="System" />
@@ -70,6 +75,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\MessageBoxDraw.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CommunicationUI.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,6 +92,66 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\Analog\AnologSamplePanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\Analog\AnologSamplePanel.Designer.cs">
+      <DependentUpon>AnologSamplePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\Analog\CuvettePanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\Analog\CuvettePanel.Designer.cs">
+      <DependentUpon>CuvettePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\Analog\SetScheduleWork.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\Analog\SetScheduleWork.Designer.cs">
+      <DependentUpon>SetScheduleWork.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\CalibrationUI\CalibControlTask\CalibControlTask.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\CalibrationUI\CalibControlTask\CalibControlTask.Designer.cs">
+      <DependentUpon>CalibControlTask.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\CalibrationUI\CalibControlTask\CalibProCombPage1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\CalibrationUI\CalibControlTask\CalibProCombPage1.Designer.cs">
+      <DependentUpon>CalibProCombPage1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\CalibrationUI\CalibControlTask\CalibProCombPage2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\CalibrationUI\CalibControlTask\CalibProCombPage2.Designer.cs">
+      <DependentUpon>CalibProCombPage2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\CalibrationUI\CalibControlTask\CalibProjectPage1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\CalibrationUI\CalibControlTask\CalibProjectPage1.Designer.cs">
+      <DependentUpon>CalibProjectPage1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\CalibrationUI\CalibControlTask\CalibProjectPage2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\CalibrationUI\CalibControlTask\CalibProjectPage2.Designer.cs">
+      <DependentUpon>CalibProjectPage2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\CalibrationUI\CalibControlTask\CalibProjectPage3.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\CalibrationUI\CalibControlTask\CalibProjectPage3.Designer.cs">
+      <DependentUpon>CalibProjectPage3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\CalibrationUI\CalibControlTask\CalibProjectPage4.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\CalibrationUI\CalibControlTask\CalibProjectPage4.Designer.cs">
+      <DependentUpon>CalibProjectPage4.cs</DependentUpon>
     </Compile>
     <Compile Include="Uicomponent\CalibrationUI\CalibMaintain\CalibAddAndEdit.cs">
       <SubType>Form</SubType>
@@ -120,6 +189,12 @@
     <Compile Include="Uicomponent\CalibrationUI\CalibrationState\ReactionProcessCB.Designer.cs">
       <DependentUpon>ReactionProcessCB.cs</DependentUpon>
     </Compile>
+    <Compile Include="Uicomponent\Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\Login.designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
     <Compile Include="Uicomponent\QualityControlUI\QCMaintain\QCMaintain.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -132,11 +207,23 @@
     <Compile Include="Uicomponent\QualityControlUI\QCMaintain\QualityControlAddAndEdit.Designer.cs">
       <DependentUpon>QualityControlAddAndEdit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Uicomponent\QualityControlUI\QCState\frmEditQCResult.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\QualityControlUI\QCState\frmEditQCResult.Designer.cs">
+      <DependentUpon>frmEditQCResult.cs</DependentUpon>
+    </Compile>
     <Compile Include="Uicomponent\QualityControlUI\QCState\frmHisResultChart.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Uicomponent\QualityControlUI\QCState\frmHisResultChart.Designer.cs">
       <DependentUpon>frmHisResultChart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\QualityControlUI\QCState\frmRepeat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\QualityControlUI\QCState\frmRepeat.Designer.cs">
+      <DependentUpon>frmRepeat.cs</DependentUpon>
     </Compile>
     <Compile Include="Uicomponent\QualityControlUI\QCState\QualityControlState.cs">
       <SubType>UserControl</SubType>
@@ -149,6 +236,42 @@
     </Compile>
     <Compile Include="Uicomponent\QualityControlUI\QCState\ReactionProcessQC.Designer.cs">
       <DependentUpon>ReactionProcessQC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\QualityControlUI\QualityControlGraphs\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\QualityControlUI\QualityControlGraphs\Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\QualityControlUI\QualityControlGraphs\QualityControlGraphs.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\QualityControlUI\QualityControlGraphs\QualityControlGraphs.Designer.cs">
+      <DependentUpon>QualityControlGraphs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\QualityControlUI\QualityControlTask\ApplyQCTask.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\QualityControlUI\QualityControlTask\ApplyQCTask.Designer.cs">
+      <DependentUpon>ApplyQCTask.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\QualityControlUI\QualityControlTask\QCProjectPage1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\QualityControlUI\QualityControlTask\QCProjectPage1.Designer.cs">
+      <DependentUpon>QCProjectPage1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\QualityControlUI\QualityControlTask\QCProjectPage2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\QualityControlUI\QualityControlTask\QCProjectPage2.Designer.cs">
+      <DependentUpon>QCProjectPage2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\QualityControlUI\QualityControlTask\QCProjectPage3.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\QualityControlUI\QualityControlTask\QCProjectPage3.Designer.cs">
+      <DependentUpon>QCProjectPage3.cs</DependentUpon>
     </Compile>
     <Compile Include="Uicomponent\ReagentUI\ReagentSetting\frmLoadingReagent.cs">
       <SubType>Form</SubType>
@@ -168,17 +291,42 @@
     <Compile Include="Uicomponent\ReagentUI\ReagentState\ReagentState.Designer.cs">
       <DependentUpon>ReagentState.cs</DependentUpon>
     </Compile>
-    <Compile Include="Uicomponent\SettingsUI\CalculateItem\ComputationItem.cs">
+    <Compile Include="Uicomponent\SettingsUI\CalculateItem\CalcProject.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Uicomponent\SettingsUI\CalculateItem\ComputationItem.Designer.cs">
-      <DependentUpon>ComputationItem.cs</DependentUpon>
+    <Compile Include="Uicomponent\SettingsUI\CalculateItem\CalcProject.Designer.cs">
+      <DependentUpon>CalcProject.cs</DependentUpon>
     </Compile>
     <Compile Include="Uicomponent\SettingsUI\CalculateItem\AddOrEditCalcItem.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Uicomponent\SettingsUI\CalculateItem\AddOrEditCalcItem.Designer.cs">
       <DependentUpon>AddOrEditCalcItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\CalculateItem\CalcProjectNotifyCallBack.cs" />
+    <Compile Include="Uicomponent\SettingsUI\CalculateItem\CalcProjectPage1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\CalculateItem\CalcProjectPage1.Designer.cs">
+      <DependentUpon>CalcProjectPage1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\CalculateItem\CalcProjectPage2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\CalculateItem\CalcProjectPage2.designer.cs">
+      <DependentUpon>CalcProjectPage2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\CalculateItem\CalcProjectPage3.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\CalculateItem\CalcProjectPage3.Designer.cs">
+      <DependentUpon>CalcProjectPage3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\CalculateItem\CalcProjectPage4.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\CalculateItem\CalcProjectPage4.designer.cs">
+      <DependentUpon>CalcProjectPage4.cs</DependentUpon>
     </Compile>
     <Compile Include="Uicomponent\SettingsUI\ChemicalParameter\CalibrationParameter.cs">
       <SubType>UserControl</SubType>
@@ -211,6 +359,32 @@
     <Compile Include="Uicomponent\SettingsUI\ChemicalParameter\RangeParameter.Designer.cs">
       <DependentUpon>RangeParameter.cs</DependentUpon>
     </Compile>
+    <Compile Include="Uicomponent\SettingsUI\CombProject\CombProjectNotifyCallBack.cs" />
+    <Compile Include="Uicomponent\SettingsUI\CombProject\CombProjectPage1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\CombProject\CombProjectPage1.Designer.cs">
+      <DependentUpon>CombProjectPage1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\CombProject\CombProjectPage2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\CombProject\CombProjectPage2.designer.cs">
+      <DependentUpon>CombProjectPage2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\CombProject\CombProjectPage3.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\CombProject\CombProjectPage3.Designer.cs">
+      <DependentUpon>CombProjectPage3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\CombProject\CombProjectPage4.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\CombProject\CombProjectPage4.designer.cs">
+      <DependentUpon>CombProjectPage4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\CrossPollution\ReagentNeedleCallBack.cs" />
     <Compile Include="Uicomponent\SettingsUI\CrossPollution\CrossPollution.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -235,29 +409,32 @@
     <Compile Include="Uicomponent\SettingsUI\CrossPollution\ReagentNeedle.Designer.cs">
       <DependentUpon>ReagentNeedle.cs</DependentUpon>
     </Compile>
+    <Compile Include="Uicomponent\SettingsUI\DataConfig\DataConfigNotifyCallBack.cs" />
     <Compile Include="Uicomponent\SettingsUI\DataConfig\DataConfig.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Uicomponent\SettingsUI\DataConfig\DataConfig.Designer.cs">
       <DependentUpon>DataConfig.cs</DependentUpon>
     </Compile>
+    <Compile Include="Uicomponent\SettingsUI\Environment\EnvironmentDataCallBack.cs" />
     <Compile Include="Uicomponent\SettingsUI\Environment\EnvironmentData.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Uicomponent\SettingsUI\Environment\EnvironmentData.Designer.cs">
       <DependentUpon>EnvironmentData.cs</DependentUpon>
     </Compile>
+    <Compile Include="Uicomponent\SettingsUI\LISCommunicate\LISCommunicateNotifyCallBack.cs" />
     <Compile Include="Uicomponent\SettingsUI\LISCommunicate\LISCommunicate.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Uicomponent\SettingsUI\LISCommunicate\LISCommunicate.Designer.cs">
       <DependentUpon>LISCommunicate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Uicomponent\SettingsUI\CombinationItem\CombinationItem.cs">
+    <Compile Include="Uicomponent\SettingsUI\CombProject\CombProject.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Uicomponent\SettingsUI\CombinationItem\CombinationItem.Designer.cs">
-      <DependentUpon>CombinationItem.cs</DependentUpon>
+    <Compile Include="Uicomponent\SettingsUI\CombProject\CombProject.Designer.cs">
+      <DependentUpon>CombProject.cs</DependentUpon>
     </Compile>
     <Compile Include="Uicomponent\SystemUI\Configure\Configure.cs">
       <SubType>UserControl</SubType>
@@ -265,6 +442,7 @@
     <Compile Include="Uicomponent\SystemUI\Configure\Configure.Designer.cs">
       <DependentUpon>Configure.cs</DependentUpon>
     </Compile>
+    <Compile Include="Uicomponent\SystemUI\DepartmentManage\DepartmentManageCallBack.cs" />
     <Compile Include="Uicomponent\SystemUI\DepartmentManage\DepartmentManage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -325,11 +503,18 @@
     <Compile Include="Uicomponent\SystemUI\LogCheck\Alertlog.Designer.cs">
       <DependentUpon>Alertlog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Uicomponent\SystemUI\LogCheck\LogCallBack.cs" />
     <Compile Include="Uicomponent\SystemUI\LogCheck\Log.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Uicomponent\SystemUI\LogCheck\Log.Designer.cs">
       <DependentUpon>Log.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\Maintenance\BlankInterface.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\Maintenance\BlankInterface.Designer.cs">
+      <DependentUpon>BlankInterface.cs</DependentUpon>
     </Compile>
     <Compile Include="Uicomponent\SystemUI\Maintenance\CleaningMaintenance.cs">
       <SubType>UserControl</SubType>
@@ -361,6 +546,7 @@
     <Compile Include="Uicomponent\SystemUI\Maintenance\WaterBlankCheck.Designer.cs">
       <DependentUpon>WaterBlankCheck.cs</DependentUpon>
     </Compile>
+    <Compile Include="Uicomponent\SystemUI\UserManagement\UserManagementCallBack.cs" />
     <Compile Include="Uicomponent\SystemUI\UserManagement\UserCeation.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -385,6 +571,13 @@
     <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\ApplyTask.Designer.cs">
       <DependentUpon>ApplyTask.cs</DependentUpon>
     </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\ApplyTaskDataCallBack.cs" />
+    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\frmBatchInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\frmBatchInput.Designer.cs">
+      <DependentUpon>frmBatchInput.cs</DependentUpon>
+    </Compile>
     <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\PatientInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -403,17 +596,47 @@
     <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\PatientInfoEdit.Designer.cs">
       <DependentUpon>PatientInfoEdit.cs</DependentUpon>
     </Compile>
-    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\ProCombPage.cs">
+    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\ProCombPage1.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\ProCombPage.Designer.cs">
-      <DependentUpon>ProCombPage.cs</DependentUpon>
+    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\ProCombPage1.Designer.cs">
+      <DependentUpon>ProCombPage1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\ProjectPage.cs">
+    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\ProCombPage2.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\ProjectPage.Designer.cs">
-      <DependentUpon>ProjectPage.cs</DependentUpon>
+    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\ProCombPage2.Designer.cs">
+      <DependentUpon>ProCombPage2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\ProjectPage1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\ProjectPage1.Designer.cs">
+      <DependentUpon>ProjectPage1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\ProjectPage2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\ProjectPage2.Designer.cs">
+      <DependentUpon>ProjectPage2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\ProjectPage3.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\ProjectPage3.Designer.cs">
+      <DependentUpon>ProjectPage3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\ProjectPage4.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\ProjectPage4.Designer.cs">
+      <DependentUpon>ProjectPage4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\frmDiluteSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\frmDiluteSetting.Designer.cs">
+      <DependentUpon>frmDiluteSetting.cs</DependentUpon>
     </Compile>
     <Compile Include="Uicomponent\WorkingAreaUI\CalibDataCheck\CalibDataCheck.cs">
       <SubType>UserControl</SubType>
@@ -426,12 +649,6 @@
     </Compile>
     <Compile Include="Uicomponent\WorkingAreaUI\DataCheck\DataCheck.Designer.cs">
       <DependentUpon>DataCheck.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Uicomponent\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Uicomponent\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Uicomponent\WorkingAreaUI\DataCheck\ReflectionMonitoring.cs">
       <SubType>Form</SubType>
@@ -465,6 +682,36 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Uicomponent\Analog\AnologSamplePanel.resx">
+      <DependentUpon>AnologSamplePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\Analog\CuvettePanel.resx">
+      <DependentUpon>CuvettePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\Analog\SetScheduleWork.resx">
+      <DependentUpon>SetScheduleWork.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\CalibrationUI\CalibControlTask\CalibControlTask.resx">
+      <DependentUpon>CalibControlTask.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\CalibrationUI\CalibControlTask\CalibProCombPage1.resx">
+      <DependentUpon>CalibProCombPage1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\CalibrationUI\CalibControlTask\CalibProCombPage2.resx">
+      <DependentUpon>CalibProCombPage2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\CalibrationUI\CalibControlTask\CalibProjectPage1.resx">
+      <DependentUpon>CalibProjectPage1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\CalibrationUI\CalibControlTask\CalibProjectPage2.resx">
+      <DependentUpon>CalibProjectPage2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\CalibrationUI\CalibControlTask\CalibProjectPage3.resx">
+      <DependentUpon>CalibProjectPage3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\CalibrationUI\CalibControlTask\CalibProjectPage4.resx">
+      <DependentUpon>CalibProjectPage4.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\CalibrationUI\CalibMaintain\CalibAddAndEdit.resx">
       <DependentUpon>CalibAddAndEdit.cs</DependentUpon>
     </EmbeddedResource>
@@ -483,20 +730,47 @@
     <EmbeddedResource Include="Uicomponent\CalibrationUI\CalibrationState\ReactionProcessCB.resx">
       <DependentUpon>ReactionProcessCB.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\QualityControlUI\QCMaintain\QCMaintain.resx">
       <DependentUpon>QCMaintain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\QualityControlUI\QCMaintain\QualityControlAddAndEdit.resx">
       <DependentUpon>QualityControlAddAndEdit.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\QualityControlUI\QCState\frmEditQCResult.resx">
+      <DependentUpon>frmEditQCResult.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\QualityControlUI\QCState\frmHisResultChart.resx">
       <DependentUpon>frmHisResultChart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\QualityControlUI\QCState\frmRepeat.resx">
+      <DependentUpon>frmRepeat.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\QualityControlUI\QCState\QualityControlState.resx">
       <DependentUpon>QualityControlState.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\QualityControlUI\QCState\ReactionProcessQC.resx">
       <DependentUpon>ReactionProcessQC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\QualityControlUI\QualityControlGraphs\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\QualityControlUI\QualityControlGraphs\QualityControlGraphs.resx">
+      <DependentUpon>QualityControlGraphs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\QualityControlUI\QualityControlTask\ApplyQCTask.resx">
+      <DependentUpon>ApplyQCTask.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\QualityControlUI\QualityControlTask\QCProjectPage1.resx">
+      <DependentUpon>QCProjectPage1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\QualityControlUI\QualityControlTask\QCProjectPage2.resx">
+      <DependentUpon>QCProjectPage2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\QualityControlUI\QualityControlTask\QCProjectPage3.resx">
+      <DependentUpon>QCProjectPage3.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\ReagentUI\ReagentSetting\frmLoadingReagent.resx">
       <DependentUpon>frmLoadingReagent.cs</DependentUpon>
@@ -507,11 +781,23 @@
     <EmbeddedResource Include="Uicomponent\ReagentUI\ReagentState\ReagentState.resx">
       <DependentUpon>ReagentState.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Uicomponent\SettingsUI\CalculateItem\ComputationItem.resx">
-      <DependentUpon>ComputationItem.cs</DependentUpon>
+    <EmbeddedResource Include="Uicomponent\SettingsUI\CalculateItem\CalcProject.resx">
+      <DependentUpon>CalcProject.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\SettingsUI\CalculateItem\AddOrEditCalcItem.resx">
       <DependentUpon>AddOrEditCalcItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SettingsUI\CalculateItem\CalcProjectPage1.resx">
+      <DependentUpon>CalcProjectPage1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SettingsUI\CalculateItem\CalcProjectPage2.resx">
+      <DependentUpon>CalcProjectPage2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SettingsUI\CalculateItem\CalcProjectPage3.resx">
+      <DependentUpon>CalcProjectPage3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SettingsUI\CalculateItem\CalcProjectPage4.resx">
+      <DependentUpon>CalcProjectPage4.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\SettingsUI\ChemicalParameter\CalibrationParameter.resx">
       <DependentUpon>CalibrationParameter.cs</DependentUpon>
@@ -527,6 +813,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\SettingsUI\ChemicalParameter\RangeParameter.resx">
       <DependentUpon>RangeParameter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SettingsUI\CombProject\CombProjectPage1.resx">
+      <DependentUpon>CombProjectPage1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SettingsUI\CombProject\CombProjectPage2.resx">
+      <DependentUpon>CombProjectPage2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SettingsUI\CombProject\CombProjectPage3.resx">
+      <DependentUpon>CombProjectPage3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SettingsUI\CombProject\CombProjectPage4.resx">
+      <DependentUpon>CombProjectPage4.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\SettingsUI\CrossPollution\CrossPollution.resx">
       <DependentUpon>CrossPollution.cs</DependentUpon>
@@ -549,8 +847,8 @@
     <EmbeddedResource Include="Uicomponent\SettingsUI\LISCommunicate\LISCommunicate.resx">
       <DependentUpon>LISCommunicate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Uicomponent\SettingsUI\CombinationItem\CombinationItem.resx">
-      <DependentUpon>CombinationItem.cs</DependentUpon>
+    <EmbeddedResource Include="Uicomponent\SettingsUI\CombProject\CombProject.resx">
+      <DependentUpon>CombProject.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\SystemUI\Configure\Configure.resx">
       <DependentUpon>Configure.cs</DependentUpon>
@@ -588,6 +886,9 @@
     <EmbeddedResource Include="Uicomponent\SystemUI\LogCheck\Log.resx">
       <DependentUpon>Log.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SystemUI\Maintenance\BlankInterface.resx">
+      <DependentUpon>BlankInterface.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\SystemUI\Maintenance\CleaningMaintenance.resx">
       <DependentUpon>CleaningMaintenance.cs</DependentUpon>
     </EmbeddedResource>
@@ -615,6 +916,9 @@
     <EmbeddedResource Include="Uicomponent\WorkingAreaUI\ApplyTask\ApplyTask.resx">
       <DependentUpon>ApplyTask.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\WorkingAreaUI\ApplyTask\frmBatchInput.resx">
+      <DependentUpon>frmBatchInput.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\WorkingAreaUI\ApplyTask\PatientInfo.resx">
       <DependentUpon>PatientInfo.cs</DependentUpon>
     </EmbeddedResource>
@@ -624,20 +928,34 @@
     <EmbeddedResource Include="Uicomponent\WorkingAreaUI\ApplyTask\PatientInfoEdit.resx">
       <DependentUpon>PatientInfoEdit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Uicomponent\WorkingAreaUI\ApplyTask\ProCombPage.resx">
-      <DependentUpon>ProCombPage.cs</DependentUpon>
+    <EmbeddedResource Include="Uicomponent\WorkingAreaUI\ApplyTask\ProCombPage1.resx">
+      <DependentUpon>ProCombPage1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Uicomponent\WorkingAreaUI\ApplyTask\ProjectPage.resx">
-      <DependentUpon>ProjectPage.cs</DependentUpon>
+    <EmbeddedResource Include="Uicomponent\WorkingAreaUI\ApplyTask\ProCombPage2.resx">
+      <DependentUpon>ProCombPage2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\WorkingAreaUI\ApplyTask\ProjectPage1.resx">
+      <DependentUpon>ProjectPage1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\WorkingAreaUI\ApplyTask\ProjectPage2.resx">
+      <DependentUpon>ProjectPage2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\WorkingAreaUI\ApplyTask\ProjectPage3.resx">
+      <DependentUpon>ProjectPage3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\WorkingAreaUI\ApplyTask\ProjectPage4.resx">
+      <DependentUpon>ProjectPage4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\WorkingAreaUI\CalibDataCheck\CalibDataCheck.resx">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\WorkingAreaUI\ApplyTask\frmDiluteSetting.resx">
+      <DependentUpon>frmDiluteSetting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\WorkingAreaUI\CalibDataCheck\CalibDataCheck.resx">
       <DependentUpon>CalibDataCheck.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\WorkingAreaUI\DataCheck\DataCheck.resx">
       <DependentUpon>DataCheck.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Uicomponent\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\WorkingAreaUI\DataCheck\ReflectionMonitoring.resx">
       <DependentUpon>ReflectionMonitoring.cs</DependentUpon>
@@ -648,7 +966,9 @@
     <EmbeddedResource Include="Uicomponent\WorkingAreaUI\DataCheck\ScreeningSample.resx">
       <DependentUpon>ScreeningSample.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -658,12 +978,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Service References\ServiceReference1\BioA.UI.ServiceReference1.CommunicationEntity1.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\ServiceReference1\BioA.UI.ServiceReference1.CommunicationEntityThreeParam1.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
     <None Include="Service References\ServiceReference1\BioA.UI.ServiceReference1.CompositeType.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -680,6 +994,9 @@
     <None Include="Service References\ServiceReference1\BioAService3.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceReference1\BioAService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\1479289692361.png" />
@@ -691,31 +1008,104 @@
     <None Include="Resources\b.png" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\BioA.Common\BioA.Common.csproj">
       <Project>{e1438a53-5dde-42c0-b2ff-0f4a892e95b6}</Project>
       <Name>BioA.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BioA.SqlMaps\BioA.SqlMaps.csproj">
+      <Project>{0fa896e7-ee6f-471d-b3fa-8e5768fd9e7a}</Project>
+      <Name>BioA.SqlMaps</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\ServiceReference1\" />
+    <None Include="Resources\微信图片_20170819143641.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\ServiceReference1\BioAService.disco" />
+    <None Include="Resources\微信图片_20170819143641.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\ServiceReference1\configuration91.svcinfo" />
+    <None Include="Resources\微信图片_201708191436411.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\ServiceReference1\configuration.svcinfo" />
+    <None Include="Resources\aaa.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\61.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\66666.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\timg.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tim6g.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\65.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\未标题3-1.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\ServiceReference1\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Service References\ServiceReference1\configuration.svcinfo" />
+    <None Include="Service References\ServiceReference1\configuration91.svcinfo" />
+    <None Include="Service References\ServiceReference1\BioAService.disco" />
+    <None Include="Resources\ShowInfo.jpg" />
+    <None Include="Resources\ttt.png" />
+    <None Include="Resources\Yellow.png" />
+    <None Include="Resources\White.png" />
+    <None Include="Resources\ShowInfo.png" />
+    <None Include="Resources\SamplePanel.png" />
+    <None Include="Resources\Red.png" />
+    <None Include="Resources\Purple.png" />
+    <None Include="Resources\Green.png" />
+    <None Include="Resources\Cyan.png" />
+    <None Include="Resources\Blue.png" />
+    <None Include="Resources\01.png" />
+    <None Include="Resources\05.png" />
+    <None Include="Resources\010.png" />
+    <None Include="Resources\15.png" />
+    <None Include="Resources\20.png" />
+    <None Include="Resources\25.png" />
+    <None Include="Resources\30.png" />
+    <None Include="Resources\35.png" />
+    <None Include="Resources\40.png" />
+    <None Include="Resources\45.png" />
+    <None Include="Resources\50.png" />
+    <None Include="Resources\55.png" />
+    <None Include="Resources\60.png" />
+    <None Include="Resources\65.png" />
+    <None Include="Resources\70.png" />
+    <None Include="Resources\75.png" />
+    <None Include="Resources\80.png" />
+    <None Include="Resources\85.png" />
+    <None Include="Resources\90.png" />
+    <None Include="Resources\95.png" />
+    <None Include="Resources\100.png" />
+    <None Include="Resources\105.png" />
+    <None Include="Resources\110.png" />
+    <None Include="Resources\115.png" />
+    <None Include="Resources\120.png" />
+    <None Include="Resources\125.png" />
+    <None Include="Resources\130.png" />
+    <None Include="Resources\135.png" />
+    <None Include="Resources\140.png" />
+    <None Include="Resources\145.png" />
+    <None Include="Resources\150.png" />
+    <None Include="Resources\0155.png" />
+    <None Include="Resources\01551.png" />
+    <Content Include="Resources\ButtonStyle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\ServiceReference1\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

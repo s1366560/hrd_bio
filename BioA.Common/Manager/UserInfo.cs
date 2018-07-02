@@ -30,7 +30,7 @@ namespace BioA.Common
     {
         public UserInfo()
         {
-            userID = -1;
+            userID = string.Empty;
             userName = string.Empty;
             userPassword = string.Empty;
             createTime = System.DateTime.Now;
@@ -38,9 +38,38 @@ namespace BioA.Common
             isServeEngineer = false;
             isPermitDelete = false;
             isLocked = false;
-        }
+            applyTask = true;
+            dataCheck = true;
+            calibDataCheck = true;
+            reagentSetting = true;
+            reagentState = true;
+            calibState = true;
+            calibMaintain = true;
+            calibTask = true;
+            qCState = true;
+            qCMaintain = true;
+            qCGraphic = true;
+            qCTask = true;
+            chemistryParam = true;
+            combProject = true;
+            calcProject = true;
+            environmentParam = true;
+            crossPollute = true;
+            dataConfiguration = true;
+            lISCommunicate = true;
+            rouMaintain = true;
+            equipDebug = true;
+            userManage = true;
+            departManage = true;
+            configuration = true;
+            logCheck = true;
+            versionInfo = true;
 
-        public int UserID
+        }
+        /// <summary>
+        /// 用户账户
+        /// </summary>
+        public string UserID
         {
             get { return userID; }
             set { userID = value; }
@@ -103,7 +132,7 @@ namespace BioA.Common
         }
 
 
-        private int             userID;
+        private string          userID;
         private string          userName;
         private string          userPassword;
         private DateTime        createTime;
@@ -111,5 +140,239 @@ namespace BioA.Common
         private bool            isServeEngineer;
         private bool            isPermitDelete;
         private bool            isLocked;
+        private bool calibTask;
+        private bool qCGraphic;
+        private bool qCTask;
+
+
+        private bool applyTask;
+        /// <summary>
+        /// 申请测试
+        /// </summary>
+        public bool ApplyTask
+        {
+            get { return applyTask; }
+            set { applyTask = value; }
+        }
+        private bool dataCheck;
+        /// <summary>
+        /// 数据审核
+        /// </summary>
+        public bool DataCheck
+        {
+            get { return dataCheck; }
+            set { dataCheck = value; }
+        }
+        private bool calibDataCheck;
+        /// <summary>
+        /// 校准审核
+        /// </summary>
+        public bool CalibDataCheck
+        {
+            get { return calibDataCheck; }
+            set { calibDataCheck = value; }
+        }
+        private bool reagentSetting;
+        /// <summary>
+        /// 设置
+        /// </summary>
+        public bool ReagentSetting
+        {
+            get { return reagentSetting; }
+            set { reagentSetting = value; }
+        }
+        private bool reagentState;
+        /// <summary>
+        /// 状态
+        /// </summary>
+        public bool ReagentState
+        {
+            get { return reagentState; }
+            set { reagentState = value; }
+        }
+        private bool calibState;
+        /// <summary>
+        /// 校准状态
+        /// </summary>
+        public bool CalibState
+        {
+            get { return calibState; }
+            set { calibState = value; }
+        }
+        private bool calibMaintain;
+        /// <summary>
+        /// 校准品维护
+        /// </summary>
+        public bool CalibMaintain
+        {
+            get { return calibMaintain; }
+            set { calibMaintain = value; }
+        }
+
+        public bool CalibTask
+        {
+            get { return calibTask; }
+            set { calibTask = value; }
+        }
+
+        private bool qCState;
+        /// <summary>
+        /// 质量状态
+        /// </summary>
+        public bool QCState
+        {
+            get { return qCState; }
+            set { qCState = value; }
+        }
+        private bool qCMaintain;
+        /// <summary>
+        /// 质控品维护
+        /// </summary>
+        public bool QCMaintain
+        {
+            get { return qCMaintain; }
+            set { qCMaintain = value; }
+        }
+
+        public bool QCGraphic
+        {
+            get { return qCGraphic; }
+            set { qCGraphic = value; }
+        }
+
+        public bool QCTask
+        {
+            get { return qCTask; }
+            set { qCTask = value; }
+        }
+
+        private bool chemistryParam;
+        /// <summary>
+        /// 化学参数
+        /// </summary>
+        public bool ChemistryParam
+        {
+            get { return chemistryParam; }
+            set { chemistryParam = value; }
+        }
+        private bool combProject;
+        /// <summary>
+        /// 组合项目
+        /// </summary>
+        public bool CombProject
+        {
+            get { return combProject; }
+            set { combProject = value; }
+        }
+        private bool calcProject;
+        /// <summary>
+        /// 计算项目
+        /// </summary>
+        public bool CalcProject
+        {
+            get { return calcProject; }
+            set { calcProject = value; }
+        }
+        private bool environmentParam;
+        /// <summary>
+        /// 环境参数
+        /// </summary>
+        public bool EnvironmentParam
+        {
+            get { return environmentParam; }
+            set { environmentParam = value; }
+        }
+        private bool crossPollute;
+        /// <summary>
+        /// 交叉污染
+        /// </summary>
+        public bool CrossPollute
+        {
+            get { return crossPollute; }
+            set { crossPollute = value; }
+        }
+        private bool dataConfiguration;
+        /// <summary>
+        /// 数据配置
+        /// </summary>
+        public bool DataConfiguration
+        {
+            get { return dataConfiguration; }
+            set { dataConfiguration = value; }
+        }
+        private bool lISCommunicate;
+        /// <summary>
+        /// LIS通讯
+        /// </summary>
+        public bool LISCommunicate
+        {
+            get { return lISCommunicate; }
+            set { lISCommunicate = value; }
+        }
+        private bool rouMaintain;
+        /// <summary>
+        /// 常规保养
+        /// </summary>
+        public bool RouMaintain
+        {
+            get { return rouMaintain; }
+            set { rouMaintain = value; }
+        }
+        private bool equipDebug;
+        /// <summary>
+        /// 设备调试
+        /// </summary>
+        public bool EquipDebug
+        {
+            get { return equipDebug; }
+            set { equipDebug = value; }
+        }
+        private bool userManage;
+        /// <summary>
+        /// 用户管理
+        /// </summary>
+        public bool UserManage
+        {
+            get { return userManage; }
+            set { userManage = value; }
+        }
+        private bool departManage;
+        /// <summary>
+        /// 科室管理
+        /// </summary>
+        public bool DepartManage
+        {
+            get { return departManage; }
+            set { departManage = value; }
+        }
+        private bool configuration;
+        /// <summary>
+        /// 配置
+        /// </summary>
+        public bool Configuration
+        {
+            get { return configuration; }
+            set { configuration = value; }
+        }
+        private bool logCheck;
+        /// <summary>
+        /// 日志查看
+        /// </summary>
+        public bool LogCheck
+        {
+            get { return logCheck; }
+            set { logCheck = value; }
+        }
+        private bool versionInfo;
+        /// <summary>
+        /// 版本信息
+        /// </summary>
+        public bool VersionInfo
+        {
+            get { return versionInfo; }
+            set { versionInfo = value; }
+        }
+
+
     }
 }

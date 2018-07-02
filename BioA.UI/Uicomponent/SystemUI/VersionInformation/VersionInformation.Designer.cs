@@ -1,4 +1,4 @@
-﻿namespace BioA.UI.Uicomponent.SystemUI.VersionInformation
+﻿namespace BioA.UI
 {
     partial class VersionInformation
     {
@@ -46,7 +46,7 @@
             // lklChangeLK
             // 
             this.lklChangeLK.AutoSize = true;
-            this.lklChangeLK.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lklChangeLK.Font = new System.Drawing.Font("SimSun", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lklChangeLK.Location = new System.Drawing.Point(495, 533);
             this.lklChangeLK.Name = "lklChangeLK";
             this.lklChangeLK.Size = new System.Drawing.Size(77, 14);
@@ -57,7 +57,7 @@
             // lklChangeSN
             // 
             this.lklChangeSN.AutoSize = true;
-            this.lklChangeSN.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lklChangeSN.Font = new System.Drawing.Font("SimSun", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lklChangeSN.Location = new System.Drawing.Point(495, 432);
             this.lklChangeSN.Name = "lklChangeSN";
             this.lklChangeSN.Size = new System.Drawing.Size(77, 14);
@@ -68,7 +68,7 @@
             // lblHardwareVersion
             // 
             this.lblHardwareVersion.AutoSize = true;
-            this.lblHardwareVersion.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblHardwareVersion.Font = new System.Drawing.Font("SimSun", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblHardwareVersion.Location = new System.Drawing.Point(493, 183);
             this.lblHardwareVersion.Name = "lblHardwareVersion";
             this.lblHardwareVersion.Size = new System.Drawing.Size(70, 14);
@@ -78,7 +78,7 @@
             // lblSoftwareVersion
             // 
             this.lblSoftwareVersion.AutoSize = true;
-            this.lblSoftwareVersion.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblSoftwareVersion.Font = new System.Drawing.Font("SimSun", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblSoftwareVersion.Location = new System.Drawing.Point(493, 133);
             this.lblSoftwareVersion.Name = "lblSoftwareVersion";
             this.lblSoftwareVersion.Size = new System.Drawing.Size(70, 14);
@@ -88,7 +88,7 @@
             // lblRemnantDay
             // 
             this.lblRemnantDay.AutoSize = true;
-            this.lblRemnantDay.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblRemnantDay.Font = new System.Drawing.Font("SimSun", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblRemnantDay.Location = new System.Drawing.Point(493, 633);
             this.lblRemnantDay.Name = "lblRemnantDay";
             this.lblRemnantDay.Size = new System.Drawing.Size(70, 14);
@@ -98,7 +98,7 @@
             // lblLicenseKey
             // 
             this.lblLicenseKey.AutoSize = true;
-            this.lblLicenseKey.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblLicenseKey.Font = new System.Drawing.Font("SimSun", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblLicenseKey.Location = new System.Drawing.Point(493, 483);
             this.lblLicenseKey.Name = "lblLicenseKey";
             this.lblLicenseKey.Size = new System.Drawing.Size(63, 14);
@@ -108,7 +108,7 @@
             // lblExpiryDate
             // 
             this.lblExpiryDate.AutoSize = true;
-            this.lblExpiryDate.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblExpiryDate.Font = new System.Drawing.Font("SimSun", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblExpiryDate.Location = new System.Drawing.Point(493, 583);
             this.lblExpiryDate.Name = "lblExpiryDate";
             this.lblExpiryDate.Size = new System.Drawing.Size(63, 14);
@@ -118,7 +118,7 @@
             // lblSerialNumber
             // 
             this.lblSerialNumber.AutoSize = true;
-            this.lblSerialNumber.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblSerialNumber.Font = new System.Drawing.Font("SimSun", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblSerialNumber.Location = new System.Drawing.Point(493, 383);
             this.lblSerialNumber.Name = "lblSerialNumber";
             this.lblSerialNumber.Size = new System.Drawing.Size(63, 14);
@@ -128,7 +128,7 @@
             // lblHrdWeb
             // 
             this.lblHrdWeb.AutoSize = true;
-            this.lblHrdWeb.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblHrdWeb.Font = new System.Drawing.Font("SimSun", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblHrdWeb.Location = new System.Drawing.Point(493, 333);
             this.lblHrdWeb.Name = "lblHrdWeb";
             this.lblHrdWeb.Size = new System.Drawing.Size(105, 14);
@@ -138,7 +138,7 @@
             // lblHrdCopyright
             // 
             this.lblHrdCopyright.AutoSize = true;
-            this.lblHrdCopyright.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblHrdCopyright.Font = new System.Drawing.Font("SimSun", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblHrdCopyright.Location = new System.Drawing.Point(493, 283);
             this.lblHrdCopyright.Name = "lblHrdCopyright";
             this.lblHrdCopyright.Size = new System.Drawing.Size(259, 14);
@@ -148,7 +148,7 @@
             // lblHrd
             // 
             this.lblHrd.AutoSize = true;
-            this.lblHrd.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblHrd.Font = new System.Drawing.Font("SimSun", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblHrd.Location = new System.Drawing.Point(563, 233);
             this.lblHrd.Name = "lblHrd";
             this.lblHrd.Size = new System.Drawing.Size(189, 14);
@@ -158,7 +158,7 @@
             // lblAllRightsReserved
             // 
             this.lblAllRightsReserved.AutoSize = true;
-            this.lblAllRightsReserved.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblAllRightsReserved.Font = new System.Drawing.Font("SimSun", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblAllRightsReserved.Location = new System.Drawing.Point(493, 233);
             this.lblAllRightsReserved.Name = "lblAllRightsReserved";
             this.lblAllRightsReserved.Size = new System.Drawing.Size(77, 14);
@@ -168,7 +168,7 @@
             // lblVersionInfo
             // 
             this.lblVersionInfo.AutoSize = true;
-            this.lblVersionInfo.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblVersionInfo.Font = new System.Drawing.Font("SimSun", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblVersionInfo.Location = new System.Drawing.Point(492, 83);
             this.lblVersionInfo.Name = "lblVersionInfo";
             this.lblVersionInfo.Size = new System.Drawing.Size(89, 19);

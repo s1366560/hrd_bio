@@ -1,4 +1,4 @@
-﻿namespace BioA.UI.Uicomponent.SettingsUI.CrossPollution
+﻿namespace BioA.UI
 {
     partial class CuvetteAntifouling
     {

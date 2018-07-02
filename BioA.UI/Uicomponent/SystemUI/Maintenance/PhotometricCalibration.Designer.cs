@@ -1,4 +1,4 @@
-﻿namespace BioA.UI.Uicomponent.SystemUI.Maintenance
+﻿namespace BioA.UI
 {
     partial class PhotometricCalibration
     {
@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PhotometricCalibration));
             this.lalPhotometerTest = new DevExpress.XtraEditors.LabelControl();
             this.btnConfirm = new DevExpress.XtraEditors.SimpleButton();
             this.btnShut = new DevExpress.XtraEditors.SimpleButton();
@@ -47,6 +48,7 @@
             // 
             this.btnConfirm.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConfirm.Appearance.Options.UseFont = true;
+            this.btnConfirm.Image = ((System.Drawing.Image)(resources.GetObject("btnConfirm.Image")));
             this.btnConfirm.Location = new System.Drawing.Point(51, 194);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(75, 40);
@@ -57,6 +59,7 @@
             // 
             this.btnShut.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnShut.Appearance.Options.UseFont = true;
+            this.btnShut.Image = ((System.Drawing.Image)(resources.GetObject("btnShut.Image")));
             this.btnShut.Location = new System.Drawing.Point(177, 194);
             this.btnShut.Name = "btnShut";
             this.btnShut.Size = new System.Drawing.Size(75, 40);

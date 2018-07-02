@@ -16,66 +16,32 @@ namespace BioA.Common
             projectName = string.Empty;
             sampleType = string.Empty;
             autoRerun = false;
-            technicalLimitLow = 0;
-            technicalLimitHigh = 0;
             repeatLimitLow = 0;
             repeatLimitHigh = 0;
-            qCDefaultContainer = string.Empty;
-            calibDefaultContainer = string.Empty;
-            serumAgeLow1 = 0;
-            serumAgeHigh1 = 0;
-            serumManConsLow1 = 0;
-            serumManConsHigh1 = 0;
-            serumWomanConsLow1 = 0;
-            serumWomanConsHigh1 = 0;
-            urineAgeLow1 = 0;
-            urineAgeHigh1 = 0;
-            urineManConsLow1 = 0;
-            urineManConsHigh1 = 0;
-            urineWomanConsLow1 = 0;
-            urineWomanConsHigh1 = 0;
-            serumAgeLow2 = 0;
-            serumAgeHigh2 = 0;
-            serumManConsLow2 = 0;
-            serumManConsHigh2 = 0;
-            serumWomanConsLow2 = 0;
-            serumWomanConsHigh2 = 0;
-            urineAgeLow2 = 0;
-            urineAgeHigh2 = 0;
-            urineManConsLow2 = 0;
-            urineManConsHigh2 = 0;
-            urineWomanConsLow2 = 0;
-            urineWomanConsHigh2 = 0;
-            serumAgeLow3 = 0;
-            serumAgeHigh3 = 0;
-            serumManConsLow3 = 0;
-            serumManConsHigh3 = 0;
-            serumWomanConsLow3 = 0;
-            serumWomanConsHigh3 = 0;
-            urineAgeLow3 = 0;
-            urineAgeHigh3 = 0;
-            urineManConsLow3 = 0;
-            urineManConsHigh3 = 0;
-            urineWomanConsLow3 = 0;
-            urineWomanConsHigh3 = 0;
-            serumAgeLow4 = 0;
-            serumAgeHigh4 = 0;
-            serumManConsLow4 = 0;
-            serumManConsHigh4 = 0;
-            serumWomanConsLow4 = 0;
-            serumWomanConsHigh4 = 0;
-            urineAgeLow4 = 0;
-            urineAgeHigh4 = 0;
-            urineManConsLow4 = 0;
-            urineManConsHigh4 = 0;
-            urineWomanConsLow4 = 0;
-            urineWomanConsHigh4 = 0;
-            serumDefaultSex = string.Empty;
-            serumDefaultAgeLow = 0;
-            serumDefaultAgeHigh = 0;
-            urineDefaultSex = string.Empty;
-            urineDefaultAgeLow = 0;
-            urineDefaultAgeHigh = 0;
+            ageLow1 = -100000000;
+            ageHigh1 = 100000000;
+            manConsLow1 = -1000000000;
+            manConsHigh1 = 100000000;
+            womanConsLow1 = -100000000;
+            womanConsHigh1 = 100000000;
+            ageLow2 = -100000000;
+            ageHigh2 = 100000000;
+            manConsLow2 = -100000000;
+            manConsHigh2 = 100000000;
+            womanConsLow2 = -100000000;
+            womanConsHigh2 = 100000000;
+            ageLow3 = -100000000;
+            ageHigh3 = 100000000;
+            manConsLow3 = -100000000;
+            manConsHigh3 = 100000000;
+            womanConsLow3 = -100000000;
+            womanConsHigh3 = 100000000;
+            ageLow4 = -100000000;
+            ageHigh4 = 100000000;
+            manConsLow4 = -100000000;
+            manConsHigh4 = 100000000;
+            womanConsLow4 = -100000000;
+            womanConsHigh4 = 100000000;
         }
         /// <summary>
         /// 项目名称
@@ -102,22 +68,6 @@ namespace BioA.Common
             set { autoRerun = value; }
         }
         /// <summary>
-        /// 稀释限制最低
-        /// </summary>
-        public int TechnicalLimitLow
-        {
-            get { return technicalLimitLow; }
-            set { technicalLimitLow = value; }
-        }
-        /// <summary>
-        /// 稀释限制最高
-        /// </summary>
-        public int TechnicalLimitHigh
-        {
-            get { return technicalLimitHigh; }
-            set { technicalLimitHigh = value; }
-        }
-        /// <summary>
         /// 重测检查限制最低
         /// </summary>
         public int RepeatLimitLow
@@ -134,381 +84,172 @@ namespace BioA.Common
             set { repeatLimitHigh = value; }
         }
         /// <summary>
-        /// 质控默认容器
-        /// </summary>
-        public string QCDefaultContainer
-        {
-            get { return qCDefaultContainer; }
-            set { qCDefaultContainer = value; }
-        }
-        /// <summary>
-        /// 校准品默认容器
-        /// </summary>
-        public string CalibDefaultContainer
-        {
-            get { return calibDefaultContainer; }
-            set { calibDefaultContainer = value; }
-        }
-        /// <summary>
         /// 血液年龄low1
         /// </summary>
-        public int SerumAgeLow1
+        public int AgeLow1
         {
-            get { return serumAgeLow1; }
-            set { serumAgeLow1 = value; }
+            get { return ageLow1; }
+            set { ageLow1 = value; }
         }
         /// <summary>
         /// 血液年龄High1
         /// </summary>
-        public int SerumAgeHigh1
+        public int AgeHigh1
         {
-            get { return serumAgeHigh1; }
-            set { serumAgeHigh1 = value; }
+            get { return ageHigh1; }
+            set { ageHigh1 = value; }
         }
         /// <summary>
         /// 血液男人浓度Low1
         /// </summary>
-        public float SerumManConsLow1
+        public float ManConsLow1
         {
-            get { return serumManConsLow1; }
-            set { serumManConsLow1 = value; }
+            get { return manConsLow1; }
+            set { manConsLow1 = value; }
         }
         /// <summary>
         /// 血液男人浓度Hight1
         /// </summary>
-        public float SerumManConsHigh1
+        public float ManConsHigh1
         {
-            get { return serumManConsHigh1; }
-            set { serumManConsHigh1 = value; }
+            get { return manConsHigh1; }
+            set { manConsHigh1 = value; }
         }
         /// <summary>
         /// 血液女人浓度Low1
         /// </summary>
-        public float SerumWomanConsLow1
+        public float WomanConsLow1
         {
-            get { return serumWomanConsLow1; }
-            set { serumWomanConsLow1 = value; }
+            get { return womanConsLow1; }
+            set { womanConsLow1 = value; }
         }
         /// <summary>
         /// 血液女人浓度High1
         /// </summary>
-        public float SerumWomanConsHigh1
+        public float WomanConsHigh1
         {
-            get { return serumWomanConsHigh1; }
-            set { serumWomanConsHigh1 = value; }
+            get { return womanConsHigh1; }
+            set { womanConsHigh1 = value; }
         }
-        public int UrineAgeLow1
+        public int AgeLow2
         {
-            get { return urineAgeLow1; }
-            set { urineAgeLow1 = value; }
+            get { return ageLow2; }
+            set { ageLow2 = value; }
         }
-        public int UrineAgeHigh1
+        public int AgeHigh2
         {
-            get { return urineAgeHigh1; }
-            set { urineAgeHigh1 = value; }
+            get { return ageHigh2; }
+            set { ageHigh2 = value; }
         }
-        public float UrineManConsLow1
+        public float ManConsLow2
         {
-            get { return urineManConsLow1; }
-            set { urineManConsLow1 = value; }
+            get { return manConsLow2; }
+            set { manConsLow2 = value; }
         }
-        public float UrineManConsHigh1
+        public float ManConsHigh2
         {
-            get { return urineManConsHigh1; }
-            set { urineManConsHigh1 = value; }
+            get { return manConsHigh2; }
+            set { manConsHigh2 = value; }
         }
-        public float UrineWomanConsLow1
+        public float WomanConsLow2
         {
-            get { return urineWomanConsLow1; }
-            set { urineWomanConsLow1 = value; }
+            get { return womanConsLow2; }
+            set { womanConsLow2 = value; }
         }
-        public float UrineWomanConsHigh1
+        public float WomanConsHigh2
         {
-            get { return urineWomanConsHigh1; }
-            set { urineWomanConsHigh1 = value; }
+            get { return womanConsHigh2; }
+            set { womanConsHigh2 = value; }
         }
-        public int SerumAgeLow2
+        public int AgeLow3
         {
-            get { return serumAgeLow2; }
-            set { serumAgeLow2 = value; }
+            get { return ageLow3; }
+            set { ageLow3 = value; }
         }
-        public int SerumAgeHigh2
+        public int AgeHigh3
         {
-            get { return serumAgeHigh2; }
-            set { serumAgeHigh2 = value; }
+            get { return ageHigh3; }
+            set { ageHigh3 = value; }
         }
-        public float SerumManConsLow2
+        public float ManConsLow3
         {
-            get { return serumManConsLow2; }
-            set { serumManConsLow2 = value; }
+            get { return manConsLow3; }
+            set { manConsLow3 = value; }
         }
-        public float SerumManConsHigh2
+        public float ManConsHigh3
         {
-            get { return serumManConsHigh2; }
-            set { serumManConsHigh2 = value; }
+            get { return manConsHigh3; }
+            set { manConsHigh3 = value; }
         }
-        public float SerumWomanConsLow2
+        public float WomanConsLow3
         {
-            get { return serumWomanConsLow2; }
-            set { serumWomanConsLow2 = value; }
+            get { return womanConsLow3; }
+            set { womanConsLow3 = value; }
         }
-        public float SerumWomanConsHigh2
+        public float WomanConsHigh3
         {
-            get { return serumWomanConsHigh2; }
-            set { serumWomanConsHigh2 = value; }
+            get { return womanConsHigh3; }
+            set { womanConsHigh3 = value; }
         }
-        public int UrineAgeLow2
+        public int AgeLow4
         {
-            get { return urineAgeLow2; }
-            set { urineAgeLow2 = value; }
+            get { return ageLow4; }
+            set { ageLow4 = value; }
         }
-        public int UrineAgeHigh2
+        public int AgeHigh4
         {
-            get { return urineAgeHigh2; }
-            set { urineAgeHigh2 = value; }
+            get { return ageHigh4; }
+            set { ageHigh4 = value; }
         }
-        public float UrineManConsLow2
+        public float ManConsLow4
         {
-            get { return urineManConsLow2; }
-            set { urineManConsLow2 = value; }
+            get { return manConsLow4; }
+            set { manConsLow4 = value; }
         }
-        public float UrineManConsHigh2
+        public float ManConsHigh4
         {
-            get { return urineManConsHigh2; }
-            set { urineManConsHigh2 = value; }
+            get { return manConsHigh4; }
+            set { manConsHigh4 = value; }
         }
-        public float UrineWomanConsLow2
+        public float WomanConsLow4
         {
-            get { return urineWomanConsLow2; }
-            set { urineWomanConsLow2 = value; }
+            get { return womanConsLow4; }
+            set { womanConsLow4 = value; }
         }
-        public float UrineWomanConsHigh2
+        public float WomanConsHigh4
         {
-            get { return urineWomanConsHigh2; }
-            set { urineWomanConsHigh2 = value; }
-        }
-        public int SerumAgeLow3
-        {
-            get { return serumAgeLow3; }
-            set { serumAgeLow3 = value; }
-        }
-        public int SerumAgeHigh3
-        {
-            get { return serumAgeHigh3; }
-            set { serumAgeHigh3 = value; }
-        }
-        public float SerumManConsLow3
-        {
-            get { return serumManConsLow3; }
-            set { serumManConsLow3 = value; }
-        }
-        public float SerumManConsHigh3
-        {
-            get { return serumManConsHigh3; }
-            set { serumManConsHigh3 = value; }
-        }
-        public float SerumWomanConsLow3
-        {
-            get { return serumWomanConsLow3; }
-            set { serumWomanConsLow3 = value; }
-        }
-        public float SerumWomanConsHigh3
-        {
-            get { return serumWomanConsHigh3; }
-            set { serumWomanConsHigh3 = value; }
-        }
-        public int UrineAgeLow3
-        {
-            get { return urineAgeLow3; }
-            set { urineAgeLow3 = value; }
-        }
-        public int UrineAgeHigh3
-        {
-            get { return urineAgeHigh3; }
-            set { urineAgeHigh3 = value; }
-        }
-        public float UrineManConsLow3
-        {
-            get { return urineManConsLow3; }
-            set { urineManConsLow3 = value; }
-        }
-        public float UrineManConsHigh3
-        {
-            get { return urineManConsHigh3; }
-            set { urineManConsHigh3 = value; }
-        }
-        public float UrineWomanConsLow3
-        {
-            get { return urineWomanConsLow3; }
-            set { urineWomanConsLow3 = value; }
-        }
-        public float UrineWomanConsHigh3
-        {
-            get { return urineWomanConsHigh3; }
-            set { urineWomanConsHigh3 = value; }
-        }
-        public int SerumAgeLow4
-        {
-            get { return serumAgeLow4; }
-            set { serumAgeLow4 = value; }
-        }
-        public int SerumAgeHigh4
-        {
-            get { return serumAgeHigh4; }
-            set { serumAgeHigh4 = value; }
-        }
-        public float SerumManConsLow4
-        {
-            get { return serumManConsLow4; }
-            set { serumManConsLow4 = value; }
-        }
-        public float SerumManConsHigh4
-        {
-            get { return serumManConsHigh4; }
-            set { serumManConsHigh4 = value; }
-        }
-        public float SerumWomanConsLow4
-        {
-            get { return serumWomanConsLow4; }
-            set { serumWomanConsLow4 = value; }
-        }
-        public float SerumWomanConsHigh4
-        {
-            get { return serumWomanConsHigh4; }
-            set { serumWomanConsHigh4 = value; }
-        }
-        public int UrineAgeLow4
-        {
-            get { return urineAgeLow4; }
-            set { urineAgeLow4 = value; }
-        }
-        public int UrineAgeHigh4
-        {
-            get { return urineAgeHigh4; }
-            set { urineAgeHigh4 = value; }
-        }
-        public float UrineManConsLow4
-        {
-            get { return urineManConsLow4; }
-            set { urineManConsLow4 = value; }
-        }
-        public float UrineManConsHigh4
-        {
-            get { return urineManConsHigh4; }
-            set { urineManConsHigh4 = value; }
-        }
-        public float UrineWomanConsLow4
-        {
-            get { return urineWomanConsLow4; }
-            set { urineWomanConsLow4 = value; }
-        }
-        public float UrineWomanConsHigh4
-        {
-            get { return urineWomanConsHigh4; }
-            set { urineWomanConsHigh4 = value; }
-        }
-        /// <summary>
-        /// 血液默认性别
-        /// </summary>
-        public string SerumDefaultSex
-        {
-            get { return serumDefaultSex; }
-            set { serumDefaultSex = value; }
-        }
-        /// <summary>
-        /// 血液默认年龄low
-        /// </summary>
-        public int SerumDefaultAgeLow
-        {
-            get { return serumDefaultAgeLow; }
-            set { serumDefaultAgeLow = value; }
-        }
-        /// <summary>
-        /// 血液默认年龄High
-        /// </summary>
-        public int SerumDefaultAgeHigh
-        {
-            get { return serumDefaultAgeHigh; }
-            set { serumDefaultAgeHigh = value; }
-        }
-        public string UrineDefaultSex
-        {
-            get { return urineDefaultSex; }
-            set { urineDefaultSex = value; }
-        }
-        public int UrineDefaultAgeLow
-        {
-            get { return urineDefaultAgeLow; }
-            set { urineDefaultAgeLow = value; }
-        }
-        public int UrineDefaultAgeHigh
-        {
-            get { return urineDefaultAgeHigh; }
-            set { urineDefaultAgeHigh = value; }
+            get { return womanConsHigh4; }
+            set { womanConsHigh4 = value; }
         }
 
         private string projectName;
         private string sampleType;
         private bool autoRerun;
-        private int technicalLimitLow;
-        private int technicalLimitHigh;
         private int repeatLimitLow;
         private int repeatLimitHigh;
-        private string qCDefaultContainer;
-        private string calibDefaultContainer;
-        private int serumAgeLow1;
-        private int serumAgeHigh1;
-        private float serumManConsLow1;
-        private float serumManConsHigh1;
-        private float serumWomanConsLow1;
-        private float serumWomanConsHigh1;
-        private int urineAgeLow1;
-        private int urineAgeHigh1;
-        private float urineManConsLow1;
-        private float urineManConsHigh1;
-        private float urineWomanConsLow1;
-        private float urineWomanConsHigh1;
-        private int serumAgeLow2;
-        private int serumAgeHigh2;
-        private float serumManConsLow2;
-        private float serumManConsHigh2;
-        private float serumWomanConsLow2;
-        private float serumWomanConsHigh2;
-        private int urineAgeLow2;
-        private int urineAgeHigh2;
-        private float urineManConsLow2;
-        private float urineManConsHigh2;
-        private float urineWomanConsLow2;
-        private float urineWomanConsHigh2;
-        private int serumAgeLow3;
-        private int serumAgeHigh3;
-        private float serumManConsLow3;
-        private float serumManConsHigh3;
-        private float serumWomanConsLow3;
-        private float serumWomanConsHigh3;
-        private int urineAgeLow3;
-        private int urineAgeHigh3;
-        private float urineManConsLow3;
-        private float urineManConsHigh3;
-        private float urineWomanConsLow3;
-        private float urineWomanConsHigh3;
-        private int serumAgeLow4;
-        private int serumAgeHigh4;
-        private float serumManConsLow4;
-        private float serumManConsHigh4;
-        private float serumWomanConsLow4;
-        private float serumWomanConsHigh4;
-        private int urineAgeLow4;
-        private int urineAgeHigh4;
-        private float urineManConsLow4;
-        private float urineManConsHigh4;
-        private float urineWomanConsLow4;
-        private float urineWomanConsHigh4;
-        private string serumDefaultSex;
-        private int serumDefaultAgeLow;
-        private int serumDefaultAgeHigh;
-        private string urineDefaultSex;
-        private int urineDefaultAgeLow;
-        private int urineDefaultAgeHigh;
+        private int ageLow1;
+        private int ageHigh1;
+        private float manConsLow1;
+        private float manConsHigh1;
+        private float womanConsLow1;
+        private float womanConsHigh1;
+        private int ageLow2;
+        private int ageHigh2;
+        private float manConsLow2;
+        private float manConsHigh2;
+        private float womanConsLow2;
+        private float womanConsHigh2;
+        private int ageLow3;
+        private int ageHigh3;
+        private float manConsLow3;
+        private float manConsHigh3;
+        private float womanConsLow3;
+        private float womanConsHigh3;
+        private int ageLow4;
+        private int ageHigh4;
+        private float manConsLow4;
+        private float manConsHigh4;
+        private float womanConsLow4;
+        private float womanConsHigh4;
     }
 }       

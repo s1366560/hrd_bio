@@ -1,4 +1,4 @@
-﻿namespace BioA.UI.Uicomponent.SystemUI.Maintenance
+﻿namespace BioA.UI
 {
     partial class WaterBlankCheck
     {
@@ -1016,7 +1016,7 @@
             this.grpOldBlkValue.Controls.Add(this.txtOld081);
             this.grpOldBlkValue.Controls.Add(this.txtOld070);
             this.grpOldBlkValue.Controls.Add(this.txtOld080);
-            this.grpOldBlkValue.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.grpOldBlkValue.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.grpOldBlkValue.Location = new System.Drawing.Point(809, 109);
             this.grpOldBlkValue.Name = "grpOldBlkValue";
             this.grpOldBlkValue.Size = new System.Drawing.Size(780, 650);
@@ -1035,7 +1035,7 @@
             // 
             // txtOld160
             // 
-            this.txtOld160.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld160.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld160.Location = new System.Drawing.Point(705, 614);
             this.txtOld160.Name = "txtOld160";
             this.txtOld160.Size = new System.Drawing.Size(50, 21);
@@ -1070,7 +1070,7 @@
             // 
             // txtOld150
             // 
-            this.txtOld150.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld150.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld150.Location = new System.Drawing.Point(705, 304);
             this.txtOld150.Name = "txtOld150";
             this.txtOld150.Size = new System.Drawing.Size(50, 21);
@@ -1078,7 +1078,7 @@
             // 
             // txtOld001
             // 
-            this.txtOld001.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld001.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld001.Location = new System.Drawing.Point(40, 25);
             this.txtOld001.Name = "txtOld001";
             this.txtOld001.Size = new System.Drawing.Size(50, 21);
@@ -1095,7 +1095,7 @@
             // 
             // txtOld159
             // 
-            this.txtOld159.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld159.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld159.Location = new System.Drawing.Point(705, 583);
             this.txtOld159.Name = "txtOld159";
             this.txtOld159.Size = new System.Drawing.Size(50, 21);
@@ -1130,7 +1130,7 @@
             // 
             // txtOld002
             // 
-            this.txtOld002.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld002.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld002.Location = new System.Drawing.Point(40, 56);
             this.txtOld002.Name = "txtOld002";
             this.txtOld002.Size = new System.Drawing.Size(50, 21);
@@ -1138,7 +1138,7 @@
             // 
             // txtOld149
             // 
-            this.txtOld149.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld149.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld149.Location = new System.Drawing.Point(705, 273);
             this.txtOld149.Name = "txtOld149";
             this.txtOld149.Size = new System.Drawing.Size(50, 21);
@@ -1155,7 +1155,7 @@
             // 
             // txtOld158
             // 
-            this.txtOld158.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld158.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld158.Location = new System.Drawing.Point(705, 552);
             this.txtOld158.Name = "txtOld158";
             this.txtOld158.Size = new System.Drawing.Size(50, 21);
@@ -1199,7 +1199,7 @@
             // 
             // txtOld003
             // 
-            this.txtOld003.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld003.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld003.Location = new System.Drawing.Point(40, 87);
             this.txtOld003.Name = "txtOld003";
             this.txtOld003.Size = new System.Drawing.Size(50, 21);
@@ -1207,7 +1207,7 @@
             // 
             // txtOld148
             // 
-            this.txtOld148.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld148.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld148.Location = new System.Drawing.Point(705, 242);
             this.txtOld148.Name = "txtOld148";
             this.txtOld148.Size = new System.Drawing.Size(50, 21);
@@ -1215,7 +1215,7 @@
             // 
             // txtOld157
             // 
-            this.txtOld157.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld157.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld157.Location = new System.Drawing.Point(705, 521);
             this.txtOld157.Name = "txtOld157";
             this.txtOld157.Size = new System.Drawing.Size(50, 21);
@@ -1259,7 +1259,7 @@
             // 
             // txtOld004
             // 
-            this.txtOld004.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld004.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld004.Location = new System.Drawing.Point(40, 118);
             this.txtOld004.Name = "txtOld004";
             this.txtOld004.Size = new System.Drawing.Size(50, 21);
@@ -1267,7 +1267,7 @@
             // 
             // txtOld156
             // 
-            this.txtOld156.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld156.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld156.Location = new System.Drawing.Point(705, 490);
             this.txtOld156.Name = "txtOld156";
             this.txtOld156.Size = new System.Drawing.Size(50, 21);
@@ -1275,7 +1275,7 @@
             // 
             // txtOld147
             // 
-            this.txtOld147.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld147.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld147.Location = new System.Drawing.Point(705, 211);
             this.txtOld147.Name = "txtOld147";
             this.txtOld147.Size = new System.Drawing.Size(50, 21);
@@ -1319,7 +1319,7 @@
             // 
             // txtOld005
             // 
-            this.txtOld005.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld005.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld005.Location = new System.Drawing.Point(40, 149);
             this.txtOld005.Name = "txtOld005";
             this.txtOld005.Size = new System.Drawing.Size(50, 21);
@@ -1327,7 +1327,7 @@
             // 
             // txtOld155
             // 
-            this.txtOld155.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld155.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld155.Location = new System.Drawing.Point(705, 459);
             this.txtOld155.Name = "txtOld155";
             this.txtOld155.Size = new System.Drawing.Size(50, 21);
@@ -1344,7 +1344,7 @@
             // 
             // txtOld146
             // 
-            this.txtOld146.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld146.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld146.Location = new System.Drawing.Point(705, 180);
             this.txtOld146.Name = "txtOld146";
             this.txtOld146.Size = new System.Drawing.Size(50, 21);
@@ -1361,7 +1361,7 @@
             // 
             // txtOld006
             // 
-            this.txtOld006.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld006.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld006.Location = new System.Drawing.Point(40, 180);
             this.txtOld006.Name = "txtOld006";
             this.txtOld006.Size = new System.Drawing.Size(50, 21);
@@ -1387,7 +1387,7 @@
             // 
             // txtOld154
             // 
-            this.txtOld154.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld154.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld154.Location = new System.Drawing.Point(705, 428);
             this.txtOld154.Name = "txtOld154";
             this.txtOld154.Size = new System.Drawing.Size(50, 21);
@@ -1395,7 +1395,7 @@
             // 
             // txtOld007
             // 
-            this.txtOld007.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld007.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld007.Location = new System.Drawing.Point(40, 211);
             this.txtOld007.Name = "txtOld007";
             this.txtOld007.Size = new System.Drawing.Size(50, 21);
@@ -1412,7 +1412,7 @@
             // 
             // txtOld145
             // 
-            this.txtOld145.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld145.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld145.Location = new System.Drawing.Point(705, 149);
             this.txtOld145.Name = "txtOld145";
             this.txtOld145.Size = new System.Drawing.Size(50, 21);
@@ -1420,7 +1420,7 @@
             // 
             // txtOld008
             // 
-            this.txtOld008.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld008.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld008.Location = new System.Drawing.Point(40, 242);
             this.txtOld008.Name = "txtOld008";
             this.txtOld008.Size = new System.Drawing.Size(50, 21);
@@ -1446,7 +1446,7 @@
             // 
             // txtOld153
             // 
-            this.txtOld153.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld153.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld153.Location = new System.Drawing.Point(705, 397);
             this.txtOld153.Name = "txtOld153";
             this.txtOld153.Size = new System.Drawing.Size(50, 21);
@@ -1454,7 +1454,7 @@
             // 
             // txtOld009
             // 
-            this.txtOld009.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld009.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld009.Location = new System.Drawing.Point(40, 273);
             this.txtOld009.Name = "txtOld009";
             this.txtOld009.Size = new System.Drawing.Size(50, 21);
@@ -1480,7 +1480,7 @@
             // 
             // txtOld144
             // 
-            this.txtOld144.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld144.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld144.Location = new System.Drawing.Point(705, 118);
             this.txtOld144.Name = "txtOld144";
             this.txtOld144.Size = new System.Drawing.Size(50, 21);
@@ -1488,7 +1488,7 @@
             // 
             // txtOld010
             // 
-            this.txtOld010.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld010.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld010.Location = new System.Drawing.Point(40, 304);
             this.txtOld010.Name = "txtOld010";
             this.txtOld010.Size = new System.Drawing.Size(50, 21);
@@ -1505,7 +1505,7 @@
             // 
             // txtOld152
             // 
-            this.txtOld152.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld152.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld152.Location = new System.Drawing.Point(705, 366);
             this.txtOld152.Name = "txtOld152";
             this.txtOld152.Size = new System.Drawing.Size(50, 21);
@@ -1540,7 +1540,7 @@
             // 
             // txtOld011
             // 
-            this.txtOld011.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld011.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld011.Location = new System.Drawing.Point(40, 335);
             this.txtOld011.Name = "txtOld011";
             this.txtOld011.Size = new System.Drawing.Size(50, 21);
@@ -1548,7 +1548,7 @@
             // 
             // txtOld143
             // 
-            this.txtOld143.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld143.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld143.Location = new System.Drawing.Point(705, 87);
             this.txtOld143.Name = "txtOld143";
             this.txtOld143.Size = new System.Drawing.Size(50, 21);
@@ -1565,7 +1565,7 @@
             // 
             // txtOld151
             // 
-            this.txtOld151.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld151.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld151.Location = new System.Drawing.Point(705, 335);
             this.txtOld151.Name = "txtOld151";
             this.txtOld151.Size = new System.Drawing.Size(50, 21);
@@ -1600,7 +1600,7 @@
             // 
             // txtOld012
             // 
-            this.txtOld012.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld012.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld012.Location = new System.Drawing.Point(40, 366);
             this.txtOld012.Name = "txtOld012";
             this.txtOld012.Size = new System.Drawing.Size(50, 21);
@@ -1617,7 +1617,7 @@
             // 
             // txtOld142
             // 
-            this.txtOld142.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld142.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld142.Location = new System.Drawing.Point(705, 56);
             this.txtOld142.Name = "txtOld142";
             this.txtOld142.Size = new System.Drawing.Size(50, 21);
@@ -1661,7 +1661,7 @@
             // 
             // txtOld013
             // 
-            this.txtOld013.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld013.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld013.Location = new System.Drawing.Point(40, 397);
             this.txtOld013.Name = "txtOld013";
             this.txtOld013.Size = new System.Drawing.Size(50, 21);
@@ -1687,7 +1687,7 @@
             // 
             // txtOld141
             // 
-            this.txtOld141.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld141.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld141.Location = new System.Drawing.Point(705, 25);
             this.txtOld141.Name = "txtOld141";
             this.txtOld141.Size = new System.Drawing.Size(50, 21);
@@ -1713,7 +1713,7 @@
             // 
             // txtOld014
             // 
-            this.txtOld014.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld014.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld014.Location = new System.Drawing.Point(40, 428);
             this.txtOld014.Name = "txtOld014";
             this.txtOld014.Size = new System.Drawing.Size(50, 21);
@@ -1721,7 +1721,7 @@
             // 
             // txtOld140
             // 
-            this.txtOld140.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld140.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld140.Location = new System.Drawing.Point(610, 614);
             this.txtOld140.Name = "txtOld140";
             this.txtOld140.Size = new System.Drawing.Size(50, 21);
@@ -1756,7 +1756,7 @@
             // 
             // txtOld130
             // 
-            this.txtOld130.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld130.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld130.Location = new System.Drawing.Point(610, 304);
             this.txtOld130.Name = "txtOld130";
             this.txtOld130.Size = new System.Drawing.Size(50, 21);
@@ -1773,7 +1773,7 @@
             // 
             // txtOld015
             // 
-            this.txtOld015.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld015.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld015.Location = new System.Drawing.Point(40, 459);
             this.txtOld015.Name = "txtOld015";
             this.txtOld015.Size = new System.Drawing.Size(50, 21);
@@ -1781,7 +1781,7 @@
             // 
             // txtOld139
             // 
-            this.txtOld139.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld139.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld139.Location = new System.Drawing.Point(610, 583);
             this.txtOld139.Name = "txtOld139";
             this.txtOld139.Size = new System.Drawing.Size(50, 21);
@@ -1807,7 +1807,7 @@
             // 
             // txtOld016
             // 
-            this.txtOld016.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld016.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld016.Location = new System.Drawing.Point(40, 490);
             this.txtOld016.Name = "txtOld016";
             this.txtOld016.Size = new System.Drawing.Size(50, 21);
@@ -1824,7 +1824,7 @@
             // 
             // txtOld129
             // 
-            this.txtOld129.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld129.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld129.Location = new System.Drawing.Point(610, 273);
             this.txtOld129.Name = "txtOld129";
             this.txtOld129.Size = new System.Drawing.Size(50, 21);
@@ -1841,7 +1841,7 @@
             // 
             // txtOld138
             // 
-            this.txtOld138.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld138.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld138.Location = new System.Drawing.Point(610, 552);
             this.txtOld138.Name = "txtOld138";
             this.txtOld138.Size = new System.Drawing.Size(50, 21);
@@ -1849,7 +1849,7 @@
             // 
             // txtOld017
             // 
-            this.txtOld017.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld017.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld017.Location = new System.Drawing.Point(40, 521);
             this.txtOld017.Name = "txtOld017";
             this.txtOld017.Size = new System.Drawing.Size(50, 21);
@@ -1866,7 +1866,7 @@
             // 
             // txtOld018
             // 
-            this.txtOld018.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld018.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld018.Location = new System.Drawing.Point(40, 552);
             this.txtOld018.Name = "txtOld018";
             this.txtOld018.Size = new System.Drawing.Size(50, 21);
@@ -1892,7 +1892,7 @@
             // 
             // txtOld128
             // 
-            this.txtOld128.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld128.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld128.Location = new System.Drawing.Point(610, 242);
             this.txtOld128.Name = "txtOld128";
             this.txtOld128.Size = new System.Drawing.Size(50, 21);
@@ -1900,7 +1900,7 @@
             // 
             // txtOld137
             // 
-            this.txtOld137.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld137.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld137.Location = new System.Drawing.Point(610, 521);
             this.txtOld137.Name = "txtOld137";
             this.txtOld137.Size = new System.Drawing.Size(50, 21);
@@ -1908,7 +1908,7 @@
             // 
             // txtOld019
             // 
-            this.txtOld019.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld019.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld019.Location = new System.Drawing.Point(40, 583);
             this.txtOld019.Name = "txtOld019";
             this.txtOld019.Size = new System.Drawing.Size(50, 21);
@@ -1934,7 +1934,7 @@
             // 
             // txtOld020
             // 
-            this.txtOld020.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld020.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld020.Location = new System.Drawing.Point(40, 614);
             this.txtOld020.Name = "txtOld020";
             this.txtOld020.Size = new System.Drawing.Size(50, 21);
@@ -1951,7 +1951,7 @@
             // 
             // txtOld136
             // 
-            this.txtOld136.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld136.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld136.Location = new System.Drawing.Point(610, 490);
             this.txtOld136.Name = "txtOld136";
             this.txtOld136.Size = new System.Drawing.Size(50, 21);
@@ -1959,7 +1959,7 @@
             // 
             // txtOld127
             // 
-            this.txtOld127.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld127.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld127.Location = new System.Drawing.Point(610, 211);
             this.txtOld127.Name = "txtOld127";
             this.txtOld127.Size = new System.Drawing.Size(50, 21);
@@ -1994,7 +1994,7 @@
             // 
             // txtOld021
             // 
-            this.txtOld021.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld021.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld021.Location = new System.Drawing.Point(135, 25);
             this.txtOld021.Name = "txtOld021";
             this.txtOld021.Size = new System.Drawing.Size(50, 21);
@@ -2011,7 +2011,7 @@
             // 
             // txtOld135
             // 
-            this.txtOld135.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld135.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld135.Location = new System.Drawing.Point(610, 459);
             this.txtOld135.Name = "txtOld135";
             this.txtOld135.Size = new System.Drawing.Size(50, 21);
@@ -2028,7 +2028,7 @@
             // 
             // txtOld126
             // 
-            this.txtOld126.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld126.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld126.Location = new System.Drawing.Point(610, 180);
             this.txtOld126.Name = "txtOld126";
             this.txtOld126.Size = new System.Drawing.Size(50, 21);
@@ -2054,7 +2054,7 @@
             // 
             // txtOld031
             // 
-            this.txtOld031.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld031.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld031.Location = new System.Drawing.Point(135, 335);
             this.txtOld031.Name = "txtOld031";
             this.txtOld031.Size = new System.Drawing.Size(50, 21);
@@ -2071,7 +2071,7 @@
             // 
             // txtOld134
             // 
-            this.txtOld134.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld134.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld134.Location = new System.Drawing.Point(610, 428);
             this.txtOld134.Name = "txtOld134";
             this.txtOld134.Size = new System.Drawing.Size(50, 21);
@@ -2097,7 +2097,7 @@
             // 
             // txtOld125
             // 
-            this.txtOld125.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld125.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld125.Location = new System.Drawing.Point(610, 149);
             this.txtOld125.Name = "txtOld125";
             this.txtOld125.Size = new System.Drawing.Size(50, 21);
@@ -2123,7 +2123,7 @@
             // 
             // txtOld022
             // 
-            this.txtOld022.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld022.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld022.Location = new System.Drawing.Point(135, 56);
             this.txtOld022.Name = "txtOld022";
             this.txtOld022.Size = new System.Drawing.Size(50, 21);
@@ -2131,7 +2131,7 @@
             // 
             // txtOld133
             // 
-            this.txtOld133.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld133.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld133.Location = new System.Drawing.Point(610, 397);
             this.txtOld133.Name = "txtOld133";
             this.txtOld133.Size = new System.Drawing.Size(50, 21);
@@ -2166,7 +2166,7 @@
             // 
             // txtOld124
             // 
-            this.txtOld124.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld124.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld124.Location = new System.Drawing.Point(610, 118);
             this.txtOld124.Name = "txtOld124";
             this.txtOld124.Size = new System.Drawing.Size(50, 21);
@@ -2183,7 +2183,7 @@
             // 
             // txtOld032
             // 
-            this.txtOld032.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld032.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld032.Location = new System.Drawing.Point(135, 366);
             this.txtOld032.Name = "txtOld032";
             this.txtOld032.Size = new System.Drawing.Size(50, 21);
@@ -2191,7 +2191,7 @@
             // 
             // txtOld132
             // 
-            this.txtOld132.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld132.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld132.Location = new System.Drawing.Point(610, 366);
             this.txtOld132.Name = "txtOld132";
             this.txtOld132.Size = new System.Drawing.Size(50, 21);
@@ -2235,7 +2235,7 @@
             // 
             // txtOld123
             // 
-            this.txtOld123.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld123.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld123.Location = new System.Drawing.Point(610, 87);
             this.txtOld123.Name = "txtOld123";
             this.txtOld123.Size = new System.Drawing.Size(50, 21);
@@ -2243,7 +2243,7 @@
             // 
             // txtOld023
             // 
-            this.txtOld023.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld023.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld023.Location = new System.Drawing.Point(135, 87);
             this.txtOld023.Name = "txtOld023";
             this.txtOld023.Size = new System.Drawing.Size(50, 21);
@@ -2251,7 +2251,7 @@
             // 
             // txtOld131
             // 
-            this.txtOld131.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld131.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld131.Location = new System.Drawing.Point(610, 335);
             this.txtOld131.Name = "txtOld131";
             this.txtOld131.Size = new System.Drawing.Size(50, 21);
@@ -2277,7 +2277,7 @@
             // 
             // txtOld033
             // 
-            this.txtOld033.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld033.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld033.Location = new System.Drawing.Point(135, 397);
             this.txtOld033.Name = "txtOld033";
             this.txtOld033.Size = new System.Drawing.Size(50, 21);
@@ -2303,7 +2303,7 @@
             // 
             // txtOld122
             // 
-            this.txtOld122.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld122.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld122.Location = new System.Drawing.Point(610, 56);
             this.txtOld122.Name = "txtOld122";
             this.txtOld122.Size = new System.Drawing.Size(50, 21);
@@ -2311,7 +2311,7 @@
             // 
             // txtOld024
             // 
-            this.txtOld024.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld024.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld024.Location = new System.Drawing.Point(135, 118);
             this.txtOld024.Name = "txtOld024";
             this.txtOld024.Size = new System.Drawing.Size(50, 21);
@@ -2328,7 +2328,7 @@
             // 
             // txtOld034
             // 
-            this.txtOld034.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld034.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld034.Location = new System.Drawing.Point(135, 428);
             this.txtOld034.Name = "txtOld034";
             this.txtOld034.Size = new System.Drawing.Size(50, 21);
@@ -2354,7 +2354,7 @@
             // 
             // txtOld025
             // 
-            this.txtOld025.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld025.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld025.Location = new System.Drawing.Point(135, 149);
             this.txtOld025.Name = "txtOld025";
             this.txtOld025.Size = new System.Drawing.Size(50, 21);
@@ -2371,7 +2371,7 @@
             // 
             // txtOld121
             // 
-            this.txtOld121.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld121.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld121.Location = new System.Drawing.Point(610, 25);
             this.txtOld121.Name = "txtOld121";
             this.txtOld121.Size = new System.Drawing.Size(50, 21);
@@ -2388,7 +2388,7 @@
             // 
             // txtOld035
             // 
-            this.txtOld035.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld035.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld035.Location = new System.Drawing.Point(135, 459);
             this.txtOld035.Name = "txtOld035";
             this.txtOld035.Size = new System.Drawing.Size(50, 21);
@@ -2405,7 +2405,7 @@
             // 
             // txtOld120
             // 
-            this.txtOld120.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld120.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld120.Location = new System.Drawing.Point(515, 614);
             this.txtOld120.Name = "txtOld120";
             this.txtOld120.Size = new System.Drawing.Size(50, 21);
@@ -2440,7 +2440,7 @@
             // 
             // txtOld110
             // 
-            this.txtOld110.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld110.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld110.Location = new System.Drawing.Point(515, 304);
             this.txtOld110.Name = "txtOld110";
             this.txtOld110.Size = new System.Drawing.Size(50, 21);
@@ -2448,7 +2448,7 @@
             // 
             // txtOld026
             // 
-            this.txtOld026.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld026.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld026.Location = new System.Drawing.Point(135, 180);
             this.txtOld026.Name = "txtOld026";
             this.txtOld026.Size = new System.Drawing.Size(50, 21);
@@ -2465,7 +2465,7 @@
             // 
             // txtOld119
             // 
-            this.txtOld119.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld119.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld119.Location = new System.Drawing.Point(515, 583);
             this.txtOld119.Name = "txtOld119";
             this.txtOld119.Size = new System.Drawing.Size(50, 21);
@@ -2500,7 +2500,7 @@
             // 
             // txtOld036
             // 
-            this.txtOld036.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld036.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld036.Location = new System.Drawing.Point(135, 490);
             this.txtOld036.Name = "txtOld036";
             this.txtOld036.Size = new System.Drawing.Size(50, 21);
@@ -2508,7 +2508,7 @@
             // 
             // txtOld109
             // 
-            this.txtOld109.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld109.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld109.Location = new System.Drawing.Point(515, 273);
             this.txtOld109.Name = "txtOld109";
             this.txtOld109.Size = new System.Drawing.Size(50, 21);
@@ -2525,7 +2525,7 @@
             // 
             // txtOld118
             // 
-            this.txtOld118.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld118.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld118.Location = new System.Drawing.Point(515, 552);
             this.txtOld118.Name = "txtOld118";
             this.txtOld118.Size = new System.Drawing.Size(50, 21);
@@ -2569,7 +2569,7 @@
             // 
             // txtOld027
             // 
-            this.txtOld027.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld027.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld027.Location = new System.Drawing.Point(135, 211);
             this.txtOld027.Name = "txtOld027";
             this.txtOld027.Size = new System.Drawing.Size(50, 21);
@@ -2577,7 +2577,7 @@
             // 
             // txtOld108
             // 
-            this.txtOld108.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld108.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld108.Location = new System.Drawing.Point(515, 242);
             this.txtOld108.Name = "txtOld108";
             this.txtOld108.Size = new System.Drawing.Size(50, 21);
@@ -2585,7 +2585,7 @@
             // 
             // txtOld117
             // 
-            this.txtOld117.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld117.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld117.Location = new System.Drawing.Point(515, 521);
             this.txtOld117.Name = "txtOld117";
             this.txtOld117.Size = new System.Drawing.Size(50, 21);
@@ -2629,7 +2629,7 @@
             // 
             // txtOld037
             // 
-            this.txtOld037.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld037.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld037.Location = new System.Drawing.Point(135, 521);
             this.txtOld037.Name = "txtOld037";
             this.txtOld037.Size = new System.Drawing.Size(50, 21);
@@ -2637,7 +2637,7 @@
             // 
             // txtOld116
             // 
-            this.txtOld116.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld116.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld116.Location = new System.Drawing.Point(515, 490);
             this.txtOld116.Name = "txtOld116";
             this.txtOld116.Size = new System.Drawing.Size(50, 21);
@@ -2645,7 +2645,7 @@
             // 
             // txtOld107
             // 
-            this.txtOld107.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld107.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld107.Location = new System.Drawing.Point(515, 211);
             this.txtOld107.Name = "txtOld107";
             this.txtOld107.Size = new System.Drawing.Size(50, 21);
@@ -2689,7 +2689,7 @@
             // 
             // txtOld028
             // 
-            this.txtOld028.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld028.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld028.Location = new System.Drawing.Point(135, 242);
             this.txtOld028.Name = "txtOld028";
             this.txtOld028.Size = new System.Drawing.Size(50, 21);
@@ -2697,7 +2697,7 @@
             // 
             // txtOld115
             // 
-            this.txtOld115.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld115.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld115.Location = new System.Drawing.Point(515, 459);
             this.txtOld115.Name = "txtOld115";
             this.txtOld115.Size = new System.Drawing.Size(50, 21);
@@ -2714,7 +2714,7 @@
             // 
             // txtOld106
             // 
-            this.txtOld106.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld106.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld106.Location = new System.Drawing.Point(515, 180);
             this.txtOld106.Name = "txtOld106";
             this.txtOld106.Size = new System.Drawing.Size(50, 21);
@@ -2731,7 +2731,7 @@
             // 
             // txtOld038
             // 
-            this.txtOld038.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld038.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld038.Location = new System.Drawing.Point(135, 552);
             this.txtOld038.Name = "txtOld038";
             this.txtOld038.Size = new System.Drawing.Size(50, 21);
@@ -2757,7 +2757,7 @@
             // 
             // txtOld114
             // 
-            this.txtOld114.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld114.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld114.Location = new System.Drawing.Point(515, 428);
             this.txtOld114.Name = "txtOld114";
             this.txtOld114.Size = new System.Drawing.Size(50, 21);
@@ -2765,7 +2765,7 @@
             // 
             // txtOld029
             // 
-            this.txtOld029.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld029.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld029.Location = new System.Drawing.Point(135, 273);
             this.txtOld029.Name = "txtOld029";
             this.txtOld029.Size = new System.Drawing.Size(50, 21);
@@ -2782,7 +2782,7 @@
             // 
             // txtOld105
             // 
-            this.txtOld105.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld105.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld105.Location = new System.Drawing.Point(515, 149);
             this.txtOld105.Name = "txtOld105";
             this.txtOld105.Size = new System.Drawing.Size(50, 21);
@@ -2790,7 +2790,7 @@
             // 
             // txtOld039
             // 
-            this.txtOld039.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld039.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld039.Location = new System.Drawing.Point(135, 583);
             this.txtOld039.Name = "txtOld039";
             this.txtOld039.Size = new System.Drawing.Size(50, 21);
@@ -2816,7 +2816,7 @@
             // 
             // txtOld113
             // 
-            this.txtOld113.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld113.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld113.Location = new System.Drawing.Point(515, 397);
             this.txtOld113.Name = "txtOld113";
             this.txtOld113.Size = new System.Drawing.Size(50, 21);
@@ -2824,7 +2824,7 @@
             // 
             // txtOld030
             // 
-            this.txtOld030.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld030.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld030.Location = new System.Drawing.Point(135, 304);
             this.txtOld030.Name = "txtOld030";
             this.txtOld030.Size = new System.Drawing.Size(50, 21);
@@ -2850,7 +2850,7 @@
             // 
             // txtOld104
             // 
-            this.txtOld104.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld104.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld104.Location = new System.Drawing.Point(515, 118);
             this.txtOld104.Name = "txtOld104";
             this.txtOld104.Size = new System.Drawing.Size(50, 21);
@@ -2858,7 +2858,7 @@
             // 
             // txtOld040
             // 
-            this.txtOld040.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld040.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld040.Location = new System.Drawing.Point(135, 614);
             this.txtOld040.Name = "txtOld040";
             this.txtOld040.Size = new System.Drawing.Size(50, 21);
@@ -2875,7 +2875,7 @@
             // 
             // txtOld112
             // 
-            this.txtOld112.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld112.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld112.Location = new System.Drawing.Point(515, 366);
             this.txtOld112.Name = "txtOld112";
             this.txtOld112.Size = new System.Drawing.Size(50, 21);
@@ -2910,7 +2910,7 @@
             // 
             // txtOld041
             // 
-            this.txtOld041.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld041.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld041.Location = new System.Drawing.Point(230, 25);
             this.txtOld041.Name = "txtOld041";
             this.txtOld041.Size = new System.Drawing.Size(50, 21);
@@ -2918,7 +2918,7 @@
             // 
             // txtOld103
             // 
-            this.txtOld103.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld103.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld103.Location = new System.Drawing.Point(515, 87);
             this.txtOld103.Name = "txtOld103";
             this.txtOld103.Size = new System.Drawing.Size(50, 21);
@@ -2935,7 +2935,7 @@
             // 
             // txtOld111
             // 
-            this.txtOld111.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld111.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld111.Location = new System.Drawing.Point(515, 335);
             this.txtOld111.Name = "txtOld111";
             this.txtOld111.Size = new System.Drawing.Size(50, 21);
@@ -2970,7 +2970,7 @@
             // 
             // txtOld051
             // 
-            this.txtOld051.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld051.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld051.Location = new System.Drawing.Point(230, 335);
             this.txtOld051.Name = "txtOld051";
             this.txtOld051.Size = new System.Drawing.Size(50, 21);
@@ -2987,7 +2987,7 @@
             // 
             // txtOld102
             // 
-            this.txtOld102.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld102.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld102.Location = new System.Drawing.Point(515, 56);
             this.txtOld102.Name = "txtOld102";
             this.txtOld102.Size = new System.Drawing.Size(50, 21);
@@ -3031,7 +3031,7 @@
             // 
             // txtOld042
             // 
-            this.txtOld042.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld042.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld042.Location = new System.Drawing.Point(230, 56);
             this.txtOld042.Name = "txtOld042";
             this.txtOld042.Size = new System.Drawing.Size(50, 21);
@@ -3057,7 +3057,7 @@
             // 
             // txtOld101
             // 
-            this.txtOld101.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld101.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld101.Location = new System.Drawing.Point(515, 25);
             this.txtOld101.Name = "txtOld101";
             this.txtOld101.Size = new System.Drawing.Size(50, 21);
@@ -3083,7 +3083,7 @@
             // 
             // txtOld052
             // 
-            this.txtOld052.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld052.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld052.Location = new System.Drawing.Point(230, 366);
             this.txtOld052.Name = "txtOld052";
             this.txtOld052.Size = new System.Drawing.Size(50, 21);
@@ -3091,7 +3091,7 @@
             // 
             // txtOld100
             // 
-            this.txtOld100.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld100.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld100.Location = new System.Drawing.Point(420, 614);
             this.txtOld100.Name = "txtOld100";
             this.txtOld100.Size = new System.Drawing.Size(50, 21);
@@ -3126,7 +3126,7 @@
             // 
             // txtOld090
             // 
-            this.txtOld090.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld090.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld090.Location = new System.Drawing.Point(420, 304);
             this.txtOld090.Name = "txtOld090";
             this.txtOld090.Size = new System.Drawing.Size(50, 21);
@@ -3143,7 +3143,7 @@
             // 
             // txtOld043
             // 
-            this.txtOld043.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld043.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld043.Location = new System.Drawing.Point(230, 87);
             this.txtOld043.Name = "txtOld043";
             this.txtOld043.Size = new System.Drawing.Size(50, 21);
@@ -3151,7 +3151,7 @@
             // 
             // txtOld099
             // 
-            this.txtOld099.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld099.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld099.Location = new System.Drawing.Point(420, 583);
             this.txtOld099.Name = "txtOld099";
             this.txtOld099.Size = new System.Drawing.Size(50, 21);
@@ -3177,7 +3177,7 @@
             // 
             // txtOld053
             // 
-            this.txtOld053.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld053.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld053.Location = new System.Drawing.Point(230, 397);
             this.txtOld053.Name = "txtOld053";
             this.txtOld053.Size = new System.Drawing.Size(50, 21);
@@ -3194,7 +3194,7 @@
             // 
             // txtOld089
             // 
-            this.txtOld089.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld089.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld089.Location = new System.Drawing.Point(420, 273);
             this.txtOld089.Name = "txtOld089";
             this.txtOld089.Size = new System.Drawing.Size(50, 21);
@@ -3211,7 +3211,7 @@
             // 
             // txtOld098
             // 
-            this.txtOld098.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld098.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld098.Location = new System.Drawing.Point(420, 552);
             this.txtOld098.Name = "txtOld098";
             this.txtOld098.Size = new System.Drawing.Size(50, 21);
@@ -3219,7 +3219,7 @@
             // 
             // txtOld044
             // 
-            this.txtOld044.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld044.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld044.Location = new System.Drawing.Point(230, 118);
             this.txtOld044.Name = "txtOld044";
             this.txtOld044.Size = new System.Drawing.Size(50, 21);
@@ -3236,7 +3236,7 @@
             // 
             // txtOld054
             // 
-            this.txtOld054.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld054.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld054.Location = new System.Drawing.Point(230, 428);
             this.txtOld054.Name = "txtOld054";
             this.txtOld054.Size = new System.Drawing.Size(50, 21);
@@ -3262,7 +3262,7 @@
             // 
             // txtOld088
             // 
-            this.txtOld088.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld088.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld088.Location = new System.Drawing.Point(420, 242);
             this.txtOld088.Name = "txtOld088";
             this.txtOld088.Size = new System.Drawing.Size(50, 21);
@@ -3270,7 +3270,7 @@
             // 
             // txtOld097
             // 
-            this.txtOld097.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld097.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld097.Location = new System.Drawing.Point(420, 521);
             this.txtOld097.Name = "txtOld097";
             this.txtOld097.Size = new System.Drawing.Size(50, 21);
@@ -3278,7 +3278,7 @@
             // 
             // txtOld045
             // 
-            this.txtOld045.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld045.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld045.Location = new System.Drawing.Point(230, 149);
             this.txtOld045.Name = "txtOld045";
             this.txtOld045.Size = new System.Drawing.Size(50, 21);
@@ -3304,7 +3304,7 @@
             // 
             // txtOld055
             // 
-            this.txtOld055.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld055.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld055.Location = new System.Drawing.Point(230, 459);
             this.txtOld055.Name = "txtOld055";
             this.txtOld055.Size = new System.Drawing.Size(50, 21);
@@ -3321,7 +3321,7 @@
             // 
             // txtOld096
             // 
-            this.txtOld096.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld096.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld096.Location = new System.Drawing.Point(420, 490);
             this.txtOld096.Name = "txtOld096";
             this.txtOld096.Size = new System.Drawing.Size(50, 21);
@@ -3329,7 +3329,7 @@
             // 
             // txtOld087
             // 
-            this.txtOld087.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld087.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld087.Location = new System.Drawing.Point(420, 211);
             this.txtOld087.Name = "txtOld087";
             this.txtOld087.Size = new System.Drawing.Size(50, 21);
@@ -3364,7 +3364,7 @@
             // 
             // txtOld046
             // 
-            this.txtOld046.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld046.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld046.Location = new System.Drawing.Point(230, 180);
             this.txtOld046.Name = "txtOld046";
             this.txtOld046.Size = new System.Drawing.Size(50, 21);
@@ -3381,7 +3381,7 @@
             // 
             // txtOld095
             // 
-            this.txtOld095.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld095.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld095.Location = new System.Drawing.Point(420, 459);
             this.txtOld095.Name = "txtOld095";
             this.txtOld095.Size = new System.Drawing.Size(50, 21);
@@ -3398,7 +3398,7 @@
             // 
             // txtOld086
             // 
-            this.txtOld086.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld086.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld086.Location = new System.Drawing.Point(420, 180);
             this.txtOld086.Name = "txtOld086";
             this.txtOld086.Size = new System.Drawing.Size(50, 21);
@@ -3424,7 +3424,7 @@
             // 
             // txtOld056
             // 
-            this.txtOld056.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld056.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld056.Location = new System.Drawing.Point(230, 490);
             this.txtOld056.Name = "txtOld056";
             this.txtOld056.Size = new System.Drawing.Size(50, 21);
@@ -3441,7 +3441,7 @@
             // 
             // txtOld094
             // 
-            this.txtOld094.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld094.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld094.Location = new System.Drawing.Point(420, 428);
             this.txtOld094.Name = "txtOld094";
             this.txtOld094.Size = new System.Drawing.Size(50, 21);
@@ -3458,7 +3458,7 @@
             // 
             // txtOld047
             // 
-            this.txtOld047.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld047.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld047.Location = new System.Drawing.Point(230, 211);
             this.txtOld047.Name = "txtOld047";
             this.txtOld047.Size = new System.Drawing.Size(50, 21);
@@ -3466,7 +3466,7 @@
             // 
             // txtOld085
             // 
-            this.txtOld085.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld085.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld085.Location = new System.Drawing.Point(420, 149);
             this.txtOld085.Name = "txtOld085";
             this.txtOld085.Size = new System.Drawing.Size(50, 21);
@@ -3474,7 +3474,7 @@
             // 
             // txtOld057
             // 
-            this.txtOld057.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld057.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld057.Location = new System.Drawing.Point(230, 521);
             this.txtOld057.Name = "txtOld057";
             this.txtOld057.Size = new System.Drawing.Size(50, 21);
@@ -3482,7 +3482,7 @@
             // 
             // txtOld048
             // 
-            this.txtOld048.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld048.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld048.Location = new System.Drawing.Point(230, 242);
             this.txtOld048.Name = "txtOld048";
             this.txtOld048.Size = new System.Drawing.Size(50, 21);
@@ -3490,7 +3490,7 @@
             // 
             // txtOld058
             // 
-            this.txtOld058.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld058.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld058.Location = new System.Drawing.Point(230, 552);
             this.txtOld058.Name = "txtOld058";
             this.txtOld058.Size = new System.Drawing.Size(50, 21);
@@ -3498,7 +3498,7 @@
             // 
             // txtOld093
             // 
-            this.txtOld093.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld093.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld093.Location = new System.Drawing.Point(420, 397);
             this.txtOld093.Name = "txtOld093";
             this.txtOld093.Size = new System.Drawing.Size(50, 21);
@@ -3506,7 +3506,7 @@
             // 
             // txtOld049
             // 
-            this.txtOld049.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld049.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld049.Location = new System.Drawing.Point(230, 273);
             this.txtOld049.Name = "txtOld049";
             this.txtOld049.Size = new System.Drawing.Size(50, 21);
@@ -3514,7 +3514,7 @@
             // 
             // txtOld059
             // 
-            this.txtOld059.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld059.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld059.Location = new System.Drawing.Point(230, 583);
             this.txtOld059.Name = "txtOld059";
             this.txtOld059.Size = new System.Drawing.Size(50, 21);
@@ -3522,7 +3522,7 @@
             // 
             // txtOld050
             // 
-            this.txtOld050.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld050.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld050.Location = new System.Drawing.Point(230, 304);
             this.txtOld050.Name = "txtOld050";
             this.txtOld050.Size = new System.Drawing.Size(50, 21);
@@ -3530,7 +3530,7 @@
             // 
             // txtOld084
             // 
-            this.txtOld084.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld084.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld084.Location = new System.Drawing.Point(420, 118);
             this.txtOld084.Name = "txtOld084";
             this.txtOld084.Size = new System.Drawing.Size(50, 21);
@@ -3538,7 +3538,7 @@
             // 
             // txtOld060
             // 
-            this.txtOld060.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld060.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld060.Location = new System.Drawing.Point(230, 614);
             this.txtOld060.Name = "txtOld060";
             this.txtOld060.Size = new System.Drawing.Size(50, 21);
@@ -3546,7 +3546,7 @@
             // 
             // txtOld061
             // 
-            this.txtOld061.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld061.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld061.Location = new System.Drawing.Point(325, 25);
             this.txtOld061.Name = "txtOld061";
             this.txtOld061.Size = new System.Drawing.Size(50, 21);
@@ -3554,7 +3554,7 @@
             // 
             // txtOld092
             // 
-            this.txtOld092.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld092.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld092.Location = new System.Drawing.Point(420, 366);
             this.txtOld092.Name = "txtOld092";
             this.txtOld092.Size = new System.Drawing.Size(50, 21);
@@ -3562,7 +3562,7 @@
             // 
             // txtOld071
             // 
-            this.txtOld071.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld071.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld071.Location = new System.Drawing.Point(325, 335);
             this.txtOld071.Name = "txtOld071";
             this.txtOld071.Size = new System.Drawing.Size(50, 21);
@@ -3570,7 +3570,7 @@
             // 
             // txtOld062
             // 
-            this.txtOld062.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld062.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld062.Location = new System.Drawing.Point(325, 56);
             this.txtOld062.Name = "txtOld062";
             this.txtOld062.Size = new System.Drawing.Size(50, 21);
@@ -3578,7 +3578,7 @@
             // 
             // txtOld072
             // 
-            this.txtOld072.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld072.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld072.Location = new System.Drawing.Point(325, 366);
             this.txtOld072.Name = "txtOld072";
             this.txtOld072.Size = new System.Drawing.Size(50, 21);
@@ -3586,7 +3586,7 @@
             // 
             // txtOld063
             // 
-            this.txtOld063.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld063.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld063.Location = new System.Drawing.Point(325, 87);
             this.txtOld063.Name = "txtOld063";
             this.txtOld063.Size = new System.Drawing.Size(50, 21);
@@ -3594,7 +3594,7 @@
             // 
             // txtOld083
             // 
-            this.txtOld083.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld083.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld083.Location = new System.Drawing.Point(420, 87);
             this.txtOld083.Name = "txtOld083";
             this.txtOld083.Size = new System.Drawing.Size(50, 21);
@@ -3602,7 +3602,7 @@
             // 
             // txtOld073
             // 
-            this.txtOld073.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld073.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld073.Location = new System.Drawing.Point(325, 397);
             this.txtOld073.Name = "txtOld073";
             this.txtOld073.Size = new System.Drawing.Size(50, 21);
@@ -3610,7 +3610,7 @@
             // 
             // txtOld091
             // 
-            this.txtOld091.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld091.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld091.Location = new System.Drawing.Point(420, 335);
             this.txtOld091.Name = "txtOld091";
             this.txtOld091.Size = new System.Drawing.Size(50, 21);
@@ -3618,7 +3618,7 @@
             // 
             // txtOld064
             // 
-            this.txtOld064.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld064.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld064.Location = new System.Drawing.Point(325, 118);
             this.txtOld064.Name = "txtOld064";
             this.txtOld064.Size = new System.Drawing.Size(50, 21);
@@ -3626,7 +3626,7 @@
             // 
             // txtOld074
             // 
-            this.txtOld074.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld074.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld074.Location = new System.Drawing.Point(325, 428);
             this.txtOld074.Name = "txtOld074";
             this.txtOld074.Size = new System.Drawing.Size(50, 21);
@@ -3634,7 +3634,7 @@
             // 
             // txtOld065
             // 
-            this.txtOld065.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld065.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld065.Location = new System.Drawing.Point(325, 149);
             this.txtOld065.Name = "txtOld065";
             this.txtOld065.Size = new System.Drawing.Size(50, 21);
@@ -3642,7 +3642,7 @@
             // 
             // txtOld075
             // 
-            this.txtOld075.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld075.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld075.Location = new System.Drawing.Point(325, 459);
             this.txtOld075.Name = "txtOld075";
             this.txtOld075.Size = new System.Drawing.Size(50, 21);
@@ -3650,7 +3650,7 @@
             // 
             // txtOld066
             // 
-            this.txtOld066.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld066.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld066.Location = new System.Drawing.Point(325, 180);
             this.txtOld066.Name = "txtOld066";
             this.txtOld066.Size = new System.Drawing.Size(50, 21);
@@ -3658,7 +3658,7 @@
             // 
             // txtOld082
             // 
-            this.txtOld082.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld082.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld082.Location = new System.Drawing.Point(420, 56);
             this.txtOld082.Name = "txtOld082";
             this.txtOld082.Size = new System.Drawing.Size(50, 21);
@@ -3666,7 +3666,7 @@
             // 
             // txtOld076
             // 
-            this.txtOld076.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld076.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld076.Location = new System.Drawing.Point(325, 490);
             this.txtOld076.Name = "txtOld076";
             this.txtOld076.Size = new System.Drawing.Size(50, 21);
@@ -3674,7 +3674,7 @@
             // 
             // txtOld067
             // 
-            this.txtOld067.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld067.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld067.Location = new System.Drawing.Point(325, 211);
             this.txtOld067.Name = "txtOld067";
             this.txtOld067.Size = new System.Drawing.Size(50, 21);
@@ -3682,7 +3682,7 @@
             // 
             // txtOld077
             // 
-            this.txtOld077.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld077.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld077.Location = new System.Drawing.Point(325, 521);
             this.txtOld077.Name = "txtOld077";
             this.txtOld077.Size = new System.Drawing.Size(50, 21);
@@ -3690,7 +3690,7 @@
             // 
             // txtOld068
             // 
-            this.txtOld068.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld068.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld068.Location = new System.Drawing.Point(325, 242);
             this.txtOld068.Name = "txtOld068";
             this.txtOld068.Size = new System.Drawing.Size(50, 21);
@@ -3698,7 +3698,7 @@
             // 
             // txtOld078
             // 
-            this.txtOld078.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld078.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld078.Location = new System.Drawing.Point(325, 552);
             this.txtOld078.Name = "txtOld078";
             this.txtOld078.Size = new System.Drawing.Size(50, 21);
@@ -3706,7 +3706,7 @@
             // 
             // txtOld069
             // 
-            this.txtOld069.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld069.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld069.Location = new System.Drawing.Point(325, 273);
             this.txtOld069.Name = "txtOld069";
             this.txtOld069.Size = new System.Drawing.Size(50, 21);
@@ -3714,7 +3714,7 @@
             // 
             // txtOld079
             // 
-            this.txtOld079.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld079.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld079.Location = new System.Drawing.Point(325, 583);
             this.txtOld079.Name = "txtOld079";
             this.txtOld079.Size = new System.Drawing.Size(50, 21);
@@ -3722,7 +3722,7 @@
             // 
             // txtOld081
             // 
-            this.txtOld081.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld081.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld081.Location = new System.Drawing.Point(420, 25);
             this.txtOld081.Name = "txtOld081";
             this.txtOld081.Size = new System.Drawing.Size(50, 21);
@@ -3730,7 +3730,7 @@
             // 
             // txtOld070
             // 
-            this.txtOld070.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld070.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld070.Location = new System.Drawing.Point(325, 304);
             this.txtOld070.Name = "txtOld070";
             this.txtOld070.Size = new System.Drawing.Size(50, 21);
@@ -3738,7 +3738,7 @@
             // 
             // txtOld080
             // 
-            this.txtOld080.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOld080.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtOld080.Location = new System.Drawing.Point(325, 614);
             this.txtOld080.Name = "txtOld080";
             this.txtOld080.Size = new System.Drawing.Size(50, 21);
@@ -4066,7 +4066,7 @@
             this.grpNewBlkValue.Controls.Add(this.txtNWB081);
             this.grpNewBlkValue.Controls.Add(this.txtNWB079);
             this.grpNewBlkValue.Controls.Add(this.txtNWB080);
-            this.grpNewBlkValue.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.grpNewBlkValue.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.grpNewBlkValue.Location = new System.Drawing.Point(6, 109);
             this.grpNewBlkValue.Name = "grpNewBlkValue";
             this.grpNewBlkValue.Size = new System.Drawing.Size(780, 650);
@@ -4085,16 +4085,19 @@
             // 
             // txtNWB160
             // 
-            this.txtNWB160.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB160.BackColor = System.Drawing.Color.White;
+            this.txtNWB160.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB160.ForeColor = System.Drawing.Color.Black;
             this.txtNWB160.Location = new System.Drawing.Point(705, 614);
             this.txtNWB160.Name = "txtNWB160";
+            this.txtNWB160.ReadOnly = true;
             this.txtNWB160.Size = new System.Drawing.Size(50, 21);
             this.txtNWB160.TabIndex = 500;
             // 
             // lblNWB020
             // 
             this.lblNWB020.AutoSize = true;
-            this.lblNWB020.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblNWB020.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblNWB020.Location = new System.Drawing.Point(15, 619);
             this.lblNWB020.Name = "lblNWB020";
             this.lblNWB020.Size = new System.Drawing.Size(26, 12);
@@ -4121,16 +4124,19 @@
             // 
             // txtNWB150
             // 
-            this.txtNWB150.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB150.BackColor = System.Drawing.Color.White;
+            this.txtNWB150.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB150.ForeColor = System.Drawing.Color.Black;
             this.txtNWB150.Location = new System.Drawing.Point(705, 304);
             this.txtNWB150.Name = "txtNWB150";
+            this.txtNWB150.ReadOnly = true;
             this.txtNWB150.Size = new System.Drawing.Size(50, 21);
             this.txtNWB150.TabIndex = 490;
             // 
             // lblNWB019
             // 
             this.lblNWB019.AutoSize = true;
-            this.lblNWB019.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblNWB019.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblNWB019.Location = new System.Drawing.Point(15, 588);
             this.lblNWB019.Name = "lblNWB019";
             this.lblNWB019.Size = new System.Drawing.Size(26, 12);
@@ -4148,9 +4154,12 @@
             // 
             // txtNWB159
             // 
-            this.txtNWB159.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB159.BackColor = System.Drawing.Color.White;
+            this.txtNWB159.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB159.ForeColor = System.Drawing.Color.Black;
             this.txtNWB159.Location = new System.Drawing.Point(705, 583);
             this.txtNWB159.Name = "txtNWB159";
+            this.txtNWB159.ReadOnly = true;
             this.txtNWB159.Size = new System.Drawing.Size(50, 21);
             this.txtNWB159.TabIndex = 499;
             // 
@@ -4166,7 +4175,7 @@
             // lblNWB018
             // 
             this.lblNWB018.AutoSize = true;
-            this.lblNWB018.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblNWB018.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblNWB018.Location = new System.Drawing.Point(15, 557);
             this.lblNWB018.Name = "lblNWB018";
             this.lblNWB018.Size = new System.Drawing.Size(26, 12);
@@ -4193,9 +4202,12 @@
             // 
             // txtNWB149
             // 
-            this.txtNWB149.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB149.BackColor = System.Drawing.Color.White;
+            this.txtNWB149.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB149.ForeColor = System.Drawing.Color.Black;
             this.txtNWB149.Location = new System.Drawing.Point(705, 273);
             this.txtNWB149.Name = "txtNWB149";
+            this.txtNWB149.ReadOnly = true;
             this.txtNWB149.Size = new System.Drawing.Size(50, 21);
             this.txtNWB149.TabIndex = 489;
             // 
@@ -4210,9 +4222,12 @@
             // 
             // txtNWB158
             // 
-            this.txtNWB158.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB158.BackColor = System.Drawing.Color.White;
+            this.txtNWB158.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB158.ForeColor = System.Drawing.Color.Black;
             this.txtNWB158.Location = new System.Drawing.Point(705, 552);
             this.txtNWB158.Name = "txtNWB158";
+            this.txtNWB158.ReadOnly = true;
             this.txtNWB158.Size = new System.Drawing.Size(50, 21);
             this.txtNWB158.TabIndex = 498;
             // 
@@ -4228,7 +4243,7 @@
             // lblNWB016
             // 
             this.lblNWB016.AutoSize = true;
-            this.lblNWB016.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblNWB016.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblNWB016.Location = new System.Drawing.Point(15, 495);
             this.lblNWB016.Name = "lblNWB016";
             this.lblNWB016.Size = new System.Drawing.Size(26, 12);
@@ -4256,7 +4271,7 @@
             // lblNWB015
             // 
             this.lblNWB015.AutoSize = true;
-            this.lblNWB015.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblNWB015.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblNWB015.Location = new System.Drawing.Point(15, 464);
             this.lblNWB015.Name = "lblNWB015";
             this.lblNWB015.Size = new System.Drawing.Size(26, 12);
@@ -4265,17 +4280,23 @@
             // 
             // txtNWB148
             // 
-            this.txtNWB148.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB148.BackColor = System.Drawing.Color.White;
+            this.txtNWB148.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB148.ForeColor = System.Drawing.Color.Black;
             this.txtNWB148.Location = new System.Drawing.Point(705, 242);
             this.txtNWB148.Name = "txtNWB148";
+            this.txtNWB148.ReadOnly = true;
             this.txtNWB148.Size = new System.Drawing.Size(50, 21);
             this.txtNWB148.TabIndex = 488;
             // 
             // txtNWB157
             // 
-            this.txtNWB157.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB157.BackColor = System.Drawing.Color.White;
+            this.txtNWB157.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB157.ForeColor = System.Drawing.Color.Black;
             this.txtNWB157.Location = new System.Drawing.Point(705, 521);
             this.txtNWB157.Name = "txtNWB157";
+            this.txtNWB157.ReadOnly = true;
             this.txtNWB157.Size = new System.Drawing.Size(50, 21);
             this.txtNWB157.TabIndex = 497;
             // 
@@ -4291,7 +4312,7 @@
             // lblNWB014
             // 
             this.lblNWB014.AutoSize = true;
-            this.lblNWB014.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblNWB014.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblNWB014.Location = new System.Drawing.Point(15, 433);
             this.lblNWB014.Name = "lblNWB014";
             this.lblNWB014.Size = new System.Drawing.Size(26, 12);
@@ -4318,25 +4339,34 @@
             // 
             // txtNWB011
             // 
-            this.txtNWB011.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB011.BackColor = System.Drawing.Color.White;
+            this.txtNWB011.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB011.ForeColor = System.Drawing.Color.Black;
             this.txtNWB011.Location = new System.Drawing.Point(40, 335);
             this.txtNWB011.Name = "txtNWB011";
+            this.txtNWB011.ReadOnly = true;
             this.txtNWB011.Size = new System.Drawing.Size(50, 21);
             this.txtNWB011.TabIndex = 351;
             // 
             // txtNWB156
             // 
-            this.txtNWB156.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB156.BackColor = System.Drawing.Color.White;
+            this.txtNWB156.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB156.ForeColor = System.Drawing.Color.Black;
             this.txtNWB156.Location = new System.Drawing.Point(705, 490);
             this.txtNWB156.Name = "txtNWB156";
+            this.txtNWB156.ReadOnly = true;
             this.txtNWB156.Size = new System.Drawing.Size(50, 21);
             this.txtNWB156.TabIndex = 496;
             // 
             // txtNWB147
             // 
-            this.txtNWB147.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB147.BackColor = System.Drawing.Color.White;
+            this.txtNWB147.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB147.ForeColor = System.Drawing.Color.Black;
             this.txtNWB147.Location = new System.Drawing.Point(705, 211);
             this.txtNWB147.Name = "txtNWB147";
+            this.txtNWB147.ReadOnly = true;
             this.txtNWB147.Size = new System.Drawing.Size(50, 21);
             this.txtNWB147.TabIndex = 487;
             // 
@@ -4360,9 +4390,12 @@
             // 
             // txtNWB012
             // 
-            this.txtNWB012.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB012.BackColor = System.Drawing.Color.White;
+            this.txtNWB012.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB012.ForeColor = System.Drawing.Color.Black;
             this.txtNWB012.Location = new System.Drawing.Point(40, 366);
             this.txtNWB012.Name = "txtNWB012";
+            this.txtNWB012.ReadOnly = true;
             this.txtNWB012.Size = new System.Drawing.Size(50, 21);
             this.txtNWB012.TabIndex = 352;
             // 
@@ -4378,7 +4411,7 @@
             // lblNWB013
             // 
             this.lblNWB013.AutoSize = true;
-            this.lblNWB013.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblNWB013.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblNWB013.Location = new System.Drawing.Point(15, 402);
             this.lblNWB013.Name = "lblNWB013";
             this.lblNWB013.Size = new System.Drawing.Size(26, 12);
@@ -4387,9 +4420,12 @@
             // 
             // txtNWB155
             // 
-            this.txtNWB155.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB155.BackColor = System.Drawing.Color.White;
+            this.txtNWB155.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB155.ForeColor = System.Drawing.Color.Black;
             this.txtNWB155.Location = new System.Drawing.Point(705, 459);
             this.txtNWB155.Name = "txtNWB155";
+            this.txtNWB155.ReadOnly = true;
             this.txtNWB155.Size = new System.Drawing.Size(50, 21);
             this.txtNWB155.TabIndex = 495;
             // 
@@ -4404,24 +4440,30 @@
             // 
             // txtNWB146
             // 
-            this.txtNWB146.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB146.BackColor = System.Drawing.Color.White;
+            this.txtNWB146.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB146.ForeColor = System.Drawing.Color.Black;
             this.txtNWB146.Location = new System.Drawing.Point(705, 180);
             this.txtNWB146.Name = "txtNWB146";
+            this.txtNWB146.ReadOnly = true;
             this.txtNWB146.Size = new System.Drawing.Size(50, 21);
             this.txtNWB146.TabIndex = 486;
             // 
             // txtNWB013
             // 
-            this.txtNWB013.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB013.BackColor = System.Drawing.Color.White;
+            this.txtNWB013.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB013.ForeColor = System.Drawing.Color.Black;
             this.txtNWB013.Location = new System.Drawing.Point(40, 397);
             this.txtNWB013.Name = "txtNWB013";
+            this.txtNWB013.ReadOnly = true;
             this.txtNWB013.Size = new System.Drawing.Size(50, 21);
             this.txtNWB013.TabIndex = 353;
             // 
             // lblNWB012
             // 
             this.lblNWB012.AutoSize = true;
-            this.lblNWB012.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblNWB012.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblNWB012.Location = new System.Drawing.Point(15, 371);
             this.lblNWB012.Name = "lblNWB012";
             this.lblNWB012.Size = new System.Drawing.Size(26, 12);
@@ -4430,9 +4472,12 @@
             // 
             // txtNWB014
             // 
-            this.txtNWB014.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB014.BackColor = System.Drawing.Color.White;
+            this.txtNWB014.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB014.ForeColor = System.Drawing.Color.Black;
             this.txtNWB014.Location = new System.Drawing.Point(40, 428);
             this.txtNWB014.Name = "txtNWB014";
+            this.txtNWB014.ReadOnly = true;
             this.txtNWB014.Size = new System.Drawing.Size(50, 21);
             this.txtNWB014.TabIndex = 354;
             // 
@@ -4447,16 +4492,19 @@
             // 
             // txtNWB154
             // 
-            this.txtNWB154.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB154.BackColor = System.Drawing.Color.White;
+            this.txtNWB154.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB154.ForeColor = System.Drawing.Color.Black;
             this.txtNWB154.Location = new System.Drawing.Point(705, 428);
             this.txtNWB154.Name = "txtNWB154";
+            this.txtNWB154.ReadOnly = true;
             this.txtNWB154.Size = new System.Drawing.Size(50, 21);
             this.txtNWB154.TabIndex = 494;
             // 
             // lblNWB011
             // 
             this.lblNWB011.AutoSize = true;
-            this.lblNWB011.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblNWB011.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblNWB011.Location = new System.Drawing.Point(15, 340);
             this.lblNWB011.Name = "lblNWB011";
             this.lblNWB011.Size = new System.Drawing.Size(26, 12);
@@ -4465,25 +4513,34 @@
             // 
             // txtNWB015
             // 
-            this.txtNWB015.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB015.BackColor = System.Drawing.Color.White;
+            this.txtNWB015.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB015.ForeColor = System.Drawing.Color.Black;
             this.txtNWB015.Location = new System.Drawing.Point(40, 459);
             this.txtNWB015.Name = "txtNWB015";
+            this.txtNWB015.ReadOnly = true;
             this.txtNWB015.Size = new System.Drawing.Size(50, 21);
             this.txtNWB015.TabIndex = 355;
             // 
             // txtNWB145
             // 
-            this.txtNWB145.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB145.BackColor = System.Drawing.Color.White;
+            this.txtNWB145.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB145.ForeColor = System.Drawing.Color.Black;
             this.txtNWB145.Location = new System.Drawing.Point(705, 149);
             this.txtNWB145.Name = "txtNWB145";
+            this.txtNWB145.ReadOnly = true;
             this.txtNWB145.Size = new System.Drawing.Size(50, 21);
             this.txtNWB145.TabIndex = 485;
             // 
             // txtNWB010
             // 
-            this.txtNWB010.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB010.BackColor = System.Drawing.Color.White;
+            this.txtNWB010.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB010.ForeColor = System.Drawing.Color.Black;
             this.txtNWB010.Location = new System.Drawing.Point(40, 304);
             this.txtNWB010.Name = "txtNWB010";
+            this.txtNWB010.ReadOnly = true;
             this.txtNWB010.Size = new System.Drawing.Size(50, 21);
             this.txtNWB010.TabIndex = 390;
             // 
@@ -4498,24 +4555,30 @@
             // 
             // txtNWB016
             // 
-            this.txtNWB016.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB016.BackColor = System.Drawing.Color.White;
+            this.txtNWB016.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB016.ForeColor = System.Drawing.Color.Black;
             this.txtNWB016.Location = new System.Drawing.Point(40, 490);
             this.txtNWB016.Name = "txtNWB016";
+            this.txtNWB016.ReadOnly = true;
             this.txtNWB016.Size = new System.Drawing.Size(50, 21);
             this.txtNWB016.TabIndex = 356;
             // 
             // txtNWB153
             // 
-            this.txtNWB153.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB153.BackColor = System.Drawing.Color.White;
+            this.txtNWB153.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB153.ForeColor = System.Drawing.Color.Black;
             this.txtNWB153.Location = new System.Drawing.Point(705, 397);
             this.txtNWB153.Name = "txtNWB153";
+            this.txtNWB153.ReadOnly = true;
             this.txtNWB153.Size = new System.Drawing.Size(50, 21);
             this.txtNWB153.TabIndex = 493;
             // 
             // lblNWB010
             // 
             this.lblNWB010.AutoSize = true;
-            this.lblNWB010.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblNWB010.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblNWB010.Location = new System.Drawing.Point(15, 309);
             this.lblNWB010.Name = "lblNWB010";
             this.lblNWB010.Size = new System.Drawing.Size(26, 12);
@@ -4524,16 +4587,19 @@
             // 
             // txtNWB017
             // 
-            this.txtNWB017.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB017.BackColor = System.Drawing.Color.White;
+            this.txtNWB017.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB017.ForeColor = System.Drawing.Color.Black;
             this.txtNWB017.Location = new System.Drawing.Point(40, 521);
             this.txtNWB017.Name = "txtNWB017";
+            this.txtNWB017.ReadOnly = true;
             this.txtNWB017.Size = new System.Drawing.Size(50, 21);
             this.txtNWB017.TabIndex = 357;
             // 
             // lblNWB141
             // 
             this.lblNWB141.AutoSize = true;
-            this.lblNWB141.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblNWB141.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblNWB141.Location = new System.Drawing.Point(680, 30);
             this.lblNWB141.Name = "lblNWB141";
             this.lblNWB141.Size = new System.Drawing.Size(26, 12);
@@ -4542,17 +4608,23 @@
             // 
             // txtNWB144
             // 
-            this.txtNWB144.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB144.BackColor = System.Drawing.Color.White;
+            this.txtNWB144.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB144.ForeColor = System.Drawing.Color.Black;
             this.txtNWB144.Location = new System.Drawing.Point(705, 118);
             this.txtNWB144.Name = "txtNWB144";
+            this.txtNWB144.ReadOnly = true;
             this.txtNWB144.Size = new System.Drawing.Size(50, 21);
             this.txtNWB144.TabIndex = 484;
             // 
             // txtNWB009
             // 
-            this.txtNWB009.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB009.BackColor = System.Drawing.Color.White;
+            this.txtNWB009.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB009.ForeColor = System.Drawing.Color.Black;
             this.txtNWB009.Location = new System.Drawing.Point(40, 273);
             this.txtNWB009.Name = "txtNWB009";
+            this.txtNWB009.ReadOnly = true;
             this.txtNWB009.Size = new System.Drawing.Size(50, 21);
             this.txtNWB009.TabIndex = 388;
             // 
@@ -4567,17 +4639,23 @@
             // 
             // txtNWB152
             // 
-            this.txtNWB152.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB152.BackColor = System.Drawing.Color.White;
+            this.txtNWB152.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB152.ForeColor = System.Drawing.Color.Black;
             this.txtNWB152.Location = new System.Drawing.Point(705, 366);
             this.txtNWB152.Name = "txtNWB152";
+            this.txtNWB152.ReadOnly = true;
             this.txtNWB152.Size = new System.Drawing.Size(50, 21);
             this.txtNWB152.TabIndex = 492;
             // 
             // txtNWB018
             // 
-            this.txtNWB018.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB018.BackColor = System.Drawing.Color.White;
+            this.txtNWB018.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB018.ForeColor = System.Drawing.Color.Black;
             this.txtNWB018.Location = new System.Drawing.Point(40, 552);
             this.txtNWB018.Name = "txtNWB018";
+            this.txtNWB018.ReadOnly = true;
             this.txtNWB018.Size = new System.Drawing.Size(50, 21);
             this.txtNWB018.TabIndex = 358;
             // 
@@ -4602,7 +4680,7 @@
             // lblNWB009
             // 
             this.lblNWB009.AutoSize = true;
-            this.lblNWB009.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblNWB009.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblNWB009.Location = new System.Drawing.Point(15, 278);
             this.lblNWB009.Name = "lblNWB009";
             this.lblNWB009.Size = new System.Drawing.Size(26, 12);
@@ -4611,9 +4689,12 @@
             // 
             // txtNWB143
             // 
-            this.txtNWB143.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB143.BackColor = System.Drawing.Color.White;
+            this.txtNWB143.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB143.ForeColor = System.Drawing.Color.Black;
             this.txtNWB143.Location = new System.Drawing.Point(705, 87);
             this.txtNWB143.Name = "txtNWB143";
+            this.txtNWB143.ReadOnly = true;
             this.txtNWB143.Size = new System.Drawing.Size(50, 21);
             this.txtNWB143.TabIndex = 483;
             // 
@@ -4628,9 +4709,12 @@
             // 
             // txtNWB151
             // 
-            this.txtNWB151.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB151.BackColor = System.Drawing.Color.White;
+            this.txtNWB151.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB151.ForeColor = System.Drawing.Color.Black;
             this.txtNWB151.Location = new System.Drawing.Point(705, 335);
             this.txtNWB151.Name = "txtNWB151";
+            this.txtNWB151.ReadOnly = true;
             this.txtNWB151.Size = new System.Drawing.Size(50, 21);
             this.txtNWB151.TabIndex = 491;
             // 
@@ -4645,9 +4729,12 @@
             // 
             // txtNWB019
             // 
-            this.txtNWB019.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB019.BackColor = System.Drawing.Color.White;
+            this.txtNWB019.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB019.ForeColor = System.Drawing.Color.Black;
             this.txtNWB019.Location = new System.Drawing.Point(40, 583);
             this.txtNWB019.Name = "txtNWB019";
+            this.txtNWB019.ReadOnly = true;
             this.txtNWB019.Size = new System.Drawing.Size(50, 21);
             this.txtNWB019.TabIndex = 359;
             // 
@@ -4662,9 +4749,12 @@
             // 
             // txtNWB008
             // 
-            this.txtNWB008.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB008.BackColor = System.Drawing.Color.White;
+            this.txtNWB008.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB008.ForeColor = System.Drawing.Color.Black;
             this.txtNWB008.Location = new System.Drawing.Point(40, 242);
             this.txtNWB008.Name = "txtNWB008";
+            this.txtNWB008.ReadOnly = true;
             this.txtNWB008.Size = new System.Drawing.Size(50, 21);
             this.txtNWB008.TabIndex = 386;
             // 
@@ -4679,9 +4769,13 @@
             // 
             // txtNWB142
             // 
-            this.txtNWB142.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB142.BackColor = System.Drawing.Color.White;
+            this.txtNWB142.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB142.ForeColor = System.Drawing.Color.Black;
             this.txtNWB142.Location = new System.Drawing.Point(705, 56);
+            this.txtNWB142.Multiline = true;
             this.txtNWB142.Name = "txtNWB142";
+            this.txtNWB142.ReadOnly = true;
             this.txtNWB142.Size = new System.Drawing.Size(50, 21);
             this.txtNWB142.TabIndex = 482;
             // 
@@ -4696,9 +4790,12 @@
             // 
             // txtNWB020
             // 
-            this.txtNWB020.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB020.BackColor = System.Drawing.Color.White;
+            this.txtNWB020.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB020.ForeColor = System.Drawing.Color.Black;
             this.txtNWB020.Location = new System.Drawing.Point(40, 614);
             this.txtNWB020.Name = "txtNWB020";
+            this.txtNWB020.ReadOnly = true;
             this.txtNWB020.Size = new System.Drawing.Size(50, 21);
             this.txtNWB020.TabIndex = 360;
             // 
@@ -4723,7 +4820,7 @@
             // lblNWB008
             // 
             this.lblNWB008.AutoSize = true;
-            this.lblNWB008.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblNWB008.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblNWB008.Location = new System.Drawing.Point(15, 247);
             this.lblNWB008.Name = "lblNWB008";
             this.lblNWB008.Size = new System.Drawing.Size(26, 12);
@@ -4741,17 +4838,23 @@
             // 
             // txtNWB007
             // 
-            this.txtNWB007.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB007.BackColor = System.Drawing.Color.White;
+            this.txtNWB007.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB007.ForeColor = System.Drawing.Color.Black;
             this.txtNWB007.Location = new System.Drawing.Point(40, 211);
             this.txtNWB007.Name = "txtNWB007";
+            this.txtNWB007.ReadOnly = true;
             this.txtNWB007.Size = new System.Drawing.Size(50, 21);
             this.txtNWB007.TabIndex = 384;
             // 
             // txtNWB141
             // 
-            this.txtNWB141.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB141.BackColor = System.Drawing.Color.White;
+            this.txtNWB141.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB141.ForeColor = System.Drawing.Color.Black;
             this.txtNWB141.Location = new System.Drawing.Point(705, 25);
             this.txtNWB141.Name = "txtNWB141";
+            this.txtNWB141.ReadOnly = true;
             this.txtNWB141.Size = new System.Drawing.Size(50, 21);
             this.txtNWB141.TabIndex = 481;
             // 
@@ -4776,7 +4879,7 @@
             // lblNWB007
             // 
             this.lblNWB007.AutoSize = true;
-            this.lblNWB007.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblNWB007.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblNWB007.Location = new System.Drawing.Point(15, 216);
             this.lblNWB007.Name = "lblNWB007";
             this.lblNWB007.Size = new System.Drawing.Size(26, 12);
@@ -4785,9 +4888,12 @@
             // 
             // txtNWB140
             // 
-            this.txtNWB140.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB140.BackColor = System.Drawing.Color.White;
+            this.txtNWB140.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB140.ForeColor = System.Drawing.Color.Black;
             this.txtNWB140.Location = new System.Drawing.Point(610, 614);
             this.txtNWB140.Name = "txtNWB140";
+            this.txtNWB140.ReadOnly = true;
             this.txtNWB140.Size = new System.Drawing.Size(50, 21);
             this.txtNWB140.TabIndex = 480;
             // 
@@ -4811,17 +4917,23 @@
             // 
             // txtNWB006
             // 
-            this.txtNWB006.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB006.BackColor = System.Drawing.Color.White;
+            this.txtNWB006.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB006.ForeColor = System.Drawing.Color.Black;
             this.txtNWB006.Location = new System.Drawing.Point(40, 180);
             this.txtNWB006.Name = "txtNWB006";
+            this.txtNWB006.ReadOnly = true;
             this.txtNWB006.Size = new System.Drawing.Size(50, 21);
             this.txtNWB006.TabIndex = 382;
             // 
             // txtNWB130
             // 
-            this.txtNWB130.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB130.BackColor = System.Drawing.Color.White;
+            this.txtNWB130.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB130.ForeColor = System.Drawing.Color.Black;
             this.txtNWB130.Location = new System.Drawing.Point(610, 304);
             this.txtNWB130.Name = "txtNWB130";
+            this.txtNWB130.ReadOnly = true;
             this.txtNWB130.Size = new System.Drawing.Size(50, 21);
             this.txtNWB130.TabIndex = 470;
             // 
@@ -4837,7 +4949,7 @@
             // lblNWB006
             // 
             this.lblNWB006.AutoSize = true;
-            this.lblNWB006.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblNWB006.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblNWB006.Location = new System.Drawing.Point(15, 185);
             this.lblNWB006.Name = "lblNWB006";
             this.lblNWB006.Size = new System.Drawing.Size(26, 12);
@@ -4846,9 +4958,12 @@
             // 
             // txtNWB139
             // 
-            this.txtNWB139.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB139.BackColor = System.Drawing.Color.White;
+            this.txtNWB139.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB139.ForeColor = System.Drawing.Color.Black;
             this.txtNWB139.Location = new System.Drawing.Point(610, 583);
             this.txtNWB139.Name = "txtNWB139";
+            this.txtNWB139.ReadOnly = true;
             this.txtNWB139.Size = new System.Drawing.Size(50, 21);
             this.txtNWB139.TabIndex = 479;
             // 
@@ -4863,16 +4978,19 @@
             // 
             // txtNWB005
             // 
-            this.txtNWB005.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB005.BackColor = System.Drawing.Color.White;
+            this.txtNWB005.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB005.ForeColor = System.Drawing.Color.Black;
             this.txtNWB005.Location = new System.Drawing.Point(40, 149);
             this.txtNWB005.Name = "txtNWB005";
+            this.txtNWB005.ReadOnly = true;
             this.txtNWB005.Size = new System.Drawing.Size(50, 21);
             this.txtNWB005.TabIndex = 380;
             // 
             // lblNWB005
             // 
             this.lblNWB005.AutoSize = true;
-            this.lblNWB005.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblNWB005.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblNWB005.Location = new System.Drawing.Point(15, 154);
             this.lblNWB005.Name = "lblNWB005";
             this.lblNWB005.Size = new System.Drawing.Size(26, 12);
@@ -4881,17 +4999,23 @@
             // 
             // txtNWB004
             // 
-            this.txtNWB004.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB004.BackColor = System.Drawing.Color.White;
+            this.txtNWB004.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB004.ForeColor = System.Drawing.Color.Black;
             this.txtNWB004.Location = new System.Drawing.Point(40, 118);
             this.txtNWB004.Name = "txtNWB004";
+            this.txtNWB004.ReadOnly = true;
             this.txtNWB004.Size = new System.Drawing.Size(50, 21);
             this.txtNWB004.TabIndex = 378;
             // 
             // txtNWB129
             // 
-            this.txtNWB129.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB129.BackColor = System.Drawing.Color.White;
+            this.txtNWB129.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB129.ForeColor = System.Drawing.Color.Black;
             this.txtNWB129.Location = new System.Drawing.Point(610, 273);
             this.txtNWB129.Name = "txtNWB129";
+            this.txtNWB129.ReadOnly = true;
             this.txtNWB129.Size = new System.Drawing.Size(50, 21);
             this.txtNWB129.TabIndex = 469;
             // 
@@ -4906,16 +5030,19 @@
             // 
             // txtNWB138
             // 
-            this.txtNWB138.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB138.BackColor = System.Drawing.Color.White;
+            this.txtNWB138.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB138.ForeColor = System.Drawing.Color.Black;
             this.txtNWB138.Location = new System.Drawing.Point(610, 552);
             this.txtNWB138.Name = "txtNWB138";
+            this.txtNWB138.ReadOnly = true;
             this.txtNWB138.Size = new System.Drawing.Size(50, 21);
             this.txtNWB138.TabIndex = 478;
             // 
             // lblNWB004
             // 
             this.lblNWB004.AutoSize = true;
-            this.lblNWB004.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblNWB004.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblNWB004.Location = new System.Drawing.Point(15, 123);
             this.lblNWB004.Name = "lblNWB004";
             this.lblNWB004.Size = new System.Drawing.Size(26, 12);
@@ -4924,16 +5051,19 @@
             // 
             // txtNWB003
             // 
-            this.txtNWB003.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB003.BackColor = System.Drawing.Color.White;
+            this.txtNWB003.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB003.ForeColor = System.Drawing.Color.Black;
             this.txtNWB003.Location = new System.Drawing.Point(40, 87);
             this.txtNWB003.Name = "txtNWB003";
+            this.txtNWB003.ReadOnly = true;
             this.txtNWB003.Size = new System.Drawing.Size(50, 21);
             this.txtNWB003.TabIndex = 376;
             // 
             // lblNWB003
             // 
             this.lblNWB003.AutoSize = true;
-            this.lblNWB003.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblNWB003.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblNWB003.Location = new System.Drawing.Point(15, 92);
             this.lblNWB003.Name = "lblNWB003";
             this.lblNWB003.Size = new System.Drawing.Size(26, 12);
@@ -4951,32 +5081,41 @@
             // 
             // txtNWB002
             // 
-            this.txtNWB002.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB002.BackColor = System.Drawing.Color.White;
+            this.txtNWB002.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB002.ForeColor = System.Drawing.Color.Black;
             this.txtNWB002.Location = new System.Drawing.Point(40, 56);
             this.txtNWB002.Name = "txtNWB002";
+            this.txtNWB002.ReadOnly = true;
             this.txtNWB002.Size = new System.Drawing.Size(50, 21);
             this.txtNWB002.TabIndex = 374;
             // 
             // txtNWB128
             // 
-            this.txtNWB128.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB128.BackColor = System.Drawing.Color.White;
+            this.txtNWB128.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB128.ForeColor = System.Drawing.Color.Black;
             this.txtNWB128.Location = new System.Drawing.Point(610, 242);
             this.txtNWB128.Name = "txtNWB128";
+            this.txtNWB128.ReadOnly = true;
             this.txtNWB128.Size = new System.Drawing.Size(50, 21);
             this.txtNWB128.TabIndex = 468;
             // 
             // txtNWB137
             // 
-            this.txtNWB137.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB137.BackColor = System.Drawing.Color.White;
+            this.txtNWB137.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB137.ForeColor = System.Drawing.Color.Black;
             this.txtNWB137.Location = new System.Drawing.Point(610, 521);
             this.txtNWB137.Name = "txtNWB137";
+            this.txtNWB137.ReadOnly = true;
             this.txtNWB137.Size = new System.Drawing.Size(50, 21);
             this.txtNWB137.TabIndex = 477;
             // 
             // lblNWB002
             // 
             this.lblNWB002.AutoSize = true;
-            this.lblNWB002.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblNWB002.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblNWB002.Location = new System.Drawing.Point(15, 61);
             this.lblNWB002.Name = "lblNWB002";
             this.lblNWB002.Size = new System.Drawing.Size(26, 12);
@@ -4985,10 +5124,13 @@
             // 
             // txtNWB001
             // 
-            this.txtNWB001.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB001.BackColor = System.Drawing.Color.White;
+            this.txtNWB001.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB001.ForeColor = System.Drawing.Color.Black;
             this.txtNWB001.Location = new System.Drawing.Point(40, 25);
             this.txtNWB001.Name = "txtNWB001";
-            this.txtNWB001.Size = new System.Drawing.Size(50, 21);
+            this.txtNWB001.ReadOnly = true;
+            this.txtNWB001.Size = new System.Drawing.Size(50, 22);
             this.txtNWB001.TabIndex = 372;
             // 
             // lblNWB121
@@ -5003,7 +5145,7 @@
             // lblNWB001
             // 
             this.lblNWB001.AutoSize = true;
-            this.lblNWB001.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblNWB001.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblNWB001.Location = new System.Drawing.Point(15, 30);
             this.lblNWB001.Name = "lblNWB001";
             this.lblNWB001.Size = new System.Drawing.Size(26, 12);
@@ -5021,17 +5163,23 @@
             // 
             // txtNWB136
             // 
-            this.txtNWB136.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB136.BackColor = System.Drawing.Color.White;
+            this.txtNWB136.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB136.ForeColor = System.Drawing.Color.Black;
             this.txtNWB136.Location = new System.Drawing.Point(610, 490);
             this.txtNWB136.Name = "txtNWB136";
+            this.txtNWB136.ReadOnly = true;
             this.txtNWB136.Size = new System.Drawing.Size(50, 21);
             this.txtNWB136.TabIndex = 476;
             // 
             // txtNWB127
             // 
-            this.txtNWB127.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB127.BackColor = System.Drawing.Color.White;
+            this.txtNWB127.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB127.ForeColor = System.Drawing.Color.Black;
             this.txtNWB127.Location = new System.Drawing.Point(610, 211);
             this.txtNWB127.Name = "txtNWB127";
+            this.txtNWB127.ReadOnly = true;
             this.txtNWB127.Size = new System.Drawing.Size(50, 21);
             this.txtNWB127.TabIndex = 467;
             // 
@@ -5064,9 +5212,12 @@
             // 
             // txtNWB021
             // 
-            this.txtNWB021.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB021.BackColor = System.Drawing.Color.White;
+            this.txtNWB021.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB021.ForeColor = System.Drawing.Color.Black;
             this.txtNWB021.Location = new System.Drawing.Point(135, 25);
             this.txtNWB021.Name = "txtNWB021";
+            this.txtNWB021.ReadOnly = true;
             this.txtNWB021.Size = new System.Drawing.Size(50, 21);
             this.txtNWB021.TabIndex = 361;
             // 
@@ -5081,9 +5232,12 @@
             // 
             // txtNWB135
             // 
-            this.txtNWB135.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB135.BackColor = System.Drawing.Color.White;
+            this.txtNWB135.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB135.ForeColor = System.Drawing.Color.Black;
             this.txtNWB135.Location = new System.Drawing.Point(610, 459);
             this.txtNWB135.Name = "txtNWB135";
+            this.txtNWB135.ReadOnly = true;
             this.txtNWB135.Size = new System.Drawing.Size(50, 21);
             this.txtNWB135.TabIndex = 475;
             // 
@@ -5098,9 +5252,12 @@
             // 
             // txtNWB126
             // 
-            this.txtNWB126.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB126.BackColor = System.Drawing.Color.White;
+            this.txtNWB126.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB126.ForeColor = System.Drawing.Color.Black;
             this.txtNWB126.Location = new System.Drawing.Point(610, 180);
             this.txtNWB126.Name = "txtNWB126";
+            this.txtNWB126.ReadOnly = true;
             this.txtNWB126.Size = new System.Drawing.Size(50, 21);
             this.txtNWB126.TabIndex = 466;
             // 
@@ -5124,9 +5281,12 @@
             // 
             // txtNWB022
             // 
-            this.txtNWB022.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB022.BackColor = System.Drawing.Color.White;
+            this.txtNWB022.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB022.ForeColor = System.Drawing.Color.Black;
             this.txtNWB022.Location = new System.Drawing.Point(135, 56);
             this.txtNWB022.Name = "txtNWB022";
+            this.txtNWB022.ReadOnly = true;
             this.txtNWB022.Size = new System.Drawing.Size(50, 21);
             this.txtNWB022.TabIndex = 362;
             // 
@@ -5141,9 +5301,12 @@
             // 
             // txtNWB134
             // 
-            this.txtNWB134.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB134.BackColor = System.Drawing.Color.White;
+            this.txtNWB134.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB134.ForeColor = System.Drawing.Color.Black;
             this.txtNWB134.Location = new System.Drawing.Point(610, 428);
             this.txtNWB134.Name = "txtNWB134";
+            this.txtNWB134.ReadOnly = true;
             this.txtNWB134.Size = new System.Drawing.Size(50, 21);
             this.txtNWB134.TabIndex = 474;
             // 
@@ -5158,17 +5321,23 @@
             // 
             // txtNWB023
             // 
-            this.txtNWB023.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB023.BackColor = System.Drawing.Color.White;
+            this.txtNWB023.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB023.ForeColor = System.Drawing.Color.Black;
             this.txtNWB023.Location = new System.Drawing.Point(135, 87);
             this.txtNWB023.Name = "txtNWB023";
+            this.txtNWB023.ReadOnly = true;
             this.txtNWB023.Size = new System.Drawing.Size(50, 21);
             this.txtNWB023.TabIndex = 363;
             // 
             // txtNWB125
             // 
-            this.txtNWB125.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB125.BackColor = System.Drawing.Color.White;
+            this.txtNWB125.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB125.ForeColor = System.Drawing.Color.Black;
             this.txtNWB125.Location = new System.Drawing.Point(610, 149);
             this.txtNWB125.Name = "txtNWB125";
+            this.txtNWB125.ReadOnly = true;
             this.txtNWB125.Size = new System.Drawing.Size(50, 21);
             this.txtNWB125.TabIndex = 465;
             // 
@@ -5201,9 +5370,12 @@
             // 
             // txtNWB133
             // 
-            this.txtNWB133.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB133.BackColor = System.Drawing.Color.White;
+            this.txtNWB133.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB133.ForeColor = System.Drawing.Color.Black;
             this.txtNWB133.Location = new System.Drawing.Point(610, 397);
             this.txtNWB133.Name = "txtNWB133";
+            this.txtNWB133.ReadOnly = true;
             this.txtNWB133.Size = new System.Drawing.Size(50, 21);
             this.txtNWB133.TabIndex = 473;
             // 
@@ -5218,9 +5390,12 @@
             // 
             // txtNWB024
             // 
-            this.txtNWB024.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB024.BackColor = System.Drawing.Color.White;
+            this.txtNWB024.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB024.ForeColor = System.Drawing.Color.Black;
             this.txtNWB024.Location = new System.Drawing.Point(135, 118);
             this.txtNWB024.Name = "txtNWB024";
+            this.txtNWB024.ReadOnly = true;
             this.txtNWB024.Size = new System.Drawing.Size(50, 21);
             this.txtNWB024.TabIndex = 364;
             // 
@@ -5235,9 +5410,12 @@
             // 
             // txtNWB124
             // 
-            this.txtNWB124.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB124.BackColor = System.Drawing.Color.White;
+            this.txtNWB124.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB124.ForeColor = System.Drawing.Color.Black;
             this.txtNWB124.Location = new System.Drawing.Point(610, 118);
             this.txtNWB124.Name = "txtNWB124";
+            this.txtNWB124.ReadOnly = true;
             this.txtNWB124.Size = new System.Drawing.Size(50, 21);
             this.txtNWB124.TabIndex = 464;
             // 
@@ -5261,9 +5439,12 @@
             // 
             // txtNWB132
             // 
-            this.txtNWB132.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB132.BackColor = System.Drawing.Color.White;
+            this.txtNWB132.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB132.ForeColor = System.Drawing.Color.Black;
             this.txtNWB132.Location = new System.Drawing.Point(610, 366);
             this.txtNWB132.Name = "txtNWB132";
+            this.txtNWB132.ReadOnly = true;
             this.txtNWB132.Size = new System.Drawing.Size(50, 21);
             this.txtNWB132.TabIndex = 472;
             // 
@@ -5287,9 +5468,12 @@
             // 
             // txtNWB025
             // 
-            this.txtNWB025.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB025.BackColor = System.Drawing.Color.White;
+            this.txtNWB025.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB025.ForeColor = System.Drawing.Color.Black;
             this.txtNWB025.Location = new System.Drawing.Point(135, 149);
             this.txtNWB025.Name = "txtNWB025";
+            this.txtNWB025.ReadOnly = true;
             this.txtNWB025.Size = new System.Drawing.Size(50, 21);
             this.txtNWB025.TabIndex = 365;
             // 
@@ -5304,9 +5488,12 @@
             // 
             // txtNWB123
             // 
-            this.txtNWB123.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB123.BackColor = System.Drawing.Color.White;
+            this.txtNWB123.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB123.ForeColor = System.Drawing.Color.Black;
             this.txtNWB123.Location = new System.Drawing.Point(610, 87);
             this.txtNWB123.Name = "txtNWB123";
+            this.txtNWB123.ReadOnly = true;
             this.txtNWB123.Size = new System.Drawing.Size(50, 21);
             this.txtNWB123.TabIndex = 463;
             // 
@@ -5321,9 +5508,12 @@
             // 
             // txtNWB131
             // 
-            this.txtNWB131.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB131.BackColor = System.Drawing.Color.White;
+            this.txtNWB131.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB131.ForeColor = System.Drawing.Color.Black;
             this.txtNWB131.Location = new System.Drawing.Point(610, 335);
             this.txtNWB131.Name = "txtNWB131";
+            this.txtNWB131.ReadOnly = true;
             this.txtNWB131.Size = new System.Drawing.Size(50, 21);
             this.txtNWB131.TabIndex = 471;
             // 
@@ -5338,9 +5528,12 @@
             // 
             // txtNWB026
             // 
-            this.txtNWB026.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB026.BackColor = System.Drawing.Color.White;
+            this.txtNWB026.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB026.ForeColor = System.Drawing.Color.Black;
             this.txtNWB026.Location = new System.Drawing.Point(135, 180);
             this.txtNWB026.Name = "txtNWB026";
+            this.txtNWB026.ReadOnly = true;
             this.txtNWB026.Size = new System.Drawing.Size(50, 21);
             this.txtNWB026.TabIndex = 366;
             // 
@@ -5355,9 +5548,12 @@
             // 
             // txtNWB027
             // 
-            this.txtNWB027.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB027.BackColor = System.Drawing.Color.White;
+            this.txtNWB027.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB027.ForeColor = System.Drawing.Color.Black;
             this.txtNWB027.Location = new System.Drawing.Point(135, 211);
             this.txtNWB027.Name = "txtNWB027";
+            this.txtNWB027.ReadOnly = true;
             this.txtNWB027.Size = new System.Drawing.Size(50, 21);
             this.txtNWB027.TabIndex = 367;
             // 
@@ -5372,9 +5568,12 @@
             // 
             // txtNWB122
             // 
-            this.txtNWB122.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB122.BackColor = System.Drawing.Color.White;
+            this.txtNWB122.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB122.ForeColor = System.Drawing.Color.Black;
             this.txtNWB122.Location = new System.Drawing.Point(610, 56);
             this.txtNWB122.Name = "txtNWB122";
+            this.txtNWB122.ReadOnly = true;
             this.txtNWB122.Size = new System.Drawing.Size(50, 21);
             this.txtNWB122.TabIndex = 462;
             // 
@@ -5389,9 +5588,12 @@
             // 
             // txtNWB028
             // 
-            this.txtNWB028.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB028.BackColor = System.Drawing.Color.White;
+            this.txtNWB028.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB028.ForeColor = System.Drawing.Color.Black;
             this.txtNWB028.Location = new System.Drawing.Point(135, 242);
             this.txtNWB028.Name = "txtNWB028";
+            this.txtNWB028.ReadOnly = true;
             this.txtNWB028.Size = new System.Drawing.Size(50, 21);
             this.txtNWB028.TabIndex = 368;
             // 
@@ -5415,9 +5617,12 @@
             // 
             // txtNWB029
             // 
-            this.txtNWB029.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB029.BackColor = System.Drawing.Color.White;
+            this.txtNWB029.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB029.ForeColor = System.Drawing.Color.Black;
             this.txtNWB029.Location = new System.Drawing.Point(135, 273);
             this.txtNWB029.Name = "txtNWB029";
+            this.txtNWB029.ReadOnly = true;
             this.txtNWB029.Size = new System.Drawing.Size(50, 21);
             this.txtNWB029.TabIndex = 369;
             // 
@@ -5441,9 +5646,12 @@
             // 
             // txtNWB121
             // 
-            this.txtNWB121.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB121.BackColor = System.Drawing.Color.White;
+            this.txtNWB121.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB121.ForeColor = System.Drawing.Color.Black;
             this.txtNWB121.Location = new System.Drawing.Point(610, 25);
             this.txtNWB121.Name = "txtNWB121";
+            this.txtNWB121.ReadOnly = true;
             this.txtNWB121.Size = new System.Drawing.Size(50, 21);
             this.txtNWB121.TabIndex = 461;
             // 
@@ -5458,9 +5666,12 @@
             // 
             // txtNWB030
             // 
-            this.txtNWB030.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB030.BackColor = System.Drawing.Color.White;
+            this.txtNWB030.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB030.ForeColor = System.Drawing.Color.Black;
             this.txtNWB030.Location = new System.Drawing.Point(135, 304);
             this.txtNWB030.Name = "txtNWB030";
+            this.txtNWB030.ReadOnly = true;
             this.txtNWB030.Size = new System.Drawing.Size(50, 21);
             this.txtNWB030.TabIndex = 370;
             // 
@@ -5475,9 +5686,12 @@
             // 
             // txtNWB120
             // 
-            this.txtNWB120.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB120.BackColor = System.Drawing.Color.White;
+            this.txtNWB120.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB120.ForeColor = System.Drawing.Color.Black;
             this.txtNWB120.Location = new System.Drawing.Point(515, 614);
             this.txtNWB120.Name = "txtNWB120";
+            this.txtNWB120.ReadOnly = true;
             this.txtNWB120.Size = new System.Drawing.Size(50, 21);
             this.txtNWB120.TabIndex = 460;
             // 
@@ -5510,17 +5724,23 @@
             // 
             // txtNWB110
             // 
-            this.txtNWB110.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB110.BackColor = System.Drawing.Color.White;
+            this.txtNWB110.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB110.ForeColor = System.Drawing.Color.Black;
             this.txtNWB110.Location = new System.Drawing.Point(515, 304);
             this.txtNWB110.Name = "txtNWB110";
+            this.txtNWB110.ReadOnly = true;
             this.txtNWB110.Size = new System.Drawing.Size(50, 21);
             this.txtNWB110.TabIndex = 450;
             // 
             // txtNWB031
             // 
-            this.txtNWB031.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB031.BackColor = System.Drawing.Color.White;
+            this.txtNWB031.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB031.ForeColor = System.Drawing.Color.Black;
             this.txtNWB031.Location = new System.Drawing.Point(135, 335);
             this.txtNWB031.Name = "txtNWB031";
+            this.txtNWB031.ReadOnly = true;
             this.txtNWB031.Size = new System.Drawing.Size(50, 21);
             this.txtNWB031.TabIndex = 371;
             // 
@@ -5535,9 +5755,12 @@
             // 
             // txtNWB119
             // 
-            this.txtNWB119.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB119.BackColor = System.Drawing.Color.White;
+            this.txtNWB119.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB119.ForeColor = System.Drawing.Color.Black;
             this.txtNWB119.Location = new System.Drawing.Point(515, 583);
             this.txtNWB119.Name = "txtNWB119";
+            this.txtNWB119.ReadOnly = true;
             this.txtNWB119.Size = new System.Drawing.Size(50, 21);
             this.txtNWB119.TabIndex = 459;
             // 
@@ -5570,17 +5793,23 @@
             // 
             // txtNWB032
             // 
-            this.txtNWB032.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB032.BackColor = System.Drawing.Color.White;
+            this.txtNWB032.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB032.ForeColor = System.Drawing.Color.Black;
             this.txtNWB032.Location = new System.Drawing.Point(135, 366);
             this.txtNWB032.Name = "txtNWB032";
+            this.txtNWB032.ReadOnly = true;
             this.txtNWB032.Size = new System.Drawing.Size(50, 21);
             this.txtNWB032.TabIndex = 372;
             // 
             // txtNWB109
             // 
-            this.txtNWB109.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB109.BackColor = System.Drawing.Color.White;
+            this.txtNWB109.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB109.ForeColor = System.Drawing.Color.Black;
             this.txtNWB109.Location = new System.Drawing.Point(515, 273);
             this.txtNWB109.Name = "txtNWB109";
+            this.txtNWB109.ReadOnly = true;
             this.txtNWB109.Size = new System.Drawing.Size(50, 21);
             this.txtNWB109.TabIndex = 449;
             // 
@@ -5595,9 +5824,12 @@
             // 
             // txtNWB118
             // 
-            this.txtNWB118.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB118.BackColor = System.Drawing.Color.White;
+            this.txtNWB118.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB118.ForeColor = System.Drawing.Color.Black;
             this.txtNWB118.Location = new System.Drawing.Point(515, 552);
             this.txtNWB118.Name = "txtNWB118";
+            this.txtNWB118.ReadOnly = true;
             this.txtNWB118.Size = new System.Drawing.Size(50, 21);
             this.txtNWB118.TabIndex = 458;
             // 
@@ -5639,25 +5871,34 @@
             // 
             // txtNWB033
             // 
-            this.txtNWB033.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB033.BackColor = System.Drawing.Color.White;
+            this.txtNWB033.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB033.ForeColor = System.Drawing.Color.Black;
             this.txtNWB033.Location = new System.Drawing.Point(135, 397);
             this.txtNWB033.Name = "txtNWB033";
+            this.txtNWB033.ReadOnly = true;
             this.txtNWB033.Size = new System.Drawing.Size(50, 21);
             this.txtNWB033.TabIndex = 373;
             // 
             // txtNWB108
             // 
-            this.txtNWB108.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB108.BackColor = System.Drawing.Color.White;
+            this.txtNWB108.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB108.ForeColor = System.Drawing.Color.Black;
             this.txtNWB108.Location = new System.Drawing.Point(515, 242);
             this.txtNWB108.Name = "txtNWB108";
+            this.txtNWB108.ReadOnly = true;
             this.txtNWB108.Size = new System.Drawing.Size(50, 21);
             this.txtNWB108.TabIndex = 448;
             // 
             // txtNWB117
             // 
-            this.txtNWB117.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB117.BackColor = System.Drawing.Color.White;
+            this.txtNWB117.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB117.ForeColor = System.Drawing.Color.Black;
             this.txtNWB117.Location = new System.Drawing.Point(515, 521);
             this.txtNWB117.Name = "txtNWB117";
+            this.txtNWB117.ReadOnly = true;
             this.txtNWB117.Size = new System.Drawing.Size(50, 21);
             this.txtNWB117.TabIndex = 457;
             // 
@@ -5699,25 +5940,34 @@
             // 
             // txtNWB034
             // 
-            this.txtNWB034.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB034.BackColor = System.Drawing.Color.White;
+            this.txtNWB034.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB034.ForeColor = System.Drawing.Color.Black;
             this.txtNWB034.Location = new System.Drawing.Point(135, 428);
             this.txtNWB034.Name = "txtNWB034";
+            this.txtNWB034.ReadOnly = true;
             this.txtNWB034.Size = new System.Drawing.Size(50, 21);
             this.txtNWB034.TabIndex = 374;
             // 
             // txtNWB116
             // 
-            this.txtNWB116.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB116.BackColor = System.Drawing.Color.White;
+            this.txtNWB116.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB116.ForeColor = System.Drawing.Color.Black;
             this.txtNWB116.Location = new System.Drawing.Point(515, 490);
             this.txtNWB116.Name = "txtNWB116";
+            this.txtNWB116.ReadOnly = true;
             this.txtNWB116.Size = new System.Drawing.Size(50, 21);
             this.txtNWB116.TabIndex = 456;
             // 
             // txtNWB107
             // 
-            this.txtNWB107.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB107.BackColor = System.Drawing.Color.White;
+            this.txtNWB107.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB107.ForeColor = System.Drawing.Color.Black;
             this.txtNWB107.Location = new System.Drawing.Point(515, 211);
             this.txtNWB107.Name = "txtNWB107";
+            this.txtNWB107.ReadOnly = true;
             this.txtNWB107.Size = new System.Drawing.Size(50, 21);
             this.txtNWB107.TabIndex = 447;
             // 
@@ -5759,17 +6009,23 @@
             // 
             // txtNWB035
             // 
-            this.txtNWB035.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB035.BackColor = System.Drawing.Color.White;
+            this.txtNWB035.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB035.ForeColor = System.Drawing.Color.Black;
             this.txtNWB035.Location = new System.Drawing.Point(135, 459);
             this.txtNWB035.Name = "txtNWB035";
+            this.txtNWB035.ReadOnly = true;
             this.txtNWB035.Size = new System.Drawing.Size(50, 21);
             this.txtNWB035.TabIndex = 375;
             // 
             // txtNWB115
             // 
-            this.txtNWB115.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB115.BackColor = System.Drawing.Color.White;
+            this.txtNWB115.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB115.ForeColor = System.Drawing.Color.Black;
             this.txtNWB115.Location = new System.Drawing.Point(515, 459);
             this.txtNWB115.Name = "txtNWB115";
+            this.txtNWB115.ReadOnly = true;
             this.txtNWB115.Size = new System.Drawing.Size(50, 21);
             this.txtNWB115.TabIndex = 455;
             // 
@@ -5784,9 +6040,12 @@
             // 
             // txtNWB106
             // 
-            this.txtNWB106.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB106.BackColor = System.Drawing.Color.White;
+            this.txtNWB106.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB106.ForeColor = System.Drawing.Color.Black;
             this.txtNWB106.Location = new System.Drawing.Point(515, 180);
             this.txtNWB106.Name = "txtNWB106";
+            this.txtNWB106.ReadOnly = true;
             this.txtNWB106.Size = new System.Drawing.Size(50, 21);
             this.txtNWB106.TabIndex = 446;
             // 
@@ -5801,9 +6060,12 @@
             // 
             // txtNWB036
             // 
-            this.txtNWB036.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB036.BackColor = System.Drawing.Color.White;
+            this.txtNWB036.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB036.ForeColor = System.Drawing.Color.Black;
             this.txtNWB036.Location = new System.Drawing.Point(135, 490);
             this.txtNWB036.Name = "txtNWB036";
+            this.txtNWB036.ReadOnly = true;
             this.txtNWB036.Size = new System.Drawing.Size(50, 21);
             this.txtNWB036.TabIndex = 376;
             // 
@@ -5827,17 +6089,23 @@
             // 
             // txtNWB114
             // 
-            this.txtNWB114.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB114.BackColor = System.Drawing.Color.White;
+            this.txtNWB114.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB114.ForeColor = System.Drawing.Color.Black;
             this.txtNWB114.Location = new System.Drawing.Point(515, 428);
             this.txtNWB114.Name = "txtNWB114";
+            this.txtNWB114.ReadOnly = true;
             this.txtNWB114.Size = new System.Drawing.Size(50, 21);
             this.txtNWB114.TabIndex = 454;
             // 
             // txtNWB037
             // 
-            this.txtNWB037.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB037.BackColor = System.Drawing.Color.White;
+            this.txtNWB037.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB037.ForeColor = System.Drawing.Color.Black;
             this.txtNWB037.Location = new System.Drawing.Point(135, 521);
             this.txtNWB037.Name = "txtNWB037";
+            this.txtNWB037.ReadOnly = true;
             this.txtNWB037.Size = new System.Drawing.Size(50, 21);
             this.txtNWB037.TabIndex = 377;
             // 
@@ -5852,17 +6120,23 @@
             // 
             // txtNWB105
             // 
-            this.txtNWB105.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB105.BackColor = System.Drawing.Color.White;
+            this.txtNWB105.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB105.ForeColor = System.Drawing.Color.Black;
             this.txtNWB105.Location = new System.Drawing.Point(515, 149);
             this.txtNWB105.Name = "txtNWB105";
+            this.txtNWB105.ReadOnly = true;
             this.txtNWB105.Size = new System.Drawing.Size(50, 21);
             this.txtNWB105.TabIndex = 445;
             // 
             // txtNWB038
             // 
-            this.txtNWB038.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB038.BackColor = System.Drawing.Color.White;
+            this.txtNWB038.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB038.ForeColor = System.Drawing.Color.Black;
             this.txtNWB038.Location = new System.Drawing.Point(135, 552);
             this.txtNWB038.Name = "txtNWB038";
+            this.txtNWB038.ReadOnly = true;
             this.txtNWB038.Size = new System.Drawing.Size(50, 21);
             this.txtNWB038.TabIndex = 378;
             // 
@@ -5886,17 +6160,23 @@
             // 
             // txtNWB113
             // 
-            this.txtNWB113.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB113.BackColor = System.Drawing.Color.White;
+            this.txtNWB113.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB113.ForeColor = System.Drawing.Color.Black;
             this.txtNWB113.Location = new System.Drawing.Point(515, 397);
             this.txtNWB113.Name = "txtNWB113";
+            this.txtNWB113.ReadOnly = true;
             this.txtNWB113.Size = new System.Drawing.Size(50, 21);
             this.txtNWB113.TabIndex = 453;
             // 
             // txtNWB039
             // 
-            this.txtNWB039.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB039.BackColor = System.Drawing.Color.White;
+            this.txtNWB039.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB039.ForeColor = System.Drawing.Color.Black;
             this.txtNWB039.Location = new System.Drawing.Point(135, 583);
             this.txtNWB039.Name = "txtNWB039";
+            this.txtNWB039.ReadOnly = true;
             this.txtNWB039.Size = new System.Drawing.Size(50, 21);
             this.txtNWB039.TabIndex = 379;
             // 
@@ -5920,17 +6200,23 @@
             // 
             // txtNWB104
             // 
-            this.txtNWB104.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB104.BackColor = System.Drawing.Color.White;
+            this.txtNWB104.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB104.ForeColor = System.Drawing.Color.Black;
             this.txtNWB104.Location = new System.Drawing.Point(515, 118);
             this.txtNWB104.Name = "txtNWB104";
+            this.txtNWB104.ReadOnly = true;
             this.txtNWB104.Size = new System.Drawing.Size(50, 21);
             this.txtNWB104.TabIndex = 444;
             // 
             // txtNWB040
             // 
-            this.txtNWB040.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB040.BackColor = System.Drawing.Color.White;
+            this.txtNWB040.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB040.ForeColor = System.Drawing.Color.Black;
             this.txtNWB040.Location = new System.Drawing.Point(135, 614);
             this.txtNWB040.Name = "txtNWB040";
+            this.txtNWB040.ReadOnly = true;
             this.txtNWB040.Size = new System.Drawing.Size(50, 21);
             this.txtNWB040.TabIndex = 380;
             // 
@@ -5954,9 +6240,12 @@
             // 
             // txtNWB112
             // 
-            this.txtNWB112.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB112.BackColor = System.Drawing.Color.White;
+            this.txtNWB112.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB112.ForeColor = System.Drawing.Color.Black;
             this.txtNWB112.Location = new System.Drawing.Point(515, 366);
             this.txtNWB112.Name = "txtNWB112";
+            this.txtNWB112.ReadOnly = true;
             this.txtNWB112.Size = new System.Drawing.Size(50, 21);
             this.txtNWB112.TabIndex = 452;
             // 
@@ -5971,9 +6260,12 @@
             // 
             // txtNWB041
             // 
-            this.txtNWB041.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB041.BackColor = System.Drawing.Color.White;
+            this.txtNWB041.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB041.ForeColor = System.Drawing.Color.Black;
             this.txtNWB041.Location = new System.Drawing.Point(230, 25);
             this.txtNWB041.Name = "txtNWB041";
+            this.txtNWB041.ReadOnly = true;
             this.txtNWB041.Size = new System.Drawing.Size(50, 21);
             this.txtNWB041.TabIndex = 381;
             // 
@@ -5988,9 +6280,12 @@
             // 
             // txtNWB103
             // 
-            this.txtNWB103.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB103.BackColor = System.Drawing.Color.White;
+            this.txtNWB103.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB103.ForeColor = System.Drawing.Color.Black;
             this.txtNWB103.Location = new System.Drawing.Point(515, 87);
             this.txtNWB103.Name = "txtNWB103";
+            this.txtNWB103.ReadOnly = true;
             this.txtNWB103.Size = new System.Drawing.Size(50, 21);
             this.txtNWB103.TabIndex = 443;
             // 
@@ -6005,9 +6300,12 @@
             // 
             // txtNWB111
             // 
-            this.txtNWB111.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB111.BackColor = System.Drawing.Color.White;
+            this.txtNWB111.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB111.ForeColor = System.Drawing.Color.Black;
             this.txtNWB111.Location = new System.Drawing.Point(515, 335);
             this.txtNWB111.Name = "txtNWB111";
+            this.txtNWB111.ReadOnly = true;
             this.txtNWB111.Size = new System.Drawing.Size(50, 21);
             this.txtNWB111.TabIndex = 451;
             // 
@@ -6022,9 +6320,12 @@
             // 
             // txtNWB042
             // 
-            this.txtNWB042.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB042.BackColor = System.Drawing.Color.White;
+            this.txtNWB042.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB042.ForeColor = System.Drawing.Color.Black;
             this.txtNWB042.Location = new System.Drawing.Point(230, 56);
             this.txtNWB042.Name = "txtNWB042";
+            this.txtNWB042.ReadOnly = true;
             this.txtNWB042.Size = new System.Drawing.Size(50, 21);
             this.txtNWB042.TabIndex = 382;
             // 
@@ -6057,17 +6358,23 @@
             // 
             // txtNWB102
             // 
-            this.txtNWB102.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB102.BackColor = System.Drawing.Color.White;
+            this.txtNWB102.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB102.ForeColor = System.Drawing.Color.Black;
             this.txtNWB102.Location = new System.Drawing.Point(515, 56);
             this.txtNWB102.Name = "txtNWB102";
+            this.txtNWB102.ReadOnly = true;
             this.txtNWB102.Size = new System.Drawing.Size(50, 21);
             this.txtNWB102.TabIndex = 442;
             // 
             // txtNWB043
             // 
-            this.txtNWB043.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB043.BackColor = System.Drawing.Color.White;
+            this.txtNWB043.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB043.ForeColor = System.Drawing.Color.Black;
             this.txtNWB043.Location = new System.Drawing.Point(230, 87);
             this.txtNWB043.Name = "txtNWB043";
+            this.txtNWB043.ReadOnly = true;
             this.txtNWB043.Size = new System.Drawing.Size(50, 21);
             this.txtNWB043.TabIndex = 383;
             // 
@@ -6100,9 +6407,12 @@
             // 
             // txtNWB044
             // 
-            this.txtNWB044.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB044.BackColor = System.Drawing.Color.White;
+            this.txtNWB044.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB044.ForeColor = System.Drawing.Color.Black;
             this.txtNWB044.Location = new System.Drawing.Point(230, 118);
             this.txtNWB044.Name = "txtNWB044";
+            this.txtNWB044.ReadOnly = true;
             this.txtNWB044.Size = new System.Drawing.Size(50, 21);
             this.txtNWB044.TabIndex = 384;
             // 
@@ -6126,9 +6436,12 @@
             // 
             // txtNWB101
             // 
-            this.txtNWB101.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB101.BackColor = System.Drawing.Color.White;
+            this.txtNWB101.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB101.ForeColor = System.Drawing.Color.Black;
             this.txtNWB101.Location = new System.Drawing.Point(515, 25);
             this.txtNWB101.Name = "txtNWB101";
+            this.txtNWB101.ReadOnly = true;
             this.txtNWB101.Size = new System.Drawing.Size(50, 21);
             this.txtNWB101.TabIndex = 441;
             // 
@@ -6143,9 +6456,12 @@
             // 
             // txtNWB045
             // 
-            this.txtNWB045.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB045.BackColor = System.Drawing.Color.White;
+            this.txtNWB045.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB045.ForeColor = System.Drawing.Color.Black;
             this.txtNWB045.Location = new System.Drawing.Point(230, 149);
             this.txtNWB045.Name = "txtNWB045";
+            this.txtNWB045.ReadOnly = true;
             this.txtNWB045.Size = new System.Drawing.Size(50, 21);
             this.txtNWB045.TabIndex = 385;
             // 
@@ -6160,9 +6476,12 @@
             // 
             // txtNWB100
             // 
-            this.txtNWB100.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB100.BackColor = System.Drawing.Color.White;
+            this.txtNWB100.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB100.ForeColor = System.Drawing.Color.Black;
             this.txtNWB100.Location = new System.Drawing.Point(420, 614);
             this.txtNWB100.Name = "txtNWB100";
+            this.txtNWB100.ReadOnly = true;
             this.txtNWB100.Size = new System.Drawing.Size(50, 21);
             this.txtNWB100.TabIndex = 440;
             // 
@@ -6186,17 +6505,23 @@
             // 
             // txtNWB046
             // 
-            this.txtNWB046.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB046.BackColor = System.Drawing.Color.White;
+            this.txtNWB046.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB046.ForeColor = System.Drawing.Color.Black;
             this.txtNWB046.Location = new System.Drawing.Point(230, 180);
             this.txtNWB046.Name = "txtNWB046";
+            this.txtNWB046.ReadOnly = true;
             this.txtNWB046.Size = new System.Drawing.Size(50, 21);
             this.txtNWB046.TabIndex = 386;
             // 
             // txtNWB090
             // 
-            this.txtNWB090.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB090.BackColor = System.Drawing.Color.White;
+            this.txtNWB090.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB090.ForeColor = System.Drawing.Color.Black;
             this.txtNWB090.Location = new System.Drawing.Point(420, 304);
             this.txtNWB090.Name = "txtNWB090";
+            this.txtNWB090.ReadOnly = true;
             this.txtNWB090.Size = new System.Drawing.Size(50, 21);
             this.txtNWB090.TabIndex = 430;
             // 
@@ -6220,9 +6545,12 @@
             // 
             // txtNWB099
             // 
-            this.txtNWB099.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB099.BackColor = System.Drawing.Color.White;
+            this.txtNWB099.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB099.ForeColor = System.Drawing.Color.Black;
             this.txtNWB099.Location = new System.Drawing.Point(420, 583);
             this.txtNWB099.Name = "txtNWB099";
+            this.txtNWB099.ReadOnly = true;
             this.txtNWB099.Size = new System.Drawing.Size(50, 21);
             this.txtNWB099.TabIndex = 439;
             // 
@@ -6237,9 +6565,12 @@
             // 
             // txtNWB047
             // 
-            this.txtNWB047.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB047.BackColor = System.Drawing.Color.White;
+            this.txtNWB047.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB047.ForeColor = System.Drawing.Color.Black;
             this.txtNWB047.Location = new System.Drawing.Point(230, 211);
             this.txtNWB047.Name = "txtNWB047";
+            this.txtNWB047.ReadOnly = true;
             this.txtNWB047.Size = new System.Drawing.Size(50, 21);
             this.txtNWB047.TabIndex = 387;
             // 
@@ -6263,9 +6594,12 @@
             // 
             // txtNWB089
             // 
-            this.txtNWB089.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB089.BackColor = System.Drawing.Color.White;
+            this.txtNWB089.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB089.ForeColor = System.Drawing.Color.Black;
             this.txtNWB089.Location = new System.Drawing.Point(420, 273);
             this.txtNWB089.Name = "txtNWB089";
+            this.txtNWB089.ReadOnly = true;
             this.txtNWB089.Size = new System.Drawing.Size(50, 21);
             this.txtNWB089.TabIndex = 429;
             // 
@@ -6280,17 +6614,23 @@
             // 
             // txtNWB098
             // 
-            this.txtNWB098.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB098.BackColor = System.Drawing.Color.White;
+            this.txtNWB098.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB098.ForeColor = System.Drawing.Color.Black;
             this.txtNWB098.Location = new System.Drawing.Point(420, 552);
             this.txtNWB098.Name = "txtNWB098";
+            this.txtNWB098.ReadOnly = true;
             this.txtNWB098.Size = new System.Drawing.Size(50, 21);
             this.txtNWB098.TabIndex = 438;
             // 
             // txtNWB048
             // 
-            this.txtNWB048.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB048.BackColor = System.Drawing.Color.White;
+            this.txtNWB048.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB048.ForeColor = System.Drawing.Color.Black;
             this.txtNWB048.Location = new System.Drawing.Point(230, 242);
             this.txtNWB048.Name = "txtNWB048";
+            this.txtNWB048.ReadOnly = true;
             this.txtNWB048.Size = new System.Drawing.Size(50, 21);
             this.txtNWB048.TabIndex = 388;
             // 
@@ -6323,25 +6663,34 @@
             // 
             // txtNWB049
             // 
-            this.txtNWB049.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB049.BackColor = System.Drawing.Color.White;
+            this.txtNWB049.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB049.ForeColor = System.Drawing.Color.Black;
             this.txtNWB049.Location = new System.Drawing.Point(230, 273);
             this.txtNWB049.Name = "txtNWB049";
+            this.txtNWB049.ReadOnly = true;
             this.txtNWB049.Size = new System.Drawing.Size(50, 21);
             this.txtNWB049.TabIndex = 389;
             // 
             // txtNWB088
             // 
-            this.txtNWB088.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB088.BackColor = System.Drawing.Color.White;
+            this.txtNWB088.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB088.ForeColor = System.Drawing.Color.Black;
             this.txtNWB088.Location = new System.Drawing.Point(420, 242);
             this.txtNWB088.Name = "txtNWB088";
+            this.txtNWB088.ReadOnly = true;
             this.txtNWB088.Size = new System.Drawing.Size(50, 21);
             this.txtNWB088.TabIndex = 428;
             // 
             // txtNWB097
             // 
-            this.txtNWB097.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB097.BackColor = System.Drawing.Color.White;
+            this.txtNWB097.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB097.ForeColor = System.Drawing.Color.Black;
             this.txtNWB097.Location = new System.Drawing.Point(420, 521);
             this.txtNWB097.Name = "txtNWB097";
+            this.txtNWB097.ReadOnly = true;
             this.txtNWB097.Size = new System.Drawing.Size(50, 21);
             this.txtNWB097.TabIndex = 437;
             // 
@@ -6374,9 +6723,12 @@
             // 
             // txtNWB050
             // 
-            this.txtNWB050.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB050.BackColor = System.Drawing.Color.White;
+            this.txtNWB050.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB050.ForeColor = System.Drawing.Color.Black;
             this.txtNWB050.Location = new System.Drawing.Point(230, 304);
             this.txtNWB050.Name = "txtNWB050";
+            this.txtNWB050.ReadOnly = true;
             this.txtNWB050.Size = new System.Drawing.Size(50, 21);
             this.txtNWB050.TabIndex = 390;
             // 
@@ -6391,25 +6743,34 @@
             // 
             // txtNWB096
             // 
-            this.txtNWB096.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB096.BackColor = System.Drawing.Color.White;
+            this.txtNWB096.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB096.ForeColor = System.Drawing.Color.Black;
             this.txtNWB096.Location = new System.Drawing.Point(420, 490);
             this.txtNWB096.Name = "txtNWB096";
+            this.txtNWB096.ReadOnly = true;
             this.txtNWB096.Size = new System.Drawing.Size(50, 21);
             this.txtNWB096.TabIndex = 436;
             // 
             // txtNWB087
             // 
-            this.txtNWB087.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB087.BackColor = System.Drawing.Color.White;
+            this.txtNWB087.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB087.ForeColor = System.Drawing.Color.Black;
             this.txtNWB087.Location = new System.Drawing.Point(420, 211);
             this.txtNWB087.Name = "txtNWB087";
+            this.txtNWB087.ReadOnly = true;
             this.txtNWB087.Size = new System.Drawing.Size(50, 21);
             this.txtNWB087.TabIndex = 427;
             // 
             // txtNWB051
             // 
-            this.txtNWB051.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB051.BackColor = System.Drawing.Color.White;
+            this.txtNWB051.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB051.ForeColor = System.Drawing.Color.Black;
             this.txtNWB051.Location = new System.Drawing.Point(230, 335);
             this.txtNWB051.Name = "txtNWB051";
+            this.txtNWB051.ReadOnly = true;
             this.txtNWB051.Size = new System.Drawing.Size(50, 21);
             this.txtNWB051.TabIndex = 391;
             // 
@@ -6451,9 +6812,12 @@
             // 
             // txtNWB095
             // 
-            this.txtNWB095.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB095.BackColor = System.Drawing.Color.White;
+            this.txtNWB095.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB095.ForeColor = System.Drawing.Color.Black;
             this.txtNWB095.Location = new System.Drawing.Point(420, 459);
             this.txtNWB095.Name = "txtNWB095";
+            this.txtNWB095.ReadOnly = true;
             this.txtNWB095.Size = new System.Drawing.Size(50, 21);
             this.txtNWB095.TabIndex = 435;
             // 
@@ -6468,17 +6832,23 @@
             // 
             // txtNWB086
             // 
-            this.txtNWB086.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB086.BackColor = System.Drawing.Color.White;
+            this.txtNWB086.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB086.ForeColor = System.Drawing.Color.Black;
             this.txtNWB086.Location = new System.Drawing.Point(420, 180);
             this.txtNWB086.Name = "txtNWB086";
+            this.txtNWB086.ReadOnly = true;
             this.txtNWB086.Size = new System.Drawing.Size(50, 21);
             this.txtNWB086.TabIndex = 426;
             // 
             // txtNWB052
             // 
-            this.txtNWB052.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB052.BackColor = System.Drawing.Color.White;
+            this.txtNWB052.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB052.ForeColor = System.Drawing.Color.Black;
             this.txtNWB052.Location = new System.Drawing.Point(230, 366);
             this.txtNWB052.Name = "txtNWB052";
+            this.txtNWB052.ReadOnly = true;
             this.txtNWB052.Size = new System.Drawing.Size(50, 21);
             this.txtNWB052.TabIndex = 392;
             // 
@@ -6511,17 +6881,23 @@
             // 
             // txtNWB094
             // 
-            this.txtNWB094.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB094.BackColor = System.Drawing.Color.White;
+            this.txtNWB094.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB094.ForeColor = System.Drawing.Color.Black;
             this.txtNWB094.Location = new System.Drawing.Point(420, 428);
             this.txtNWB094.Name = "txtNWB094";
+            this.txtNWB094.ReadOnly = true;
             this.txtNWB094.Size = new System.Drawing.Size(50, 21);
             this.txtNWB094.TabIndex = 434;
             // 
             // txtNWB053
             // 
-            this.txtNWB053.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB053.BackColor = System.Drawing.Color.White;
+            this.txtNWB053.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB053.ForeColor = System.Drawing.Color.Black;
             this.txtNWB053.Location = new System.Drawing.Point(230, 397);
             this.txtNWB053.Name = "txtNWB053";
+            this.txtNWB053.ReadOnly = true;
             this.txtNWB053.Size = new System.Drawing.Size(50, 21);
             this.txtNWB053.TabIndex = 393;
             // 
@@ -6536,281 +6912,386 @@
             // 
             // txtNWB085
             // 
-            this.txtNWB085.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB085.BackColor = System.Drawing.Color.White;
+            this.txtNWB085.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB085.ForeColor = System.Drawing.Color.Black;
             this.txtNWB085.Location = new System.Drawing.Point(420, 149);
             this.txtNWB085.Name = "txtNWB085";
+            this.txtNWB085.ReadOnly = true;
             this.txtNWB085.Size = new System.Drawing.Size(50, 21);
             this.txtNWB085.TabIndex = 425;
             // 
             // txtNWB054
             // 
-            this.txtNWB054.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB054.BackColor = System.Drawing.Color.White;
+            this.txtNWB054.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB054.ForeColor = System.Drawing.Color.Black;
             this.txtNWB054.Location = new System.Drawing.Point(230, 428);
             this.txtNWB054.Name = "txtNWB054";
+            this.txtNWB054.ReadOnly = true;
             this.txtNWB054.Size = new System.Drawing.Size(50, 21);
             this.txtNWB054.TabIndex = 394;
             // 
             // txtNWB055
             // 
-            this.txtNWB055.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB055.BackColor = System.Drawing.Color.White;
+            this.txtNWB055.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB055.ForeColor = System.Drawing.Color.Black;
             this.txtNWB055.Location = new System.Drawing.Point(230, 459);
             this.txtNWB055.Name = "txtNWB055";
+            this.txtNWB055.ReadOnly = true;
             this.txtNWB055.Size = new System.Drawing.Size(50, 21);
             this.txtNWB055.TabIndex = 395;
             // 
             // txtNWB056
             // 
-            this.txtNWB056.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB056.BackColor = System.Drawing.Color.White;
+            this.txtNWB056.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB056.ForeColor = System.Drawing.Color.Black;
             this.txtNWB056.Location = new System.Drawing.Point(230, 490);
             this.txtNWB056.Name = "txtNWB056";
+            this.txtNWB056.ReadOnly = true;
             this.txtNWB056.Size = new System.Drawing.Size(50, 21);
             this.txtNWB056.TabIndex = 396;
             // 
             // txtNWB093
             // 
-            this.txtNWB093.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB093.BackColor = System.Drawing.Color.White;
+            this.txtNWB093.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB093.ForeColor = System.Drawing.Color.Black;
             this.txtNWB093.Location = new System.Drawing.Point(420, 397);
             this.txtNWB093.Name = "txtNWB093";
+            this.txtNWB093.ReadOnly = true;
             this.txtNWB093.Size = new System.Drawing.Size(50, 21);
             this.txtNWB093.TabIndex = 433;
             // 
             // txtNWB057
             // 
-            this.txtNWB057.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB057.BackColor = System.Drawing.Color.White;
+            this.txtNWB057.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB057.ForeColor = System.Drawing.Color.Black;
             this.txtNWB057.Location = new System.Drawing.Point(230, 521);
             this.txtNWB057.Name = "txtNWB057";
+            this.txtNWB057.ReadOnly = true;
             this.txtNWB057.Size = new System.Drawing.Size(50, 21);
             this.txtNWB057.TabIndex = 397;
             // 
             // txtNWB058
             // 
-            this.txtNWB058.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB058.BackColor = System.Drawing.Color.White;
+            this.txtNWB058.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB058.ForeColor = System.Drawing.Color.Black;
             this.txtNWB058.Location = new System.Drawing.Point(230, 552);
             this.txtNWB058.Name = "txtNWB058";
+            this.txtNWB058.ReadOnly = true;
             this.txtNWB058.Size = new System.Drawing.Size(50, 21);
             this.txtNWB058.TabIndex = 398;
             // 
             // txtNWB059
             // 
-            this.txtNWB059.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB059.BackColor = System.Drawing.Color.White;
+            this.txtNWB059.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB059.ForeColor = System.Drawing.Color.Black;
             this.txtNWB059.Location = new System.Drawing.Point(230, 583);
             this.txtNWB059.Name = "txtNWB059";
+            this.txtNWB059.ReadOnly = true;
             this.txtNWB059.Size = new System.Drawing.Size(50, 21);
             this.txtNWB059.TabIndex = 399;
             // 
             // txtNWB084
             // 
-            this.txtNWB084.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB084.BackColor = System.Drawing.Color.White;
+            this.txtNWB084.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB084.ForeColor = System.Drawing.Color.Black;
             this.txtNWB084.Location = new System.Drawing.Point(420, 118);
             this.txtNWB084.Name = "txtNWB084";
+            this.txtNWB084.ReadOnly = true;
             this.txtNWB084.Size = new System.Drawing.Size(50, 21);
             this.txtNWB084.TabIndex = 424;
             // 
             // txtNWB060
             // 
-            this.txtNWB060.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB060.BackColor = System.Drawing.Color.White;
+            this.txtNWB060.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB060.ForeColor = System.Drawing.Color.Black;
             this.txtNWB060.Location = new System.Drawing.Point(230, 614);
             this.txtNWB060.Name = "txtNWB060";
+            this.txtNWB060.ReadOnly = true;
             this.txtNWB060.Size = new System.Drawing.Size(50, 21);
             this.txtNWB060.TabIndex = 400;
             // 
             // txtNWB061
             // 
-            this.txtNWB061.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB061.BackColor = System.Drawing.Color.White;
+            this.txtNWB061.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB061.ForeColor = System.Drawing.Color.Black;
             this.txtNWB061.Location = new System.Drawing.Point(325, 25);
             this.txtNWB061.Name = "txtNWB061";
+            this.txtNWB061.ReadOnly = true;
             this.txtNWB061.Size = new System.Drawing.Size(50, 21);
             this.txtNWB061.TabIndex = 401;
             // 
             // txtNWB092
             // 
-            this.txtNWB092.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB092.BackColor = System.Drawing.Color.White;
+            this.txtNWB092.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB092.ForeColor = System.Drawing.Color.Black;
             this.txtNWB092.Location = new System.Drawing.Point(420, 366);
             this.txtNWB092.Name = "txtNWB092";
+            this.txtNWB092.ReadOnly = true;
             this.txtNWB092.Size = new System.Drawing.Size(50, 21);
             this.txtNWB092.TabIndex = 432;
             // 
             // txtNWB062
             // 
-            this.txtNWB062.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB062.BackColor = System.Drawing.Color.White;
+            this.txtNWB062.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB062.ForeColor = System.Drawing.Color.Black;
             this.txtNWB062.Location = new System.Drawing.Point(325, 56);
             this.txtNWB062.Name = "txtNWB062";
+            this.txtNWB062.ReadOnly = true;
             this.txtNWB062.Size = new System.Drawing.Size(50, 21);
             this.txtNWB062.TabIndex = 402;
             // 
             // txtNWB063
             // 
-            this.txtNWB063.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB063.BackColor = System.Drawing.Color.White;
+            this.txtNWB063.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB063.ForeColor = System.Drawing.Color.Black;
             this.txtNWB063.Location = new System.Drawing.Point(325, 87);
             this.txtNWB063.Name = "txtNWB063";
+            this.txtNWB063.ReadOnly = true;
             this.txtNWB063.Size = new System.Drawing.Size(50, 21);
             this.txtNWB063.TabIndex = 403;
             // 
             // txtNWB064
             // 
-            this.txtNWB064.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB064.BackColor = System.Drawing.Color.White;
+            this.txtNWB064.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB064.ForeColor = System.Drawing.Color.Black;
             this.txtNWB064.Location = new System.Drawing.Point(325, 118);
             this.txtNWB064.Name = "txtNWB064";
+            this.txtNWB064.ReadOnly = true;
             this.txtNWB064.Size = new System.Drawing.Size(50, 21);
             this.txtNWB064.TabIndex = 404;
             // 
             // txtNWB065
             // 
-            this.txtNWB065.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB065.BackColor = System.Drawing.Color.White;
+            this.txtNWB065.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB065.ForeColor = System.Drawing.Color.Black;
             this.txtNWB065.Location = new System.Drawing.Point(325, 149);
             this.txtNWB065.Name = "txtNWB065";
+            this.txtNWB065.ReadOnly = true;
             this.txtNWB065.Size = new System.Drawing.Size(50, 21);
             this.txtNWB065.TabIndex = 405;
             // 
             // txtNWB083
             // 
-            this.txtNWB083.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB083.BackColor = System.Drawing.Color.White;
+            this.txtNWB083.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB083.ForeColor = System.Drawing.Color.Black;
             this.txtNWB083.Location = new System.Drawing.Point(420, 87);
             this.txtNWB083.Name = "txtNWB083";
+            this.txtNWB083.ReadOnly = true;
             this.txtNWB083.Size = new System.Drawing.Size(50, 21);
             this.txtNWB083.TabIndex = 423;
             // 
             // txtNWB066
             // 
-            this.txtNWB066.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB066.BackColor = System.Drawing.Color.White;
+            this.txtNWB066.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB066.ForeColor = System.Drawing.Color.Black;
             this.txtNWB066.Location = new System.Drawing.Point(325, 180);
             this.txtNWB066.Name = "txtNWB066";
+            this.txtNWB066.ReadOnly = true;
             this.txtNWB066.Size = new System.Drawing.Size(50, 21);
             this.txtNWB066.TabIndex = 406;
             // 
             // txtNWB091
             // 
-            this.txtNWB091.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB091.BackColor = System.Drawing.Color.White;
+            this.txtNWB091.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB091.ForeColor = System.Drawing.Color.Black;
             this.txtNWB091.Location = new System.Drawing.Point(420, 335);
             this.txtNWB091.Name = "txtNWB091";
+            this.txtNWB091.ReadOnly = true;
             this.txtNWB091.Size = new System.Drawing.Size(50, 21);
             this.txtNWB091.TabIndex = 431;
             // 
             // txtNWB067
             // 
-            this.txtNWB067.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB067.BackColor = System.Drawing.Color.White;
+            this.txtNWB067.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB067.ForeColor = System.Drawing.Color.Black;
             this.txtNWB067.Location = new System.Drawing.Point(325, 211);
             this.txtNWB067.Name = "txtNWB067";
+            this.txtNWB067.ReadOnly = true;
             this.txtNWB067.Size = new System.Drawing.Size(50, 21);
             this.txtNWB067.TabIndex = 407;
             // 
             // txtNWB068
             // 
-            this.txtNWB068.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB068.BackColor = System.Drawing.Color.White;
+            this.txtNWB068.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB068.ForeColor = System.Drawing.Color.Black;
             this.txtNWB068.Location = new System.Drawing.Point(325, 242);
             this.txtNWB068.Name = "txtNWB068";
+            this.txtNWB068.ReadOnly = true;
             this.txtNWB068.Size = new System.Drawing.Size(50, 21);
             this.txtNWB068.TabIndex = 408;
             // 
             // txtNWB069
             // 
-            this.txtNWB069.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB069.BackColor = System.Drawing.Color.White;
+            this.txtNWB069.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB069.ForeColor = System.Drawing.Color.Black;
             this.txtNWB069.Location = new System.Drawing.Point(325, 273);
             this.txtNWB069.Name = "txtNWB069";
+            this.txtNWB069.ReadOnly = true;
             this.txtNWB069.Size = new System.Drawing.Size(50, 21);
             this.txtNWB069.TabIndex = 409;
             // 
             // txtNWB070
             // 
-            this.txtNWB070.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB070.BackColor = System.Drawing.Color.White;
+            this.txtNWB070.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB070.ForeColor = System.Drawing.Color.Black;
             this.txtNWB070.Location = new System.Drawing.Point(325, 304);
             this.txtNWB070.Name = "txtNWB070";
+            this.txtNWB070.ReadOnly = true;
             this.txtNWB070.Size = new System.Drawing.Size(50, 21);
             this.txtNWB070.TabIndex = 410;
             // 
             // txtNWB071
             // 
-            this.txtNWB071.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB071.BackColor = System.Drawing.Color.White;
+            this.txtNWB071.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB071.ForeColor = System.Drawing.Color.Black;
             this.txtNWB071.Location = new System.Drawing.Point(325, 335);
             this.txtNWB071.Name = "txtNWB071";
+            this.txtNWB071.ReadOnly = true;
             this.txtNWB071.Size = new System.Drawing.Size(50, 21);
             this.txtNWB071.TabIndex = 411;
             // 
             // txtNWB082
             // 
-            this.txtNWB082.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB082.BackColor = System.Drawing.Color.White;
+            this.txtNWB082.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB082.ForeColor = System.Drawing.Color.Black;
             this.txtNWB082.Location = new System.Drawing.Point(420, 56);
             this.txtNWB082.Name = "txtNWB082";
+            this.txtNWB082.ReadOnly = true;
             this.txtNWB082.Size = new System.Drawing.Size(50, 21);
             this.txtNWB082.TabIndex = 422;
             // 
             // txtNWB072
             // 
-            this.txtNWB072.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB072.BackColor = System.Drawing.Color.White;
+            this.txtNWB072.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB072.ForeColor = System.Drawing.Color.Black;
             this.txtNWB072.Location = new System.Drawing.Point(325, 366);
             this.txtNWB072.Name = "txtNWB072";
+            this.txtNWB072.ReadOnly = true;
             this.txtNWB072.Size = new System.Drawing.Size(50, 21);
             this.txtNWB072.TabIndex = 412;
             // 
             // txtNWB073
             // 
-            this.txtNWB073.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB073.BackColor = System.Drawing.Color.White;
+            this.txtNWB073.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB073.ForeColor = System.Drawing.Color.Black;
             this.txtNWB073.Location = new System.Drawing.Point(325, 397);
             this.txtNWB073.Name = "txtNWB073";
+            this.txtNWB073.ReadOnly = true;
             this.txtNWB073.Size = new System.Drawing.Size(50, 21);
             this.txtNWB073.TabIndex = 413;
             // 
             // txtNWB074
             // 
-            this.txtNWB074.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB074.BackColor = System.Drawing.Color.White;
+            this.txtNWB074.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB074.ForeColor = System.Drawing.Color.Black;
             this.txtNWB074.Location = new System.Drawing.Point(325, 428);
             this.txtNWB074.Name = "txtNWB074";
+            this.txtNWB074.ReadOnly = true;
             this.txtNWB074.Size = new System.Drawing.Size(50, 21);
             this.txtNWB074.TabIndex = 414;
             // 
             // txtNWB075
             // 
-            this.txtNWB075.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB075.BackColor = System.Drawing.Color.White;
+            this.txtNWB075.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB075.ForeColor = System.Drawing.Color.Black;
             this.txtNWB075.Location = new System.Drawing.Point(325, 459);
             this.txtNWB075.Name = "txtNWB075";
+            this.txtNWB075.ReadOnly = true;
             this.txtNWB075.Size = new System.Drawing.Size(50, 21);
             this.txtNWB075.TabIndex = 415;
             // 
             // txtNWB076
             // 
-            this.txtNWB076.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB076.BackColor = System.Drawing.Color.White;
+            this.txtNWB076.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB076.ForeColor = System.Drawing.Color.Black;
             this.txtNWB076.Location = new System.Drawing.Point(325, 490);
             this.txtNWB076.Name = "txtNWB076";
+            this.txtNWB076.ReadOnly = true;
             this.txtNWB076.Size = new System.Drawing.Size(50, 21);
             this.txtNWB076.TabIndex = 416;
             // 
             // txtNWB077
             // 
-            this.txtNWB077.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB077.BackColor = System.Drawing.Color.White;
+            this.txtNWB077.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB077.ForeColor = System.Drawing.Color.Black;
             this.txtNWB077.Location = new System.Drawing.Point(325, 521);
             this.txtNWB077.Name = "txtNWB077";
+            this.txtNWB077.ReadOnly = true;
             this.txtNWB077.Size = new System.Drawing.Size(50, 21);
             this.txtNWB077.TabIndex = 417;
             // 
             // txtNWB078
             // 
-            this.txtNWB078.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB078.BackColor = System.Drawing.Color.White;
+            this.txtNWB078.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB078.ForeColor = System.Drawing.Color.Black;
             this.txtNWB078.Location = new System.Drawing.Point(325, 552);
             this.txtNWB078.Name = "txtNWB078";
+            this.txtNWB078.ReadOnly = true;
             this.txtNWB078.Size = new System.Drawing.Size(50, 21);
             this.txtNWB078.TabIndex = 418;
             // 
             // txtNWB081
             // 
-            this.txtNWB081.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB081.BackColor = System.Drawing.Color.White;
+            this.txtNWB081.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB081.ForeColor = System.Drawing.Color.Black;
             this.txtNWB081.Location = new System.Drawing.Point(420, 25);
             this.txtNWB081.Name = "txtNWB081";
+            this.txtNWB081.ReadOnly = true;
             this.txtNWB081.Size = new System.Drawing.Size(50, 21);
             this.txtNWB081.TabIndex = 421;
             // 
             // txtNWB079
             // 
-            this.txtNWB079.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB079.BackColor = System.Drawing.Color.White;
+            this.txtNWB079.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB079.ForeColor = System.Drawing.Color.Black;
             this.txtNWB079.Location = new System.Drawing.Point(325, 583);
             this.txtNWB079.Name = "txtNWB079";
+            this.txtNWB079.ReadOnly = true;
             this.txtNWB079.Size = new System.Drawing.Size(50, 21);
             this.txtNWB079.TabIndex = 419;
             // 
             // txtNWB080
             // 
-            this.txtNWB080.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB080.BackColor = System.Drawing.Color.White;
+            this.txtNWB080.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtNWB080.ForeColor = System.Drawing.Color.Black;
             this.txtNWB080.Location = new System.Drawing.Point(325, 614);
             this.txtNWB080.Name = "txtNWB080";
+            this.txtNWB080.ReadOnly = true;
             this.txtNWB080.Size = new System.Drawing.Size(50, 21);
             this.txtNWB080.TabIndex = 420;
             // 
@@ -6836,19 +7317,25 @@
             // 
             // textEdit1
             // 
+            this.textEdit1.Enabled = false;
             this.textEdit1.Location = new System.Drawing.Point(302, 42);
             this.textEdit1.Name = "textEdit1";
-            this.textEdit1.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textEdit1.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textEdit1.Properties.Appearance.ForeColor = System.Drawing.Color.Black;
             this.textEdit1.Properties.Appearance.Options.UseFont = true;
+            this.textEdit1.Properties.Appearance.Options.UseForeColor = true;
             this.textEdit1.Size = new System.Drawing.Size(100, 24);
             this.textEdit1.TabIndex = 963;
             // 
             // textEdit2
             // 
+            this.textEdit2.Enabled = false;
             this.textEdit2.Location = new System.Drawing.Point(486, 42);
             this.textEdit2.Name = "textEdit2";
-            this.textEdit2.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textEdit2.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textEdit2.Properties.Appearance.ForeColor = System.Drawing.Color.Black;
             this.textEdit2.Properties.Appearance.Options.UseFont = true;
+            this.textEdit2.Properties.Appearance.Options.UseForeColor = true;
             this.textEdit2.Size = new System.Drawing.Size(100, 24);
             this.textEdit2.TabIndex = 964;
             // 
@@ -6861,6 +7348,7 @@
             this.btnStartCleaning.Size = new System.Drawing.Size(89, 35);
             this.btnStartCleaning.TabIndex = 965;
             this.btnStartCleaning.Text = "开始清洗";
+            this.btnStartCleaning.Click += new System.EventHandler(this.btnStartCleaning_Click);
             // 
             // labelControl1
             // 
@@ -6881,6 +7369,7 @@
             this.btnWave340.Size = new System.Drawing.Size(89, 30);
             this.btnWave340.TabIndex = 967;
             this.btnWave340.Text = "340波长";
+            this.btnWave340.Click += new System.EventHandler(this.btnWavelength_Click);
             // 
             // btnWave405
             // 
@@ -6891,6 +7380,7 @@
             this.btnWave405.Size = new System.Drawing.Size(89, 30);
             this.btnWave405.TabIndex = 968;
             this.btnWave405.Text = "405波长";
+            this.btnWave405.Click += new System.EventHandler(this.btnWavelength_Click);
             // 
             // btnWave445
             // 
@@ -6901,6 +7391,7 @@
             this.btnWave445.Size = new System.Drawing.Size(89, 30);
             this.btnWave445.TabIndex = 969;
             this.btnWave445.Text = "445波长";
+            this.btnWave445.Click += new System.EventHandler(this.btnWavelength_Click);
             // 
             // btnWave549
             // 
@@ -6911,6 +7402,7 @@
             this.btnWave549.Size = new System.Drawing.Size(89, 30);
             this.btnWave549.TabIndex = 972;
             this.btnWave549.Text = "549波长";
+            this.btnWave549.Click += new System.EventHandler(this.btnWavelength_Click);
             // 
             // btnWave510
             // 
@@ -6921,6 +7413,7 @@
             this.btnWave510.Size = new System.Drawing.Size(89, 30);
             this.btnWave510.TabIndex = 971;
             this.btnWave510.Text = "510波长";
+            this.btnWave510.Click += new System.EventHandler(this.btnWavelength_Click);
             // 
             // btnWave484
             // 
@@ -6931,6 +7424,7 @@
             this.btnWave484.Size = new System.Drawing.Size(89, 30);
             this.btnWave484.TabIndex = 970;
             this.btnWave484.Text = "484波长";
+            this.btnWave484.Click += new System.EventHandler(this.btnWavelength_Click);
             // 
             // btnWave663
             // 
@@ -6941,6 +7435,7 @@
             this.btnWave663.Size = new System.Drawing.Size(89, 30);
             this.btnWave663.TabIndex = 975;
             this.btnWave663.Text = "663波长";
+            this.btnWave663.Click += new System.EventHandler(this.btnWavelength_Click);
             // 
             // btnWave600
             // 
@@ -6951,6 +7446,7 @@
             this.btnWave600.Size = new System.Drawing.Size(89, 30);
             this.btnWave600.TabIndex = 974;
             this.btnWave600.Text = "600波长";
+            this.btnWave600.Click += new System.EventHandler(this.btnWavelength_Click);
             // 
             // btnWave574
             // 
@@ -6961,6 +7457,7 @@
             this.btnWave574.Size = new System.Drawing.Size(89, 30);
             this.btnWave574.TabIndex = 973;
             this.btnWave574.Text = "574波长";
+            this.btnWave574.Click += new System.EventHandler(this.btnWavelength_Click);
             // 
             // btnWave795
             // 
@@ -6971,6 +7468,7 @@
             this.btnWave795.Size = new System.Drawing.Size(89, 30);
             this.btnWave795.TabIndex = 978;
             this.btnWave795.Text = "795波长";
+            this.btnWave795.Click += new System.EventHandler(this.btnWavelength_Click);
             // 
             // btnWave748
             // 
@@ -6981,6 +7479,7 @@
             this.btnWave748.Size = new System.Drawing.Size(89, 30);
             this.btnWave748.TabIndex = 977;
             this.btnWave748.Text = "748波长";
+            this.btnWave748.Click += new System.EventHandler(this.btnWavelength_Click);
             // 
             // btnWave700
             // 
@@ -6991,6 +7490,7 @@
             this.btnWave700.Size = new System.Drawing.Size(89, 30);
             this.btnWave700.TabIndex = 976;
             this.btnWave700.Text = "700波长";
+            this.btnWave700.Click += new System.EventHandler(this.btnWavelength_Click);
             // 
             // WaterBlankCheck
             // 
@@ -7016,8 +7516,10 @@
             this.Controls.Add(this.lblMinValue);
             this.Controls.Add(this.grpOldBlkValue);
             this.Controls.Add(this.grpNewBlkValue);
+            this.Cursor = System.Windows.Forms.Cursors.Default;
             this.Name = "WaterBlankCheck";
             this.Size = new System.Drawing.Size(1845, 1025);
+            this.Load += new System.EventHandler(this.WaterBlankCheck_Load);
             this.grpOldBlkValue.ResumeLayout(false);
             this.grpOldBlkValue.PerformLayout();
             this.grpNewBlkValue.ResumeLayout(false);
@@ -7352,7 +7854,6 @@
         private System.Windows.Forms.TextBox txtOld081;
         private System.Windows.Forms.TextBox txtOld070;
         private System.Windows.Forms.TextBox txtOld080;
-        private System.Windows.Forms.GroupBox grpNewBlkValue;
         private System.Windows.Forms.Label lblNWB160;
         private System.Windows.Forms.TextBox txtNWB160;
         private System.Windows.Forms.Label lblNWB020;
@@ -7457,7 +7958,6 @@
         private System.Windows.Forms.TextBox txtNWB128;
         private System.Windows.Forms.TextBox txtNWB137;
         private System.Windows.Forms.Label lblNWB002;
-        private System.Windows.Forms.TextBox txtNWB001;
         private System.Windows.Forms.Label lblNWB121;
         private System.Windows.Forms.Label lblNWB001;
         private System.Windows.Forms.Label lblNWB120;
@@ -7691,5 +8191,7 @@
         private DevExpress.XtraEditors.SimpleButton btnWave795;
         private DevExpress.XtraEditors.SimpleButton btnWave748;
         private DevExpress.XtraEditors.SimpleButton btnWave700;
+        private System.Windows.Forms.TextBox txtNWB001;
+        private System.Windows.Forms.GroupBox grpNewBlkValue;
     }
 }

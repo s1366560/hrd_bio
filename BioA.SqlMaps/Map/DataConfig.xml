@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DataConfig" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  
+  <statements>
+    <select id="QueryDataConfig" ResultClass="string" >
+      select Unit from ResultUnitTb
+    </select>
+    <select id="QueryDataConfigAdd" ResultClass="int" parameterClass="System.Collections.IDictionary">
+      select count(*) from ResultUnitTb where Unit=#dataConfig#
+    </select>
+    <insert id="DataConfigAdd" parameterClass="System.Collections.IDictionary">
+      insert into ResultUnitTb (Unit) values (#dataConfig#)
+    </insert>
+    <update id="UpdataDataConfig" parameterClass="System.Collections.IDictionary" resultClass="int">
+      update ResultUnitTb
+      set Unit = #dataConfig#
+      where Unit=#dataConfigOld#
+    </update>
+    <delete id="DeleteDataConfig" resultClass="int" parameterClass="System.Collections.IDictionary" >
+      delete from ResultUnitTb where Unit=#dataConfig# 
+    </delete>
+    <select id="QueryDilutionRatio" ResultClass="string" >
+      select DilutionRatio from DilutionRatioTb
+    </select>
+    <select id="QueryDilutionRatioAdd" ResultClass="int" parameterClass="System.Collections.IDictionary">
+      select count(*) from DilutionRatioTb where DilutionRatio=#DilutionRatio#
+    </select>
+    <insert id="DilutionRatioAdd" parameterClass="System.Collections.IDictionary">
+      insert into DilutionRatioTb (DilutionRatio) values (#DilutionRatio#)
+    </insert>
+    <update id="UpdataDilutionRatio" parameterClass="System.Collections.IDictionary" resultClass="int">
+      update DilutionRatioTb
+      set DilutionRatio = #DilutionRatio#
+      where DilutionRatio=#DilutionRatioOld#
+    </update>
+    <delete id="DeleteDilutionRatio" resultClass="int" parameterClass="System.Collections.IDictionary" >
+      delete from DilutionRatioTb where DilutionRatio=#DilutionRatio#
+    </delete>
+  </statements>
+</sqlMap>

@@ -1,0 +1,409 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="EquipmentManage" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <alias>
+    <typeAlias alias="CuvetteBlankInfo" type="BioA.Common.CuvetteBlankInfo, BioA.Common" />
+    <typeAlias alias="OffSetGain" type="BioA.Common.OffSetGain, BioA.Common" />
+    <typeAlias alias="ManuOffsetGain" type="BioA.Common.ManuOffsetGain, BioA.Common" />
+  </alias>
+  <statements>
+    <statement id="QueryManuOffsetGain" resultClass="ManuOffsetGain">
+      select * from ManuOffsetGainTb
+    </statement>
+    <statement id="BackupLastestToHistory">
+      delete from CuvetteBlankOldTb
+    </statement>
+    <statement id="GetLatestCuvBlkOfWave" resultClass="CuvetteBlankInfo">
+      select * from CuvetteBlankNewTb
+    </statement>
+    <statement id="QueryOldCuvBlkByWave" parameterClass="int" resultClass="int">
+      select count(*) from CuvetteBlankOldTb where WaveLength=#value#
+    </statement>
+    <statement id="UpdateCuvBlkByWave" parameterClass="CuvetteBlankInfo">
+      update CuvetteBlankOldTb
+      set
+      Cuv1Blk = #Cuv1Blk#
+      Cuv2Blk = #Cuv2Blk#
+      Cuv3Blk = #Cuv3Blk#
+      Cuv4Blk = #Cuv4Blk#
+      Cuv5Blk = #Cuv5Blk#
+      Cuv6Blk = #Cuv6Blk#
+      Cuv7Blk = #Cuv7Blk#
+      Cuv8Blk = #Cuv8Blk#
+      Cuv9Blk = #Cuv9Blk#
+      Cuv10Blk = #Cuv10Blk#
+      Cuv11Blk = #Cuv11Blk#
+      Cuv12Blk = #Cuv12Blk#
+      Cuv13Blk = #Cuv13Blk#
+      Cuv14Blk = #Cuv14Blk#
+      Cuv15Blk = #Cuv15Blk#
+      Cuv16Blk = #Cuv16Blk#
+      Cuv17Blk = #Cuv17Blk#
+      Cuv18Blk = #Cuv18Blk#
+      Cuv19Blk = #Cuv19Blk#
+      Cuv20Blk = #Cuv20Blk#
+      Cuv21Blk = #Cuv21Blk#
+      Cuv22Blk = #Cuv22Blk#
+      Cuv23Blk = #Cuv23Blk#
+      Cuv24Blk = #Cuv24Blk#
+      Cuv25Blk = #Cuv25Blk#
+      Cuv26Blk = #Cuv26Blk#
+      Cuv27Blk = #Cuv27Blk#
+      Cuv28Blk = #Cuv28Blk#
+      Cuv29Blk = #Cuv29Blk#
+      Cuv30Blk = #Cuv30Blk#
+      Cuv31Blk = #Cuv31Blk#
+      Cuv32Blk = #Cuv32Blk#
+      Cuv33Blk = #Cuv33Blk#
+      Cuv34Blk = #Cuv34Blk#
+      Cuv35Blk = #Cuv35Blk#
+      Cuv36Blk = #Cuv36Blk#
+      Cuv37Blk = #Cuv37Blk#
+      Cuv38Blk = #Cuv38Blk#
+      Cuv39Blk = #Cuv39Blk#
+      Cuv40Blk = #Cuv40Blk#
+      Cuv41Blk = #Cuv41Blk#
+      Cuv42Blk = #Cuv42Blk#
+      Cuv43Blk = #Cuv43Blk#
+      Cuv44Blk = #Cuv44Blk#
+      Cuv45Blk = #Cuv45Blk#
+      Cuv46Blk = #Cuv46Blk#
+      Cuv47Blk = #Cuv47Blk#
+      Cuv48Blk = #Cuv48Blk#
+      Cuv49Blk = #Cuv49Blk#
+      Cuv50Blk = #Cuv50Blk#
+      Cuv51Blk = #Cuv51Blk#
+      Cuv52Blk = #Cuv52Blk#
+      Cuv53Blk = #Cuv53Blk#
+      Cuv54Blk = #Cuv54Blk#
+      Cuv55Blk = #Cuv55Blk#
+      Cuv56Blk = #Cuv56Blk#
+      Cuv57Blk = #Cuv57Blk#
+      Cuv58Blk = #Cuv58Blk#
+      Cuv59Blk = #Cuv59Blk#
+      Cuv60Blk = #Cuv60Blk#
+      Cuv61Blk = #Cuv61Blk#
+      Cuv62Blk = #Cuv62Blk#
+      Cuv63Blk = #Cuv63Blk#
+      Cuv64Blk = #Cuv64Blk#
+      Cuv65Blk = #Cuv65Blk#
+      Cuv66Blk = #Cuv66Blk#
+      Cuv67Blk = #Cuv67Blk#
+      Cuv68Blk = #Cuv68Blk#
+      Cuv69Blk = #Cuv69Blk#
+      Cuv70Blk = #Cuv70Blk#
+      Cuv71Blk = #Cuv71Blk#
+      Cuv72Blk = #Cuv72Blk#
+      Cuv73Blk = #Cuv73Blk#
+      Cuv74Blk = #Cuv74Blk#
+      Cuv75Blk = #Cuv75Blk#
+      Cuv76Blk = #Cuv76Blk#
+      Cuv77Blk = #Cuv77Blk#
+      Cuv78Blk = #Cuv78Blk#
+      Cuv79Blk = #Cuv79Blk#
+      Cuv80Blk = #Cuv80Blk#
+      Cuv81Blk = #Cuv81Blk#
+      Cuv82Blk = #Cuv82Blk#
+      Cuv83Blk = #Cuv83Blk#
+      Cuv84Blk = #Cuv84Blk#
+      Cuv85Blk = #Cuv85Blk#
+      Cuv86Blk = #Cuv86Blk#
+      Cuv87Blk = #Cuv87Blk#
+      Cuv88Blk = #Cuv88Blk#
+      Cuv89Blk = #Cuv89Blk#
+      Cuv90Blk = #Cuv90Blk#
+      Cuv91Blk = #Cuv91Blk#
+      Cuv92Blk = #Cuv92Blk#
+      Cuv93Blk = #Cuv93Blk#
+      Cuv94Blk = #Cuv94Blk#
+      Cuv95Blk = #Cuv95Blk#
+      Cuv96Blk = #Cuv96Blk#
+      Cuv97Blk = #Cuv97Blk#
+      Cuv98Blk = #Cuv98Blk#
+      Cuv99Blk = #Cuv99Blk#
+      Cuv100Blk = #Cuv100Blk#
+      Cuv101Blk = #Cuv101Blk#
+      Cuv102Blk = #Cuv102Blk#
+      Cuv103Blk = #Cuv103Blk#
+      Cuv104Blk = #Cuv104Blk#
+      Cuv105Blk = #Cuv105Blk#
+      Cuv106Blk = #Cuv106Blk#
+      Cuv107Blk = #Cuv107Blk#
+      Cuv108Blk = #Cuv108Blk#
+      Cuv109Blk = #Cuv109Blk#
+      Cuv110Blk = #Cuv110Blk#
+      Cuv111Blk = #Cuv111Blk#
+      Cuv112Blk = #Cuv112Blk#
+      Cuv113Blk = #Cuv113Blk#
+      Cuv114Blk = #Cuv114Blk#
+      Cuv115Blk = #Cuv115Blk#
+      Cuv116Blk = #Cuv116Blk#
+      Cuv117Blk = #Cuv117Blk#
+      Cuv118Blk = #Cuv118Blk#
+      Cuv119Blk = #Cuv119Blk#
+      Cuv120Blk = #Cuv120Blk#
+      Cuv121Blk = #Cuv121Blk#
+      Cuv122Blk = #Cuv122Blk#
+      Cuv123Blk = #Cuv123Blk#
+      Cuv124Blk = #Cuv124Blk#
+      Cuv125Blk = #Cuv125Blk#
+      Cuv126Blk = #Cuv126Blk#
+      Cuv127Blk = #Cuv127Blk#
+      Cuv128Blk = #Cuv128Blk#
+      Cuv129Blk = #Cuv129Blk#
+      Cuv130Blk = #Cuv130Blk#
+      Cuv131Blk = #Cuv131Blk#
+      Cuv132Blk = #Cuv132Blk#
+      Cuv133Blk = #Cuv133Blk#
+      Cuv134Blk = #Cuv134Blk#
+      Cuv135Blk = #Cuv135Blk#
+      Cuv136Blk = #Cuv136Blk#
+      Cuv137Blk = #Cuv137Blk#
+      Cuv138Blk = #Cuv138Blk#
+      Cuv139Blk = #Cuv139Blk#
+      Cuv140Blk = #Cuv140Blk#
+      Cuv141Blk = #Cuv141Blk#
+      Cuv142Blk = #Cuv142Blk#
+      Cuv143Blk = #Cuv143Blk#
+      Cuv144Blk = #Cuv144Blk#
+      Cuv145Blk = #Cuv145Blk#
+      Cuv146Blk = #Cuv146Blk#
+      Cuv147Blk = #Cuv147Blk#
+      Cuv148Blk = #Cuv148Blk#
+      Cuv149Blk = #Cuv149Blk#
+      Cuv150Blk = #Cuv150Blk#
+      Cuv151Blk = #Cuv151Blk#
+      Cuv152Blk = #Cuv152Blk#
+      Cuv153Blk = #Cuv153Blk#
+      Cuv154Blk = #Cuv154Blk#
+      Cuv155Blk = #Cuv155Blk#
+      Cuv156Blk = #Cuv156Blk#
+      Cuv157Blk = #Cuv157Blk#
+      Cuv158Blk = #Cuv158Blk#
+      Cuv159Blk = #Cuv159Blk#
+      Cuv160Blk = #Cuv160Blk#
+      where WaveLength = #WaveLength#
+    </statement>
+    <statement id="InsertOldCuvBlkByWave" parameterClass="CuvetteBlankInfo">
+      insert into CuvetteBlankOldTb values (#WaveLength#, #Cuv1Blk#, #Cuv2Blk#, #Cuv3Blk#, #Cuv4Blk#, #Cuv5Blk#, #Cuv6Blk#, #Cuv7Blk#, #Cuv8Blk#, #Cuv9Blk#, #Cuv10Blk#, #Cuv11Blk#, #Cuv12Blk#, #Cuv13Blk#,
+      #Cuv14Blk#, #Cuv15Blk#, #Cuv16Blk#, #Cuv17Blk#, #Cuv18Blk#, #Cuv19Blk#, #Cuv20Blk#, #Cuv21Blk#, #Cuv22Blk#, #Cuv23Blk#, #Cuv24Blk#, #Cuv25Blk#, #Cuv26Blk#, #Cuv27Blk#, #Cuv28Blk#, #Cuv29Blk#, #Cuv30Blk#,
+      #Cuv31Blk#, #Cuv32Blk#, #Cuv33Blk#, #Cuv34Blk#, #Cuv35Blk#, #Cuv36Blk#, #Cuv37Blk#, #Cuv38Blk#, 
+      #Cuv39Blk#, #Cuv40Blk#, #Cuv41Blk#, #Cuv42Blk#, #Cuv43Blk#, #Cuv44Blk#, #Cuv45Blk#, #Cuv46Blk#, #Cuv47Blk#, #Cuv48Blk#, #Cuv49Blk#, #Cuv50Blk#, #Cuv51Blk#, #Cuv52Blk#, #Cuv53Blk#, #Cuv54Blk#, #Cuv55Blk#, 
+      #Cuv56Blk#, #Cuv57Blk#, #Cuv58Blk#, #Cuv59Blk#, #Cuv60Blk#, #Cuv61Blk#, #Cuv62Blk#, #Cuv63Blk#, #Cuv64Blk#, #Cuv65Blk#, #Cuv66Blk#, #Cuv67Blk#, #Cuv68Blk#, #Cuv69Blk#, #Cuv70Blk#, #Cuv71Blk#, #Cuv72Blk#, 
+      #Cuv73Blk#, #Cuv74Blk#, #Cuv75Blk#, #Cuv76Blk#, #Cuv77Blk#, #Cuv78Blk#, #Cuv79Blk#, 
+      #Cuv80Blk#, #Cuv81Blk#, #Cuv82Blk#, #Cuv83Blk#, #Cuv84Blk#, #Cuv85Blk#, #Cuv86Blk#, #Cuv87Blk#, #Cuv88Blk#, #Cuv89Blk#, #Cuv90Blk#, #Cuv91Blk#, #Cuv92Blk#, #Cuv93Blk#, #Cuv94Blk#, #Cuv95Blk#, #Cuv96Blk#, 
+      #Cuv97Blk#, #Cuv98Blk#, #Cuv99Blk#, #Cuv100Blk#, #Cuv101Blk#, #Cuv102Blk#, #Cuv103Blk#, #Cuv104Blk#, #Cuv105Blk#, #Cuv106Blk#, #Cuv107Blk#, #Cuv108Blk#, #Cuv109Blk#, #Cuv110Blk#, #Cuv111Blk#, #Cuv112Blk#, 
+      #Cuv113Blk#, #Cuv114Blk#, #Cuv115Blk#, #Cuv116Blk#, #Cuv117Blk#, #Cuv118Blk#, #Cuv119Blk#, #Cuv120Blk#, #Cuv121Blk#, #Cuv122Blk#, #Cuv123Blk#, #Cuv124Blk#, #Cuv125Blk#, #Cuv126Blk#, #Cuv127Blk#, #Cuv128Blk#,
+      #Cuv129Blk#, #Cuv130Blk#, #Cuv131Blk#, #Cuv132Blk#, #Cuv133Blk#, #Cuv134Blk#, #Cuv135Blk#, #Cuv136Blk#, #Cuv137Blk#, #Cuv138Blk#, #Cuv139Blk#, #Cuv140Blk#, #Cuv141Blk#, #Cuv142Blk#, #Cuv143Blk#, #Cuv144Blk#,
+      #Cuv145Blk#, #Cuv146Blk#, #Cuv147Blk#, #Cuv148Blk#, #Cuv149Blk#, #Cuv150Blk#, #Cuv151Blk#, #Cuv152Blk#, #Cuv153Blk#, #Cuv154Blk#, #Cuv155Blk#, #Cuv156Blk#, #Cuv157Blk#, #Cuv158Blk#, #Cuv159Blk#, #Cuv160Blk#, 'NULL')
+    </statement>
+    <statement id="ClearupCuvNewBlk">
+      delete from CuvetteBlankNewTb
+    </statement>
+    <statement id="QueryNewCuvBlkByWave" parameterClass="int" resultClass="int">
+      select count(*) from CuvetteBlankNewTb where WaveLength=#value#
+    </statement>
+    <statement id="InsertNewCuvBlkByWave" parameterClass="int">
+      insert into CuvetteBlankNewTb(WaveLength) values(#value#)
+    </statement>
+    <statement id="UpdateNewCuvBlkByWave" parameterClass="System.Collections.IDictionary">
+      update CuvetteBlankNewTb
+      <dynamic prepend="set">
+        <isPropertyAvailable prepend="," property="WaveLength">WaveLength=#WaveLength#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv1Blk">Cuv1Blk = #Cuv1Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv2Blk">Cuv2Blk = #Cuv2Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv3Blk">Cuv3Blk = #Cuv3Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv4Blk">Cuv4Blk = #Cuv4Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv5Blk">Cuv5Blk = #Cuv5Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv6Blk">Cuv6Blk = #Cuv6Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv7Blk">Cuv7Blk = #Cuv7Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv8Blk">Cuv8Blk = #Cuv8Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv9Blk">Cuv9Blk = #Cuv9Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv10Blk">Cuv10Blk = #Cuv10Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv11Blk">Cuv11Blk = #Cuv11Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv12Blk">Cuv12Blk = #Cuv12Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv13Blk">Cuv13Blk = #Cuv13Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv14Blk">Cuv14Blk = #Cuv14Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv15Blk">Cuv15Blk = #Cuv15Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv16Blk">Cuv16Blk = #Cuv16Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv17Blk">Cuv17Blk = #Cuv17Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv18Blk">Cuv18Blk = #Cuv18Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv19Blk">Cuv19Blk = #Cuv19Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv20Blk">Cuv20Blk = #Cuv20Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv21Blk">Cuv21Blk = #Cuv21Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv22Blk">Cuv22Blk = #Cuv22Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv23Blk">Cuv23Blk = #Cuv23Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv24Blk">Cuv24Blk = #Cuv24Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv25Blk">Cuv25Blk = #Cuv25Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv26Blk">Cuv26Blk = #Cuv26Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv27Blk">Cuv27Blk = #Cuv27Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv28Blk">Cuv28Blk = #Cuv28Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv29Blk">Cuv29Blk = #Cuv29Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv30Blk">Cuv30Blk = #Cuv30Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv31Blk">Cuv31Blk = #Cuv31Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv32Blk">Cuv32Blk = #Cuv32Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv33Blk">Cuv33Blk = #Cuv33Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv34Blk">Cuv34Blk = #Cuv34Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv35Blk">Cuv35Blk = #Cuv35Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv36Blk">Cuv36Blk = #Cuv36Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv37Blk">Cuv37Blk = #Cuv37Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv38Blk">Cuv38Blk = #Cuv38Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv39Blk">Cuv39Blk = #Cuv39Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv40Blk">Cuv40Blk = #Cuv40Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv41Blk">Cuv41Blk = #Cuv41Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv42Blk">Cuv42Blk = #Cuv42Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv43Blk">Cuv43Blk = #Cuv43Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv44Blk">Cuv44Blk = #Cuv44Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv45Blk">Cuv45Blk = #Cuv45Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv46Blk">Cuv46Blk = #Cuv46Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv47Blk">Cuv47Blk = #Cuv47Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv48Blk">Cuv48Blk = #Cuv48Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv49Blk">Cuv49Blk = #Cuv49Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv50Blk">Cuv50Blk = #Cuv50Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv51Blk">Cuv51Blk = #Cuv51Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv52Blk">Cuv52Blk = #Cuv52Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv53Blk">Cuv53Blk = #Cuv53Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv54Blk">Cuv54Blk = #Cuv54Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv55Blk">Cuv55Blk = #Cuv55Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv56Blk">Cuv56Blk = #Cuv56Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv57Blk">Cuv57Blk = #Cuv57Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv58Blk">Cuv58Blk = #Cuv58Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv59Blk">Cuv59Blk = #Cuv59Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv60Blk">Cuv60Blk = #Cuv60Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv61Blk">Cuv61Blk = #Cuv61Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv62Blk">Cuv62Blk = #Cuv62Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv63Blk">Cuv63Blk = #Cuv63Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv64Blk">Cuv64Blk = #Cuv64Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv65Blk">Cuv65Blk = #Cuv65Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv66Blk">Cuv66Blk = #Cuv66Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv67Blk">Cuv67Blk = #Cuv67Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv68Blk">Cuv68Blk = #Cuv68Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv69Blk">Cuv69Blk = #Cuv69Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv70Blk">Cuv70Blk = #Cuv70Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv71Blk">Cuv71Blk = #Cuv71Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv72Blk">Cuv72Blk = #Cuv72Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv73Blk">Cuv73Blk = #Cuv73Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv74Blk">Cuv74Blk = #Cuv74Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv75Blk">Cuv75Blk = #Cuv75Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv76Blk">Cuv76Blk = #Cuv76Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv77Blk">Cuv77Blk = #Cuv77Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv78Blk">Cuv78Blk = #Cuv78Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv79Blk">Cuv79Blk = #Cuv79Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv80Blk">Cuv80Blk = #Cuv80Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv81Blk">Cuv81Blk = #Cuv81Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv82Blk">Cuv82Blk = #Cuv82Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv83Blk">Cuv83Blk = #Cuv83Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv84Blk">Cuv84Blk = #Cuv84Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv85Blk">Cuv85Blk = #Cuv85Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv86Blk">Cuv86Blk = #Cuv86Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv87Blk">Cuv87Blk = #Cuv87Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv88Blk">Cuv88Blk = #Cuv88Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv89Blk">Cuv89Blk = #Cuv89Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv90Blk">Cuv90Blk = #Cuv90Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv91Blk">Cuv91Blk = #Cuv91Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv92Blk">Cuv92Blk = #Cuv92Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv93Blk">Cuv93Blk = #Cuv93Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv94Blk">Cuv94Blk = #Cuv94Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv95Blk">Cuv95Blk = #Cuv95Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv96Blk">Cuv96Blk = #Cuv96Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv97Blk">Cuv97Blk = #Cuv97Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv98Blk">Cuv98Blk = #Cuv98Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv99Blk">Cuv99Blk = #Cuv99Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv100Blk">Cuv100Blk = #Cuv100Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv101Blk">Cuv101Blk = #Cuv101Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv102Blk">Cuv102Blk = #Cuv102Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv103Blk">Cuv103Blk = #Cuv103Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv104Blk">Cuv104Blk = #Cuv104Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv105Blk">Cuv105Blk = #Cuv105Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv106Blk">Cuv106Blk = #Cuv106Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv107Blk">Cuv107Blk = #Cuv107Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv108Blk">Cuv108Blk = #Cuv108Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv109Blk">Cuv109Blk = #Cuv109Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv110Blk">Cuv110Blk = #Cuv110Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv111Blk">Cuv111Blk = #Cuv111Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv112Blk">Cuv112Blk = #Cuv112Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv113Blk">Cuv113Blk = #Cuv113Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv114Blk">Cuv114Blk = #Cuv114Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv115Blk">Cuv115Blk = #Cuv115Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv116Blk">Cuv116Blk = #Cuv116Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv117Blk">Cuv117Blk = #Cuv117Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv118Blk">Cuv118Blk = #Cuv118Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv119Blk">Cuv119Blk = #Cuv119Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv120Blk">Cuv120Blk = #Cuv120Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv121Blk">Cuv121Blk = #Cuv121Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv122Blk">Cuv122Blk = #Cuv122Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv123Blk">Cuv123Blk = #Cuv123Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv124Blk">Cuv124Blk = #Cuv124Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv125Blk">Cuv125Blk = #Cuv125Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv126Blk">Cuv126Blk = #Cuv126Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv127Blk">Cuv127Blk = #Cuv127Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv128Blk">Cuv128Blk = #Cuv128Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv129Blk">Cuv129Blk = #Cuv129Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv130Blk">Cuv130Blk = #Cuv130Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv131Blk">Cuv131Blk = #Cuv131Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv132Blk">Cuv132Blk = #Cuv132Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv133Blk">Cuv133Blk = #Cuv133Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv134Blk">Cuv134Blk = #Cuv134Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv135Blk">Cuv135Blk = #Cuv135Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv136Blk">Cuv136Blk = #Cuv136Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv137Blk">Cuv137Blk = #Cuv137Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv138Blk">Cuv138Blk = #Cuv138Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv139Blk">Cuv139Blk = #Cuv139Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv140Blk">Cuv140Blk = #Cuv140Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv141Blk">Cuv141Blk = #Cuv141Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv142Blk">Cuv142Blk = #Cuv142Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv143Blk">Cuv143Blk = #Cuv143Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv144Blk">Cuv144Blk = #Cuv144Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv145Blk">Cuv145Blk = #Cuv145Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv146Blk">Cuv146Blk = #Cuv146Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv147Blk">Cuv147Blk = #Cuv147Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv148Blk">Cuv148Blk = #Cuv148Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv149Blk">Cuv149Blk = #Cuv149Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv150Blk">Cuv150Blk = #Cuv150Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv151Blk">Cuv151Blk = #Cuv151Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv152Blk">Cuv152Blk = #Cuv152Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv153Blk">Cuv153Blk = #Cuv153Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv154Blk">Cuv154Blk = #Cuv154Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv155Blk">Cuv155Blk = #Cuv155Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv156Blk">Cuv156Blk = #Cuv156Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv157Blk">Cuv157Blk = #Cuv157Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv158Blk">Cuv158Blk = #Cuv158Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv159Blk">Cuv159Blk = #Cuv159Blk#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv160Blk">Cuv160Blk = #Cuv160Blk#</isPropertyAvailable>
+      </dynamic>
+      where WaveLength=#WaveLength#
+    </statement>
+    <statement id="QueryWaterOldBlankValueByWave" resultClass="CuvetteBlankInfo">
+      select * from CuvetteBlankOldTb
+    </statement>
+    <statement id="QueryWaterNewBlankValueByWave" resultClass="CuvetteBlankInfo">
+      select * from CuvetteBlankNewTb
+    </statement>
+    <statement id="QueryNewPhotemetricValue" resultClass="OffSetGain">
+      select * from PhotometricGainNewTb
+    </statement>
+    <statement id="QueryOldPhotemetricValue" resultClass="OffSetGain">
+      select * from PhotometricGainOldTb
+    </statement>
+    <statement id="GetLatestOffSetGain" parameterClass="int" resultClass="OffSetGain">
+      select * from PhotometricGainNewTb where WaveLength=#value#
+    </statement>
+    <statement id="AddLatestOffSetGain" parameterClass="OffSetGain">
+      insert into PhotometricGainNewTb(WaveLength,OffSet,Gain,InspectTime) values (#WaveLength#,#OffSet#,#Gain#,#InspectTime#)
+    </statement>
+    <statement id="DeleteOldOffSetGain" parameterClass="int">
+      delete from PhotometricGainOldTb where WaveLength=#value#
+    </statement>
+    <statement id="AddOldOffSetGain" parameterClass="OffSetGain">
+      insert into PhotometricGainOldTb(WaveLength,OffSet,Gain,InspectTime) values (#WaveLength#,#OffSet#,#Gain#,#InspectTime#)
+    </statement>
+    <statement id="DeleteNewOffSetGain" parameterClass="int">
+      delete from PhotometricGainNewTb where WaveLength=#value#
+    </statement>
+    <statement id="DeleteManuOffsetGainInfo">
+      delete from ManuOffsetGainTb
+    </statement>
+    <statement id="AddManuOffsetGainInfo" parameterClass="ManuOffsetGain">
+      insert into ManuOffsetGainTb(WaveLength, OffSet, Gain, Voltage) values (#WaveLength#, #OffSet#, #Gain#, #Voltage#)
+    </statement>
+  </statements>
+</sqlMap>

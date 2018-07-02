@@ -339,42 +339,34 @@
       Cuv160Blk     float Not Null
       )
     </statement>
+    <!--调节光度计-->
+    <statement id="CreateManuOffsetGainTb">
+      create table ManuOffsetGainTb
+      (
+      WaveLength int null,
+      OffSet int null,
+      Gain int null,
+      Voltage int null
+      )
+    </statement>
     <!--光度计增益值-->
     <statement id="CreatePhotometricGainNewTb" >
       create table PhotometricGainNewTb
       (
-      WaveLength  int Not Null Primary key,
-      Wave340Value int Not Null,
-      Wave405Value int Not Null,
-      Wave445Value int Not Null,
-      Wave484Value int Not Null,
-      Wave510Value int Not Null,
-      Wave549Value int Not Null,
-      Wave574Value int Not Null,
-      Wave600Value int Not Null,
-      Wave663Value int Not Null,
-      Wave700Value int Not Null,
-      Wave748Value int Not Null,
-      Wave795Value int Not Null
+      WaveLength int null,
+      OffSet int null,
+      Gain int null,
+      InspectTime datetime null
       )
     </statement>
     <!--历史光度计增益值-->
     <statement id="CreatePhotometricGainOldTb" >
       create table PhotometricGainOldTb
       (
-      WaveLength  int Not Null Primary key,
-      Wave340Value int Not Null,
-      Wave405Value int Not Null,
-      Wave445Value int Not Null,
-      Wave484Value int Not Null,
-      Wave510Value int Not Null,
-      Wave549Value int Not Null,
-      Wave574Value int Not Null,
-      Wave600Value int Not Null,
-      Wave663Value int Not Null,
-      Wave700Value int Not Null,
-      Wave748Value int Not Null,
-      Wave795Value int Not Null
+      WaveLength int null,
+      OffSet int null,
+      Gain int null,
+      InspectTime datetime null
       )
     </statement>
     <!--光路系统-->
@@ -395,7 +387,30 @@
       UserID char(20) Not Null Primary Key,
       UserName char(20) Not Null,
       UserPassword char(50) Not Null,
-      CreateTime datetime Not Null
+      CreateTime datetime Not Null,
+      ApplyTask tinyint Not Null Default 0,
+      DataCheck tinyint Not Null Default 0,
+      CalibDataCheck tinyint Not Null Default 0,
+      ReagentSetting tinyint Not Null Default 0,
+      ReagentState tinyint Not Null Default 0,
+      CalibState tinyint Not Null Default 0,
+      CalibMaintain tinyint Not Null Default 0,
+      QCState tinyint Not Null Default 0,
+      QCMaintain tinyint Not Null Default 0,
+      ChemistryParam tinyint Not Null Default 0,
+      CombProject tinyint Not Null Default 0,
+      CalcProject tinyint Not Null Default 0,
+      EnvironmentParam tinyint Not Null Default 0,
+      CrossPollute tinyint Not Null Default 0,
+      LISCommunicate tinyint Not Null Default 0,
+      RouMaintain tinyint Not Null Default 0,
+      EquipDebug tinyint Not Null Default 0,
+      UserManage tinyint Not Null Default 0,
+      DepartManage tinyint Not Null Default 0,
+      DataConfiguration tinyint Not Null Default 0,
+      Configuration tinyint Not Null Default 0,
+      LogCheck tinyint Not Null Default 0,
+      VersionInfo tinyint Not Null Default 0
       )
     </statement>
     <!--用户权限表-->
@@ -420,6 +435,7 @@
       create table ApplyDoctorTb
       (
       ID int auto_increment primary key,
+      Department char(20) Not Null,
       Doctor char(20) Not Null
       )
     </statement>
@@ -489,7 +505,7 @@
       )
     </statement>
     <!--警报日志表-->
-    <statement id="CreateAlarmLog">
+    <statement id="CreateAlarmLogTb">
       create table AlarmLog
       (
       ID int auto_increment primary key,
@@ -540,6 +556,7 @@
       MeasureLightDot2 int Null,
       MeasureLightDot3 int Null,
       MeasureLightDot4 int Null,
+      ResultUnit char(20) null,
       MainWaveLength int Null,
       SecWaveLength int Null,
       InstrumentFactorA float Null,
@@ -553,6 +570,9 @@
       IncStosteVol float Null,
       IncSamVol float Null,
       IncDilutionVol float Null,
+      CalibStosteVol float Null,
+      CalibSamVol float Null,
+      CalibDilutionVol float Null,
       DilutionType char(20) Null,
       FirstSlope float Null,
       SecondSlope float Null,
@@ -569,8 +589,10 @@
       Limit2 float Null,
       LimitValue float Null,
       ReactionDirection char(10) Null,
-      StirringIntensity char(10) Null,
-      LevelConcentration char(10) Null,
+      Stirring1Intensity char(10) Null,
+      Stirring2Intensity char(10) Null,
+      Reagent1VolSettings float Null,
+      Reagent2VolSettings float Null,
       Constraint PK_AssayProject primary key (ProjectName, SampleType)
       )
     </statement>
@@ -580,7 +602,7 @@
       (
       ProjectName char(20) Not Null,
       SampleType char(10) Not Null,
-      CalibrationMethod char(20) Not Null,
+      CalibrationMethod char(20) Null,
       Point int Null,
       Span int Null,
       AbsLimit float Null,
@@ -590,14 +612,37 @@
       SensitivityLow float Null,
       BlankAbsHigh float Null,
       BlankAbsLow float Null,
-      CalibrationTimes int Not Null,
-      AutoCalibration tinyint Not Null,
-      AutoCalibMask tinyint Not Null,
+      CalibrationTimes int Null,
+      AutoCalibration tinyint Null,
+      AutoCalibMask tinyint Null,
       CalibLotCheck tinyint Null,
       CalibValidDateCheck tinyint Null,
       ReagentLotCheck tinyint Null,
       ReagentValidDateCheck tinyint Null,
       QCFailed tinyint Null,
+      CalibPos0 char(20) Null,
+      CalibPos1 char(20) Null,
+      CalibPos2 char(20) Null,
+      CalibPos3 char(20) Null,
+      CalibPos4 char(20) Null,
+      CalibPos5 char(20) Null,
+      CalibPos6 char(20) Null,
+      CalibConcentration0 float Null,
+      CalibConcentration1 float Null,
+      CalibConcentration2 float Null,
+      CalibConcentration3 float Null,
+      CalibConcentration4 float Null,
+      CalibConcentration5 float Null,
+      CalibConcentration6 float Null,
+      CalibName0 char(20) Null,
+      CalibName1 char(20) Null,
+      CalibName2 char(20) Null,
+      CalibName3 char(20) Null,
+      CalibName4 char(20) Null,
+      CalibName5 char(20) Null,
+      CalibName6 char(20) Null,
+      Factor float Null,
+      CalibCurveValidDay int Null,
       Constraint PK_AssayProject primary key (ProjectName, SampleType)
       )
     </statement>
@@ -607,101 +652,87 @@
       (
       ProjectName char(20) Not Null,
       SampleType char(10) Not Null,
-      AutoRerun tinyint Not Null,
-      TechnicalLimitLow int Null,
-      TechnicalLimitHigh int Null,
+      AutoRerun tinyint Null,
       RepeatLimitLow int Null,
       RepeatLimitHigh int Null,
-      QCDefaultContainer char(10) Not Null,
-      CalibDefaultContainer char(10) Not Null,
-      SerumAgeLow1 int Null,
-      SerumAgeHigh1 int Null,
-      SerumManConsLow1 float Null,
-      SerumManConsHigh1 float Null,
-      SerumWomanConsLow1 float Null,
-      SerumWomanConsHigh1 float Null,
-      UrineAgeLow1 int Null,
-      UrineAgeHigh1 int Null,
-      UrineManConsLow1 float Null,
-      UrineManConsHigh1 float Null,
-      UrineWomanConsLow1 float Null,
-      UrineWomanConsHigh1 float Null,
-      SerumAgeLow2 int Null,
-      SerumAgeHigh2 int Null,
-      SerumManConsLow2 float Null,
-      SerumManConsHigh2 float Null,
-      SerumWomanConsLow2 float Null,
-      SerumWomanConsHigh2 float Null,
-      UrineAgeLow2 int Null,
-      UrineAgeHigh2 int Null,
-      UrineManConsLow2 float Null,
-      UrineManConsHigh2 float Null,
-      UrineWomanConsLow2 float Null,
-      UrineWomanConsHigh2 float Null,
-      SerumAgeLow3 int Null,
-      SerumAgeHigh3 int Null,
-      SerumManConsLow3 float Null,
-      SerumManConsHigh3 float Null,
-      SerumWomanConsLow3 float Null,
-      SerumWomanConsHigh3 float Null,
-      UrineAgeLow3 int Null,
-      UrineAgeHigh3 int Null,
-      UrineManConsLow3 float Null,
-      UrineManConsHigh3 float Null,
-      UrineWomanConsLow3 float Null,
-      UrineWomanConsHigh3 float Null,
-      SerumAgeLow4 int Null,
-      SerumAgeHigh4 int Null,
-      SerumManConsLow4 float Null,
-      SerumManConsHigh4 float Null,
-      SerumWomanConsLow4 float Null,
-      SerumWomanConsHigh4 float Null,
-      UrineAgeLow4 int Null,
-      UrineAgeHigh4 int Null,
-      UrineManConsLow4 float Null,
-      UrineManConsHigh4 float Null,
-      UrineWomanConsLow4 float Null,
-      UrineWomanConsHigh4 float Null,
-      SerumDefaultSex char(5) Not Null,
-      SerumDefaultAgeLow int Null,
-      SerumDefaultAgeHigh int Null,
-      UrineDefaultSex char(5) Not Null,
-      UrineDefaultAgeLow int Null,
-      UrineDefaultAgeHigh int Null
+      AgeLow1 int Null,
+      AgeHigh1 int Null,
+      ManConsLow1 float Null,
+      ManConsHigh1 float Null,
+      WomanConsLow1 float Null,
+      WomanConsHigh1 float Null,
+      AgeLow2 int Null,
+      AgeHigh2 int Null,
+      ManConsLow2 float Null,
+      ManConsHigh2 float Null,
+      WomanConsLow2 float Null,
+      WomanConsHigh2 float Null,
+      AgeLow3 int Null,
+      AgeHigh3 int Null,
+      ManConsLow3 float Null,
+      ManConsHigh3 float Null,
+      WomanConsLow3 float Null,
+      WomanConsHigh3 float Null,
+      AgeLow4 int Null,
+      AgeHigh4 int Null,
+      ManConsLow4 float Null,
+      ManConsHigh4 float Null,
+      WomanConsLow4 float Null,
+      WomanConsHigh4 float Null
+      )
+    </statement>
+    <!--组合项目名称表-->
+    <statement id="CreateCombProjectNameInfoTb">
+      create table CombProjectNameInfoTb
+      (
+      CombProjectName char(50) Not Null primary key,
+      CombProjectCount int Null,
+      Remarks Text Null
       )
     </statement>
     <!--组合项目表-->
     <statement id="CreateCombProjectInfoTb">
       create table CombProjectInfoTb
       (
-      CombProjectName char(20) Not Null primary key,
-      ProjectName int Not Null
+      CombProjectName Text Not Null,
+      ProjectName Text not Null
       )
     </statement>
     <!--计算项目表-->
     <statement id="CreateCalcProjectInfoTb">
       create table CalcProjectInfoTb
       (
-      CalcProjectName char(20) Not Null primary key,
-      CalcProjectFullName char(20) Not Null,
-      Unit char(20) Not Null,
+      CalcProjectName char(20) Not Null,
+      CalcProjectFullName char(20) Null,
+      Unit char(20) Null,
       SampleType char(10) Not Null,
-      ReferenceRange char(50) Null,
-      CalcFormula char(50) Not Null
+      ReferenceRangeLow float Null,
+      ReferenceRangeHigh float Null,
+      CalcFormula char(50) Null,
+      Constraint PK_AssayProject primary key (CalcProjectName, SampleType)
       )
     </statement>
     <!--环境参数表-->
     <statement id="CreateEnvironmentParamTb">
       create table EnvironmentParamTb
       (
-      ReactionDiscTemp float Not Null,
-      ReagentDiscTemp float Not Null,
-      CuvetteBlankLow float Not Null,
-      CuvetteBlankHigh float Not Null,
-      ReagentSurplus float Not Null,
-      ReagentLeastVol float Not Null,
-      AbluentSurplus float Not Null,
-      AbluentLeastVol float Not Null
+      ReactionDiscTemp float Null,
+      ReagentDiscTemp float Null,
+      CuvetteBlankLow float Null,
+      CuvetteBlankHigh float Null,
+      ReagentSurplus float Null,
+      ReagentLeastVol float Null,
+      AbluentSurplus float Null,
+      AbluentLeastVol float Null,
+      AutoTransferReagentPos tinyint Not Null Default '0',
+      AutoFreezeTask tinyint Not Null Default '0'
+      )
+    </statement>
+    <!--稀释比例-->
+    <statement id="CreateDilutionRatioTb">
+      create table DilutionRatioTb
+      (
+      DilutionRatio float Null     
       )
     </statement>
     <!--交叉污染-试剂针防污-->
@@ -709,8 +740,10 @@
       create table ReagentNeedleAntifoulingStrategyTb
       (
       ReagentNeedle char(20) Not Null,
-      PolluteSourcePro char(20) Not Null,
-      BePollutedPro char(20) Not NUll,
+      PolluteProName char(20) Not Null,
+      PolluteProType char(20) Null,
+      BePollutedProName char(20) Not NUll,
+      BePollutedProType char(20) Null,
       CleaningLiquidName char(20) Not Null,
       CleaningLiquidUseVol float Not Null,
       CleanTimes int Not Null
@@ -723,10 +756,10 @@
       PolluteSourcePro char(20) Not Null,
       R1CleanLiquidType char(20) Null,
       R1CleanLiquidUserVol float Null,
-      R1CleanTImes int Null,
+      R1CleanTimes int Null,
       R2CleanLiquidType char(20) Null,
       R2CleanLiquidUserVol float Null,
-      R2CleanTImes int Null
+      R2CleanTimes int Null
       )
     </statement>
     <!--样本针防污策略-->
@@ -736,7 +769,7 @@
       PolluteSourcePro char(20) Not Null,
       CleanLiquidType char(20) Null,
       CleanLiquidUserVol float Null,
-      CleanTImes int Null
+      CleanTimes int Null
       )
     </statement>
     <!--结果单位表-->
@@ -761,73 +794,107 @@
     <!--LIS串口通讯-->
     <statement id="CreateSerialCommunicationTb">
       create table SerialCommunicationTb
-
       (
-
       SerialName char(10) Null,
-
       BaudRate int Null,
-
       DataBits int Null,
-
       StopBits int Null,
-
       Parity int Null,
-
       CommunicateionType char(10) Null,
       CommunicateionOvertime  float Null,
-
       ReConnectionTime float Null,
-
       StartingUp tinyint Not Null,
-
       Reconnection tinyint Not Null,
-
       RealTimeSendResult tinyint Not Null
-
       )
     </statement>
     <!--质控品表-->
     <statement id="CreateQualityControlTb">
       create table QualityControlTb
       (
-      QCName char(20) Not Null Primary key,
+      QCID INT AUTO_INCREMENT primary key,
+      QCName char(20) Not Null,
       LotNum char(20) Not Null,
       Pos char(10) Not Null,
       InvalidDate datetime Not Null,
-      HorizonLevel char(10) Not Null
+      HorizonLevel char(10) Not Null,
+      Manufacturer char(100) Null,
+      IsLocked tinyint Not Null Default 1,
+      IsLogicalDelete tinyint Not Null Default 0      
       )
     </statement>
     <!--质控品关联项目列表-->
     <statement id="CreateQCRelationProjectTb">
       create table QCRelationProjectTb
       (
+      ProjectID INT AUTO_INCREMENT primary key,
       ProjectName  char(20) Not Null,
-      QCName  char(20) Not Null,
-      TargetMean float Not Null,
-      TargetSD float Not Null,
-      constraint FK_QCName foreign key (QCName) references QualityControlTb(QCName)
+      SampleType  char(20) Not Null,
+      QCID  INT Not Null,
+      TargetMean float Null,
+      TargetSD float Null,
+      Target2SD float Null,
+      Target3SD float Null,
+      constraint FK_QCName foreign key (QCID) references QualityControlTb(QCID)
       )
     </statement>
     <!--质控结果表-->
-    <statement id="CreateQualityControlResult">
-      create table QualityControlResult
+    <statement id="CreateQualityControlResultTb">
+      create table QualityControlResultTb
       (
+      SampleNum char(10) Not Null,
       ProjectName char(20) Not Null,
-      QCName char(20) Not Null,
-      ActualMean float Not Null,
-      ActualSD float Not Null,
-      CVValue float Not Null,
-      StartTime datetime Not Null,
-      QCReason char(128) Not Null
+      SampleType char(20) Not Null,
+      QCID int Not Null,
+      TCNO int null,
+      AbsValue float null,
+      ConcResult float Null,
+      SampleCreateTime datetime Not Null,
+      IsLogicalEdit tinyint Not Null default 0,
+      IsLogicalDelete tinyint Not Null Default 0,
+      Remarks char(128) Null,
       )
     </statement>
+    <!--用户手动修改、新增质控结果数据存储-->
+    <statement id="CreateQualityControlResultForUserTb">
+      create table QualityControlResultForUserTb
+      (
+      ID INT AUTO_INCREMENT primary key,
+      SampleNum char(10) Null,
+      ProjectName char(20) Not Null,
+      SampleType char(20) Not Null,
+      QCID int Not Null,
+      ConcResult float Null,
+      SampleCreateTime datetime Not Null,
+      IsLogicalEdit tinyint Not Null default 0,
+      IsLogicalDelete tinyint Not Null Default 0
+      )
+    </statement>
+    <!--质控任务表,TaskState:0表示未发送给下位机，1表示执行中，2表示已完成，3表示被终止-->
+    <statement id="CreateQCTaskTb">
+      create table QCTaskTb
+      (
+      ID INT AUTO_INCREMENT primary key,
+      SampleNum char(10) Not Null,
+      QCID int Not Null,
+      CreateDate datetime Not Null,
+      Position char(20) Not Null,
+      ProjectName char(20) Not Null,
+      SampleType char(20) Not null,
+      InspectTimes int Not Null,
+      SendTimes int Not Null,
+      FinishTimes int Not Null,
+      TaskState int Not Null
+      )
+    </statement>    
     <!--质控反应进程表-->
-    <statement id="CreateQCReactionProcessTb">
+    <!--<statement id="CreateQCReactionProcessTb">
       create table QCReactionProcessTb
       (
+      SampleNum char(10) Not Null,
       ProjectName char(20) Not Null,
-      QCName char(20) Not Null,
+      SampleType char(20) Not Null,
+      QCID int Not Null,
       QCTime datetime Not Null,
       CUVNO int Not Null,
       CuvBlkWm float Null,
@@ -931,7 +998,7 @@
       Cuv49Wm float Null,
       Cuv49Ws float Null
       )
-    </statement>
+    </statement>-->
     <!--校准品表-->
     <statement id="CreateCalibratorTb">
       create table CalibratorTb
@@ -939,7 +1006,41 @@
       CalibName char(20) Not Null primary key,
       Pos char(10) Not Null,
       LotNum char(20) Not Null,
-      InvalidDate datetime Not Null
+      InvalidDate datetime Not Null,
+      Manufacturer char(50) Not Null
+      )
+    </statement>
+
+    <!--校准任务表-->
+    <statement id="CreateCalibratorinfoTaskTb">
+      create table CalibratorinfoTaskTb
+      (
+      ID INT AUTO_INCREMENT primary key,
+      SampleNum char(10) Not Null,
+      CalibName char(20) Not Null,
+      Pos char(10) Not Null,
+      ProjectName char(20) Not Null,
+      CreateDate datetime Not Null,
+      SampleType char(50) Not Null,
+      InspectTimes int Not Null,
+      SendTimes int Not Null,
+      FinishTimes int Not Null,
+      TaskState int Not Null
+      )
+    </statement>
+    <!--校准品曲线-->
+    <statement id="CreateCalibrationCurveTb">
+      create table CalibrationCurveTb
+      (
+      CalibName char(20) Not Null ,
+      Pos char(10) Not Null,
+      ProjectName char(20) Not Null,
+      CalibConcentration float Not Null,
+      CalibAbs float Null,
+      CalibType char(20) Not Null,
+      Factor float Null,
+      SampleType char(20) Not Null,
+      CalibTime int(4) Not Null
       )
     </statement>
     <!--校准品对应校准项目表-->
@@ -949,6 +1050,7 @@
       ProjectName char(20) Not Null,
       CalibName char(20) Not Null,
       CalibConcentration float Not Null,
+      SampleType char(50) Not Null,
       constraint FK_CalibName foreign key (CalibName) references CalibratorTb(CalibName)
       )
     </statement>
@@ -956,7 +1058,10 @@
     <statement id="CreateCalibrationResultTb">
       create table CalibrationResultTb
       (
+      SampleNum char(10) Not Null,
       ProjectName char(20) Not Null,
+      SampleType char(20) Not Null,
+      TCNO int Null,
       CalibMethod char(20) Not Null,
       CalibratorName char(20) Not Null,
       BlankAbs float Null,
@@ -965,13 +1070,55 @@
       BFactor float Null,
       CFactor float Null,
       CalibAbs float Null,
-      CalibrationState char(50) Null
+      CalibrationState char(50) Null,
+      CalibrationDT datetime Not Null,
+      CalibConcentration float Not Null,
+      Remarks char(128) Null,
+      constraint FK_SampleNum foreign key (SampleNum) references CalibrationResultTb(SampleNum)
+      )
+    </statement>
+    <!--校准拟合-->
+    <statement id="CreateSDTTableItemTb">
+      create table SDTTableItemTb
+      (
+      ProjectName char(20) Not Null,
+      CalibMethod char(20) Not Null,
+      SampleType char(20) Not Null,
+      BlkAbs float Null,
+      SDT1Abs float Null,
+      SDT2Abs float Null,
+      SDT3Abs float Null,
+      SDT4Abs float Null,
+      SDT5Abs float Null,
+      SDT6Abs float Null,
+      BlkConc float Null,
+      SDT1Conc float Null,
+      SDT2Conc float Null,
+      SDT3Conc float Null,
+      SDT4Conc float Null,
+      SDT5Conc float Null,
+      SDT6Conc float Null,
+      BlkItem char(100) Null,
+      Calib1Item char(100) Null,
+      Calib2Item char(100) Null,
+      Calib3Item char(100) Null,
+      Calib4Item char(100) Null,
+      Calib5Item char(100) Null,
+      Calib6Item char(100) Null,
+      AbsoluteFactor float Null,
+      IsUsed Tinyint null,
+      CalibDate datetime null,
+      DrawDate datetime null,
+      CalibState char(50) Null
       )
     </statement>
     <!--校准反应过程表-->
-    <statement id="CreateCalibrationReactionProcessTb">
+    <!--<statement id="CreateCalibrationReactionProcessTb">
       create table CalibrationReactionProcessTb
       (
+      SampleType char(20) Not Null,
+      CalibConcentration float Null,
+      SampleNum char(10) Not Null,
       ProjectName char(20) Not Null,
       CalibName char(20) Not Null,
       CalibTime datetime Not Null,
@@ -1077,7 +1224,7 @@
       Cuv49Wm float Null,
       Cuv49Ws float Null
       )
-    </statement>
+    </statement>-->
     <!--试剂设置表-->
     <statement id="CreateReagentSettingsTb">
       create table ReagentSettingsTb
@@ -1094,110 +1241,151 @@
       Locked tinyint Not Null
       )
     </statement>
+    <!--试剂设置表2-->
+    <statement id="CreateReagentSettingstbr2">      
+      create table ReagentSettingstbr2
+      (
+      Pos char(10) Not Null,
+      ProjectName char(20) Null,
+      ReagentName char(20) Null,
+      ReagentType char(10) Not Null,
+      ReagentChamber char(20) Not Null,
+      ValidDate date Not Null,
+      Barcode char(50) Null,
+      ReagentContainer char(10) Not Null,
+      BatchNum char(20) Not Null,
+      Locked tinyint Not Null
+      )
+    </statement>
+     <!--试剂状态表-->
+     <statement id="CreateReagentStateinfor1r2">
+       create table ReagentStateinfor1r2
+       (
+       ProjectName char(20) Null,
+       Locked tinyint Not Null,
+       ReagentName char(20) Null,
+       ReagentName2 char(20) Null,
+       ResidualQuantity char(20) Null,
+       ResidualQuantity2 char(20) Null,
+       Pos char(20) Null,
+       Pos2 char(20) Null,
+       ReagentType char(20) Null,
+       ReagentType2 char(20) Null,
+       BatchNum char(20) Null,
+       BatchNum2 char(20) Null,
+       ReagentContainer char(20) Null,
+       ReagentContainer2 char(20) Null,
+       ReagentManufacturers char(50) Null,
+       ReagentManufacturers2 char(50) Null,       ReagentResidualVol float null,
+       ReagentResidualVol2 float null,
+       ValidPercent int null,
+       ValidPercent2 int null
+       )
+     </statement>
+    
+     
     <!--项目对应试剂表-->
-    <statement id="CreateProjectReagentStateTb">
+    <!--<statement id="CreateProjectReagentStateTb">
       create table ProjectReagentStateTb
       (
       ProjectName char(20) Not Null,
       R1Name char(20) Null,
+      R1Type char(20) Null,
       R1Pos char(10) Null,
       R1TestQuantity int Null,
       R1SurplusQuantity int Null,
       R2Name char(20) Null,
+      R2Type char(20) Null,
       R2Pos char(10) Null,
-      R2TestQuantity int Null
-      R2SurplusQuantity int Null,
+      R2TestQuantity int Null,
+      R2SurplusQuantity int Null
       )
-    </statement>
+    </statement>-->
     <!--试剂状态表-->
-    <statement id="CreateReagentStateTb">
+    <!--<statement id="CreateReagentStateTb">
       create table ReagentStateTb
       (
       ReagentPos char(10) Not Null,
       ReagentChamber char(20) Not Null,
       ReagentName char(20) Null,
+      ReagentType char(20) null,
       ProjectName char(20) Null,
       ReagentUsedVol float Null,
       ReagentSurplusVol float null
       )
-    </statement>
+    </statement>-->
     <!--病人信息表-->
     <statement id="CreatePatientInfoTb">
       create table PatientInfoTb
       (
+      ID int auto_increment primary key,
       SampleNum int Not Null,
+      InputTime datetime Not Null ,
       SampleID char(20) Null,
       PatientName char(20) Null,
+      BirthDate datetime NOT NULL DEFAULT NOW(),
       Age int Null,
-      BirthDate date Null,
       Sex char(10) Null,
-      NativePlace char(50) Null,
-      ApplyDepartmentTb char(20) Null,
-      ApplyDoctor char(20) Null,
+      PatientType char(10) Null,
+      InspectTime datetime NOT NULL DEFAULT NOW(),
       BedNum char(20) Null,
-      SamplingTime datetime Null,
-      InspectDoctor char(20) Null,
+      ApplyDepartment char(20) Null,
+      ApplyDoctor char(20) Null,
       AuditDoctor char(20) Null,
-      CaseNum char(20) Null,
-      InspectTime datetime Null,
-      AttendingDoctor char(20) Null,
-      HospitalizationNumber char(20) Null,
-      Telephone char(20) Null,
-      SendInspectTime datetime Null,
-      ClinicalDiagnosis char(128) Null,
-      Remarks char(128) Null
+      InspectDoctor char(20) Null,
+      SamplingTime datetime NOT NULL DEFAULT NOW(),
+      ApplyTime datetime NOT NULL DEFAULT NOW(),
+      ClinicalDiagnosis text Null,
+      Remarks text Null
       )
     </statement>
-    <!--样本结果状态表-->
-    <statement id="CreateSampleResultStateTb">
-      create table SampleResultStateTb
-      (
-      SampleNum int Not Null,
-      InspectTime datetime Not Null,
-      AuditState char(10) Null,
-      PrintState char(10) Null
-      )
-    </statement>
-    <!--样本表-->
+    <!--样本表，SampleState:0表示未发送给下位机，1表示执行中，2表示已完成，3表示被终止，4表示被删除，5表示复查中-->
     <statement id="CreateSampleTb">
       create table SampleTb
       (
+      ID int auto_increment primary key,
       SampleNum int Not Null,
       CreateTime datetime Not Null,
-      SampleState char(10) Null,
+      SampleState int Null,
       SamContainer char(10) Not Null,
       SampleType char(10) Not Null,
       Barcode char(50) Null,
       PanelNum int Not Null,
       SamplePos int Not Null,
-      SampleDilute char(10) Not Null,
-      DilutedVol float Not Null,
-      IsOperateDilution tinyint Not Null,
-      IsEmergency tinyint Not Null,
-      IsPrinted tinyint Not Null,
-      IsSend tinyint Not Null
-      )
+      IsOperateDilution tinyint Not Null default 0,      
+      IsEmergency tinyint Not Null default 0,
+      IsPrinted tinyint Not Null default 0,
+      IsSend tinyint Not Null default 0,
+      IsDelete tinyint Not Null default 0,
+      IsAudit tinyint Not Null default 0
+      )    
     </statement>
     <!--样本结果表-->
     <statement id="CreateSampleResultTb">
       create table SampleResultTb
       (
+      ID int auto_increment primary key,
       SampleNum int Not Null,
+      SampleCreateTime datetime Not Null,
       ProjectName char(20) Not Null,
+      SampleType char(20) Not Null,
+      TCNO int Null,
+      AbsValue float Null,
       ConcResult float Null,
-      StartTime datetime Not Null,
-      IsResurvey tinyint Not Null,
-      Remarks char(128) Null
+      Remarks char(128) Null,
+      IsResurvey tinyint Not Null Default 0,
+      Confirm tinyint Null
       )
     </statement>
     <!--样本反应进程表-->
-    <statement id="CreateSampleReactionProcessTb">
+    <!--<statement id="CreateSampleReactionProcessTb">
       create table SampleReactionProcessTb
       (
+      ID int auto_increment primary key,
       ProjectName char(20) Not Null,
       SampleNum int Not Null,
       CreateTime datetime Not Null,
-      CUVNO int Not Null,
+      CUVNO int Null,
       CuvBlkWm float Null,
       CuvBlkWs float Null,
       Cuv1Wm float Null,
@@ -1299,21 +1487,238 @@
       Cuv49Wm float Null,
       Cuv49Ws float Null
       )
-    </statement>
-    <!--样本、质控、校准任务表-->
+    </statement>-->
+    <!--普通任务，TaskState:0表示未发送给下位机，1表示执行中，2表示已完成，3表示被终止，4表示失败-->
     <statement id="CreateTaskTb">
       create table TaskTb
       (
-      SampleNum char(10) Not Null,
+      ID int auto_increment primary key,
+      SampleNum int Not Null,
       CreateDate datetime Not Null,
-      InspectProject char(20) Not Null,
-      WorkType char(20) Not Null,
-      SampleVol float Not Null,
+      ProjectName char(20) Not Null,
+      SampleType char(20) Null,
+      SampleDilute char(10) Not Null,
+      DilutedRatio float Null,
       InspectTimes int Not Null,
       SendTimes int Not Null,
       FinishTimes int Not Null,
-      IsPerformed tinyint Not Null
+      TaskState int Not Null
+      )
+    </statement>    
+    <statement id="CreateCalcTaskTb">
+      create table CalcTaskTb
+      (
+      SampleNum int Not Null,
+      CreateDate datetime Not Null,
+      ProjectName char(50) Not Null,
+      SampleType char(50) Null
       )
     </statement>
-  </statements>
+    <!--机器运行状态-->
+    <statement id="CreateRunningStateTb">
+      create table RunningStateTb
+      (
+        WorkDisk int null,
+        LastestSMPNO int null,
+        MachineStyle char(10) null,
+        LastestTC int null,
+        R1PanelTemp float null,
+        R2PanelTemp float null,
+        CUVPanelTemp float null,
+        CUVBlkMin float null,
+        CUVBlkMax float null,
+        TempOffset float null,
+        RgtWarnCount int null,
+        RgtLeastCount int null,
+        QCSMPContainerType char(20) null,
+        SDTSMPContainerType char(20) null,
+        DrawDate datetime null,
+        IsMutiRgtEnable tinyint null,
+        IsLockRgtEnable tinyint null,
+        IsAutoExchange tinyint null,
+        State1 int null,
+        State2 int null,
+        MachineIsRunning tinyint Null
+      )
+    </statement>
+    <!--下位机错误或警告日志表-->
+    <statement id="CreateTroubleLogTb">
+      create table TroubleLogTb
+      (
+      ID int auto_increment primary key,
+      DrawDate datetime null,
+      TroubleCode text null,
+      TroubleInfo text null,
+      TroubleType char(50) null,
+      TroubleUnit char(20) null,
+      IsConfirm tinyint not null default false
+      )
+    </statement>
+    <!--清洗液（桶）剩余使用数量-->
+    <statement id="CreateDetergentVolTb">
+      create table DetergentVolTb
+      (
+      DetergentACount int null,
+      DetergentBCount int null,
+      ABarcode text null,
+      BBarcode text null
+      )
+    </statement>
+    <!--清洗液信息：清洗液A最大容量ml、清洗液A每小时测试使用量ml、清洗液B最大容量ml、清洗液B每小时测试使用量ml-->
+    <statement id="CreateDetergentInfoTb">
+      create table DertergentInfoTb
+      (
+      DetergentAFullCount int null,
+      DetergentACostPerHour int null,
+      DetergentBFullCount int null,
+      DetergentBCostPerHour int null
+      )
+    </statement>
+    <statement id="CreateDetergentUsingTimerTb">
+      create table DetergentUsingTimerTb
+      (
+        StartingTime datetime null,
+        FinishingTime datetime null
+      )
+    </statement>
+    <statement id="CreateRealTimeCUVDataTb">
+      create table RealTimeCUVDataTb
+      (
+        WorkNo int null,
+        CuvNo int null,
+        SmpNo char(50) null,
+        Assay char(50) null,
+        TC int null,
+        CUVPoint int null,
+        WorkType char(50) null,
+        DrawDate datetime null
+      )
+    </statement>
+    <statement id="CreateTimeCourseTb">
+      create table TimeCourseTb
+      (
+        TimeCourseNO int null,
+        CUVNO int null,
+        DrawDate datetime null,
+        CuvBlkWm float null,
+        CuvBlkWs float null,
+        Cuv1Wm float null,
+        Cuv1Ws float null,
+        Cuv2Wm float null,
+        Cuv2Ws float null,
+        Cuv3Wm float null,
+        Cuv3Ws float null,
+        Cuv4Wm float null,
+        Cuv4Ws float null,
+        Cuv5Wm float null,
+        Cuv5Ws float null,
+        Cuv6Wm float null,
+        Cuv6Ws float null,
+        Cuv7Wm float null,
+        Cuv7Ws float null,
+        Cuv8Wm float null,
+        Cuv8Ws float null,
+        Cuv9Wm float null,
+        Cuv9Ws float null,
+        Cuv10Wm float null,
+        Cuv10Ws float null,
+        Cuv11Wm float null,
+        Cuv11Ws float null,
+        Cuv12Wm float null,
+        Cuv12Ws float null,
+        Cuv13Wm float null,
+        Cuv13Ws float null,
+        Cuv14Wm float null,
+        Cuv14Ws float null,
+        Cuv15Wm float null,
+        Cuv15Ws float null,
+        Cuv16Wm float null,
+        Cuv16Ws float null,
+        Cuv17Wm float null,
+        Cuv17Ws float null,
+        Cuv18Wm float null,
+        Cuv18Ws float null,
+        Cuv19Wm float null,
+        Cuv19Ws float null,
+        Cuv20Wm float null,
+        Cuv20Ws float null,
+        Cuv21Wm float null,
+        Cuv21Ws float null,
+        Cuv22Wm float null,
+        Cuv22Ws float null,
+        Cuv23Wm float null,
+        Cuv23Ws float null,
+        Cuv24Wm float null,
+        Cuv24Ws float null,
+        Cuv25Wm float null,
+        Cuv25Ws float null,
+        Cuv26Wm float null,
+        Cuv26Ws float null,
+        Cuv27Wm float null,
+        Cuv27Ws float null,
+        Cuv28Wm float null,
+        Cuv28Ws float null,
+        Cuv29Wm float null,
+        Cuv29Ws float null,
+        Cuv30Wm float null,
+        Cuv30Ws float null,
+        Cuv31Wm float null,
+        Cuv31Ws float null,
+        Cuv32Wm float null,
+        Cuv32Ws float null,
+        Cuv33Wm float null,
+        Cuv33Ws float null,
+        Cuv34Wm float null,
+        Cuv34Ws float null,
+        Cuv35Wm float null,
+        Cuv35Ws float null,
+        Cuv36Wm float null,
+        Cuv36Ws float null,
+        Cuv37Wm float null,
+        Cuv37Ws float null,
+        Cuv38Wm float null,
+        Cuv38Ws float null,
+        Cuv39Wm float null,
+        Cuv39Ws float null,
+        Cuv40Wm float null,
+        Cuv40Ws float null,
+        Cuv41Wm float null,
+        Cuv41Ws float null,
+        Cuv42Wm float null,
+        Cuv42Ws float null,
+        Cuv43Wm float null,
+        Cuv43Ws float null,
+        Cuv44Wm float null,
+        Cuv44Ws float null,
+        Cuv45Wm float null,
+        Cuv45Ws float null,
+        Cuv46Wm float null,
+        Cuv46Ws float null,
+        Cuv47Wm float null,
+        Cuv47Ws float null,
+        Cuv48Wm float null,
+        Cuv48Ws float null,
+        Cuv49Wm float null,
+        Cuv49Ws float null,
+        Cuv50Wm float null,
+        Cuv50Ws float null
+      )
+    </statement>
+    <statement id="CreateProjectRunSequenceTb">
+      create table ProjectRunSequenceTb
+      (
+        ProjectName char(100) Not Null,
+        SampleType char(100) Not Null,
+        RunSequence int Not Null
+      )
+    </statement>
+    <statement id="CreateSMPContainerTypeTb">
+      create table SMPContainerTypeTb
+      (
+        SMPContainerType char(50) Null,
+        NO int Null,
+        Volume int Null,
+        Code int Null
+      )
+    </statement>  </statements>
 </sqlMap>

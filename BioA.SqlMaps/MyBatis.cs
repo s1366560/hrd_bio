@@ -1,4 +1,4 @@
-﻿// ================================================================================================
+﻿    // ================================================================================================
 //
 // 文件名（File Name）：              MyBatis.cs
 //
@@ -29,6 +29,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using BioA.Common;
+using IBatisNet.Common.Utilities;
 
 namespace BioA.SqlMaps
 {
@@ -71,14 +72,31 @@ namespace BioA.SqlMaps
                 foreach (XmlNode xn in xmlList)
                 {
                     string strTableName = xn.Attributes["id"].Value;
-                    object i = ism_SqlMap.QueryForObject("SelectTableInfo", strTableName.Substring(6));
+                    object i = ism_SqlMap.QueryForObject("CreateTables.SelectTableInfo", strTableName.Substring(6));
                     if ((int)i <= 0)
-                        ism_SqlMap.Update(strTableName, null);
+                        ism_SqlMap.Update("CreateTables." + strTableName, null);
                 }
             }
             catch (Exception e)
             {
                 LogInfo.WriteErrorLog("MyBatis.cs_CreateTables()==" + e.ToString(), Common.Module.DAO);
+            }
+        }
+
+        public void InitialDatabase()
+        {
+            try
+            {
+                int i = (int)ism_SqlMap.QueryForObject("InitialDatabase.GetEnvironmentParamTbCount", null);
+
+                if (i == 0)
+                {
+                    ism_SqlMap.Insert("InitialDatabase.InitialEnvironmentParamTb", null);
+                }
+            }
+            catch (Exception e)
+            {
+                LogInfo.WriteErrorLog("MyBatis.cs_InitialDatabase()==" + e.ToString(), Common.Module.DAO);
             }
         }
     }

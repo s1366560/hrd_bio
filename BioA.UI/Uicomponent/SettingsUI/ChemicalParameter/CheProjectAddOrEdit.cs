@@ -12,7 +12,7 @@ using BioA.Common;
 using BioA.UI.ServiceReference1;
 using BioA.Common.IO;
 
-namespace BioA.UI.Uicomponent.SettingsUI.ChemicalParameter
+namespace BioA.UI
 {
     public partial class CheProjectAddOrEdit : DevExpress.XtraEditors.XtraForm
     {
@@ -26,10 +26,12 @@ namespace BioA.UI.Uicomponent.SettingsUI.ChemicalParameter
             InitializeComponent();
             this.ControlBox = false;
 
-            //lblTitle.Text = strTitle;
-            //cboSampleType.
-            //cboSampleType.Items.AddRange(new string[] { "血清", "尿液" });
-            cboSampleType.ReadOnly = true;
+            foreach (string str in RunConfigureUtility.SampleTypes)
+            {
+                cboSampleType.Properties.Items.Add(str);
+            }
+
+            cboSampleType.SelectedIndex = 1;
         }
         public void FormAdd(string strProShortName, string strSampleType, string strProLongName, string strChannelNumber)
         {
@@ -39,7 +41,6 @@ namespace BioA.UI.Uicomponent.SettingsUI.ChemicalParameter
             cboSampleType.Text = strSampleType;
             assayProInfoOld.ProjectName = strProShortName;
             assayProInfoOld.SampleType = strSampleType;
-
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -49,8 +50,18 @@ namespace BioA.UI.Uicomponent.SettingsUI.ChemicalParameter
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
-           
-            if (txtProShortName.Text.Trim() != null && cboSampleType.SelectedIndex >= 0)
+
+            if (txtProShortName.Text.Trim() == "")
+            {
+                MessageBoxDraw.ShowMsg("项目名称为必填项，请填写项目名称！", MsgType.Warning);
+                return;
+            }
+            else if (cboSampleType.SelectedIndex < 0)
+            {
+                MessageBoxDraw.ShowMsg("请选择项目样本类型！", MsgType.Warning);
+                return;
+            }
+            else
             {
                 AssayProjectInfo assayProInfo = new AssayProjectInfo();
                 assayProInfo.ProjectName = txtProShortName.Text.Trim();
@@ -59,8 +70,8 @@ namespace BioA.UI.Uicomponent.SettingsUI.ChemicalParameter
                     assayProInfo.ProFullName = txtProLongName.Text.Trim();
                 if (txtChannelNumber.Text.Trim() != null)
                     assayProInfo.ChannelNum = txtChannelNumber.Text.Trim();
-                
-                if (this.Text  == "新建项目")
+
+                if (this.Text == "新建项目")
                 {
                     if (DataHandleEvent != null)
                     {
@@ -68,6 +79,7 @@ namespace BioA.UI.Uicomponent.SettingsUI.ChemicalParameter
                         communicationEntity.ObjParam = XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfo);
                         communicationEntity.StrmethodName = "AssayProjectAdd";
                         DataHandleEvent(communicationEntity);
+                        this.Close();
                     }
 
                 }
@@ -75,14 +87,19 @@ namespace BioA.UI.Uicomponent.SettingsUI.ChemicalParameter
                 {
                     if (DataHandleEvent != null)
                     {
-                        CommunicationEntityThreeParam1 communicationEntityThreeParam = new CommunicationEntityThreeParam1();
-                        communicationEntityThreeParam.ObjParam = XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfo);
-                        communicationEntityThreeParam.StrmethodName = "AssayProjectEdit";
-                        communicationEntityThreeParam.ObjLastestParam = XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfoOld);
-                        DataHandleEvent( communicationEntityThreeParam);
+                        CommunicationEntity communicationEntity = new CommunicationEntity();
+                        communicationEntity.ObjLastestParam = XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfo);
+                        communicationEntity.StrmethodName = "AssayProjectEdit";
+                        communicationEntity.ObjParam = XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfoOld);
+                        DataHandleEvent(communicationEntity);
+                        this.Close();
                     }
 
                 }
+                txtProShortName.Text = "";
+                cboSampleType.SelectedIndex = 1;
+                txtProLongName.Text = "";
+                txtChannelNumber.Text = "";
 
             }
         }

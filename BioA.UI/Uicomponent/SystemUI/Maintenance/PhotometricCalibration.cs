@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
 
-namespace BioA.UI.Uicomponent.SystemUI.Maintenance
+namespace BioA.UI
 {
     public partial class PhotometricCalibration : DevExpress.XtraEditors.XtraForm
     {

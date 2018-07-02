@@ -1,6 +1,6 @@
-﻿namespace BioA.UI.Uicomponent.WorkingAreaUI.ApplyTask
+﻿namespace BioA.UI
 {
-    partial class PatientInfo
+    partial class PatientInfoFrm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PatientInfo));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PatientInfoFrm));
             this.grpPatientInfoCheck = new DevExpress.XtraEditors.PanelControl();
             this.btnClose = new DevExpress.XtraEditors.SimpleButton();
             this.btnPatientInfoSelect = new DevExpress.XtraEditors.SimpleButton();
@@ -42,7 +42,7 @@
             this.grpPatientInfoCheck.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
             this.grpPatientInfoCheck.Location = new System.Drawing.Point(37, 90);
             this.grpPatientInfoCheck.Name = "grpPatientInfoCheck";
-            this.grpPatientInfoCheck.Size = new System.Drawing.Size(1165, 677);
+            this.grpPatientInfoCheck.Size = new System.Drawing.Size(1404, 619);
             this.grpPatientInfoCheck.TabIndex = 2;
             // 
             // btnClose
@@ -50,7 +50,7 @@
             this.btnClose.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClose.Appearance.Options.UseFont = true;
             this.btnClose.Image = ((System.Drawing.Image)(resources.GetObject("btnClose.Image")));
-            this.btnClose.Location = new System.Drawing.Point(1110, 778);
+            this.btnClose.Location = new System.Drawing.Point(1349, 732);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(92, 58);
             this.btnClose.TabIndex = 0;
@@ -81,20 +81,21 @@
             this.btnPatientInfoEdit.Text = "病人信息编辑";
             this.btnPatientInfoEdit.Click += new System.EventHandler(this.btnPatientInfoEdit_Click);
             // 
-            // PatientInfo
+            // PatientInfoFrm
             // 
             this.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(236)))), ((int)(((byte)(239)))));
             this.Appearance.Options.UseBackColor = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1236, 843);
+            this.ClientSize = new System.Drawing.Size(1491, 804);
             this.Controls.Add(this.grpPatientInfoCheck);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnPatientInfoSelect);
             this.Controls.Add(this.btnPatientInfoEdit);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "PatientInfo";
+            this.Name = "PatientInfoFrm";
             this.Text = "病人信息";
+            this.Load += new System.EventHandler(this.PatientInfo_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grpPatientInfoCheck)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -1,4 +1,4 @@
-﻿namespace BioA.UI.Uicomponent.QualityControlUI.QCState
+﻿namespace BioA.UI
 {
     partial class frmHisResultChart
     {
@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmHisResultChart));
             this.lblProName = new DevExpress.XtraEditors.LabelControl();
             this.lblResult = new DevExpress.XtraEditors.LabelControl();
             this.lblPosition = new DevExpress.XtraEditors.LabelControl();
@@ -241,6 +242,7 @@
             // 
             this.btnCloes.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCloes.Appearance.Options.UseFont = true;
+            this.btnCloes.Image = ((System.Drawing.Image)(resources.GetObject("btnCloes.Image")));
             this.btnCloes.Location = new System.Drawing.Point(876, 582);
             this.btnCloes.Name = "btnCloes";
             this.btnCloes.Size = new System.Drawing.Size(79, 47);

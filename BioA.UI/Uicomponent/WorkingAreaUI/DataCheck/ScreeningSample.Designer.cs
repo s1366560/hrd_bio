@@ -1,4 +1,4 @@
-﻿namespace BioA.UI.Uicomponent.WorkingAreaUI.DataCheck
+﻿namespace BioA.UI
 {
     partial class ScreeningSample
     {
@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScreeningSample));
             this.btnSever = new DevExpress.XtraEditors.SimpleButton();
             this.btnDelete = new DevExpress.XtraEditors.SimpleButton();
             this.chkInitialSampleTest = new DevExpress.XtraEditors.CheckEdit();
@@ -42,17 +43,20 @@
             // 
             this.btnSever.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSever.Appearance.Options.UseFont = true;
+            this.btnSever.Image = ((System.Drawing.Image)(resources.GetObject("btnSever.Image")));
             this.btnSever.Location = new System.Drawing.Point(93, 335);
             this.btnSever.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnSever.Name = "btnSever";
             this.btnSever.Size = new System.Drawing.Size(83, 68);
             this.btnSever.TabIndex = 9;
             this.btnSever.Text = "保存";
+            this.btnSever.Click += new System.EventHandler(this.btnSever_Click);
             // 
             // btnDelete
             // 
             this.btnDelete.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDelete.Appearance.Options.UseFont = true;
+            this.btnDelete.Image = ((System.Drawing.Image)(resources.GetObject("btnDelete.Image")));
             this.btnDelete.Location = new System.Drawing.Point(251, 335);
             this.btnDelete.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnDelete.Name = "btnDelete";
@@ -110,6 +114,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "ScreeningSample";
             this.Text = "筛选样本";
+            this.Load += new System.EventHandler(this.ScreeningSample_Load);
             ((System.ComponentModel.ISupportInitialize)(this.chkInitialSampleTest.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkOngoingSampleTes.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkCompletedSampleTest.Properties)).EndInit();

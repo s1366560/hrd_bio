@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6192D809-332C-4065-B039-8D288354450E}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BioA.PLCController</RootNamespace>
+    <AssemblyName>BioA.PLCController</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\BioA.UI\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CTRCOMPort.cs" />
+    <Compile Include="Interface\Encode042.cs" />
+    <Compile Include="Interface\Encode092.cs" />
+    <Compile Include="Interface\Encode0CC.cs" />
+    <Compile Include="Interface\Encode0E0.cs" />
+    <Compile Include="Interface\Encode1D0.cs" />
+    <Compile Include="Interface\Encode210.cs" />
+    <Compile Include="Interface\Encode220.cs" />
+    <Compile Include="Interface\Encode230.cs" />
+    <Compile Include="Interface\Encode270.cs" />
+    <Compile Include="Interface\Encode2B1.cs" />
+    <Compile Include="Interface\Encode3D1.cs" />
+    <Compile Include="Interface\Encode450.cs" />
+    <Compile Include="Interface\Encode4A0.cs" />
+    <Compile Include="Interface\Encode6E1.cs" />
+    <Compile Include="Interface\Encode891.cs" />
+    <Compile Include="Interface\Encode892.cs" />
+    <Compile Include="Interface\EncodeA20.cs" />
+    <Compile Include="Interface\EncodeC50.cs" />
+    <Compile Include="Interface\EncodeCE0.cs" />
+    <Compile Include="Interface\EncodeEC1.cs" />
+    <Compile Include="Interface\IEncode.cs" />
+    <Compile Include="Interface\IParse.cs" />
+    <Compile Include="Interface\Parse083.cs" />
+    <Compile Include="Interface\Parse0831.cs" />
+    <Compile Include="Interface\Parse090.cs" />
+    <Compile Include="Interface\Parse092.cs" />
+    <Compile Include="Interface\Parse094.cs" />
+    <Compile Include="Interface\Parse095.cs" />
+    <Compile Include="Interface\Parse0A2.cs" />
+    <Compile Include="Interface\Parse0B0.cs" />
+    <Compile Include="Interface\Parse0E0.cs" />
+    <Compile Include="Interface\Parse111.cs" />
+    <Compile Include="Interface\Parse1C0.cs" />
+    <Compile Include="Interface\Parse250.cs" />
+    <Compile Include="Interface\Parse270.cs" />
+    <Compile Include="Interface\Parse2B0.cs" />
+    <Compile Include="Interface\Parse2B1.cs" />
+    <Compile Include="Interface\Parse450.cs" />
+    <Compile Include="Interface\ParseC50.cs" />
+    <Compile Include="Interface\ParseE20.cs" />
+    <Compile Include="Machine.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\ResultService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BioA.Common\BioA.Common.csproj">
+      <Project>{e1438a53-5dde-42c0-b2ff-0f4a892e95b6}</Project>
+      <Name>BioA.Common</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\BioA.SqlMaps\BioA.SqlMaps.csproj">
+      <Project>{0fa896e7-ee6f-471d-b3fa-8e5768fd9e7a}</Project>
+      <Name>BioA.SqlMaps</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BioA.UI\BioA.UI.csproj">
+      <Project>{37e67464-868e-4947-8ce9-80126513f974}</Project>
+      <Name>BioA.UI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

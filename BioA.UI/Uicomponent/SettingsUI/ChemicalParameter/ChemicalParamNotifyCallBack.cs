@@ -8,35 +8,35 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BioA.UI.Uicomponent.SettingsUI.ChemicalParameter
+namespace BioA.UI
 {
-    [CallbackBehavior(ConcurrencyMode = ConcurrencyMode.Reentrant, UseSynchronizationContext = false)]
-    public class ChemicalParamNotifyCallBack : IBioAServiceCallback
-    {
-        public delegate void DataTransferDelegate(string strMethod, object sender);
-        /// <summary>
-        /// 接收数据库传输的数据，并发送至窗体
-        /// </summary>
-        public DataTransferDelegate DataTransferEvent;
+    //[CallbackBehavior(ConcurrencyMode = ConcurrencyMode.Multiple, UseSynchronizationContext = false)]
+    //public class ChemicalParamNotifyCallBack : IBioAServiceCallback
+    //{
+    //    public delegate void DataTransferDelegate(string strMethod, object sender);
+    //    /// <summary>
+    //    /// 接收数据库传输的数据，并发送至窗体
+    //    /// </summary>
+    //    public DataTransferDelegate DataTransferEvent;
 
-        public void NotifyFunction(object sender)
-        {
+    //    public void NotifyFunction(object sender) 
+    //    {
 
-        }
+    //    }
 
-        public void ClientNotifyFunction(string strSendClientName, object Sender)
-        {
+    //    public void ClientNotifyFunction(string strSendClientName, object Sender)
+    //    {
 
-        }
+    //    }
 
-        public void DatabaseNotifyFunction(string strMethod, object sender)
-        {
-            //List<AssayProjectInfo> lstAssayProInfos = (List<AssayProjectInfo>)XmlUtility.Deserialize(typeof(List<AssayProjectInfo>), sender as string);
-            if (DataTransferEvent != null)
-            {
-                DataTransferEvent(strMethod, sender);
-            }
-            //List<AssayProjectInfo> lstAssayProInfos
-        }
-    }
+    //    public void DatabaseNotifyFunction(string strMethod, object sender)
+    //    {
+    //        //List<AssayProjectInfo> lstAssayProInfos = (List<AssayProjectInfo>)XmlUtility.Deserialize(typeof(List<AssayProjectInfo>), sender as string);
+    //        if (DataTransferEvent != null)
+    //        {
+    //            DataTransferEvent(strMethod, sender);
+    //        }
+    //        //List<AssayProjectInfo> lstAssayProInfos
+    //    }
+    //}
 }

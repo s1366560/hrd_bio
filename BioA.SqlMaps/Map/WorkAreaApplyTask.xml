@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="WorkAreaApplyTask" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <alias>
+    <typeAlias alias="SampleInfo" type="BioA.Common.SampleInfo, BioA.Common" />
+    <typeAlias alias="TaskInfo" type="BioA.Common.TaskInfo, BioA.Common" />
+    <typeAlias alias="PatientInfo" type="BioA.Common.PatientInfo, BioA.Common" />
+  </alias>
+  <resultMaps>
+    <resultMap id="SampleInfoResult" class="SampleInfo">
+      <result property="ID" column="ID" />
+      <result property="SampleNum" column="SampleNum" />
+      <result property="CreateTime" column="CreateTime" />
+      <result property="SampleState" column="SampleState" />
+      <result property="SamContainer" column="SamContainer" />
+      <result property="SampleType" column="SampleType" />
+      <result property="Barcode" column="Barcode" />
+      <result property="PanelNum" column="PanelNum" />
+      <result property="SamplePos" column="SamplePos" />
+      <result property="IsOperateDilution" column="IsOperateDilution" />
+      <result property="IsEmergency" column="IsEmergency" />
+      <result property="IsPrinted" column="IsPrinted" />
+      <result property="IsSend" column="IsSend" />
+      <result property="IsAudit" column="IsAudit" />
+      <result property="PrintState" column="PrintState" />
+    </resultMap>
+    <resultMap id="TaskInfoResult" class="TaskInfo">
+      <result property="ID" column="ID" />
+      <result property="SampleNum" column="SampleNum" />
+      <result property="CreateDate" column="CreateDate" />
+      <result property="ProjectName" column="ProjectName" />
+      <result property="SampleDilute" column="SampleDilute" />
+      <result property="DilutedRatio" column="DilutedRatio" />
+      <result property="InspectTimes" column="InspectTimes" />
+      <result property="SendTimes" column="SendTimes" />
+      <result property="FinishTimes" column="FinishTimes" />
+      <result property="TaskState" column="TaskState" />
+    </resultMap>
+    <resultMap id="PatientInfoResult" class="PatientInfo">
+      <result property="ID" column="ID" />                              
+      <result property="SampleNum" column="SampleNum" />
+      <result property="InputTime" column="InputTime" />
+      <result property="SampleID" column="SampleID" />             
+      <result property="PatientName" column="PatientName" />      
+      <result property="BirthDate" column="BirthDate" />          
+      <result property="Age" column="Age" />                
+      <result property="Sex" column="Sex" />                
+      <result property="PatientType" column="PatientType" />           
+      <result property="InspectTime" column="InspectTime" />         
+      <result property="BedNum" column="BedNum" />                
+      <result property="ApplyDepartment" column="ApplyDepartment" />              
+      <result property="ApplyDoctor" column="ApplyDoctor" />           
+      <result property="AuditDoctor" column="AuditDoctor" />          
+      <result property="InspectDoctor" column="InspectDoctor" />    
+      <result property="SamplingTime" column="SamplingTime" />       
+      <result property="ApplyTime" column="ApplyTime" />    
+      <result property="ClinicalDiagnosis" column="ClinicalDiagnosis" />  
+      <result property="Remarks" column="Remarks" />            
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <statement id="QueryMaxSampleNum" parameterClass="System.Collections.IDictionary" resultClass="int">
+      select max(SampleNum) from SampleTb where CreateTime between #starttime# and #endtime#
+    </statement>
+    <statement id="QueryApplyTaskLsvt" parameterClass="System.Collections.IDictionary" resultClass="SampleInfo">
+      select * from SampleTb where CreateTime between #starttime# and #endtime# ORDER BY SampleNum
+    </statement>
+    <statement id="QuerySampleCountByNumber" parameterClass="System.Collections.IDictionary" resultClass="int">
+      select count(*) from SampleTb where SampleNum=#SampleNum# and CreateTime between #starttime# and #endtime#
+    </statement>
+    <statement id="AddSample" parameterClass="SampleInfo">
+      insert into SampleTb (SampleNum, CreateTime, SampleState, SamContainer, SampleType, Barcode, PanelNum, SamplePos, IsOperateDilution, IsEmergency, IsPrinted, IsSend)
+      values(#SampleNum#, #CreateTime#, #SampleState#, #SamContainer#, #SampleType#, #Barcode#, #PanelNum#, #SamplePos#, #IsOperateDilution#, #IsEmergency#, #IsPrinted#, #IsSend#)
+    </statement>
+    <statement id="AddSampleResult" parameterClass="System.Collections.IDictionary">
+      insert into SampleResultTb (SampleNum, SampleCreateTime, ProjectName, SampleType)
+      values(#SampleNum#, #SampleCreateTime#, #ProjectName#, #SampleType#)
+    </statement>
+    <statement id="AddTask" parameterClass="TaskInfo">
+      insert into TaskTb (SampleNum, CreateDate, ProjectName, SampleType, SampleDilute, DilutedRatio, InspectTimes, SendTimes, FinishTimes, TaskState)
+      values(#SampleNum#, #CreateDate#, #ProjectName#, #SampleType#, #SampleDilute#, #DilutedRatio#, #InspectTimes#, #SendTimes#, #FinishTimes#, #TaskState#)
+    </statement>
+    <statement id="AddPatientInfoByAddTask" parameterClass="System.Collections.IDictionary">
+      insert into PatientInfoTb (SampleNum, InputTime) values (#SampleNum#, #InputTime#)
+    </statement>
+    <statement id="QueryPatientInfoBySampleNum" parameterClass="System.Collections.IDictionary" resultClass="PatientInfo">
+      select * from PatientInfoTb where SampleNum=#SampleNum# and InputTime between #starttime# and #endtime#
+    </statement>
+    <statement id="QueryPatientInfoCountByNum" patameterClass="System.Collections.IDictionary" resultClass="int">
+      select count(*) from PatientInfoTb where SampleNum=#SampleNum# and InputTime between #starttime# and #endtime#
+    </statement>
+    <statement id="UpdatePatientInfo" parameterClass="PatientInfo">
+      update PatientInfoTb
+      set
+      InputTime=#InputTime#,
+      SampleID=#SampleID#,
+      PatientName=#PatientName#,
+      BirthDate=#BirthDate#,
+      Age=#Age#,
+      Sex=#Sex#,
+      PatientType=#PatientType#,
+      InspectTime=#InspectTime#,
+      BedNum=#BedNum#,
+      ApplyDepartment=#ApplyDepartment#,
+      ApplyDoctor=#ApplyDoctor#,
+      AuditDoctor=#AuditDoctor#,
+      InspectDoctor=#InspectDoctor#,
+      SamplingTime=#SamplingTime#,
+      ApplyTime=#ApplyTime#,
+      ClinicalDiagnosis=#ClinicalDiagnosis#,
+      Remarks=#Remarks#
+      where SampleNum=#SampleNum# and ApplyTime=#ApplyTime#
+    </statement>
+    <statement id="AddPatientInfo" parameterClass="PatientInfo">
+      insert into PatientInfoTb (SampleNum, InputTime, SampleID, PatientName, BirthDate, Age, Sex, PatientType, InspectTime,
+      BedNum, ApplyDepartment, ApplyDoctor, AuditDoctor, InspectDoctor, SamplingTime, ApplyTime, ClinicalDiagnosis, Remarks)
+      values (#SampleNum#, #InputTime#, #SampleID#, #PatientName#, #BirthDate#, #Age#, #Sex#, #PatientType#, #InspectTime#,
+      #BedNum#, #ApplyDepartment#, #ApplyDoctor#, #AuditDoctor#, #InspectDoctor#, #SamplingTime#, #ApplyTime#, #ClinicalDiagnosis#, #Remarks#)
+    </statement>
+    <statement id="QueryPatientInfos" parameterClass="System.Collections.IDictionary" resultClass="PatientInfo">
+      select * from PatientInfoTb where InputTime between #starttime# and #endtime#
+    </statement>
+    <!--<statement id="AddSampleReactionProcess" parameterClass="System.Collections.IDictionary">
+      insert into SampleReactionProcessTb (ProjectName,SampleNum,CreateTime) values (#ProjectName#,#SampleNum#,#SampleCreateTime#)
+    </statement>-->
+    <statement id="UpdateSampleState" parameterClass="System.Collections.IDictionary" resultClass="int">
+      update SampleTb set SampleState=#SampleState# where SampleNum=#SampleNum# and CreateTime=#CreateTime#
+    </statement>
+    <statement id="QueryCheckProjectTaskState" parameterClass="System.Collections.IDictionary" resultClass="TaskInfo">
+      select * from TaskTb where SampleNum=#SampleNum# and CreateDate=#ApplyTime# and ProjectName=#ProjectName#
+    </statement>
+    <statement id="QueryTaskInfoBySampleNum" parameterClass="System.Collections.IDictionary" resultClass="TaskInfo">
+      select * from TaskTb where SampleNum=#SampleNum# and CreateDate between #starttime# and #endtime#
+    </statement>
+    <statement id="CalibCurveBeExistByProNameAndType" parameterClass="System.Collections.IDictionary" resultClass="int">
+      select count(*) from SDTTableItemTb where ProjectName=#ProjectName# and SampleType=#SampleType#
+    </statement>
+    <statement id="QuerySampleInfoByPosAndPanel" parameterClass="System.Collections.IDictionary" resultClass="int">
+      select * from SampleTb where PanelNum=#PanelNum# and SamplePos=#SamplePos# and CreateTime between #starttime# and #endtime#
+    </statement>
+    <statement id="QuerySamplePanelState" parameterClass="System.Collections.IDictionary" resultClass="SampleInfo">
+      select * from SampleTb where PanelNum=#PanelNum# and CreateTime between #starttime# and #endtime#
+    </statement>
+    <statement id="GetSample" parameterClass="System.Collections.IDictionary" resultClass="SampleInfo">
+      select * from SampleTb where CreateTime=#sampleCreateTime# and SampleNum=#sampleNum#
+    </statement>
+    <statement id="GetSampleTaskDilutionType" parameterClass="System.Collections.IDictionary" resultClass="string">
+      select SampleDilute from TaskTb where SampleNum=#SampleNum# and CreateDate=#SampleCreateTime# and ProjectName=#ProjectName# and SampleType=#SampleType#
+    </statement>
+    <statement id="UpdateCurrentNORResult" parameterClass="System.Collections.IDictionary">
+      update SampleResultTb set AbsValue=#AbsValue#, ConcResult=#ConcResult#
+      where SampleNum=#SampleNum# and SampleCreateTime=#SampleCreateTime# and ProjectName=#ProjectName# and SampleType=#SampleType#
+    </statement>
+    <statement id="UpdateNorTaskState" parameterClass="System.Collections.IDictionary">
+      update TaskTb set TaskState='0' where ProjectName=#ProjectName# and SampleType=#SampleType# and InspectTimes>SendTimes
+    </statement>
+    <statement id="UpdateNORResultRunLog" parameterClass="System.Collections.IDictionary">
+      update SampleResultTb set Remarks=#Remarks# where SampleNum=#SampleNum# and ProjectName=#ProjectName# and TCNO=#TCNO# and SampleCreateTime=#SampleCreateTime#
+    </statement>
+    <statement id="GetSMPSchedule" parameterClass="System.Collections.IDictionary" resultClass="TaskInfo">
+      select * from TaskTb where ProjectName=#ProjectName# and SampleNum=#SampleNum# and CreateDate between #StartTime# and #EndTime#
+    </statement>
+    <statement id="GetSingleWorkingEmgAssayScheduleNoRgtLock" parameterClass="System.Collections.IDictionary" resultClass="TaskInfo">
+      select t1.* from TaskTb t1 left join SampleTb t2 on t1.SampleNum = t2.SampleNum
+      left join AssayProjectParamInfoTb t3 on t1.ProjectName = t3.ProjectName and t1.SampleType = t3.SampleType
+      where t2.PanelNum=#disk# and t2.IsEmergency='1' and t1.CreateDate between #CreateDateBegin# and #CreateDateEnd# order by t1.ID Limit #count#
+    </statement>
+    <statement id="GetSingleWorkingNorAssayScheduleNoRgtLock" parameterClass="System.Collections.IDictionary" resultClass="TaskInfo">
+      select t1.* from TaskTb t1 left join SampleTb t2 on t1.SampleNum = t2.SampleNum
+      left join AssayProjectParamInfoTb t3 on t1.ProjectName = t3.ProjectName and t1.SampleType = t3.SampleType
+      where t1.TaskState=0 and t2.PanelNum=#disk# and t2.IsEmergency='0' and t1.CreateDate between #CreateDateBegin# and #CreateDateEnd# order by t1.ID Limit #count#
+    </statement>
+    <statement id="QuerySampleInfoByQCID" parameterClass="System.Collections.IDictionary" resultClass="SampleInfo">
+      select * from SampleTb where SampleNum=#SampleNum# and CreateTime between #CreateTimeStart# and #CreateTimeEnd#
+    </statement>
+
+    <statement id ="UpdateRunningTaskWorDisk" parameterClass ="string" resultClass ="int">
+      update RunningStateTb set WorkDisk = #value#
+    </statement>
+  </statements>
+</sqlMap>

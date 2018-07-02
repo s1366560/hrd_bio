@@ -9,13 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
 
-namespace BioA.UI.Uicomponent.SystemUI.Configure
+namespace BioA.UI
 {
     public partial class Configure : DevExpress.XtraEditors.XtraUserControl
     {
         public Configure()
         {
             InitializeComponent();
+           
         }
     }
 }

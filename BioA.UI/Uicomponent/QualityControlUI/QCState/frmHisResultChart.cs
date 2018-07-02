@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
 
-namespace BioA.UI.Uicomponent.QualityControlUI.QCState
+namespace BioA.UI
 {
     public partial class frmHisResultChart : DevExpress.XtraEditors.XtraForm
     {

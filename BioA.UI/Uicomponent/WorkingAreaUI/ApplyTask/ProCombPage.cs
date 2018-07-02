@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
 
-namespace BioA.UI.Uicomponent.WorkingAreaUI.ApplyTask
+namespace BioA.UI
 {
     public partial class ProCombPage : DevExpress.XtraEditors.XtraUserControl
     {

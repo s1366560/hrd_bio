@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="CombProjectInfo" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <alias>
+    <typeAlias alias="CombProjectInfo" type="BioA.Common.CombProjectInfo, BioA.Common" />
+  </alias>
+  <statements>
+    <statement id="QueryCombProjectNameAllInfo" ResultClass="ArrayList">
+      select CombProjectNameInfoTb.CombProjectName,CombProjectNameInfoTb.CombProjectCount, CombProjectNameInfoTb.Remarks  from CombProjectNameInfoTb
+    </statement>
+    <statement id="QueryProjectByCombProName" parameterClass="string" ResultClass="string">
+      select CombProjectInfoTb.ProjectName from CombProjectInfoTb where CombProjectInfoTb.CombProjectName = #value#
+    </statement>
+    <statement id="AddCombProjectName" parameterClass="System.Collections.IDictionary" >
+      insert into CombProjectNameInfoTb(CombProjectName, CombProjectCount, Remarks) values (#CombProjectName#, #CombProjectCount#, #Remarks#)
+    </statement>
+    <statement id="AddCombProject" parameterClass="System.Collections.IDictionary">
+      insert into CombProjectInfoTb values (#CombProjectName#, #ProjectName#)
+    </statement>
+    <statement id="DeleteCombProjectName" parameterClass="string" ResultClass="int">
+      delete from CombProjectNameInfoTb where CombProjectName=#value#
+    </statement>
+    <statement id="DeleteCombProject" parameterClass="string" ResultClass="int">
+      delete from CombProjectInfoTb where CombProjectName=#value#
+    </statement>
+    <statement id="UpdateCombProjectName" parameterClass="System.Collections.IDictionary" ResultClass="int">
+      update CombProjectNameInfoTb set
+      CombProjectName = #CombProjectNameNew#,
+      CombProjectCount = #CombProjectCountNew#,
+      Remarks = #RemarksNew#
+      where CombProjectName = #CombProjectNameOld#
+    </statement>
+    <statement id="CombProjectCountByCombProName" parameterClass="string" ResultClass="int">
+      select count(*) from CombProjectNameInfoTb where CombProjectName = #value#
+    </statement>
+  </statements>
+</sqlMap>

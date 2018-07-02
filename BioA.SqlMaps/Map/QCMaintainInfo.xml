@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="QCMaintainInfo" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <alias>
+    <typeAlias alias="QualityControlInfo" type="BioA.Common.QualityControlInfo, BioA.Common" />
+    <typeAlias alias="QCRelationProjectInfo" type="BioA.Common.QCRelationProjectInfo, BioA.Common" />
+    <!--<typeAlias alias="QCResultForUIInfo" type="BioA.Common.QCResultForUIInfo, BioA.Common" />-->
+  </alias>
+  <resultMaps>
+    <resultMap id="QualityControlInfoResult" class="QualityControlInfo">
+      <result property="QCID" column="QCID" />
+      <result property="QCName" column="QCName" />
+      <result property="LotNum" column="LotNum" />
+      <result property="Pos" column="Pos" />
+      <result property="InvalidDate" column="InvalidDate" />
+      <result property="HorizonLevel" column="HorizonLevel" />
+      <result property="Manufacturer" column="Manufacturer" />
+      <result property="IsLocked" column="IsLocked" />
+      <result property="IsLogicalDelete" column="IsLogicalDelete" />
+    </resultMap>
+    <resultMap id="QCRelationProjectInfoResult" class="QCRelationProjectInfo">
+      <result property="ProjectID" clumn="ProjectID" />
+      <result property="ProjectName" clumn="ProjectName" />
+      <result property="SampleType" clumn="R1Name" />
+      <result property="QCID" clumn="QCID" />
+      <result property="TargetMean" clumn="R1TestQuantity" />
+      <result property="TargetSD" clumn="R1SurplusQuantity" />
+      <result property="Target2SD" clumn="R2Name" />
+      <result property="Target3SD" clumn="Target3SD" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <statement id="QueryQCCountByUnique" parameterClass="System.Collections.IDictionary" resultClass="int">
+      select count(*) from QualityControlTb where QCName=#QCName# and LotNum=#LotNum# and HorizonLevel=#HorizonLevel# and Manufacturer=#Manufacturer#
+    </statement>
+    <statement id="QueryQualityControlQCID" parameterClass="QualityControlInfo" resultClass="int">
+      select QCID from QualityControlTb where QCName=#QCName# and LotNum=#LotNum# and HorizonLevel=#HorizonLevel# and Manufacturer=#Manufacturer#
+    </statement>
+    <statement id="QueryQCInfoByUnique" parameterClass="System.Collections.IDictionary" resultClass="QualityControlInfo">
+      select * from QualityControlTb where QCName=#QCName# and LotNum=#LotNum# and HorizonLevel=#HorizonLevel# and Manufacturer=#Manufacturer#
+    </statement>
+    <statement id="QueryQCInfoByQCID" parameterClass="System.Collections.IDictionary" resultClass="QualityControlInfo">
+      select * from QualityControlTb where QCID=#QCID#
+    </statement>
+    <statement id="QueryQCInfoByPos" parameterClass="System.Collections.IDictionary" resultClass="QualityControlInfo">
+      select * from QualityControlTb where Pos=#Pos# and IsLocked=0
+    </statement>
+    <statement id="AddQualityControl" parameterClass="QualityControlInfo">
+      insert into QualityControlTb (QCName, LotNum, Pos, InvalidDate, HorizonLevel, Manufacturer, IsLocked)
+      values (#QCName#, #LotNum#, #Pos#, #InvalidDate#, #HorizonLevel#, #Manufacturer#, 1)
+    </statement>
+    <statement id="AddQCRelationProject" parameterClass="QCRelationProjectInfo">
+      insert into QCRelationProjectTb (ProjectName, SampleType, QCID, TargetMean, TargetSD, Target2SD, Target3SD)
+      values (#ProjectName#, #SampleType#, #QCID#, #TargetMean#, #TargetSD#, #Target2SD#, #Target3SD#)
+    </statement>
+    <statement id="QueryQCAllInfo" resultClass="QualityControlInfo">
+      select * from QualityControlTb where IsLogicalDelete='0'
+    </statement>
+    <statement id="QueryRelativelyProjectByQCInfo" parameterClass="int" resultClass="QCRelationProjectInfo">
+      select * from QCRelationProjectTb where QCID=#QCID#
+    </statement>
+    <statement id="EditQualityControl" parameterClass="System.Collections.IDictionary" resultClass="int">
+      update QualityControlTb
+      set
+        QCName = #QCName#,
+        Pos = #Pos#,
+        Manufacturer = #Manufacturer#,
+        LotNum = #LotNum#,
+        InvalidDate = #InvalidDate#,
+        HorizonLevel = #HorizonLevel#
+      where QCID = #OldQCID#
+    </statement>
+    <statement id="DeleteQCRelateProInfoByQCID" parameterClass="int">
+      delete from QCRelationProjectTb where QCID=#value#
+    </statement>
+    <statement id="LockQualityControl" parameterClass="QualityControlInfo" resultClass="int">
+      update QualityControlTb
+      set 
+        IsLocked = #IsLocked#
+      where QCName = #QCName# and LotNum = #LotNum# and HorizonLevel = #HorizonLevel# and Manufacturer = #Manufacturer#
+    </statement>
+    <statement id="UnLockQualityControl" parameterClass="QualityControlInfo" resultClass="int">
+      update QualityControlTb
+      set 
+        IsLocked = #IsLocked#
+      where QCName = #QCName# and LotNum = #LotNum# and HorizonLevel = #HorizonLevel# and Manufacturer = #Manufacturer#
+    </statement>
+    <statement id="QueryQCBeUsed" parameterClass="QualityControlInfo" resultClass="int">
+      select count(*) from QualityControlTb t1 right join QCTaskTb t2 on t1.QCID = t2.QCID where  t1.QCName = #QCName# and t1.LotNum = #LotNum# and t1.HorizonLevel = #HorizonLevel# and t1.Manufacturer = #Manufacturer#
+      union
+      select count(*) from QualityControlTb t1 right join QualityControlResultTb t3 on t1.QCID = t3.QCID where  t1.QCName = #QCName# and t1.LotNum = #LotNum# and t1.HorizonLevel = #HorizonLevel# and t1.Manufacturer = #Manufacturer#
+      union
+      select count(*) from QualityControlTb t1 right join QualityControlResultForUserTb t4 on t1.QCID = t4.QCID where t1.QCName = #QCName# and t1.LotNum = #LotNum# and t1.HorizonLevel = #HorizonLevel# and t1.Manufacturer = #Manufacturer#
+    </statement>
+    <statement id="LogicalDeleteQC" parameterClass="QualityControlInfo">
+      delete from QualityControlTb where QCName = #QCName# and LotNum = #LotNum# and HorizonLevel = #HorizonLevel# and Manufacturer = #Manufacturer#
+    </statement>
+    <statement id="JudgeQCIsContainProject" parameterClass="System.Collections.IDictionary" resultClass="int">
+      select count(*) from QCRelationProjectTb where QCID=#QCID# and ProjectName=#ProjectName# and SampleType=#SampleType#
+    </statement>
+    <statement id="QueryProjectNameInfoByQC" parameterClass="System.Collections.IDictionary" resultClass="string">
+      select ProjectName from QCRelationProjectTb where QCID=#QCID# and SampleType=#SampleType#
+    </statement>
+    <statement id="QueryQCPosition" resultClass="string">
+      select Pos from QualityControlTb
+    </statement>
+    <statement id="QueryQCAllInfoForUnLocked" resultClass="QualityControlInfo">
+      select * from QualityControlTb where IsLocked = 0
+    </statement>
+  </statements>
+</sqlMap>

@@ -3,6 +3,7 @@
   <statements>
     <statement id="CreateCuvetteBlankNewTb" />
     <statement id="CreateCuvetteBlankOldTb" />
+    <statement id="CreateManuOffsetGainTb" />
     <statement id="CreatePhotometricGainNewTb" />
     <statement id="CreatePhotometricGainOldTb" />
     <statement id="CreateManualPhotometricCheckTb" />
@@ -17,15 +18,17 @@
     <statement id="CreateMaintainLogTb" />
     <statement id="CreateLoginLogTb" />
     <statement id="CreateOperateLogTb" />
-    <statement id="CreateAlarmLog" />
+    <statement id="CreateAlarmLogTb" />
     <statement id="CreateVersionInfoTb" />
     <statement id="CreateAssayProjectInfoTb" />
     <statement id="CreateAssayProjectParamInfoTb" />
     <statement id="CreateCalibrationParamInfoTb" />
     <statement id="CreateRangeParamInfoTb" />
+    <statement id="CreateCombProjectNameInfoTb" />
     <statement id="CreateCombProjectInfoTb" />
     <statement id="CreateCalcProjectInfoTb" />
     <statement id="CreateEnvironmentParamTb" />
+    <statement id="CreateDilutionRatioTb" />
     <statement id="CreateReagentNeedleAntifoulingStrategyTb" />
     <statement id="CreateCuvetteAntifoulingStrategyTb" />
     <statement id="CreateSampleNeedleAntifoulingStrategyTb" />
@@ -34,20 +37,30 @@
     <statement id="CreateSerialCommunicationTb" />
     <statement id="CreateQualityControlTb" />
     <statement id="CreateQCRelationProjectTb" />
-    <statement id="CreateQualityControlResult" />
+    <statement id="CreateQualityControlResultTb" />
+    <statement id="CreateQualityControlResultForUserTb" />
+    <statement id="CreateQCTaskTb" />
     <statement id="CreateQCReactionProcessTb" />
     <statement id="CreateCalibratorTb" />
+    <statement id="CreateCalibratorinfoTaskTb" />
+    <statement id="CreateCalibrationCurveTb" />
     <statement id="CreateCalibratorProjectTb" />
     <statement id="CreateCalibrationResultTb" />
+    <statement id="CreateCalibrationReactionProcessTb" />
+    <statement id="CreateSDTTableItemTb" />
     <statement id="CreateCalibrationReactionProcessTb" />
     <statement id="CreateReagentSettingsTb" />
     <statement id="CreateProjectReagentStateTb" />
     <statement id="CreateReagentStateTb" />
     <statement id="CreatePatientInfoTb" />
-    <statement id="CreateSampleResultStateTb" />
     <statement id="CreateSampleTb" />
     <statement id="CreateSampleResultTb" />
     <statement id="CreateSampleReactionProcessTb" />
     <statement id="CreateTaskTb" />
+    <statement id="CreateRunningStateTb" />
+    <statement id="CreateTroubleLogTb" />
+    <statement id="CreateDetergentVolTb" />
+    <statement id="CreateDetergentInfoTb" />
+    <statement id="CreateDetergentUsingTimerTb" />
   </statements>
 </TableList>

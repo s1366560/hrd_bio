@@ -1,4 +1,4 @@
-﻿namespace BioA.UI.Uicomponent.SettingsUI.CrossPollution
+﻿namespace BioA.UI
 {
     partial class CrossPollution
     {
@@ -38,10 +38,10 @@
             // 
             // xtraTabControl1
             // 
-            this.xtraTabControl1.Location = new System.Drawing.Point(3, 3);
+            this.xtraTabControl1.Location = new System.Drawing.Point(3, 36);
             this.xtraTabControl1.Name = "xtraTabControl1";
             this.xtraTabControl1.SelectedTabPage = this.xtraTabPage1;
-            this.xtraTabControl1.Size = new System.Drawing.Size(1743, 927);
+            this.xtraTabControl1.Size = new System.Drawing.Size(1743, 894);
             this.xtraTabControl1.TabIndex = 0;
             this.xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.xtraTabPage1,
@@ -52,21 +52,21 @@
             // xtraTabPage1
             // 
             this.xtraTabPage1.Name = "xtraTabPage1";
-            this.xtraTabPage1.Size = new System.Drawing.Size(1737, 898);
+            this.xtraTabPage1.Size = new System.Drawing.Size(1737, 865);
             this.xtraTabPage1.TabPageWidth = 80;
             this.xtraTabPage1.Text = "试剂针防污";
             // 
             // xtraTabPage2
             // 
             this.xtraTabPage2.Name = "xtraTabPage2";
-            this.xtraTabPage2.Size = new System.Drawing.Size(1737, 898);
+            this.xtraTabPage2.Size = new System.Drawing.Size(1737, 865);
             this.xtraTabPage2.TabPageWidth = 80;
             this.xtraTabPage2.Text = "比色杯防污";
             // 
             // xtraTabPage3
             // 
             this.xtraTabPage3.Name = "xtraTabPage3";
-            this.xtraTabPage3.Size = new System.Drawing.Size(1737, 898);
+            this.xtraTabPage3.Size = new System.Drawing.Size(1737, 865);
             this.xtraTabPage3.TabPageWidth = 80;
             this.xtraTabPage3.Text = "样本针防污";
             // 

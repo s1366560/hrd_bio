@@ -1,4 +1,4 @@
-﻿namespace BioA.UI.Uicomponent.SettingsUI.ChemicalParameter
+﻿namespace BioA.UI
 {
     partial class ChemicalParameter
     {
@@ -38,10 +38,10 @@
             // 
             // xtraTabControl1
             // 
-            this.xtraTabControl1.Location = new System.Drawing.Point(3, 3);
+            this.xtraTabControl1.Location = new System.Drawing.Point(3, 36);
             this.xtraTabControl1.Name = "xtraTabControl1";
             this.xtraTabControl1.SelectedTabPage = this.xtraTabPage1;
-            this.xtraTabControl1.Size = new System.Drawing.Size(1711, 900);
+            this.xtraTabControl1.Size = new System.Drawing.Size(1711, 867);
             this.xtraTabControl1.TabIndex = 0;
             this.xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.xtraTabPage1,
@@ -53,7 +53,7 @@
             // xtraTabPage1
             // 
             this.xtraTabPage1.Name = "xtraTabPage1";
-            this.xtraTabPage1.Size = new System.Drawing.Size(1705, 871);
+            this.xtraTabPage1.Size = new System.Drawing.Size(1705, 838);
             this.xtraTabPage1.TabPageWidth = 80;
             this.xtraTabPage1.Text = "项目参数";
             this.xtraTabPage1.Paint += new System.Windows.Forms.PaintEventHandler(this.xtraTabPage1_Paint);
@@ -61,14 +61,14 @@
             // xtraTabPage2
             // 
             this.xtraTabPage2.Name = "xtraTabPage2";
-            this.xtraTabPage2.Size = new System.Drawing.Size(1705, 871);
+            this.xtraTabPage2.Size = new System.Drawing.Size(1705, 838);
             this.xtraTabPage2.TabPageWidth = 80;
             this.xtraTabPage2.Text = "校准参数";
             // 
             // xtraTabPage3
             // 
             this.xtraTabPage3.Name = "xtraTabPage3";
-            this.xtraTabPage3.Size = new System.Drawing.Size(1705, 871);
+            this.xtraTabPage3.Size = new System.Drawing.Size(1705, 838);
             this.xtraTabPage3.Text = "范围参数";
             // 
             // ChemicalParameter

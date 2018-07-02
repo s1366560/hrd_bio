@@ -21,37 +21,40 @@
       <result property="MeasureLightDot2" column="MeasureLightDot2" />
       <result property="MeasureLightDot3" column="MeasureLightDot3" />
       <result property="MeasureLightDot4" column="MeasureLightDot4" />
-      <result property="MainWaveLength" column="MainWaveLength" />
-      <result property="SecWaveLength" column="SecWaveLength" />
-      <result property="InstrumentFactorA" column="InstrumentFactorA" />
-      <result property="InstrumentFactorB" column="InstrumentFactorB" />
-      <result property="ComStosteVol" column="ComStosteVol" />
-      <result property="ComSamVol" column="ComSamVol" />
-      <result property="ComDilutionVol" column="ComDilutionVol" />
-      <result property="DecStosteVol" column="DecStosteVol" />
-      <result property="DecSamVol" column="DecSamVol" />
-      <result property="DecDilutionVol" column="DecDilutionVol" />
-      <result property="IncStosteVol" column="IncStosteVol" />
-      <result property="IncSamVol" column="IncSamVol" />
-      <result property="IncDilutionVol" column="IncDilutionVol" />
-      <result property="DilutionType" column="DilutionType" />
-      <result property="FirstSlope" column="FirstSlope" />
-      <result property="SecondSlope" column="SecondSlope" />
-      <result property="FirstSlopeHigh" column="FirstSlopeHigh" />
-      <result property="SecondSlopeHigh" column="SecondSlopeHigh" />
-      <result property="ProLowestBound" column="ProLowestBound" />
-      <result property="ProHighestBound" column="ProHighestBound" />
-      <result property="Pmp1" column="Pmp1" />
-      <result property="Pmp2" column="Pmp2" />
-      <result property="Pmp3" column="Pmp3" />
-      <result property="Pmp4" column="Pmp4" />
-      <result property="BoundDirection" column="BoundDirection" />
-      <result property="Limit1" column="Limit1" />
-      <result property="Limit2" column="Limit2" />
-      <result property="LimitValue" column="LimitValue" />
-      <result property="ReactionDirection" column="ReactionDirection" />
-      <result property="StirringIntensity" column="StirringIntensity" />
-      <result property="LevelConcentration" column="LevelConcentration" />
+      <result property="ResultUnit" column="ResultUnit" />
+      <result property="MainWaveLength" column="MainWaveLength" nullValue="0"/>
+      <result property="SecWaveLength" column="SecWaveLength" nullValue="0"/>
+      <result property="InstrumentFactorA" column="InstrumentFactorA" nullValue="100000000"/>
+      <result property="InstrumentFactorB" column="InstrumentFactorB" nullValue="100000000"/>
+      <result property="ComStosteVol" column="ComStosteVol" nullValue="100000000"/>
+      <result property="ComSamVol" column="ComSamVol" nullValue="100000000"/>
+      <result property="ComDilutionVol" column="ComDilutionVol" nullValue="100000000"/>
+      <result property="DecStosteVol" column="DecStosteVol" nullValue="100000000"/>
+      <result property="DecSamVol" column="DecSamVol" nullValue="100000000"/>
+      <result property="DecDilutionVol" column="DecDilutionVol" nullValue="100000000"/>
+      <result property="IncStosteVol" column="IncStosteVol" nullValue="100000000"/>
+      <result property="IncSamVol" column="IncSamVol" nullValue="100000000"/>
+      <result property="IncDilutionVol" column="IncDilutionVol" nullValue="100000000"/>
+      <result property="DilutionType" column="DilutionType"/>
+      <result property="FirstSlope" column="FirstSlope" nullValue="100000000"/>
+      <result property="SecondSlope" column="SecondSlope" nullValue="100000000"/>
+      <result property="FirstSlopeHigh" column="FirstSlopeHigh" nullValue="100000000"/>
+      <result property="SecondSlopeHigh" column="SecondSlopeHigh" nullValue="100000000"/>
+      <result property="ProLowestBound" column="ProLowestBound" nullValue="100000000"/>
+      <result property="ProHighestBound" column="ProHighestBound" nullValue="100000000"/>
+      <result property="Pmp1" column="Pmp1" nullValue="100000000"/>
+      <result property="Pmp2" column="Pmp2" nullValue="100000000"/>
+      <result property="Pmp3" column="Pmp3" nullValue="100000000"/>
+      <result property="Pmp4" column="Pmp4" nullValue="100000000"/>
+      <result property="BoundDirection" column="BoundDirection"/>
+      <result property="Limit1" column="Limit1" nullValue="100000000"/>
+      <result property="Limit2" column="Limit2" nullValue="100000000"/>
+      <result property="AbsLimitValue" column="LimitValue" nullValue="100000000"/>
+      <result property="ReactionDirection" column="ReactionDirection"/>
+      <result property="Stirring1Intensity" column="Stirring1Intensity"/>
+      <result property="Stirring2Intensity" column="Stirring2Intensity"/>
+      <result property="Reagent1VolSettings" column="Reagent1VolSettings" nullValue="100000000"/>
+      <result property="Reagent2VolSettings" column="Reagent2VolSettings" nullValue="100000000"/>
     </resultMap>
     <resultMap id="AssayProjectCalibrationParamInfoResult" class="AssayProjectCalibrationParamInfo">
       <result property="ProjectName" column="ProjectName" />
@@ -74,79 +77,96 @@
       <result property="ReagentLotCheck" column="ReagentLotCheck"/>
       <result property="ReagentValidDateCheck" column="ReagentValidDateCheck"/>
       <result property="QCFailed" column="QCFailed"/>
+      <result property="CalibPos0" column="CalibPos0"/>
+      <result property="CalibPos1" column="CalibPos1"/>
+      <result property="CalibPos2" column="CalibPos2"/>
+      <result property="CalibPos3" column="CalibPos3"/>
+      <result property="CalibPos4" column="CalibPos4"/>
+      <result property="CalibPos5" column="CalibPos5"/>
+      <result property="CalibPos6" column="CalibPos6"/>
+      <result property="CalibConcentration0" column="CalibConcentration0"/>
+      <result property="CalibConcentration1" column="CalibConcentration1"/>
+      <result property="CalibConcentration2" column="CalibConcentration2"/>
+      <result property="CalibConcentration3" column="CalibConcentration3"/>
+      <result property="CalibConcentration4" column="CalibConcentration4"/>
+      <result property="CalibConcentration5" column="CalibConcentration5"/>
+      <result property="CalibConcentration6" column="CalibConcentration6"/>
+      <result property="CalibName0" column="CalibName0"/>
+      <result property="CalibName1" column="CalibName1"/>
+      <result property="CalibName2" column="CalibName2"/>
+      <result property="CalibName3" column="CalibName3"/>
+      <result property="CalibName4" column="CalibName4"/>
+      <result property="CalibName5" column="CalibName5"/>
+      <result property="CalibName6" column="CalibName6"/>
+      <result property="Factor" column="Factor"/>    
     </resultMap>
     <resultMap id="AssayProjectRangeParamInfoResult" class="AssayProjectRangeParamInfo">
       <result property="ProjectName" column="ProjectName" />
       <result property="SampleType" column="SampleType" />
       <result property="AutoRerun" column="AutoRerun" />
-      <result property="TechnicalLimitLow" column="TechnicalLimitLow" />
-      <result property="TechnicalLimitHigh" column="TechnicalLimitHigh" />
       <result property="RepeatLimitLow" column="RepeatLimitLow" />
       <result property="RepeatLimitHigh" column="RepeatLimitHigh" />
-      <result property="QCDefaultContainer" column="QCDefaultContainer" />
-      <result property="CalibDefaultContainer" column="CalibDefaultContainer" />
-      <result property="SerumAgeLow1" column="SerumAgeLow1" />
-      <result property="SerumAgeHigh1" column="SerumAgeHigh1" />
-      <result property="SerumManConsLow1" column="SerumManConsLow1" />
-      <result property="SerumManConsHigh1" column="SerumManConsHigh1" />
-      <result property="SerumWomanConsLow1" column="SerumWomanConsLow1" />
-      <result property="SerumWomanConsHigh1" column="SerumWomanConsHigh1" />
-      <result property="UrineAgeLow1" column="UrineAgeLow1" />
-      <result property="UrineAgeHigh1" column="UrineAgeHigh1" />
-      <result property="UrineManConsLow1" column="UrineManConsLow1" />
-      <result property="UrineManConsHigh1" column="UrineManConsHigh1" />
-      <result property="UrineWomanConsLow1" column="UrineWomanConsLow1" />
-      <result property="UrineWomanConsHigh1" column="UrineWomanConsHigh1" />
-      <result property="SerumAgeLow2" column="SerumAgeLow2" />
-      <result property="SerumAgeHigh2" column="SerumAgeHigh2" />
-      <result property="SerumManConsLow2" column="SerumManConsLow2" />
-      <result property="SerumManConsHigh2" column="SerumManConsHigh2" />
-      <result property="SerumWomanConsLow2" column="SerumWomanConsLow2" />
-      <result property="SerumWomanConsHigh2" column="SerumWomanConsHigh2" />
-      <result property="UrineAgeLow2" column="UrineAgeLow2" />
-      <result property="UrineAgeHigh2" column="UrineAgeHigh2" />
-      <result property="UrineManConsLow2" column="UrineManConsLow2" />
-      <result property="UrineManConsHigh2" column="UrineManConsHigh2" />
-      <result property="UrineWomanConsLow2" column="UrineWomanConsLow2" />
-      <result property="UrineWomanConsHigh2" column="UrineWomanConsHigh2" />
-      <result property="SerumAgeLow3" column="SerumAgeLow3" />
-      <result property="SerumAgeHigh3" column="SerumAgeHigh3" />
-      <result property="SerumManConsLow3" column="SerumManConsLow3" />
-      <result property="SerumManConsHigh3" column="SerumManConsHigh3" />
-      <result property="SerumWomanConsLow3" column="SerumWomanConsLow3" />
-      <result property="SerumWomanConsHigh3" column="SerumWomanConsHigh3" />
-      <result property="UrineAgeLow3" column="UrineAgeLow3" />
-      <result property="UrineAgeHigh3" column="UrineAgeHigh3" />
-      <result property="UrineManConsLow3" column="UrineManConsLow3" />
-      <result property="UrineManConsHigh3" column="UrineManConsHigh3" />
-      <result property="UrineWomanConsLow3" column="UrineWomanConsLow3" />
-      <result property="UrineWomanConsHigh3" column="UrineWomanConsHigh3" />
-      <result property="SerumAgeLow4" column="SerumAgeLow4" />
-      <result property="SerumAgeHigh4" column="SerumAgeHigh4" />
-      <result property="SerumManConsLow4" column="SerumManConsLow4" />
-      <result property="SerumManConsHigh4" column="SerumManConsHigh4" />
-      <result property="SerumWomanConsLow4" column="SerumWomanConsLow4" />
-      <result property="SerumWomanConsHigh4" column="SerumWomanConsHigh4" />
-      <result property="UrineAgeLow4" column="UrineAgeLow4" />
-      <result property="UrineAgeHigh4" column="UrineAgeHigh4" />
-      <result property="UrineManConsLow4" column="UrineManConsLow4" />
-      <result property="UrineManConsHigh4" column="UrineManConsHigh4" />
-      <result property="UrineWomanConsLow4" column="UrineWomanConsLow4" />
-      <result property="UrineWomanConsHigh4" column="UrineWomanConsHigh4" />
-      <result property="SerumDefaultSex" column="SerumDefaultSex" />
-      <result property="SerumDefaultAgeLow" column="SerumDefaultAgeLow" />
-      <result property="SerumDefaultAgeHigh" column="SerumDefaultAgeHigh" />
-      <result property="UrineDefaultSex" column="UrineDefaultSex" />
-      <result property="UrineDefaultAgeLow" column="UrineDefaultAgeLow" />
-      <result property="UrineDefaultAgeHigh" column="UrineDefaultAgeHigh" />
+      <result property="AgeLow1" column="AgeLow1" />
+      <result property="AgeHigh1" column="AgeHigh1" />
+      <result property="ManConsLow1" column="ManConsLow1" />
+      <result property="ManConsHigh1" column="ManConsHigh1" />
+      <result property="WomanConsLow1" column="WomanConsLow1" />
+      <result property="WomanConsHigh1" column="WomanConsHigh1" />
+      <result property="AgeLow2" column="AgeLow2" />
+      <result property="AgeHigh2" column="AgeHigh2" />
+      <result property="ManConsLow2" column="ManConsLow2" />
+      <result property="ManConsHigh2" column="ManConsHigh2" />
+      <result property="WomanConsLow2" column="WomanConsLow2" />
+      <result property="WomanConsHigh2" column="WomanConsHigh2" />
+      <result property="AgeLow3" column="AgeLow3" />
+      <result property="AgeHigh3" column="AgeHigh3" />
+      <result property="ManConsLow3" column="ManConsLow3" />
+      <result property="ManConsHigh3" column="ManConsHigh3" />
+      <result property="WomanConsLow3" column="WomanConsLow3" />
+      <result property="WomanConsHigh3" column="WomanConsHigh3" />
+      <result property="AgeLow4" column="AgeLow4" />
+      <result property="AgeHigh4" column="AgeHigh4" />
+      <result property="ManConsLow4" column="ManConsLow4" />
+      <result property="ManConsHigh4" column="ManConsHigh4" />
+      <result property="WomanConsLow4" column="WomanConsLow4" />
+      <result property="WomanConsHigh4" column="WomanConsHigh4" />
     </resultMap>
   </resultMaps>
+  <parameterMaps>
+    <parameterMap id="ProjectInfo" class="Hashtable">
+      <parameter property="proName"  column=""  />
+      <parameter property="proType"  column=""  />
+      <parameter property="n" column="n" direction="Output"/>
+    </parameterMap>
+    <parameterMap id="UpdateAssayProInfo" class="Hashtable">
+      <parameter property="proModifyName" column="" />
+      <parameter property="proModifyType" column="" />
+      <parameter property="proFullName" column="" />
+      <parameter property="channelNum" column="" />
+      <parameter property="proOldName" column="" />
+      <parameter property="proOldType" column="" />
+      <parameter property="n" column="n" direction="Output"/>
+    </parameterMap>
+  </parameterMaps>
   <statements>
+    <procedure id="DeleteAssayProject" parameterMap="ProjectInfo">
+      DeleteAssayProject
+    </procedure>
+    <!-- 使用存储过程来修改项目信息 -->
+    <procedure id="UpdateAssayProject" parameterMap="UpdateAssayProInfo">
+      UpdateAssayProject
+    </procedure>
+    <update id="EditAssayProject" parameterClass="System.Collections.IDictionary" resultClass="int">
+      update AssayProjectInfoTb set ProFullName=#proFullName#, ChannelNum=#channelNum# where ProjectName=#proModifyName# and SampleType=#proModifyType#
+    </update>
     <select id="SelectAssayProCountByPrimarykey" resultClass="int" parameterClass="System.Collections.IDictionary" >
       select count(*) from AssayProjectInfoTb where ProjectName=#ProjectName# and SampleType=#SampleType#
     </select>
     <select id="QueryAssayProAllInfo" resultClass="AssayProjectInfo" parameterClass="System.Collections.IDictionary">
-      <![CDATA[select * from AssayProjectInfoTb]]>
+      select * from AssayProjectInfoTb
+    </select>
+    <select id="QueryAssayProAllInfoByDistinctProName" parameterClass="AssayProjectInfo" resultClass="string" >
+      <![CDATA[select distinct ProjectName from AssayProjectInfoTb]]>
       <dynamic prepend="where">
         <isNotEmpty prepend="and" property="ProjectName">
           <![CDATA[ProjectName=#ProjectName#]]>
@@ -162,8 +182,11 @@
         </isNotEmpty>
       </dynamic>
     </select>
-    <select id="QueryAssayProAllInfoByDistinctProName" resultClass="AssayProjectInfo" >
-      select distinct name, SampleType, ProFullName, ChannelNum from AssayProjectInfoTb
+    <select id="ProjectPageinfoForCalc" parameterClass="string" resultClass="string" >
+      select ProjectName from AssayProjectInfoTb where SampleType=#value#
+    </select>
+    <select id="ProjectPageinfoBySampleType" parameterClass="string" resultClass="string">
+      select ProjectName from AssayProjectInfoTb where SampleType=#value#
     </select>
     <insert id="AssayProjectAdd" parameterClass="AssayProjectInfo">
       insert into AssayProjectInfoTb (ProjectName, SampleType, ProFullName, ChannelNum)
@@ -172,15 +195,34 @@
     <insert id="AddAssayProjectparamInfo" parameterClass="AssayProjectInfo">
       insert into AssayProjectParamInfoTb (ProjectName, SampleType) values (#ProjectName#, #SampleType#)
     </insert>
-    <select id="GetAssayProjectParamInfoByNameAndType" parameterClass="AssayProjectInfo" resultMap="AssayProjectParamInfoResult">
+    <delete id="AssayProjectparamInfoDelete" resultClass="int" parameterClass="System.Collections.IDictionary" >
+      delete from AssayProjectParamInfoTb where ProjectName=#ProjectName# and SampleType=#SampleType#
+    </delete>
+    <select id="GetAssayProjectParamInfoByNameAndType" parameterClass="AssayProjectInfo" resultClass="AssayProjectParamInfo">
       select * from AssayProjectParamInfoTb where ProjectName=#ProjectName# and SampleType=#SampleType#
     </select>
-    <update id="AssayProjectEdit" parameterClass="System.Collections.IDictionary" resultClass="int">
-      update AssayProjectInfoTb
-      set ProjectName = #ProShortName2# , SampleType = #SampleType2# , ProFullName=#ProLongName2# , ChannelNum = #ChannelNumber2#
+    
+
+    <!--<update id="UpdateProjectNameForParam" parameterClass="System.Collections.IDictionary" resultClass="int">
+      update AssayProjectParamInfoTb
+      set ProjectName = #ProShortName2# , SampleType = #SampleType2#
       where ProjectName=#ProShortName1# and SampleType=#SampleType1#
-    </update>
-    <delete id="QueryAssayProDelete" resultClass="int" parameterClass="System.Collections.IDictionary" >
+    </update>-->
+
+    <!--<update id="UpdateProjectNameForCalibParam" parameterClass="System.Collections.IDictionary" resultClass="int">
+      update CalibrationParamInfoTb
+      set ProjectName = #ProShortName2# , SampleType = #SampleType2#
+      where ProjectName=#ProShortName1# and SampleType=#SampleType1#
+    </update>-->
+
+    <!--<update id="UpdateProjectNameForRangeParam" parameterClass="System.Collections.IDictionary" resultClass="int">
+      update RangeParamInfoTb
+      set ProjectName = #ProShortName2# , SampleType = #SampleType2#
+      where ProjectName=#ProShortName1# and SampleType=#SampleType1#
+    </update>-->
+
+
+    <delete id="AssayProjectDelete" resultClass="int" parameterClass="System.Collections.IDictionary" >
       delete from AssayProjectInfoTb where ProjectName=#ProjectName# and SampleType=#SampleType#
     </delete>
     <select id="QueryProjectResultUnits" resultClass="string">
@@ -193,6 +235,7 @@
       MeasureLightDot2 = #MeasureLightDot2#,
       MeasureLightDot3 = #MeasureLightDot3#,
       MeasureLightDot4 = #MeasureLightDot4#,
+      ResultUnit = #ResultUnit#,
       MainWaveLength = #MainWaveLength#,
       SecWaveLength = #SecWaveLength#,
       InstrumentFactorA = #InstrumentFactorA#,
@@ -206,6 +249,9 @@
       IncStosteVol = #IncStosteVol#,
       IncSamVol = #IncSamVol#,
       IncDilutionVol = #IncDilutionVol#,
+      CalibStosteVol = #CalibStosteVol#,
+      CalibSamVol = #CalibSamVol#,
+      CalibDilutionVol = #CalibDilutionVol#,
       DilutionType = #DilutionType#,
       FirstSlope = #FirstSlope#,
       SecondSlope = #SecondSlope#,
@@ -220,14 +266,25 @@
       BoundDirection = #BoundDirection#,
       Limit1 = #Limit1#,
       Limit2 = #Limit2#,
-      LimitValue = #LimitValue#,
+      LimitValue = #AbsLimitValue#,
       ReactionDirection = #ReactionDirection#,
-      StirringIntensity = #StirringIntensity#,
-      LevelConcentration = #LevelConcentration#
+      Stirring1Intensity = #Stirring1Intensity#,
+      Stirring2Intensity = #Stirring2Intensity#,
+      Reagent1VolSettings = #Reagent1VolSettings#,
+      Reagent2VolSettings = #Reagent2VolSettings#
       where ProjectName = #ProjectName# and SampleType = #SampleType#
     </update>
+    <insert id="AddCalibrationParam" parameterClass="AssayProjectInfo">
+      insert into CalibrationParamInfoTb (ProjectName, SampleType) values(#ProjectName#, #SampleType#)
+    </insert>
+    <delete id="CalibrationParamDelete" resultClass="int" parameterClass="System.Collections.IDictionary" >
+      delete from CalibrationParamInfoTb where ProjectName=#ProjectName# and SampleType=#SampleType#
+    </delete>
     <select id="QueryCalibParamByProNameAndType" resultClass="AssayProjectCalibrationParamInfo" parameterClass="AssayProjectInfo">
       select * from CalibrationParamInfoTb where ProjectName = #ProjectName# and SampleType = #SampleType#
+    </select>
+    <select id="CalibParamInfoByProNameAndType" resultClass="string" parameterClass="System.Collections.IDictionary">
+      select CalibrationMethod from CalibrationParamInfoTb where ProjectName = #ProjectName# and SampleType = #SampleType#
     </select>
     <update id="UpdateCalibParamByProNameAndType" resultClass="int" parameterClass="AssayProjectCalibrationParamInfo">
       update CalibrationParamInfoTb set
@@ -248,76 +305,108 @@
       CalibValidDateCheck = #CalibValidDateCheck#,
       ReagentLotCheck = #ReagentLotCheck#,
       ReagentValidDateCheck = #ReagentValidDateCheck#,
-      QCFailed = #QCFailed#
+      QCFailed = #QCFailed#,
+      CalibPos0=#CalibPos0#,
+      CalibPos1=#CalibPos1#,
+      CalibPos2=#CalibPos2#,
+      CalibPos3=#CalibPos3#,
+      CalibPos4=#CalibPos4#,
+      CalibPos5=#CalibPos5#,
+      CalibPos6=#CalibPos6#,
+      CalibConcentration0=#CalibConcentration0#,
+      CalibConcentration1=#CalibConcentration1#,
+      CalibConcentration2=#CalibConcentration2#,
+      CalibConcentration3=#CalibConcentration3#,
+      CalibConcentration4=#CalibConcentration4#,
+      CalibConcentration5=#CalibConcentration5#,
+      CalibConcentration6=#CalibConcentration6#,
+      CalibName0=#CalibName0#,
+      CalibName1=#CalibName1#,
+      CalibName2=#CalibName2#,
+      CalibName3=#CalibName3#,
+      CalibName4=#CalibName4#,
+      CalibName5=#CalibName5#,
+      CalibName6=#CalibName6#,
+      Factor=#Factor#
       where ProjectName = #ProjectName# and SampleType = #SampleType#
     </update>
+    <insert id="AddRangeParam" parameterClass="AssayProjectInfo">
+      insert into RangeParamInfoTb
+      (ProjectName, SampleType, AgeLow1, AgeHigh1, ManConsLow1, ManConsHigh1, WomanConsLow1, WomanConsHigh1,
+      AgeLow2, AgeHigh2, ManConsLow2, ManConsHigh2, WomanConsLow2, WomanConsHigh2,
+      AgeLow3, AgeHigh3, ManConsLow3, ManConsHigh3, WomanConsLow3, WomanConsHigh3,
+      AgeLow4, AgeHigh4, ManConsLow4, ManConsHigh4, WomanConsLow4, WomanConsHigh4)
+      values(#ProjectName#, #SampleType#, -100000000, 100000000, -100000000, 100000000, -100000000, 100000000,
+      -100000000, 100000000, -100000000, 100000000, -100000000, 100000000,
+      -100000000, 100000000, -100000000, 100000000, -100000000, 100000000,
+      -100000000, 100000000, -100000000, 100000000, -100000000, 100000000)
+    </insert>
+
+    <insert id ="AddProRunSequenceTb" parameterClass ="AssayProjectInfo">
+      insert into ProjectRunSequenceTb values(#ProjectName#,#SampleType#,-1)
+    </insert>
+    <update id="UpdateProjectRunSequence" parameterClass="System.Collections.IDictionary">
+      update ProjectRunSequenceTb set ProjectName=#proModifyName#, SampleType=#proModifyType# where ProjectName=#proOldName# and SampleType=#proOldType#
+    </update>
+
+    <delete id="RangeParamDelete" resultClass="int" parameterClass="System.Collections.IDictionary" >
+      delete from RangeParamInfoTb where ProjectName=#ProjectName# and SampleType=#SampleType#
+    </delete>
     <select id="QueryRangeParamByProNameAndType" resultClass="AssayProjectRangeParamInfo" parameterClass="AssayProjectInfo">
       select * from RangeParamInfoTb where ProjectName = #ProjectName# and SampleType = #SampleType#
     </select>
     <update id="UpdateRangeParamByProNameAndType" resultClass="int" parameterClass="AssayProjectRangeParamInfo">
       update RangeParamInfoTb set
       AutoRerun = #AutoRerun#,
-      TechnicalLimitLow = #TechnicalLimitLow#,
-      TechnicalLimitHigh = #TechnicalLimitHigh#,
       RepeatLimitLow = #RepeatLimitLow#,
       RepeatLimitHigh = #RepeatLimitHigh#,
-      QCDefaultContainer = #QCDefaultContainer#,
-      CalibDefaultContainer = #CalibDefaultContainer#,
-      SerumAgeLow1 = #SerumAgeLow1#,
-      SerumAgeHigh1 = #SerumAgeHigh1#,
-      SerumManConsLow1 = #SerumManConsLow1#,
-      SerumManConsHigh1 = #SerumManConsHigh1#,
-      SerumWomanConsLow1 = #SerumWomanConsLow1#,
-      SerumWomanConsHigh1 = #SerumWomanConsHigh1#,
-      UrineAgeLow1 = #UrineAgeLow1#,
-      UrineAgeHigh1 = #UrineAgeHigh1#,
-      UrineManConsLow1 = #UrineManConsLow1#,
-      UrineManConsHigh1 = #UrineManConsHigh1#,
-      UrineWomanConsLow1 = #UrineWomanConsLow1#,
-      UrineWomanConsHigh1 = #UrineWomanConsHigh1#,
-      SerumAgeLow2 = #SerumAgeLow2#,
-      SerumAgeHigh2 = #SerumAgeHigh2#,
-      SerumManConsLow2 = #SerumManConsLow2#,
-      SerumManConsHigh2 = #SerumManConsHigh2#,
-      SerumWomanConsLow2 = #SerumWomanConsLow2#,
-      SerumWomanConsHigh2 = #SerumWomanConsHigh2#,
-      UrineAgeLow2 = #UrineAgeLow2#,
-      UrineAgeHigh2 = #UrineAgeHigh2#,
-      UrineManConsLow2 = #UrineManConsLow2#,
-      UrineManConsHigh2 = #UrineManConsHigh2#,
-      UrineWomanConsLow2 = #UrineWomanConsLow2#,
-      UrineWomanConsHigh2 = #UrineWomanConsHigh2#,
-      SerumAgeLow3 = #SerumAgeLow3#,
-      SerumAgeHigh3 = #SerumAgeHigh3#,
-      SerumManConsLow3 = #SerumManConsLow3#,
-      SerumManConsHigh3 = #SerumManConsHigh3#,
-      SerumWomanConsLow3 = #SerumWomanConsLow3#,
-      SerumWomanConsHigh3 = #SerumWomanConsHigh3#,
-      UrineAgeLow3 = #UrineAgeLow3#,
-      UrineAgeHigh3 = #UrineAgeHigh3#,
-      UrineManConsLow3 = #UrineManConsLow3#,
-      UrineManConsHigh3 = #UrineManConsHigh3#,
-      UrineWomanConsLow3 = #UrineWomanConsLow3#,
-      UrineWomanConsHigh3 = #UrineWomanConsHigh3#,
-      SerumAgeLow4 = #SerumAgeLow4#,
-      SerumAgeHigh4 = #SerumAgeHigh4#,
-      SerumManConsLow4 = #SerumManConsLow4#,
-      SerumManConsHigh4 = #SerumManConsHigh4#,
-      SerumWomanConsLow4 = #SerumWomanConsLow4#,
-      SerumWomanConsHigh4 = #SerumWomanConsHigh4#,
-      UrineAgeLow4 = #UrineAgeLow4#,
-      UrineAgeHigh4 = #UrineAgeHigh4#,
-      UrineManConsLow4 = #UrineManConsLow4#,
-      UrineManConsHigh4 = #UrineManConsHigh4#,
-      UrineWomanConsLow4 = #UrineWomanConsLow4#,
-      UrineWomanConsHigh4 = #UrineWomanConsHigh4#,
-      SerumDefaultSex = #SerumDefaultSex#,
-      SerumDefaultAgeLow = #SerumDefaultAgeLow#,
-      SerumDefaultAgeHigh = #SerumDefaultAgeHigh#,
-      UrineDefaultSex = #UrineDefaultSex#,
-      UrineDefaultAgeLow = #UrineDefaultAgeLow#,
-      UrineDefaultAgeHigh = #UrineDefaultAgeHigh#
+      AgeLow1 = #AgeLow1#,
+      AgeHigh1 = #AgeHigh1#,
+      ManConsLow1 = #ManConsLow1#,
+      ManConsHigh1 = #ManConsHigh1#,
+      WomanConsLow1 = #WomanConsLow1#,
+      WomanConsHigh1 = #WomanConsHigh1#,
+      AgeLow2 = #AgeLow2#,
+      AgeHigh2 = #AgeHigh2#,
+      ManConsLow2 = #ManConsLow2#,
+      ManConsHigh2 = #ManConsHigh2#,
+      WomanConsLow2 = #WomanConsLow2#,
+      WomanConsHigh2 = #WomanConsHigh2#,
+      AgeLow3 = #AgeLow3#,
+      AgeHigh3 = #AgeHigh3#,
+      ManConsLow3 = #ManConsLow3#,
+      ManConsHigh3 = #ManConsHigh3#,
+      WomanConsLow3 = #WomanConsLow3#,
+      WomanConsHigh3 = #WomanConsHigh3#,
+      AgeLow4 = #AgeLow4#,
+      AgeHigh4 = #AgeHigh4#,
+      ManConsLow4 = #ManConsLow4#,
+      ManConsHigh4 = #ManConsHigh4#,
+      WomanConsLow4 = #WomanConsLow4#,
+      WomanConsHigh4 = #WomanConsHigh4#
       where ProjectName = #ProjectName# and SampleType = #SampleType#
     </update>
+    <select id="QueryUnitByProject" parameterClass="System.Collections.IDictionary" resultClass="string">
+      select ResultUnit from AssayProjectParamInfoTb where ProjectName=#ProjectName# and SampleType=#SampleType#
+    </select>
+    <select id="QueryRangeByProject" parameterClass="System.Collections.IDictionary" resultClass="AssayProjectRangeParamInfo">
+      select * from RangeParamInfoTb where ProjectName=#ProjectName# and SampleType=#SampleType#
+    </select>
+    <select id="QueryProjectCountByName" parameterClass="System.Collections.IDictionary" resultClass="int">
+      select * from AssayProjectInfoTb where ProjectName=#ProjectName#
+    </select>
+    <statement id="GetCalibParamBySDTTask" resultClass="AssayProjectCalibrationParamInfo">
+      select CalibrationParamInfoTb.* from CalibrationParamInfoTb,ReagentStateinfor1r2Tb,ReagentSettingsTb,ReagentSettingstbr2,ProjectRunSequenceTb,SDTTableItemTb
+      where SDTTableItemTb.ProjectName=CalibrationParamInfoTb.ProjectName and SDTTableItemTb.SampleType=CalibrationParamInfoTb.SampleType and SDTTableItemTb.CalibState='WAITING' and
+      reagentstateinfor1r2tb.ProjectName=CalibrationParamInfoTb.ProjectName and (ReagentStateinfor1r2Tb.ReagentType=CalibrationParamInfoTb.SampleType or ReagentStateinfor1r2Tb.ReagentType2=CalibrationParamInfoTb.SampleType) and ReagentStateinfor1r2Tb.Locked='false'
+      and ((ReagentSettingsTb.ProjectName=CalibrationParamInfoTb.ProjectName and ReagentSettingsTb.ReagentType=CalibrationParamInfoTb.SampleType) or
+      (ReagentSettingstbr2.ProjectName=CalibrationParamInfoTb.ProjectName and ReagentSettingstbr2.ReagentType=CalibrationParamInfoTb.SampleType))
+      group by ProjectRunSequenceTb.RunSequence
+    </statement>
+
+    <statement id ="GetAssayProjectCalParamInfo" parameterClass ="System.Collections.IDictionary" resultClass ="AssayProjectCalibrationParamInfo">
+      select * from CalibrationParamInfoTb where ProjectName=#ProjectName# and SampleType=#SampleType#
+    </statement>
   </statements>
+  
 </sqlMap>

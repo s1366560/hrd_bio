@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ReagentNeedleInfo" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <alias>
+    <typeAlias alias="ReagentNeedleAntifoulingStrategyInfo" type="BioA.Common.ReagentNeedleAntifoulingStrategyInfo, BioA.Common" />
+    
+
+  </alias>
+  <resultMaps>   
+    <resultMap id="ReagentNeedleAntifoulingStrategyInfoResult" class="ReagentNeedleAntifoulingStrategyInfo">
+      <result property="ReagentNeedle" clumn="ReagentNeedle" />
+      <result property="PolluteProName" clumn="PolluteProName" />
+      <result property="PolluteProType" clumn="PolluteProType" />
+      <result property="BePollutedProName" clumn="BePollutedProName" />      
+      <result property="BePollutedProType" clumn="BePollutedProType" />
+      <result property="CleaningLiquidName" clumn="CleaningLiquidName" />
+      <result property="CleaningLiquidUseVol" clumn="CleaningLiquidUseVol" />
+      <result property="CleanTimes" clumn="CleanTimes" />
+    </resultMap>
+  </resultMaps>
+
+  <statements>
+    
+    <select id="QueryReagentNeedle" ResultClass="ReagentNeedleAntifoulingStrategyInfo" >
+      select * from ReagentNeedleAntifoulingStrategyTb
+    </select>
+    <select id="QueryReagentNeedleByR1R2" parameterClass="string" ResultClass="ReagentNeedleAntifoulingStrategyInfo" >
+      select * from ReagentNeedleAntifoulingStrategyTb where ReagentNeedle=#value#
+    </select>
+    <select id="QueryReagentNeedleAdd" ResultClass="int" parameterClass="System.Collections.IDictionary">
+      select count(*) from ReagentNeedleAntifoulingStrategyTb
+      where ReagentNeedle=#ReagentNeedle# and
+      PolluteSourcePro=#PolluteSourcePro# and PolluteProType=#PolluteProType#
+      BePollutedPro=#BePollutedPro# and BePollutedProType=#BePollutedProType#
+    </select>
+    <insert id="AddReagentNeedle" parameterClass="System.Collections.IDictionary">
+      insert into ReagentNeedleAntifoulingStrategyTb (ReagentNeedle,PolluteSourcePro,PolluteProType,BePollutedPro,BePollutedProType,CleaningLiquidName,CleaningLiquidUseVol,CleanTimes)
+      values (#ReagentNeedle#,#PolluteSourcePro#,#PolluteProType#,#BePollutedPro#,#BePollutedProType#,#CleaningLiquidName#,#CleaningLiquidUseVol#,#CleanTimes#)
+    </insert>
+    <update id="UpdataReagentNeedle" parameterClass="System.Collections.IDictionary" resultClass="int">
+      update ReagentNeedleAntifoulingStrategyTb
+      set ReagentNeedle=#ReagentNeedle# ,
+      PolluteSourcePro=#PolluteSourcePro#,
+      PolluteProType=#PolluteProType#,
+      BePollutedPro=#BePollutedPro#,
+      BePollutedProType=#BePollutedProType#,
+      CleaningLiquidName=#CleaningLiquidName#,
+      CleaningLiquidUseVol=#CleaningLiquidUseVol#,
+      CleanTimes=#CleanTimes#
+      where ReagentNeedle=#ReagentNeedleOld# and
+      PolluteSourcePro=#PolluteSourceProOld# and PolluteProType=#PolluteProTypeOld# and 
+      BePollutedPro=#BePollutedProOld# and BePollutedProType=#BePollutedProTypeOld#
+    </update>
+    <delete id="DeleteReagentNeedle" resultClass="int" parameterClass="System.Collections.IDictionary" >
+      delete from ReagentNeedleAntifoulingStrategyTb where ReagentNeedle=#ReagentNeedle# and
+      PolluteSourcePro=#PolluteSourcePro# and PolluteProType=#PolluteProType# and 
+      BePollutedPro=#BePollutedPro# and BePollutedProType=#BePollutedProType#
+    </delete>
+    <select id="QueryWashingLiquid" resultClass="string">
+      select ReagentName from reagentsettingstb where ReagentType='清洗液'
+    </select>
+  </statements>
+</sqlMap>

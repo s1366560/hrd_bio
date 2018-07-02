@@ -21,7 +21,7 @@ namespace BioA.UI
             BonusSkins.Register();
             SkinManager.EnableFormSkins();
             DevExpress.LookAndFeel.UserLookAndFeel.Default.SetSkinStyle("Coffee");
-          
+
             Application.Run(new Form1());
         }
     }

@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DepartmentInfo" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+  <alias>
+    <typeAlias alias="ApplyDoctorInfo" type="BioA.Common.ApplyDoctorInfo, BioA.Common" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ApplyDoctorInfoResult" class="ApplyDoctorInfo">
+      <result property="Department" column="Department"/>
+      <result property="Doctor" column="Doctor" />
+
+    </resultMap>
+  </resultMaps>
+  
+  <statements>
+    <select id="QueryDepartmentInfo" ResultClass="string" >
+      select Department from ApplyDepartmentTb
+    </select>
+    <select id="QueryApplyDoctorInfo" ResultClass="ApplyDoctorInfo" >
+      select * from ApplyDoctorTb
+    </select>
+    <select id="QueryAuditPhysician" ResultClass="string" >
+      select Doctor from AuditDoctorTb
+    </select>
+    
+    <select id="SelectDepartment" ResultClass="int" parameterClass="System.Collections.IDictionary">
+      select count(*) from ApplyDepartmentTb where Department=#Department#
+    </select>
+    <select id="SelectAuditPhysician" ResultClass="int" parameterClass="System.Collections.IDictionary">
+      select count(*) from AuditDoctorTb where Doctor=#Doctor#
+    </select>
+    <select id="SelectApplyDoctorInfo" ResultClass="int" parameterClass="System.Collections.IDictionary">
+      select count(*) from ApplyDoctorTb where Department=#Department# and Doctor=#Doctor#
+    </select>
+    <select id="SelectApplyDoctorDepartmentInfo" ResultClass="int" parameterClass="System.Collections.IDictionary">
+      select count(*) from ApplyDoctorTb where Department=#Department# 
+    </select>
+    <select id="SelectDeleteAuditPhysicianInfo" ResultClass="int" parameterClass="System.Collections.IDictionary">
+      select count(*) from AuditDoctorTb where  Doctor=#Doctor#
+    </select>
+    
+    <insert id="AddDepartmentInfo" parameterClass="System.Collections.IDictionary">
+      insert into ApplyDepartmentTb (Department) values (#Department#)
+    </insert>
+    <insert id="AddAuditPhysician" parameterClass="System.Collections.IDictionary">
+      insert into AuditDoctorTb (Doctor) values (#Doctor#)
+    </insert>
+    <insert id="AddApplyDoctorInfo" parameterClass="System.Collections.IDictionary">
+      insert into ApplyDoctorTb (Department,Doctor) values (#Department#,#Doctor#)
+    </insert>
+    
+    
+    <update id="UpDataDepartment" parameterClass="System.Collections.IDictionary" resultClass="int">
+      update ApplyDepartmentTb
+      set Department = #Department#
+      where Department = #DepartmentOld#
+    </update>
+    <update id="UpdataApplyDoctorInfo" parameterClass="System.Collections.IDictionary" resultClass="int">
+      update ApplyDoctorTb
+      set Department = #Department#,Doctor=#Doctor#
+      where Department = #DepartmentOld# and Doctor=#DoctorOld#
+    </update>
+    <update id="UpdataAuditPhysician" parameterClass="System.Collections.IDictionary" resultClass="int">
+      update AuditDoctorTb
+      set Doctor=#Doctor#
+      where Doctor=#DoctorOld#
+    </update>
+    
+    <delete id="DeleteDepartment" resultClass="int" parameterClass="System.Collections.IDictionary" >
+      delete from ApplyDepartmentTb where Department=#Department#
+    </delete>
+    <delete id="DeleteApplyDoctorInfo" resultClass="int" parameterClass="System.Collections.IDictionary" >
+      delete from ApplyDoctorTb where Department=#Department# and Doctor=#Doctor#
+    </delete>
+    <delete id="DeleteAuditPhysician" resultClass="int" parameterClass="System.Collections.IDictionary" >
+      delete from AuditDoctorTb where Doctor=#Doctor#
+    </delete>
+  </statements>
+</sqlMap>

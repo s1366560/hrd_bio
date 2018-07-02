@@ -4,6 +4,7 @@
     <typeAlias alias="ReagentSettingsInfo" type="BioA.Common.ReagentSettingsInfo, BioA.Common" />
     <typeAlias alias="ProjectReagentStateInfo" type="BioA.Common.ProjectReagentStateInfo, BioA.Common" />
     <typeAlias alias="ReagentStateInfo" type="BioA.Common.ReagentStateInfo, BioA.Common" />
+    <typeAlias alias="ReagentStateInfoR1R2" type="BioA.Common.ReagentStateInfoR1R2, BioA.Common" />
   </alias>
   <resultMaps>
     <resultMap id="ReagentSettingsInfoResult" class="ReagentSettingsInfo">
@@ -17,26 +18,53 @@
       <result property="ReagentContainer" column="ReagentContainer" />
       <result property="BatchNum" column="BatchNum" />
       <result property="Locked" column="Locked" />
+      <!--<result property="ResidualQuantity" column="ResidualQuantity" />
+      <result property="Measuredquantity" column="Measuredquantity" />-->
     </resultMap>
+    
     <resultMap id="ProjectReagentStateInfoResult" class="ProjectReagentStateInfo">
-      <result property="ProjectName" clumn="ProjectName" />
-      <result property="R1Name" clumn="R1Name" />
-      <result property="R1Pos" clumn="R1Pos" />
-      <result property="R1TestQuantity" clumn="R1TestQuantity" />
-      <result property="R1SurplusQuantity" clumn="R1SurplusQuantity" />
-      <result property="R2Name" clumn="R2Name" />
-      <result property="R2Pos" clumn="R2Pos" />
-      <result property="R2TestQuantity" clumn="R2TestQuantity" />
-      <result property="R2SurplusQuantity" clumn="R2SurplusQuantity" />
+      <result property="ProjectName" column="ProjectName" />
+      <result property="R1Name" column="R1Name" />
+      <result property="R1Pos" column="R1Pos" />
+      <result property="R1TestQuantity" column="R1TestQuantity" />
+      <result property="R1SurplusQuantity" column="R1SurplusQuantity" />
+      <result property="R2Name" column="R2Name" />
+      <result property="R2Pos" column="R2Pos" />
+      <result property="R2TestQuantity" column="R2TestQuantity" />
+      <result property="R2SurplusQuantity" column="R2SurplusQuantity" />
     </resultMap>
     <resultMap id="ReagentStateInfoResult" class="ReagentStateInfo">
-      <result property="ReagentPos" clumn="ReagentPos"/>
-      <result property="ReagentChamber" clumn="ReagentChamber"/>
-      <result property="ReagentName" clumn="ReagentName"/>
-      <result property="ProjectName" clumn="ProjectName"/>
-      <result property="ReagentUsedVol" clumn="ReagentUsedVol"/>
-      <result property="ReagentSurplusVol" clumn="ReagentSurplusVol"/>
+      <result property="ReagentPos" column="ReagentPos"/>
+      <result property="ReagentChamber" column="ReagentChamber"/>
+      <result property="ReagentName" column="ReagentName"/>
+      <result property="ProjectName" column="ProjectName"/>
+      <result property="ReagentUsedVol" column="ReagentUsedVol"/>
+      <result property="ReagentSurplusVol" column="ReagentSurplusVol"/>
     </resultMap>
+
+    <resultMap id="ReagentStateInfoR1R2Result" class="ReagentStateInfoR1R2">
+      <result property="ProjectName" column="ProjectName" />
+      <result property="ReagentName" column="ReagentName" />
+      <result property="ResidualQuantity" column="ResidualQuantity" />
+      <result property="Pos" column="Pos" />
+      <result property="ReagentType" column="ReagentType" />
+      <!--<result property="BatchNum" column="BatchNum" />-->
+      <!--<result property="ReagentContainer" column="ReagentContainer" />-->
+      <!--<result property="ReagentManufacturers" clumn="ReagentManufacturers" />-->
+      <result property="ReagentName2" column="ReagentName2" />
+      <result property="ResidualQuantity2" column="ResidualQuantity2" />
+      <result property="Pos2" column="Pos2" />
+      <result property="ReagentType2" column="ReagentType2" />
+      <!--<result property="BatchNum2" column="BatchNum2" />-->
+      <!--<result property="ReagentContainer2" column="ReagentContainer2" />-->
+      <!--<result property="ReagentManufacturers2" clumn="ReagentManufacturers2" />-->
+      <result property="Locked" column="Locked" />
+      <result property="ReagentResidualVol" column="ReagentResidualVol" />
+      <result property="ReagentResidualVol2" column="ReagentResidualVol2" />
+      <result property="ValidPercent" column="ValidPercent"/>
+      <result property="ValidPercent2" column="ValidPercent2"/>
+    </resultMap>
+    
   </resultMaps>  
   <statements>
     <statement id="GetReagentSettingsInfo" parameterClass="System.Collections.IDictionary" resultMap="ReagentSettingsInfoResult">
@@ -53,8 +81,236 @@
         </isNotEmpty>
       </dynamic>
     </statement>
-    <statement id="GetReagentStateInfo" parameterClass="string" ResultClass="ReagentStateInfo">
-      select * from ReagentStateTb where ProjectName=#value#
+    <statement id="GetReagentSettingsInfo2" parameterClass="System.Collections.IDictionary" resultMap="ReagentSettingsInfoResult">
+      <![CDATA[select * from ReagentSettingsTbr2]]>      <dynamic prepend="where">
+        <isNotEmpty prepend="and" property="ProjectName">
+          <![CDATA[ProjectName=#ProjectName#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="ReagentName">
+          <![CDATA[ReagentName=#ReagentName#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="ReagentType">
+          <![CDATA[ReagentType=#ReagentType#]]>
+        </isNotEmpty>
+      </dynamic>
     </statement>
+    <statement id="GetReagentStateInfo" parameterClass="string" ResultClass="ReagentStateInfo">
+      select * from ReagentStateInfoR1R2Tb where ProjectName=#value#
+    </statement>
+    <statement id="QueryReagentSetting1"  ResultClass="ReagentSettingsInfo">
+      select * from ReagentSettingsTb 
+    </statement>
+    <statement id="QueryReagentSetting2"  ResultClass="ReagentSettingsInfo">
+      select * from ReagentSettingsTbR2 
+    </statement>
+    <insert id="reagentSettingAddR1" parameterClass="System.Collections.IDictionary">
+      insert into ReagentSettingsTb(Pos,ProjectName,ReagentName,ValidDate,Barcode,ReagentContainer,BatchNum,ReagentType)
+      values(#Pos#,#ProjectName#,#ReagentName#,#ValidDate#,#Barcode#,#ReagentContainer#,#BatchNum#,#ReagentType#)     
+    </insert>
+    <insert id="reagentSettingAddR2" parameterClass="System.Collections.IDictionary">
+      insert into ReagentSettingsTbR2(Pos,ProjectName,ReagentName,ValidDate,Barcode,ReagentContainer,BatchNum,ReagentType)
+      values(#Pos#,#ProjectName#,#ReagentName#,#ValidDate#,#Barcode#,#ReagentContainer#,#BatchNum#,#ReagentType#)
+    </insert>
+    <!--<insert id="reagentStateAdd" parameterClass="ReagentStateInfoR1R2">
+      insert into reagentstateinfor1r2Tb values(#ProjectName#,#ProjectLock#,#ReagentName#,#ReagentName2#,#ResidualQuantity#,#ResidualQuantity2#,#Pos#,#Pos2#,#ReagentType#,#ReagentType2#,#BatchNum#,#BatchNum2#,#ReagentContainer#,#ReagentContainer2#,#ReagentResidualVol#,#ReagentResidualVol2#)
+    </insert>-->
+    <insert id="reagentStateAdd" parameterClass="ReagentStateInfoR1R2">
+      insert into reagentstateinfor1r2Tb(ProjectName,Locked,ReagentName,ResidualQuantity,Pos,ReagentType,ReagentResidualVol,ValidPercent)
+      values(#ProjectName#,#Locked#,#ReagentName#,#ResidualQuantity#,#Pos#,#ReagentType#,#ReagentResidualVol#,#ValidPercent#)
+    </insert>
+    <insert id="reagentStateAdd2" parameterClass="ReagentStateInfoR1R2">
+      insert into reagentstateinfor1r2Tb(ProjectName,Locked,ReagentName2,ResidualQuantity2,Pos2,ReagentType2,ReagentResidualVol2,ValidPercent2)
+      values(#ProjectName#,#Locked#,#ReagentName2#,#ResidualQuantity2#,#Pos2#,#ReagentType2#,#ReagentResidualVol2#, #ValidPercent2#)
+    </insert>
+    <!--<insert id="reagentStateAdd" parameterClass="ReagentStateInfoR1R2">
+      insert into reagentstateinfor1r2Tb(ProjectName,ProjectLock,ReagentName,Pos,ReagentType,BatchNum) values(#ProjectName#,#ProjectLock#,#ReagentName#,#Pos#,#ReagentType#,#BatchNum#)
+    </insert>-->
+    <update id="UpdateReagent1State" parameterClass="ReagentStateInfoR1R2" resultClass="int">
+      update reagentstateinfor1r2Tb
+      set
+      ReagentName=#ReagentName#,
+      ReagentType=#ReagentType#,
+      Pos=#Pos#
+      where ProjectName=#ProjectName# and ReagentType2=#ReagentType2#
+    </update>
+    <update id="UpdateReagent2State" parameterClass="ReagentStateInfoR1R2" resultClass="int">
+      update reagentstateinfor1r2Tb
+      set
+      ReagentName2=#ReagentName2#,
+      ReagentType2=#ReagentType2#,
+      Pos2=#Pos2#
+      where ProjectName=#ProjectName# and ReagentType=#ReagentType#
+    </update>
+    <!-- 根据项目名称删除试剂1表中对应的数据 -->
+    <delete id="DeleteReagentSettingsR1" resultClass="int" parameterClass="System.Collections.IDictionary" >
+      delete from ReagentSettingsTb where ProjectName=#ProjectName#
+    </delete>
+    <!-- 根据项目名称删除试剂2表中对应的数据 -->
+    <delete id="DeleteReagentSettingsR2" resultClass="int" parameterClass="System.Collections.IDictionary" >
+      delete from ReagentSettingsTbR2 where ProjectName=#ProjectName#
+    </delete>
+    <statement id="QueryReagentState" resultClass="ReagentStateInfoR1R2">
+      select t1.projectName,t1.Locked,t1.ReagentResidualVol,t1.ReagentResidualVol2,t1.ResidualQuantity,t1.ResidualQuantity2,t1.ValidPercent,t1.ValidPercent2,
+      t2.Pos,t2.ReagentName,t2.ReagentType,t3.Pos Pos2,t3.ReagentName ReagentName2,t3.ReagentType ReagentType2
+      from ReagentStateInfoR1R2Tb t1
+      left join ReagentSettingsTb t2 on t1.projectName = t2.projectName
+      left join ReagentSettingsTbR2  t3 on t1.projectName = t3.projectName
+      union
+      select t1.projectName,t1.Locked,t1.ReagentResidualVol,t1.ReagentResidualVol2,t1.ResidualQuantity,t1.ResidualQuantity2,t1.ValidPercent,t1.ValidPercent2,
+      t2.Pos,t2.ReagentName,t2.ReagentType,t3.Pos Pos2,t3.ReagentName ReagentName2,t3.ReagentType ReagentType2
+      from ReagentStateInfoR1R2Tb t1
+      left join ReagentSettingsTb t2 on t1.ReagentName = t2.ReagentName
+      left join ReagentSettingsTbR2  t3 on t1.projectName = t3.projectName and  t3.ReagentName = '' where t1.ReagentType = '清洗剂'
+      union
+      select t1.projectName,t1.Locked,t1.ReagentResidualVol,t1.ReagentResidualVol2,t1.ResidualQuantity,t1.ResidualQuantity2,t1.ValidPercent,t1.ValidPercent2,
+      t2.Pos,t2.ReagentName,t2.ReagentType,t3.Pos Pos2,t3.ReagentName ReagentName2,t3.ReagentType ReagentType2
+      from ReagentStateInfoR1R2Tb t1
+      left join ReagentSettingsTb t2 on t1.projectName = t2.projectName and  t2.ReagentName = ''
+      left join ReagentSettingsTbR2  t3 on t1.projectName = t3.projectName where  t1.ReagentType2 = '清洗剂';
+    </statement>
+    <!-- (工区界面加载的时刻)根据项目名和样本类型获取试剂r1r2表数据 -->
+    <select id="QueryReagentStateInfoByProjectName" parameterClass="ReagentSettingsInfo" resultClass="ReagentStateInfoR1R2">
+      select * from reagentstateinfor1r2Tb where ProjectName=#ProjectName# and #ReagentType# in (ReagentType,ReagentType2)
+    </select>
+    <statement id="SelectCountSettingsInfo2" parameterClass="System.Collections.IDictionary" ResultClass="int">
+      select count(*) from ReagentSettingsTbR2 where ReagentName=#ReagentName# and projectName = #ProjectName# and ReagentType=#ReagentType#
+    </statement>
+    <!--<statement id="SelectCountSettingsInfo" parameterClass="System.Collections.IDictionary" ResultClass="int">
+      select count(*) from ReagentSettingsTb where ReagentName=#ReagentName# and projectName = #ProjectName# and ReagentType=#ReagentType#
+    </statement>-->
+    <!-- （点击删除试剂的时刻）根据试剂2的名称查询试剂r1r2表数据，返回试剂r1r2对象 -->
+    <statement id="SelectReagentStateForR1R2" parameterClass="System.Collections.IDictionary" ResultClass="ReagentStateInfoR1R2">
+      select * from reagentstateinfor1r2Tb where projectName = #ProjectName#
+    </statement>
+    
+    <delete id="DeletereagentStateInfoR1" resultClass="int" parameterClass="System.Collections.IDictionary" >
+      delete from ReagentStateInfoR1R2Tb where
+      ReagentName = #ReagentName#
+    </delete>
+    <!--<delete id="DeletereagentStateInfoR2" resultClass="int" parameterClass="System.Collections.IDictionary" >
+      delete from ReagentStateInfoR1R2Tb where
+      ReagentName2 = #ReagentName#
+    </delete>-->
+    <!-- 根据项目名称删除R1R2表中数据 -->
+    <delete id="DeletereagentStateInfoR1R2" parameterClass="System.Collections.IDictionary" >
+      delete from ReagentStateInfoR1R2Tb where ProjectName=#ProjectName#
+    </delete>
+    <!-- 根据项目名称修改R1R2表中试剂1对应的数据 -->
+    <update id="UpdateReagentStateForR1R2CorrespondenceR1" parameterClass="System.Collections.IDictionary">
+      update ReagentStateinfor1r2Tb
+      set
+      ReagentName='',
+      ResidualQuantity=0,
+      Pos='',
+      ReagentType='',
+      ReagentResidualVol=0,
+      ValidPercent = 0
+      where ProjectName=#ProjectName#
+    </update>
+    <!--<update id="UpdateReagentStateForDeleteR2" parameterClass="System.Collections.IDictionary" resultClass="int">
+      update ReagentStateinfor1r2Tb
+      set
+      ReagentName2='',
+      ResidualQuantity2=0,
+      Pos2='',
+      ReagentType2='',
+      ReagentResidualVol2=0
+      where ReagentName2=#ReagentName#
+    </update>-->
+    <!-- 根据项目名称修改R1R2表中试剂2对应的数据 -->
+    <update id="UpdateReagentStateForR1R2" parameterClass="System.Collections.IDictionary">
+      update ReagentStateinfor1r2Tb
+      set
+      ReagentName2='',
+      ResidualQuantity2=0,
+      Pos2='',
+      ReagentType2='',
+      ReagentResidualVol2=0,
+      ValidPercent2 = 0
+      where ProjectName=#ProjectName#
+    </update>
+    <update id="LockReagentState" parameterClass="System.Collections.IDictionary" resultClass="int">
+      update ReagentStateInfoR1R2Tb
+      set Locked = 1
+      <dynamic prepend="where">
+        <isNotEmpty prepend="and" property="ReagentType">
+          ReagentType=#ReagentType#
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="ReagentName">
+          ReagentName=#ReagentName#
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="ReagentType2">
+          ReagentType2=#ReagentType2#
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="ReagentName2">
+          ReagentName2=#ReagentName2#
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="ProjectName">
+          ProjectName=#ProjectName#
+        </isNotEmpty>
+      </dynamic>
+    </update>
+    <update id="UnlockReagentState" parameterClass="System.Collections.IDictionary" resultClass="int">
+      update ReagentStateInfoR1R2Tb
+      set Locked = 0
+      <dynamic prepend="where">
+        <isNotEmpty prepend="and" property="ReagentType">
+          ReagentType=#ReagentType#
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="ReagentName">
+          ReagentName=#ReagentName#
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="ReagentType2">
+          ReagentType2=#ReagentType2#
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="ReagentName2">
+          ReagentName2=#ReagentName2#
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="ProjectName">
+          ProjectName=#ProjectName#
+        </isNotEmpty>
+      </dynamic>
+    </update>
+    <update id="UpdateDetergentUsingStartingTime" parameterClass="datetime">
+      update DetergentUsingTimerTb set StartingTime=#value#
+    </update>
+    <update id="UpdateDetergentUsingFinishingTime" parameterClass="datetime">
+      update DetergentUsingTimerTb set FinishingTime=#value#
+    </update>
+    <select id="GetValidPercent" parameterClass="System.Collections.IDictionary" resultClass="ReagentStateInfoR1R2">
+      select * from ReagentStateinfor1r2Tb 
+      <dynamic prepend="where">
+        <isNotEmpty prepend="and" property="Pos">
+          Pos=#Pos#
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="Pos2">
+          Pos2=#Pos2#
+        </isNotEmpty>
+      </dynamic> 
+    </select>
+    <update id="UpdateValidPercent1" parameterClass="System.Collections.IDictionary">
+      update ReagentStateinfor1r2Tb set ValidPercent=#ValidPercent# where Pos=#Pos#
+    </update>
+    <update id="UpdateValidPercent2" parameterClass="System.Collections.IDictionary">
+      update ReagentStateinfor1r2Tb set ValidPercent2=#ValidPercent# where Pos2=#Pos#
+    </update>
+    <select id="GetReagent1StateInfoByPos" parameterClass="string" resultClass="ReagentStateInfoR1R2">
+      select * from ReagentStateinfor1r2Tb where Pos=#value#
+    </select>
+    <select id="GetReagent2StateInfoByPos" parameterClass="string" resultClass="ReagentStateInfoR1R2">
+      select * from ReagentStateinfor1r2Tb where Pos2=#value#
+    </select>
+    <select id="GetReagent1SettingsInfoByPos" parameterClass="string" resultClass="ReagentSettingsInfo">
+      select * from ReagentSettingsTb where Pos=#Pos#
+    </select>
+    <select id="GetReagent2SettingsInfoByPos" parameterClass="string" resultClass="ReagentSettingsInfo">
+      select * from ReagentSettingstbr2 where Pos=#Pos#
+    </select>
+    <update id="UpdateReagent1LockState" parameterClass="ReagentSettingsInfo">
+      update ReagentStateinfor1r2 set Locked=#Locked# where Pos=#Pos#
+    </update>
+    <update id="UpdateReagent2LockState" parameterClass="ReagentSettingsInfo">
+      update ReagentStateinfor1r2 set Locked=#Locked# where Pos2=#Pos#
+    </update>
   </statements>
 </sqlMap>

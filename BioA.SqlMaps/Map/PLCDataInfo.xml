@@ -1,0 +1,454 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="PLCDataInfo" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <alias>
+    <typeAlias alias="Schedule" type="BioA.Common.Schedule, BioA.Common" />
+    <typeAlias alias="TroubleLog" type="BioA.Common.TroubleLog, BioA.Common" />
+    <typeAlias alias="RealTimeCUVDataInfo" type="BioA.Common.RealTimeCUVDataInfo, BioA.Common"/>
+    <typeAlias alias="ProjectRunSequenceInfo" type="BioA.Common.ProjectRunSequenceInfo, BioA.Common"/>
+    <typeAlias alias="TimeCourseInfo" type="BioA.Common.TimeCourseInfo, BioA.Common"/>
+    <typeAlias alias="SMPContainerTypeInfo" type="BioA.Common.SMPContainerTypeInfo, BioA.Common"/>
+    <!--<typeAlias alias="CalibratorinfoTask" type="BioA.Common.CalibratorinfoTask, BioA.Common"/>-->
+    <!--<typeAlias alias="TaskInfo" type="BioA.Common.TaskInfo, BioA.Common"/>-->
+    <!--<typeAlias alias="AssayProjectCalibrationParamInfo" type="BioA.Common.AssayProjectCalibrationParamInfo, BioA.Common"/>-->
+    <!--<typeAlias alias="QCTaskInfo" type="BioA.Common.QCTaskInfo, BioA.Common"/>-->
+  </alias>
+  <resultMaps>
+    <resultMap id="TimeCourseInfoResult" class="TimeCourseInfo">
+      <!--<result property="CalibName" column="CalibName" />
+      <result property="ProjectName" column="ProjectName" />
+      <result property="CalibTime" column="CalibTime" />
+      <result property="SampleNum" column="SampleNum" />-->
+      <result property ="TimeCourseNo" column="TimeCourseNo" />
+      <result property="CUVNO" column="CUVNO" />
+      <result property="DrawDate" column="DrawDate" />
+      <result property="CuvBlkWm" column="CuvBlkWm" />
+      <result property="CuvBlkWs" column="CuvBlkWs" />
+      <result property="Cuv1Wm" column="Cuv1Wm" />
+      <result property="Cuv2Wm" column="Cuv2Wm" />
+      <result property="Cuv3Wm" column="Cuv3Wm" />
+      <result property="Cuv4Wm" column="Cuv4Wm" />
+      <result property="Cuv5Wm" column="Cuv5Wm" />
+      <result property="Cuv6Wm" column="Cuv6Wm" />
+      <result property="Cuv7Wm" column="Cuv7Wm" />
+      <result property="Cuv8Wm" column="Cuv8Wm" />
+      <result property="Cuv9Wm" column="Cuv9Wm" />
+      <result property="Cuv10Wm" column="Cuv10Wm" />
+      <result property="Cuv11Wm" column="Cuv11Wm" />
+      <result property="Cuv12Wm" column="Cuv12Wm" />
+      <result property="Cuv13Wm" column="Cuv13Wm" />
+      <result property="Cuv14Wm" column="Cuv14Wm" />
+      <result property="Cuv15Wm" column="Cuv15Wm" />
+      <result property="Cuv16Wm" column="Cuv16Wm" />
+      <result property="Cuv17Wm" column="Cuv17Wm" />
+      <result property="Cuv18Wm" column="Cuv18Wm" />
+      <result property="Cuv19Wm" column="Cuv19Wm" />
+      <result property="Cuv20Wm" column="Cuv20Wm" />
+      <result property="Cuv21Wm" column="Cuv21Wm" />
+      <result property="Cuv22Wm" column="Cuv22Wm" />
+      <result property="Cuv23Wm" column="Cuv23Wm" />
+      <result property="Cuv24Wm" column="Cuv24Wm" />
+      <result property="Cuv25Wm" column="Cuv25Wm" />
+      <result property="Cuv26Wm" column="Cuv26Wm" />
+      <result property="Cuv27Wm" column="Cuv27Wm" />
+      <result property="Cuv28Wm" column="Cuv28Wm" />
+      <result property="Cuv29Wm" column="Cuv29Wm" />
+      <result property="Cuv30Wm" column="Cuv30Wm" />
+      <result property="Cuv31Wm" column="Cuv31Wm" />
+      <result property="Cuv32Wm" column="Cuv32Wm" />
+      <result property="Cuv33Wm" column="Cuv33Wm" />
+      <result property="Cuv34Wm" column="Cuv34Wm" />
+      <result property="Cuv35Wm" column="Cuv35Wm" />
+      <result property="Cuv36Wm" column="Cuv36Wm" />
+      <result property="Cuv37Wm" column="Cuv37Wm" />
+      <result property="Cuv38Wm" column="Cuv38Wm" />
+      <result property="Cuv39Wm" column="Cuv39Wm" />
+      <result property="Cuv40Wm" column="Cuv40Wm" />
+      <result property="Cuv41Wm" column="Cuv41Wm" />
+      <result property="Cuv42Wm" column="Cuv42Wm" />
+      <result property="Cuv43Wm" column="Cuv43Wm" />
+      <result property="Cuv44Wm" column="Cuv44Wm" />
+      <result property="Cuv45Wm" column="Cuv45Wm" />
+      <result property="Cuv46Wm" column="Cuv46Wm" />
+      <result property="Cuv47Wm" column="Cuv47Wm" />
+      <result property="Cuv48Wm" column="Cuv48Wm" />
+      <result property="Cuv49Wm" column="Cuv49Wm" />
+      <result property="Cuv1Ws" column="Cuv1Ws" />
+      <result property="Cuv2Ws" column="Cuv2Ws" />
+      <result property="Cuv3Ws" column="Cuv3Ws" />
+      <result property="Cuv4Ws" column="Cuv4Ws" />
+      <result property="Cuv5Ws" column="Cuv5Ws" />
+      <result property="Cuv6Ws" column="Cuv6Ws" />
+      <result property="Cuv7Ws" column="Cuv7Ws" />
+      <result property="Cuv8Ws" column="Cuv8Ws" />
+      <result property="Cuv9Ws" column="Cuv9Ws" />
+      <result property="Cuv10Ws" column="Cuv10Ws" />
+      <result property="Cuv11Ws" column="Cuv11Ws" />
+      <result property="Cuv12Ws" column="Cuv12Ws" />
+      <result property="Cuv13Ws" column="Cuv13Ws" />
+      <result property="Cuv14Ws" column="Cuv14Ws" />
+      <result property="Cuv15Ws" column="Cuv15Ws" />
+      <result property="Cuv16Ws" column="Cuv16Ws" />
+      <result property="Cuv17Ws" column="Cuv17Ws" />
+      <result property="Cuv18Ws" column="Cuv18Ws" />
+      <result property="Cuv19Ws" column="Cuv19Ws" />
+      <result property="Cuv20Ws" column="Cuv20Ws" />
+      <result property="Cuv21Ws" column="Cuv21Ws" />
+      <result property="Cuv22Ws" column="Cuv22Ws" />
+      <result property="Cuv23Ws" column="Cuv23Ws" />
+      <result property="Cuv24Ws" column="Cuv24Ws" />
+      <result property="Cuv25Ws" column="Cuv25Ws" />
+      <result property="Cuv26Ws" column="Cuv26Ws" />
+      <result property="Cuv27Ws" column="Cuv27Ws" />
+      <result property="Cuv28Ws" column="Cuv28Ws" />
+      <result property="Cuv29Ws" column="Cuv29Ws" />
+      <result property="Cuv30Ws" column="Cuv30Ws" />
+      <result property="Cuv31Ws" column="Cuv31Ws" />
+      <result property="Cuv32Ws" column="Cuv32Ws" />
+      <result property="Cuv33Ws" column="Cuv33Ws" />
+      <result property="Cuv34Ws" column="Cuv34Ws" />
+      <result property="Cuv35Ws" column="Cuv35Ws" />
+      <result property="Cuv36Ws" column="Cuv36Ws" />
+      <result property="Cuv37Ws" column="Cuv37Ws" />
+      <result property="Cuv38Ws" column="Cuv38Ws" />
+      <result property="Cuv39Ws" column="Cuv39Ws" />
+      <result property="Cuv40Ws" column="Cuv40Ws" />
+      <result property="Cuv41Ws" column="Cuv41Ws" />
+      <result property="Cuv42Ws" column="Cuv42Ws" />
+      <result property="Cuv43Ws" column="Cuv43Ws" />
+      <result property="Cuv44Ws" column="Cuv44Ws" />
+      <result property="Cuv45Ws" column="Cuv45Ws" />
+      <result property="Cuv46Ws" column="Cuv46Ws" />
+      <result property="Cuv47Ws" column="Cuv47Ws" />
+      <result property="Cuv48Ws" column="Cuv48Ws" />
+      <result property="Cuv49Ws" column="Cuv49Ws" />
+      <!--<result property="CalibConcentration" column="CalibConcentration" />-->
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <statement id="GetWorkingDisk" resultClass="int">
+      select WorkDisk from RunningStateTb
+    </statement>
+    <statement id="TroubleLogSave" parameterClass="System.Collections.IDictionary">
+      insert into TroubleLogTb(DrawDate, TroubleCode, TroubleInfo, TroubleType, TroubleUnit, IsConfirm) values (#DrawDate#, #TroubleCode#, #TroubleInfo#, #TroubleType#, #TroubleUnit#, #IsConfirm#)
+    </statement>
+    <statement id="UpdateLatestCUVPanelTemperature" parameterClass="float">
+      update RunningStateTb set CUVPanelTemp=#value#
+    </statement>
+    <statement id="GetTempOffset" resultClass="float">
+      select TempOffset from RunningStateTb
+    </statement>
+    <statement id="UpdateCuvNumber" parameterClass="System.Collections.IDictionary">
+      update RealTimeCUVDataTb set CUVNO=#CUVNO# where WORKNO=#WORKNO#
+    </statement>
+    <statement id="QueryRealTimeCUVDataTC" parameterClass="int" resultClass="RealTimeCUVDataInfo">
+      select * from RealTimeCUVDataTb where WORKNO=#value#
+    </statement>
+    <statement id="UpdateTimeCourseCuvNum" parameterClass="System.Collections.IDictionary">
+      update TimeCourseTb set CUVNO=#CUVNO# where TimeCourseNO=#TimeCourseNO#
+    </statement>
+    <statement id="UpdateBlkABSData" parameterClass="System.Collections.IDictionary">
+      update TimeCourseTb set CuvBlkWm=#CuvBlkWm#,CuvBlkWs=#CuvBlkWs# where TimeCourseNO=#TimeCourseNO#
+    </statement>
+    <statement id="UpdateABSData" parameterClass="System.Collections.IDictionary">
+      update TimeCourseTb
+      <dynamic prepend="set">
+        <isPropertyAvailable prepend="," property="Cuv1Wm">Cuv1Wm = #Cuv1Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv1Ws">Cuv1Ws = #Cuv1Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv2Wm">Cuv2Wm = #Cuv2Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv2Ws">Cuv2Ws = #Cuv2Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv3Wm">Cuv3Wm = #Cuv3Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv3Ws">Cuv3Ws = #Cuv3Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv4Wm">Cuv4Wm = #Cuv4Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv4Ws">Cuv4Ws = #Cuv4Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv5Wm">Cuv5Wm = #Cuv5Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv5Ws">Cuv5Ws = #Cuv5Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv6Wm">Cuv6Wm = #Cuv6Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv6Ws">Cuv6Ws = #Cuv6Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv7Wm">Cuv7Wm = #Cuv7Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv7Ws">Cuv7Ws = #Cuv7Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv8Wm">Cuv8Wm = #Cuv8Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv8Ws">Cuv8Ws = #Cuv8Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv9Wm">Cuv9Wm = #Cuv9Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv9Ws">Cuv9Ws = #Cuv9Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv10Wm">Cuv10Wm = #Cuv10Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv10Ws">Cuv10Ws = #Cuv10Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv11Wm">Cuv11Wm = #Cuv11Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv11Ws">Cuv11Ws = #Cuv11Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv12Wm">Cuv12Wm = #Cuv12Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv12Ws">Cuv12Ws = #Cuv12Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv13Wm">Cuv13Wm = #Cuv13Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv13Ws">Cuv13Ws = #Cuv13Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv14Wm">Cuv14Wm = #Cuv14Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv14Ws">Cuv14Ws = #Cuv14Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv15Wm">Cuv15Wm = #Cuv15Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv15Ws">Cuv15Ws = #Cuv15Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv16Wm">Cuv16Wm = #Cuv16Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv16Ws">Cuv16Ws = #Cuv16Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv17Wm">Cuv17Wm = #Cuv17Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv17Ws">Cuv17Ws = #Cuv17Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv18Wm">Cuv18Wm = #Cuv18Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv18Ws">Cuv18Ws = #Cuv18Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv19Wm">Cuv19Wm = #Cuv19Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv19Ws">Cuv19Ws = #Cuv19Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv20Wm">Cuv20Wm = #Cuv20Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv20Ws">Cuv20Ws = #Cuv20Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv21Wm">Cuv21Wm = #Cuv21Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv21Ws">Cuv21Ws = #Cuv21Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv22Wm">Cuv22Wm = #Cuv22Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv22Ws">Cuv22Ws = #Cuv22Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv23Wm">Cuv23Wm = #Cuv23Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv23Ws">Cuv23Ws = #Cuv23Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv24Wm">Cuv24Wm = #Cuv24Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv24Ws">Cuv24Ws = #Cuv24Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv25Wm">Cuv25Wm = #Cuv25Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv25Ws">Cuv25Ws = #Cuv25Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv26Wm">Cuv26Wm = #Cuv26Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv26Ws">Cuv26Ws = #Cuv26Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv27Wm">Cuv27Wm = #Cuv27Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv27Ws">Cuv27Ws = #Cuv27Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv28Wm">Cuv28Wm = #Cuv28Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv28Ws">Cuv28Ws = #Cuv28Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv29Wm">Cuv29Wm = #Cuv29Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv29Ws">Cuv29Ws = #Cuv29Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv30Wm">Cuv30Wm = #Cuv30Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv30Ws">Cuv30Ws = #Cuv30Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv31Wm">Cuv31Wm = #Cuv31Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv31Ws">Cuv31Ws = #Cuv31Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv32Wm">Cuv32Wm = #Cuv32Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv32Ws">Cuv32Ws = #Cuv32Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv33Wm">Cuv33Wm = #Cuv33Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv33Ws">Cuv33Ws = #Cuv33Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv34Wm">Cuv34Wm = #Cuv34Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv34Ws">Cuv34Ws = #Cuv34Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv35Wm">Cuv35Wm = #Cuv35Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv35Ws">Cuv35Ws = #Cuv35Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv36Wm">Cuv36Wm = #Cuv36Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv36Ws">Cuv36Ws = #Cuv36Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv37Wm">Cuv37Wm = #Cuv37Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv37Ws">Cuv37Ws = #Cuv37Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv38Wm">Cuv38Wm = #Cuv38Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv38Ws">Cuv38Ws = #Cuv38Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv39Wm">Cuv39Wm = #Cuv39Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv39Ws">Cuv39Ws = #Cuv39Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv40Wm">Cuv40Wm = #Cuv40Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv40Ws">Cuv40Ws = #Cuv40Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv41Wm">Cuv41Wm = #Cuv41Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv41Ws">Cuv41Ws = #Cuv41Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv42Wm">Cuv42Wm = #Cuv42Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv42Ws">Cuv42Ws = #Cuv42Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv43Wm">Cuv43Wm = #Cuv43Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv43Ws">Cuv43Ws = #Cuv43Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv44Wm">Cuv44Wm = #Cuv44Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv44Ws">Cuv44Ws = #Cuv44Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv45Wm">Cuv45Wm = #Cuv45Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv45Ws">Cuv45Ws = #Cuv45Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv46Wm">Cuv46Wm = #Cuv46Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv46Ws">Cuv46Ws = #Cuv46Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv47Wm">Cuv47Wm = #Cuv47Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv47Ws">Cuv47Ws = #Cuv47Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv48Wm">Cuv48Wm = #Cuv48Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv48Ws">Cuv48Ws = #Cuv48Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv49Wm">Cuv49Wm = #Cuv49Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv49Ws">Cuv49Ws = #Cuv49Ws#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv50Wm">Cuv50Wm = #Cuv50Wm#</isPropertyAvailable>
+        <isPropertyAvailable prepend="," property="Cuv50Ws">Cuv50Ws = #Cuv50Ws#</isPropertyAvailable>
+      </dynamic>
+      where TimeCourseNO=#TimeCourseNO#
+    </statement>
+    <statement id="UpdateSMPScheduleFinishCount" parameterClass="System.Collections.IDictionary">
+      update TaskTb set FinishTimes = #FinishTimes# where ProjectName=#ProjectName# and SampleNum=#SampleNum# and CreateDate between #StartTime# and #EndTime#
+    </statement>
+    <statement id="UpdateTaskState" parameterClass="System.Collections.IDictionary">
+      update TaskTb set SendTimes=#SendTimes#, FinishTimes=#FinishTimes#, TaskState=#TaskState# where TaskState !=2
+    </statement>
+    
+    <statement id="GetSMPScheduleFinishCount" parameterClass="System.Collections.IDictionary" resultClass="int">
+      select FinishTimes from TaskTb  where ProjectName=#ProjectName# and SampleNum=#SampleNum# and CreateDate between #StartTime# and #EndTime#
+    </statement>
+    
+    <statement id="UpdteTaskState" parameterClass="System.Collections.IDictionary">
+      update TaskTb set TaskState = 2 where ProjectName=#ProjectName# and SampleNum=#SampleNum# and InspectTimes=TaskState and CreateDate between #StartTime# and #EndTime#
+    </statement>
+    <statement id="GetSDTScheduleFinishCount" parameterClass="System.Collections.IDictionary" resultClass="int">
+      select FinishTimes from CalibratorinfoTaskTb where ProjectName=#ProjectName# and SampleNum=#SampleNum# and CalibName=#CalibratorName# and CreateDate=#CreateDate#
+    </statement>
+    <statement id="UpdateSDTScheduleFinishCount" parameterClass="System.Collections.IDictionary">
+      update CalibratorinfoTaskTb set FinishTimes=#FinishTimes# where ProjectName=#ProjectName# and SampleNum=#SampleNum# and CalibName=#CalibratorName# and CreateDate=#CreateDate#
+    </statement>
+
+    <statement id="UpdateSDTTaskState" parameterClass="System.Collections.IDictionary">
+      update CalibratorinfoTaskTb set TaskState=#TaskState# where ProjectName=#ProjectName# and SampleNum=#SampleNum# and CalibName=#CalibratorName#
+      and InspectTimes=SendTimes and SendTimes=FinishTimes and CreateDate=#CalibrationDT#
+    </statement>
+    
+    <statement id="GetQCScheduleFinishCount" parameterClass="System.Collections.IDictionary">
+      select * from QCTaskTb where ProjectName=#ProjectName# and SampleNum=#SampleNum# and CreateDate between #StartTime# and #EndTime#
+    </statement>
+    <statement id="UpdateQCScheduleFinishCount" parameterClass="System.Collections.IDictionary">
+      update QCTaskTb set FinishTimes = #FinishTimes# where ProjectName=#ProjectName# and SampleNum=#SampleNum# and CreateDate between #StartTime# and #EndTime#
+    </statement>
+    
+    <statement id="ClearQCSchedules" parameterClass="System.Collections.IDictionary">
+      delete from QCTaskTb where ProjectName=#ProjectName# and SampleNum=#SampleNum# and CreateDate between #StartTime# and #EndTime#
+    </statement>
+    <statement id="UpdateLatestWaterState" parameterClass="System.Collections.IDictionary">
+      update RunningStateTb set State1=#State1#,State2=#State2#
+    </statement>
+    <statement id="GetTimeCourse" parameterClass="System.Collections.IDictionary" resultClass="TimeCourseInfo">
+      select * from TimeCourseTb where TimeCourseNO=#TCNO# and DrawDate between #StartTime# and #EndTime#
+    </statement>
+    <statement id="GetRealTimeCUVDataByWorkNo" parameterClass="int" resultClass="RealTimeCUVDataInfo">
+      select * from RealTimeCUVDataTb  where WORKNO=#value# 
+    </statement>
+    <statement id="UpdateSDTSchedulePerform" parameterClass="System.Collections.IDictionary">
+      update CalibratorinfoTaskTb set TaskState=#CalibTaskState# where ProjectName=#ProjectName# and SampleType=#SampleType# and CalibName=#CalibName# and SampleNum=#SampleNum#
+    </statement>
+    <statement id="UpdateSDTResultState" parameterClass="System.Collections.IDictionary">
+      update CalibrationResultTb set CalibrationState=#CalibResultState# where ProjectName=#ProjectName# and SampleType=#SampleType# and CalibratorName=#CalibName# and SampleNum=#SampleNum# and CalibrationDT=#CalibrationDT#
+    </statement>
+    <statement id="QueryProjectRunSequenceByProject" parameterClass="System.Collections.IDictionary" resultClass="ProjectRunSequenceInfo">
+      select * from ProjectRunSequenceTb where ProjectName=#ProjectName# and SampleType=#SampleType#
+    </statement>
+    <statement id="GetRGTDilutePosition" resultClass="string">
+      select Pos from ReagentSettingsTb where ReagentType='稀释液'
+    </statement>
+    <statement id="GetSDTSMPContainerType" resultClass="string">
+      select SDTSMPContainerType from RunningStateTb
+    </statement>
+    <statement id="SMPContainerType" parameterClass="string" resultClass="SMPContainerTypeInfo">
+      select * from SMPContainerTypeTb where SMPContainerType=#value#
+    </statement>
+    <statement id="SetCalibratingCurveState" parameterClass="System.Collections.IDictionary">
+      update SDTTableItemTb set CalibState=#CalibStateNew# where ProjectName=#ProjectName# and SampleType=#SampleType# and CalibState=#CalibStateOld#
+    </statement>
+    <statement id="UpdateQCSchedulePerform" parameterClass="System.Collections.IDictionary">
+      update QCTaskTb set TaskState=#TaskState# where ProjectName=#ProjectName# and SampleType=#SampleType# and SampleNum=#SampleNum#
+    </statement>
+    <statement id="UpdateTaskStatePerform" parameterClass="System.Collections.IDictionary">
+      update TaskTb set TaskState=#TaskState# where ProjectName=#ProjectName# and SampleType=#SampleType# and SampleNum=#SampleNum# 
+    </statement>
+    <statement id="UpdateSampleStatePerform" parameterClass="System.Collections.IDictionary">
+      update SampleTb set SampleState=#TaskState# where SampleNum=#SampleNum# and CreateTime=#CreateTime#
+    </statement>
+    <statement id="BAutoFreezeTaskByReagentVolWarning" resultClass="bool">
+      select AutoFreezeTask from EnvironmentParamTb
+    </statement>
+    <statement id="GetNOStartTaskByWorkDisk" parameterClass="System.Collections.IDictionary" resultClass="int">
+      select count(*) from SampleTb where CreateTime between #CreateTimeStart# and #CreateTimeEnd# and PanelNum=#PanelNum# and SampleState='0'
+    </statement>
+    <statement id="UpdateWorkingDisk" parameterClass="int">
+      update RunningStateTb set WorkDisk=#value#
+    </statement>
+    <statement id="DeleteNotTodayTask" parameterClass="System.Collections.IDictionary">
+      delete from tasktb where DATEDIFF(#TargetDate#,tasktb.CreateDate)!=0
+    </statement>
+    <statement id="DeleteNotTodayQCTask" parameterClass="System.Collections.IDictionary">
+      delete from QCTaskTb where DATEDIFF(#TargetDate#,CreateDate)!=0
+    </statement>
+    <statement id="DeleteNotTodayCalibTask" parameterClass="System.Collections.IDictionary">
+      delete from CalibratorinfoTaskTb where DATEDIFF(#TargetDate#,CreateDate)!=0
+    </statement>
+    <statement id="GetRunningDate">
+      select DrawDate from RunningStateTb
+    </statement>
+    <statement id="InitRunningState" parameterClass="System.Collections.IDictionary">
+      update RunningStateTb set WorkDisk='1',LastestSMPNO="LastestSMPNO",LastestTC='0',DrawDate=#DrawDate# where DATEDIFF(#TargetDate#,CreateDate)!=0
+    </statement>
+    <statement id="ClearRTData">
+      delete from RealTimeCUVDataTb
+    </statement>
+    <statement id="UpdateIsRunning" parameterClass="bool">
+      update RunningStateTb set MachineIsRunning=#value#
+    </statement>
+    <statement id="InitSMPCalItems" parameterClass="System.Collections.IDictionary">
+      delete from CalcTaskTb where DATEDIFF(#TargetDate#,CreateDate)!=0
+    </statement>
+    <statement id="GetLastestTC">
+      select LastestTC from RunningStateTb
+    </statement>
+    <update id="updateRunningStateInfo" parameterClass="System.Collections.IDictionary">
+      update RunningStateTb set QCSMPContainerType=#QCSMPContainerType#, SDTSMPContainerType=#SDTSMPContainerType#
+    </update>
+    <statement id="DeleteRealTimeCUVData" parameterClass="int">
+       delete from RealTimeCUVDataTb where WorkNo=#value#
+    </statement>
+    <statement id="SaveRealTimeCUVData" parameterClass="RealTimeCUVDataInfo">
+      insert into RealTimeCUVDataTb values(#WorkNo#,#CuvNo#,#SmpNo#,#Assay#,#TC#,#CUVPoint#,#WorkType#,#DrawDate#)
+    </statement>
+    <statement id="DeleteTimeCourseByTCNO" parameterClass="int">
+      delete from TimeCourseTb where TimeCourseNO=#value#
+    </statement>
+    <statement id="SaveTimeCourseByTCNO" parameterClass="System.Collections.IDictionary">
+      insert into TimeCourseTb(TimeCourseNO,DrawDate,CUVNO) values (#TimeCourseNO#,#DrawDate#,#CUVNO#)
+    </statement>
+    <statement id="UpdateLatestTC" parameterClass="int">
+      update RunningStateTb set LastestTC=#value#
+    </statement>
+    <statement id="GetSMPScheduleSendCount" parameterClass="System.Collections.IDictionary" resultClass="int">
+      select SendTimes from TaskTb where SampleNum=#SampleNum# and ProjectName=#ProjectName# and SampleType=#SampleType#
+    </statement>
+    <statement id="GetSDTScheduleSendCount" parameterClass="System.Collections.IDictionary" resultClass="int">
+      select SendTimes from CalibratorinfoTaskTb where SampleNum=#SampleNum# and ProjectName=#ProjectName# and SampleType=#SampleType# and CalibName=#CalibratorName#
+    </statement>
+    <statement id="GetQCScheduleSendCount" parameterClass="System.Collections.IDictionary" resultClass="int">
+      select SendTimes from QCTaskTb where SampleNum=#SampleNum# and ProjectName=#ProjectName# and SampleType=#SampleType#
+    </statement>
+    <statement id ="UpdateQCTaskState" parameterClass ="System.Collections.IDictionary">
+      update QCTaskTb set TaskState ='2' where SampleNum=#SampleNum# and ProjectName=#ProjectName# and CreateDate between #BginTime# and #EndTime#
+    </statement>
+    <statement id="UpdateSMPScheduleSendCount" parameterClass="System.Collections.IDictionary">
+      update TaskTb set SendTimes=#SendTimes# where SampleNum=#SampleNum# and ProjectName=#ProjectName# and SampleType=#SampleType#
+    </statement>
+    <statement id="UpdateSDTScheduleSendCount" parameterClass="System.Collections.IDictionary">
+      update CalibratorinfoTaskTb set SendTimes=#SendTimes# where SampleNum=#SampleNum# and ProjectName=#ProjectName# and SampleType=#SampleType# and CalibName=#CalibratorName#
+    </statement>
+    <statement id="UpdateQCScheduleSendCount" parameterClass="System.Collections.IDictionary">
+      update QCTaskTb set SendTimes=#SendTimes# where SampleNum=#SampleNum# and ProjectName=#ProjectName# and SampleType=#SampleType#
+    </statement>
+    <statement id="QueryRunSequenceByProject" parameterClass="System.Collections.IDictionary">
+      select RunSequence from ProjectRunSequenceTb where ProjectName=#ProjectName# and SampleType=#SampleType#
+    </statement>
+    <statement id="UpdateVoltageValue" parameterClass="float">
+      update ManuOffsetGainTb set Voltage=#value#
+    </statement>
+    <statement id="UpdateRealTimeState" parameterClass="System.Collections.IDictionary">
+      update RealTimeCUVDataTb set CUVPoint=#CUVPoint# where WorkNo=#WORKNO#
+    </statement>
+    <statement id="UpdateSampleResultTCNO" parameterClass="System.Collections.IDictionary">
+      update SampleResultTb set TCNO=#TCNO# where SampleNum=#SampleNum# and ProjectName=#ProjectName# and SampleType=#SampleType# and SampleCreateTime=#SampleCreateTime#
+    </statement>
+    <statement id="UpdateQualityControlResultTCNO" parameterClass="System.Collections.IDictionary">
+      update QualityControlResultTb set TCNO=#TCNO# where SampleNum=#SampleNum# and ProjectName=#ProjectName# and SampleType=#SampleType# and SampleCreateTime=#SampleCreateTime#
+    </statement>
+    <!--<statement id="UpdateSDTResultTCNO" parameterClass="System.Collections.IDictionary">
+      update CalibrationResultTb set TCNO=#TCNO# where SampleNum=#SampleNum# and ProjectName=#ProjectName# and SampleType=#SampleType# and CalibratorName=#CalibName# and CalibrationDT=#CalibrationDT#
+    </statement>-->
+    <statement id ="QuerySampleResultTCNO" parameterClass ="System.Collections.IDictionary" ResultClass ="string">
+      select TCNO from SampleResultTb where SampleNum=#SampleNum# and ProjectName=#ProjectName# and SampleType=#SampleType# and SampleCreateTime =#SampleCreateTime#
+    </statement>
+    <statement id="QueryCalibrationReactionProcess" ResultClass="TimeCourseInfo" parameterClass="System.Collections.IDictionary" >
+      <!--select * from calibrationreactionprocesstb where ProjectName=#ProjectName# and CalibName=#CalibName# and SampleType=#SampleType#-->
+      select * from timecoursetb where TimeCourseNO=#TimeCourseNO# and CUVNO=#CUVNO#
+    </statement>
+    <statement id="GetCalibrationResultInfo" ResultClass="string" parameterClass="System.Collections.IDictionary" >
+      select TCNO from CalibrationResultTb where ProjectName=#ProjectName# and CalibMethod=#CalibMethod# and SampleType=#SampleType#
+    </statement>
+    <statement id ="GetAllTasksCount" ResultClass ="int">
+      select count(*) from TaskTb 
+      union
+      select count(*) from CalibratorInfoTaskTb
+      union
+      select count(*) from QCTaskTb where TaskState != 2
+    </statement>
+    <statement id ="GetHasSmpWorkDisk" parameterClass ="System.Collections.IDictionary" ResultClass ="int">
+      select SampleTb.PanelNum from SampleTb  where PanelNum != #PanelNum# and CreateTime between #BeginTime# and #EndTime#
+    </statement>
+    <statement id="QueryTimeCourse" parameterClass="System.Collections.IDictionary" ResultClass="TimeCourseInfo">
+      select * from TimeCourseTb where TimeCourseNO=#TimeCourseNO# and DrawDate between #BeginTime# and #EndTime#
+    </statement>
+    <statement id="QueryTimeCourseByQCInfo" parameterClass="System.Collections.IDictionary" resultClass="TimeCourseInfo">
+      select * from TimeCourseTb where  TimeCourseNO=#TimeCourseNO# and DrawDate between #BengTime# and #EndTime#
+    </statement>
+    
+  </statements>
+</sqlMap>

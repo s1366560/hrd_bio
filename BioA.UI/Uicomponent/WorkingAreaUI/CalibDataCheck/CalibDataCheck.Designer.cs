@@ -1,4 +1,4 @@
-﻿namespace BioA.UI.Uicomponent.WorkingAreaUI.CalibDataCheck
+﻿namespace BioA.UI
 {
     partial class CalibDataCheck
     {
@@ -28,14 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CalibDataCheck));
             this.lstvCalibrationList = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.lstvCalibrationItems = new DevExpress.XtraGrid.GridControl();
-            this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.lstvCalibrationItems = new DevExpress.XtraGrid.GridControl();
+            this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn7 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -51,10 +52,10 @@
             // lstvCalibrationList
             // 
             this.lstvCalibrationList.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstvCalibrationList.Location = new System.Drawing.Point(27, 21);
+            this.lstvCalibrationList.Location = new System.Drawing.Point(27, 40);
             this.lstvCalibrationList.MainView = this.gridView1;
             this.lstvCalibrationList.Name = "lstvCalibrationList";
-            this.lstvCalibrationList.Size = new System.Drawing.Size(833, 815);
+            this.lstvCalibrationList.Size = new System.Drawing.Size(833, 796);
             this.lstvCalibrationList.TabIndex = 0;
             this.lstvCalibrationList.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -69,28 +70,6 @@
             this.gridView1.GridControl = this.lstvCalibrationList;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsView.ShowGroupPanel = false;
-            // 
-            // lstvCalibrationItems
-            // 
-            this.lstvCalibrationItems.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstvCalibrationItems.Location = new System.Drawing.Point(878, 21);
-            this.lstvCalibrationItems.MainView = this.gridView2;
-            this.lstvCalibrationItems.Name = "lstvCalibrationItems";
-            this.lstvCalibrationItems.Size = new System.Drawing.Size(829, 815);
-            this.lstvCalibrationItems.TabIndex = 1;
-            this.lstvCalibrationItems.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridView2});
-            // 
-            // gridView2
-            // 
-            this.gridView2.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.gridColumn5,
-            this.gridColumn6,
-            this.gridColumn7,
-            this.gridColumn8});
-            this.gridView2.GridControl = this.lstvCalibrationItems;
-            this.gridView2.Name = "gridView2";
-            this.gridView2.OptionsView.ShowGroupPanel = false;
             // 
             // gridColumn1
             // 
@@ -119,6 +98,28 @@
             this.gridColumn4.Name = "gridColumn4";
             this.gridColumn4.Visible = true;
             this.gridColumn4.VisibleIndex = 3;
+            // 
+            // lstvCalibrationItems
+            // 
+            this.lstvCalibrationItems.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstvCalibrationItems.Location = new System.Drawing.Point(878, 40);
+            this.lstvCalibrationItems.MainView = this.gridView2;
+            this.lstvCalibrationItems.Name = "lstvCalibrationItems";
+            this.lstvCalibrationItems.Size = new System.Drawing.Size(829, 796);
+            this.lstvCalibrationItems.TabIndex = 1;
+            this.lstvCalibrationItems.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridView2});
+            // 
+            // gridView2
+            // 
+            this.gridView2.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridColumn5,
+            this.gridColumn6,
+            this.gridColumn7,
+            this.gridColumn8});
+            this.gridView2.GridControl = this.lstvCalibrationItems;
+            this.gridView2.Name = "gridView2";
+            this.gridView2.OptionsView.ShowGroupPanel = false;
             // 
             // gridColumn5
             // 
@@ -152,9 +153,10 @@
             // 
             this.btnDeleteCalibrationItems.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDeleteCalibrationItems.Appearance.Options.UseFont = true;
+            this.btnDeleteCalibrationItems.Image = ((System.Drawing.Image)(resources.GetObject("btnDeleteCalibrationItems.Image")));
             this.btnDeleteCalibrationItems.Location = new System.Drawing.Point(878, 842);
             this.btnDeleteCalibrationItems.Name = "btnDeleteCalibrationItems";
-            this.btnDeleteCalibrationItems.Size = new System.Drawing.Size(100, 57);
+            this.btnDeleteCalibrationItems.Size = new System.Drawing.Size(130, 57);
             this.btnDeleteCalibrationItems.TabIndex = 2;
             this.btnDeleteCalibrationItems.Text = "删除测试项目";
             // 
@@ -162,9 +164,10 @@
             // 
             this.btnDeleteCalibration.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDeleteCalibration.Appearance.Options.UseFont = true;
-            this.btnDeleteCalibration.Location = new System.Drawing.Point(760, 842);
+            this.btnDeleteCalibration.Image = ((System.Drawing.Image)(resources.GetObject("btnDeleteCalibration.Image")));
+            this.btnDeleteCalibration.Location = new System.Drawing.Point(730, 842);
             this.btnDeleteCalibration.Name = "btnDeleteCalibration";
-            this.btnDeleteCalibration.Size = new System.Drawing.Size(100, 57);
+            this.btnDeleteCalibration.Size = new System.Drawing.Size(130, 57);
             this.btnDeleteCalibration.TabIndex = 3;
             this.btnDeleteCalibration.Text = "删除校准品";
             // 

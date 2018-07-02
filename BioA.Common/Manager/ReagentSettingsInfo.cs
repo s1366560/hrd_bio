@@ -23,8 +23,30 @@ namespace BioA.Common
             reagentContainer = string.Empty;
             batchNum = string.Empty;
             locked = false;
-        }
+            //residualQuantity = 0;
+            //measuredquantity = 0;
 
+        }
+       
+        //int residualQuantity;
+        ///// <summary>
+        ///// 剩余可测数量
+        ///// </summary>
+        //public int ResidualQuantity
+        //{
+        //    get { return residualQuantity; }
+        //    set { residualQuantity = value; }
+        //}
+       
+        //int measuredquantity;
+        ///// <summary>
+        ///// 已测数量
+        ///// </summary>
+        //public int Measuredquantity
+        //{
+        //    get { return measuredquantity; }
+        //    set { measuredquantity = value; }
+        //}
         /// <summary>
         /// 试剂位置
         /// </summary>
@@ -50,7 +72,7 @@ namespace BioA.Common
             set { reagentName = value; }
         }
         /// <summary>
-        /// 试剂类型 "R1\R2\清洗液"
+        /// 试剂类型 "血清、尿液、稀释液、清洗液"
         /// </summary>
         public string ReagentType
         {

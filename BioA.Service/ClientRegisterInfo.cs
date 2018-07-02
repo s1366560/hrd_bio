@@ -66,7 +66,7 @@ namespace BioA.Service
             ClientInfoCache.Instance.Remove(this);
         }
 
-        public ModuleInfo ClientName
+        public string ClientName
         {
             get;
             set;

@@ -5,36 +5,94 @@
   </alias>
   <resultMaps>
     <resultMap id="UserInfoResult" class="UserInfo">
-      <result property="UserID" column="ID" />
-      <result property="UserName" column="USERNAME"/>
-      <result property="UserPassword" column="USERPASSWORD"/>
-      <result property="CreateTime" column="CREATETIME"/>
-      <result property="IsSuperAdmin" column="ISSUPERADMIN"/>
-      <result property="IsServeEngineer" column="ISSERVEENGINEER"/>
-      <result property="IsPermitDelete" column="ISPERMITDELETE"/>
-      <result property="IsLocked" column="ISLOCKED"/>
+      <result property="UserID" column="UserID" />
+      <result property="UserName" column="UserName"/>
+      <result property="UserPassword" column="UserPassword"/>
+      <result property="CreateTime" column="CreateTime"/>
+      <result property="IsSuperAdmin" column="IsSuperAdmin"/>
+      <result property="IsServeEngineer" column="IsServeEngineer"/>
+      <result property="IsPermitDelete" column="IsPermitDelete"/>
+      <result property="IsLocked" column="IsLocked"/>      
+      <result property="ApplyTask" column="ApplyTask" />
+      <result property="DataCheck" column="DataCheck"/>
+      <result property="CalibDataCheck" column="CalibDataCheck"/>
+      <result property="ReagentSetting" column="ReagentSetting"/>
+      <result property="ReagentState" column="ReagentState"/>
+      <result property="CalibState" column="CalibState"/>
+      <result property="CalibMaintain" column="CalibMaintain"/>
+      <result property="QCState" column="QCState"/>
+      <result property="QCMaintain" column="QCMaintain" />
+      <result property="ChemistryParam" column="ChemistryParam"/>
+      <result property="CombProject" column="CombProject"/>
+      <result property="CalcProject" column="CalcProject"/>
+      <result property="EnvironmentParam" column="EnvironmentParam"/>
+      <result property="CrossPollute" column="CrossPollute"/>
+      <result property="DataConfiguration" column="DataConfiguration"/>
+      <result property="LISCommunicate" column="LISCommunicate"/>
+      <result property="RouMaintain" column="RouMaintain"/>
+      <result property="EquipDebug" column="EquipDebug"/>
+      <result property="UserManage" column="UserManage"/>
+      <result property="DepartManage" column="DepartManage"/>
+      <result property="Configuration" column="Configuration"/>
+      <result property="LogCheck" column="LogCheck"/>
+      <result property="VersionInfo" column="VersionInfo"/>
     </resultMap>
   </resultMaps>
 
   <statement>
     <insert id="InsertUserName" parameterClass="string">
-      insert into userInfo values name=#value#
+      insert into UserInfoTb values name=#value#
     </insert>
   </statement>
-  <!--<statements>
-    --><!--用过ID查找用户名--><!--
+  <statements>
+    <!--用过ID查找用户名-->
     <select id="QueryUserNameById" resultClass="String" parameterClass="int">
-      select USERNAME from userTb where ID=#value#
+      select USERNAME from UserInfoTb where ID=#value#
     </select>
-    --><!--查找所有用户信息--><!--
-    <select id="QueryUserInfo" resultMap="UserInfoResult">
-      SELECT * FROM USERTB
+    <select id="QueryUserName" resultClass="String">
+      select USERNAME from UserInfoTb
     </select>
-    --><!--通过用户名查找用户信息--><!--
+    <!--查找所有用户信息-->
+    <select id="QueryUserInfo" resultClass="UserInfo">
+      SELECT * FROM UserInfoTb
+    </select>
+    <select id="QueryUserCeation" resultClass="UserInfo">
+      SELECT * FROM UserInfoTb where UserID = #UserID#
+    </select>
+    <select id="SelectUserInfo" ResultClass="int" parameterClass="System.Collections.IDictionary">
+      select count(*) from UserInfoTb where UserID=#UserID#
+    </select>
+    <delete id="DeleteUserInfo" resultClass="int" parameterClass="System.Collections.IDictionary" >
+      delete from UserInfoTb where UserID=#ID# 
+    </delete>
+    <update id="EditUserInfo" parameterClass="System.Collections.IDictionary" resultClass="int">
+      update UserInfoTb
+      set UserID = #UserID# , UserName = #UserName# , CreateTime=#CreateTime# ,ApplyTask = #ApplyTask#,
+      DataCheck = #DataCheck# , CalibDataCheck = #CalibDataCheck# , ReagentSetting=#ReagentSetting# ,ReagentState = #ReagentState#,
+      CalibState = #CalibState# , CalibMaintain = #CalibMaintain# , QCState=#QCState# ,QCMaintain = #QCMaintain#,
+      ChemistryParam = #ChemistryParam# , CombProject = #CombProject# , CalcProject=#CalcProject# ,EnvironmentParam = #EnvironmentParam#,
+      CrossPollute = #CrossPollute# , DataConfiguration = #DataConfiguration# , LISCommunicate=#LISCommunicate# ,RouMaintain = #RouMaintain#,
+      EquipDebug = #EquipDebug# , UserManage = #UserManage# , DepartManage=#DepartManage# ,Configuration = #Configuration#,
+      LogCheck = #LogCheck# , VersionInfo = #VersionInfo#
+      where UserID=#UserIDOld#
+    </update>
+    <insert id="AddUserInfo" parameterClass="System.Collections.IDictionary">
+      insert into UserInfoTb (UserID,UserName,UserPassword,CreateTime,ApplyTask,DataCheck,
+      CalibDataCheck,ReagentSetting,ReagentState,CalibState,CalibMaintain,QCState,QCMaintain,
+      ChemistryParam,CombProject,CalcProject,EnvironmentParam,CrossPollute,DataConfiguration,
+      LISCommunicate,RouMaintain,EquipDebug,UserManage,DepartManage,Configuration,LogCheck,VersionInfo)
+      values (#UserID#,#UserName#,#UserPassword#,#CreateTime#,#ApplyTask#,#DataCheck#,
+      #CalibDataCheck#,#ReagentSetting#,#ReagentState#,#CalibState#,#CalibMaintain#,#QCState#,#QCMaintain#,
+      #ChemistryParam#,#CombProject#,#CalcProject#,#EnvironmentParam#,#CrossPollute#,#DataConfiguration#,
+      #LISCommunicate#,#RouMaintain#,#EquipDebug#,#UserManage#,#DepartManage#,#Configuration#,
+      #LogCheck#,#VersionInfo#
+      )
+    </insert>
+    <!--通过用户名查找用户信息
     <select id="QueryUserInfoByUserName" resultMap="UserInfoResult" parameterClass="string">
       SELECT * FROM USERTB WHERE USERNAME=#value#
     </select>
-    --><!--动态处理查询条件，当存在查询条件，按条件查询，不存在所需条件，执行CDATA中括号的查询语句--><!--
+    动态处理查询条件，当存在查询条件，按条件查询，不存在所需条件，执行CDATA中括号的查询语句
     <select id="QueryUserInfoDynamicUserName" parameterClass="System.Collections.IDictionary" resultMap="UserInfoResult">
       <![CDATA[SELECT * FROM USERTB]]>
       <dynamic prepend="WHERE">
@@ -43,8 +101,8 @@
         </isNotEmpty>
       </dynamic>
     </select>
-    --><!--二元条件举例--><!--
-    --><!--<select id="QueryUserInfoDynamicUserId" parameterClass="System.Collection.IDictionary" resultMap="UserInfoResult">
+    二元条件举例
+    <select id="QueryUserInfoDynamicUserId" parameterClass="System.Collection.IDictionary" resultMap="UserInfoResult">
       <![CDATA[SELECT * FROM USERTB]]>
       <dynamic prepend="WHERE">
         <isLessEqual prepend="AND" property="userId" compareValue="10">
@@ -52,7 +110,7 @@
         </isLessEqual>
       </dynamic>
     </select>
-    --><!--先判断传入参数集是否有SEX参数，如果没有则不执行SEX=#SEX#查询条件，再判断该参数是否为null，不为null才执行查询条件。isPropertyAvailable元素最大的好处是，如果输入的参数集不包括设置的参数时程序不会报错，直接跳过该元素设置内容。--><!--
+    先判断传入参数集是否有SEX参数，如果没有则不执行SEX=#SEX#查询条件，再判断该参数是否为null，不为null才执行查询条件。isPropertyAvailable元素最大的好处是，如果输入的参数集不包括设置的参数时程序不会报错，直接跳过该元素设置内容。
     <select id="QueryUserInfoDynamicSexOrStatus" resultMap="UserInfoResult" parameterClass="System.Collection.IDictionary">
       <![CDATA[ SELECT * FROM USERTB ]]>
       <dynamic prepend="WHERE">
@@ -67,8 +125,8 @@
           </isNotNull>
         </isPropertyAvailable>
       </dynamic>
-    </select>--><!--
-    --><!--查询遍历集合--><!--
+    </select>
+    查询遍历集合
     <select id="QueryUserInfoDynamicSexOrUserIdList" resultMap="UserInfoResult" parameterClass="System.Collection.IDictionary">
       <![CDATA[ SELECT * FROM USERTB ]]>
       <dynamic prepend="WHERE">
@@ -85,9 +143,9 @@
         </isNotNull>
       </dynamic>
     </select>
-    --><!--连表查询--><!--
+    连表查询
     <select id="MultiTable" resultClass="Hashtable">
       SELECT A.*, B.RIGHTID FROM USERTB A,USERrIGHT B WHERE A.ID = B.ID
-    </select>
-  </statements>-->
+    </select>-->
+  </statements>
 </sqlMap>

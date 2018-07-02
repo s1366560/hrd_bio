@@ -39,30 +39,30 @@ namespace BioA.Common
         /// <param name="width">矩形宽度</param>
         /// <param name="height">矩形高度</param>
         /// <param name="radius">角的弧度半径</param>
-        public static void DrawRoundRect(Graphics g, Pen p, float X, float Y, float width, float height, float radius)
-        {
-            GraphicsPath gp = new GraphicsPath();
+        //public static void DrawRoundRect(Graphics g, Pen p, float X, float Y, float width, float height, float radius)
+        //{
+        //    GraphicsPath gp = new GraphicsPath();
 
-            gp.AddLine(X + radius, Y, X + width - (radius * 2), Y);
+        //    gp.AddLine(X + radius, Y, X + width - (radius * 2), Y);
 
-            gp.AddArc(X + width - (radius * 2), Y, radius * 2, radius * 2, 270, 90);
+        //    gp.AddArc(X + width - (radius * 2), Y, radius * 2, radius * 2, 270, 90);
 
-            gp.AddLine(X + width, Y + radius, X + width, Y + height - (radius * 2));
+        //    gp.AddLine(X + width, Y + radius, X + width, Y + height - (radius * 2));
 
-            gp.AddArc(X + width - (radius * 2), Y + height - (radius * 2), radius * 2, radius * 2, 0, 90);
+        //    gp.AddArc(X + width - (radius * 2), Y + height - (radius * 2), radius * 2, radius * 2, 0, 90);
 
-            gp.AddLine(X + width - (radius * 2), Y + height, X + radius, Y + height);
+        //    gp.AddLine(X + width - (radius * 2), Y + height, X + radius, Y + height);
 
-            gp.AddArc(X, Y + height - (radius * 2), radius * 2, radius * 2, 90, 90);
+        //    gp.AddArc(X, Y + height - (radius * 2), radius * 2, radius * 2, 90, 90);
 
-            gp.AddLine(X, Y + height - (radius * 2), X, Y + radius);
+        //    gp.AddLine(X, Y + height - (radius * 2), X, Y + radius);
 
-            gp.AddArc(X, Y, radius * 2, radius * 2, 180, 90);
+        //    gp.AddArc(X, Y, radius * 2, radius * 2, 180, 90);
 
-            gp.CloseFigure();
+        //    gp.CloseFigure();
 
-            g.DrawPath(p, gp);
-            gp.Dispose();
-        }
+        //    g.DrawPath(p, gp);
+        //    gp.Dispose();
+        //}
     }
 }

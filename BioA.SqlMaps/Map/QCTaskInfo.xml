@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="QCTaskInfo" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <alias>
+    <typeAlias alias="QCTaskInfo" type="BioA.Common.QCTaskInfo, BioA.Common" />
+  </alias>
+  <resultMaps>
+    <resultMap id="QCTaskInfoResult" class="QCTaskInfo">
+      <result property="SampleNum" column="SampleNum" />
+      <result property="QCID" column="QCID" />
+      <result property="CreateDate" column="CreateDate" />
+      <result property="Position" column="Position" />
+      <result property="ProjectName" column="ProjectName" />
+      <result property="SampleType" column="SampleType" />
+      <result property="InspectTimes" column="InspectTimes" />
+      <result property="SendTimes" column="SendTimes" />
+      <result property="FinishTimes" column="FinishTimes" />
+      <result property="TaskState" column="TaskState" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <statement id="QueryBigestQCTaskInfoForToday" parameterClass="System.Collections.IDictionary" resultClass="QCTaskInfo">
+      select * from QCTaskTb where CreateDate between #CreateDateStart# and #CreateDateEnd#
+    </statement>
+    <statement id="AddQCTask" parameterClass="QCTaskInfo">
+      insert into QCTaskTb (SampleNum, QCID, CreateDate, Position, ProjectName, SampleType, InspectTimes, SendTimes, FinishTimes, TaskState)
+      values(#SampleNum#, #QCID#, #CreateDate#, #Position#, #ProjectName#, #SampleType#, #InspectTimes#, #SendTimes#, #FinishTimes#, #TaskState#)
+    </statement>
+    <statement id="QueryQCTaskForLstv" parameterClass="System.Collections.IDictionary" resultClass="QCTaskInfo">
+      select * from QCTaskTb where CreateDate between #starttime# and #endtime#
+    </statement>
+    <statement id="QueryQCTaskBySampleNum" parameterClass="System.Collections.IDictionary" resultClass="QCTaskInfo">
+      select * from QCTaskTb where CreateDate between #starttime# and #endtime# and SampleNum = #SampleNum#
+    </statement>
+    <statement id="UpdateQCTaskState" parameterClass="System.Collections.IDictionary">
+      update QCTaskTb set TaskState='0' where ProjectName=#ProjectName# and SampleType=#SampleType# and InspectTimes>SendTimes
+    </statement>
+    <statement id="GetQCSchedule" parameterClass="System.Collections.IDictionary" resultClass="QCTaskInfo">
+      select * from QCTaskTb where ProjectName=#ProjectName# and SampleNum=#SampleNum# and CreateDate between #StartTime# and #EndTime#
+    </statement>
+    <statement id="GetQCParamByQCTask" parameterClass="System.Collections.IDictionary" resultClass="QCTaskInfo">
+      select qct1.* from QCTaskTb qct1 left join AssayProjectParamInfoTb t2 on qct1.ProjectName=t2.ProjectName and qct1.SampleType=t2.SampleType
+      where qct1.TaskState=0 and qct1.CreateDate between #CreateDateBegin# and #CreateDateEnd# order by qct1.ID Limit #count#
+    </statement>
+    <statement id="InitMachineUpdateQCTaskState" parameterClass="System.Collections.IDictionary">
+      update QCTaskTb set SendTimes=#SendTimes#, FinishTimes=#FinishTimes#, TaskState=#TaskState# where TaskState!=2
+    </statement>
+  </statements>
+</sqlMap>

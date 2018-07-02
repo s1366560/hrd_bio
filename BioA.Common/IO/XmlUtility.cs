@@ -14,19 +14,27 @@ namespace BioA.Common.IO
         public static object Deserialize(Type type, string xml)
         {
             object reBack = new object();
-            try
+            if (xml.Trim() != string.Empty)
             {
-                using (StringReader sr = new StringReader(xml))
+                try
                 {
-                    XmlSerializer xmldes = new XmlSerializer(type);
-                    reBack = xmldes.Deserialize(sr);
+                    using (StringReader sr = new StringReader(xml))
+                    {
+                        XmlSerializer xmldes = new XmlSerializer(type);
+                        reBack = xmldes.Deserialize(sr);
+                    }
+                }
+                catch (Exception e)
+                {
+                    LogInfo.WriteErrorLog("XmlUtility.cs_Deserialize(Type type, string xml)==" + e.ToString(), Module.Common);
+                    return null;
                 }
             }
-            catch (Exception e)
+            else
             {
-                LogInfo.WriteErrorLog("XmlUtility.cs_Deserialize(Type type, string xml)==" + e.ToString(), Module.Common);
-                return null;
+                reBack = null;
             }
+
             return reBack;
         }
         public static object Deserialize(Type type, Stream stream)

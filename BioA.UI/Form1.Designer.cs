@@ -88,49 +88,59 @@ namespace BioA.UI
             this.ribbonPageGroup11 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup12 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.accordionControl1 = new DevExpress.XtraBars.Navigation.AccordionControl();
-            this.accordionControlElement4 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionControlElement5 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionControlElement6 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionControlElement7 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionControlElement8 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionControlElement9 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionControlElement10 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionControlElement11 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionControlElement12 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionControlElement13 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionControlElement14 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionControlElement15 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionControlElement16 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionControlElement17 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionControlElement18 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionControlElement19 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionControlElement20 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionControlElement21 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionControlElement22 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionControlElement23 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionControlElement1 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionControlElement2 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionControlElement3 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.ReagentStateElement4 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.ReagentSettingElement5 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.CalibrationStateElement6 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.CalibrationMaintainElement7 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.QCStateElement8 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.QCMaintainElement9 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.ChemicalParameterElement10 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.CombProjectElement11 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.CalcProjectElement12 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.EnvironmentElement13 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.CrossPollutionElement14 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.DataConfigElement15 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.LISCommunicateElement16 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.MaintenanceElement17 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.EquipmentManageElement18 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.UserManagementElement19 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.DepartmentManageElement20 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.ConfigureElement21 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.LogCheckElement22 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.VersionInfomationElement23 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.QCGraphicElement24 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.QCTaskElement25 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.CalibTaskElement26 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.WorkingAreaApplyTaskElement1 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.WorkingAreaDataCheckElement2 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.ribbonPageGroup7 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.textEdit1 = new DevExpress.XtraEditors.MemoEdit();
+            this.txtInfoPrompt = new DevExpress.XtraEditors.MemoEdit();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.pcThirdArea = new DevExpress.XtraEditors.PanelControl();
+            this.pictureEdit3 = new DevExpress.XtraEditors.PictureEdit();
+            this.pictureEdit2 = new DevExpress.XtraEditors.PictureEdit();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.schedulerStorage1 = new DevExpress.XtraScheduler.SchedulerStorage(this.components);
             this.textEdit2 = new DevExpress.XtraEditors.TextEdit();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pictureEdit1 = new DevExpress.XtraEditors.PictureEdit();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.label1 = new System.Windows.Forms.Label();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.accordionControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtInfoPrompt.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcThirdArea)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit3.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.schedulerStorage1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit1.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // ribbonControl1
@@ -163,7 +173,7 @@ namespace BioA.UI
             this.barButtonItem17,
             this.barButtonItem18});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 36;
+            this.ribbonControl1.MaxItemId = 1;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
@@ -249,6 +259,8 @@ namespace BioA.UI
             // 
             // barButtonItem4
             // 
+            this.barButtonItem4.ActAsDropDown = true;
+            this.barButtonItem4.ButtonStyle = DevExpress.XtraBars.BarButtonStyle.DropDown;
             this.barButtonItem4.Caption = "   质  控 ";
             this.barButtonItem4.Id = 17;
             this.barButtonItem4.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem4.LargeGlyph")));
@@ -343,13 +355,15 @@ namespace BioA.UI
             this.barButtonItem13.Id = 29;
             this.barButtonItem13.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem13.LargeGlyph")));
             this.barButtonItem13.Name = "barButtonItem13";
+            this.barButtonItem13.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem13_ItemClick);
             // 
             // barButtonItem14
             // 
-            this.barButtonItem14.Caption = "停止操作";
+            this.barButtonItem14.Caption = "暂停操作";
             this.barButtonItem14.Id = 30;
             this.barButtonItem14.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem14.LargeGlyph")));
             this.barButtonItem14.Name = "barButtonItem14";
+            this.barButtonItem14.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem14_ItemClick);
             // 
             // barButtonItem15
             // 
@@ -357,6 +371,7 @@ namespace BioA.UI
             this.barButtonItem15.Id = 31;
             this.barButtonItem15.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem15.LargeGlyph")));
             this.barButtonItem15.Name = "barButtonItem15";
+            this.barButtonItem15.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem15_ItemClick);
             // 
             // barButtonItem16
             // 
@@ -364,6 +379,7 @@ namespace BioA.UI
             this.barButtonItem16.Id = 32;
             this.barButtonItem16.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem16.LargeGlyph")));
             this.barButtonItem16.Name = "barButtonItem16";
+            this.barButtonItem16.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem16_ItemClick);
             // 
             // barButtonItem17
             // 
@@ -472,202 +488,225 @@ namespace BioA.UI
             // 
             this.accordionControl1.Dock = System.Windows.Forms.DockStyle.Left;
             this.accordionControl1.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
-            this.accordionControlElement4,
-            this.accordionControlElement5});
+            this.ReagentStateElement4,
+            this.ReagentSettingElement5});
             this.accordionControl1.Location = new System.Drawing.Point(0, 165);
             this.accordionControl1.Name = "accordionControl1";
             this.accordionControl1.Size = new System.Drawing.Size(200, 741);
             this.accordionControl1.TabIndex = 3;
+            this.accordionControl1.Click += new System.EventHandler(this.accordionControl1_Click);
             // 
-            // accordionControlElement4
+            // ReagentStateElement4
             // 
-            this.accordionControlElement4.Height = 50;
-            this.accordionControlElement4.Name = "accordionControlElement4";
-            this.accordionControlElement4.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.accordionControlElement4.Text = "             试剂状态";
-            this.accordionControlElement4.Click += new System.EventHandler(this.accordionControlElement4_Click);
+            this.ReagentStateElement4.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Text),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.ContextButtons),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl)});
+            this.ReagentStateElement4.Height = 50;
+            this.ReagentStateElement4.Name = "ReagentStateElement4";
+            this.ReagentStateElement4.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.ReagentStateElement4.Text = "             试剂状态";
+            this.ReagentStateElement4.Click += new System.EventHandler(this.accordionControlElement4_Click);
             // 
-            // accordionControlElement5
+            // ReagentSettingElement5
             // 
-            this.accordionControlElement5.Height = 50;
-            this.accordionControlElement5.Name = "accordionControlElement5";
-            this.accordionControlElement5.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.accordionControlElement5.Text = "             试剂设置";
-            this.accordionControlElement5.Click += new System.EventHandler(this.accordionControlElement5_Click);
+            this.ReagentSettingElement5.Height = 50;
+            this.ReagentSettingElement5.Name = "ReagentSettingElement5";
+            this.ReagentSettingElement5.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.ReagentSettingElement5.Text = "             试剂设置";
+            this.ReagentSettingElement5.Click += new System.EventHandler(this.accordionControlElement5_Click);
             // 
-            // accordionControlElement6
+            // CalibrationStateElement6
             // 
-            this.accordionControlElement6.Height = 50;
-            this.accordionControlElement6.Name = "accordionControlElement6";
-            this.accordionControlElement6.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.accordionControlElement6.Text = "             校准状态";
-            this.accordionControlElement6.Click += new System.EventHandler(this.accordionControlElement6_Click);
+            this.CalibrationStateElement6.Height = 50;
+            this.CalibrationStateElement6.Name = "CalibrationStateElement6";
+            this.CalibrationStateElement6.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.CalibrationStateElement6.Text = "             校准状态";
+            this.CalibrationStateElement6.Click += new System.EventHandler(this.accordionControlElement7_Click);
             // 
-            // accordionControlElement7
+            // CalibrationMaintainElement7
             // 
-            this.accordionControlElement7.Height = 50;
-            this.accordionControlElement7.Name = "accordionControlElement7";
-            this.accordionControlElement7.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.accordionControlElement7.Text = "             校准品维护";
-            this.accordionControlElement7.Click += new System.EventHandler(this.accordionControlElement7_Click);
+            this.CalibrationMaintainElement7.Height = 50;
+            this.CalibrationMaintainElement7.Name = "CalibrationMaintainElement7";
+            this.CalibrationMaintainElement7.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.CalibrationMaintainElement7.Text = "             校准品维护";
+            this.CalibrationMaintainElement7.Click += new System.EventHandler(this.accordionControlElement6_Click);
             // 
-            // accordionControlElement8
+            // QCStateElement8
             // 
-            this.accordionControlElement8.Height = 50;
-            this.accordionControlElement8.Name = "accordionControlElement8";
-            this.accordionControlElement8.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.accordionControlElement8.Text = "             质控状态";
-            this.accordionControlElement8.Click += new System.EventHandler(this.accordionControlElement8_Click);
+            this.QCStateElement8.Height = 50;
+            this.QCStateElement8.Name = "QCStateElement8";
+            this.QCStateElement8.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.QCStateElement8.Text = "             质控状态";
+            this.QCStateElement8.Click += new System.EventHandler(this.accordionControlElement8_Click);
             // 
-            // accordionControlElement9
+            // QCMaintainElement9
             // 
-            this.accordionControlElement9.Height = 50;
-            this.accordionControlElement9.Name = "accordionControlElement9";
-            this.accordionControlElement9.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.accordionControlElement9.Text = "             质控品维护";
-            this.accordionControlElement9.Click += new System.EventHandler(this.accordionControlElement9_Click);
+            this.QCMaintainElement9.Height = 50;
+            this.QCMaintainElement9.Name = "QCMaintainElement9";
+            this.QCMaintainElement9.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.QCMaintainElement9.Text = "             质控品维护";
+            this.QCMaintainElement9.Click += new System.EventHandler(this.accordionControlElement9_Click);
             // 
-            // accordionControlElement10
+            // ChemicalParameterElement10
             // 
-            this.accordionControlElement10.Height = 50;
-            this.accordionControlElement10.Name = "accordionControlElement10";
-            this.accordionControlElement10.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.accordionControlElement10.Text = "             化学参数";
-            this.accordionControlElement10.Click += new System.EventHandler(this.accordionControlElement10_Click);
+            this.ChemicalParameterElement10.Height = 50;
+            this.ChemicalParameterElement10.Name = "ChemicalParameterElement10";
+            this.ChemicalParameterElement10.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.ChemicalParameterElement10.Text = "             化学参数";
+            this.ChemicalParameterElement10.Click += new System.EventHandler(this.accordionControlElement10_Click);
             // 
-            // accordionControlElement11
+            // CombProjectElement11
             // 
-            this.accordionControlElement11.Height = 50;
-            this.accordionControlElement11.Name = "accordionControlElement11";
-            this.accordionControlElement11.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.accordionControlElement11.Text = "             组合项目";
-            this.accordionControlElement11.Click += new System.EventHandler(this.accordionControlElement11_Click);
+            this.CombProjectElement11.Height = 50;
+            this.CombProjectElement11.Name = "CombProjectElement11";
+            this.CombProjectElement11.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.CombProjectElement11.Text = "             组合项目";
+            this.CombProjectElement11.Click += new System.EventHandler(this.accordionControlElement11_Click);
             // 
-            // accordionControlElement12
+            // CalcProjectElement12
             // 
-            this.accordionControlElement12.Height = 50;
-            this.accordionControlElement12.Name = "accordionControlElement12";
-            this.accordionControlElement12.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.accordionControlElement12.Text = "             计算项目";
-            this.accordionControlElement12.Click += new System.EventHandler(this.accordionControlElement12_Click);
+            this.CalcProjectElement12.Height = 50;
+            this.CalcProjectElement12.Name = "CalcProjectElement12";
+            this.CalcProjectElement12.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.CalcProjectElement12.Text = "             计算项目";
+            this.CalcProjectElement12.Click += new System.EventHandler(this.accordionControlElement12_Click);
             // 
-            // accordionControlElement13
+            // EnvironmentElement13
             // 
-            this.accordionControlElement13.Height = 50;
-            this.accordionControlElement13.Name = "accordionControlElement13";
-            this.accordionControlElement13.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.accordionControlElement13.Text = "             环境参数";
-            this.accordionControlElement13.Click += new System.EventHandler(this.accordionControlElement13_Click);
+            this.EnvironmentElement13.Height = 50;
+            this.EnvironmentElement13.Name = "EnvironmentElement13";
+            this.EnvironmentElement13.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.EnvironmentElement13.Text = "             环境参数";
+            this.EnvironmentElement13.Click += new System.EventHandler(this.accordionControlElement13_Click);
             // 
-            // accordionControlElement14
+            // CrossPollutionElement14
             // 
-            this.accordionControlElement14.Height = 50;
-            this.accordionControlElement14.Name = "accordionControlElement14";
-            this.accordionControlElement14.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.accordionControlElement14.Text = "             交叉污染";
-            this.accordionControlElement14.Click += new System.EventHandler(this.accordionControlElement14_Click);
+            this.CrossPollutionElement14.Height = 50;
+            this.CrossPollutionElement14.Name = "CrossPollutionElement14";
+            this.CrossPollutionElement14.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.CrossPollutionElement14.Text = "             交叉污染";
+            this.CrossPollutionElement14.Click += new System.EventHandler(this.accordionControlElement14_Click);
             // 
-            // accordionControlElement15
+            // DataConfigElement15
             // 
-            this.accordionControlElement15.Height = 50;
-            this.accordionControlElement15.Name = "accordionControlElement15";
-            this.accordionControlElement15.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.accordionControlElement15.Text = "             数据配置";
-            this.accordionControlElement15.Click += new System.EventHandler(this.accordionControlElement15_Click);
+            this.DataConfigElement15.Height = 50;
+            this.DataConfigElement15.Name = "DataConfigElement15";
+            this.DataConfigElement15.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.DataConfigElement15.Text = "             数据配置";
+            this.DataConfigElement15.Click += new System.EventHandler(this.accordionControlElement15_Click);
             // 
-            // accordionControlElement16
+            // LISCommunicateElement16
             // 
-            this.accordionControlElement16.Height = 50;
-            this.accordionControlElement16.Name = "accordionControlElement16";
-            this.accordionControlElement16.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.accordionControlElement16.Text = "             LIS通讯";
-            this.accordionControlElement16.Click += new System.EventHandler(this.accordionControlElement16_Click);
+            this.LISCommunicateElement16.Height = 50;
+            this.LISCommunicateElement16.Name = "LISCommunicateElement16";
+            this.LISCommunicateElement16.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.LISCommunicateElement16.Text = "             LIS通讯";
+            this.LISCommunicateElement16.Click += new System.EventHandler(this.accordionControlElement16_Click);
             // 
-            // accordionControlElement17
+            // MaintenanceElement17
             // 
-            this.accordionControlElement17.Height = 50;
-            this.accordionControlElement17.Name = "accordionControlElement17";
-            this.accordionControlElement17.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.accordionControlElement17.Text = "             常规保养";
-            this.accordionControlElement17.Click += new System.EventHandler(this.accordionControlElement17_Click);
+            this.MaintenanceElement17.Height = 50;
+            this.MaintenanceElement17.Name = "MaintenanceElement17";
+            this.MaintenanceElement17.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.MaintenanceElement17.Text = "             常规保养";
+            this.MaintenanceElement17.Click += new System.EventHandler(this.accordionControlElement17_Click);
             // 
-            // accordionControlElement18
+            // EquipmentManageElement18
             // 
-            this.accordionControlElement18.Height = 50;
-            this.accordionControlElement18.Name = "accordionControlElement18";
-            this.accordionControlElement18.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.accordionControlElement18.Text = "             设备调试";
-            this.accordionControlElement18.Click += new System.EventHandler(this.accordionControlElement18_Click);
+            this.EquipmentManageElement18.Height = 50;
+            this.EquipmentManageElement18.Name = "EquipmentManageElement18";
+            this.EquipmentManageElement18.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.EquipmentManageElement18.Text = "             设备调试";
+            this.EquipmentManageElement18.Click += new System.EventHandler(this.accordionControlElement18_Click);
             // 
-            // accordionControlElement19
+            // UserManagementElement19
             // 
-            this.accordionControlElement19.Height = 50;
-            this.accordionControlElement19.Name = "accordionControlElement19";
-            this.accordionControlElement19.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.accordionControlElement19.Text = "             用户管理";
-            this.accordionControlElement19.Click += new System.EventHandler(this.accordionControlElement19_Click);
+            this.UserManagementElement19.Height = 50;
+            this.UserManagementElement19.Name = "UserManagementElement19";
+            this.UserManagementElement19.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.UserManagementElement19.Text = "             用户管理";
+            this.UserManagementElement19.Click += new System.EventHandler(this.accordionControlElement19_Click);
             // 
-            // accordionControlElement20
+            // DepartmentManageElement20
             // 
-            this.accordionControlElement20.Height = 50;
-            this.accordionControlElement20.Name = "accordionControlElement20";
-            this.accordionControlElement20.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.accordionControlElement20.Text = "             科室管理";
-            this.accordionControlElement20.Click += new System.EventHandler(this.accordionControlElement20_Click);
+            this.DepartmentManageElement20.Height = 50;
+            this.DepartmentManageElement20.Name = "DepartmentManageElement20";
+            this.DepartmentManageElement20.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.DepartmentManageElement20.Text = "             科室管理";
+            this.DepartmentManageElement20.Click += new System.EventHandler(this.accordionControlElement20_Click);
             // 
-            // accordionControlElement21
+            // ConfigureElement21
             // 
-            this.accordionControlElement21.Height = 50;
-            this.accordionControlElement21.Name = "accordionControlElement21";
-            this.accordionControlElement21.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.accordionControlElement21.Text = "             配置";
-            this.accordionControlElement21.Click += new System.EventHandler(this.accordionControlElement21_Click);
+            this.ConfigureElement21.Height = 50;
+            this.ConfigureElement21.Name = "ConfigureElement21";
+            this.ConfigureElement21.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.ConfigureElement21.Text = "             配置";
+            this.ConfigureElement21.Click += new System.EventHandler(this.accordionControlElement21_Click);
             // 
-            // accordionControlElement22
+            // LogCheckElement22
             // 
-            this.accordionControlElement22.Height = 50;
-            this.accordionControlElement22.Name = "accordionControlElement22";
-            this.accordionControlElement22.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.accordionControlElement22.Text = "             日志查看";
-            this.accordionControlElement22.Click += new System.EventHandler(this.accordionControlElement22_Click);
+            this.LogCheckElement22.Height = 50;
+            this.LogCheckElement22.Name = "LogCheckElement22";
+            this.LogCheckElement22.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.LogCheckElement22.Text = "             日志查看";
+            this.LogCheckElement22.Click += new System.EventHandler(this.accordionControlElement22_Click);
             // 
-            // accordionControlElement23
+            // VersionInfomationElement23
             // 
-            this.accordionControlElement23.Height = 50;
-            this.accordionControlElement23.Name = "accordionControlElement23";
-            this.accordionControlElement23.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.accordionControlElement23.Text = "             版本信息";
-            this.accordionControlElement23.Click += new System.EventHandler(this.accordionControlElement23_Click);
+            this.VersionInfomationElement23.Height = 50;
+            this.VersionInfomationElement23.Name = "VersionInfomationElement23";
+            this.VersionInfomationElement23.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.VersionInfomationElement23.Text = "             版本信息";
+            this.VersionInfomationElement23.Click += new System.EventHandler(this.accordionControlElement23_Click);
             // 
-            // accordionControlElement1
+            // QCGraphicElement24
             // 
-            this.accordionControlElement1.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
+            this.QCGraphicElement24.Expanded = true;
+            this.QCGraphicElement24.Height = 50;
+            this.QCGraphicElement24.Name = "QCGraphicElement24";
+            this.QCGraphicElement24.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.QCGraphicElement24.Text = "             质控图";
+            this.QCGraphicElement24.Click += new System.EventHandler(this.accordionControlElement24_Click);
+            // 
+            // QCTaskElement25
+            // 
+            this.QCTaskElement25.Expanded = true;
+            this.QCTaskElement25.Height = 50;
+            this.QCTaskElement25.Name = "QCTaskElement25";
+            this.QCTaskElement25.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.QCTaskElement25.Text = "             质控任务";
+            this.QCTaskElement25.Click += new System.EventHandler(this.accordionControlElement25_Click);
+            // 
+            // CalibTaskElement26
+            // 
+            this.CalibTaskElement26.Height = 50;
+            this.CalibTaskElement26.Name = "CalibTaskElement26";
+            this.CalibTaskElement26.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.CalibTaskElement26.Text = "             校准任务";
+            this.CalibTaskElement26.Click += new System.EventHandler(this.accordionControlElement26_Click);
+            // 
+            // WorkingAreaApplyTaskElement1
+            // 
+            this.WorkingAreaApplyTaskElement1.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
             new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Text),
             new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image),
             new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl),
             new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.ContextButtons)});
-            this.accordionControlElement1.Height = 50;
-            this.accordionControlElement1.Name = "accordionControlElement1";
-            this.accordionControlElement1.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.accordionControlElement1.Text = "             申请审核";
-            this.accordionControlElement1.Click += new System.EventHandler(this.accordionControlElement1_Click);
+            this.WorkingAreaApplyTaskElement1.Height = 50;
+            this.WorkingAreaApplyTaskElement1.Name = "WorkingAreaApplyTaskElement1";
+            this.WorkingAreaApplyTaskElement1.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.WorkingAreaApplyTaskElement1.Text = "             申请审核";
+            this.WorkingAreaApplyTaskElement1.Click += new System.EventHandler(this.accordionControlElement1_Click);
             // 
-            // accordionControlElement2
+            // WorkingAreaDataCheckElement2
             // 
-            this.accordionControlElement2.Height = 50;
-            this.accordionControlElement2.Name = "accordionControlElement2";
-            this.accordionControlElement2.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.accordionControlElement2.Text = "             校准审核";
-            this.accordionControlElement2.Click += new System.EventHandler(this.accordionControlElement2_Click);
-            // 
-            // accordionControlElement3
-            // 
-            this.accordionControlElement3.Expanded = true;
-            this.accordionControlElement3.Height = 50;
-            this.accordionControlElement3.Name = "accordionControlElement3";
-            this.accordionControlElement3.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.accordionControlElement3.Text = "             数据审核";
-            this.accordionControlElement3.Click += new System.EventHandler(this.accordionControlElement3_Click);
+            this.WorkingAreaDataCheckElement2.Height = 50;
+            this.WorkingAreaDataCheckElement2.Name = "WorkingAreaDataCheckElement2";
+            this.WorkingAreaDataCheckElement2.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.WorkingAreaDataCheckElement2.Text = "             数据审核";
+            this.WorkingAreaDataCheckElement2.Click += new System.EventHandler(this.accordionControlElement2_Click);
             // 
             // ribbonPageGroup7
             // 
@@ -676,53 +715,85 @@ namespace BioA.UI
             // pictureBox1
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Image = global::BioA.UI.Properties.Resources._1479289692361;
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.Info;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(1518, 100);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(151, 41);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
             // 
-            // textEdit1
+            // txtInfoPrompt
             // 
-            this.textEdit1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textEdit1.EditValue = "fdfdfdfdfd";
-            this.textEdit1.Location = new System.Drawing.Point(1058, 32);
-            this.textEdit1.MenuManager = this.ribbonControl1;
-            this.textEdit1.Name = "textEdit1";
-            this.textEdit1.Properties.Appearance.BackColor = System.Drawing.SystemColors.Info;
-            this.textEdit1.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textEdit1.Properties.Appearance.Options.UseBackColor = true;
-            this.textEdit1.Properties.Appearance.Options.UseFont = true;
-            this.textEdit1.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat;
-            this.textEdit1.Size = new System.Drawing.Size(434, 40);
-            this.textEdit1.TabIndex = 7;
+            this.txtInfoPrompt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtInfoPrompt.EditValue = "机器正常启动";
+            this.txtInfoPrompt.Location = new System.Drawing.Point(856, 32);
+            this.txtInfoPrompt.MenuManager = this.ribbonControl1;
+            this.txtInfoPrompt.Name = "txtInfoPrompt";
+            this.txtInfoPrompt.Properties.Appearance.BackColor = System.Drawing.SystemColors.Info;
+            this.txtInfoPrompt.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtInfoPrompt.Properties.Appearance.Options.UseBackColor = true;
+            this.txtInfoPrompt.Properties.Appearance.Options.UseFont = true;
+            this.txtInfoPrompt.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat;
+            this.txtInfoPrompt.Size = new System.Drawing.Size(434, 40);
+            this.txtInfoPrompt.TabIndex = 7;
             // 
             // pictureBox2
             // 
             this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(1023, 35);
+            this.pictureBox2.Location = new System.Drawing.Point(823, 35);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(33, 31);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 11;
             this.pictureBox2.TabStop = false;
             // 
-            // panelControl1
+            // pcThirdArea
             // 
-            this.panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControl1.Location = new System.Drawing.Point(200, 165);
-            this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(1501, 741);
-            this.panelControl1.TabIndex = 16;
+            this.pcThirdArea.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pcThirdArea.Location = new System.Drawing.Point(200, 165);
+            this.pcThirdArea.Name = "pcThirdArea";
+            this.pcThirdArea.Size = new System.Drawing.Size(1501, 741);
+            this.pcThirdArea.TabIndex = 16;
+            this.pcThirdArea.Paint += new System.Windows.Forms.PaintEventHandler(this.pcThirdArea_Paint);
+            // 
+            // pictureEdit3
+            // 
+            this.pictureEdit3.Cursor = System.Windows.Forms.Cursors.Default;
+            this.pictureEdit3.EditValue = global::BioA.UI.Properties.Resources.未标题3_1;
+            this.pictureEdit3.Location = new System.Drawing.Point(271, 32);
+            this.pictureEdit3.MenuManager = this.ribbonControl1;
+            this.pictureEdit3.Name = "pictureEdit3";
+            this.pictureEdit3.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.pictureEdit3.Properties.ErrorImage = global::BioA.UI.Properties.Resources.未标题3_1;
+            this.pictureEdit3.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
+            this.pictureEdit3.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Stretch;
+            this.pictureEdit3.Properties.ZoomAccelerationFactor = 1D;
+            this.pictureEdit3.Size = new System.Drawing.Size(27, 40);
+            this.pictureEdit3.TabIndex = 28;
+            // 
+            // pictureEdit2
+            // 
+            this.pictureEdit2.Cursor = System.Windows.Forms.Cursors.Default;
+            this.pictureEdit2.EditValue = global::BioA.UI.Properties.Resources.aaa;
+            this.pictureEdit2.Location = new System.Drawing.Point(1548, 33);
+            this.pictureEdit2.MenuManager = this.ribbonControl1;
+            this.pictureEdit2.Name = "pictureEdit2";
+            this.pictureEdit2.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.pictureEdit2.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
+            this.pictureEdit2.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Stretch;
+            this.pictureEdit2.Properties.ZoomAccelerationFactor = 1D;
+            this.pictureEdit2.Size = new System.Drawing.Size(37, 35);
+            this.pictureEdit2.TabIndex = 0;
             // 
             // pictureBox3
             // 
             this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-            this.pictureBox3.Location = new System.Drawing.Point(1506, 34);
+            this.pictureBox3.Location = new System.Drawing.Point(1470, 34);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(32, 32);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -732,31 +803,73 @@ namespace BioA.UI
             // textEdit2
             // 
             this.textEdit2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textEdit2.EditValue = "2017年8月19日 18:23";
-            this.textEdit2.Location = new System.Drawing.Point(1541, 39);
-            this.textEdit2.MenuManager = this.ribbonControl1;
+            this.textEdit2.EditValue = "";
+            this.textEdit2.Enabled = false;
+            this.textEdit2.Location = new System.Drawing.Point(1518, 36);
             this.textEdit2.Name = "textEdit2";
-            this.textEdit2.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textEdit2.Properties.Appearance.BackColor = System.Drawing.Color.Transparent;
+            this.textEdit2.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textEdit2.Properties.Appearance.ForeColor = System.Drawing.Color.Black;
+            this.textEdit2.Properties.Appearance.Options.UseBackColor = true;
             this.textEdit2.Properties.Appearance.Options.UseFont = true;
+            this.textEdit2.Properties.Appearance.Options.UseForeColor = true;
             this.textEdit2.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.textEdit2.Size = new System.Drawing.Size(151, 22);
+            this.textEdit2.Properties.DisplayFormat.FormatString = "\"yyyy-MM-dd HH:mm\"";
+            this.textEdit2.Properties.EditFormat.FormatString = "\"yyyy-MM-dd HH:mm\"";
+            this.textEdit2.Properties.Mask.EditMask = "\"\"yyyy-MM-dd HH:mm\"\"";
+            this.textEdit2.Size = new System.Drawing.Size(191, 28);
             this.textEdit2.TabIndex = 20;
             // 
-            // pictureBox4
+            // pictureEdit1
             // 
-            this.pictureBox4.Image = global::BioA.UI.Properties.Resources._1479289692361;
-            this.pictureBox4.Location = new System.Drawing.Point(1079, 100);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(413, 41);
-            this.pictureBox4.TabIndex = 22;
-            this.pictureBox4.TabStop = false;
+            this.pictureEdit1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.pictureEdit1.EditValue = global::BioA.UI.Properties.Resources.微信图片_20170819143641;
+            this.pictureEdit1.Location = new System.Drawing.Point(268, 32);
+            this.pictureEdit1.MenuManager = this.ribbonControl1;
+            this.pictureEdit1.Name = "pictureEdit1";
+            this.pictureEdit1.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.pictureEdit1.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
+            this.pictureEdit1.Properties.ZoomAccelerationFactor = 1D;
+            this.pictureEdit1.Size = new System.Drawing.Size(531, 40);
+            this.pictureEdit1.TabIndex = 22;
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(1079, 117);
+            this.progressBar1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(236)))), ((int)(((byte)(239)))));
+            this.progressBar1.Location = new System.Drawing.Point(303, 48);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(413, 5);
-            this.progressBar1.TabIndex = 23;
+            this.progressBar1.Size = new System.Drawing.Size(458, 6);
+            this.progressBar1.TabIndex = 26;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(1592, 41);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(64, 17);
+            this.label1.TabIndex = 30;
+            this.label1.Text = "诸葛孔明";
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Tick += new System.EventHandler(this.Timer1_Timer);
+            // 
+            // label2
+            // 
+            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label2.Location = new System.Drawing.Point(303, 50);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(95, 2);
+            this.label2.TabIndex = 32;
+            this.label2.Tag = "0";
             // 
             // Form1
             // 
@@ -764,34 +877,43 @@ namespace BioA.UI
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1701, 906);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.pictureEdit3);
+            this.Controls.Add(this.pictureEdit2);
             this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.pictureBox4);
+            this.Controls.Add(this.pictureEdit1);
             this.Controls.Add(this.textEdit2);
             this.Controls.Add(this.pictureBox3);
-            this.Controls.Add(this.panelControl1);
+            this.Controls.Add(this.pcThirdArea);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.accordionControl1);
-            this.Controls.Add(this.textEdit1);
+            this.Controls.Add(this.txtInfoPrompt);
             this.Controls.Add(this.ribbonControl1);
             this.Name = "Form1";
             this.Ribbon = this.ribbonControl1;
             this.Text = "全自动生化分析仪操作平台";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.accordionControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtInfoPrompt.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcThirdArea)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit3.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.schedulerStorage1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit1.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
+
+       
 
        
 
@@ -809,39 +931,41 @@ namespace BioA.UI
         private DevExpress.XtraBars.Navigation.AccordionControl accordionControl1;
 
         //一下是第一个的三个
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement1;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement2;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement3;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement WorkingAreaApplyTaskElement1;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement WorkingAreaDataCheckElement2;
+        //private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement3;
         //以下是第二个的两个
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement4;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement5;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement ReagentStateElement4;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement ReagentSettingElement5;
         //以下是第三个的两个
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement6;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement7;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement CalibrationStateElement6;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement CalibrationMaintainElement7;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement CalibTaskElement26;
         //以下是第4个的两个
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement8;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement9;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement QCStateElement8;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement QCMaintainElement9;
 
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement10;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement11;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement12;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement13;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement14;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement15;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement16;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement ChemicalParameterElement10;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement CombProjectElement11;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement CalcProjectElement12;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement EnvironmentElement13;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement CrossPollutionElement14;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement DataConfigElement15;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement LISCommunicateElement16;
 
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement17;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement18;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement19;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement20;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement21;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement22;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement23;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement MaintenanceElement17;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement EquipmentManageElement18;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement UserManagementElement19;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement DepartmentManageElement20;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement ConfigureElement21;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement LogCheckElement22;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement VersionInfomationElement23;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement QCGraphicElement24;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement QCTaskElement25;
 
-       
-      
+
+
         private DevExpress.XtraBars.BarButtonItem barButtonItem2;
-        private DevExpress.XtraBars.BarButtonItem barButtonItem3;
         private DevExpress.XtraBars.SkinRibbonGalleryBarItem skinRibbonGalleryBarItem1;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup7;
         private DevExpress.XtraBars.RibbonGalleryBarItem ribbonGalleryBarItem1;
@@ -860,7 +984,7 @@ namespace BioA.UI
         private DevExpress.XtraBars.BarButtonItem barButtonItem10;
         private DevExpress.XtraBars.BarButtonItem barButtonItem11;
         private DevExpress.XtraBars.BarButtonItem barButtonItem12;
-        private DevExpress.XtraEditors.MemoEdit textEdit1;
+        private DevExpress.XtraEditors.MemoEdit txtInfoPrompt;
         private DevExpress.XtraBars.BarButtonItem barButtonItem13;
         private DevExpress.XtraBars.BarButtonItem barButtonItem14;
         private DevExpress.XtraBars.BarButtonItem barButtonItem15;
@@ -871,7 +995,7 @@ namespace BioA.UI
        // private DevExpress.XtraBars.Navigation.NavigationPage navigationPage1;
        // private DevExpress.XtraBars.Navigation.NavigationPage navigationPage2;
         // private DevExpress.Utils.WorkspaceManager workspaceManager1;
-        private DevExpress.XtraEditors.PanelControl panelControl1;
+        private DevExpress.XtraEditors.PanelControl pcThirdArea;
         private DevExpress.XtraBars.BarButtonItem barButtonItem16;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup11;
         private DevExpress.Utils.WorkspaceManager workspaceManager1;
@@ -881,10 +1005,15 @@ namespace BioA.UI
         private DevExpress.XtraScheduler.SchedulerStorage schedulerStorage1;
         private DevExpress.XtraBars.BarButtonItem barButtonItem18;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup12;
-        private System.Windows.Forms.PictureBox pictureBox4;
+        private DevExpress.XtraEditors.PictureEdit pictureEdit1;
         private System.Windows.Forms.ProgressBar progressBar1;
-      
-
+        private DevExpress.XtraEditors.PictureEdit pictureEdit2;
+        private DevExpress.XtraEditors.PictureEdit pictureEdit3;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem3;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label label2;
         
     }
 }

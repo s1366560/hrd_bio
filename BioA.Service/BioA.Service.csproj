@@ -45,15 +45,35 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calibration\Calibrator.cs" />
     <Compile Include="ClientInfoCache.cs" />
     <Compile Include="ClientRegisterInfo.cs" />
-    <Compile Include="CommunicationEntity1.cs" />
     <Compile Include="DataTransmit.cs" />
     <Compile Include="INotifyCallBack.cs" />
     <Compile Include="IBioAService.cs" />
+    <Compile Include="Login\Login.cs" />
+    <Compile Include="MainTains\MainTain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BioAService.cs" />
+    <Compile Include="QualityControl\QCGraphics.cs" />
+    <Compile Include="QualityControl\QCMaintian.cs" />
+    <Compile Include="QualityControl\QCResult.cs" />
+    <Compile Include="QualityControl\QCTask.cs" />
+    <Compile Include="Reagent\ReagentSetting.cs" />
+    <Compile Include="Reagent\ReagentState.cs" />
+    <Compile Include="Settings\CalcProjectParameter.cs" />
+    <Compile Include="Settings\SettingsReagentNeedle.cs" />
+    <Compile Include="Settings\SettingsDataConfig.cs" />
+    <Compile Include="Settings\CombProjectParameter.cs" />
+    <Compile Include="Settings\EnvironmentParameter.cs" />
     <Compile Include="Settings\SettingsChemicalParameter.cs" />
+    <Compile Include="System\SystemEquipmentManage.cs" />
+    <Compile Include="System\SystemLogCheck.cs" />
+    <Compile Include="System\SystemDepartmentManage.cs" />
+    <Compile Include="System\SystemMaintenance.cs" />
+    <Compile Include="System\SystemUserManagement.cs" />
+    <Compile Include="WorkingArea\WorkAreaApplyTask.cs" />
+    <Compile Include="WorkingArea\WorkingAreaDataCheck.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BioA.Common\BioA.Common.csproj">
@@ -65,13 +85,7 @@
       <Name>BioA.SqlMaps</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Calibration\" />
-    <Folder Include="QualityControl\" />
-    <Folder Include="Reagent\" />
-    <Folder Include="System\" />
-    <Folder Include="WorkingArea\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <VSToolsPath Condition="'$(VSToolsPath)' == '' and '$(VisualStudioVersion)' != '' and '$(VisualStudioVersion)' != '11.0'">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

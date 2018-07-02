@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="CommonDataCheck" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <alias>
+    <typeAlias alias="SampleResultInfo" type="BioA.Common.SampleResultInfo, BioA.Common" />
+    <typeAlias alias="SampleReactionProcessInfo" type="BioA.Common.SampleReactionProcessInfo, BioA.Common" />
+    <typeAlias alias="SampleInfoForResult" type="BioA.Common.SampleInfoForResult, BioA.Common" />
+  </alias>
+  <statements>
+    <select id="QueryCommonSampleData" parameterClass="System.Collections.IDictionary" resultClass="SampleInfoForResult">
+      <![CDATA[select t1.SampleNum, t1.SampleType, t1.CreateTime, t1.IsOperateDilution, t1.SampleState, t1.IsAudit, t1.IsPrinted, t2.SampleID, t2.PatientName, t2.Sex, t2.Age from
+      SampleTb t1 left join PatientInfoTb t2 on t1.SampleNum = t2.SampleNum and t1.CreateTime = t2.InputTime]]>
+      <dynamic prepend="where">
+        <isNotEmpty prepend="and" property="Completed">
+          <![CDATA[t1.SampleState in (#Completed#,#Starting#,#NoStart#)]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="急诊">
+          <![CDATA[t1.IsEmergency in (#常规样本#,#急诊#)]]>
+        </isNotEmpty>
+        <isNotEqual prepend="and" property="SampleNum" compareValue="0">
+          <![CDATA[t1.SampleNum=#SampleNum#]]>
+        </isNotEqual>
+        <isNotEmpty prepend="and" property="PatientName">
+          <![CDATA[t2.PatientName=#PatientName#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="SampleID">
+          <![CDATA[t2.SampleID=#SampleID#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="StartTime">
+          <![CDATA[t1.CreateTime between #StartTime# and #EndTime# and t1.IsDelete=0 order by t1.CreateTime asc]]>
+        </isNotEmpty>
+      </dynamic>
+    </select>
+    <statement id="QueryProjectResultBySampleNum" parameterClass="System.Collections.IDictionary" resultClass="SampleResultInfo">
+      <!--select * from SampleResultTb t1 left join TaskTb t2 on t1.SampleNum=t2.SampleNum and t1.SampleCreateTime=t2.CreateDate  
+        and t1.ProjectName=t2.ProjectName where t1.SampleNum=#SampleNum# and t1.SampleCreateTime between #StartDateTime# and #EndDateTime#-->
+      select * from SampleResultTb where SampleNum=#SampleNum# and SampleCreateTime = #StartDateTime# and SampleType=#SampleType#
+    </statement>
+    <statement id="DeleteCommonSampleBySampleNum" parameterClass="System.Collections.IDictionary" resultClass="int">
+      update SampleTb set IsDelete=1 where SampleNum=#SampleNum# and CreateTime=#CreateTime#
+    </statement>
+    <statement id="UpdateTaskStateBySampleNum" parameterClass="System.Collections.IDictionary" resultClass="int">
+      update TaskTb set TaskState=#TaskState# where SampleNum=#SampleNum# and CreateDate=#CreateTime#
+    </statement>
+    <statement id="AuditSampleTest" parameterClass="System.Collections.IDictionary" resultClass="int">
+      update SampleTb set IsAudit=#IsAudit# where SampleNum=#SampleNum# and CreateTime=#ApplyTime#
+    </statement>
+    <statement id="UpdateIsResurvey" parameterClass="System.Collections.IDictionary" resultClass="int">
+      update SampleResultTb set IsResurvey=#IsResurvey# where SampleCreateTime=#ApplyTime# and SampleNum=#SampleNum# and ProjectName=#ProjectName#
+    </statement>
+    <statement id="ConfirmCommonTask" parameterClass="System.Collections.IDictionary" resultClass="int">
+      update SampleResultTb set Confirm=1 where SampleNum=#SampleNum# and SampleCreateTime=#ApplyTime# and ProjectName=#ProjectName#
+    </statement>
+    <statement id="UnConfirmCommonTask" parameterClass="System.Collections.IDictionary" resultClass="int">
+      update SampleResultTb set Confirm=0 where SampleNum=#SampleNum# and SampleCreateTime between #StartApplyTime# and #EndApplyTime# and ProjectName=#ProjectName#
+    </statement>
+    <statement id="GetNORResult" parameterClass="System.Collections.IDictionary" resultClass="SampleResultInfo">
+      select * from SampleResultTb where TCNO=#TCNO# and SampleCreateTime between #StartTime# and #EndTime#
+    </statement>
+  </statements>
+</sqlMap>

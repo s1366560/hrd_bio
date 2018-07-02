@@ -1,4 +1,4 @@
-﻿namespace BioA.UI.Uicomponent.CalibrationUI.CalibMaintain
+﻿namespace BioA.UI
 {
     partial class CalibAddAndEdit
     {
@@ -28,23 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CalibAddAndEdit));
             this.lblCalibrationName = new DevExpress.XtraEditors.LabelControl();
             this.BatchNumber = new DevExpress.XtraEditors.LabelControl();
             this.lblExpirationDate = new DevExpress.XtraEditors.LabelControl();
-            this.textEdit1 = new DevExpress.XtraEditors.TextEdit();
-            this.textEdit2 = new DevExpress.XtraEditors.TextEdit();
-            this.textEdit3 = new DevExpress.XtraEditors.TextEdit();
-            this.gridControl1 = new DevExpress.XtraGrid.GridControl();
+            this.cboCalibName = new DevExpress.XtraEditors.TextEdit();
+            this.cboCalibBatchNumber = new DevExpress.XtraEditors.TextEdit();
+            this.lstvProjectInfo = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.btnDelete = new DevExpress.XtraEditors.SimpleButton();
             this.btnSave = new DevExpress.XtraEditors.SimpleButton();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit3.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            this.cboCalibPosition = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
+            this.cboCalibTManufacturer = new DevExpress.XtraEditors.TextEdit();
+            this.cboCalibInvalidDate = new DevExpress.XtraEditors.DateEdit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboCalibName.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboCalibBatchNumber.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lstvProjectInfo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboCalibPosition.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboCalibTManufacturer.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboCalibInvalidDate.Properties.CalendarTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboCalibInvalidDate.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // lblCalibrationName
@@ -71,77 +77,52 @@
             // 
             this.lblExpirationDate.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblExpirationDate.Appearance.Options.UseFont = true;
-            this.lblExpirationDate.Location = new System.Drawing.Point(396, 31);
+            this.lblExpirationDate.Location = new System.Drawing.Point(27, 70);
             this.lblExpirationDate.Name = "lblExpirationDate";
             this.lblExpirationDate.Size = new System.Drawing.Size(70, 17);
             this.lblExpirationDate.TabIndex = 2;
             this.lblExpirationDate.Text = "失效日期：";
             // 
-            // textEdit1
+            // cboCalibName
             // 
-            this.textEdit1.Location = new System.Drawing.Point(117, 28);
-            this.textEdit1.Name = "textEdit1";
-            this.textEdit1.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textEdit1.Properties.Appearance.Options.UseFont = true;
-            this.textEdit1.Size = new System.Drawing.Size(100, 24);
-            this.textEdit1.TabIndex = 3;
+            this.cboCalibName.Location = new System.Drawing.Point(117, 28);
+            this.cboCalibName.Name = "cboCalibName";
+            this.cboCalibName.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboCalibName.Properties.Appearance.Options.UseFont = true;
+            this.cboCalibName.Size = new System.Drawing.Size(100, 24);
+            this.cboCalibName.TabIndex = 3;
             // 
-            // textEdit2
+            // cboCalibBatchNumber
             // 
-            this.textEdit2.Location = new System.Drawing.Point(280, 28);
-            this.textEdit2.Name = "textEdit2";
-            this.textEdit2.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textEdit2.Properties.Appearance.Options.UseFont = true;
-            this.textEdit2.Size = new System.Drawing.Size(100, 24);
-            this.textEdit2.TabIndex = 4;
+            this.cboCalibBatchNumber.Location = new System.Drawing.Point(280, 28);
+            this.cboCalibBatchNumber.Name = "cboCalibBatchNumber";
+            this.cboCalibBatchNumber.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboCalibBatchNumber.Properties.Appearance.Options.UseFont = true;
+            this.cboCalibBatchNumber.Size = new System.Drawing.Size(100, 24);
+            this.cboCalibBatchNumber.TabIndex = 4;
             // 
-            // textEdit3
+            // lstvProjectInfo
             // 
-            this.textEdit3.Location = new System.Drawing.Point(472, 28);
-            this.textEdit3.Name = "textEdit3";
-            this.textEdit3.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textEdit3.Properties.Appearance.Options.UseFont = true;
-            this.textEdit3.Size = new System.Drawing.Size(100, 24);
-            this.textEdit3.TabIndex = 5;
-            // 
-            // gridControl1
-            // 
-            this.gridControl1.Location = new System.Drawing.Point(27, 77);
-            this.gridControl1.MainView = this.gridView1;
-            this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(545, 386);
-            this.gridControl1.TabIndex = 6;
-            this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.lstvProjectInfo.Location = new System.Drawing.Point(71, 109);
+            this.lstvProjectInfo.MainView = this.gridView1;
+            this.lstvProjectInfo.Name = "lstvProjectInfo";
+            this.lstvProjectInfo.Size = new System.Drawing.Size(442, 481);
+            this.lstvProjectInfo.TabIndex = 6;
+            this.lstvProjectInfo.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
             // 
             // gridView1
             // 
-            this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.gridColumn1,
-            this.gridColumn2});
-            this.gridView1.GridControl = this.gridControl1;
+            this.gridView1.GridControl = this.lstvProjectInfo;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsView.ShowGroupPanel = false;
-            // 
-            // gridColumn1
-            // 
-            this.gridColumn1.Caption = "项目名称";
-            this.gridColumn1.Name = "gridColumn1";
-            this.gridColumn1.Visible = true;
-            this.gridColumn1.VisibleIndex = 0;
-            // 
-            // gridColumn2
-            // 
-            this.gridColumn2.Caption = "浓度";
-            this.gridColumn2.Name = "gridColumn2";
-            this.gridColumn2.Visible = true;
-            this.gridColumn2.VisibleIndex = 1;
             // 
             // btnDelete
             // 
             this.btnDelete.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDelete.Appearance.Options.UseFont = true;
-            this.btnDelete.Location = new System.Drawing.Point(472, 474);
+            this.btnDelete.Image = ((System.Drawing.Image)(resources.GetObject("btnDelete.Image")));
+            this.btnDelete.Location = new System.Drawing.Point(393, 596);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 47);
             this.btnDelete.TabIndex = 7;
@@ -152,33 +133,100 @@
             // 
             this.btnSave.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.Appearance.Options.UseFont = true;
-            this.btnSave.Location = new System.Drawing.Point(52, 474);
+            this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
+            this.btnSave.Location = new System.Drawing.Point(117, 596);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 47);
             this.btnSave.TabIndex = 8;
             this.btnSave.Text = "保存";
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // labelControl1
+            // 
+            this.labelControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl1.Appearance.Options.UseFont = true;
+            this.labelControl1.Location = new System.Drawing.Point(406, 31);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(42, 17);
+            this.labelControl1.TabIndex = 9;
+            this.labelControl1.Text = "位置：";
+            // 
+            // cboCalibPosition
+            // 
+            this.cboCalibPosition.EditValue = "请选择";
+            this.cboCalibPosition.Location = new System.Drawing.Point(455, 31);
+            this.cboCalibPosition.Name = "cboCalibPosition";
+            this.cboCalibPosition.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboCalibPosition.Properties.Appearance.Options.UseFont = true;
+            this.cboCalibPosition.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cboCalibPosition.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.cboCalibPosition.Size = new System.Drawing.Size(100, 24);
+            this.cboCalibPosition.TabIndex = 10;
+            // 
+            // labelControl2
+            // 
+            this.labelControl2.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl2.Appearance.Options.UseFont = true;
+            this.labelControl2.Location = new System.Drawing.Point(232, 70);
+            this.labelControl2.Name = "labelControl2";
+            this.labelControl2.Size = new System.Drawing.Size(70, 17);
+            this.labelControl2.TabIndex = 11;
+            this.labelControl2.Text = "生产厂家：";
+            // 
+            // cboCalibTManufacturer
+            // 
+            this.cboCalibTManufacturer.Location = new System.Drawing.Point(308, 67);
+            this.cboCalibTManufacturer.Name = "cboCalibTManufacturer";
+            this.cboCalibTManufacturer.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboCalibTManufacturer.Properties.Appearance.Options.UseFont = true;
+            this.cboCalibTManufacturer.Size = new System.Drawing.Size(247, 24);
+            this.cboCalibTManufacturer.TabIndex = 12;
+            // 
+            // cboCalibInvalidDate
+            // 
+            this.cboCalibInvalidDate.EditValue = null;
+            this.cboCalibInvalidDate.Location = new System.Drawing.Point(117, 67);
+            this.cboCalibInvalidDate.Name = "cboCalibInvalidDate";
+            this.cboCalibInvalidDate.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboCalibInvalidDate.Properties.Appearance.Options.UseFont = true;
+            this.cboCalibInvalidDate.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cboCalibInvalidDate.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cboCalibInvalidDate.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.cboCalibInvalidDate.Size = new System.Drawing.Size(100, 24);
+            this.cboCalibInvalidDate.TabIndex = 13;
             // 
             // CalibAddAndEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(600, 538);
+            this.ClientSize = new System.Drawing.Size(600, 670);
+            this.Controls.Add(this.cboCalibInvalidDate);
+            this.Controls.Add(this.cboCalibTManufacturer);
+            this.Controls.Add(this.labelControl2);
+            this.Controls.Add(this.cboCalibPosition);
+            this.Controls.Add(this.labelControl1);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnDelete);
-            this.Controls.Add(this.gridControl1);
-            this.Controls.Add(this.textEdit3);
-            this.Controls.Add(this.textEdit2);
-            this.Controls.Add(this.textEdit1);
+            this.Controls.Add(this.lstvProjectInfo);
+            this.Controls.Add(this.cboCalibBatchNumber);
+            this.Controls.Add(this.cboCalibName);
             this.Controls.Add(this.lblExpirationDate);
             this.Controls.Add(this.BatchNumber);
             this.Controls.Add(this.lblCalibrationName);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "CalibAddAndEdit";
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit3.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
+            this.Load += new System.EventHandler(this.CalibAddAndEdit_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.cboCalibName.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboCalibBatchNumber.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lstvProjectInfo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboCalibPosition.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboCalibTManufacturer.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboCalibInvalidDate.Properties.CalendarTimeProperties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboCalibInvalidDate.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -189,14 +237,16 @@
         private DevExpress.XtraEditors.LabelControl lblCalibrationName;
         private DevExpress.XtraEditors.LabelControl BatchNumber;
         private DevExpress.XtraEditors.LabelControl lblExpirationDate;
-        private DevExpress.XtraEditors.TextEdit textEdit1;
-        private DevExpress.XtraEditors.TextEdit textEdit2;
-        private DevExpress.XtraEditors.TextEdit textEdit3;
-        private DevExpress.XtraGrid.GridControl gridControl1;
+        private DevExpress.XtraEditors.TextEdit cboCalibName;
+        private DevExpress.XtraEditors.TextEdit cboCalibBatchNumber;
+        private DevExpress.XtraGrid.GridControl lstvProjectInfo;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
         private DevExpress.XtraEditors.SimpleButton btnDelete;
         private DevExpress.XtraEditors.SimpleButton btnSave;
+        private DevExpress.XtraEditors.LabelControl labelControl1;
+        private DevExpress.XtraEditors.ComboBoxEdit cboCalibPosition;
+        private DevExpress.XtraEditors.LabelControl labelControl2;
+        private DevExpress.XtraEditors.TextEdit cboCalibTManufacturer;
+        private DevExpress.XtraEditors.DateEdit cboCalibInvalidDate;
     }
 }

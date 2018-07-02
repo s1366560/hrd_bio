@@ -1,4 +1,4 @@
-﻿namespace BioA.UI.Uicomponent.SystemUI.EquipmentManage
+﻿namespace BioA.UI
 {
     partial class TestEquipment
     {
@@ -42,10 +42,12 @@
             // 
             // xtraTabControl1
             // 
-            this.xtraTabControl1.Location = new System.Drawing.Point(3, 3);
+            this.xtraTabControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.xtraTabControl1.Appearance.Options.UseFont = true;
+            this.xtraTabControl1.Location = new System.Drawing.Point(3, 36);
             this.xtraTabControl1.Name = "xtraTabControl1";
             this.xtraTabControl1.SelectedTabPage = this.xtraTabPage1;
-            this.xtraTabControl1.Size = new System.Drawing.Size(1714, 903);
+            this.xtraTabControl1.Size = new System.Drawing.Size(1714, 870);
             this.xtraTabControl1.TabIndex = 0;
             this.xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.xtraTabPage1,
@@ -60,50 +62,50 @@
             // xtraTabPage1
             // 
             this.xtraTabPage1.Name = "xtraTabPage1";
-            this.xtraTabPage1.Size = new System.Drawing.Size(1444, 850);
-            this.xtraTabPage1.TabPageWidth = 80;
-            this.xtraTabPage1.Text = "反映盘调试";
+            this.xtraTabPage1.Size = new System.Drawing.Size(1708, 841);
+            this.xtraTabPage1.TabPageWidth = 100;
+            this.xtraTabPage1.Text = "反应盘调试";
             // 
             // xtraTabPage2
             // 
             this.xtraTabPage2.Name = "xtraTabPage2";
-            this.xtraTabPage2.Size = new System.Drawing.Size(1444, 850);
-            this.xtraTabPage2.TabPageWidth = 80;
+            this.xtraTabPage2.Size = new System.Drawing.Size(1708, 841);
+            this.xtraTabPage2.TabPageWidth = 100;
             this.xtraTabPage2.Text = "试剂盘调试";
             // 
             // xtraTabPage3
             // 
             this.xtraTabPage3.Name = "xtraTabPage3";
-            this.xtraTabPage3.Size = new System.Drawing.Size(1444, 850);
-            this.xtraTabPage3.TabPageWidth = 80;
+            this.xtraTabPage3.Size = new System.Drawing.Size(1708, 841);
+            this.xtraTabPage3.TabPageWidth = 100;
             this.xtraTabPage3.Text = "样本盘调试";
             // 
             // xtraTabPage4
             // 
             this.xtraTabPage4.Name = "xtraTabPage4";
-            this.xtraTabPage4.Size = new System.Drawing.Size(1444, 850);
-            this.xtraTabPage4.TabPageWidth = 80;
+            this.xtraTabPage4.Size = new System.Drawing.Size(1708, 841);
+            this.xtraTabPage4.TabPageWidth = 100;
             this.xtraTabPage4.Text = "吸量器调试";
             // 
             // xtraTabPage5
             // 
             this.xtraTabPage5.Name = "xtraTabPage5";
-            this.xtraTabPage5.Size = new System.Drawing.Size(1444, 850);
-            this.xtraTabPage5.TabPageWidth = 80;
+            this.xtraTabPage5.Size = new System.Drawing.Size(1708, 841);
+            this.xtraTabPage5.TabPageWidth = 100;
             this.xtraTabPage5.Text = "搅拌器调试";
             // 
             // xtraTabPage6
             // 
             this.xtraTabPage6.Name = "xtraTabPage6";
-            this.xtraTabPage6.Size = new System.Drawing.Size(1444, 850);
-            this.xtraTabPage6.TabPageWidth = 80;
+            this.xtraTabPage6.Size = new System.Drawing.Size(1708, 841);
+            this.xtraTabPage6.TabPageWidth = 100;
             this.xtraTabPage6.Text = "液路调试";
             // 
             // xtraTabPage7
             // 
             this.xtraTabPage7.Name = "xtraTabPage7";
-            this.xtraTabPage7.Size = new System.Drawing.Size(1708, 874);
-            this.xtraTabPage7.TabPageWidth = 80;
+            this.xtraTabPage7.Size = new System.Drawing.Size(1708, 841);
+            this.xtraTabPage7.TabPageWidth = 100;
             this.xtraTabPage7.Text = "光路调试";
             // 
             // TestEquipment

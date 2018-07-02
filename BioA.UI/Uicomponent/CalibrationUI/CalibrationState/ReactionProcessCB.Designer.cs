@@ -1,4 +1,4 @@
-﻿namespace BioA.UI.Uicomponent.CalibrationUI.CalibrationState
+﻿namespace BioA.UI
 {
     partial class ReactionProcessCB
     {
@@ -28,34 +28,41 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReactionProcessCB));
+            DevExpress.XtraCharts.XYDiagram xyDiagram1 = new DevExpress.XtraCharts.XYDiagram();
+            DevExpress.XtraCharts.Series series1 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.LineSeriesView lineSeriesView1 = new DevExpress.XtraCharts.LineSeriesView();
             this.lblTestItem = new DevExpress.XtraEditors.LabelControl();
             this.lblCupNumber = new DevExpress.XtraEditors.LabelControl();
-            this.lblConcentration = new DevExpress.XtraEditors.LabelControl();
             this.lblTestTimes = new DevExpress.XtraEditors.LabelControl();
-            this.lblMeteringPoint = new DevExpress.XtraEditors.LabelControl();
-            this.lblabsorbance = new DevExpress.XtraEditors.LabelControl();
-            this.textEdit3 = new DevExpress.XtraEditors.TextEdit();
-            this.textEdit4 = new DevExpress.XtraEditors.TextEdit();
-            this.textEdit6 = new DevExpress.XtraEditors.TextEdit();
-            this.chartControl1 = new DevExpress.XtraCharts.ChartControl();
             this.btnClose = new DevExpress.XtraEditors.SimpleButton();
-            this.comboBoxEdit1 = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.comboBoxEdit2 = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.comboBoxEdit3 = new DevExpress.XtraEditors.ComboBoxEdit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit3.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit4.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit6.Properties)).BeginInit();
+            this.comboBoxNum = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.textEditProName = new DevExpress.XtraEditors.TextEdit();
+            this.labelCalibName = new DevExpress.XtraEditors.LabelControl();
+            this.textEditCalibName = new DevExpress.XtraEditors.TextEdit();
+            this.textEditSamType = new DevExpress.XtraEditors.TextEdit();
+            this.labelSamType = new DevExpress.XtraEditors.LabelControl();
+            this.chartControl1 = new DevExpress.XtraCharts.ChartControl();
+            this.comboBoxCalibTime = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.labelCalibTime = new DevExpress.XtraEditors.LabelControl();
+            this.comboBoxEditCuveNum = new DevExpress.XtraEditors.ComboBoxEdit();
+            ((System.ComponentModel.ISupportInitialize)(this.comboBoxNum.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEditProName.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEditCalibName.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEditSamType.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit2.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit3.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(series1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.comboBoxCalibTime.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEditCuveNum.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // lblTestItem
             // 
             this.lblTestItem.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTestItem.Appearance.Options.UseFont = true;
-            this.lblTestItem.Location = new System.Drawing.Point(35, 23);
+            this.lblTestItem.Location = new System.Drawing.Point(17, 23);
             this.lblTestItem.Name = "lblTestItem";
             this.lblTestItem.Size = new System.Drawing.Size(70, 17);
             this.lblTestItem.TabIndex = 0;
@@ -65,160 +72,219 @@
             // 
             this.lblCupNumber.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCupNumber.Appearance.Options.UseFont = true;
-            this.lblCupNumber.Location = new System.Drawing.Point(658, 23);
+            this.lblCupNumber.Location = new System.Drawing.Point(974, 23);
             this.lblCupNumber.Name = "lblCupNumber";
             this.lblCupNumber.Size = new System.Drawing.Size(70, 17);
             this.lblCupNumber.TabIndex = 2;
             this.lblCupNumber.Text = "反应杯号：";
             // 
-            // lblConcentration
-            // 
-            this.lblConcentration.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblConcentration.Appearance.Options.UseFont = true;
-            this.lblConcentration.Location = new System.Drawing.Point(468, 23);
-            this.lblConcentration.Name = "lblConcentration";
-            this.lblConcentration.Size = new System.Drawing.Size(42, 17);
-            this.lblConcentration.TabIndex = 3;
-            this.lblConcentration.Text = "浓度：";
-            // 
             // lblTestTimes
             // 
             this.lblTestTimes.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTestTimes.Appearance.Options.UseFont = true;
-            this.lblTestTimes.Location = new System.Drawing.Point(251, 23);
+            this.lblTestTimes.Location = new System.Drawing.Point(578, 23);
             this.lblTestTimes.Name = "lblTestTimes";
             this.lblTestTimes.Size = new System.Drawing.Size(70, 17);
             this.lblTestTimes.TabIndex = 4;
             this.lblTestTimes.Text = "测试次数：";
             // 
-            // lblMeteringPoint
-            // 
-            this.lblMeteringPoint.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMeteringPoint.Appearance.Options.UseFont = true;
-            this.lblMeteringPoint.Location = new System.Drawing.Point(58, 643);
-            this.lblMeteringPoint.Name = "lblMeteringPoint";
-            this.lblMeteringPoint.Size = new System.Drawing.Size(56, 17);
-            this.lblMeteringPoint.TabIndex = 5;
-            this.lblMeteringPoint.Text = "测光点：";
-            // 
-            // lblabsorbance
-            // 
-            this.lblabsorbance.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblabsorbance.Appearance.Options.UseFont = true;
-            this.lblabsorbance.Location = new System.Drawing.Point(303, 643);
-            this.lblabsorbance.Name = "lblabsorbance";
-            this.lblabsorbance.Size = new System.Drawing.Size(56, 17);
-            this.lblabsorbance.TabIndex = 6;
-            this.lblabsorbance.Text = "吸光度：";
-            // 
-            // textEdit3
-            // 
-            this.textEdit3.Location = new System.Drawing.Point(516, 20);
-            this.textEdit3.Name = "textEdit3";
-            this.textEdit3.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textEdit3.Properties.Appearance.Options.UseFont = true;
-            this.textEdit3.Size = new System.Drawing.Size(100, 24);
-            this.textEdit3.TabIndex = 9;
-            // 
-            // textEdit4
-            // 
-            this.textEdit4.Location = new System.Drawing.Point(734, 20);
-            this.textEdit4.Name = "textEdit4";
-            this.textEdit4.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textEdit4.Properties.Appearance.Options.UseFont = true;
-            this.textEdit4.Size = new System.Drawing.Size(100, 24);
-            this.textEdit4.TabIndex = 10;
-            // 
-            // textEdit6
-            // 
-            this.textEdit6.Location = new System.Drawing.Point(365, 640);
-            this.textEdit6.Name = "textEdit6";
-            this.textEdit6.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textEdit6.Properties.Appearance.Options.UseFont = true;
-            this.textEdit6.Size = new System.Drawing.Size(100, 24);
-            this.textEdit6.TabIndex = 12;
-            // 
-            // chartControl1
-            // 
-            this.chartControl1.DataBindings = null;
-            this.chartControl1.Legend.Name = "Default Legend";
-            this.chartControl1.Location = new System.Drawing.Point(16, 59);
-            this.chartControl1.Name = "chartControl1";
-            this.chartControl1.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
-            this.chartControl1.Size = new System.Drawing.Size(1096, 558);
-            this.chartControl1.TabIndex = 13;
-            // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(985, 627);
+            this.btnClose.Image = ((System.Drawing.Image)(resources.GetObject("btnClose.Image")));
+            this.btnClose.Location = new System.Drawing.Point(982, 626);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(80, 52);
+            this.btnClose.Size = new System.Drawing.Size(83, 56);
             this.btnClose.TabIndex = 14;
             this.btnClose.Text = "关闭";
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // comboBoxEdit1
+            // comboBoxNum
             // 
-            this.comboBoxEdit1.Location = new System.Drawing.Point(120, 640);
-            this.comboBoxEdit1.Name = "comboBoxEdit1";
-            this.comboBoxEdit1.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBoxEdit1.Properties.Appearance.Options.UseFont = true;
-            this.comboBoxEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.comboBoxNum.Location = new System.Drawing.Point(648, 20);
+            this.comboBoxNum.Name = "comboBoxNum";
+            this.comboBoxNum.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxNum.Properties.Appearance.Options.UseFont = true;
+            this.comboBoxNum.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.comboBoxEdit1.Size = new System.Drawing.Size(100, 24);
-            this.comboBoxEdit1.TabIndex = 15;
+            this.comboBoxNum.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.comboBoxNum.Size = new System.Drawing.Size(67, 24);
+            this.comboBoxNum.TabIndex = 17;
             // 
-            // comboBoxEdit2
+            // textEditProName
             // 
-            this.comboBoxEdit2.Location = new System.Drawing.Point(111, 20);
-            this.comboBoxEdit2.Name = "comboBoxEdit2";
-            this.comboBoxEdit2.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBoxEdit2.Properties.Appearance.Options.UseFont = true;
-            this.comboBoxEdit2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.textEditProName.Location = new System.Drawing.Point(88, 20);
+            this.textEditProName.Name = "textEditProName";
+            this.textEditProName.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textEditProName.Properties.Appearance.Options.UseFont = true;
+            this.textEditProName.Properties.ReadOnly = true;
+            this.textEditProName.Size = new System.Drawing.Size(100, 24);
+            this.textEditProName.TabIndex = 18;
+            // 
+            // labelCalibName
+            // 
+            this.labelCalibName.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCalibName.Appearance.Options.UseFont = true;
+            this.labelCalibName.Location = new System.Drawing.Point(387, 23);
+            this.labelCalibName.Name = "labelCalibName";
+            this.labelCalibName.Size = new System.Drawing.Size(84, 17);
+            this.labelCalibName.TabIndex = 19;
+            this.labelCalibName.Text = "校准品名称：";
+            // 
+            // textEditCalibName
+            // 
+            this.textEditCalibName.Location = new System.Drawing.Point(471, 20);
+            this.textEditCalibName.Name = "textEditCalibName";
+            this.textEditCalibName.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textEditCalibName.Properties.Appearance.Options.UseFont = true;
+            this.textEditCalibName.Properties.ReadOnly = true;
+            this.textEditCalibName.Size = new System.Drawing.Size(80, 24);
+            this.textEditCalibName.TabIndex = 20;
+            // 
+            // textEditSamType
+            // 
+            this.textEditSamType.Location = new System.Drawing.Point(279, 20);
+            this.textEditSamType.Name = "textEditSamType";
+            this.textEditSamType.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textEditSamType.Properties.Appearance.Options.UseFont = true;
+            this.textEditSamType.Properties.ReadOnly = true;
+            this.textEditSamType.Size = new System.Drawing.Size(83, 24);
+            this.textEditSamType.TabIndex = 22;
+            // 
+            // labelSamType
+            // 
+            this.labelSamType.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSamType.Appearance.Options.UseFont = true;
+            this.labelSamType.Location = new System.Drawing.Point(209, 23);
+            this.labelSamType.Name = "labelSamType";
+            this.labelSamType.Size = new System.Drawing.Size(70, 17);
+            this.labelSamType.TabIndex = 21;
+            this.labelSamType.Text = "样本类型：";
+            // 
+            // chartControl1
+            // 
+            this.chartControl1.AccessibleRole = System.Windows.Forms.AccessibleRole.HotkeyField;
+            this.chartControl1.DataBindings = null;
+            xyDiagram1.AxisX.Label.Font = new System.Drawing.Font("Tahoma", 10F);
+            xyDiagram1.AxisX.MinorCount = 1;
+            xyDiagram1.AxisX.NumericScaleOptions.AutoGrid = false;
+            xyDiagram1.AxisX.Thickness = 2;
+            xyDiagram1.AxisX.Title.Text = "反应进程";
+            xyDiagram1.AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+            xyDiagram1.AxisX.VisibleInPanesSerializable = "-1";
+            xyDiagram1.AxisX.VisualRange.Auto = false;
+            xyDiagram1.AxisX.VisualRange.AutoSideMargins = false;
+            xyDiagram1.AxisX.VisualRange.MaxValueSerializable = "32.4333333333334";
+            xyDiagram1.AxisX.VisualRange.MinValueSerializable = "-0.5";
+            xyDiagram1.AxisX.VisualRange.SideMarginsValue = 0D;
+            xyDiagram1.AxisX.WholeRange.Auto = false;
+            xyDiagram1.AxisX.WholeRange.AutoSideMargins = false;
+            xyDiagram1.AxisX.WholeRange.MaxValueSerializable = "44";
+            xyDiagram1.AxisX.WholeRange.MinValueSerializable = "0";
+            xyDiagram1.AxisX.WholeRange.SideMarginsValue = 0.5D;
+            xyDiagram1.AxisY.MinorCount = 9;
+            xyDiagram1.AxisY.NumericScaleOptions.AutoGrid = false;
+            xyDiagram1.AxisY.NumericScaleOptions.GridSpacing = 0.1D;
+            xyDiagram1.AxisY.Title.Text = "吸光度";
+            xyDiagram1.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+            xyDiagram1.AxisY.VisibleInPanesSerializable = "-1";
+            xyDiagram1.AxisY.VisualRange.Auto = false;
+            xyDiagram1.AxisY.VisualRange.AutoSideMargins = false;
+            xyDiagram1.AxisY.VisualRange.MaxValueSerializable = "1.2";
+            xyDiagram1.AxisY.VisualRange.MinValueSerializable = "-0.4";
+            xyDiagram1.AxisY.VisualRange.SideMarginsValue = 0D;
+            xyDiagram1.AxisY.WholeRange.AlwaysShowZeroLevel = false;
+            xyDiagram1.AxisY.WholeRange.Auto = false;
+            xyDiagram1.AxisY.WholeRange.AutoSideMargins = false;
+            xyDiagram1.AxisY.WholeRange.MaxValueSerializable = "4";
+            xyDiagram1.AxisY.WholeRange.MinValueSerializable = "-4";
+            xyDiagram1.AxisY.WholeRange.SideMarginsValue = 0D;
+            xyDiagram1.EnableAxisXScrolling = true;
+            xyDiagram1.EnableAxisXZooming = true;
+            xyDiagram1.EnableAxisYScrolling = true;
+            xyDiagram1.EnableAxisYZooming = true;
+            xyDiagram1.PaneDistance = 1;
+            this.chartControl1.Diagram = xyDiagram1;
+            this.chartControl1.Legend.Name = "Default Legend";
+            this.chartControl1.Legend.Visibility = DevExpress.Utils.DefaultBoolean.False;
+            this.chartControl1.Location = new System.Drawing.Point(25, 68);
+            this.chartControl1.Name = "chartControl1";
+            series1.LegendName = "Default Legend";
+            series1.SeriesPointsSorting = DevExpress.XtraCharts.SortingMode.Ascending;
+            series1.SeriesPointsSortingKey = DevExpress.XtraCharts.SeriesPointKey.Value_1;
+            series1.View = lineSeriesView1;
+            this.chartControl1.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
+        series1};
+            this.chartControl1.Size = new System.Drawing.Size(1074, 552);
+            this.chartControl1.TabIndex = 24;
+            // 
+            // comboBoxCalibTime
+            // 
+            this.comboBoxCalibTime.Location = new System.Drawing.Point(808, 22);
+            this.comboBoxCalibTime.Name = "comboBoxCalibTime";
+            this.comboBoxCalibTime.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxCalibTime.Properties.Appearance.Options.UseFont = true;
+            this.comboBoxCalibTime.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.comboBoxEdit2.Size = new System.Drawing.Size(100, 24);
-            this.comboBoxEdit2.TabIndex = 16;
+            this.comboBoxCalibTime.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.comboBoxCalibTime.Size = new System.Drawing.Size(146, 24);
+            this.comboBoxCalibTime.TabIndex = 25;
+            this.comboBoxCalibTime.SelectedIndexChanged += new System.EventHandler(this.comboBoxCalibTime_SelectedIndexChanged);
             // 
-            // comboBoxEdit3
+            // labelCalibTime
             // 
-            this.comboBoxEdit3.Location = new System.Drawing.Point(327, 20);
-            this.comboBoxEdit3.Name = "comboBoxEdit3";
-            this.comboBoxEdit3.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBoxEdit3.Properties.Appearance.Options.UseFont = true;
-            this.comboBoxEdit3.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.labelCalibTime.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCalibTime.Appearance.Options.UseFont = true;
+            this.labelCalibTime.Location = new System.Drawing.Point(738, 23);
+            this.labelCalibTime.Name = "labelCalibTime";
+            this.labelCalibTime.Size = new System.Drawing.Size(70, 17);
+            this.labelCalibTime.TabIndex = 26;
+            this.labelCalibTime.Text = "校准时间：";
+            // 
+            // comboBoxEditCuveNum
+            // 
+            this.comboBoxEditCuveNum.Location = new System.Drawing.Point(1041, 20);
+            this.comboBoxEditCuveNum.Name = "comboBoxEditCuveNum";
+            this.comboBoxEditCuveNum.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxEditCuveNum.Properties.Appearance.Options.UseFont = true;
+            this.comboBoxEditCuveNum.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.comboBoxEdit3.Size = new System.Drawing.Size(100, 24);
-            this.comboBoxEdit3.TabIndex = 17;
+            this.comboBoxEditCuveNum.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.comboBoxEditCuveNum.Size = new System.Drawing.Size(62, 24);
+            this.comboBoxEditCuveNum.TabIndex = 27;
+            this.comboBoxEditCuveNum.SelectedIndexChanged += new System.EventHandler(this.comboBoxEditCuveNum_SelectedIndexChanged);
             // 
             // ReactionProcessCB
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1129, 691);
-            this.Controls.Add(this.comboBoxEdit3);
-            this.Controls.Add(this.comboBoxEdit2);
-            this.Controls.Add(this.comboBoxEdit1);
-            this.Controls.Add(this.btnClose);
+            this.Controls.Add(this.comboBoxEditCuveNum);
+            this.Controls.Add(this.labelCalibTime);
+            this.Controls.Add(this.comboBoxCalibTime);
             this.Controls.Add(this.chartControl1);
-            this.Controls.Add(this.textEdit6);
-            this.Controls.Add(this.textEdit4);
-            this.Controls.Add(this.textEdit3);
-            this.Controls.Add(this.lblabsorbance);
-            this.Controls.Add(this.lblMeteringPoint);
+            this.Controls.Add(this.textEditSamType);
+            this.Controls.Add(this.labelSamType);
+            this.Controls.Add(this.textEditCalibName);
+            this.Controls.Add(this.labelCalibName);
+            this.Controls.Add(this.textEditProName);
+            this.Controls.Add(this.comboBoxNum);
+            this.Controls.Add(this.btnClose);
             this.Controls.Add(this.lblTestTimes);
-            this.Controls.Add(this.lblConcentration);
             this.Controls.Add(this.lblCupNumber);
             this.Controls.Add(this.lblTestItem);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "ReactionProcessCB";
             this.Text = "反应进程";
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit3.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit4.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit6.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.comboBoxNum.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEditProName.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEditCalibName.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEditSamType.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(series1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit2.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit3.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.comboBoxCalibTime.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEditCuveNum.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -228,17 +294,17 @@
 
         private DevExpress.XtraEditors.LabelControl lblTestItem;
         private DevExpress.XtraEditors.LabelControl lblCupNumber;
-        private DevExpress.XtraEditors.LabelControl lblConcentration;
         private DevExpress.XtraEditors.LabelControl lblTestTimes;
-        private DevExpress.XtraEditors.LabelControl lblMeteringPoint;
-        private DevExpress.XtraEditors.LabelControl lblabsorbance;
-        private DevExpress.XtraEditors.TextEdit textEdit3;
-        private DevExpress.XtraEditors.TextEdit textEdit4;
-        private DevExpress.XtraEditors.TextEdit textEdit6;
-        private DevExpress.XtraCharts.ChartControl chartControl1;
         private DevExpress.XtraEditors.SimpleButton btnClose;
-        private DevExpress.XtraEditors.ComboBoxEdit comboBoxEdit1;
-        private DevExpress.XtraEditors.ComboBoxEdit comboBoxEdit2;
-        private DevExpress.XtraEditors.ComboBoxEdit comboBoxEdit3;
+        private DevExpress.XtraEditors.ComboBoxEdit comboBoxNum;
+        private DevExpress.XtraEditors.TextEdit textEditProName;
+        private DevExpress.XtraEditors.LabelControl labelCalibName;
+        private DevExpress.XtraEditors.TextEdit textEditCalibName;
+        private DevExpress.XtraEditors.TextEdit textEditSamType;
+        private DevExpress.XtraEditors.LabelControl labelSamType;
+        private DevExpress.XtraCharts.ChartControl chartControl1;
+        private DevExpress.XtraEditors.ComboBoxEdit comboBoxCalibTime;
+        private DevExpress.XtraEditors.LabelControl labelCalibTime;
+        private DevExpress.XtraEditors.ComboBoxEdit comboBoxEditCuveNum;
     }
 }

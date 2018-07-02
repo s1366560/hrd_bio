@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="EnvironmentParamInfoml" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <alias>
+    <typeAlias alias="EnvironmentParamInfo" type="BioA.Common.EnvironmentParamInfo, BioA.Common" />
+  </alias>
+  <resultMaps>
+    <resultMap id="EnvironmentParamInfoResult" class="EnvironmentParamInfo">
+      <result property="ReagentDiscTemp" column="ReagentDiscTemp"/>
+      <result property="ReactionDiscTemp" column="ReactionDiscTemp" />
+      <result property="CuvetteBlankLow" column="CuvetteBlankLow"/>
+      <result property="CuvetteBlankHigh" column="CuvetteBlankHigh"/>
+      <result property="ReagentSurplus" column="ReagentSurplus"/>
+      <result property="ReagentLeastVol" column="ReagentLeastVol"/>
+      <result property="AbluentSurplus" column="AbluentSurplus"/>
+      <result property="AbluentLeastVol" column="AbluentLeastVol"/>
+      <result property="AutoTransferReagentPos" column="AutoTransferReagentPos"/>
+      <result property="AutoFreezeTask" column="AutoFreezeTask"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <update id="UpdateEnvironmentParamInfo" parameterClass="EnvironmentParamInfo" resultClass="int">
+      update EnvironmentParamTb set
+      ReactionDiscTemp = #ReactionDiscTemp#,
+      ReagentDiscTemp = #ReagentDiscTemp#,
+      CuvetteBlankLow = #CuvetteBlankLow#,
+      CuvetteBlankHigh = #CuvetteBlankHigh#,
+      ReagentSurplus = #ReagentSurplus#,
+      ReagentLeastVol = #ReagentLeastVol#,
+      AbluentSurplus = #AbluentSurplus#,
+      AbluentLeastVol = #AbluentLeastVol#,
+      AutoFreezeTask = #AutoFreezeTask#
+    </update>
+    <select id="QueryEnvironmentParamInfo" ResultClass="EnvironmentParamInfo" >
+      select * from EnvironmentParamTb
+    </select>
+    <select id="GetRgtWarnCount" resultClass="float">
+      select ReagentSurplus from EnvironmentParamTb
+    </select>
+    <select id="GetRgtLeastCount" resultClass="float">
+      select ReagentLeastVol from EnvironmentParamTb
+    </select>
+  </statements>
+</sqlMap>

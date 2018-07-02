@@ -51,7 +51,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccessDatabase\Calibrator.cs" />
+    <Compile Include="AccessDatabase\PLCDataInfo.cs" />
+    <Compile Include="AccessDatabase\Login.cs" />
+    <Compile Include="AccessDatabase\QualityControl.cs" />
+    <Compile Include="AccessDatabase\ReagentAccess.cs" />
+    <Compile Include="AccessDatabase\SystemAccess.cs" />
     <Compile Include="AccessDatabase\SettingsAccess.cs" />
+    <Compile Include="AccessDatabase\WorkArea.cs" />
     <Compile Include="MyBatis.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -77,9 +84,59 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Map\EquipmentManage.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Map\PLCDataInfo.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Map\CommonDataCheck.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Map\Calibratorinfo.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Map\WorkAreaApplyTask.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Map\QCTaskInfo.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Map\QCResultInfo.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Map\QCMaintainInfo.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Map\LogInfo.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Map\DepartmentInfo.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Map\ReagentNeedleInfo.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Map\DataConfig.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Map\LISCommunicateInfo.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Map\EnvironmentParamInfoml.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateDatabase\InitialDatabase.xml" />
+    <Content Include="CreateDatabase\BioADBScript.sql" />
     <Content Include="CreateDatabase\TableList.xml">
       <SubType>Designer</SubType>
     </Content>
+    <EmbeddedResource Include="Map\CalcProjectInfo.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Map\CombProjectInfo.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Map\ReagentInfo.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -92,6 +149,9 @@
       <Project>{e1438a53-5dde-42c0-b2ff-0f4a892e95b6}</Project>
       <Name>BioA.Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Fakes Include="Fakes\IBatisNet.DataMapper.fakes" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

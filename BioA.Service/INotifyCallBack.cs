@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BioA.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
@@ -31,6 +32,6 @@ namespace BioA.Service
         /// <param name="strMethod">访问数据库方法名</param>
         /// <param name="sender">参数</param>
         [OperationContract(IsOneWay = true)]
-        void DatabaseNotifyFunction(string strMethod, object sender);
+        void DatabaseNotifyFunction(ModuleInfo moduleInfo, string strMethod, object sender);
     }
 }

@@ -89,6 +89,37 @@ namespace BioA.Common.IO
             }
             return xn;
         }
+
+        // 获取多个节点
+        public static XmlNodeList GetNodes(string path, string node)
+        {
+            XmlNodeList xn = null;
+            try
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.Load(path);
+                xn = doc.SelectNodes(node);
+            }
+            catch (Exception e)
+            {
+                LogInfo.WriteErrorLog("XMLHelper.cs_GetNodes(string path, string node)==" + e.ToString(), Module.Common);
+            }
+            return xn;
+        }
+        public static XmlNodeList GetNodes(XmlNode node, string childnode)
+        {
+            XmlNodeList xn = null;
+            try
+            {
+                xn = node.SelectNodes(childnode);
+            }
+            catch (Exception e)
+            {
+                LogInfo.WriteErrorLog("XMLHelper.cs_GetNodes(XmlNode node, string childnode)==" + e.ToString(), Module.Common);
+            }
+            return xn;
+        }
+
         /// <summary>
         /// 插入数据
         /// </summary>

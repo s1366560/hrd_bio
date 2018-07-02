@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InitialDatabase" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <statements>
+    <select id="GetEnvironmentParamTbCount" resultClass="int">
+      select count(*) from EnvironmentParamTb
+    </select>
+    <insert id="InitialEnvironmentParamTb" resultClass="int">
+      insert into EnvironmentParamTb
+      (
+        ReactionDiscTemp,
+        ReagentDiscTemp,
+        CuvetteBlankLow,
+        CuvetteBlankHigh,
+        ReagentSurplus,
+        ReagentLeastVol,
+        AbluentSurplus,
+        AbluentLeastVol
+      ) 
+      values 
+      (
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      )
+    </insert>
+  </statements>
+</sqlMap>

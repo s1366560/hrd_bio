@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="EnvironmentParamInfo" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <alias>
+    <typeAlias alias="EnvironmentParamInfo" type="BioA.Common.EnvironmentParamInfo, BioA.Common" />
+  </alias>
+  <resultMaps>
+    <resultMap id="EnvironmentParamInfoResult" class="EnvironmentParamInfo">
+      <result property="ReactionDiscTemp" column="ReagentDiscTemp" />
+      <result property="ReagentDiscTemp" column="CuvetteBlankLow"/>
+      <result property="CuvetteBlankLow" column="CuvetteBlankHigh"/>
+      <result property="CuvetteBlankHigh" column="ReagentSurplus"/>
+      <result property="ReagentSurplus" column="ReagentLeastVol"/>
+      <result property="ReagentLeastVol" column="AbluentSurplus"/>
+      <result property="AbluentSurplus" column="ISPERMITDELETE"/>
+      <result property="AbluentLeastVol" column="AbluentLeastVol"/>
+      <result property="AutoTransferReagentPos" column="AutoTransferReagentPos"/>
+      <result property="AutoFreezeTask" column="AutoFreezeTask"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <update id="UpdateEnvironmentParamInfo" parameterClass="EnvironmentParamInfo" resultClass="int">
+      update EnvironmentParamTb set
+        ReactionDiscTemp = #ReactionDiscTemp#,
+        ReagentDiscTemp = #ReagentDiscTemp#,
+        CuvetteBlankLow = #CuvetteBlankLow#,
+        CuvetteBlankHigh = #CuvetteBlankHigh#,
+        ReagentSurplus = #ReagentSurplus#,
+        ReagentLeastVol = #ReagentLeastVol#,
+        AbluentSurplus = #AbluentSurplus#,
+        AbluentLeastVol = #AbluentLeastVol#,
+        AutoTransferReagentPos = #AutoTransferReagentPos#,
+        AutoFreezeTask = #AutoFreezeTask#
+    </update>
+    <select id="QueryEnvironmentParamInfo" ResultClass="EnvironmentParamInfo" >
+      select * from EnvironmentParamTb
+    </select>
+  </statements>
+</sqlMap>

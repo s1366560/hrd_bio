@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
 
-namespace BioA.UI.Uicomponent.SystemUI.VersionInformation
+namespace BioA.UI
 {
     public partial class VersionInformation : DevExpress.XtraEditors.XtraUserControl
     {

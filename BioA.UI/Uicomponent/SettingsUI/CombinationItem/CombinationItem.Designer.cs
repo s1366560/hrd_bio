@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CombinationItem));
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -104,9 +105,10 @@
             // 
             this.btnAdded.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAdded.Appearance.Options.UseFont = true;
+            this.btnAdded.Image = ((System.Drawing.Image)(resources.GetObject("btnAdded.Image")));
             this.btnAdded.Location = new System.Drawing.Point(434, 139);
             this.btnAdded.Name = "btnAdded";
-            this.btnAdded.Size = new System.Drawing.Size(118, 40);
+            this.btnAdded.Size = new System.Drawing.Size(100, 40);
             this.btnAdded.TabIndex = 2;
             this.btnAdded.Text = "新增";
             // 
@@ -114,9 +116,10 @@
             // 
             this.btnSave.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.Appearance.Options.UseFont = true;
-            this.btnSave.Location = new System.Drawing.Point(559, 139);
+            this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
+            this.btnSave.Location = new System.Drawing.Point(577, 139);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(118, 40);
+            this.btnSave.Size = new System.Drawing.Size(100, 40);
             this.btnSave.TabIndex = 3;
             this.btnSave.Text = "保存";
             // 
@@ -124,9 +127,10 @@
             // 
             this.btnDelete.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDelete.Appearance.Options.UseFont = true;
-            this.btnDelete.Location = new System.Drawing.Point(434, 193);
+            this.btnDelete.Image = ((System.Drawing.Image)(resources.GetObject("btnDelete.Image")));
+            this.btnDelete.Location = new System.Drawing.Point(434, 185);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(118, 40);
+            this.btnDelete.Size = new System.Drawing.Size(100, 40);
             this.btnDelete.TabIndex = 4;
             this.btnDelete.Text = "删除";
             // 
@@ -134,9 +138,10 @@
             // 
             this.btnCancel.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.Appearance.Options.UseFont = true;
-            this.btnCancel.Location = new System.Drawing.Point(559, 193);
+            this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
+            this.btnCancel.Location = new System.Drawing.Point(577, 185);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(118, 40);
+            this.btnCancel.Size = new System.Drawing.Size(100, 40);
             this.btnCancel.TabIndex = 5;
             this.btnCancel.Text = "取消";
             // 
@@ -182,7 +187,7 @@
             this.xtraTabPage4.TabPageWidth = 80;
             this.xtraTabPage4.Text = "第四页";
             // 
-            // Portfolio
+            // CombinationItem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -193,7 +198,7 @@
             this.Controls.Add(this.btnAdded);
             this.Controls.Add(this.textEdit1);
             this.Controls.Add(this.gridControl1);
-            this.Name = "Portfolio";
+            this.Name = "CombinationItem";
             this.Size = new System.Drawing.Size(1794, 933);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();

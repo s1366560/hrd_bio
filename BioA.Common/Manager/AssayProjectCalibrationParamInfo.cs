@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace BioA.Common
 {
+    /// <summary>
+    ///     校准参数实体类
+    /// </summary>
     public class AssayProjectCalibrationParamInfo
     {
         public AssayProjectCalibrationParamInfo()
@@ -30,6 +33,29 @@ namespace BioA.Common
             reagentLotCheck = false;
             reagentValidDateCheck = false;
             qCFailed = false;
+            Factor = 0;
+            calibName0 = "";
+            calibName1 = "";
+            calibName2 = "";
+            calibName3 = "";
+            calibName4 = "";
+            calibName5 = "";
+            calibName6 = "";
+            calibPos0 = "";
+            calibPos1 = "";
+            calibPos2 = "";
+            calibPos3 = "";
+            calibPos4 = "";
+            calibPos5 = "";
+            calibPos6 = "";
+            CalibConcentration0 = 0;
+            CalibConcentration1 = 0;
+            CalibConcentration2 = 0;
+            CalibConcentration3 = 0;
+            CalibConcentration4 = 0;
+            CalibConcentration5 = 0;
+            CalibConcentration6 = 0;
+            calibCurveValidDay = 0;
         }
 
         private string projectName;
@@ -52,6 +78,170 @@ namespace BioA.Common
         private bool reagentLotCheck;
         private bool reagentValidDateCheck;
         private bool qCFailed;
+        float factor;
+        int calibCurveValidDay;
+
+        public float Factor
+        {
+            get { return factor; }
+            set { factor = value; }
+        }
+        string calibName0;
+
+        public string CalibName0
+        {
+            get { return calibName0; }
+            set { calibName0 = value; }
+        }
+        string calibPos0;
+
+        public string CalibPos0
+        {
+            get { return calibPos0; }
+            set { calibPos0 = value; }
+        }
+        float calibConcentration0;
+
+        public float CalibConcentration0
+        {
+            get { return calibConcentration0; }
+            set { calibConcentration0 = value; }
+        }
+        string calibName1;
+
+        public string CalibName1
+        {
+            get { return calibName1; }
+            set { calibName1 = value; }
+        }
+        string calibPos1;
+
+        public string CalibPos1
+        {
+            get { return calibPos1; }
+            set { calibPos1 = value; }
+        }
+        float calibConcentration1;
+
+        public float CalibConcentration1
+        {
+            get { return calibConcentration1; }
+            set { calibConcentration1 = value; }
+        }
+        string calibName2;
+
+        public string CalibName2
+        {
+            get { return calibName2; }
+            set { calibName2 = value; }
+        }
+        string calibPos2;
+
+        public string CalibPos2
+        {
+            get { return calibPos2; }
+            set { calibPos2 = value; }
+        }
+        float calibConcentration2;
+
+        public float CalibConcentration2
+        {
+            get { return calibConcentration2; }
+            set { calibConcentration2 = value; }
+        }
+        string calibName3;
+
+        public string CalibName3
+        {
+            get { return calibName3; }
+            set { calibName3 = value; }
+        }
+        string calibPos3;
+
+        public string CalibPos3
+        {
+            get { return calibPos3; }
+            set { calibPos3 = value; }
+        }
+        float calibConcentration3;
+
+        public float CalibConcentration3
+        {
+            get { return calibConcentration3; }
+            set { calibConcentration3 = value; }
+        }
+        string calibName4;
+
+        public string CalibName4
+        {
+            get { return calibName4; }
+            set { calibName4 = value; }
+        }
+        string calibPos4;
+
+        public string CalibPos4
+        {
+            get { return calibPos4; }
+            set { calibPos4 = value; }
+        }
+        float calibConcentration4;
+
+        public float CalibConcentration4
+        {
+            get { return calibConcentration4; }
+            set { calibConcentration4 = value; }
+        }
+        string calibName5;
+
+        public string CalibName5
+        {
+            get { return calibName5; }
+            set { calibName5 = value; }
+        }
+        string calibPos5;
+
+        public string CalibPos5
+        {
+            get { return calibPos5; }
+            set { calibPos5 = value; }
+        }
+        float calibConcentration5;
+
+        public float CalibConcentration5
+        {
+            get { return calibConcentration5; }
+            set { calibConcentration5 = value; }
+        }
+        string calibName6;
+
+        public string CalibName6
+        {
+            get { return calibName6; }
+            set { calibName6 = value; }
+        }
+        string calibPos6;
+
+        public string CalibPos6
+        {
+            get { return calibPos6; }
+            set { calibPos6 = value; }
+        }
+        float calibConcentration6;
+
+        public float CalibConcentration6
+        {
+            get { return calibConcentration6; }
+            set { calibConcentration6 = value; }
+        }
+        /// <summary>
+        /// 校准天数
+        /// </summary>
+        public int CalibCurveValidDay
+        {
+            get { return calibCurveValidDay; }
+            set { calibCurveValidDay = value; }
+        }
+       
         /// <summary>
         /// 项目名称
         /// </summary>

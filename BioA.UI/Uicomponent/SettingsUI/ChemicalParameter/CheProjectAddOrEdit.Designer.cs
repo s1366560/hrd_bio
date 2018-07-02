@@ -1,4 +1,4 @@
-﻿namespace BioA.UI.Uicomponent.SettingsUI.ChemicalParameter
+﻿namespace BioA.UI
 {
     partial class CheProjectAddOrEdit
     {
@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CheProjectAddOrEdit));
             this.lblProShortName = new DevExpress.XtraEditors.LabelControl();
             this.lblChannelNumber = new DevExpress.XtraEditors.LabelControl();
             this.lblProLongName = new DevExpress.XtraEditors.LabelControl();
@@ -38,6 +39,8 @@
             this.cboSampleType = new DevExpress.XtraEditors.ComboBoxEdit();
             this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
             this.btnConfirm = new DevExpress.XtraEditors.SimpleButton();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.txtProShortName.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtProLongName.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtChannelNumber.Properties)).BeginInit();
@@ -113,25 +116,21 @@
             // 
             // cboSampleType
             // 
-            this.cboSampleType.EditValue = "血清";
             this.cboSampleType.Location = new System.Drawing.Point(192, 142);
             this.cboSampleType.Name = "cboSampleType";
             this.cboSampleType.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboSampleType.Properties.Appearance.Options.UseFont = true;
-            this.cboSampleType.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Style3D;
             this.cboSampleType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cboSampleType.Properties.DropDownRows = 5;
-            this.cboSampleType.Properties.Items.AddRange(new object[] {
-            "尿液",
-            "血清"});
-            this.cboSampleType.Size = new System.Drawing.Size(121, 26);
+            this.cboSampleType.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.cboSampleType.Size = new System.Drawing.Size(121, 24);
             this.cboSampleType.TabIndex = 7;
             // 
             // btnCancel
             // 
             this.btnCancel.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.Appearance.Options.UseFont = true;
+            this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
             this.btnCancel.Location = new System.Drawing.Point(277, 345);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 59);
@@ -143,6 +142,7 @@
             // 
             this.btnConfirm.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConfirm.Appearance.Options.UseFont = true;
+            this.btnConfirm.Image = ((System.Drawing.Image)(resources.GetObject("btnConfirm.Image")));
             this.btnConfirm.Location = new System.Drawing.Point(87, 345);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(75, 59);
@@ -150,11 +150,33 @@
             this.btnConfirm.Text = "确定";
             this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.Red;
+            this.label1.Location = new System.Drawing.Point(320, 76);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(14, 14);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "*";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.Red;
+            this.label2.Location = new System.Drawing.Point(319, 147);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(14, 14);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "*";
+            // 
             // CheProjectAddOrEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(459, 440);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.cboSampleType);
@@ -189,5 +211,7 @@
         private DevExpress.XtraEditors.ComboBoxEdit cboSampleType;
         private DevExpress.XtraEditors.SimpleButton btnCancel;
         private DevExpress.XtraEditors.SimpleButton btnConfirm;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }

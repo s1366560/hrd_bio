@@ -1,4 +1,4 @@
-﻿namespace BioA.UI.Uicomponent.SystemUI.Maintenance
+﻿namespace BioA.UI
 {
     partial class CleaningMaintenance
     {
@@ -40,7 +40,7 @@
             // rtxtWaterExchange
             // 
             this.rtxtWaterExchange.BackColor = System.Drawing.SystemColors.Control;
-            this.rtxtWaterExchange.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rtxtWaterExchange.Font = new System.Drawing.Font("SimSun", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.rtxtWaterExchange.Location = new System.Drawing.Point(1171, 118);
             this.rtxtWaterExchange.Name = "rtxtWaterExchange";
             this.rtxtWaterExchange.ReadOnly = true;
@@ -51,7 +51,7 @@
             // rtxtCleanSystemWarn
             // 
             this.rtxtCleanSystemWarn.BackColor = System.Drawing.SystemColors.Control;
-            this.rtxtCleanSystemWarn.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rtxtCleanSystemWarn.Font = new System.Drawing.Font("SimSun", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.rtxtCleanSystemWarn.Location = new System.Drawing.Point(641, 428);
             this.rtxtCleanSystemWarn.Name = "rtxtCleanSystemWarn";
             this.rtxtCleanSystemWarn.ReadOnly = true;
@@ -62,7 +62,7 @@
             // rtxtCleanSystem
             // 
             this.rtxtCleanSystem.BackColor = System.Drawing.SystemColors.Control;
-            this.rtxtCleanSystem.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rtxtCleanSystem.Font = new System.Drawing.Font("SimSun", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.rtxtCleanSystem.Location = new System.Drawing.Point(641, 118);
             this.rtxtCleanSystem.Name = "rtxtCleanSystem";
             this.rtxtCleanSystem.Size = new System.Drawing.Size(380, 312);
@@ -72,7 +72,7 @@
             // rtxtCleanSampleNeedle
             // 
             this.rtxtCleanSampleNeedle.BackColor = System.Drawing.SystemColors.Control;
-            this.rtxtCleanSampleNeedle.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rtxtCleanSampleNeedle.Font = new System.Drawing.Font("SimSun", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.rtxtCleanSampleNeedle.ForeColor = System.Drawing.SystemColors.WindowText;
             this.rtxtCleanSampleNeedle.Location = new System.Drawing.Point(111, 118);
             this.rtxtCleanSampleNeedle.Name = "rtxtCleanSampleNeedle";
@@ -89,6 +89,7 @@
             this.btnCleanSN.Size = new System.Drawing.Size(89, 43);
             this.btnCleanSN.TabIndex = 12;
             this.btnCleanSN.Text = "清洗样本针";
+            this.btnCleanSN.Click += new System.EventHandler(this.btnCommand_Click);
             // 
             // btnCleanSystem
             // 
@@ -99,16 +100,18 @@
             this.btnCleanSystem.Size = new System.Drawing.Size(89, 43);
             this.btnCleanSystem.TabIndex = 13;
             this.btnCleanSystem.Text = "清洗系统";
+            this.btnCleanSystem.Click += new System.EventHandler(this.btnCommand_Click);
             // 
             // btnWaterExchange
             // 
             this.btnWaterExchange.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnWaterExchange.Appearance.Options.UseFont = true;
-            this.btnWaterExchange.Location = new System.Drawing.Point(1336, 664);
+            this.btnWaterExchange.Location = new System.Drawing.Point(1328, 664);
             this.btnWaterExchange.Name = "btnWaterExchange";
-            this.btnWaterExchange.Size = new System.Drawing.Size(89, 43);
+            this.btnWaterExchange.Size = new System.Drawing.Size(107, 43);
             this.btnWaterExchange.TabIndex = 14;
             this.btnWaterExchange.Text = "水交换";
+            this.btnWaterExchange.Click += new System.EventHandler(this.btnCommand_Click);
             // 
             // CleaningMaintenance
             // 
@@ -123,6 +126,7 @@
             this.Controls.Add(this.rtxtCleanSampleNeedle);
             this.Name = "CleaningMaintenance";
             this.Size = new System.Drawing.Size(1762, 806);
+            this.Load += new System.EventHandler(this.CleaningMaintenance_Load);
             this.ResumeLayout(false);
 
         }

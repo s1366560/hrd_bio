@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="LISCommunicateInfo" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <alias>
+    <typeAlias alias="LISCommunicateNetworkInfo" type="BioA.Common.LISCommunicateNetworkInfo, BioA.Common" />
+    <typeAlias alias="SerialCommunicationInfo" type="BioA.Common.SerialCommunicationInfo, BioA.Common" />
+
+  </alias>
+  <resultMaps>
+    <resultMap id="LISCommunicateNetworkInfoResult" class="LISCommunicateNetworkInfo">
+      <result property="IPAddress" column="IPAddress" />
+      <result property="NetworkPort" column="NetworkPort" />
+      <result property="StartingUp" column="StartingUp" />
+      <result property="Reconnection" column="Reconnection" />
+      <result property="RealTimeSendResult" column="RealTimeSendResult" />     
+    </resultMap>
+    
+    <resultMap id="SerialCommunicationInfoResult" class="SerialCommunicationInfo">
+      <result property="SerialName" clumn="SerialName" />
+      <result property="BaudRate" clumn="BaudRate" />
+      <result property="DataBits" clumn="DataBits" />
+      <result property="StopBits" clumn="StopBits" />
+      <result property="Parity" clumn="Parity" />
+      <result property="CommunicateionType" clumn="CommunicateionType" />
+      <result property="CommunicateionOvertime" clumn="CommunicateionOvertime" />
+      <result property="ReConnectionTime" clumn="ReConnectionTime" />
+      <result property="StartingUp" clumn="StartingUp" />
+      <result property="Reconnection" clumn="Reconnection" />
+      <result property="RealTimeSendResult" clumn="RealTimeSendResult" />    
+    </resultMap>   
+  </resultMaps>
+  
+  <statements>
+    <insert id="AddNetworkLISCommunicate" parameterClass="LISCommunicateNetworkInfo">
+      insert into NetworkCommunicationTb values (#IPAddress#,#NetworkPort#,#StartingUp#,#Reconnection#,#RealTimeSendResult#)
+    </insert>
+    <insert id="AddSerialLISCommunicate" parameterClass="SerialCommunicationInfo">
+      insert into SerialCommunicationTb values (#SerialName#,#BaudRate#,#DataBits#,#StopBits#,#Parity#,#CommunicateionType#,#CommunicateionOvertime#,#ReConnectionTime#,#StartingUp#,#Reconnection#,#RealTimeSendResult#)
+    </insert>
+    
+    <select id="NetworkLISCommunicate" ResultClass="LISCommunicateNetworkInfo" >
+      select * from NetworkCommunicationTb
+    </select>
+    <select id="SerialLISCommunicate"  ResultClass="SerialCommunicationInfo">
+      select * from SerialCommunicationTb
+    </select>
+    <update id="NetworkLISCommunicateUpDate" resultClass="int" parameterClass="LISCommunicateNetworkInfo">
+      update NetworkCommunicationTb set
+      IPAddress = #IPAddress#,
+      NetworkPort = #NetworkPort#,
+      StartingUp = #StartingUp#,
+      Reconnection = #Reconnection#,
+      RealTimeSendResult = #RealTimeSendResult#
+      where id=1
+    </update>
+    <update id="SerialLISCommunicateUpDate" resultClass="int" parameterClass="SerialCommunicationInfo">
+      update SerialCommunicationTb set
+      SerialName = #SerialName#,
+      BaudRate = #BaudRate#,
+      DataBits = #DataBits#,
+      StopBits = #StopBits#,
+      Parity = #Parity#,
+      CommunicateionType = #CommunicateionType#,
+      CommunicateionOvertime = #CommunicateionOvertime#,
+      ReConnectionTime = #ReConnectionTime#,
+      StartingUp = #StartingUp#,
+      Reconnection = #Reconnection#,
+      RealTimeSendResult = #RealTimeSendResult#
+      where id=1
+    </update>
+  </statements>
+</sqlMap>

@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="QCResultInfo" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <alias>
+    <typeAlias alias="QCResultForUIInfo" type="BioA.Common.QCResultForUIInfo, BioA.Common" />
+    <typeAlias alias="QualityControlResultInfo" type="BioA.Common.QualityControlResultInfo, BioA.Common" /> 
+  </alias>
+  <statements>
+    <statement id="QueryQCResultInfo" parameterClass="QCResultForUIInfo" resultClass="QCResultForUIInfo">
+      <![CDATA[select t2.QCName, t3.SampleType, t3.ProjectName, t2.LotNum, t2.Pos, t3.TargetMean, t2.HorizonLevel, t3.TargetSD,
+                t2.Manufacturer, t1.ConcResult, t1.SampleCreateTime from QualityControlResultTb t1
+                left join QualityControlTb t2 on t1.QCID = t2.QCID
+                left join QCRelationProjectTb t3 on t1.QCID = t3.QCID and t1.ProjectName = t3.ProjectName and t1.SampleType = t3.SampleType]]>
+      <dynamic prepend="where">
+        <isNotEmpty prepend="and" property="QCName">
+          <![CDATA[t2.QCName=#QCName#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="ProjectName">
+          <![CDATA[t3.ProjectName=#ProjectName#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="LotNum">
+          <![CDATA[t2.LotNum=#LotNum#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="IsLogicalDelete">
+          <![CDATA[t1.IsLogicalDelete=#IsLogicalDelete#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="IsLogicalEdit">
+          <![CDATA[t1.IsLogicalEdit=#IsLogicalEdit#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="SampleCreateTime">
+          <![CDATA[t1.SampleCreateTime between #QCTimeStartTS# and #QCTimeEndTS# order by t1.SampleCreateTime desc]]>
+        </isNotEmpty>
+      </dynamic>
+    </statement>
+    <statement id="QueryQCResultInfoForManual" parameterClass="QCResultForUIInfo" resultClass="QCResultForUIInfo">
+      <![CDATA[select t2.QCName, t3.SampleType, t3.ProjectName, t2.LotNum, t2.Pos, t3.TargetMean, t2.HorizonLevel, t3.TargetSD,
+                t2.Manufacturer, t1.ConcResult, t1.SampleCreateTime from QualityControlResultForUserTb t1
+                left join QualityControlTb t2 on t1.QCID = t2.QCID
+                left join QCRelationProjectTb t3 on t1.QCID = t3.QCID and t1.ProjectName = t3.ProjectName and t1.SampleType = t3.SampleType]]>
+      <dynamic prepend="where">
+        <isNotEmpty prepend="and" property="QCName">
+          <![CDATA[t2.QCName=#QCName#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="ProjectName">
+          <![CDATA[t3.ProjectName=#ProjectName#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="LotNum">
+          <![CDATA[t2.LotNum=#LotNum#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="IsLogicalDelete">
+          <![CDATA[t1.IsLogicalDelete=#IsLogicalDelete#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="IsLogicalEdit">
+          <![CDATA[t1.IsLogicalEdit=#IsLogicalEdit#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="SampleCreateTime">
+          <![CDATA[t1.SampleCreateTime between #QCTimeStartTS# and #QCTimeEndTS# order by t1.SampleCreateTime desc]]>
+        </isNotEmpty>
+      </dynamic>
+    </statement>
+    <statement id="AddQualityControlResult" parameterClass="System.Collections.IDictionary">
+      insert into QualityControlResultTb (SampleNum, ProjectName, SampleType, QCID,SampleCreateTime)
+      values(#SampleNum#,#ProjectName#,#SampleType#,#QCID#,#SampleCreateTime#)
+    </statement>
+    <statement id="EditQCResultForManual" parameterClass="System.Collections.IDictionary">
+      Insert into QualityControlResultForUserTb (SampleNum, ProjectName, SampleType, QCID, ConcResult, SampleCreateTime)
+      values (#SampleNum#, #ProjectName#, #SampleType#, #QCID#, #ConcResult#, #StartTime#)
+    </statement>
+    <statement id="EditQCResultForLogicalEdit" parameterClass="System.Collections.IDictionary">
+      update QualityControlResultTb
+      set
+      IsLogicalEdit = 1
+      where ProjectName=#ProjectName# and SampleType=#SampleType# and QCID=#QCID# and SampleCreateTime=#StartTime# and IsLogicalEdit = 0
+    </statement>
+    <statement id="EditQCResultForLogicalEditForManual" parameterClass="System.Collections.IDictionary">
+      update QualityControlResultForUserTb
+      set
+      IsLogicalEdit = 1
+      where ProjectName=#ProjectName# and SampleType=#SampleType# and QCID=#QCID# and SampleCreateTime=#StartTime# and IsLogicalEdit=0
+    </statement>
+    <statement id="ConditionalQuery" parameterClass="System.Collections.IDictionary" resultClass="int">
+      select count(*) from QualityControlResultTb where SampleNum=#SampleNum# and ProjectName=#ProjectName# and SampleType=#SampleType# and QCID=#QCID# and SampleCreateTime between #StateTime# and #EndTime#
+    </statement>
+    <statement id="QueryQCSampleNum" parameterClass="System.Collections.IDictionary" resultClass="string">
+      select SampleNum from QualityControlResultTb where ProjectName=#ProjectName# and SampleType=#SampleType# and QCID=#QCID# and SampleCreateTime=#StartTime#
+    </statement>
+    <statement id="JudgeQCResultIsExist" parameterClass="System.Collections.IDictionary" resultClass="int">
+      select count(*) from QualityControlResultTb where ProjectName=#ProjectName# and SampleType=#SampleType# and QCID=#QCID# and SampleCreateTime=#StartTime# and IsLogicalDelete=0 and IsLogicalEdit=0
+    </statement>
+    <statement id="JudgeQCResultForUserIsExist" parameterClass="System.Collections.IDictionary" resultClass="int">
+      select count(*) from QualityControlResultForUserTb where ProjectName=#ProjectName# and SampleType=#SampleType# and QCID=#QCID# and SampleCreateTime=#StartTime# and IsLogicalDelete=0 and IsLogicalEdit=0
+    </statement>
+    <statement id="DeleteQCResult" parameterClass="System.Collections.IDictionary" resultClass="int">
+      update QualityControlResultTb set IsLogicalDelete = 1 where ProjectName=#ProjectName# and SampleType=#SampleType# and QCID=#QCID# and SampleCreateTime=#StartTime# and IsLogicalDelete=0
+    </statement>
+    <statement id="DeleteQCResultForManual" parameterClass="System.Collections.IDictionary" resultClass="int">
+      update QualityControlResultForUserTb set IsLogicalDelete = 1 where ProjectName=#ProjectName# and SampleType=#SampleType# and QCID=#QCID# and SampleCreateTime=#StartTime# and IsLogicalDelete=0
+    </statement>
+    <statement id="QueryQCResultForQCGraphics" parameterClass="QCResultForUIInfo" resultClass="QCResultForUIInfo">
+      select t2.HorizonLevel,t1.SampleCreateTime,t1.ConcResult,t3.TargetMean,t3.TargetSD from QualityControlResultTb t1 left join QualityControlTb t2 on t1.QCID = t2.QCID
+      left join QCRelationProjectTb t3 on t1.QCID = t3.QCID and t1.ProjectName = t3.ProjectName and t1.SampleType = t3.SampleType
+      where t2.QCName=#QCName# and t3.ProjectName=#ProjectName# and t2.LotNum=#LotNum# and t1.IsLogicalDelete=0 and t1.IsLogicalEdit=0 and t1.AbsValue!='' and t1.ConcResult!='' and t1.SampleCreateTime between #QCTimeStartTS# and #QCTimeEndTS#
+      union
+      select t2.HorizonLevel,t1.SampleCreateTime,t1.ConcResult,t3.TargetMean,t3.TargetSD from QualityControlResultForUserTb t1 left join QualityControlTb t2 on t1.QCID = t2.QCID
+      left join QCRelationProjectTb t3 on t1.QCID = t3.QCID and t1.ProjectName = t3.ProjectName and t1.SampleType = t3.SampleType
+      where t2.QCName=#QCName# and t3.ProjectName=#ProjectName# and t2.LotNum=#LotNum# and t1.IsLogicalDelete=0 and t1.IsLogicalEdit=0 and t1.SampleCreateTime between #QCTimeStartTS# and #QCTimeEndTS#
+    </statement>
+    <statement id="QueryQCResult" parameterClass="System.Collections.IDictionary" resultClass="QualityControlResultInfo">
+      select * from QualityControlResultTb where TCNO=#TCNO# and SampleCreateTime between #StartTime# and #EndTime#
+    </statement>
+    <statement id="UpdateQCResult" parameterClass="System.Collections.IDictionary">
+      update QualityControlResultTb set AbsValue=#AbsValue#,ConcResult=#ConcResult#
+      where SampleNum=#SampleNum# and ProjectName=#ProjectName# and SampleType=#SampleType# and TCNO=#TCNO# and SampleCreateTime=#SampleCreateTime#
+    </statement>
+    <statement id="UpdateQCResultRunLog" parameterClass="System.Collections.IDictionary">
+      update QualityControlResultTb set Remarks=#Remarks# where SampleNum=#SampleNum# and ProjectName=#ProjectName# and TCNO=#TCNO# and SampleCreateTime=#SampleCreateTime#
+    </statement>
+    <statement id="QueryQualityControlResultTCNO" parameterClass="System.Collections.IDictionary" resultClass="int">
+      select TCNO from QualityControlResultTb where ProjectName=#ProjectName# and SampleType=#SampleType# and SampleCreateTime=#SampleCreateTime#
+    </statement>
+  </statements>
+</sqlMap>

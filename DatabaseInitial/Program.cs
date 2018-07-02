@@ -15,7 +15,6 @@ namespace DatabaseInitial
         static void Main(string[] args)
         {
             MyBatis myBatis = new MyBatis();
-            myBatis.CreateTables();
         }
     }
 }

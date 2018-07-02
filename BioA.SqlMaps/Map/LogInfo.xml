@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="LogInfo" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <alias>
+    <typeAlias alias="MaintenanceLogInfo" type="BioA.Common.MaintenanceLogInfo, BioA.Common" />
+    <typeAlias alias="AlarmLogInfo" type="BioA.Common.AlarmLogInfo, BioA.Common" />
+  </alias>
+  <resultMaps>
+    <resultMap id="LogInfoResult" class="MaintenanceLogInfo">
+      <result property="UserName" column="UserName" />
+      <result property="LogDetails" column="LogDetails"/>
+      <result property="LogDateTime" column="LogDateTime"/>     
+    </resultMap>
+
+    
+      <resultMap id="AlarmLogInfoResult" class="AlarmLogInfo">
+        <result property="FaultCode" column="FaultCode" />
+        <result property="AlarmReason" column="AlarmReason"/>
+        <result property="LogDetails" column="LogDetails"/>
+        <result property="AlarmLevel" column="AlarmLevel" />
+        <result property="UserName" column="UserName"/>
+        <result property="LogDateTime" column="LogDateTime"/>
+        <result property="IsSolve" column="IsSolve"/>
+      </resultMap>
+      
+  </resultMaps>
+
+  
+  <statements>
+   
+    <!--查找所有用户信息-->
+    <select id="QueryMaintenanceLogInfo" resultClass="MaintenanceLogInfo">
+      SELECT * FROM MaintainLogTb
+    </select>
+    <select id="QueryOperationLogInfo" resultClass="MaintenanceLogInfo">
+      SELECT * FROM OperateLogTb
+    </select>
+    <select id="QueryAlarmLogInfo" resultClass="AlarmLogInfo">
+      SELECT * FROM AlarmLog
+    </select>
+    <select id="SelectAlarmLogInfo" resultMap="AlarmLogInfoResult">
+      SELECT * FROM AlarmLog where UserName=#UserName# and LogDateTime between #LogDateTime1# and #LogDateTime2#
+    </select>
+    
+    <select id="SelectUserInfo" ResultClass="int" parameterClass="System.Collections.IDictionary">
+      select count(*) from UserInfoTb where UserID=#UserID#
+    </select>
+    <delete id="DeleteUserInfo" resultClass="int" parameterClass="System.Collections.IDictionary" >
+      delete from UserInfoTb where UserID=#ID#
+    </delete>
+    <update id="EditUserInfo" parameterClass="System.Collections.IDictionary" resultClass="int">
+      update UserInfoTb
+      set UserID = #UserID# , UserName = #UserName# , CreateTime=#CreateTime# ,ApplyTask = #ApplyTask#,
+      DataCheck = #DataCheck# , CalibDataCheck = #CalibDataCheck# , ReagentSetting=#ReagentSetting# ,ReagentState = #ReagentState#,
+      CalibState = #CalibState# , CalibMaintain = #CalibMaintain# , QCState=#QCState# ,QCMaintain = #QCMaintain#,
+      ChemistryParam = #ChemistryParam# , CombProject = #CombProject# , CalcProject=#CalcProject# ,EnvironmentParam = #EnvironmentParam#,
+      CrossPollute = #CrossPollute# , DataConfiguration = #DataConfiguration# , LISCommunicate=#LISCommunicate# ,RouMaintain = #RouMaintain#,
+      EquipDebug = #EquipDebug# , UserManage = #UserManage# , DepartManage=#DepartManage# ,Configuration = #Configuration#,
+      LogCheck = #LogCheck# , VersionInfo = #VersionInfo#
+      where UserID=#UserIDOld#
+    </update>
+    <insert id="AddUserInfo" parameterClass="System.Collections.IDictionary">
+      insert into UserInfoTb (UserID,UserName,UserPassword,CreateTime,ApplyTask,DataCheck,
+      CalibDataCheck,ReagentSetting,ReagentState,CalibState,CalibMaintain,QCState,QCMaintain,
+      ChemistryParam,CombProject,CalcProject,EnvironmentParam,CrossPollute,DataConfiguration,
+      LISCommunicate,RouMaintain,EquipDebug,UserManage,DepartManage,Configuration,LogCheck,VersionInfo)
+      values (#UserID#,#UserName#,#UserPassword#,#CreateTime#,#ApplyTask#,#DataCheck#,
+      #CalibDataCheck#,#ReagentSetting#,#ReagentState#,#CalibState#,#CalibMaintain#,#QCState#,#QCMaintain#,
+      #ChemistryParam#,#CombProject#,#CalcProject#,#EnvironmentParam#,#CrossPollute#,#DataConfiguration#,
+      #LISCommunicate#,#RouMaintain#,#EquipDebug#,#UserManage#,#DepartManage#,#Configuration#,
+      #LogCheck#,#VersionInfo#
+      )
+    </insert>
+    <select id="UserLogin" parameterClass="System.Collections.IDictionary" resultClass="int">
+      select count(*) from UserInfoTb where UserID=#UserID# and UserPassword=#Password#
+    </select>
+    <select id="QueryUserAuthority" parameterClass="string" resultClass="UserInfo">
+      select * from UserInfoTb where UserID=#value#
+    </select>
+    <!--通过用户名查找用户信息
+    <select id="QueryUserInfoByUserName" resultMap="UserInfoResult" parameterClass="string">
+      SELECT * FROM USERTB WHERE USERNAME=#value#
+    </select>
+    动态处理查询条件，当存在查询条件，按条件查询，不存在所需条件，执行CDATA中括号的查询语句
+    <select id="QueryUserInfoDynamicUserName" parameterClass="System.Collections.IDictionary" resultMap="UserInfoResult">
+      <![CDATA[SELECT * FROM USERTB]]>
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="userName">
+          <![CDATA[USERNAME = #userName#]]>]>
+        </isNotEmpty>
+      </dynamic>
+    </select>
+    二元条件举例
+    <select id="QueryUserInfoDynamicUserId" parameterClass="System.Collection.IDictionary" resultMap="UserInfoResult">
+      <![CDATA[SELECT * FROM USERTB]]>
+      <dynamic prepend="WHERE">
+        <isLessEqual prepend="AND" property="userId" compareValue="10">
+          USERID = #userId#
+        </isLessEqual>
+      </dynamic>
+    </select>
+    先判断传入参数集是否有SEX参数，如果没有则不执行SEX=#SEX#查询条件，再判断该参数是否为null，不为null才执行查询条件。isPropertyAvailable元素最大的好处是，如果输入的参数集不包括设置的参数时程序不会报错，直接跳过该元素设置内容。
+    <select id="QueryUserInfoDynamicSexOrStatus" resultMap="UserInfoResult" parameterClass="System.Collection.IDictionary">
+      <![CDATA[ SELECT * FROM USERTB ]]>
+      <dynamic prepend="WHERE">
+        <isPropertyAvilable property="SEX">
+          <isNotNull property="sex" prepend="AND">  
+            SEX = #sex#
+          </isNotNull>
+        </isPropertyAvilable>
+        <isPropertyAvailable property="STATUS">
+          <isNotNull property="status" prepend="AND">
+            STATUS = #status#
+          </isNotNull>
+        </isPropertyAvailable>
+      </dynamic>
+    </select>
+    查询遍历集合
+    <select id="QueryUserInfoDynamicSexOrUserIdList" resultMap="UserInfoResult" parameterClass="System.Collection.IDictionary">
+      <![CDATA[ SELECT * FROM USERTB ]]>
+      <dynamic prepend="WHERE">
+        <isPropertyAvailable property="sex">
+          <isNotNull property="sex" prepend="AND">
+            SEX = #sex#
+          </isNotNull>
+        </isPropertyAvailable>
+        <isNotNull prepend="AND" property="UserIdList">
+          ID in
+          <iterate property="UserIdList" open="(" close=")" conjunction=",">
+            UserIdList[]
+          </iterate>
+        </isNotNull>
+      </dynamic>
+    </select>
+    连表查询
+    <select id="MultiTable" resultClass="Hashtable">
+      SELECT A.*, B.RIGHTID FROM USERTB A,USERrIGHT B WHERE A.ID = B.ID
+    </select>-->
+  </statements>
+</sqlMap>

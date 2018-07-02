@@ -17,47 +17,50 @@ namespace BioA.Common
             measureLightDot2 = 0;
             measureLightDot3 = 0;
             measureLightDot4 = 0;
-            resultDecimal = 0;
+            resultDecimal = 100000000;
             resultUnit = string.Empty;
             mainWaveLength = 0;
             secWaveLength = 0;
-            instrumentFactorA = 0;
-            instrumentFactorB = 0;
-            comStosteVol = 0;
-            comSamVol = 0; 
-            comDilutionVol = 0;
-            decStosteVol = 0;
-            decSamVol = 0;
-            decDilutionVol = 0;
-            incStosteVol = 0;
-            incSamVol = 0;
-            incDilutionVol = 0;
+            instrumentFactorA = 100000000;
+            instrumentFactorB = 100000000;
+            comStosteVol = 100000000;
+            comSamVol = 100000000;
+            comDilutionVol = 100000000;
+            decStosteVol = 100000000;
+            decSamVol = 100000000;
+            decDilutionVol = 100000000;
+            incStosteVol = 100000000;
+            incSamVol = 100000000;
+            incDilutionVol = 100000000;
+            calibStosteVol = 100000000;
+            calibSamVol = 100000000;
+            calibDilutionVol = 100000000;
             Reagent1Name = string.Empty;
             Reagent1Pos = string.Empty;
-            Reagent1Vol = 0;
-            Reagent1ValidDate = DateTime.Now;
+            Reagent1Vol = 100000000;
+            Reagent1ValidDate = new DateTime();
             Reagent2Name = string.Empty;
             Reagent2Pos = string.Empty;
-            Reagent2Vol = 0;
-            Reagent2ValidDate = DateTime.Now;
+            Reagent2Vol = 100000000;
+            Reagent2ValidDate = new DateTime();
             dilutionType = "";
-            firstSlope = 0;
-            secondSlope = 0;
-            firstSlopeHigh = 0;
-            secondSlopeHigh = 0;
-            proLowestBound= 0;
-            proHighestBound = 0;
-            pmp1 = 0;
-            pmp2 = 0;
-            pmp3 = 0;
-            pmp4 = 0;
+            firstSlope = 100000000;
+            secondSlope = 100000000;
+            firstSlopeHigh = 100000000;
+            secondSlopeHigh = 100000000;
+            proLowestBound = 100000000;
+            proHighestBound = 100000000;
+            pmp1 = 100000000;
+            pmp2 = 100000000;
+            pmp3 = 100000000;
+            pmp4 = 100000000;
             boundDirection = "";
-            limit1 = 0;
-            limit2 = 0;
-            limitValue = 0;
+            limit1 = 100000000;
+            limit2 = 100000000;
+            abslimitValue = 100000000;
             reactionDirection = "";
-            stirringIntensity = "";
-            levelConcentration = "";
+            stirring1Intensity = "";
+            stirring2Intensity = "";
         }
         private string projectName;
         public string ProjectName
@@ -213,6 +216,28 @@ namespace BioA.Common
             get { return incDilutionVol; }
             set { incDilutionVol = value; }
         }
+        private float calibStosteVol;
+
+        public float CalibStosteVol
+        {
+            get { return calibStosteVol; }
+            set { calibStosteVol = value; }
+        }
+        private float calibSamVol;
+
+        public float CalibSamVol
+        {
+            get { return calibSamVol; }
+            set { calibSamVol = value; }
+        }
+        private float calibDilutionVol;
+
+        public float CalibDilutionVol
+        {
+            get { return calibDilutionVol; }
+            set { calibDilutionVol = value; }
+        }
+        
         private string reagent1Name;
 
         public string Reagent1Name
@@ -279,123 +304,177 @@ namespace BioA.Common
             set { dilutionType = value; }
         }
         private float firstSlope;
-
+        /// <summary>
+        /// 第一线性界限值
+        /// </summary>
         public float FirstSlope
         {
             get { return firstSlope; }
             set { firstSlope = value; }
         }
         private float secondSlope;
-
+        /// <summary>
+        /// 第二线性界限值
+        /// </summary>
         public float SecondSlope
         {
             get { return secondSlope; }
             set { secondSlope = value; }
         }
         private float firstSlopeHigh;
-
+        /// <summary>
+        /// 第一线性最高值
+        /// </summary>
         public float FirstSlopeHigh
         {
             get { return firstSlopeHigh; }
             set { firstSlopeHigh = value; }
         }
         private float secondSlopeHigh;
-
+        /// <summary>
+        /// 第二线性最高值
+        /// </summary>
         public float SecondSlopeHigh
         {
             get { return secondSlopeHigh; }
             set { secondSlopeHigh = value; }
         }
         private float proLowestBound;
-
+        /// <summary>
+        /// 前区界限最低值
+        /// </summary>
         public float ProLowestBound
         {
             get { return proLowestBound; }
             set { proLowestBound = value; }
         }
         private float proHighestBound;
-
+        /// <summary>
+        /// 前区界限最高值
+        /// </summary>
         public float ProHighestBound
         {
             get { return proHighestBound; }
             set { proHighestBound = value; }
         }
         private int pmp1;
-
+        /// <summary>
+        /// 前区界限点1
+        /// </summary>
         public int Pmp1
         {
             get { return pmp1; }
             set { pmp1 = value; }
         }
         private int pmp2;
-
+        /// <summary>
+        /// 前区界限点2
+        /// </summary>
         public int Pmp2
         {
             get { return pmp2; }
             set { pmp2 = value; }
         }
         private int pmp3;
-
+        /// <summary>
+        /// 前区界限点3
+        /// </summary>
         public int Pmp3
         {
             get { return pmp3; }
             set { pmp3 = value; }
         }
         private int pmp4;
-
+        /// <summary>
+        /// 前区界限点4
+        /// </summary>
         public int Pmp4
         {
             get { return pmp4; }
             set { pmp4 = value; }
         }
         private string boundDirection;
-
+        /// <summary>
+        /// 前区界限区间设定
+        /// </summary>
         public string BoundDirection
         {
             get { return boundDirection; }
             set { boundDirection = value; }
         }
         private float limit1;
-
+        /// <summary>
+        /// 前区界限-区间界限1
+        /// </summary>
         public float Limit1
         {
             get { return limit1; }
             set { limit1 = value; }
         }
         private float limit2;
-
+        /// <summary>
+        /// 前区界限-区间界限2
+        /// </summary>
         public float Limit2
         {
             get { return limit2; }
             set { limit2 = value; }
         }
-        private float limitValue;
-
-        public float LimitValue
+        private float abslimitValue;
+        /// <summary>
+        /// 吸光度界限值
+        /// </summary>
+        public float AbsLimitValue
         {
-            get { return limitValue; }
-            set { limitValue = value; }
+            get { return abslimitValue; }
+            set { abslimitValue = value; }
         }
         private string reactionDirection;
-
+        /// <summary>
+        /// 反应方向
+        /// </summary>
         public string ReactionDirection
         {
             get { return reactionDirection; }
             set { reactionDirection = value; }
         }
-        private string stirringIntensity;
-
-        public string StirringIntensity
+        private string stirring1Intensity;
+        /// <summary>
+        /// 搅拌强度
+        /// </summary>
+        public string Stirring1Intensity
         {
-            get { return stirringIntensity; }
-            set { stirringIntensity = value; }
+            get { return stirring1Intensity; }
+            set { stirring1Intensity = value; }
         }
-        private string levelConcentration;
-
-        public string LevelConcentration
+        private string stirring2Intensity;
+        /// <summary>
+        /// 搅拌强度
+        /// </summary>
+        public string Stirring2Intensity
         {
-            get { return levelConcentration; }
-            set { levelConcentration = value; }
+            get { return stirring2Intensity; }
+            set { stirring2Intensity = value; }
+        }
+
+        private int reagent1VolSettings;
+        /// <summary>
+        /// 试剂1体积设定
+        /// </summary>
+        public int Reagent1VolSettings
+        {
+            get { return reagent1VolSettings; }
+            set { reagent1VolSettings = value; }
+        }
+
+        private int reagent2VolSettings;
+        /// <summary>
+        /// 试剂2体积设定
+        /// </summary>
+        public int Reagent2VolSettings
+        {
+            get { return reagent2VolSettings; }
+            set { reagent2VolSettings = value; }
         }
     }
 }

@@ -23,77 +23,113 @@ namespace BioA.Common
 
     public static class LogInfo
     {
+        public static object lockObj = new object();
+
         public static void WriteErrorLog(string strLogInfo, Module module)
         {
-            string directory = @"D:\ErrorLog\" + module.ToString();
+            lock (lockObj)
+            {
+                string directory = @"D:\ErrorLog\" + module.ToString();
 
-            if (Directory.Exists(directory))
-            {
-
-            }
-            else
-            {
-                Directory.CreateDirectory(directory);
-            }
-            string strPath = directory + "\\" + DateTime.Now.ToString("yyyy-MM-dd");
-            if (File.Exists(strPath))
-            {
-                FileStream fs = new FileStream(directory + "\\" + DateTime.Now.ToString("yyyy-MM-dd"), FileMode.Append);
-                using (StreamWriter sw = new StreamWriter(fs))
+                if (Directory.Exists(directory))
                 {
-                    sw.WriteLine(DateTime.Now.ToLongTimeString() + "：" + strLogInfo);
-                    sw.Flush();
-                    sw.Close();
-                    fs.Close();
+
                 }
-            }
-            else
-            {
-                FileStream fs = new FileStream(directory + "\\" + DateTime.Now.ToString("yyyy-MM-dd"), FileMode.Create);
-                using (StreamWriter sw = new StreamWriter(fs))
+                else
                 {
-                    sw.WriteLine(DateTime.Now.ToLongTimeString() + "：" + strLogInfo);
-                    sw.Flush();
-                    sw.Close();
-                    fs.Close();
+                    Directory.CreateDirectory(directory);
+                }
+                string strPath = directory + "\\" + DateTime.Now.ToString("yyyy-MM-dd");
+                if (File.Exists(strPath))
+                {
+                    FileStream fs = new FileStream(directory + "\\" + DateTime.Now.ToString("yyyy-MM-dd"), FileMode.Append);
+                    using (StreamWriter sw = new StreamWriter(fs))
+                    {
+                        sw.WriteLine(DateTime.Now.ToLongTimeString() + "：" + strLogInfo);
+                        sw.Flush();
+                        sw.Close();
+                        fs.Close();
+                    }
+                }
+                else
+                {
+                    FileStream fs = new FileStream(directory + "\\" + DateTime.Now.ToString("yyyy-MM-dd"), FileMode.Create);
+                    using (StreamWriter sw = new StreamWriter(fs))
+                    {
+                        sw.WriteLine(DateTime.Now.ToLongTimeString() + "：" + strLogInfo);
+                        sw.Flush();
+                        sw.Close();
+                        fs.Close();
+                    }
                 }
             }
         }
 
         public static void WriteProcessLog(string strLogInfo, Module module)
         {
-            string directory = @"D:\ProcessLog\" + module.ToString();
+            lock (lockObj)
+            {
+                string directory = @"D:\ProcessLog\" + module.ToString();
 
-            if (Directory.Exists(directory))
-            {
-
-            }
-            else
-            {
-                Directory.CreateDirectory(directory);
-            }
-            string strPath = directory + "\\" + DateTime.Now.ToString("yyyy-MM-dd");
-            if (File.Exists(strPath))
-            {
-                FileStream fs = new FileStream(directory + "\\" + DateTime.Now.ToString("yyyy-MM-dd"), FileMode.Append);
-                using (StreamWriter sw = new StreamWriter(fs))
+                if (Directory.Exists(directory))
                 {
-                    sw.WriteLine(DateTime.Now.ToLongTimeString() + "：" + strLogInfo);
-                    sw.Flush();
-                    sw.Close();
-                    fs.Close();
+
+                }
+                else
+                {
+                    Directory.CreateDirectory(directory);
+                }
+                string strPath = directory + "\\" + DateTime.Now.ToString("yyyy-MM-dd");
+                if (File.Exists(strPath))
+                {
+                    FileStream fs = new FileStream(directory + "\\" + DateTime.Now.ToString("yyyy-MM-dd"), FileMode.Append);
+                    using (StreamWriter sw = new StreamWriter(fs))
+                    {
+                        sw.WriteLine(DateTime.Now.ToLongTimeString() + "：" + strLogInfo);
+                        sw.Flush();
+                        sw.Close();
+                        fs.Close();
+                    }
+                }
+                else
+                {
+                    FileStream fs = new FileStream(directory + "\\" + DateTime.Now.ToString("yyyy-MM-dd"), FileMode.Create);
+                    using (StreamWriter sw = new StreamWriter(fs))
+                    {
+                        sw.WriteLine(DateTime.Now.ToLongTimeString() + "：" + strLogInfo);
+                        sw.Flush();
+                        sw.Close();
+                        fs.Close();
+                    }
                 }
             }
-            else
+        }
+
+        public enum ComLogType
+        {
+            SEND,
+            RECEIVE
+        }
+        public static void Log(string info, ComLogType t, string logFile = @"COM.lg")
+        {
+            try
             {
-                FileStream fs = new FileStream(directory + "\\" + DateTime.Now.ToString("yyyy-MM-dd"), FileMode.Create);
-                using (StreamWriter sw = new StreamWriter(fs))
-                {
-                    sw.WriteLine(DateTime.Now.ToLongTimeString() + "：" + strLogInfo);
-                    sw.Flush();
-                    sw.Close();
-                    fs.Close();
-                }
+                string dayStr = DateTime.Now.ToString("yyyyMMdd");
+                string fileName = @"D:\aaa" + @"\" + logFile;
+                StreamWriter sw = new StreamWriter(fileName, true, Encoding.Unicode);
+                string timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
+
+                sw.Write(timestamp);
+                sw.Write('\t');
+                sw.Write(t.ToString());
+                sw.Write('\t');
+                sw.Write(info);
+                sw.Write("\r\n");
+                sw.Close();
+            }
+            catch (Exception e)
+            {
+
             }
         }
     }

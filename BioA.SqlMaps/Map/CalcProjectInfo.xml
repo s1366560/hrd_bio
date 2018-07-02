@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="CalcProjectInfo" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <alias>
+    <typeAlias alias="CalcProjectInfo" type="BioA.Common.CalcProjectInfo, BioA.Common" />
+  </alias>
+  <resultMaps>
+    <resultMap id="CalcProjectInfoResult" class="CalcProjectInfo">
+      <result property="CalcProjectName" column="CalcProjectName" />
+      <result property="CalcProjectFullName" column="CalcProjectFullName" />
+      <result property="Unit" column="Unit" />
+      <result property="SampleType" column="SampleType" />
+      <result property="ReferenceRangeLow" column="ReferenceRangeLow" />
+      <result property="ReferenceRangeHigh" column="ReferenceRangeHigh" />
+      <result property="CalcFormula" column="CalcFormula" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <statement id="QueryCalcProjectAllInfo" ResultClass="CalcProjectInfo">
+      select * from CalcProjectInfoTb
+    </statement>
+    <statement id="AddCalcProject" parameterClass="CalcProjectInfo" >
+      insert into CalcProjectInfoTb values (#CalcProjectName#, #CalcProjectFullName#, #Unit#, #SampleType#, #ReferenceRangeLow#, #ReferenceRangeHigh#, #CalcFormula#)
+    </statement>
+    <statement id="DeleteCalcProject" parameterClass="CalcProjectInfo" ResultClass="int">
+      delete from CalcProjectInfoTb where CalcProjectName=#CalcProjectName# and SampleType=#SampleType#
+    </statement>
+    <statement id="UpdateCalcProject" parameterClass="System.Collections.IDictionary" ResultClass="int">
+      update CalcProjectInfoTb set
+      CalcProjectName = #CalcProjectName#,
+      CalcProjectFullName = #CalcProjectFullName#,
+      Unit = #Unit#,
+      SampleType = #SampleType#,
+      ReferenceRangeLow = #ReferenceRangeLow#,
+      ReferenceRangeHigh = #ReferenceRangeHigh#,
+      CalcFormula = #CalcFormula#
+      where CalcProjectName = #CalcProjectNameOld# and SampleType = #SampleTypeOld#
+    </statement>
+    <statement id="ProjectCountByCalcProName" parameterClass="System.Collections.IDictionary" ResultClass="int">
+      select count(*) from CalcProjectInfoTb where CalcProjectName = #CalcProjectName# and SampleType = #SampleType#
+      union
+      select count(*) from assayprojectinfotb where ProjectName = #CalcProjectName# and SampleType = #SampleType#
+    </statement>
+  </statements>
+</sqlMap>
