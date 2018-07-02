@@ -54,6 +54,7 @@ namespace BioA.UI.Uicomponent.SettingsUI.ChemicalParameter
             serviceClient.GetDataUsingDataContract(new CompositeType());
             if (sender.GetType() == typeof(CommunicationEntity1))
             {
+                // edit test
                 CommunicationEntity1 a = new CommunicationEntity1();
                 a = sender as CommunicationEntity1;
                 serviceClient.ClientSendMsgToService(ModuleInfo.SettingsChemicalParameter, a);
