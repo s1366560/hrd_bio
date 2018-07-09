@@ -146,8 +146,10 @@ namespace BioA.UI
                 elements.Add(this.WorkingAreaApplyTaskElement1);
             if (userInfo.DataCheck)
                 elements.Add(this.WorkingAreaDataCheckElement2);
-            this.accordionControl1.Elements.AddRange(elements.ToArray());
-
+           
+            BeginInvoke(new Action(()=> {
+                 this.accordionControl1.Elements.AddRange(elements.ToArray());
+            }));
             if (userInfo.ApplyTask)
             {
                 if (pcThirdArea.Controls.Equals(applyTask) == false)
@@ -162,8 +164,14 @@ namespace BioA.UI
                     applyTask = new ApplyTask();
                     CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent += applyTask.DataTransfer_Event;
                     txtPrompt.Text = "您当前的操作：工作区——申请审核";
-                    pcThirdArea.Controls.Add(txtPrompt);
-                    pcThirdArea.Controls.Add(applyTask);
+
+
+                  
+
+                    BeginInvoke(new Action(() => {
+                        pcThirdArea.Controls.Add(txtPrompt);
+                        pcThirdArea.Controls.Add(applyTask);
+                    }));
                 }
             }
             else if (userInfo.DataCheck)
@@ -177,8 +185,11 @@ namespace BioA.UI
                     dadtCheck = new DataCheck();
                     CommunicationUI.notifyCallBack.CommonSampleDataEvent += dadtCheck.DataTransfer_Event;
                     txtPrompt.Text = "您当前的操作：工作区——数据审核";
-                    pcThirdArea.Controls.Add(txtPrompt);
-                    pcThirdArea.Controls.Add(dadtCheck);
+
+                    BeginInvoke(new Action(() => {
+                        pcThirdArea.Controls.Add(txtPrompt);
+                        pcThirdArea.Controls.Add(applyTask);
+                    }));
                 }
             }
 
@@ -509,7 +520,11 @@ namespace BioA.UI
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            BeginInvoke(new Action(Init));
+            // BeginInvoke(new Action(Init));
+
+            var initThread = new Thread(Init);
+            initThread.IsBackground = true;
+            initThread.Start();
         }
 
         private void barButtonItem2_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
