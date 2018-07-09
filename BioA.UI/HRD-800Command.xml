@@ -1,0 +1,450 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<MachineConfigure>
+  <SerialPort Port="COM6"/>
+  <!--命令字典-->
+  <CommandProtocol>
+    <Command  Name ="CheckSumRight" Value="0x06"/>
+    <Command  Name ="CheckSumWrong" Value="0x0F"/>
+    <Command  Name ="RunSchedule" Value="0x02, 0x20, 0x03, 0x00, 0x00"/>
+    <Command  Name ="AbortSchedule" Value="0x02, 0x24, 0x03, 0x00, 0x00"/>
+
+    <Command  Name ="Initialize"  Value="0x02, 0x1B, 0x03, 0x00, 0x00"/>
+    <Command  Name ="WashSampleProbe" Value="0x02, 0xB0, 0x03, 0x00, 0x00"/>
+    <Command  Name ="WaterSaved" Value="0x02, 0x0B, 0x03, 0x00, 0x00"/>
+    <Command  Name ="WashCuvette" Value="0x02, 0xE1, 0x03, 0x00, 0x00"/>
+    <Command  Name ="PhotometerAutoCheck" Value="0x02, 0xE2, 0x03, 0x00, 0x00"/>
+    <Command  Name ="PhotometerManualCheck" Encoder="0x27" EncodingObject="Offset"/>
+    <Command  Name ="PhotometerManualCheckStop" Value="0x02, 0x24, 0x03, 0x00, 0x00"/>
+    <Command  Name ="RGTPanel1VolScan" Encoder="0x2B" EncodingObject="RGTPanel1Positions"/>
+    <Command  Name ="RGTPanel2VolScan" Encoder="0x2B" EncodingObject="RGTPanel2Positions"/>
+    <Command  Name ="RGTPanel1BarcodeScan" Encoder="0xC5" EncodingObject="RGTPanel1Positions"/>
+    <Command  Name ="RGTPanel2BarcodeScan" Encoder="0xC5" EncodingObject="RGTPanel2Positions"/>
+    <Command  Name ="SMPPanelScanBarcode" Encoder="0x45" EncodingObject="SMPPanelPositions"/>
+    <Command  Name ="DoDemo" Value="0x02, 0x12, 0x03, 0x00, 0x00"/>
+    <Command  Name ="ReadActivityCode" Value="0x02, 0x09, 0x31,0x03, 0x00, 0x00"/>
+    <Command  Name ="WriteActivityCode" Encoder="0x090" EncodingObject="Key"/>
+    <Command  Name ="ReadSN" Value="0x02, 0x09, 0x33,0x03, 0x00, 0x00"/>
+    <Command  Name ="WriteSN" Encoder="0x092" EncodingObject="SN"/>
+    <Command  Name ="ReagentSet" Encoder="0x092" EncodingObject="SN"/>
+    <Command  Name ="ReadLicense" Value="0x02, 0x09, 0x35,0x03, 0x00, 0x00"/>
+    <Command  Name ="WriteLicense" Encoder="0x094" EncodingObject="License"/>
+    <!--<Command  Name ="ReadVersion" Value="0x02, 0x09, 0x3f,0x03, 0x00, 0x00"/>-->
+    <Command  Name ="CheckCommunication" Value="0x02, 0x09, 0x3f,0x03, 0x00, 0x00"/>
+    <Command  Name ="RunExChangeWater" Value="0x02, 0x2D,0x03, 0x00, 0x00"/>
+    <Command  Name ="CheckWashingLiquid" Value="0x02, 0xEE,0x03, 0x00, 0x00"/>
+    <!--扫描清洗剂D-->
+    <Command  Name ="ReadDRgtLevel" Value="0x02, 0x2B,0x31,0x33,0x30,0x03, 0x00, 0x00"/>
+    <!--温控校准-->
+    <Command  Name ="TempCalibrating" Encoder="0x0E" EncodingObject="Temp"/>
+    <!--ISE模块-->
+    <Command Name ="ISEInit" Value="0x02, 0xA0, 0x31, 0x33, 0x03, 0x00, 0x00"/>
+    <Command Name ="ISEAbort" Value="0x02, 0xA1, 0x03, 0x00, 0x00"/>
+    <Command Name ="ISECalibrate" Encoder="0xA90" EncodingObject="ISESMPType"/>
+    <Command Name="ISEHuanye" Encoder="0xA2" EncodingObject="ISEMNT"/>
+    <Command Name="ISHuanye" Encoder="0xA2" EncodingObject="ISEMNT"/>
+    <Command Name="ISEPaiye" Encoder="0xA2" EncodingObject="ISEMNT"/>
+    <Command Name="ISEDianjixijin" Encoder="0xA2" EncodingObject="ISEMNT"/>
+    <Command Name="ISEGuanxianxijin" Encoder="0xA2" EncodingObject="ISEMNT"/>
+    <Command Name="ISEShuibaohu" Encoder="0xA2" EncodingObject="ISEMNT"/>
+    <Command Name="ISEDingqiqingxi" Encoder="0xA2" EncodingObject="ISEMNT"/>
+    <Command Name="ISEVersion" Value="0x02, 0xAE, 0x03, 0x00, 0x00"/>
+    <Command Name="ISEParaQuery" Value="0x02, 0xAB, 0x03, 0x00, 0x00"/>
+    <!--样本臂-->
+    <Command  Name ="SampleArmInitialize" Value=" 0x02, 0x6A,0x30,0x03, 0x00, 0x00"/>
+    <Command  Name ="SampleArmFromFlumeToSMPOuterLoop" Value="0x02, 0x60,0x30, 0x03, 0x00, 0x00" IsAdjustNode="True"/>
+    <Command  Name ="SampleArmFromFlumeToSMPInnerLoop" Value="0x02, 0x61,0x30, 0x03, 0x00, 0x00"  IsAdjustNode="True"/>
+    <Command  Name ="SampleArmFromFlumeToMutiFuncLoop" Value="0x02, 0x62,0x30, 0x03, 0x00, 0x00"  IsAdjustNode="True"/>
+    <Command  Name ="SampleArmFromFlumeToDilCUV" Value="0x02, 0x67, 0x30,0x03, 0x00, 0x00"  IsAdjustNode="True"/>
+    <Command  Name ="SampleArmFromDilCUVToCUV" Value="0x02, 0x6B,0x30, 0x03, 0x00, 0x00"  IsAdjustNode="True"/>
+    <Command  Name ="SampleArmFromSamplingPositionToCUV" Value="0x02, 0x64,0x30, 0x03, 0x00, 0x00"  IsAdjustNode="True"/>
+    <Command  Name ="SampleArmFromFromCUVToWatershoot" Value="0x02, 0x68,0x30, 0x03, 0x00, 0x00"  IsAdjustNode="True"/>
+    <Command  Name ="SampleArmFromWatershootToFlume" Value="0x02, 0x6A,0x30,0x03, 0x00, 0x00"  IsAdjustNode="True"/>
+    <Command  Name ="SampleArmFromSamplingPositionToISE" Value="0x02, 0x65,0x30, 0x03, 0x00, 0x00"  IsAdjustNode="True"/>
+    <Command  Name ="SampleArmBottom" Value="0x02, 0x52,0x30,0x30, 0x03, 0x00, 0x00 "  IsAdjustNode="True"/>
+    <Command  Name ="SampleArmTop" Value="0x02, 0x53,0x30, 0x03, 0x00, 0x00"  IsAdjustNode="True"/>
+    <!--样本臂校准-->
+    <Command  Name ="SampleArmClockwiseAdjust" Value="0x02, 0x6D,0x30,0x30,0x03, 0x00, 0x00" Offset="1"/>
+    <Command  Name ="SampleArmAnticlockwiseAdjust" Value="0x02, 0x6D,0x30,0x31, 0x03, 0x00, 0x00" Offset="-1"/>
+    <Command  Name ="SampleArmUpAdjust" Value="0x02, 0x6D,0x30,0x32,0x03, 0x00, 0x00" Offset="1"/>
+    <Command  Name ="SampleArmDownAdjust" Value="0x02, 0x6D,0x30,0x33, 0x03, 0x00, 0x00" Offset="-1"/>
+    <Command  Name ="SampleArmSaveAdjust" Encoder="0x6E" Offset="2" EncodingObject="AdjustNode"/>
+    <!--样本针清洗阀-->
+    <Command  Name ="SampleArmCheckWashingValve" Value="0x02, 0x5D,0x30, 0x03, 0x00, 0x00"/>
+    <!--样本盘-->
+    <Command  Name ="SamplePlateInitialize" Value="0x02, 0x40,0x30,0x03, 0x00, 0x00" IsAdjustNode="True"/>
+    <Command  Name ="SamplePlateClockwiseOnePlus" Value="0x02, 0x4C,0x30, 0x03, 0x00, 0x00" Offset="1"/>
+    <Command  Name ="SamplePlateAnticlockwiseOnePlus" Value="0x02, 0x41,0x30, 0x03, 0x00, 0x00" Offset="-1"/>
+    <Command  Name ="SamplePlateInitPosSaveAdjust"  Encoder="0x4A" Offset="2" EncodingObject="AdjustNode"/>
+    <Command  Name ="SamplePlateOneCircle" Value="0x02, 0x43,0x30, 0x03, 0x00, 0x00 "/>
+    <Command  Name ="SamplePlateOneStep" Value="0x02, 0x42,0x30, 0x03, 0x00, 0x00"/>
+    <Command  Name ="SampleBarcodePosSaveAdjust"  Encoder="0x4A" Offset="2" EncodingObject="AdjustNode"/>
+    <!--样本吸量器-->
+    <Command  Name ="SampleSuckerInitialize" Value="0x02, 0x54,0x30, 0x03, 0x00, 0x00"/>
+    <Command  Name ="SampleSuckerSuck" Value="0x02, 0x5A,0x30, 0x03, 0x00, 0x00"/>
+    <Command  Name ="SampleSuckerVomit" Value="0x02, 0x54,0x30, 0x03, 0x00, 0x00"/>
+    <Command  Name ="SampleSuckerTurnOn" Value="0x02, 0x5B,0x30, 0x03, 0x00, 0x00"/>
+    <Command  Name ="SampleSuckerTurnOff" Value="0x02, 0x5C,0x30, 0x03, 0x00, 0x00"/>
+    <!--试剂臂1-->
+    <Command  Name ="ReagentArm1Initialize" Value="0x02, 0x86,0x30, 0x03, 0x00, 0x00"/>
+    <Command  Name ="ReagentArm1FromFlumeToRGTOuterLoop" Value="0x02, 0x81,0x30, 0x03, 0x00, 0x00" IsAdjustNode="True"/>
+    <Command  Name ="ReagentArm1FromFlumeToRGTInnerLoop" Value="0x02, 0x80,0x30, 0x03, 0x00, 0x00" IsAdjustNode="True"/>
+    <Command  Name ="ReagentArm1FromRgtingPositionToCUV" Value="0x02, 0x82,0x30, 0x03, 0x00, 0x00" IsAdjustNode="True"/>
+    <Command  Name ="ReagentArm1FromCUVToFlume" Value="0x02, 0x86,0x30, 0x03, 0x00, 0x00" IsAdjustNode="True"/>
+    <Command  Name ="ReagentArm1From30PositionToHatching" Value="0x02, 0x83,0x30, 0x03, 0x00, 0x00" IsAdjustNode="True"/>
+    <!--试剂臂2-->
+    <Command  Name ="ReagentArm2Initialize" Value="0x02, 0x86,0x31, 0x03, 0x00, 0x00"/>
+    <Command  Name ="ReagentArm2FromFlumeToRGTOuterLoop" Value="0x02, 0x81,0x31, 0x03, 0x00, 0x00" IsAdjustNode="True"/>
+    <Command  Name ="ReagentArm2FromFlumeToRGTInnerLoop" Value="0x02, 0x80,0x31, 0x03, 0x00, 0x00" IsAdjustNode="True"/>
+    <Command  Name ="ReagentArm2FromRgtingPositionToCUV" Value="0x02, 0x82,0x31, 0x03, 0x00, 0x00" IsAdjustNode="True"/>
+    <Command  Name ="ReagentArm2FromCUVToFlume" Value="0x02, 0x86,0x31, 0x03, 0x00, 0x00" IsAdjustNode="True"/>
+    <Command  Name ="ReagentArm2From30PositionToHatching" Value="0x02, 0x83,0x31, 0x03, 0x00, 0x00" IsAdjustNode="True"/>
+    <!--试剂臂1校准-->
+    <Command  Name ="ReagentArm1Bottom" Value="0x02, 0x72,0x30, 0x03, 0x00, 0x00" IsAdjustNode="True"/>
+    <Command  Name ="ReagentArm1Top" Value="0x02, 0x73,0x30, 0x03, 0x00, 0x00" IsAdjustNode="True"/>
+    <Command  Name ="ReagentArm1ClockwiseAdjust" Value="0x02, 0x8A, 0x30,0x30, 0x03, 0x00, 0x00 "  Offset="-1"/>
+    <Command  Name ="ReagentArm1AnticlockwiseAdjust" Value="0x02, 0x8A,0x30, 0x31, 0x03, 0x00, 0x00"  Offset="1"/>
+    <Command  Name ="ReagentArm1UpAdjust" Value="0x02, 0x8A,0x30,0x32,0x03, 0x00, 0x00"  Offset="1"/>
+    <Command  Name ="ReagentArm1DownAdjust" Value="0x02, 0x8A,0x30,0x33, 0x03, 0x00, 0x00"  Offset="-1"/>
+    <Command  Name ="ReagentArm1SaveAdjust" Encoder="0x891" Offset="2" EncodingObject="AdjustNode"/>
+    <!--试剂臂2校准-->
+    <Command  Name ="ReagentArm2Bottom" Value="0x02, 0x72,0x31, 0x03, 0x00, 0x00" IsAdjustNode="True"/>
+    <Command  Name ="ReagentArm2Top" Value="0x02, 0x73,0x31, 0x03, 0x00, 0x00" IsAdjustNode="True"/>
+    <Command  Name ="ReagentArm2ClockwiseAdjust" Value="0x02, 0x8A, 0x31,0x30, 0x03, 0x00, 0x00 "  Offset="1"/>
+    <Command  Name ="ReagentArm2AnticlockwiseAdjust" Value="0x02, 0x8A,0x31, 0x31, 0x03, 0x00, 0x00"  Offset="-1"/>
+    <Command  Name ="ReagentArm2UpAdjust" Value="0x02, 0x8A,0x31,0x32,0x03, 0x00, 0x00"  Offset="1"/>
+    <Command  Name ="ReagentArm2DownAdjust" Value="0x02, 0x8A,0x31,0x33, 0x03, 0x00, 0x00"  Offset="-1"/>
+    <Command  Name ="ReagentArm2SaveAdjust" Encoder="0x892" Offset="2" EncodingObject="AdjustNode"/>
+    <!--试剂盘1-->
+    <Command Name="ReagentPlate1OuterLoopInitialize" Value="0x02, 0x2E,0x30, 0x03, 0x00, 0x00" IsAdjustNode="True"/>
+    <Command Name="ReagentPlate1OuterLoopInitializeAdjustSave" Encoder="0xCE" Offset="2" EncodingObject="AdjustNode"/>
+    <Command Name="ReagentPlate1InnerLoopInitialize" Value="0x02, 0x2F,0x30, 0x03, 0x00, 0x00" IsAdjustNode="True"/>
+    <Command Name="ReagentPlate1InnerLoopInitializeAdjustSave" Encoder="0xCE" Offset="2" EncodingObject="AdjustNode"/>
+    <Command Name="ReagentPlate1ClockWiseOnePlus" Value="0x02, 0xCC,0x30, 0x03, 0x00, 0x00 " Offset="1"/>
+    <Command Name="ReagentPlate1AntiClockWiseOnePlus" Value="0x02, 0xC1,0x30, 0x03, 0x00, 0x00 " Offset="-1"/>
+    <Command Name="ReagentPlate1OneCircle" Value="0x02, 0xC3,0x30, 0x03, 0x00, 0x00 "/>
+    <Command Name="ReagentPlate1OneStep" Value="0x02, 0xC2,0x30, 0x03, 0x00, 0x00"/>
+    <Command Name="ReagentPlate1BarcodePosSaveAdjust" Encoder="0xCE" Offset="2" EncodingObject="AdjustNode"/>
+    <!--试剂盘2-->
+    <Command Name="ReagentPlate2OuterLoopInitialize" Value="0x02, 0x2E,0x31, 0x03, 0x00, 0x00" IsAdjustNode="True"/>
+    <Command Name="ReagentPlate2OuterLoopInitializeAdjustSave" Encoder="0xCE" Offset="2" EncodingObject="AdjustNode"/>
+    <Command Name="ReagentPlate2InnerLoopInitialize" Value="0x02, 0x2F,0x31, 0x03, 0x00, 0x00" IsAdjustNode="True"/>
+    <Command Name="ReagentPlate2InnerLoopInitializeAdjustSave" Encoder="0xCE" Offset="2" EncodingObject="AdjustNode"/>
+    <Command Name="ReagentPlate2ClockWiseOnePlus" Value="0x02, 0xCC,0x31, 0x03, 0x00, 0x00 " Offset="1"/>
+    <Command Name="ReagentPlate2AntiClockWiseOnePlus" Value="0x02, 0xC1,0x31, 0x03, 0x00, 0x00 " Offset="-1"/>
+    <Command Name="ReagentPlate2OneCircle" Value="0x02, 0xC3,0x31, 0x03, 0x00, 0x00 "/>
+    <Command Name="ReagentPlate2OneStep" Value="0x02, 0xC2,0x31, 0x03, 0x00, 0x00"/>
+    <Command Name="ReagentPlate2BarcodePosSaveAdjust" Encoder="0xCE" Offset="2" EncodingObject="AdjustNode"/>
+    <!--试剂臂1试剂吸量器-->
+    <Command  Name ="ReagentSucker1Initialize" Value="0x02, 0x74, 0x30,0x03, 0x00, 0x00"/>
+    <Command  Name ="ReagentSucker1Suck" Value="0x02, 0x79, 0x30,0x31,0x36,0x38, 0x03, 0x00, 0x00"/>
+    <Command  Name ="ReagentSucker1Vomit" Value="0x02, 0x74,0x30,0x03, 0x00, 0x00"/>
+    <Command  Name ="ReagentSucker1TurnOn" Value="0x02, 0x7A,0x30, 0x03, 0x00, 0x00"/>
+    <Command  Name ="ReagentSucker1TurnOff" Value="0x02, 0x7B,0x30, 0x03, 0x00, 0x00"/>
+    <!--试剂臂2试剂吸量器-->
+    <Command  Name ="ReagentSucker2Initialize" Value="0x02, 0x74, 0x31,0x03, 0x00, 0x00"/>
+    <Command  Name ="ReagentSucker2Suck" Value="0x02, 0x79, 0x31,0x31,0x36,0x38, 0x03, 0x00, 0x00"/>
+    <Command  Name ="ReagentSucker2Vomit" Value="0x02, 0x74,0x31,0x03, 0x00, 0x00"/>
+    <Command  Name ="ReagentSucker2TurnOn" Value="0x02, 0x7A,0x31, 0x03, 0x00, 0x00"/>
+    <Command  Name ="ReagentSucker2TurnOff" Value="0x02, 0x7B,0x31, 0x03, 0x00, 0x00"/>
+    <!--试剂臂1清洗阀-->
+    <Command  Name ="ReagentArm1CheckWashingValve" Value="0x02, 0x7C,0x30, 0x03, 0x00, 0x00"/>
+    <!--试剂臂2清洗阀-->
+    <Command  Name ="ReagentArm2CheckWashingValve" Value="0x02, 0x7C,0x31, 0x03, 0x00, 0x00"/>
+    <!--比色杯清洗器-->
+    <Command  Name ="CUVWasherInitialize" Value="0x02, 0xD5, 0x03, 0x00, 0x00"/>
+    <Command  Name ="CUVWasherBottom" Value="0x02, 0xD7, 0x03, 0x00, 0x00" IsAdjustNode="True"/>
+    <Command  Name ="CUVWasherTop" Value="0x02, 0xD6, 0x03, 0x00, 0x00" IsAdjustNode="True"/>
+    <!--比色杯清洗器校准-->
+    <Command  Name ="CUVWasherUpAdjust" Value="0x02, 0xEB,0x30,0x03, 0x00, 0x00" Offset="1"/>
+    <Command  Name ="CUVWasherDownAdjust" Value="0x02, 0xEB,0x31,0x03, 0x00, 0x00" Offset="-1"/>
+    <Command  Name ="CUVWasherSaveAdjust" Encoder="0xEC" Offset="2" EncodingObject="AdjustNode"/>
+    <!--液阀-->
+    <Command  Name ="CUVWasherCheckSuckingValve" Value="0x02, 0xDC, 0x03, 0x00, 0x00"/>
+    <Command  Name ="CUVWasherCheckDistributingValve" Value="0x02, 0xDB, 0x03, 0x00, 0x00"/>
+    <!--搅拌器1-->
+    <Command  Name ="Stirrer1Initialize" Value="0x02, 0x3B,0x30,0x03, 0x00, 0x00 "/>
+    <Command  Name ="Stirrer1ToFlume" Value="0x02, 0x38,0x30, 0x03, 0x00, 0x00" IsAdjustNode="True"/>
+    <Command  Name ="Stirrer1ToCUV" Value="0x02, 0x32,0x30, 0x03, 0x00, 0x00" IsAdjustNode="True"/>
+    <Command  Name ="Stirrer1TurnOn" Value=" 0x02, 0x35,0x30, 0x03, 0x00, 0x00"/>
+    <Command  Name ="Stirrer1TurnOff" Value="0x02, 0x36,0x30, 0x03, 0x00, 0x00"/>
+    <!--搅拌器2-->
+    <Command  Name ="Stirrer2Initialize" Value="0x02, 0x3B,0x31,0x03, 0x00, 0x00 "/>
+    <Command  Name ="Stirrer2ToFlume" Value="0x02, 0x38,0x31, 0x03, 0x00, 0x00" IsAdjustNode="True"/>
+    <Command  Name ="Stirrer2ToCUV" Value="0x02, 0x32,0x31, 0x03, 0x00, 0x00" IsAdjustNode="True"/>
+    <Command  Name ="Stirrer2TurnOn" Value=" 0x02, 0x35,0x31, 0x03, 0x00, 0x00"/>
+    <Command  Name ="Stirrer2TurnOff" Value="0x02, 0x36,0x31, 0x03, 0x00, 0x00"/>
+    <!--搅拌器1校准-->
+    <Command  Name ="Stirrer1Bottom" Value="0x02, 0x31,0x30, 0x03, 0x00, 0x00" IsAdjustNode="True"/>
+    <Command  Name ="Stirrer1Top" Value="0x02, 0x30,0x30, 0x03, 0x00, 0x00" IsAdjustNode="True"/>
+    <Command  Name ="Stirrer1ClockwiseAdjust" Value="0x02, 0x3C,0x30, 0x30, 0x03, 0x00, 0x00" Offset="1"/>
+    <Command  Name ="Stirrer1AnticlockwiseAdjust" Value="0x02, 0x3C,0x30, 0x31, 0x03, 0x00, 0x00" Offset="-1"/>
+    <Command  Name ="Stirrer1UpAdjust" Value="0x02, 0x3C,0x30,0x32,0x03, 0x00, 0x00" Offset="1"/>
+    <Command  Name ="Stirrer1DownAdjust" Value="0x02, 0x3C,0x30,0x33,0x03, 0x00, 0x00" Offset="-1"/>
+    <Command  Name ="Stirrer1SaveAdjust" Encoder="0x3D" Offset="2" EncodingObject="AdjustNode"/>
+    <!--搅拌器2校准-->
+    <Command  Name ="Stirrer2Bottom" Value="0x02, 0x31,0x31, 0x03, 0x00, 0x00" IsAdjustNode="True"/>
+    <Command  Name ="Stirrer2Top" Value="0x02, 0x30,0x31, 0x03, 0x00, 0x00" IsAdjustNode="True"/>
+    <Command  Name ="Stirrer2ClockwiseAdjust" Value="0x02, 0x3C,0x31, 0x30, 0x03, 0x00, 0x00" Offset="1"/>
+    <Command  Name ="Stirrer2AnticlockwiseAdjust" Value="0x02, 0x3C,0x31, 0x31, 0x03, 0x00, 0x00" Offset="-1"/>
+    <Command  Name ="Stirrer2UpAdjust" Value="0x02, 0x3C,0x31,0x32,0x03, 0x00, 0x00" Offset="1"/>
+    <Command  Name ="Stirrer2DownAdjust" Value="0x02, 0x3C,0x31,0x33,0x03, 0x00, 0x00" Offset="-1"/>
+    <Command  Name ="Stirrer2SaveAdjust" Encoder="0x3D" Offset="2" EncodingObject="AdjustNode"/>
+    <!--冲洗阀-->
+    <Command  Name ="Stirrer1CheckWashingValve" Value="0x02, 0x37,0x30, 0x03, 0x00, 0x00"/>
+    <Command  Name ="Stirrer2CheckWashingValve" Value="0x02, 0x37,0x31, 0x03, 0x00, 0x00"/>
+    <!--反应盘-->
+    <Command  Name ="ReactionPanelInitialze" Value="0x02, 0xD0, 0x03, 0x00, 0x00" IsAdjustNode="True"/>
+    <Command  Name ="ReactionPanelLightSet" Value="0x02, 0xDA, 0x03, 0x00, 0x00" IsAdjustNode="True"/>
+    <Command  Name ="ReactionPanelClockwiseOnePlus" Value="0x02, 0xE9, 0x03, 0x00, 0x00" Offset="1"/>
+    <Command  Name ="ReactionPanelAntiClockwiseOnePlus" Value="0x02, 0xD1, 0x03, 0x00, 0x00" Offset="-1"/>
+    <Command  Name ="ReactionPanelMoveOneCircuit" Value="0x02, 0xD3, 0x31, 0x03, 0x00, 0x00"/>
+    <Command  Name ="ReactionPanelMoveOneUnit" Value="0x02, 0xD2, 0x31, 0x03, 0x00, 0x00"/>
+    <Command  Name ="ReactionPanelInitialzeAdjustSave" Encoder="0x1D" Offset="2" EncodingObject="AdjustNode"/>
+    <Command  Name ="ReactionPanelLightSetAdjustSave" Encoder="0x1D" Offset="2" EncodingObject="AdjustNode"/>
+    <!--液路-->
+    <Command  Name ="WateChange" Value="0x02, 0x0E, 0x3E, 0x30,0x03, 0x00, 0x00"/>
+    <Command  Name ="ChilunbengTurnOn" Value="0x02, 0x0E, 0x33, 0x30,0x03, 0x00, 0x00"/>
+    <Command  Name ="ChilunbengTurnOff" Value="0x02, 0x0E, 0x33, 0x31,0x03, 0x00, 0x00"/>
+
+    <Command  Name ="FuyabengTurnOn" Value="0x02, 0x0E, 0x34, 0x30,0x03, 0x00, 0x00"/>
+    <Command  Name ="FuyabengTurnOff" Value="0x02, 0x0E, 0x34, 0x31,0x03, 0x00, 0x00"/>
+
+    <Command  Name ="QiyebengTurnOn" Value="0x02, 0x0E, 0x35, 0x30,0x03, 0x00, 0x00"/>
+    <Command  Name ="QiyebengTurnOff" Value="0x02, 0x0E, 0x35, 0x31,0x03, 0x00, 0x00"/>
+    <!--光路路-->
+    <Command  Name ="PhotometerCheckCUVBlk" Value="0x02, 0x0B,0x03, 0x00, 0x00"/>
+    <!--读取温度-->
+    <Command  Name ="ReadTempt" Value="0x02, 0x0E,0x30,0x30,0x03, 0x00, 0x00"/>
+    <!--条码-->
+    <Command  Name ="SampleBarcodeInit" Value="0x02, 0x49,0x30,0x03, 0x00, 0x00" IsAdjustNode="True"/>
+    <Command  Name ="SampleBarcodeTurnOn" Value="0x02, 0x47,0x30,0x03, 0x00, 0x00"/>
+    <Command  Name ="SampleBarcodeTurnOff" Value="0x02, 0x48,0x30,0x03, 0x00, 0x00"/>
+
+    <Command  Name ="Reagent1BarcodeInit" Value="0x02, 0xCB,0x30,0x03, 0x00, 0x00" IsAdjustNode="True"/>
+    <Command  Name ="Reagent1BarcodeTurnOn" Value="0x02, 0xC6,0x30,0x03, 0x00, 0x00"/>
+    <Command  Name ="Reagent1BarcodeTurnOff" Value="0x02, 0xC7,0x30,0x03, 0x00, 0x00"/>
+
+    <Command  Name ="Reagent2BarcodeInit" Value="0x02, 0xCB,0x31,0x03, 0x00, 0x00" IsAdjustNode="True"/>
+    <Command  Name ="Reagent2BarcodeTurnOn" Value="0x02, 0xC6,0x31,0x03, 0x00, 0x00"/>
+    <Command  Name ="Reagent2BarcodeTurnOff" Value="0x02, 0xC7,0x31,0x03, 0x00, 0x00"/>
+  </CommandProtocol>
+  <!--命令流-->
+  <CommandFlows>
+    <!--样本臂-->
+    <CommandFlow Command ="SampleArmFromFlumeToSMPOuterLoop" Node="SampleArmFromFlumeToSMPOuterLoop"/>
+    <CommandFlow Command ="SampleArmFromFlumeToSMPInnerLoop" Node="SampleArmFromFlumeToSMPInnerLoop"/>
+    <CommandFlow Command ="SampleArmFromFlumeToMutiFuncLoop" Node="SampleArmFromFlumeToMutiFuncLoop"/>
+
+    <CommandFlow Command ="SampleArmFromFlumeToDilCUV" Node="SampleArmFromFlumeToDilCUV"/>
+    <CommandFlow Command ="SampleArmFromDilCUVToCUV" Node="SampleArmFromDilCUVToCUV"/>
+    <CommandFlow Command ="SampleArmFromFromCUVToWatershoot" Node="SampleArmFromFromCUVToWatershoot"/>
+    <CommandFlow Command ="SampleArmFromWatershootToFlume" Node="SampleArmFromWatershootToFlume"/>
+
+    <CommandFlow Command ="SampleArmBottom" PreCommand="SampleArmFromSamplingPositionToCUV" Node="SampleArmAtCUVBottom"/>
+    <CommandFlow Command ="SampleArmBottom" PreCommand="SampleArmFromDilCUVToCUV" Node="SampleArmAtCUVBottom"/>
+    <CommandFlow Command ="SampleArmBottom" PreCommand="SampleArmFromFlumeToDilCUV" Node="SampleArmAtCUVBottom"/>
+    <CommandFlow Command ="SampleArmBottom" PreCommand="SampleArmFromFlumeToMutiFuncLoop" Node="SampleArmAtCupBottom"/>
+    <CommandFlow Command ="SampleArmBottom" PreCommand="SampleArmFromFlumeToSMPOuterLoop" Node="SampleArmAtTubeBottom"/>
+    <CommandFlow Command ="SampleArmBottom" PreCommand="SampleArmFromFlumeToSMPInnerLoop" Node="SampleArmAtTubeBottom"/>
+    <CommandFlow Command ="SampleArmBottom" PreCommand="SampleArmFromSamplingPositionToISE" Node="SampleArmAtISEBottom"/>
+
+    <CommandFlow Command ="SampleArmTop" PreCommand ="SampleArmBottom" PrePreCommand="SampleArmFromSamplingPositionToCUV" Node="SampleArmAtCUVBottom"/>
+    <CommandFlow Command ="SampleArmTop" PreCommand ="SampleArmBottom" PrePreCommand="SampleArmFromDilCUVToCUV" Node="SampleArmAtCUVBottom"/>
+    <CommandFlow Command ="SampleArmTop" PreCommand ="SampleArmBottom" PrePreCommand="SampleArmFromFlumeToDilCUV" Node="SampleArmAtCUVBottom"/>
+    <CommandFlow Command ="SampleArmTop" PreCommand ="SampleArmBottom" PrePreCommand="SampleArmFromFlumeToMutiFuncLoop" Node="SampleArmAtCupBottom"/>
+    <CommandFlow Command ="SampleArmTop" PreCommand ="SampleArmBottom" PrePreCommand="SampleArmFromFlumeToSMPOuterLoop" Node="SampleArmAtTubeBottom"/>
+    <CommandFlow Command ="SampleArmTop" PreCommand ="SampleArmBottom" PrePreCommand="SampleArmFromFlumeToSMPInnerLoop" Node="SampleArmAtTubeBottom"/>
+    <CommandFlow Command ="SampleArmTop" PreCommand ="SampleArmBottom" PrePreCommand="SampleArmFromSMPOuterLoopToISE" Node="SampleArmAtISETop"/>
+    <CommandFlow Command ="SampleArmTop" PreCommand ="SampleArmBottom" PrePreCommand="SampleArmFromSMPInnerLoopToISE" Node="SampleArmAtISETop"/>
+    <CommandFlow Command ="SampleArmTop" PreCommand ="SampleArmBottom" PrePreCommand="SampleArmFromMutiFuncLoopToISE" Node="SampleArmAtISETop"/>
+
+    <CommandFlow Command ="SampleArmFromSamplingPositionToCUV" PreCommand="SampleArmFromFlumeToSMPOuterLoop" Node="SampleArmFromSMPOuterLoopToCUV" />
+    <CommandFlow Command ="SampleArmFromSamplingPositionToCUV" PreCommand="SampleArmFromFlumeToSMPInnerLoop" Node="SampleArmFromSMPInnerLoopToCUV"/>
+    <CommandFlow Command ="SampleArmFromSamplingPositionToCUV" PreCommand="SampleArmFromFlumeToMutiFuncLoop" Node="SampleArmFromMutiFuncLoopToCUV"/>
+
+    <CommandFlow Command ="SampleArmFromSamplingPositionToISE" PreCommand="SampleArmFromFlumeToSMPOuterLoop" Node="SampleArmFromSMPOuterLoopToISE"/>
+    <CommandFlow Command ="SampleArmFromSamplingPositionToISE" PreCommand="SampleArmFromFlumeToSMPInnerLoop" Node="SampleArmFromSMPInnerLoopToISE"/>
+    <CommandFlow Command ="SampleArmFromSamplingPositionToISE" PreCommand="SampleArmFromFlumeToMutiFuncLoop" Node="SampleArmFromMutiFuncLoopToISE"/>
+    <!--试剂臂1-->
+    <CommandFlow Command ="ReagentArm1FromFlumeToRGTOuterLoop" Node="ReagentArm1FromFlumeToRGTOuterLoop"/>
+    <CommandFlow Command ="ReagentArm1FromFlumeToRGTInnerLoop" Node="ReagentArm1FromFlumeToRGTInnerLoop"/>
+    <CommandFlow Command ="ReagentArm1FromCUVToWatershoot" Node="ReagentArm1FromCUVToWatershoot"/>
+    <CommandFlow Command ="ReagentArm1FromWatershootToFlume" Node="ReagentArm1FromWatershootToFlume"/>
+    <CommandFlow Command ="ReagentArm1FromRgtingPositionToCUV" PreCommand="ReagentArm1FromFlumeToRGTOuterLoop" Node="ReagentArm1FromRGTOuterLoopToCUV"/>
+    <CommandFlow Command ="ReagentArm1FromRgtingPositionToCUV" PreCommand="ReagentArm1FromFlumeToRGTInnerLoop" Node="ReagentArm1FromRGTInnerLoopToCUV"/>
+    <CommandFlow Command ="ReagentArm1Bottom" PreCommand="ReagentArm1FromFlumeToRGTOuterLoop" Node="ReagentArm1AtRgtingPositionBottom"/>
+    <CommandFlow Command ="ReagentArm1Bottom" PreCommand="ReagentArm1FromFlumeToRGTInnerLoop" Node="ReagentArm1AtRgtingPositionBottom"/>
+    <CommandFlow Command ="ReagentArm1Bottom" PreCommand="ReagentArm1FromRgtingPositionToCUV" Node="ReagentArm1AtCUVBottom"/>
+    <CommandFlow Command ="ReagentArm1Top" PreCommand ="ReagentArm1Bottom" PrePreCommand="ReagentArm1FromFlumeToRGTOuterLoop" Node="ReagentArm1AtRgtingPositionBottom"/>
+    <CommandFlow Command ="ReagentArm1Top" PreCommand ="ReagentArm1Bottom" PrePreCommand="ReagentArm1FromFlumeToRGTInnerLoop" Node="ReagentArm1AtRgtingPositionBottom"/>
+    <CommandFlow Command ="ReagentArm1Top" PreCommand ="ReagentArm1Bottom" PrePreCommand="ReagentArm1FromRgtingPositionToCUV" Node="ReagentArm1AtCUVBottom"/>
+    <!--试剂臂2-->
+    <CommandFlow Command ="ReagentArm2FromFlumeToRGTOuterLoop" Node="ReagentArm2FromFlumeToRGTOuterLoop"/>
+    <CommandFlow Command ="ReagentArm2FromFlumeToRGTInnerLoop" Node="ReagentArm2FromFlumeToRGTInnerLoop"/>
+    <CommandFlow Command ="ReagentArm2FromCUVToWatershoot" Node="ReagentArm2FromCUVToWatershoot"/>
+    <CommandFlow Command ="ReagentArm2FromWatershootToFlume" Node="ReagentArm2FromWatershootToFlume"/>
+    <CommandFlow Command ="ReagentArm2FromRgtingPositionToCUV" PreCommand="ReagentArm2FromFlumeToRGTOuterLoop" Node="ReagentArm2FromRGTOuterLoopToCUV"/>
+    <CommandFlow Command ="ReagentArm2FromRgtingPositionToCUV" PreCommand="ReagentArm2FromFlumeToRGTInnerLoop" Node="ReagentArm2FromRGTInnerLoopToCUV"/>
+    <CommandFlow Command ="ReagentArm2Bottom" PreCommand="ReagentArm2FromFlumeToRGTOuterLoop" Node="ReagentArm2AtRgtingPositionBottom"/>
+    <CommandFlow Command ="ReagentArm2Bottom" PreCommand="ReagentArm2FromFlumeToRGTInnerLoop" Node="ReagentArm2AtRgtingPositionBottom"/>
+    <CommandFlow Command ="ReagentArm2Bottom" PreCommand="ReagentArm2FromRgtingPositionToCUV" Node="ReagentArm2AtCUVBottom"/>
+    <CommandFlow Command ="ReagentArm2From30PositionToHatching" PreCommand="ReagentArm2FromFlumeToRGTOuterLoop" Node="ReagentArm2AtHatchingTop"/>
+    <CommandFlow Command ="ReagentArm2Top" PreCommand ="ReagentArm2Bottom" PrePreCommand="ReagentArm2FromFlumeToRGTOuterLoop" Node="ReagentArm2AtRgtingPositionBottom"/>
+    <CommandFlow Command ="ReagentArm2Top" PreCommand ="ReagentArm2Bottom" PrePreCommand="ReagentArm2FromFlumeToRGTInnerLoop" Node="ReagentArm2AtRgtingPositionBottom"/>
+    <CommandFlow Command ="ReagentArm2Top" PreCommand ="ReagentArm2Bottom" PrePreCommand="ReagentArm2FromRgtingPositionToCUV" Node="ReagentArm2AtCUVBottom"/>
+    <!--搅拌器1节点值-->
+    <CommandFlow Command ="Stirrer1Bottom" Node="Stirrer1AtFlumeBottom"/>
+    <CommandFlow Command ="Stirrer1Bottom" PreCommand="Stirrer1Bottom" Node="Stirrer1AtFlumeBottom"/>
+    <CommandFlow Command ="Stirrer1Bottom" PreCommand="Stirrer1Bottom" PrePreCommand="Stirrer1Bottom" Node="Stirrer1AtFlumeBottom"/>
+    <CommandFlow Command ="Stirrer1Bottom" PreCommand="Stirrer1ToCUV" Node="Stirrer1AtCUVBottom"/>
+    <CommandFlow Command ="Stirrer1Bottom" PreCommand="Stirrer1ToFlume" Node="Stirrer1AtFlumeBottom"/>
+    <CommandFlow Command ="Stirrer1Top" PreCommand ="Stirrer1Bottom" PrePreCommand="Stirrer1ToFlume" Node="Stirrer1FromCUVAtFlume"/>
+    <CommandFlow Command ="Stirrer1ToFlume" PreCommand="Stirrer1ToCUV" Node="Stirrer1FromCUVAtFlume"/>
+    <!--搅拌器2节点值-->
+    <CommandFlow Command ="Stirrer2Bottom" Node="Stirrer2AtFlumeBottom"/>
+    <CommandFlow Command ="Stirrer2Bottom" PreCommand="Stirrer2Bottom" Node="Stirrer2AtFlumeBottom"/>
+    <CommandFlow Command ="Stirrer2Bottom" PreCommand="Stirrer2Bottom" PrePreCommand="Stirrer2Bottom" Node="Stirrer2AtFlumeBottom"/>
+    <CommandFlow Command ="Stirrer2Bottom" PreCommand="Stirrer2ToCUV" Node="Stirrer2AtCUVBottom"/>
+    <CommandFlow Command ="Stirrer2Bottom" PreCommand="Stirrer2ToFlume" Node="Stirrer2AtFlumeBottom"/>
+    <CommandFlow Command ="Stirrer2Top" PreCommand ="Stirrer2Bottom" PrePreCommand="Stirrer2ToFlume" Node="Stirrer2FromCUVAtFlume"/>
+    <CommandFlow Command ="Stirrer2ToFlume" PreCommand="Stirrer2ToCUV" Node="Stirrer2FromCUVAtFlume"/>
+    <!--比色杯清洗器节点值-->
+    <CommandFlow Command ="CUVWasherBottom" Node="CUVWasherCUVBottom"/>
+    <!--样本盘-->
+    <CommandFlow Command ="SamplePlateInitialize" Node="SamplePlateInitialize"/>
+    <CommandFlow Command ="SampleBarcodeInit" Node="SampleBarcodeInit"/>
+    <!--反应盘-->
+    <CommandFlow Command ="ReactionPanelInitialze" Node="ReactionPanelInitialze"/>
+    <CommandFlow Command ="ReactionPanelLightSet" Node="ReactionPanelLightSet"/>
+    <!--试剂盘1-->
+    <CommandFlow Command ="ReagentPlate1OuterLoopInitialize" Node="ReagentPlate1OuterLoopInitialize"/>
+    <CommandFlow Command ="ReagentPlate1InnerLoopInitialize" Node="ReagentPlate1InnerLoopInitialize"/>
+    <CommandFlow Command ="Reagent1BarcodeInit" Node="Reagent1BarcodeInit"/>
+    <!--试剂盘2-->
+    <CommandFlow Command ="ReagentPlate2OuterLoopInitialize" Node="ReagentPlate2OuterLoopInitialize"/>
+    <CommandFlow Command ="ReagentPlate2InnerLoopInitialize" Node="ReagentPlate2InnerLoopInitialize"/>
+    <CommandFlow Command ="Reagent2BarcodeInit" Node="Reagent2BarcodeInit"/>
+  </CommandFlows>
+  <!--校准节点-->
+  <AdjustNode>
+    <!--样本臂节点值-->
+    <Node Name="SampleArmFromFlumeToSMPOuterLoop" Value="0x60"/>
+    <Node Name ="SampleArmFromFlumeToSMPInnerLoop" Value="0x61"/>
+    <Node Name ="SampleArmFromFlumeToMutiFuncLoop" Value="0x62"/>
+    <Node Name ="SampleArmFromFlumeToDilCUV" Value="0x67"/>
+    <Node Name ="SampleArmFromFromCUVToWatershoot" Value="0x68"/>
+    <Node Name ="SampleArmFromWatershootToFlume" Value="0x69"/>
+    <Node Name ="SampleArmFromDilCUVToCUV" Value="0x6B"/>
+    <Node Name="SampleArmFromSMPOuterLoopToCUV" Value="0x70"/>
+    <Node Name ="SampleArmFromSMPInnerLoopToCUV" Value="0x71"/>
+    <Node Name ="SampleArmFromMutiFuncLoopToCUV" Value="0x72"/>
+    <Node Name ="SampleArmAtCupBottom" Value="0x79"/>
+    <Node Name ="SampleArmAtTubeBottom" Value="0x78"/>
+    <Node Name ="SampleArmAtCUVBottom" Value="0x7A"/>
+    <Node Name ="SampleArmAtISEBottom" Value="0x7C"/>
+    <Node Name ="SampleArmFromSMPOuterLoopToISE" Value="0x63"/>
+    <Node Name ="SampleArmFromSMPInnerLoopToISE" Value="0x64"/>
+    <Node Name ="SampleArmFromMutiFuncLoopToISE" Value="0x65"/>
+    <!--试剂臂1节点值-->
+    <Node Name="ReagentArm1FromFlumeToRGTInnerLoop" Value="0x30,0x80"/>
+    <Node Name="ReagentArm1FromFlumeToRGTOuterLoop" Value="0x30,0x81"/>
+    <Node Name="ReagentArm1FromCUVToWatershoot" Value="0x30,0x84"/>
+    <Node Name="ReagentArm1FromWatershootToFlume" Value="0x30,0x85"/>
+    <Node Name="ReagentArm1FromRGTOuterLoopToCUV" Value="0x30,0x8D"/>
+    <Node Name="ReagentArm1FromRGTInnerLoopToCUV" Value="0x30,0x8E"/>
+    <Node Name="ReagentArm1AtCUVBottom" Value="0x30,0x8C"/>
+    <Node Name="ReagentArm1AtRgtingPositionBottom" Value="0x30,0x8B"/>
+    <Node Name="ReagentArm1AtHatchingTop" Value="0x30,0x83"/>
+    <!--试剂臂2节点值-->
+    <Node Name="ReagentArm2FromFlumeToRGTInnerLoop" Value="0x31,0x80"/>
+    <Node Name="ReagentArm2FromFlumeToRGTOuterLoop" Value="0x31,0x81"/>
+    <Node Name="ReagentArm2FromCUVToWatershoot" Value="0x31,0x84"/>
+    <Node Name="ReagentArm2FromWatershootToFlume" Value="0x31,0x85"/>
+    <Node Name="ReagentArm2FromRGTOuterLoopToCUV" Value="0x31,0x8D"/>
+    <Node Name="ReagentArm2FromRGTInnerLoopToCUV" Value="0x31,0x8E"/>
+    <Node Name="ReagentArm2AtCUVBottom" Value="0x31,0x8C"/>
+    <Node Name="ReagentArm2AtRgtingPositionBottom" Value="0x31,0x8B"/>
+    <Node Name="ReagentArm2AtHatchingTop" Value="0x31,0x83"/>
+    <!--搅拌器1节点值-->
+    <Node Name="Stirrer1FromCUVAtFlume" Value="0x30,0x30"/>
+    <Node Name="Stirrer1AtFlumeBottom" Value="0x30,0x32"/>
+    <Node Name="Stirrer1AtCUVBottom" Value="0x30,0x33"/>
+    <!--搅拌器2节点值-->
+    <Node Name="Stirrer2FromCUVAtFlume" Value="0x31,0x30"/>
+    <Node Name="Stirrer2AtFlumeBottom" Value="0x31,0x32"/>
+    <Node Name="Stirrer2AtCUVBottom" Value="0x31,0x33"/>
+    <!--比色杯清洗器节点值-->
+    <Node Name="CUVWasherCUVBottom" Value="0x32"/>
+    <!--样本盘-->
+    <Node Name="SamplePlateInitialize" Value="0x30,0x30"/>
+    <Node Name="SampleBarcodeInit" Value="0x30,0x33"/>
+    <!--反应盘-->
+    <Node Name="ReactionPanelInitialze" Value="0x30"/>
+    <Node Name="ReactionPanelLightSet" Value="0x31"/>
+    <!--试剂盘-->
+    <Node Name="ReagentPlate1OuterLoopInitialize" Value="0x30,0x30"/>
+    <Node Name="ReagentPlate1InnerLoopInitialize" Value="0x30,0x31"/>
+    <Node Name="Reagent1BarcodeInit" Value="0x30,0x32"/>
+    <Node Name="ReagentPlate2OuterLoopInitialize" Value="0x31,0x30"/>
+    <Node Name="ReagentPlate2InnerLoopInitialize" Value="0x31,0x31"/>
+    <Node Name="Reagent2BarcodeInit" Value="0x31,0x32"/>
+  </AdjustNode>
+  <!--工作流-->
+  <StartSchedule>
+    <PhotometerAutoCheck>True</PhotometerAutoCheck>
+  </StartSchedule>
+  <!--解码字典-->
+  <ParseDictionary DataAssembly="BioA.PLCController">
+    <ParseInterface  Key= "0xE2" ImplementClass="BioA.PLCController.Interface.ParseE20"/>
+    <ParseInterface  Key= "0x08" ImplementClass="BioA.PLCController.Interface.Parse083"/>
+    <ParseInterface  Key= "0x07" ImplementClass="BioA.PLCController.Interface.Parse0831"/>
+    <ParseInterface  Key= "0x1C" ImplementClass="BioA.PLCController.Interface.Parse1C0"/>
+    <ParseInterface  Key= "0x0A" ImplementClass="BioA.PLCController.Interface.Parse0A2"/>
+    <ParseInterface  Key= "0x11" ImplementClass="BioA.PLCController.Interface.Parse111"/>
+    <ParseInterface  Key= "0x2B" ImplementClass="BioA.PLCController.Interface.Parse2B0"/>
+    <!--清洗剂D余量检查-->
+    <ParseInterface  Key= "0x3B" ImplementClass="BioA.PLCController.Interface.Parse2B1"/>
+    <ParseInterface  Key= "0x21" ImplementClass="BioA.PLCController.Interface.Parse210"/>
+    <ParseInterface  Key= "0x1D" ImplementClass="BioA.PLCController.Interface.Parse1D1"/>
+    <ParseInterface  Key= "0x27" ImplementClass="BioA.PLCController.Interface.Parse270"/>
+    <ParseInterface  Key= "0x090" ImplementClass="BioA.PLCController.Interface.Parse090"/>
+    <ParseInterface  Key= "0x092" ImplementClass="BioA.PLCController.Interface.Parse092"/>
+    <ParseInterface  Key= "0x094" ImplementClass="BioA.PLCController.Interface.Parse094"/>
+    <ParseInterface  Key= "0x25" ImplementClass="BioA.PLCController.Interface.Parse250"/>
+    <ParseInterface  Key= "0x95" ImplementClass="BioA.PLCController.Interface.Parse095"/>
+    <ParseInterface  Key= "0x0E" ImplementClass="BioA.PLCController.Interface.Parse0E0"/>
+    <ParseInterface  Key= "0xAD" ImplementClass="BioA.PLCController.Interface.ParseAD0"/>
+    <ParseInterface  Key= "0xA9" ImplementClass="BioA.PLCController.Interface.ParseA90"/>
+    <ParseInterface  Key= "0x0B" ImplementClass="BioA.PLCController.Interface.Parse0B0"/>
+    <ParseInterface  Key= "0xC5" ImplementClass="BioA.PLCController.Interface.ParseC50"/>
+    <ParseInterface  Key= "0x45" ImplementClass="BioA.PLCController.Interface.Parse450"/>
+  </ParseDictionary>
+  <!--编码字典-->
+  <EncodeDictionary DataAssembly="BioA.PLCController">
+    <EncodeInterface Key= "0x04" ImplementClass="BioA.PLCController.Interface.Encode042"/>
+    <EncodeInterface Key= "0x21" ImplementClass="BioA.PLCController.Interface.Encode210"/>
+    <EncodeInterface Key= "0x22" ImplementClass="BioA.PLCController.Interface.Encode220"/>
+    <EncodeInterface Key= "0x23" ImplementClass="BioA.PLCController.Interface.Encode230"/>
+    <EncodeInterface Key= "0x6E" ImplementClass="BioA.PLCController.Interface.Encode6E1"/>
+    <EncodeInterface Key= "0x891" ImplementClass="BioA.PLCController.Interface.Encode891"/>
+    <EncodeInterface Key= "0x892" ImplementClass="BioA.PLCController.Interface.Encode892"/>
+    <EncodeInterface Key= "0x3D" ImplementClass="BioA.PLCController.Interface.Encode3D1"/>
+    <EncodeInterface Key= "0xEC" ImplementClass="BioA.PLCController.Interface.EncodeEC1"/>
+    <EncodeInterface Key= "0x27" ImplementClass="BioA.PLCController.Interface.Encode270"/>
+    <EncodeInterface Key= "0x2B" ImplementClass="BioA.PLCController.Interface.Encode2B1"/>
+    <EncodeInterface Key= "0xC5" ImplementClass="BioA.PLCController.Interface.EncodeC50"/>
+    <EncodeInterface Key= "0x090" ImplementClass="BioA.PLCController.Interface.Encode090"/>
+    <EncodeInterface Key= "0x092" ImplementClass="BioA.PLCController.Interface.Encode092"/>
+    <EncodeInterface Key= "0x094" ImplementClass="BioA.PLCController.Interface.Encode094"/>
+    <EncodeInterface Key= "0xAB" ImplementClass="BioA.PLCController.Interface.EncodeAB1"/>
+    <EncodeInterface Key= "0xAA" ImplementClass="BioA.PLCController.Interface.EncodeAA0"/>
+    <EncodeInterface Key= "0xA90" ImplementClass="BioA.PLCController.Interface.EncodeA90"/>
+    <EncodeInterface Key= "0x4A" ImplementClass="BioA.PLCController.Interface.Encode4A0"/>
+    <EncodeInterface Key= "0x1D" ImplementClass="BioA.PLCController.Interface.Encode1D0"/>
+    <EncodeInterface Key= "0xCE" ImplementClass="BioA.PLCController.Interface.EncodeCE0"/>
+    <EncodeInterface Key= "0x0E" ImplementClass="BioA.PLCController.Interface.Encode0E0"/>
+    <EncodeInterface Key= "0x45" ImplementClass="BioA.PLCController.Interface.Encode450"/>
+    <EncodeInterface Key= "0xA2" ImplementClass="BioA.PLCController.Interface.EncodeA20"/>
+  </EncodeDictionary>
+</MachineConfigure>

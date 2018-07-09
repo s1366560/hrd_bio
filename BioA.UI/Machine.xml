@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Machine Type="HRD-800" FullName="HRD-800生化分析仪" SN="000000">
+  <MachineCommand>
+    <Subsystem Name="Common" DebugNavi="False" DynicLoad="False">
+      <Componet Name="Task">
+        <Command Name="IgnoreKeyDoRun" FullName="^执行测试^" />
+        <Command Name="StartSchedule" FullName="执行测试" />
+        <Command Name="PauseSchedule" FullName="暂停测试" />
+        <Command Name="AbortSchedule" FullName="放弃测试" />
+        <Command Name="AbortDorun" FullName="放弃测试" />
+      </Componet>
+      <Componet Name="Maintance">
+        <Command Name="Initialize" FullName="初始化" />
+        <Command Name="WashSampleProbe" FullName="清洗样本针" />
+        <Command Name="WaterSaved" FullName="水保护" />
+        <Command Name="WashCuvette" FullName="清洗比色杯" />
+        <Command Name="WashByDetergent" FullName="清洗系统" />
+        <Command Name="PhotometerAutoCheck" FullName="光度计检测" />
+        <Command Name="PhotometerManualCheck" FullName="开始扫描" />
+        <Command Name="PhotometerManualCheckStop" FullName="停止扫描" />
+        <Command Name="RGTPanel1VolScan" FullName="扫描试剂1余量" />
+        <Command Name="RGTPanel2VolScan" FullName="扫描试剂2余量" />
+        <Command Name="RGTPanel1BarcodeScan" FullName="扫描试剂仓1条码" />
+        <Command Name="RGTPanel2BarcodeScan" FullName="扫描试剂仓2条码" />
+        <Command Name="SMPPanelScanBarcode" FullName="扫描样本仓条码" />
+        <Command Name="DoDemo" FullName="动态演示" />
+        <Command Name="ReadActivityCode" FullName="读取激活码" />
+        <Command Name="WriteActivityCode" FullName="刷新激活码" />
+        <Command Name="ReadSN" FullName="读取SN码" />
+        <Command Name="WriteSN" FullName="烧写SN码" />
+        <Command Name="ReadLicense" FullName="验证用户" />
+        <Command Name="WriteLicense" FullName="绑定用户" />
+        <Command Name="ExChangeWater" FullName="孵育槽水交换" />
+        <!--ReadVersion改为CheckCommunication-->
+        <Command Name="CheckCommunication" FullName="检测硬件" />
+        <Command Name="CheckWashingLiquid" FullName="检查清洗液" />
+        <Command Name="ReagentSet" FullName="设置试剂" />
+      </Componet>
+    </Subsystem>
+    <Subsystem Name="反应盘调试">
+      <Componet Name="反应盘">
+        <Command Name="ReactionPanelInitialze" FullName="初始化" />
+        <Command Name="ReactionPanelLightSet" FullName="光路对准" />
+        <Command Name="ReactionPanelClockwiseOnePlus" FullName="顺时旋转一脉冲" />
+        <Command Name="ReactionPanelAntiClockwiseOnePlus" FullName="逆时旋转一脉冲" />
+        <Command Name="ReactionPanelInitialzeAdjustSave" FullName="初始化位置校准保存" />
+        <Command Name="ReactionPanelLightSetAdjustSave" FullName="光路对准位置校准保存" />
+        <Command Name="ReactionPanelMoveOneCircuit" FullName="旋转一周" />
+        <Command Name="ReactionPanelMoveOneUnit" FullName="旋转一比色杯位" />
+      </Componet>
+      <Componet Name="清洗器">
+        <Command Name="CUVWasherInitialize" FullName="初始化" />
+        <Command Name="CUVWasherBottom" FullName="至底" />
+        <Command Name="CUVWasherTop" FullName="至顶" />
+        <Command Name="CUVWasherUpAdjust" FullName="向上校准" />
+        <Command Name="CUVWasherDownAdjust" FullName="向下校准" />
+        <Command Name="CUVWasherSaveAdjust" FullName="保存校准" />
+      </Componet>
+      <Componet Name="孵育温度">
+        <Command Name="TempCalibrating" FullName="校准温控探头" />
+      </Componet>
+    </Subsystem>
+    <Subsystem Name="试剂盘调试">
+      <Componet Name="试剂盘1">
+        <Command Name="ReagentPlate1OuterLoopInitialize" FullName="外圈复位" />
+        <Command Name="ReagentPlate1OuterLoopInitializeAdjustSave" FullName="外圈复位位置校准保存" />
+        <Command Name="ReagentPlate1InnerLoopInitialize" FullName="内圈复位" />
+        <Command Name="ReagentPlate1InnerLoopInitializeAdjustSave" FullName="内圈复位位置校准保存" />
+        <Command Name="ReagentPlate1ClockWiseOnePlus" FullName="顺时针旋转一脉冲" />
+        <Command Name="ReagentPlate1AntiClockWiseOnePlus" FullName="逆时针旋转一脉冲" />
+        <Command Name="ReagentPlate1OneCircle" FullName="旋转一圈" />
+        <Command Name="ReagentPlate1OneStep" FullName="旋转一步" />
+        <Command Name="Reagent1BarcodeInit" FullName="试剂盘置条码扫描位" />
+        <Command Name="ReagentPlate1BarcodePosSaveAdjust" FullName="条码扫描位置校准保存" />
+        <Command Name="Reagent1BarcodeTurnOn" FullName="条码器开" />
+        <Command Name="Reagent1BarcodeTurnOff" FullName="条码器关" />
+      </Componet>
+      <Componet Name="试剂盘2">
+        <Command Name="ReagentPlate2OuterLoopInitialize" FullName="外圈复位" />
+        <Command Name="ReagentPlate2OuterLoopInitializeAdjustSave" FullName="外圈复位位置校准保存" />
+        <Command Name="ReagentPlate2InnerLoopInitialize" FullName="内圈复位" />
+        <Command Name="ReagentPlate2InnerLoopInitializeAdjustSave" FullName="内圈复位位置校准保存" />
+        <Command Name="ReagentPlate2ClockWiseOnePlus" FullName="顺时针旋转一脉冲" />
+        <Command Name="ReagentPlate2AntiClockWiseOnePlus" FullName="逆时针旋转一脉冲" />
+        <Command Name="ReagentPlate2OneCircle" FullName="旋转一圈" />
+        <Command Name="ReagentPlate2OneStep" FullName="旋转一步" />
+        <Command Name="Reagent2BarcodeInit" FullName="试剂盘置条码扫描位" />
+        <Command Name="ReagentPlate2BarcodePosSaveAdjust" FullName="条码扫描位置校准保存" />
+        <Command Name="Reagent2BarcodeTurnOn" FullName="条码器开" />
+        <Command Name="Reagent2BarcodeTurnOff" FullName="条码器关" />
+      </Componet>
+    </Subsystem>
+    <Subsystem Name="样本盘调试">
+      <Componet Name="样本盘">
+        <Command Name="SamplePlateInitialize" FullName="初始化" />
+        <Command Name="SamplePlateClockwiseOnePlus" FullName="顺时旋转一脉冲" />
+        <Command Name="SamplePlateAnticlockwiseOnePlus" FullName="逆时旋转一脉冲" />
+        <Command Name="SamplePlateInitPosSaveAdjust" FullName="初始化位置校准保存" />
+        <Command Name="SamplePlateOneCircle" FullName="旋转一圈" />
+        <Command Name="SamplePlateOneStep" FullName="旋转一步" />
+        <Command Name="SampleBarcodeInit" FullName="样本盘置条码扫描位" />
+        <Command Name="SampleBarcodePosSaveAdjust" FullName="条码扫描位置校准保存" />
+        <Command Name="SampleBarcodeTurnOn" FullName="条码器开" />
+        <Command Name="SampleBarcodeTurnOff" FullName="条码器关" />
+      </Componet>
+    </Subsystem>
+    <Subsystem Name="吸量器调试">
+      <Componet Name="样本臂">
+        <Command Name="SampleArmInitialize" FullName="初始化" />
+        <Command Name="SampleArmFromFlumeToSMPOuterLoop" FullName="水槽至样本外圈" />
+        <Command Name="SampleArmFromFlumeToSMPInnerLoop" FullName="水槽至样本内圈" />
+        <Command Name="SampleArmFromFlumeToMutiFuncLoop" FullName="水槽至多功能圈" />
+        <Command Name="SampleArmFromFlumeToDilCUV" FullName="水槽至稀释比色杯" />
+        <Command Name="SampleArmFromDilCUVToCUV" FullName="稀释比色杯至比色杯" />
+        <Command Name="SampleArmFromSamplingPositionToCUV" FullName="采样位至比色杯" />
+        <Command Name="SampleArmFromFromCUVToWatershoot" FullName="比色杯至水槽" />
+        <Command Name="SampleArmBottom" FullName="至底" />
+        <Command Name="SampleArmTop" FullName="至顶" />
+      </Componet>
+      <Componet Name="样本吸量器">
+        <Command Name="SampleSuckerInitialize" FullName="初始化" />
+        <Command Name="SampleSuckerSuck" FullName="吸液" />
+        <Command Name="SampleSuckerVomit" FullName="吐液" />
+        <Command Name="SampleSuckerTurnOn" FullName="开" />
+        <Command Name="SampleSuckerTurnOff" FullName="关" />
+      </Componet>
+      <Componet Name="样本臂校准">
+        <Command Name="SampleArmClockwiseAdjust" FullName="顺时针校准" />
+        <Command Name="SampleArmAnticlockwiseAdjust" FullName="逆时针校准" />
+        <Command Name="SampleArmUpAdjust" FullName="向上校准" />
+        <Command Name="SampleArmDownAdjust" FullName="向下校准" />
+        <Command Name="SampleArmSaveAdjust" FullName="保存校准" />
+      </Componet>
+      <Componet Name="试剂臂1">
+        <Command Name="ReagentArm1Initialize" FullName="初始化" />
+        <Command Name="ReagentArm1FromFlumeToRGTOuterLoop" FullName="水槽至试剂外圈" />
+        <Command Name="ReagentArm1FromFlumeToRGTInnerLoop" FullName="水槽至试剂内圈" />
+        <Command Name="ReagentArm1FromRgtingPositionToCUV" FullName="采试剂位至比色杯" />
+        <Command Name="ReagentArm1From30PositionToHatching" FullName="抑菌剂位至孵育槽" />
+        <Command Name="ReagentArm1Bottom" FullName="至底" />
+        <Command Name="ReagentArm1Top" FullName="至顶" />
+      </Componet>
+      <Componet Name="试剂臂1吸量器">
+        <Command Name="ReagentSucker1Initialize" FullName="初始化" />
+        <Command Name="ReagentSucker1Suck" FullName="吸液" />
+        <Command Name="ReagentSucker1Vomit" FullName="吐液" />
+        <Command Name="ReagentSucker1TurnOn" FullName="开" />
+        <Command Name="ReagentSucker1TurnOff" FullName="关" />
+      </Componet>
+      <Componet Name="试剂臂1校准">
+        <Command Name="ReagentArm1ClockwiseAdjust" FullName="顺时针校准" />
+        <Command Name="ReagentArm1AnticlockwiseAdjust" FullName="逆时针校准" />
+        <Command Name="ReagentArm1UpAdjust" FullName="向上校准" />
+        <Command Name="ReagentArm1DownAdjust" FullName="向下校准" />
+        <Command Name="ReagentArm1SaveAdjust" FullName="保存校准" />
+      </Componet>
+      <Componet Name="试剂臂2">
+        <Command Name="ReagentArm2Initialize" FullName="初始化" />
+        <Command Name="ReagentArm2FromFlumeToRGTOuterLoop" FullName="水槽至试剂外圈" />
+        <Command Name="ReagentArm2FromFlumeToRGTInnerLoop" FullName="水槽至试剂内圈" />
+        <Command Name="ReagentArm2FromRgtingPositionToCUV" FullName="采试剂位至比色杯" />
+        <Command Name="ReagentArm2From30PositionToHatching" FullName="抑菌剂位至孵育槽" />
+        <Command Name="ReagentArm2Bottom" FullName="至底" />
+        <Command Name="ReagentArm2Top" FullName="至顶" />
+      </Componet>
+      <Componet Name="试剂臂2吸量器">
+        <Command Name="ReagentSucker2Initialize" FullName="初始化" />
+        <Command Name="ReagentSucker2Suck" FullName="吸液" />
+        <Command Name="ReagentSucker2Vomit" FullName="吐液" />
+        <Command Name="ReagentSucker2TurnOn" FullName="开" />
+        <Command Name="ReagentSucker2TurnOff" FullName="关" />
+      </Componet>
+      <Componet Name="试剂臂2校准">
+        <Command Name="ReagentArm2ClockwiseAdjust" FullName="顺时针校准" />
+        <Command Name="ReagentArm2AnticlockwiseAdjust" FullName="逆时针校准" />
+        <Command Name="ReagentArm2UpAdjust" FullName="向上校准" />
+        <Command Name="ReagentArm2DownAdjust" FullName="向下校准" />
+        <Command Name="ReagentArm2SaveAdjust" FullName="保存校准" />
+      </Componet>
+    </Subsystem>
+    <Subsystem Name="搅拌器调试" DebugNavi="True" DynicLoad="True">
+      <Componet Name="搅拌器1">
+        <Command Name="Stirrer1Initialize" FullName="初始化" />
+        <Command Name="Stirrer1ToCUV" FullName="至比色杯" />
+        <Command Name="Stirrer1ToFlume" FullName="至水槽" />
+        <Command Name="Stirrer1TurnOn" FullName="开始搅拌" />
+        <Command Name="Stirrer1TurnOff" FullName="停止搅拌" />
+      </Componet>
+      <Componet Name="搅拌器1校准">
+        <Command Name="Stirrer1Bottom" FullName="至底" />
+        <Command Name="Stirrer1Top" FullName="至顶" />
+        <Command Name="Stirrer1ClockwiseAdjust" FullName="顺时针校准" />
+        <Command Name="Stirrer1AnticlockwiseAdjust" FullName="逆时针校准" />
+        <Command Name="Stirrer1UpAdjust" FullName="向上校准" />
+        <Command Name="Stirrer1DownAdjust" FullName="向下校准" />
+        <Command Name="Stirrer1SaveAdjust" FullName="保存校准" />
+      </Componet>
+      <Componet Name="搅拌器2">
+        <Command Name="Stirrer2Initialize" FullName="初始化" />
+        <Command Name="Stirrer2ToCUV" FullName="至比色杯" />
+        <Command Name="Stirrer2ToFlume" FullName="至水槽" />
+        <Command Name="Stirrer2TurnOn" FullName="开始搅拌" />
+        <Command Name="Stirrer2TurnOff" FullName="停止搅拌" />
+      </Componet>
+      <Componet Name="搅拌器2校准">
+        <Command Name="Stirrer2Bottom" FullName="至底" />
+        <Command Name="Stirrer2Top" FullName="至顶" />
+        <Command Name="Stirrer2ClockwiseAdjust" FullName="顺时针校准" />
+        <Command Name="Stirrer2AnticlockwiseAdjust" FullName="逆时针校准" />
+        <Command Name="Stirrer2UpAdjust" FullName="向上校准" />
+        <Command Name="Stirrer2DownAdjust" FullName="向下校准" />
+        <Command Name="Stirrer2SaveAdjust" FullName="保存校准" />
+      </Componet>
+    </Subsystem>
+    <Subsystem Name="液路调试">
+      <Componet Name="样本针液路">
+        <Command Name="SampleArmCheckWashingValve" FullName="检测样本针冲洗阀" />
+      </Componet>
+      <Componet Name="试剂针液路">
+        <Command Name="ReagentArm1CheckWashingValve" FullName="检测试剂针1冲洗阀" />
+        <Command Name="ReagentArm2CheckWashingValve" FullName="检测试剂针2冲洗阀" />
+      </Componet>
+      <Componet Name="八节清洗液路">
+        <Command Name="CUVWasherCheckSuckingValve" FullName="检测吸液阀" />
+        <Command Name="CUVWasherCheckDistributingValve" FullName="检测分液阀" />
+      </Componet>
+      <Componet Name="搅拌器液路">
+        <Command Name="Stirrer1CheckWashingValve" FullName="检测搅拌器1冲洗阀" />
+        <Command Name="Stirrer2CheckWashingValve" FullName="检测搅拌器2冲洗阀" />
+      </Componet>
+      <Componet Name="液路">
+        <Command Name="WateChange" FullName="换水" />
+        <Command Name="ZhengkongbengCheck" FullName="真空泵VP3液位检测" />
+        <Command Name="HengwenguangCheck" FullName="恒温罐液位检测" />
+        <Command Name="ChunshuiguangCheck" FullName="纯水箱液位检测" />
+        <Command Name="YiliuguangCheck" FullName="溢流罐液位检测" />
+      </Componet>
+      <Componet Name="反应槽温控">
+        <Command Name="ReadTempt" FullName="检查设备状态" />
+      </Componet>
+      <Componet Name="齿轮泵GP1">
+        <Command Name="ChilunbengTurnOn" FullName="齿轮泵开启" />
+        <Command Name="ChilunbengTurnOff" FullName="齿轮泵关闭" />
+      </Componet>
+      <Componet Name="负压泵VP2">
+        <Command Name="FuyabengTurnOn" FullName="负压泵开启" />
+        <Command Name="FuyabengTurnOff" FullName="负压泵关闭" />
+      </Componet>
+      <Componet Name="真空泵VP1">
+        <Command Name="QiyebengTurnOn" FullName="真空泵开启" />
+        <Command Name="QiyebengTurnOff" FullName="真空泵关闭" />
+      </Componet>
+    </Subsystem>
+    <Subsystem Name="光路调试" DebugNavi="True" DynicLoad="False">
+      <Componet Name="光度计">
+        <Command Name="PhotometerManualCheck" FullName="开始扫描" />
+        <Command Name="PhotometerManualCheckStop" FullName="停止扫描" />
+      </Componet>
+    </Subsystem>
+  </MachineCommand>
+</Machine>

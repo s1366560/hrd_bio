@@ -111,6 +111,7 @@ namespace BioA.UI
 
             this.CLClient.ConnectServer();
 
+           // new Thread(CLClient.ConnectServer).Start();
 
 
             txtPrompt = new TextBox();
@@ -126,10 +127,14 @@ namespace BioA.UI
             CommunicationUI.notifyCallBack.LoginDataTransferEvent += login.DataTransfer_Event;
             //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("InitMachineUpdateQCTaskState",null)));
             CommunicationUI.notifyCallBack.StartTestTaskDataTransferEvent += DataTransfer_Event;
-            new Thread(StartLogin).Start();
+            var loginThread = new Thread(StartLogin);
+            loginThread.IsBackground = true;
+            loginThread.Start();
 
 
-            new Thread(AnalyzerDataQueueService).Start();
+            var analyzerDataQueueServiceThread = new Thread(AnalyzerDataQueueService);
+            analyzerDataQueueServiceThread.IsBackground = true;
+            analyzerDataQueueServiceThread.Start();
             this.OPID = 0;
 
 

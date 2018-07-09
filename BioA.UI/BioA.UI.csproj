@@ -1048,6 +1048,12 @@
     <None Include="Resources\未标题3-1.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="HRD-800Command.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="RunConfigure.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Service References\ServiceReference1\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -1099,6 +1105,9 @@
     <None Include="Resources\150.png" />
     <None Include="Resources\0155.png" />
     <None Include="Resources\01551.png" />
+    <Content Include="Machine.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\ButtonStyle.png" />
   </ItemGroup>
   <ItemGroup>

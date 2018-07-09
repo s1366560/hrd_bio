@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RunSetting>
+  <Processes>
+  </Processes>
+  <AbsCalcMethods>
+    <Method Name="OnePointMethod" />
+    <Method Name="TwoPointMethod" />
+    <Method Name="ARateMethod" />
+    <Method Name="BRateMethod" />
+  </AbsCalcMethods>
+  <ReactionPanel CUVCount="160" BlankPoint="44" LastPoint="43" />
+  <Decimals Values="0,1,2,3,4,5" Default="4" />
+  <WaveLengths Values="340,405,445,484,510,549,574,600,663,700,748,795" />
+  <TimeCourse LightSpan="2.0" PTInterval="0,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5" />
+  <R2Point Point="17" />
+  <ResultDecimal Values="0,1,2,3,4" />
+  <StirStrengths Values="高,中,低" />
+  <SampleContainers Values="样本管,样本杯" />
+  <SampleTypes Values=",血清,尿液" />
+  <AnalizeMethods Values="一点终点法,二点终点法,速率A法,速率B法" />
+  <BoundDirection Values="区间内,区间外" />
+  <ReactionDirection Values="正反应,负反应" />
+  <CalibrationMethods Values="K系数法,2点线性法,多点线性法,折线法,对数法,指数法,多项式法,样条法,一次多项式法,二次多项式法,三次多项式法" />
+  <CalibrationTimes Values="1,2,3" />
+  <QCLevelConc Values="低,中,高" />
+  <QCPosition Values="C1,C2,C3,C4,C5,C6,C7,C8,C9,C10" />
+  <ReactionPoints Values="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43" />
+  <SamplePosition Values="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120" />
+  <SamplePanel Values="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20" />
+  <SampleDilute Values="常规体积,增量体积,减量体积,自定义" />
+  <Filters SampleTested="False" SampleUnTest="False" SampleTesting="False" />
+  <CheckSampleTaskState FilterSwitch="true" Completed="True" Starting="True" NoStart="False" />
+  <Reagentpos Values="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90" />
+  <Reagentpos2 Values="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90" />
+  <CalibPosition Values="S1,S2,S3,S4,S5,S6,S7,S8,S9,S10,S11,S12,S13,S14,S15,S16,S17,S18,S19,S20" />
+  <UserAuthorityInitial>
+    <Authority Key="申请测试" Value="true" />
+    <Authority Key="数据审核" Value="true" />
+    <Authority Key="校准审核" Value="true" />
+    <Authority Key="设置" Value="false" />
+    <Authority Key="状态" Value="false" />
+    <Authority Key="校准状态" Value="false" />
+    <Authority Key="校准品维护" Value="false" />
+    <Authority Key="质控状态" Value="false" />
+    <Authority Key="质控品维护" Value="false" />
+    <Authority Key="化学参数" Value="false" />
+    <Authority Key="组合项目" Value="false" />
+    <Authority Key="计算项目" Value="false" />
+    <Authority Key="环境参数" Value="false" />
+    <Authority Key="交叉污染" Value="false" />
+    <Authority Key="数据配置" Value="false" />
+    <Authority Key="LIS通讯" Value="false" />
+    <Authority Key="常规保养" Value="false" />
+    <Authority Key="设备调试" Value="false" />
+    <Authority Key="用户管理" Value="false" />
+    <Authority Key="科室管理" Value="false" />
+    <Authority Key="配置" Value="false" />
+    <Authority Key="日志查看" Value="false" />
+    <Authority Key="版本信息" Value="false" />
+  </UserAuthorityInitial>
+</RunSetting>
