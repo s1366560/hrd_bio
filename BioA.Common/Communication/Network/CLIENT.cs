@@ -56,6 +56,7 @@ namespace BioA.Common.Communication
 
         public void ConnectServer()
         {
+            Console.WriteLine(DateTime.Now.Ticks);
             try
             {
                 string file = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"DataConfigure.xml";
@@ -75,6 +76,7 @@ namespace BioA.Common.Communication
             {
                 OnClientError(e.Message);
             }
+            Console.WriteLine(DateTime.Now.Ticks);
         }
         public void ConnectServer(string ip)
         {

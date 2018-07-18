@@ -12,6 +12,7 @@ using BioA.UI.ServiceReference1;
 using System.ServiceModel;
 using BioA.Common;
 using BioA.Common.IO;
+using System.Threading;
 
 namespace BioA.UI
 {
@@ -24,7 +25,6 @@ namespace BioA.UI
         ProCombPage1 proCombPage1;
         ProCombPage2 proCombPage2;
 
-
         // 最大样本号
         private int intMaxSampleNum = 0;
 
@@ -36,12 +36,11 @@ namespace BioA.UI
         // 项目稀释设置
         List<string[]> lstDiluteInfos = new List<string[]>();
 
-        frmBatchInput batchInput = new frmBatchInput();
-        PatientInfoFrm patientInfofrm = new PatientInfoFrm();
+        frmBatchInput batchInput;
+        PatientInfoFrm patientInfofrm;
         public ApplyTask()
         {
             InitializeComponent();
-            
         }
         /// <summary>
         /// 加载事件
@@ -63,7 +62,7 @@ namespace BioA.UI
             projectPage4 = new ProjectPage4();
             proCombPage1 = new ProCombPage1();
             proCombPage2 = new ProCombPage2();
-
+            Console.WriteLine("ApplyTaskINit " + DateTime.Now.Ticks);
             xtraTabPage1.Controls.Add(projectPage1);
             xtraTabPage2.Controls.Add(projectPage2);
             xtraTabPage3.Controls.Add(projectPage3);
@@ -79,27 +78,44 @@ namespace BioA.UI
             combSampleType.Properties.Items.AddRange(RunConfigureUtility.SampleTypes);
             combSampleContainer.Properties.Items.AddRange(RunConfigureUtility.SampleContainerList);
 
+            batchInput = new frmBatchInput();
+            patientInfofrm = new PatientInfoFrm();
             combSampleType.SelectedIndex = 1;
             combSampleContainer.SelectedIndex = 0;
 
-            // 获取最大样本编号
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryMaxSampleNum", null)));
-            // 获取稀释比例值
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QuerySampleDiluteRatio", null)));
-            // 获取项目名称
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryProNameForApplyTask", combSampleType.SelectedItem.ToString())));
-            // 获取组合项目名称
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryCombProjectNameAllInfo", null)));
-            // 获取申请任务列表
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryApplyTaskLsvt", null)));
+            Console.WriteLine("ApplyTaskInit End1" + DateTime.Now.Ticks);
+            var connThread = new Thread(()=>{
+                    Console.WriteLine("ApplyTaskInit CONN beg " + DateTime.Now.Ticks);
+                 // 获取最大样本编号
+                CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryMaxSampleNum", null)));
+                // 获取稀释比例值
+                CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QuerySampleDiluteRatio", null)));
+                // 获取项目名称
+                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryProNameForApplyTask", combSampleType.SelectedItem.ToString())));
+                // 获取组合项目名称
+                CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryCombProjectNameAllInfo", null)));
+                // 获取申请任务列表
+                CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryApplyTaskLsvt", null)));
 
+                //Dictionary<string, object> dic = new Dictionary<string, object>();
+                //dic.Add("QueryMaxSampleNum", "");
+                //dic.Add("QuerySampleDiluteRatio", "");
+                //dic.Add("QueryApplyTaskLsvt", "");
+                //dic.Add("QueryCombProjectNameAllInfo", "");
+                //CommunicationUI.ServiceClient.ClientSendMsgToServicesWon(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity),new CommunicationEntity(dic)));
 
+                Console.WriteLine("ApplyTaskInit CONN end " + DateTime.Now.Ticks);
+            });
+            connThread.IsBackground = true;
+            connThread.Start();
+            
             DataTable dt = new DataTable();
             dt.Columns.Add("样本编号");
             dt.Columns.Add("位置");
             dt.Columns.Add("样本状态");
 
             this.lstvTask.DataSource = dt;
+            Console.WriteLine("ApplyTaskInit CONN End " + DateTime.Now.Ticks);
         }
 
         public void DataTransfer_Event(string strMethod, object sender)
@@ -139,7 +155,7 @@ namespace BioA.UI
 
                     if (lstSampleInfo != null)
                     {
-                        foreach (SampleInfo s in lstSampleInfo)
+                        foreach (SampleInfo s in lstSampleInfo) 
                         {
                             string strState = string.Empty;
                             if (s.SampleState == 0)
@@ -768,7 +784,11 @@ namespace BioA.UI
             anologSamplePanel = new AnologSamplePanel(combPanelNum.Text);
             anologSamplePanel.ShowDialog();
         }
-
+        /// <summary>
+        /// 限制检测次数输入只能是数字
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtBoxDetectionNum_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
@@ -779,7 +799,11 @@ namespace BioA.UI
             
             
         }
-
+        /// <summary>
+        /// 限制检测次数不能超过161
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtBoxDetectionNum_Leave(object sender, EventArgs e)
         {
             if (txtBoxDetectionNum.Text != "")

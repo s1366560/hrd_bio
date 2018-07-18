@@ -49,6 +49,7 @@ namespace BioA.UI
         ReagentNeedle reagentNeedle;
         QualityControlGraphs qualityControlProfile;
         ApplyQCTask applyQCTask;
+        InterfaceLoad interfaceLoad;
 
         TextBox txtPrompt;
         Login login;
@@ -108,11 +109,12 @@ namespace BioA.UI
             this.CLClient.ConnectSuccessEvent += OnConnectSuccessEvent;
             this.CLClient.ConnectFailedEvent += OnConnectFailedEvent;
             this.CLClient.ClientErrorEvent += OnClientErrorEvent;
+            //应该就是这个方法了
+           // this.CLClient.ConnectServer();
 
-            this.CLClient.ConnectServer();
-
-           // new Thread(CLClient.ConnectServer).Start();
-
+           var connThread =  new Thread(CLClient.ConnectServer);//.Start();
+           connThread.IsBackground = true;
+           connThread.Start();
 
             txtPrompt = new TextBox();
             txtPrompt.Font = new System.Drawing.Font("宋体", 14f);
@@ -164,12 +166,11 @@ namespace BioA.UI
                     applyTask = new ApplyTask();
                     CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent += applyTask.DataTransfer_Event;
                     txtPrompt.Text = "您当前的操作：工作区——申请审核";
-
-
-                  
+                    interfaceLoad = new InterfaceLoad();
 
                     BeginInvoke(new Action(() => {
                         pcThirdArea.Controls.Add(txtPrompt);
+                        pcThirdArea.Controls.Add(interfaceLoad);
                         pcThirdArea.Controls.Add(applyTask);
                     }));
                 }
@@ -659,7 +660,9 @@ namespace BioA.UI
                     applyTask = new ApplyTask();
                     CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent += applyTask.DataTransfer_Event;
                     txtPrompt.Text = "您当前的操作：工作区——申请审核";
+                    interfaceLoad = new InterfaceLoad();
                     pcThirdArea.Controls.Add(txtPrompt);
+                    pcThirdArea.Controls.Add(interfaceLoad);
                     pcThirdArea.Controls.Add(applyTask);
                 }
             }

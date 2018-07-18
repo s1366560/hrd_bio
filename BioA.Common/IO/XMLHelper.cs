@@ -53,6 +53,7 @@ namespace BioA.Common.IO
             string value = "";
             try
             {
+                //TODO: 异常需要提前判定输入内容，不应该用异常处理正常逻辑
                 value = (attribute.Equals("") ? node.InnerText : node.Attributes[attribute].Value);
             }
             catch (Exception e)

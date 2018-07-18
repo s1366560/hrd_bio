@@ -29,7 +29,7 @@ namespace BioA.Common
         {
             lock (lockObj)
             {
-                string directory = @"C:\ErrorLog\" + module.ToString();
+                string directory = @"d:\ErrorLog\" + module.ToString();
 
                 if (Directory.Exists(directory))
                 {

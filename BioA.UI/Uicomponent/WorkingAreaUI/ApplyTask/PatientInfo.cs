@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using BioA.Common;
 using BioA.Common.IO;
+using System.Threading;
 
 namespace BioA.UI
 {
@@ -146,12 +147,10 @@ namespace BioA.UI
 
         private void PatientInfo_Load(object sender, EventArgs e)
         {
-            BeginInvoke(new Action(PatientInfo));
+            BeginInvoke(new Action(LoadPatientInfo));
         }
-        /// <summary>
-        /// 获取所有病人信息
-        /// </summary>
-        private void PatientInfo()
+
+        private void LoadPatientInfo()
         {
             grpPatientInfoCheck.Controls.Clear();
             grpPatientInfoCheck.Controls.Add(patientInfoEdit);

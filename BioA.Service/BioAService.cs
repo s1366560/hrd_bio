@@ -136,10 +136,12 @@ namespace BioA.Service
                         HandleLogin(ModuleInfo.Login, client, (CommunicationEntity)XmlUtility.Deserialize(typeof(CommunicationEntity), param));
                         break;
                     case ModuleInfo.WorkingAreaApplyTask:
+                        Console.WriteLine("WorkingAreaApplyTask begin " + DateTime.Now.Ticks);
                         HandleWorkingAreaApplyTask(ModuleInfo.WorkingAreaApplyTask, client, (CommunicationEntity)XmlUtility.Deserialize(typeof(CommunicationEntity), param));
+                        Console.WriteLine("WorkingAreaApplyTask End   " + DateTime.Now.Ticks);
                         break;
                     case ModuleInfo.WorkingAreaCalibDataCheck:
-                        break; 
+                        break;
                     case ModuleInfo.WorkingAreaDataCheck:
                         HandleWorkingAreaDataCheck(ModuleInfo.WorkingAreaDataCheck, client, (CommunicationEntity)XmlUtility.Deserialize(typeof(CommunicationEntity), param));
                         break;
@@ -217,10 +219,7 @@ namespace BioA.Service
                     default:
                         break;
                 }
-            }            
-
-            // LogInfo.WriteProcessLog(param.StrmethodName, Module.WindowsService);
-
+            }
         }
 
         private void HandleCalibControlTask(ModuleInfo moduleInfo, ClientRegisterInfo client, CommunicationEntity param)
@@ -749,8 +748,8 @@ namespace BioA.Service
 
         private void HandleWorkingAreaApplyTask(ModuleInfo moduleInfo, ClientRegisterInfo client, CommunicationEntity param)
         {
-            lock (lockObj)
-            {
+            //lock (lockObj)
+            //{
                 string strResult = "";
                 List<TaskInfo> lstTask = new List<TaskInfo>();
                 switch (param.StrmethodName)
@@ -762,7 +761,7 @@ namespace BioA.Service
                     case "QuerySampleDiluteRatio":
                         List<string> lisQueryDilutionRatio = settingsDataConfig.QueryDilutionRatio(param.StrmethodName, param.ObjParam);
                         client.NotifyCallBack.DatabaseNotifyFunction(moduleInfo, param.StrmethodName, XmlUtility.Serializer(typeof(List<string>), lisQueryDilutionRatio));
-                        break;                
+                        break;
                     case "QueryProNameForApplyTask":
                         List<string[]> lstProName = workAreaApplyTask.QueryProNameForApplyTask(param.StrmethodName, param.ObjParam);
                         client.NotifyCallBack.DatabaseNotifyFunction(moduleInfo, param.StrmethodName, XmlUtility.Serializer(typeof(List<string[]>), lstProName));
@@ -838,7 +837,7 @@ namespace BioA.Service
                     default:
                         break;
                 }
-            }
+            //}
         }
 
         private void HandleSettingsCrossPollution(ModuleInfo moduleInfo, ClientRegisterInfo client, CommunicationEntity param)

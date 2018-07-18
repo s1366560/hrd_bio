@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
+using System.Threading;
 
 namespace BioA.UI
 {
@@ -15,7 +16,7 @@ namespace BioA.UI
     {
         public ProCombPage2()
         {
-            InitializeComponent();
+           
         }
 
         private List<string> lstAssayProInfos = new List<string>();
@@ -26,8 +27,8 @@ namespace BioA.UI
             set
             {
                 lstAssayProInfos = value;
-                this.Invoke(new EventHandler(delegate
-                {
+                this.Invoke(new EventHandler(delegate{
+                    InitializeComponent();
                     simpleButton1.Text = lstAssayProInfos.Count >= 21 ? lstAssayProInfos[20] : "";
                     simpleButton2.Text = lstAssayProInfos.Count >= 22 ? lstAssayProInfos[21] : "";
                     simpleButton3.Text = lstAssayProInfos.Count >= 23 ? lstAssayProInfos[22] : "";

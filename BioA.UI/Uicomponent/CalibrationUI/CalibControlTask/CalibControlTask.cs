@@ -30,7 +30,12 @@ namespace BioA.UI
         public CalibControlTask()
         {
             InitializeComponent();
-            
+            projectPage1 = new CalibProjectPage1();
+            projectPage2 = new CalibProjectPage2();
+            projectPage3 = new CalibProjectPage3();
+            projectPage4 = new CalibProjectPage4();
+            calibProCombPage1 = new CalibProCombPage1();
+            calibProCombPage2 = new CalibProCombPage2();
             
         }
         //加载页面
@@ -48,12 +53,7 @@ namespace BioA.UI
         }
         private void CalibControlTaskInit()
         {
-            projectPage1 = new CalibProjectPage1();
-            projectPage2 = new CalibProjectPage2();
-            projectPage3 = new CalibProjectPage3();
-            projectPage4 = new CalibProjectPage4();
-            calibProCombPage1 = new CalibProCombPage1();
-            calibProCombPage2 = new CalibProCombPage2();
+            
             xtraTabPage1.Controls.Add(projectPage1);
             xtraTabPage2.Controls.Add(projectPage2);
             xtraTabPage3.Controls.Add(projectPage3);

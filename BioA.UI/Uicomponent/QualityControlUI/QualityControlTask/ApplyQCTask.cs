@@ -32,7 +32,9 @@ namespace BioA.UI
         public ApplyQCTask()
         {
             InitializeComponent();
-
+            projectPage1 = new QCProjectPage1();
+            projectPage2 = new QCProjectPage2();
+            projectPage3 = new QCProjectPage3();
             
 
         }
@@ -82,9 +84,7 @@ namespace BioA.UI
 
         private void loadApplyQCTask()
         {
-            projectPage1 = new QCProjectPage1();
-            projectPage2 = new QCProjectPage2();
-            projectPage3 = new QCProjectPage3();
+            
             xtraTabPage1.Controls.Add(projectPage1);
             combSampleType.Properties.Items.AddRange(RunConfigureUtility.SampleTypes);
             combSampleType.SelectedIndex = 1;

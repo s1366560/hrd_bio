@@ -22,7 +22,7 @@ namespace BioA.UI
 
         public ProjectPage2()
         {
-            InitializeComponent();
+            
 
             //projectPageInfo = projectPageEnum;
 
@@ -74,76 +74,80 @@ namespace BioA.UI
             set
             {
                 lstAssayProInfos = value;
-                this.Invoke(new EventHandler(delegate{
-                    ResetControlState();
-                    this.toolTip1.RemoveAll();
-                    if (lstAssayProInfos.Count >= 33)
-                        InitProjectButton(simpleButton1, lstAssayProInfos[32]);
-                    if (lstAssayProInfos.Count >= 34)
-                        InitProjectButton(simpleButton2, lstAssayProInfos[33]);
-                    if (lstAssayProInfos.Count >= 35)
-                        InitProjectButton(simpleButton3, lstAssayProInfos[34]);
-                    if (lstAssayProInfos.Count >= 36)
-                        InitProjectButton(simpleButton4, lstAssayProInfos[35]);
-                    if (lstAssayProInfos.Count >= 37)
-                        InitProjectButton(simpleButton5, lstAssayProInfos[36]);
-                    if (lstAssayProInfos.Count >= 38)
-                        InitProjectButton(simpleButton6, lstAssayProInfos[37]);
-                    if (lstAssayProInfos.Count >= 39)
-                        InitProjectButton(simpleButton7, lstAssayProInfos[38]);
-                    if (lstAssayProInfos.Count >= 40)
-                        InitProjectButton(simpleButton8, lstAssayProInfos[39]);
-                    if (lstAssayProInfos.Count >= 41)
-                        InitProjectButton(simpleButton9, lstAssayProInfos[40]);
-                    if (lstAssayProInfos.Count >= 42)
-                        InitProjectButton(simpleButton10, lstAssayProInfos[41]);
-                    if (lstAssayProInfos.Count >= 43)
-                        InitProjectButton(simpleButton11, lstAssayProInfos[42]);
-                    if (lstAssayProInfos.Count >= 44)
-                        InitProjectButton(simpleButton12, lstAssayProInfos[43]);
-                    if (lstAssayProInfos.Count >= 45)
-                        InitProjectButton(simpleButton13, lstAssayProInfos[44]);
-                    if (lstAssayProInfos.Count >= 46)
-                        InitProjectButton(simpleButton14, lstAssayProInfos[45]);
-                    if (lstAssayProInfos.Count >= 47)
-                        InitProjectButton(simpleButton15, lstAssayProInfos[46]);
-                    if (lstAssayProInfos.Count >= 48)
-                        InitProjectButton(simpleButton16, lstAssayProInfos[47]);
-                    if (lstAssayProInfos.Count >= 49)
-                        InitProjectButton(simpleButton17, lstAssayProInfos[48]);
-                    if (lstAssayProInfos.Count >= 50)
-                        InitProjectButton(simpleButton18, lstAssayProInfos[49]);
-                    if (lstAssayProInfos.Count >= 51)
-                        InitProjectButton(simpleButton19, lstAssayProInfos[50]);
-                    if (lstAssayProInfos.Count >= 52)
-                        InitProjectButton(simpleButton20, lstAssayProInfos[51]);
-                    if (lstAssayProInfos.Count >= 53)
-                        InitProjectButton(simpleButton21, lstAssayProInfos[52]);
-                    if (lstAssayProInfos.Count >= 54)
-                        InitProjectButton(simpleButton22, lstAssayProInfos[53]);
-                    if (lstAssayProInfos.Count >= 55)
-                        InitProjectButton(simpleButton23, lstAssayProInfos[54]);
-                    if (lstAssayProInfos.Count >= 56)
-                        InitProjectButton(simpleButton24, lstAssayProInfos[55]);
-                    if (lstAssayProInfos.Count >= 57)
-                        InitProjectButton(simpleButton25, lstAssayProInfos[56]);
-                    if (lstAssayProInfos.Count >= 58)
-                        InitProjectButton(simpleButton26, lstAssayProInfos[57]);
-                    if (lstAssayProInfos.Count >= 59)
-                        InitProjectButton(simpleButton27, lstAssayProInfos[58]);
-                    if (lstAssayProInfos.Count >= 60)
-                        InitProjectButton(simpleButton28, lstAssayProInfos[59]);
-                    if (lstAssayProInfos.Count >= 61)
-                        InitProjectButton(simpleButton29, lstAssayProInfos[60]);
-                    if (lstAssayProInfos.Count >= 62)
-                        InitProjectButton(simpleButton30, lstAssayProInfos[61]);
-                    if (lstAssayProInfos.Count >= 63)
-                        InitProjectButton(simpleButton31, lstAssayProInfos[62]);
-                    if (lstAssayProInfos.Count >= 64)
-                        InitProjectButton(simpleButton32, lstAssayProInfos[63]);
-                }));
+                BeginInvoke(new Action(AllAssayProInfo));
             }
                 
+        }
+
+        private void AllAssayProInfo()
+        {
+            InitializeComponent();
+            ResetControlState();
+            this.toolTip1.RemoveAll();
+            if (lstAssayProInfos.Count >= 33)
+                InitProjectButton(simpleButton1, lstAssayProInfos[32]);
+            if (lstAssayProInfos.Count >= 34)
+                InitProjectButton(simpleButton2, lstAssayProInfos[33]);
+            if (lstAssayProInfos.Count >= 35)
+                InitProjectButton(simpleButton3, lstAssayProInfos[34]);
+            if (lstAssayProInfos.Count >= 36)
+                InitProjectButton(simpleButton4, lstAssayProInfos[35]);
+            if (lstAssayProInfos.Count >= 37)
+                InitProjectButton(simpleButton5, lstAssayProInfos[36]);
+            if (lstAssayProInfos.Count >= 38)
+                InitProjectButton(simpleButton6, lstAssayProInfos[37]);
+            if (lstAssayProInfos.Count >= 39)
+                InitProjectButton(simpleButton7, lstAssayProInfos[38]);
+            if (lstAssayProInfos.Count >= 40)
+                InitProjectButton(simpleButton8, lstAssayProInfos[39]);
+            if (lstAssayProInfos.Count >= 41)
+                InitProjectButton(simpleButton9, lstAssayProInfos[40]);
+            if (lstAssayProInfos.Count >= 42)
+                InitProjectButton(simpleButton10, lstAssayProInfos[41]);
+            if (lstAssayProInfos.Count >= 43)
+                InitProjectButton(simpleButton11, lstAssayProInfos[42]);
+            if (lstAssayProInfos.Count >= 44)
+                InitProjectButton(simpleButton12, lstAssayProInfos[43]);
+            if (lstAssayProInfos.Count >= 45)
+                InitProjectButton(simpleButton13, lstAssayProInfos[44]);
+            if (lstAssayProInfos.Count >= 46)
+                InitProjectButton(simpleButton14, lstAssayProInfos[45]);
+            if (lstAssayProInfos.Count >= 47)
+                InitProjectButton(simpleButton15, lstAssayProInfos[46]);
+            if (lstAssayProInfos.Count >= 48)
+                InitProjectButton(simpleButton16, lstAssayProInfos[47]);
+            if (lstAssayProInfos.Count >= 49)
+                InitProjectButton(simpleButton17, lstAssayProInfos[48]);
+            if (lstAssayProInfos.Count >= 50)
+                InitProjectButton(simpleButton18, lstAssayProInfos[49]);
+            if (lstAssayProInfos.Count >= 51)
+                InitProjectButton(simpleButton19, lstAssayProInfos[50]);
+            if (lstAssayProInfos.Count >= 52)
+                InitProjectButton(simpleButton20, lstAssayProInfos[51]);
+            if (lstAssayProInfos.Count >= 53)
+                InitProjectButton(simpleButton21, lstAssayProInfos[52]);
+            if (lstAssayProInfos.Count >= 54)
+                InitProjectButton(simpleButton22, lstAssayProInfos[53]);
+            if (lstAssayProInfos.Count >= 55)
+                InitProjectButton(simpleButton23, lstAssayProInfos[54]);
+            if (lstAssayProInfos.Count >= 56)
+                InitProjectButton(simpleButton24, lstAssayProInfos[55]);
+            if (lstAssayProInfos.Count >= 57)
+                InitProjectButton(simpleButton25, lstAssayProInfos[56]);
+            if (lstAssayProInfos.Count >= 58)
+                InitProjectButton(simpleButton26, lstAssayProInfos[57]);
+            if (lstAssayProInfos.Count >= 59)
+                InitProjectButton(simpleButton27, lstAssayProInfos[58]);
+            if (lstAssayProInfos.Count >= 60)
+                InitProjectButton(simpleButton28, lstAssayProInfos[59]);
+            if (lstAssayProInfos.Count >= 61)
+                InitProjectButton(simpleButton29, lstAssayProInfos[60]);
+            if (lstAssayProInfos.Count >= 62)
+                InitProjectButton(simpleButton30, lstAssayProInfos[61]);
+            if (lstAssayProInfos.Count >= 63)
+                InitProjectButton(simpleButton31, lstAssayProInfos[62]);
+            if (lstAssayProInfos.Count >= 64)
+                InitProjectButton(simpleButton32, lstAssayProInfos[63]);
         }
 
         private void InitProjectButton(Button btn, string[] projectInfo)

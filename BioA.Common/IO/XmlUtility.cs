@@ -83,7 +83,7 @@ namespace BioA.Common.IO
         }
         public static string Serializer(Type type, object obj)
         {
-
+            Console.WriteLine("serializer begin " + DateTime.Now.Ticks);
             MemoryStream Stream = new MemoryStream();
 
             //创建序列化对象 
@@ -106,7 +106,7 @@ namespace BioA.Common.IO
             StreamReader sr = new StreamReader(Stream);
 
             string str = sr.ReadToEnd();
-
+            Console.WriteLine("serializer end   " + DateTime.Now.Ticks);
             return str;
 
         }
@@ -128,6 +128,5 @@ namespace BioA.Common.IO
             return "";
 
         }
-
     }
 }

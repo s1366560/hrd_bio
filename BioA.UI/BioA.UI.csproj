@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{37E67464-868E-4947-8CE9-80126513F974}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BioA.UI</RootNamespace>
     <AssemblyName>BioA.UI</AssemblyName>
@@ -31,6 +31,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.BonusSkins.v16.1" />
@@ -578,6 +581,12 @@
     <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\frmBatchInput.Designer.cs">
       <DependentUpon>frmBatchInput.cs</DependentUpon>
     </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\InterfaceLoad.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\InterfaceLoad.Designer.cs">
+      <DependentUpon>InterfaceLoad.cs</DependentUpon>
+    </Compile>
     <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\PatientInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -919,6 +928,9 @@
     <EmbeddedResource Include="Uicomponent\WorkingAreaUI\ApplyTask\frmBatchInput.resx">
       <DependentUpon>frmBatchInput.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\WorkingAreaUI\ApplyTask\InterfaceLoad.resx">
+      <DependentUpon>InterfaceLoad.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\WorkingAreaUI\ApplyTask\PatientInfo.resx">
       <DependentUpon>PatientInfo.cs</DependentUpon>
     </EmbeddedResource>
@@ -1109,6 +1121,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\ButtonStyle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\" />
+    <Folder Include="obj\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

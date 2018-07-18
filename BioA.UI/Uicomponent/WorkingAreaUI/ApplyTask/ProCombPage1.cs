@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using BioA.Common;
 using BioA.Common.IO;
+using System.Threading;
 
 namespace BioA.UI
 {
@@ -17,7 +18,7 @@ namespace BioA.UI
     {
         public ProCombPage1()
         {
-            InitializeComponent();
+            
         }
 
         private List<string> lstProjectGroups = new List<string>();
@@ -28,8 +29,8 @@ namespace BioA.UI
             set
             {
                 lstProjectGroups = value;
-                this.Invoke(new EventHandler(delegate
-                {
+                this.BeginInvoke(new EventHandler(delegate { 
+                    InitializeComponent();
                     simpleButton1.Text = lstProjectGroups.Count >= 1 ? lstProjectGroups[0] : "";
                     simpleButton2.Text = lstProjectGroups.Count >= 2 ? lstProjectGroups[1] : "";
                     simpleButton3.Text = lstProjectGroups.Count >= 3 ? lstProjectGroups[2] : "";
