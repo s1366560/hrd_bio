@@ -575,6 +575,7 @@
       <DependentUpon>ApplyTask.cs</DependentUpon>
     </Compile>
     <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\ApplyTaskDataCallBack.cs" />
+    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\dictionary.cs" />
     <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\frmBatchInput.cs">
       <SubType>Form</SubType>
     </Compile>

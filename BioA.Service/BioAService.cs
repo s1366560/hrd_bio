@@ -119,6 +119,239 @@ namespace BioA.Service
         }
 
         /// <summary>
+        /// 保存回调给客户端信息（方法名，参数）的泛型集合
+        /// </summary>
+        private Dictionary<string, object> strMethodParam = new Dictionary<string, object>();
+
+        /// <summary>
+        /// 校准（校准任务界面数据处理）
+        /// </summary>
+        /// <param name="moduleInfo"></param>
+        /// <param name="client"></param>
+        /// <param name="param"></param>
+        private void HandleCalibControlTasks(ModuleInfo moduleInfo, ClientRegisterInfo client, Dictionary<string, List<object>> param)
+        {
+            strMethodParam.Clear();
+            foreach (KeyValuePair<string, List<object>> kvp in param)
+            {
+                switch (kvp.Key)
+                {
+                    case "QueryCalibratorinfoTask":
+                        List<CalibratorinfoTask> CalibratorinfoTask = (List<CalibratorinfoTask>)XmlUtility.Deserialize(typeof(List<CalibratorinfoTask>), kvp.Value[0].ToString());
+                        List<CalibratorinfoTask> lisCalibrationCurveInfo = calibrator.QueryListCalibrationCurveInfo(kvp.Key, CalibratorinfoTask);
+                        //client.NotifyCallBack.DatabaseNotifyFunction(moduleInfo, kvp.Key, XmlUtility.Serializer(typeof(List<CalibratorinfoTask>), lisCalibrationCurveInfo));
+                        strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<CalibratorinfoTask>), lisCalibrationCurveInfo));
+                        break;
+                    case "QueryAssayProNameAllInfo":
+                        List<string> lstAllProjectName = qcTask.QueryAssayProNameAllInfo(kvp.Key, kvp.Value[0].ToString());
+                        //client.NotifyCallBack.DatabaseNotifyFunction(moduleInfo, kvp.Key, XmlUtility.Serializer(typeof(List<string>), lstAllProjectName));
+                        strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<string>), lstAllProjectName));
+                        LogInfo.WriteProcessLog(lstAllProjectName.Count.ToString(), Module.WindowsService);
+                        break;
+                    case "QueryProjectNameInfoByCalib":
+                        List<string[]> lstProinfo = calibrator.QueryProjectNameInfoByCalib(kvp.Key, kvp.Value[0].ToString());
+                        //client.NotifyCallBack.DatabaseNotifyFunction(moduleInfo, kvp.Key, XmlUtility.Serializer(typeof(List<string[]>), lstProinfo));
+                        strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<string[]>), lstProinfo));
+                        LogInfo.WriteProcessLog(lstProinfo.Count.ToString(), Module.WindowsService);
+                        break;
+                    case "QueryCombProjectNameAllInfo":
+                        List<string> lstCombProName = workAreaApplyTask.QueryCombProjectNameAllInfo(kvp.Key);
+                        //client.NotifyCallBack.DatabaseNotifyFunction(moduleInfo, kvp.Key, XmlUtility.Serializer(typeof(List<string>), lstCombProName));
+                        strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<string>), lstCombProName));
+                        break;
+                    case "QueryProjectByCombProName":
+                        List<string> lstProNames = combProjectParam.QueryProjectByCombProName(kvp.Key, kvp.Value[0].ToString());
+                        //client.NotifyCallBack.DatabaseNotifyFunction(moduleInfo, kvp.Key, XmlUtility.Serializer(typeof(List<string>), lstProNames));
+                        strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<string>), lstProNames));
+                        break;
+                    case "QueryAssayProNameAll":
+                        List<CalibratorinfoTask> lstAll = calibrator.QueryAssayProNameAll(kvp.Key, kvp.Value[0].ToString(), kvp.Value[1].ToString());
+                        //client.NotifyCallBack.DatabaseNotifyFunction(moduleInfo, kvp.Key, XmlUtility.Serializer(typeof(List<CalibratorinfoTask>), lstAll));
+                        strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<CalibratorinfoTask>), lstAll));
+                        //LogInfo.WriteProcessLog(lstAllProjectName.Count.ToString(), Module.WindowsService);
+                        break;
+                    case "QueryBigestCalibCTaskInfoForToday":
+                        int intSampleNum = calibrator.QueryBigestCalibCTaskInfoForToday(kvp.Key);
+                        //client.NotifyCallBack.DatabaseNotifyFunction(moduleInfo, kvp.Key, intSampleNum);
+                        strMethodParam.Add(kvp.Key, intSampleNum);
+                        LogInfo.WriteProcessLog(intSampleNum.ToString(), Module.WindowsService);
+                        break;
+                    //case "QueryCalibProjectInfo":
+                    //    string lstCalibProinfo = param.ObjParam.ToString();
+                    //    string strSampleType = param.ObjLastestParam.ToString();
+                    //    List<string[]> lstProjectName = calibrator.QueryCalibProjectInfo(param.StrmethodName,lstCalibProinfo,strSampleType);
+                    //    LogInfo.WriteProcessLog(lstProjectName.Count.ToString(),Module.WindowsService);
+                    //    break;
+                    default:
+                        break;
+                }
+            }
+            client.NotifyCallBack.DataAllReturnFunction(moduleInfo, strMethodParam);
+        }
+        /// <summary>
+        /// 工作区（普通任务界面数据处理）
+        /// </summary>
+        /// <param name="moduleInfo"></param>
+        /// <param name="client"></param>
+        /// <param name="param"></param>
+        private void HandleWorkingAreaApplyTasks(ModuleInfo moduleInfo, ClientRegisterInfo client, Dictionary<string, List<object>> param)
+        {
+            strMethodParam.Clear();
+            foreach (KeyValuePair<string, List<object>> kvp in param)
+            {
+                LogInfo.WriteProcessLog(kvp.ToString(), Module.WindowsService);
+                string strResult = "";
+                List<TaskInfo> lstTask = new List<TaskInfo>();
+                switch (kvp.Key)
+                {
+                    case "QueryMaxSampleNum":
+                        int intMaxNum = workAreaApplyTask.QueryMaxSampleNum(kvp.Key);
+                        strMethodParam.Add(kvp.Key, intMaxNum);
+                        //client.NotifyCallBack.DatabaseNotifyFunction(moduleInfo, kvp.Key, intMaxNum);
+                        break;
+                    case "QuerySampleDiluteRatio":
+                        List<string> lisQueryDilutionRatio = settingsDataConfig.QueryDilutionRatio(kvp.Key, kvp.Value[0].ToString());
+                        strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<string>), lisQueryDilutionRatio));
+                        //client.NotifyCallBack.DatabaseNotifyFunction(moduleInfo, kvp.Key, XmlUtility.Serializer(typeof(List<string>), lisQueryDilutionRatio));
+                        break;
+                    case "QueryProNameForApplyTask":
+                        List<string[]> lstProName = workAreaApplyTask.QueryProNameForApplyTask(kvp.Key, kvp.Value[0].ToString());
+                        strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<string[]>), lstProName));
+                        //client.NotifyCallBack.DatabaseNotifyFunction(moduleInfo, kvp.Key, XmlUtility.Serializer(typeof(List<string[]>), lstProName));
+                        break;
+                    case "QueryCombProjectNameAllInfo":
+                        List<string> lstCombProName = workAreaApplyTask.QueryCombProjectNameAllInfo(kvp.Key);
+                        strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<string>), lstCombProName));
+                        //client.NotifyCallBack.DatabaseNotifyFunction(moduleInfo, kvp.Key, XmlUtility.Serializer(typeof(List<string>), lstCombProName));
+                        break;
+                    case "QueryApplyTaskLsvt":
+                        List<SampleInfo> lstSampleInfo = workAreaApplyTask.QueryApplyTaskLsvt(kvp.Key);
+                        strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<SampleInfo>), lstSampleInfo));
+                        //client.NotifyCallBack.DatabaseNotifyFunction(moduleInfo, kvp.Key, XmlUtility.Serializer(typeof(List<SampleInfo>), lstSampleInfo));
+                        break;
+                    case "AddTask":
+                        SampleInfo sample = XmlUtility.Deserialize(typeof(SampleInfo), kvp.Value[0].ToString()) as SampleInfo;
+                        lstTask = XmlUtility.Deserialize(typeof(List<TaskInfo>), kvp.Value[1].ToString()) as List<TaskInfo>;
+                        strResult = workAreaApplyTask.AddTask(kvp.Key, sample, lstTask);
+                        strMethodParam.Add(kvp.Key, strResult);
+                        break;
+                }
+            }
+            client.NotifyCallBack.DataAllReturnFunction(moduleInfo, strMethodParam);
+        }
+        /// <summary>
+        /// 工作区（数据审核界面）
+        /// </summary>
+        /// <param name="moduleInfo"></param>
+        /// <param name="client"></param>
+        /// <param name="communicationEntity"></param>
+        private void HandleWorkingAreaDataChecks(ModuleInfo moduleInfo, ClientRegisterInfo client, Dictionary<string, List<object>> param)
+        {
+            strMethodParam.Clear(); 
+            foreach (KeyValuePair<string, List<object>> kvp in param)
+            {
+                LogInfo.WriteProcessLog(kvp.Key, Module.WindowsService);
+                List<SampleInfoForResult> lstSampleInfo = new List<SampleInfoForResult>();
+                List<SampleResultInfo> lstSampleResultInfo = new List<SampleResultInfo>();
+                SampleInfoForResult sampleInfo = new SampleInfoForResult();
+                switch (kvp.Key)
+                {
+                    case "QueryCommonSampleData":
+                        sampleInfo = (SampleInfoForResult)XmlUtility.Deserialize(typeof(SampleInfoForResult), kvp.Value[0].ToString());
+                        string strFilter = kvp.Value[1].ToString();
+                        lstSampleInfo = workAreaDataCheck.QueryCommonSampleData(kvp.Key, sampleInfo, strFilter);
+                        //client.NotifyCallBack.DatabaseNotifyFunction(moduleInfo, kvp.Key, XmlUtility.Serializer(typeof(List<SampleInfoForResult>), lstSampleInfo));
+                        strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<SampleInfoForResult>), lstSampleInfo));
+                        break;
+                    case "QueryProjectResultBySampleNum":
+                        string[] QueryCommunicate = (string[])XmlUtility.Deserialize(typeof(string[]), kvp.Value[0].ToString());
+                        lstSampleResultInfo = workAreaDataCheck.QueryProjectResultBySampleNum(kvp.Key, QueryCommunicate);
+                        //client.NotifyCallBack.DatabaseNotifyFunction(moduleInfo, kvp.Key, XmlUtility.Serializer(typeof(List<SampleResultInfo>), lstSampleResultInfo));
+                        strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<SampleResultInfo>), lstSampleResultInfo));
+                        break;
+                    case "QueryProjectResultForTestAudit":
+                        string[] QueryCommuForTest = (string[])XmlUtility.Deserialize(typeof(string[]), kvp.Value[0].ToString());
+                        lstSampleResultInfo = workAreaDataCheck.QueryProjectResultBySampleNum(kvp.Key, QueryCommuForTest);
+                        //client.NotifyCallBack.DatabaseNotifyFunction(moduleInfo, kvp.Key, XmlUtility.Serializer(typeof(List<SampleResultInfo>), lstSampleResultInfo));
+                        strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<SampleResultInfo>), lstSampleResultInfo));
+                        break;
+                    case "DeleteCommonSampleBySampleNum":
+                        string[] DeleteCommunicate = (string[])XmlUtility.Deserialize(typeof(string[]), kvp.Value[0].ToString());
+                        string strDeleteRes = workAreaDataCheck.DeleteCommonSampleBySampleNum(kvp.Key, DeleteCommunicate);
+                        //client.NotifyCallBack.DatabaseNotifyFunction(moduleInfo, kvp.Key, strDeleteRes);
+                        strMethodParam.Add(kvp.Key, strDeleteRes);
+                        break;
+                    case "ReviewCheck":
+                        string[] reviewCheckParam = (string[])XmlUtility.Deserialize(typeof(string[]), kvp.Value[0].ToString());
+                        string strReviewCheckRes = workAreaDataCheck.ReviewCheck(kvp.Key, reviewCheckParam);
+                        //client.NotifyCallBack.DatabaseNotifyFunction(moduleInfo, kvp.Key, strReviewCheckRes);
+                        strMethodParam.Add(kvp.Key, strReviewCheckRes);
+                        break;
+                    case "AuditSampleTest":
+                        string[] auditParam = (string[])XmlUtility.Deserialize(typeof(string[]), kvp.Value[0].ToString());
+                        string strAuditRes = workAreaDataCheck.AuditSampleTest(kvp.Key, auditParam);
+                        //client.NotifyCallBack.DatabaseNotifyFunction(moduleInfo, kvp.Key, strAuditRes);
+                        strMethodParam.Add(kvp.Key, strAuditRes);
+                        break;
+                    case "QueryTimeCourse":
+                        SampleResultInfo sampleResInfo = XmlUtility.Deserialize(typeof(SampleResultInfo), kvp.Value[0].ToString()) as SampleResultInfo;
+                        TimeCourseInfo sampleReactionInfo = workAreaDataCheck.QueryCommonTaskReaction(kvp.Key, sampleResInfo);
+                        //client.NotifyCallBack.DatabaseNotifyFunction(moduleInfo, kvp.Key, XmlUtility.Serializer(typeof(TimeCourseInfo), sampleReactionInfo));
+                        strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(TimeCourseInfo), sampleReactionInfo));
+                        break;
+                    case "QueryCommonTaskReactionForAudit":
+                        SampleResultInfo sampleResInfoForAudit = XmlUtility.Deserialize(typeof(SampleResultInfo), kvp.Value[0].ToString()) as SampleResultInfo;
+                        TimeCourseInfo sampleReacInfoForAudit = workAreaDataCheck.QueryCommonTaskReaction("QueryTimeCourse", sampleResInfoForAudit);
+                        //client.NotifyCallBack.DatabaseNotifyFunction(moduleInfo, kvp.Key, XmlUtility.Serializer(typeof(TimeCourseInfo), sampleReacInfoForAudit));
+                        strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(TimeCourseInfo), sampleReacInfoForAudit));
+                        break;
+                    case "BatchAuditSampleTest":
+                        List<string[]> lstBatchAuditParam = XmlUtility.Deserialize(typeof(List<string[]>), kvp.Value[0].ToString()) as List<string[]>;
+                        string strBatchResult = workAreaDataCheck.BatchAuditSampleTest(kvp.Key, lstBatchAuditParam);
+                        //client.NotifyCallBack.DatabaseNotifyFunction(moduleInfo, kvp.Key, strBatchResult);
+                        strMethodParam.Add(kvp.Key, strBatchResult);
+                        break;
+                    case "ConfirmCommonTask":
+                        List<string[]> lstConfirmInfo = XmlUtility.Deserialize(typeof(List<string[]>), kvp.Value[0].ToString()) as List<string[]>;
+                        string strConfirmInfo = workAreaDataCheck.ConfirmCommonTask(kvp.Key, lstConfirmInfo);
+                        //client.NotifyCallBack.DatabaseNotifyFunction(moduleInfo, kvp.Key, strConfirmInfo);
+                        strMethodParam.Add(kvp.Key, strConfirmInfo);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            client.NotifyCallBack.DataAllReturnFunction(moduleInfo, strMethodParam);
+        }
+
+        public void ClientSendMsgToServiceMethod(ModuleInfo sendClientName, Dictionary<string, List<object>> param)
+        {
+            lock (lockObj)
+            {
+                    //LogInfo.WriteProcessLog(kvp.ToString(), Module.WindowsService);
+                    ClientRegisterInfo client = ClientInfoCache.Instance.Clients.Find(x => x.ClientName == "BioA.UI");
+                    int i = ClientInfoCache.Instance.Clients.Count;
+                    switch (sendClientName)
+                    {
+                        case ModuleInfo.WorkingAreaApplyTask:
+                            Console.WriteLine("WorkingAreaApplyTask begin " + DateTime.Now.Ticks);
+                            HandleWorkingAreaApplyTasks(ModuleInfo.WorkingAreaApplyTask, client, param);
+                            Console.WriteLine("WorkingAreaApplyTask End   " + DateTime.Now.Ticks);
+                            break;
+                        case ModuleInfo.WorkingAreaDataCheck:
+                            HandleWorkingAreaDataChecks(ModuleInfo.WorkingAreaDataCheck, client, param);
+                            break;
+                        case ModuleInfo.CalibControlTask:
+                            HandleCalibControlTasks(ModuleInfo.CalibControlTask, client, param);
+                            break;
+                    }
+                
+            }
+        }
+
+        
+
+        /// <summary>
         /// 客户端向服务器发送信息
         /// </summary>
         /// <param name="param">发送对象</param>

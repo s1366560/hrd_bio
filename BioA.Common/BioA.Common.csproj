@@ -49,6 +49,7 @@
     <Compile Include="CalcMethod\ABSProcess.cs" />
     <Compile Include="CalcMethod\CalculateConc.cs" />
     <Compile Include="Communication\CommunicationEntity.cs" />
+    <Compile Include="Communication\DictionaryParam.cs" />
     <Compile Include="Communication\Network\CLIENT.cs" />
     <Compile Include="Communication\Network\DataReadWrite.cs" />
     <Compile Include="Communication\Network\SERVER.cs" />

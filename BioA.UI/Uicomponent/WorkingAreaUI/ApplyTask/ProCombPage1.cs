@@ -18,7 +18,7 @@ namespace BioA.UI
     {
         public ProCombPage1()
         {
-            
+            InitializeComponent();
         }
 
         private List<string> lstProjectGroups = new List<string>();
@@ -30,7 +30,7 @@ namespace BioA.UI
             {
                 lstProjectGroups = value;
                 this.BeginInvoke(new EventHandler(delegate { 
-                    InitializeComponent();
+                    
                     simpleButton1.Text = lstProjectGroups.Count >= 1 ? lstProjectGroups[0] : "";
                     simpleButton2.Text = lstProjectGroups.Count >= 2 ? lstProjectGroups[1] : "";
                     simpleButton3.Text = lstProjectGroups.Count >= 3 ? lstProjectGroups[2] : "";

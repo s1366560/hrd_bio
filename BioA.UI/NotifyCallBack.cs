@@ -227,5 +227,44 @@ namespace BioA.UI
                 //}
             Console.WriteLine("DatabaseNotfityFunction end " + DateTime.Now.Ticks);
         }
+
+        /// <summary>
+        /// 接收服务器返回数据并传递给客户端
+        /// </summary>
+        /// <param name="moduleInfo"></param>
+        /// <param name="strMethodParam"></param>
+        public void DataAllReturnFunction(ModuleInfo moduleInfo, Dictionary<string, object> strMethodParam)
+        {
+            switch (moduleInfo)
+            {
+                case ModuleInfo.WorkingAreaApplyTask:
+                    if (ApplyTaskDataTransferEvent != null)
+                    {
+                        foreach (KeyValuePair<string, object> kvp in strMethodParam)
+                        {
+                            ApplyTaskDataTransferEvent(kvp.Key, kvp.Value);
+                        }
+                    }
+                    break;
+                case ModuleInfo.WorkingAreaDataCheck:
+                    if (CommonSampleDataEvent != null)
+                    {
+                        foreach (KeyValuePair<string, object> kvp in strMethodParam)
+                        {
+                            CommonSampleDataEvent(kvp.Key, kvp.Value);
+                        }
+                    }
+                    break;
+                case ModuleInfo.CalibControlTask:
+                    if (CalibControlTaskDataTransferEvent != null)
+                    {
+                        foreach (KeyValuePair<string, object> kvp in strMethodParam)
+                        {
+                            CalibControlTaskDataTransferEvent(kvp.Key, kvp.Value);
+                        }
+                    }
+                    break;
+            }
+        }
     }
 }

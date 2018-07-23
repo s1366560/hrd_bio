@@ -33,5 +33,8 @@ namespace BioA.Service
         /// <param name="sender">参数</param>
         [OperationContract(IsOneWay = true)]
         void DatabaseNotifyFunction(ModuleInfo moduleInfo, string strMethod, object sender);
+
+        [OperationContract(IsOneWay = true)]
+        void DataAllReturnFunction(ModuleInfo moduleInfo, Dictionary<string, object> strMethodParam);
     }
 }

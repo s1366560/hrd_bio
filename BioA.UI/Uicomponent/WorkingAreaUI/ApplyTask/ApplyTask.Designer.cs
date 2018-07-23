@@ -231,7 +231,6 @@
             // 
             // combSampleType
             // 
-            this.combSampleType.EditValue = "";
             this.combSampleType.Location = new System.Drawing.Point(730, 40);
             this.combSampleType.Name = "combSampleType";
             this.combSampleType.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

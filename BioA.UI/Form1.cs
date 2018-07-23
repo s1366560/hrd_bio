@@ -170,7 +170,7 @@ namespace BioA.UI
 
                     BeginInvoke(new Action(() => {
                         pcThirdArea.Controls.Add(txtPrompt);
-                        pcThirdArea.Controls.Add(interfaceLoad);
+                        //pcThirdArea.Controls.Add(interfaceLoad);
                         pcThirdArea.Controls.Add(applyTask);
                     }));
                 }
@@ -587,22 +587,27 @@ namespace BioA.UI
                 elements.Add(this.CalibrationStateElement6);
             if (userInfo.CalibMaintain)
                 elements.Add(this.CalibrationMaintainElement7);
-            this.accordionControl1.Elements.AddRange(elements.ToArray());
+            BeginInvoke(new Action(() =>
+            {
+                this.accordionControl1.Elements.AddRange(elements.ToArray());
+            }));
             if (userInfo.CalibTask)
             {
                 if (pcThirdArea.Controls.Equals(calibControlTask) == false)
                     calibControlTask = new CalibControlTask();
-                pcThirdArea.Controls.Add(calibControlTask);
-                {
+                
                     pcThirdArea.Controls.Clear();
                     if (CommunicationUI.notifyCallBack.CalibControlTaskDataTransferEvent != null)
                         CommunicationUI.notifyCallBack.CalibControlTaskDataTransferEvent -= calibControlTask.DataTransfer_Event;
 
                     CommunicationUI.notifyCallBack.CalibControlTaskDataTransferEvent += calibControlTask.DataTransfer_Event;
                     txtPrompt.Text = "您当前的操作：校准——校准任务";
-                    pcThirdArea.Controls.Add(txtPrompt);
-                    pcThirdArea.Controls.Add(calibControlTask);
-                }
+                    BeginInvoke(new Action(() =>
+                    {
+                        pcThirdArea.Controls.Add(txtPrompt);
+                        pcThirdArea.Controls.Add(calibControlTask);
+                    }));
+                
             }
             else if (userInfo.CalibState)
             {
@@ -612,11 +617,14 @@ namespace BioA.UI
                     if (CommunicationUI.notifyCallBack.CalibrationStateDataTransferEvent != null)
                         CommunicationUI.notifyCallBack.CalibrationStateDataTransferEvent -= calibrationState.DataTransfer_Event;
                     calibrationState = new lstvCalibrationState();
-                    pcThirdArea.Controls.Add(calibrationState);
+                    
                     CommunicationUI.notifyCallBack.CalibrationStateDataTransferEvent += calibrationState.DataTransfer_Event;
                     txtPrompt.Text = "您当前的操作：校准——校准状态";
-                    pcThirdArea.Controls.Add(txtPrompt);
-                    pcThirdArea.Controls.Add(calibrationState);
+                    BeginInvoke(new Action(() =>
+                    {
+                        pcThirdArea.Controls.Add(txtPrompt);
+                        pcThirdArea.Controls.Add(calibrationState);
+                    }));
                 }
             }
             else if (userInfo.CalibMaintain)
@@ -627,12 +635,14 @@ namespace BioA.UI
                     if (CommunicationUI.notifyCallBack.CalibMaintainDataTransferEvent != null)
                         CommunicationUI.notifyCallBack.CalibMaintainDataTransferEvent -= calibMaintain.DataTransfer_Event;
                     calibMaintain = new CalibMaintain();
-                    pcThirdArea.Controls.Add(calibMaintain);
+                    
                     CommunicationUI.notifyCallBack.CalibMaintainDataTransferEvent += calibMaintain.DataTransfer_Event;
                     txtPrompt.Text = "您当前的操作：校准——校准品维护";
-                    pcThirdArea.Controls.Add(txtPrompt);
-                    pcThirdArea.Controls.Add(calibMaintain);
-
+                    BeginInvoke(new Action(() =>
+                    {
+                        pcThirdArea.Controls.Add(txtPrompt);
+                        pcThirdArea.Controls.Add(calibMaintain);
+                    }));
                 }
             }
         }
@@ -662,7 +672,7 @@ namespace BioA.UI
                     txtPrompt.Text = "您当前的操作：工作区——申请审核";
                     interfaceLoad = new InterfaceLoad();
                     pcThirdArea.Controls.Add(txtPrompt);
-                    pcThirdArea.Controls.Add(interfaceLoad);
+                    //pcThirdArea.Controls.Add(interfaceLoad);
                     pcThirdArea.Controls.Add(applyTask);
                 }
             }

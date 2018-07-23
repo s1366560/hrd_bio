@@ -96,6 +96,9 @@ namespace BioA.UI
 
 
         private List<string[]> lstAssayProInfos = new List<string[]>();
+        /// <summary>
+        /// 显示样本类型对应的所有项目
+        /// </summary>
         public List<string[]> LstAssayProInfos
         {
             get { return lstAssayProInfos; }
