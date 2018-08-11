@@ -390,7 +390,7 @@ namespace BioA.Common
 
         static List<string> _CalibrationTimes;
         /// <summary>
-        /// 获取校准方法
+        /// 获取校准次数
         /// </summary>
         public static List<string> CalibrationTimes
         {

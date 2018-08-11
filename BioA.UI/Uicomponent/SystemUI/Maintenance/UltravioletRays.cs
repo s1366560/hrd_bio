@@ -121,7 +121,7 @@ namespace BioA.UI
                 }
             }
 
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SystemMaintenance, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryNewPhotemetricValue")));
+            CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.SystemMaintenance, new Dictionary<string, object[]>(){{"QueryNewPhotemetricValue",null}});
             //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SystemMaintenance, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryOldPhotemetricValue")));
         }
     }

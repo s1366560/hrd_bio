@@ -11,21 +11,14 @@ namespace BioA.Service
     {
 
 
-        internal List<string> QueryDepartment(string strDBMethod, string p2)
+        public List<string> QueryDepartment(string strDBMethod)
         {
             List<string> lstQueryDepartment = new List<string>();
-            try
-            {
-                lstQueryDepartment = myBatis.QueryDepartment(strDBMethod, null);
-               
-            }
-            catch (Exception e)
-            {
-                LogInfo.WriteErrorLog(e.ToString(), Module.WindowsService);
-            }
+            lstQueryDepartment = myBatis.QueryDepartment(strDBMethod);
+            
             return lstQueryDepartment;
         }
-        internal string AddDepartmentInfo(string strDBMethod, string dataConfig)
+        public string AddDepartmentInfo(string strDBMethod, string dataConfig)
         {
             string strInfo = string.Empty;
             try
@@ -59,7 +52,7 @@ namespace BioA.Service
         }
 
 
-        internal int DeleteDepartment(string strDBMethod, string dataConfig)
+        public int DeleteDepartment(string strDBMethod, string dataConfig)
         {
             int count = 0;
             
@@ -86,29 +79,21 @@ namespace BioA.Service
             return count;
         }
 
-        internal int UpdataDepartment(string strDBMethod, string dataConfig, string dataConfigOld)
+        public int UpdataDepartment(string strDBMethod, string dataConfig, string dataConfigOld)
         {
             LogInfo.WriteProcessLog(strDBMethod + "zhuszihe33", Module.WindowsService);
             return myBatis.UpdataDepartment(strDBMethod, dataConfig, dataConfigOld);
            
         }
 
-        internal List<ApplyDoctorInfo> QueryApplyDoctor(string strDBMethod, string p2)
+        public List<ApplyDoctorInfo> QueryApplyDoctorInfo(string strDBMethod)
         {
             List<ApplyDoctorInfo> lstQueryDepartment = new List<ApplyDoctorInfo>();
-            try
-            {
-                lstQueryDepartment = myBatis.QueryApplyDoctor(strDBMethod, null);
-               
-            }
-            catch (Exception e)
-            {
-                LogInfo.WriteErrorLog(e.ToString(), Module.WindowsService);
-            }
+            lstQueryDepartment = myBatis.QueryApplyDoctorInfo(strDBMethod);
             return lstQueryDepartment;
         }
 
-        internal string AddApplyDoctor(string strDBMethod, ApplyDoctorInfo applyDoctorInfo)
+        public string AddApplyDoctor(string strDBMethod, ApplyDoctorInfo applyDoctorInfo)
         {
             string strInfo = string.Empty;
             try
@@ -141,32 +126,24 @@ namespace BioA.Service
             return strInfo;
         }
 
-        internal int DeleteApplyDoctorInfo(string strDBMethod, ApplyDoctorInfo applyDoctorInfo)
+        public int DeleteApplyDoctorInfo(string strDBMethod, ApplyDoctorInfo applyDoctorInfo)
         {
             return myBatis.DeleteApplyDoctorInfo(strDBMethod, applyDoctorInfo);
         }
 
-        internal int UpdataApplyDoctorInfo(string strDBMethod, ApplyDoctorInfo applyDoctorInfo, ApplyDoctorInfo applyDoctorInfoOld)
+        public int UpdataApplyDoctorInfo(string strDBMethod, ApplyDoctorInfo applyDoctorInfo, ApplyDoctorInfo applyDoctorInfoOld)
         {
             return myBatis.UpdataApplyDoctorInfo(strDBMethod, applyDoctorInfo, applyDoctorInfoOld);
         }
 
-        internal List<string> QueryAuditPhysician(string strDBMethod, string p2)
+        public List<string> QueryAuditPhysician(string strDBMethod)
         {
             List<string> lstQueryAuditPhysician = new List<string>();
-            try
-            {
-                lstQueryAuditPhysician = myBatis.QueryAuditPhysician(strDBMethod, null);
-
-            }
-            catch (Exception e)
-            {
-                LogInfo.WriteErrorLog(e.ToString(), Module.WindowsService);
-            }
+            lstQueryAuditPhysician = myBatis.QueryAuditPhysician(strDBMethod);
             return lstQueryAuditPhysician;
         }
 
-        internal string AddAuditPhysician(string strDBMethod, string dataConfig)
+        public string AddAuditPhysician(string strDBMethod, string dataConfig)
         {
             string strInfo = string.Empty;
             try
@@ -199,12 +176,12 @@ namespace BioA.Service
             return strInfo;
         }
 
-        internal int DeleteAuditPhysician(string strDBMethod, string dataConfig)
+        public int DeleteAuditPhysician(string strDBMethod, string dataConfig)
         {
             return myBatis.DeleteAuditPhysician(strDBMethod, dataConfig);
         }
 
-        internal int UpDataAuditPhysician(string strDBMethod, string dataConfig, string dataConfigOld)
+        public int UpDataAuditPhysician(string strDBMethod, string dataConfig, string dataConfigOld)
         {
             return myBatis.UpDataAuditPhysician(strDBMethod, dataConfig, dataConfigOld);
         }

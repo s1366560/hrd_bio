@@ -17,7 +17,7 @@ namespace BioA.UI
 {
     public partial class    CalibrationCurve : DevExpress.XtraEditors.XtraForm
     {
-        public delegate void CalibrationDelegate(object sender);
+        public delegate void CalibrationDelegate(Dictionary<string, object[]> sender);
         public event CalibrationDelegate CalibrationEvent;
 
         List<CalibrationCurveInfo> listCalibrationCurveInfo = new List<CalibrationCurveInfo>();
@@ -347,7 +347,7 @@ namespace BioA.UI
             }
             if (CalibrationEvent!=null)
             {
-                CalibrationEvent(new CommunicationEntity("AddSDTTableItem", XmlUtility.Serializer(typeof(SDTTableItem), sDTTableItem)));
+                CalibrationEvent(new Dictionary<string, object[]>() { { "AddSDTTableItem", new object[] { XmlUtility.Serializer(typeof(SDTTableItem), sDTTableItem) } } });
             }
 
         }

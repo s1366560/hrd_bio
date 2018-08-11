@@ -77,10 +77,11 @@ BEGIN
     if n = 0
     then
     begin
-		update AssayProjectParamInfoTb set ProjectName = proModifyName, SampleType = proproModifyType where ProjectName=proName and SampleType=proType;
-		update CalibrationParamInfoTb set ProjectName = proModifyName, SampleType = proproModifyType where ProjectName=proName and SampleType=proType;
-		update RangeParamInfoTb set ProjectName = proModifyName, SampleType = proproModifyType where ProjectName=proName and SampleType=proType;
-        update assayprojectinfotb set ProjectName = proModifyName, SampleType = proproModifyType, ProFullName = proFullName, ChannelNum = channelNum where ProjectName=proName and SampleType=proType;
+		update AssayProjectParamInfoTb set ProjectName = proModifyName, SampleType = proproModifyType where ProjectName=proOldName and SampleType=proOldType;
+		update CalibrationParamInfoTb set ProjectName = proModifyName, SampleType = proproModifyType where ProjectName=proOldName and SampleType=proOldType;
+		update RangeParamInfoTb set ProjectName = proModifyName, SampleType = proproModifyType where ProjectName=proOldName and SampleType=proOldType;
+        update assayprojectinfotb set ProjectName = proModifyName, SampleType = proproModifyType, ProFullName = proFullName, ChannelNum = channelNum where ProjectName=proOldName and SampleType=proOldType;
+		update ProjectRunSequenceTb set ProjectName=proModifyName, SampleType=proModifyType where ProjectName=proOldName and SampleType=proOldType;
 	end;
     end if;
 	select n;

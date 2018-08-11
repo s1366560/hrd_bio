@@ -12,6 +12,7 @@ using BioA.UI;
 using System.Text.RegularExpressions;
 using BioA.Common.IO;
 using BioA.Common;
+using System.Threading;
 
 namespace BioA.UI
 {
@@ -22,8 +23,15 @@ namespace BioA.UI
         CalcProjectPage3 calcProjectPage3;
         CalcProjectPage4 calcProjectPage4;
 
+        /// <summary>
+        /// 存储客户端发送信息给服务器的参数集合
+        /// </summary>
+        private Dictionary<string, object[]> addOrEditItemDic = new Dictionary<string, object[]>();
 
         CalcProjectInfo calcProInfoForEdit = new CalcProjectInfo();
+        /// <summary>
+        /// 存储编辑计算项目的信息
+        /// </summary>
         public CalcProjectInfo CalcProInfoForEdit
         {
             get { return calcProInfoForEdit; }
@@ -50,7 +58,9 @@ namespace BioA.UI
 
         public void LoadData()
         {
-            SendService(new CommunicationEntity("QueryProjectResultUnits", null));
+            addOrEditItemDic.Clear();
+            addOrEditItemDic.Add("QueryProjectResultUnits", null);
+            SendService(addOrEditItemDic);
 
         }
 
@@ -79,17 +89,8 @@ namespace BioA.UI
             {
                 projectNames = value;
 
-                InitialCombProInfos(projectNames);
+                calcProjectPage1.LstAssayProInfos = projectNames;
             }
-        }
-
-        private void InitialCombProInfos(List<string> lstAssayProInfos)
-        {
-            calcProjectPage1.LstAssayProInfos = lstAssayProInfos;
-            this.Invoke(new EventHandler(delegate
-                {
-                    xtraTabControl1.SelectedTabPageIndex = 0;
-                }));            
         }
 
         private void AddOrEditCalcItem_Load(object sender, EventArgs e)
@@ -113,32 +114,41 @@ namespace BioA.UI
             {
                 cboSampleType.Properties.Items.Add(sampleType);
             }
-
-            txtProjectName.Text = calcProInfoForEdit.CalcProjectName;
-            txtProjectFullName.Text = calcProInfoForEdit.CalcProjectFullName;
-            cboUnit.SelectedItem = calcProInfoForEdit.Unit;
-            cboSampleType.SelectedItem = calcProInfoForEdit.SampleType;
-            txtReferenceRangeLow.Text = calcProInfoForEdit.ReferenceRangeLow == 100000000 ? "" : calcProInfoForEdit.ReferenceRangeLow.ToString();
-            txtReferenceRangeHigh.Text = calcProInfoForEdit.ReferenceRangeHigh == 100000000 ? "" : calcProInfoForEdit.ReferenceRangeHigh.ToString();
-            txtCalcFormula.Text = calcProInfoForEdit.CalcFormula;
+            //txtProjectName.Text = calcProInfoForEdit.CalcProjectName;
+            //txtProjectFullName.Text = calcProInfoForEdit.CalcProjectFullName;
+            //cboUnit.SelectedItem = calcProInfoForEdit.Unit;
+            //cboSampleType.SelectedItem = calcProInfoForEdit.SampleType;
+            //txtReferenceRangeLow.Text = calcProInfoForEdit.ReferenceRangeLow == 100000000 ? "" : calcProInfoForEdit.ReferenceRangeLow.ToString();
+            //txtReferenceRangeHigh.Text = calcProInfoForEdit.ReferenceRangeHigh == 100000000 ? "" : calcProInfoForEdit.ReferenceRangeHigh.ToString();
+            //txtCalcFormula.Text = calcProInfoForEdit.CalcFormula;
             if (this.Text == "添加计算项目")
                 cboSampleType.SelectedIndex = 1;
-            SendService(new CommunicationEntity("ProjectPageinfoForCalc", cboSampleType.SelectedItem.ToString()));
-
+            //SendService(new CommunicationEntity("ProjectPageinfoForCalc", cboSampleType.SelectedItem.ToString()));
             xtraTabControl1.SelectedTabPageIndex = 0;
             xtraTabPage1.Controls.Add(calcProjectPage1);
+
+            
         }
 
-        private void SendService(CommunicationEntity sender)
+        private void SendService(Dictionary<string,object[]> sender)
         {
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SettingsCalculateItem, XmlUtility.Serializer(typeof(CommunicationEntity), sender));
+            var addOrCalcThread = new Thread(() =>
+            {
+                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.SettingsCalculateItem, sender);
+            });
+            addOrCalcThread.IsBackground = true;
+            addOrCalcThread.Start();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
+        /// <summary>
+        /// 保存
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSave_Click(object sender, EventArgs e)
         {
             CalcProjectInfo calcProInfo = new CalcProjectInfo();
@@ -202,11 +212,15 @@ namespace BioA.UI
 
             if (this.Text == "添加计算项目")
             {
-                SendService(new CommunicationEntity("AddCalcProject", XmlUtility.Serializer(typeof(CalcProjectInfo), calcProInfo)));
+                addOrEditItemDic.Clear();
+                addOrEditItemDic.Add("AddCalcProject", new object[] { XmlUtility.Serializer(typeof(CalcProjectInfo), calcProInfo) });
+                SendService(addOrEditItemDic);
             }
             else
             {
-                SendService(new CommunicationEntity("UpdateCalcProject", XmlUtility.Serializer(typeof(CalcProjectInfo), calcProInfoForEdit), XmlUtility.Serializer(typeof(CalcProjectInfo), calcProInfo)));
+                addOrEditItemDic.Clear();
+                addOrEditItemDic.Add("UpdateCalcProject",new object[]{XmlUtility.Serializer(typeof(CalcProjectInfo), calcProInfoForEdit),XmlUtility.Serializer(typeof(CalcProjectInfo), calcProInfo)});
+                SendService(addOrEditItemDic);
             }
 
         }
@@ -489,8 +503,10 @@ namespace BioA.UI
         }
 
         private void cboSampleType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            SendService(new CommunicationEntity("ProjectPageinfoForCalc", cboSampleType.SelectedItem.ToString()));
+        {   
+            addOrEditItemDic.Clear();
+            addOrEditItemDic.Add("ProjectPageinfoForCalc", new object[] { cboSampleType.SelectedItem.ToString() });
+            SendService(addOrEditItemDic);
             txtCalcFormula.Text = "";
         }
     }

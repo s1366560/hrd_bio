@@ -23,17 +23,30 @@ namespace BioA.Common
         private List<string> projectNames;
         private string remarks;
         private int combProjectCount;
-
+        private string projectName;
+        /// <summary>
+        /// 组合项目名称
+        /// </summary>
         public string CombProjectName
         {
             get { return combProjectName; }
             set { combProjectName = value; }
         }
-
+        /// <summary>
+        /// 集合项目名称
+        /// </summary>
         public List<string> ProjectNames
         {
             get { return projectNames; }
             set { projectNames = value; }
+        }
+        /// <summary>
+        /// 项目名称
+        /// </summary>
+        public string ProjectName
+        {
+            get { return projectName; }
+            set { projectName = value; }
         }
         
         public string Remarks
@@ -41,7 +54,9 @@ namespace BioA.Common
             get { return remarks; }
             set { remarks = value; }
         }
-
+        /// <summary>
+        /// 组合项目对应项目的个数
+        /// </summary>
         public int CombProjectCount
         {
             get { return combProjectCount; }

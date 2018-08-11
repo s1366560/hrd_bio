@@ -28,108 +28,108 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
-            this.xtraTabPage1 = new DevExpress.XtraTab.XtraTabPage();
-            this.xtraTabPage2 = new DevExpress.XtraTab.XtraTabPage();
-            this.xtraTabPage3 = new DevExpress.XtraTab.XtraTabPage();
-            this.xtraTabPage4 = new DevExpress.XtraTab.XtraTabPage();
-            this.xtraTabPage5 = new DevExpress.XtraTab.XtraTabPage();
-            this.xtraTabPage6 = new DevExpress.XtraTab.XtraTabPage();
-            this.xtraTabPage7 = new DevExpress.XtraTab.XtraTabPage();
-            ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
-            this.xtraTabControl1.SuspendLayout();
+            this.xtrEquipmentDebug = new DevExpress.XtraTab.XtraTabControl();
+            this.xtrReactionTrayDebug = new DevExpress.XtraTab.XtraTabPage();
+            this.xtrReagentTrayDebug = new DevExpress.XtraTab.XtraTabPage();
+            this.xtrSampTrayDebug = new DevExpress.XtraTab.XtraTabPage();
+            this.xtrAbsorberDebug = new DevExpress.XtraTab.XtraTabPage();
+            this.xtrTreaterDebug = new DevExpress.XtraTab.XtraTabPage();
+            this.xtrLiquidCircuitDebug = new DevExpress.XtraTab.XtraTabPage();
+            this.xtrOpticalPathDebug = new DevExpress.XtraTab.XtraTabPage();
+            ((System.ComponentModel.ISupportInitialize)(this.xtrEquipmentDebug)).BeginInit();
+            this.xtrEquipmentDebug.SuspendLayout();
             this.SuspendLayout();
             // 
-            // xtraTabControl1
+            // xtrEquipmentDebug
             // 
-            this.xtraTabControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.xtraTabControl1.Appearance.Options.UseFont = true;
-            this.xtraTabControl1.Location = new System.Drawing.Point(3, 36);
-            this.xtraTabControl1.Name = "xtraTabControl1";
-            this.xtraTabControl1.SelectedTabPage = this.xtraTabPage1;
-            this.xtraTabControl1.Size = new System.Drawing.Size(1714, 870);
-            this.xtraTabControl1.TabIndex = 0;
-            this.xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
-            this.xtraTabPage1,
-            this.xtraTabPage2,
-            this.xtraTabPage3,
-            this.xtraTabPage4,
-            this.xtraTabPage5,
-            this.xtraTabPage6,
-            this.xtraTabPage7});
-            this.xtraTabControl1.Click += new System.EventHandler(this.xtraTabControl1_Click);
+            this.xtrEquipmentDebug.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.xtrEquipmentDebug.Appearance.Options.UseFont = true;
+            this.xtrEquipmentDebug.Location = new System.Drawing.Point(3, 36);
+            this.xtrEquipmentDebug.Name = "xtrEquipmentDebug";
+            this.xtrEquipmentDebug.SelectedTabPage = this.xtrReactionTrayDebug;
+            this.xtrEquipmentDebug.Size = new System.Drawing.Size(1714, 870);
+            this.xtrEquipmentDebug.TabIndex = 0;
+            this.xtrEquipmentDebug.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
+            this.xtrReactionTrayDebug,
+            this.xtrReagentTrayDebug,
+            this.xtrSampTrayDebug,
+            this.xtrAbsorberDebug,
+            this.xtrTreaterDebug,
+            this.xtrLiquidCircuitDebug,
+            this.xtrOpticalPathDebug});
+            this.xtrEquipmentDebug.Click += new System.EventHandler(this.xtraTabControl1_Click);
             // 
-            // xtraTabPage1
+            // xtrReactionTrayDebug
             // 
-            this.xtraTabPage1.Name = "xtraTabPage1";
-            this.xtraTabPage1.Size = new System.Drawing.Size(1708, 841);
-            this.xtraTabPage1.TabPageWidth = 100;
-            this.xtraTabPage1.Text = "反应盘调试";
+            this.xtrReactionTrayDebug.Name = "xtrReactionTrayDebug";
+            this.xtrReactionTrayDebug.Size = new System.Drawing.Size(1708, 841);
+            this.xtrReactionTrayDebug.TabPageWidth = 100;
+            this.xtrReactionTrayDebug.Text = "反应盘调试";
             // 
-            // xtraTabPage2
+            // xtrReagentTrayDebug
             // 
-            this.xtraTabPage2.Name = "xtraTabPage2";
-            this.xtraTabPage2.Size = new System.Drawing.Size(1708, 841);
-            this.xtraTabPage2.TabPageWidth = 100;
-            this.xtraTabPage2.Text = "试剂盘调试";
+            this.xtrReagentTrayDebug.Name = "xtrReagentTrayDebug";
+            this.xtrReagentTrayDebug.Size = new System.Drawing.Size(1708, 841);
+            this.xtrReagentTrayDebug.TabPageWidth = 100;
+            this.xtrReagentTrayDebug.Text = "试剂盘调试";
             // 
-            // xtraTabPage3
+            // xtrSampTrayDebug
             // 
-            this.xtraTabPage3.Name = "xtraTabPage3";
-            this.xtraTabPage3.Size = new System.Drawing.Size(1708, 841);
-            this.xtraTabPage3.TabPageWidth = 100;
-            this.xtraTabPage3.Text = "样本盘调试";
+            this.xtrSampTrayDebug.Name = "xtrSampTrayDebug";
+            this.xtrSampTrayDebug.Size = new System.Drawing.Size(1708, 841);
+            this.xtrSampTrayDebug.TabPageWidth = 100;
+            this.xtrSampTrayDebug.Text = "样本盘调试";
             // 
-            // xtraTabPage4
+            // xtrAbsorberDebug
             // 
-            this.xtraTabPage4.Name = "xtraTabPage4";
-            this.xtraTabPage4.Size = new System.Drawing.Size(1708, 841);
-            this.xtraTabPage4.TabPageWidth = 100;
-            this.xtraTabPage4.Text = "吸量器调试";
+            this.xtrAbsorberDebug.Name = "xtrAbsorberDebug";
+            this.xtrAbsorberDebug.Size = new System.Drawing.Size(1708, 841);
+            this.xtrAbsorberDebug.TabPageWidth = 100;
+            this.xtrAbsorberDebug.Text = "吸量器调试";
             // 
-            // xtraTabPage5
+            // xtrTreaterDebug
             // 
-            this.xtraTabPage5.Name = "xtraTabPage5";
-            this.xtraTabPage5.Size = new System.Drawing.Size(1708, 841);
-            this.xtraTabPage5.TabPageWidth = 100;
-            this.xtraTabPage5.Text = "搅拌器调试";
+            this.xtrTreaterDebug.Name = "xtrTreaterDebug";
+            this.xtrTreaterDebug.Size = new System.Drawing.Size(1708, 841);
+            this.xtrTreaterDebug.TabPageWidth = 100;
+            this.xtrTreaterDebug.Text = "搅拌器调试";
             // 
-            // xtraTabPage6
+            // xtrLiquidCircuitDebug
             // 
-            this.xtraTabPage6.Name = "xtraTabPage6";
-            this.xtraTabPage6.Size = new System.Drawing.Size(1708, 841);
-            this.xtraTabPage6.TabPageWidth = 100;
-            this.xtraTabPage6.Text = "液路调试";
+            this.xtrLiquidCircuitDebug.Name = "xtrLiquidCircuitDebug";
+            this.xtrLiquidCircuitDebug.Size = new System.Drawing.Size(1708, 841);
+            this.xtrLiquidCircuitDebug.TabPageWidth = 100;
+            this.xtrLiquidCircuitDebug.Text = "液路调试";
             // 
-            // xtraTabPage7
+            // xtrOpticalPathDebug
             // 
-            this.xtraTabPage7.Name = "xtraTabPage7";
-            this.xtraTabPage7.Size = new System.Drawing.Size(1708, 841);
-            this.xtraTabPage7.TabPageWidth = 100;
-            this.xtraTabPage7.Text = "光路调试";
+            this.xtrOpticalPathDebug.Name = "xtrOpticalPathDebug";
+            this.xtrOpticalPathDebug.Size = new System.Drawing.Size(1708, 841);
+            this.xtrOpticalPathDebug.TabPageWidth = 100;
+            this.xtrOpticalPathDebug.Text = "光路调试";
             // 
             // TestEquipment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.xtraTabControl1);
+            this.Controls.Add(this.xtrEquipmentDebug);
             this.Name = "TestEquipment";
             this.Size = new System.Drawing.Size(1717, 906);
-            ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).EndInit();
-            this.xtraTabControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.xtrEquipmentDebug)).EndInit();
+            this.xtrEquipmentDebug.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private DevExpress.XtraTab.XtraTabControl xtraTabControl1;
-        private DevExpress.XtraTab.XtraTabPage xtraTabPage1;
-        private DevExpress.XtraTab.XtraTabPage xtraTabPage2;
-        private DevExpress.XtraTab.XtraTabPage xtraTabPage3;
-        private DevExpress.XtraTab.XtraTabPage xtraTabPage4;
-        private DevExpress.XtraTab.XtraTabPage xtraTabPage5;
-        private DevExpress.XtraTab.XtraTabPage xtraTabPage6;
-        private DevExpress.XtraTab.XtraTabPage xtraTabPage7;
+        private DevExpress.XtraTab.XtraTabControl xtrEquipmentDebug;
+        private DevExpress.XtraTab.XtraTabPage xtrReactionTrayDebug;
+        private DevExpress.XtraTab.XtraTabPage xtrReagentTrayDebug;
+        private DevExpress.XtraTab.XtraTabPage xtrSampTrayDebug;
+        private DevExpress.XtraTab.XtraTabPage xtrAbsorberDebug;
+        private DevExpress.XtraTab.XtraTabPage xtrTreaterDebug;
+        private DevExpress.XtraTab.XtraTabPage xtrLiquidCircuitDebug;
+        private DevExpress.XtraTab.XtraTabPage xtrOpticalPathDebug;
     }
 }

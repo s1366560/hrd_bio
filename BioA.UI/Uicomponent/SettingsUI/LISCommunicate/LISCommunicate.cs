@@ -15,12 +15,18 @@ using System.ServiceModel;
 using BioA.UI;
 using System.IO.Ports;
 using Microsoft.Win32;
+using System.Threading;
 
 
 namespace BioA.UI
 {
     public partial class LISCommunicate : DevExpress.XtraEditors.XtraUserControl
     {
+        /// <summary>
+        /// 存储客户端发送信息给服务器的参数集合
+        /// </summary>
+        private Dictionary<string, object[]> lisCommDic = new Dictionary<string, object[]>();
+
         public LISCommunicate()
         {
             InitializeComponent();
@@ -60,10 +66,10 @@ namespace BioA.UI
                 case "NetworkLISCommunicateUpDate":
                     if ((int)sender > 0)
                     {
-                        CommunicationEntity NetworkcommunicationEntity = new CommunicationEntity();
-                        NetworkcommunicationEntity.StrmethodName = "NetworkLISCommunicate";
-                        NetworkcommunicationEntity.ObjParam = "";
-                        LISCommunicateLoad(NetworkcommunicationEntity);
+                        lisCommDic.Clear();
+                        //获取TP/TCP参数信息
+                        lisCommDic.Add("NetworkLISCommunicate", null);
+                        LISCommunicateLoad(lisCommDic);
                     }
 
                     break;
@@ -71,10 +77,10 @@ namespace BioA.UI
                 case "SerialLISCommunicateUpDate":
                     if ((int)sender > 0)
                     {
-                        CommunicationEntity SerialCommunicationEntity = new CommunicationEntity();
-                        SerialCommunicationEntity.StrmethodName = "SerialLISCommunicate";
-                        SerialCommunicationEntity.ObjParam = "";
-                        LISCommunicateLoad(SerialCommunicationEntity);
+                        lisCommDic.Clear();
+                        //获取串口参数信息
+                        lisCommDic.Add("SerialLISCommunicate", null);
+                        LISCommunicateLoad(lisCommDic);
                     }
                     break;
 
@@ -139,41 +145,54 @@ namespace BioA.UI
 
 
 
-        private void LISCommunicateLoad(object sender)
+        private void LISCommunicateLoad(Dictionary<string, object[]> sender)
         {
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SettingsLISCommunicate, XmlUtility.Serializer(typeof(CommunicationEntity), sender as CommunicationEntity));
+            var lisCommunicateThread = new Thread(() =>
+            {
+                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.SettingsLISCommunicate, sender);
+            });
+            lisCommunicateThread.IsBackground = true;
+            lisCommunicateThread.Start();
         }
 
         private void LISCommunicate_Load(object sender, EventArgs e)
         {
-            this.cboSerialPort.Properties.Items.Clear();
-            this.cboBaudRate.Properties.Items.Clear();
-            this.cboDataBit.Properties.Items.Clear();
-            this.cboParity.Properties.Items.Clear();
-            this.cboStopBits.Properties.Items.Clear();
-            string[] ArryPort = SerialPort.GetPortNames();
+            BeginInvoke(new Action(() =>
+            {
+                this.cboSerialPort.Properties.Items.Clear();
+                this.cboBaudRate.Properties.Items.Clear();
+                this.cboDataBit.Properties.Items.Clear();
+                this.cboParity.Properties.Items.Clear();
+                this.cboStopBits.Properties.Items.Clear();
+                string[] ArryPort = SerialPort.GetPortNames();
 
-            this.cboSerialPort.Properties.Items.AddRange(ArryPort);
-            
-            // 1200、2400、4800、9600、19200、38400、43000、56000、57600
-            cboBaudRate.Properties.Items.AddRange(new object[] { 1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200 });
-            cboBaudRate.SelectedIndex = 3;
+                this.cboSerialPort.Properties.Items.AddRange(ArryPort);
 
-            cboDataBit.Properties.Items.AddRange(new object[] { 5, 6, 7, 8 });
-            cboDataBit.SelectedIndex = 3;
-            cboParity.Properties.Items.AddRange(new object[]{ 0, 1, 2, 3, 4 });
-            cboParity.SelectedIndex = 0;
-            cboStopBits.Properties.Items.AddRange(new object[] { 1, 1.5, 2 });
-            cboStopBits.SelectedIndex = 0;
+                // 1200、2400、4800、9600、19200、38400、43000、56000、57600
+                cboBaudRate.Properties.Items.AddRange(new object[] { 1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200 });
+                cboBaudRate.SelectedIndex = 3;
 
-            CommunicationEntity NetworkcommunicationEntity = new CommunicationEntity();
-            NetworkcommunicationEntity.StrmethodName = "NetworkLISCommunicate";
-            NetworkcommunicationEntity.ObjParam = "";
-            LISCommunicateLoad(NetworkcommunicationEntity);
-            CommunicationEntity SerialCommunicationEntity = new CommunicationEntity();
-            SerialCommunicationEntity.StrmethodName = "SerialLISCommunicate";
-            SerialCommunicationEntity.ObjParam = "";
-            LISCommunicateLoad(SerialCommunicationEntity);
+                cboDataBit.Properties.Items.AddRange(new object[] { 5, 6, 7, 8 });
+                cboDataBit.SelectedIndex = 3;
+                cboParity.Properties.Items.AddRange(new object[] { 0, 1, 2, 3, 4 });
+                cboParity.SelectedIndex = 0;
+                cboStopBits.Properties.Items.AddRange(new object[] { 1, 1.5, 2 });
+                cboStopBits.SelectedIndex = 0;
+
+                //CommunicationEntity NetworkcommunicationEntity = new CommunicationEntity();
+                //NetworkcommunicationEntity.StrmethodName = "NetworkLISCommunicate";
+                //NetworkcommunicationEntity.ObjParam = "";
+                lisCommDic.Clear();
+                //获取TP/TCP参数信息
+                lisCommDic.Add("NetworkLISCommunicate",null);
+                //LISCommunicateLoad(NetworkcommunicationEntity);
+                //CommunicationEntity SerialCommunicationEntity = new CommunicationEntity();
+                //SerialCommunicationEntity.StrmethodName = "SerialLISCommunicate";
+                //SerialCommunicationEntity.ObjParam = "";
+                //获取串口参数信息
+                lisCommDic.Add("SerialLISCommunicate", null);
+                LISCommunicateLoad(lisCommDic);
+            }));
 
             
            
@@ -232,10 +251,13 @@ namespace BioA.UI
 
                 if (lISCommunicateNetworkInfo != null)
                 {
-                    CommunicationEntity NetworkcommunicationEntity = new CommunicationEntity();
-                    NetworkcommunicationEntity.StrmethodName = "NetworkLISCommunicateUpDate";
-                    NetworkcommunicationEntity.ObjParam = XmlUtility.Serializer(typeof(LISCommunicateNetworkInfo), lISCommunicateNetworkInfo);
-                    LISCommunicateLoad(NetworkcommunicationEntity);
+                    //CommunicationEntity NetworkcommunicationEntity = new CommunicationEntity();
+                    //NetworkcommunicationEntity.StrmethodName = "NetworkLISCommunicateUpDate";
+                    //NetworkcommunicationEntity.ObjParam = XmlUtility.Serializer(typeof(LISCommunicateNetworkInfo), lISCommunicateNetworkInfo);
+                    lisCommDic.Clear();
+                    //修改IP/TCP参数信息
+                    lisCommDic.Add("NetworkLISCommunicateUpDate", new object[] { XmlUtility.Serializer(typeof(LISCommunicateNetworkInfo), lISCommunicateNetworkInfo) });
+                    LISCommunicateLoad(lisCommDic);
                 }
            
         }
@@ -317,9 +339,12 @@ namespace BioA.UI
             CommunicationEntity NetworkcommunicationEntity = new CommunicationEntity();
             if (serialCommunicationInfo != null)
             {
-                NetworkcommunicationEntity.StrmethodName = "SerialLISCommunicateUpDate";
-                NetworkcommunicationEntity.ObjParam = XmlUtility.Serializer(typeof(SerialCommunicationInfo), serialCommunicationInfo);
-                LISCommunicateLoad(NetworkcommunicationEntity);
+                //NetworkcommunicationEntity.StrmethodName = "SerialLISCommunicateUpDate";
+                //NetworkcommunicationEntity.ObjParam = XmlUtility.Serializer(typeof(SerialCommunicationInfo), serialCommunicationInfo);
+                lisCommDic.Clear();
+                //修改串口参数信息
+                lisCommDic.Add("SerialLISCommunicateUpDate", new object[] { XmlUtility.Serializer(typeof(SerialCommunicationInfo), serialCommunicationInfo) });
+                LISCommunicateLoad(lisCommDic);
             }
         }
 

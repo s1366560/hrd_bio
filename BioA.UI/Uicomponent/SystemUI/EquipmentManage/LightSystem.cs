@@ -17,7 +17,10 @@ namespace BioA.UI
     public partial class LightSystem : DevExpress.XtraEditors.XtraUserControl
     {
         public event SendNetworkDelegate SendNetworkEvent;
-
+        /// <summary>
+        /// 存储客户端发送信息给服务器的参数集合
+        /// </summary>
+        private Dictionary<string, object[]> lightSystenDic = new Dictionary<string, object[]>();
 
         private ManuOffsetGain manuOffsetGainInfo = new ManuOffsetGain();
         /// <summary>
@@ -65,7 +68,9 @@ namespace BioA.UI
                         {
                             txtMinVoltage.Text = "0";
                         }
-                        CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SystemEquipmentManage, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("GetLatestOffSetGain", cboWaveLength.SelectedItem.ToString())));
+                        lightSystenDic.Clear();
+                        lightSystenDic.Add("GetLatestOffSetGain", new object[] { cboWaveLength.SelectedItem.ToString() });
+                        CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.SystemEquipmentManage,lightSystenDic);
                     }));
                    
                 }
@@ -154,9 +159,9 @@ namespace BioA.UI
                 {
                     manuGain.OffSet = int.Parse(txtOffset.Text);
                 }
-
-                CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SystemEquipmentManage,
-                    XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("InitialPhotometerManualCheck", XmlUtility.Serializer(typeof(ManuOffsetGain), manuGain))));
+                lightSystenDic.Clear();
+                lightSystenDic.Add("InitialPhotometerManualCheck", new object[] { XmlUtility.Serializer(typeof(ManuOffsetGain), manuGain) });
+                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.SystemEquipmentManage, lightSystenDic);
 
                 return;
             }
@@ -191,9 +196,8 @@ namespace BioA.UI
             }
 
             cboWaveLength.Items.AddRange(RunConfigureUtility.WaveLengthList.ToArray());
-
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SystemEquipmentManage, XmlUtility.Serializer(typeof(CommunicationEntity),
-                new CommunicationEntity("QueryManuOffsetGain", null)));
+            lightSystenDic.Add("QueryManuOffsetGain", null);
+            CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.SystemEquipmentManage, lightSystenDic);
         }
     }
 }

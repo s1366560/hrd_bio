@@ -29,8 +29,7 @@ namespace BioA.Service
         void ClientSendMsgToService(ModuleInfo sendClientName, string param);
 
         [OperationContract(IsOneWay = true)]
-        void ClientSendMsgToServiceMethod(ModuleInfo sendClientName, Dictionary<string, List<object>> param);
-
+        void ClientSendMsgToServiceMethod(ModuleInfo sendClientName, Dictionary<string, object[]> param);
         [OperationContract]
         List<string> GetClients();
     }

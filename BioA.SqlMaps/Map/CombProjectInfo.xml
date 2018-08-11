@@ -7,8 +7,13 @@
     <statement id="QueryCombProjectNameAllInfo" ResultClass="ArrayList">
       select CombProjectNameInfoTb.CombProjectName,CombProjectNameInfoTb.CombProjectCount, CombProjectNameInfoTb.Remarks  from CombProjectNameInfoTb
     </statement>
+    <!-- 根据组合项目名称获取对应的项目名称 -->
     <statement id="QueryProjectByCombProName" parameterClass="string" ResultClass="string">
       select CombProjectInfoTb.ProjectName from CombProjectInfoTb where CombProjectInfoTb.CombProjectName = #value#
+    </statement>
+    <!-- 获取组合项目名称和项目名称 -->
+    <statement id="QueryProjectAndCombProName" ResultClass="CombProjectInfo">
+      select CombProjectInfoTb.CombProjectName, CombProjectInfoTb.ProjectName from CombProjectInfoTb
     </statement>
     <statement id="AddCombProjectName" parameterClass="System.Collections.IDictionary" >
       insert into CombProjectNameInfoTb(CombProjectName, CombProjectCount, Remarks) values (#CombProjectName#, #CombProjectCount#, #Remarks#)

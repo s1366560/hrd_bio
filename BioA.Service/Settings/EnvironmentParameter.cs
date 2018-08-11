@@ -17,7 +17,7 @@ namespace BioA.Service
             return intResult;
         }
 
-        internal List<EnvironmentParamInfo> QueryEnvironmentParamInfo(string strDBMethod)
+        public List<EnvironmentParamInfo> QueryEnvironmentParamInfo(string strDBMethod)
         {
             List<EnvironmentParamInfo> lstEnvironmentInfos = myBatis.QueryEnvironmentParamInfo(strDBMethod);
             LogInfo.WriteProcessLog("public List<CalcProjectInfo> QueryCalcProjectAllInfo(string strDBMethod) == " + lstEnvironmentInfos.Count.ToString(), Module.WindowsService);

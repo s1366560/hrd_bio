@@ -30,7 +30,7 @@ namespace BioA.UI
             set 
             { 
                 lstCuvBlk = value;
-                this.BeginInvoke(new EventHandler(delegate {
+                BeginInvoke(new Action(() => {
                     if (lstCuvBlk[0] != null && lstCuvBlk.Count > 0)
                     {
                         if (textEdit2.Text == "" || textEdit1.Text == "")
@@ -436,8 +436,9 @@ namespace BioA.UI
             textEdit2.Text = (0.3).ToString();
             textEdit1.BackColor = Color.Yellow;
             textEdit2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SystemMaintenance,
-                XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryWaterBlankValueByWave", null)));
+            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SystemMaintenance,
+            //    XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryWaterBlankValueByWave", null)));
+            CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.SystemMaintenance, new Dictionary<string, object[]>() { { "QueryWaterBlankValueByWave", null } });
         }
 
         private void btnWavelength_Click(object sender, EventArgs e)

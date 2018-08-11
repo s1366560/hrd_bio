@@ -20,8 +20,8 @@ namespace BioA.UI
             this.ControlBox = false;
         }
 
-        public delegate void DataHandle(string str, object sender);
-        public event DataHandle DataHandleEvent;
+        public delegate void DataHandle(string str, UserInfo sender);//声明一个委托
+        public event DataHandle DataHandleEvent;//定义一个委托事件
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();

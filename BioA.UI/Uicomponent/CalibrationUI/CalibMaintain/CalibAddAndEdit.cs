@@ -17,13 +17,20 @@ namespace BioA.UI
 {
     public partial class CalibAddAndEdit : DevExpress.XtraEditors.XtraForm
     {
-        public string EditCalibratorinfo;
+        /// <summary>
+        /// 保存更改之前的校准品名称
+        /// </summary>
+        public string EditCalibratorName;
 
         /// <summary>
         ///     显示新增校准任务失败的信息
         /// </summary>
         private string strReturnInfo = string.Empty;
 
+        /// <summary>
+        /// 存储客户端发送信息给服务器的参数集合
+        /// </summary>
+        private Dictionary<string, object[]> editDictionary = new Dictionary<string, object[]>();
         public string StrReturnInfo
         {    
             set
@@ -31,11 +38,12 @@ namespace BioA.UI
                 strReturnInfo = value;
                 this.Invoke(new EventHandler(delegate {
                     MessageBox.Show(strReturnInfo);
+                    this.Close();
                 }));
             }
         }
 
-        public delegate void DataHandle(object sender);
+        public delegate void DataHandle(Dictionary<string, object[]> sender);
         public event DataHandle DataHandleEvent;
         
 
@@ -44,18 +52,18 @@ namespace BioA.UI
         ///         编辑界面
         ///             （根据校准品名称查找对应的项目信息和没有关联的项目信息）
         /// </summary>
-        List<CalibratorProjectinfo> lisCalibratorProjectinfo1;
+        List<CalibratorProjectinfo> lstCalibrationCorrespondingProInfo;
 
-        public List<CalibratorProjectinfo> LisCalibratorProjectinfo1
+        public List<CalibratorProjectinfo> LstCalibrationCorrespondingProInfo
         {
-            get { return lisCalibratorProjectinfo1; }
+            get { return lstCalibrationCorrespondingProInfo; }
             set
             {
-                lisCalibratorProjectinfo1 = value;
-                if (lisassayProjectInfo != null && lisCalibratorProjectinfo1 != null)
+                lstCalibrationCorrespondingProInfo = value;
+                if (lisassayProjectInfo != null && lstCalibrationCorrespondingProInfo != null)
                 {
-                    this.Invoke(new EventHandler(delegate
-                    {
+                    //this.Invoke(new EventHandler(delegate
+                    //{
                         DataTable dt = new DataTable();
                         dt.Columns.Add("项目名称");
                         dt.Columns.Add("样本类型");
@@ -63,20 +71,21 @@ namespace BioA.UI
 
                         foreach (AssayProjectInfo a in lisassayProjectInfo)
                         {
-                            if (!lisCalibratorProjectinfo1.Exists(x => x.ProjectName == a.ProjectName && x.SampleType == a.SampleType))
+                            if (!lstCalibrationCorrespondingProInfo.Exists(x => x.ProjectName == a.ProjectName && x.SampleType == a.SampleType))
                             {
-                                lisCalibratorProjectinfo1.Add(new CalibratorProjectinfo() { ProjectName = a.ProjectName, SampleType = a.SampleType});
+                                lstCalibrationCorrespondingProInfo.Add(new CalibratorProjectinfo() { ProjectName = a.ProjectName, SampleType = a.SampleType });
                             }
                             
                         }
-                        foreach (CalibratorProjectinfo c in lisCalibratorProjectinfo1)
+                        foreach (CalibratorProjectinfo c in lstCalibrationCorrespondingProInfo)
                         {
                             dt.Rows.Add(new object[] { c.ProjectName, c.SampleType, c.CalibConcentration == 0 ? "" : c.CalibConcentration.ToString() });
                         }
                         lstvProjectInfo.DataSource = null;
                         lstvProjectInfo.DataSource = dt;
                         gridView1.Columns[0].OptionsColumn.AllowEdit = false;
-                    }));
+                        gridView1.Columns[1].OptionsColumn.AllowEdit = false;
+                    //}));
                 }
 
             }
@@ -94,19 +103,18 @@ namespace BioA.UI
             set
             {
                 lisassayProjectInfo = value;
-                if (this.Text == "编辑校准品")
-                {
-                    string str = EditCalibratorinfo;
-                    CommunicationEntity communicationEntity = new CommunicationEntity();
-                    communicationEntity.StrmethodName = "QueryProjectItemsByCalibration";
-                    communicationEntity.ObjParam = str;
-                    CalibrationMaintainSend(communicationEntity);   
-                }
-                else
-                {
-                    this.Invoke(new EventHandler(delegate
-                    {
-
+                //if (this.Text == "编辑校准品")
+                //{
+                    //string str = EditCalibratorName;
+                    ////CommunicationEntity communicationEntity = new CommunicationEntity();
+                    ////communicationEntity.StrmethodName = "QueryProjectItemsByCalibration";
+                    ////communicationEntity.ObjParam = str;
+                    //editDictionary.Clear();
+                    //editDictionary.Add("QueryProjectItemsByCalibration", new List<object>() { str });
+                    //CalibrationMaintainSend(editDictionary);   
+                //}
+                //else
+                //{
                         DataTable dt = new DataTable();
                         dt.Columns.Add("项目名称");
                         dt.Columns.Add("样本类型");
@@ -119,8 +127,8 @@ namespace BioA.UI
                         lstvProjectInfo.DataSource = null;
                         lstvProjectInfo.DataSource = dt;
                         this.gridView1.Columns[0].OptionsColumn.AllowEdit = false;
-                    }));
-                }
+                        this.gridView1.Columns[1].OptionsColumn.AllowEdit = false;
+                //}
             }
         }
         public CalibAddAndEdit()
@@ -152,7 +160,13 @@ namespace BioA.UI
             this.Close();
             lstvProjectInfo.DataSource = null;
         }
-     
+
+        List<Calibratorinfo> lstCalibPos = new List<Calibratorinfo>();
+        public List<Calibratorinfo> LstCalibPos
+        {
+            get { return lstCalibPos; }
+            set { lstCalibPos = value; }
+        }
         /// <summary>
         ///     校准品维护：
         ///         显示校准品位置
@@ -240,19 +254,21 @@ namespace BioA.UI
                         calibratorProjectinfo.CalibName = cboCalibName.Text;
                         liscalibratorProjectinfo.Add(calibratorProjectinfo);
                     }
-                    else
-                    {
-                        MessageBox.Show("必须选择一个项目样本浓度！");
-                        return;
-                    }                   
-                }                             
+                }
+                if(liscalibratorProjectinfo.Count == 0)             
+                {
+                    MessageBox.Show("必须选择一个项目样本浓度！");
+                    return;
+                }                   
                 if (DataHandleEvent != null)
                 {
-                    CommunicationEntity communicationEntity = new CommunicationEntity();
-                    communicationEntity.ObjParam = XmlUtility.Serializer(typeof(Calibratorinfo), calibratorinfo);
-                    communicationEntity.ObjLastestParam = XmlUtility.Serializer(typeof(List<CalibratorProjectinfo>), liscalibratorProjectinfo);
-                    communicationEntity.StrmethodName = "AddCalibratorinfo";
-                    DataHandleEvent(communicationEntity);
+                    //CommunicationEntity communicationEntity = new CommunicationEntity();
+                    //communicationEntity.ObjParam = XmlUtility.Serializer(typeof(Calibratorinfo), calibratorinfo);
+                    //communicationEntity.ObjLastestParam = XmlUtility.Serializer(typeof(List<CalibratorProjectinfo>), liscalibratorProjectinfo);
+                    //communicationEntity.StrmethodName = "AddCalibratorinfo";
+                    editDictionary.Clear();
+                    editDictionary.Add("AddCalibratorinfo", new object[] { XmlUtility.Serializer(typeof(Calibratorinfo), calibratorinfo), XmlUtility.Serializer(typeof(List<CalibratorProjectinfo>), liscalibratorProjectinfo) });
+                    DataHandleEvent(editDictionary);
                 }
             }
             if (this.Text == "编辑校准品")
@@ -290,31 +306,36 @@ namespace BioA.UI
                         calibratorProjectinfo.CalibName = cboCalibName.Text;
                         liscalibratorProjectinfo.Add(calibratorProjectinfo);
                     }
-                    else
-                    {
-                        //str.Add(calibratorProjectinfo.CalibConcentration);
-                        MessageBox.Show("请选择您要修改的项目浓度！");
-                        return;
-                    }
+                }
+                if (liscalibratorProjectinfo.Count == 0)
+                {
+                    //str.Add(calibratorProjectinfo.CalibConcentration);
+                    MessageBox.Show("请选择您要修改的项目浓度！");
+                    return;
                 }
                 if (DataHandleEvent != null)
                 {
-                    CommunicationEntity communicationEntity = new CommunicationEntity();
-                    communicationEntity.ObjParam = XmlUtility.Serializer(typeof(Calibratorinfo), calibratorinfo);
-                    communicationEntity.ObjThirdParam = XmlUtility.Serializer(typeof(List<CalibratorProjectinfo>), liscalibratorProjectinfo);
-                    communicationEntity.StrmethodName = "EditCalibratorinfo";
-                    communicationEntity.ObjLastestParam = EditCalibratorinfo;
-                    DataHandleEvent(communicationEntity);
+                    //CommunicationEntity communicationEntity = new CommunicationEntity();
+                    //communicationEntity.ObjParam = XmlUtility.Serializer(typeof(Calibratorinfo), calibratorinfo);
+                    //communicationEntity.ObjThirdParam = XmlUtility.Serializer(typeof(List<CalibratorProjectinfo>), liscalibratorProjectinfo);
+                    //communicationEntity.StrmethodName = "EditCalibratorinfo";
+                    //communicationEntity.ObjLastestParam = EditCalibratorName;
+                    editDictionary.Clear();
+                    editDictionary.Add("EditCalibratorinfo", new object[] { XmlUtility.Serializer(typeof(Calibratorinfo), calibratorinfo), EditCalibratorName, XmlUtility.Serializer(typeof(List<CalibratorProjectinfo>), liscalibratorProjectinfo) });
+                    DataHandleEvent(editDictionary);
                 }
                
             }
-            this.Close();
-            lstvProjectInfo.DataSource = null;
         }
 
-        private void CalibrationMaintainSend(object sender)
+        private void CalibrationMaintainSend(Dictionary<string, object[]> sender)
         {
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibrationMaintain, XmlUtility.Serializer(typeof(CommunicationEntity), sender as CommunicationEntity));
+            var calibEditThread = new Thread(() =>
+            {
+                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.CalibrationMaintain, sender);
+            });
+            calibEditThread.IsBackground = true;
+            calibEditThread.Start();
         }
 
         /// <summary>
@@ -324,27 +345,33 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void CalibAddAndEdit_Load(object sender, EventArgs e)
         {
+            //editDictionary.Clear();
             // 1.获取校准品对应项目信息
-            if(this.Text == "编辑校准品")
-            {
-                CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibrationMaintain, XmlUtility.Serializer(typeof(CommunicationEntity),
-                    new CommunicationEntity("QueryAssayProAllInfo")));
+            //if(this.Text == "编辑校准品")
+            //{
+                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibrationMaintain, XmlUtility.Serializer(typeof(CommunicationEntity),
+                //    new CommunicationEntity("QueryAssayProAllInfo")));
                 //编辑，查询校准品位置（移除以使用的位置，自己本身不移除）
-                CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibrationMaintain,XmlUtility.Serializer(typeof(CommunicationEntity),
-                    new CommunicationEntity("QueryCalibPos")));
-            }
-
-            if (this.Text == "装载校准品")
-            {
-                CommunicationEntity communicationEntity = new CommunicationEntity();
-                communicationEntity.StrmethodName = "QueryCalibPos";
-                communicationEntity.ObjParam = "";
-                CalibrationMaintainSend(communicationEntity);      
-            }
+                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibrationMaintain,XmlUtility.Serializer(typeof(CommunicationEntity),
+                //    new CommunicationEntity("QueryCalibPos")));
+                //editDictionary.Add("QueryAssayProAllInfo", new List<object>() { "" });
+                
+            //}
+            this.Listcalibratorinfo = this.lstCalibPos;
+            //if (this.Text == "装载校准品")
+            //{
+            //    CommunicationEntity communicationEntity = new CommunicationEntity();
+            //    communicationEntity.StrmethodName = "QueryCalibPos";
+            //    communicationEntity.ObjParam = "";
+            //    CalibrationMaintainSend(communicationEntity);      
+            //}
+            //editDictionary.Add("QueryCalibPos", new List<object>() { "" });
+            //CalibrationMaintainSend(editDictionary);
+            //CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.CalibrationMaintain, new Dictionary<string, List<object>>() { { "QueryCalibPos", new List<object>() { "" } } });
             //2.加载位置下拉框
-            List<string> calibPos = RunConfigureUtility.CalibPosition;
-            cboCalibPosition.Properties.Items.Clear();
-            cboCalibPosition.Properties.Items.AddRange(calibPos);
+            //List<string> calibPos = RunConfigureUtility.CalibPosition;
+            //cboCalibPosition.Properties.Items.Clear();
+            //cboCalibPosition.Properties.Items.AddRange(calibPos);
         }
 
         /// <summary>

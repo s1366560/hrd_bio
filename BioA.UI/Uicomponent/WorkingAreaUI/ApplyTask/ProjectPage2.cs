@@ -22,8 +22,8 @@ namespace BioA.UI
 
         public ProjectPage2()
         {
-            
 
+            InitializeComponent();
             //projectPageInfo = projectPageEnum;
 
             
@@ -81,7 +81,7 @@ namespace BioA.UI
 
         private void AllAssayProInfo()
         {
-            InitializeComponent();
+            
             ResetControlState();
             this.toolTip1.RemoveAll();
             if (lstAssayProInfos.Count >= 33)

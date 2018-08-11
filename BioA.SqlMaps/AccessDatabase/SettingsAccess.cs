@@ -1,4 +1,5 @@
 ﻿using BioA.Common;
+using IBatisNet.DataMapper;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,58 +21,72 @@ namespace BioA.SqlMaps
         public int SelectAssayProCountByNameAndType(string strAccessDBMethod, AssayProjectInfo assayProject)
         {
             Hashtable hashTable = new Hashtable();
-            hashTable.Add("ProjectName", assayProject.ProjectName);
-            hashTable.Add("SampleType", assayProject.SampleType);
+            hashTable.Add("proName", assayProject.ProjectName);
+            hashTable.Add("proType", assayProject.SampleType);
             return (int)ism_SqlMap.QueryForObject("AssayProjectInfo." + strAccessDBMethod, hashTable);
         }
         public int DeleteAssayProCountByNameAndType(string strAccessDBMethod, List<AssayProjectInfo> assayProject)
         {
             int deletecount = 0;
-            for (int i = 0; i <= assayProject.Count - 1; i++)
+            try
             {
-                Hashtable hashTable = new Hashtable();
-                hashTable.Add("proName", assayProject[i].ProjectName);
-                hashTable.Add("proType", assayProject[i].SampleType);
-                deletecount = (int)ism_SqlMap.QueryForObject("AssayProjectInfo.DeleteAssayProject", hashTable);
+                for (int i = 0; i <= assayProject.Count - 1; i++)
+                {
+                    Hashtable hashTable = new Hashtable();
+                    hashTable.Add("proName", assayProject[i].ProjectName);
+                    hashTable.Add("proType", assayProject[i].SampleType);
+                    deletecount = (int)ism_SqlMap.QueryForObject("AssayProjectInfo.DeleteAssayProject", hashTable);
+                }
+            }
+            catch (Exception e)
+            {
+                LogInfo.WriteErrorLog(e.ToString(), Module.WindowsService);
             }
             return deletecount;
         }
         public int UpdateAssayProCountByNameAndType(string strAccessDBMethod, AssayProjectInfo assayProInfoOld, AssayProjectInfo assayProject2)
         {
             int iResult = 0;
-            Hashtable hashTable = new Hashtable();
-            hashTable.Add("ProjectName", assayProject2.ProjectName);
-            hashTable.Add("SampleType", assayProject2.SampleType);
-            if ((int)ism_SqlMap.QueryForObject("AssayProjectInfo.SelectAssayProCountByPrimarykey", hashTable) > 0
-                    && assayProInfoOld.ProjectName != assayProject2.ProjectName)
+            try
             {
-                iResult = 0;
-                return iResult;
-            }
+                Hashtable hashTable = new Hashtable();
+                hashTable.Add("ProjectName", assayProject2.ProjectName);
+                hashTable.Add("SampleType", assayProject2.SampleType);
+                if ((int)ism_SqlMap.QueryForObject("AssayProjectInfo.SelectAssayProCountByPrimarykey", hashTable) > 0
+                        && assayProInfoOld.ProjectName != assayProject2.ProjectName)
+                {
+                    iResult = 0;
+                    return iResult;
+                }
 
-            Hashtable hash = new Hashtable();
-            if (assayProInfoOld.ProjectName == assayProject2.ProjectName && assayProInfoOld.SampleType == assayProject2.SampleType)
-            {
-                hash.Add("proModifyName", assayProject2.ProjectName);
-                hash.Add("proModifyType", assayProject2.SampleType);
-                hash.Add("proFullName", assayProject2.ProFullName);
-                hash.Add("channelNum", assayProject2.ChannelNum);
-                ism_SqlMap.Update("AssayProjectInfo.EditAssayProject", hash);
-            }
-            else
-            {
-                hash.Add("proOldName", assayProInfoOld.ProjectName);
-                hash.Add("proModifyName", assayProject2.ProjectName);
-                hash.Add("proOldType", assayProInfoOld.SampleType);
-                hash.Add("proModifyType", assayProject2.SampleType);
-                hash.Add("proFullName", assayProject2.ProFullName);
-                hash.Add("channelNum", assayProject2.ChannelNum);
-                //ism_SqlMap.Update("AssayProjectInfo.UpdateProjectNameForParam", hash);
-                //ism_SqlMap.Update("AssayProjectInfo.UpdateProjectNameForCalibParam", hash);
-                //ism_SqlMap.Update("AssayProjectInfo.UpdateProjectNameForRangeParam", hash);
-                ism_SqlMap.Update("AssayProjectInfo.UpdateProjectRunSequence", hash);
-                iResult = (int)ism_SqlMap.QueryForObject("AssayProjectInfo.UpdateAssayProject", hash);
+                Hashtable hash = new Hashtable();
+                if (assayProInfoOld.ProjectName == assayProject2.ProjectName && assayProInfoOld.SampleType == assayProject2.SampleType)
+                {
+                    hash.Add("proModifyName", assayProject2.ProjectName);
+                    hash.Add("proModifyType", assayProject2.SampleType);
+                    hash.Add("proFullName", assayProject2.ProFullName);
+                    hash.Add("channelNum", assayProject2.ChannelNum);
+                    ism_SqlMap.Update("AssayProjectInfo.EditAssayProject", hash);
+                }
+                else
+                {
+                    hash.Add("proModifyName", assayProject2.ProjectName);
+                    hash.Add("proModifyType", assayProject2.SampleType);
+                    hash.Add("proFullName", assayProject2.ProFullName);
+                    hash.Add("channelNum", assayProject2.ChannelNum);
+                    hash.Add("proOldName", assayProInfoOld.ProjectName);
+                    hash.Add("proOldType", assayProInfoOld.SampleType);
+                    //ism_SqlMap.Update("AssayProjectInfo.UpdateProjectNameForParam", hash);
+                    //ism_SqlMap.Update("AssayProjectInfo.UpdateProjectNameForCalibParam", hash);
+                    //ism_SqlMap.Update("AssayProjectInfo.UpdateProjectNameForRangeParam", hash);
+                    //ism_SqlMap.Update("AssayProjectInfo.UpdateProjectRunSequence", hash);
+                    iResult = (int)ism_SqlMap.QueryForObject("AssayProjectInfo.UpdateAssayProject", hash);
 
+                }
+            }
+            catch (Exception e)
+            {
+                LogInfo.WriteErrorLog(e.ToString(), Module.WindowsService);
             }
             return iResult;
         }
@@ -192,12 +207,75 @@ namespace BioA.SqlMaps
             return assayProParam;
         }
         /// <summary>
+        /// 获取所有生化项目参数信息
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <returns></returns>
+        public List<AssayProjectParamInfo> QueryAssayProjectParamInfoAll(string strDBMethod)
+        {
+            List<AssayProjectParamInfo> lstAssayProParamsResult = new List<AssayProjectParamInfo>();
+
+            List<ReagentStateInfo> proReagentState = new List<ReagentStateInfo>();
+            try
+            {
+                //获取所有生化项目参数信息
+                List<AssayProjectParamInfo> lstAssayProParam = (List<AssayProjectParamInfo>)ism_SqlMap.QueryForList<AssayProjectParamInfo>("AssayProjectInfo." + strDBMethod,null);
+                //获取所有试剂1信息
+                List<ReagentSettingsInfo> lstReagentSettings = (List<ReagentSettingsInfo>)ism_SqlMap.QueryForList<ReagentSettingsInfo>("ReagentInfo.QueryReagentSetting1", null);
+                //获取所有试剂2信息
+                List<ReagentSettingsInfo> lstReagentSettings2 = (List<ReagentSettingsInfo>)ism_SqlMap.QueryForList<ReagentSettingsInfo>("ReagentInfo.QueryReagentSetting2", null);
+                foreach (AssayProjectParamInfo assayProParam in lstAssayProParam)
+                {
+                    foreach (ReagentSettingsInfo reagentSettings in lstReagentSettings)
+                    {
+                        if (assayProParam.ProjectName == reagentSettings.ProjectName)
+                        {
+                            assayProParam.Reagent1Name = reagentSettings.ReagentName;
+                            assayProParam.Reagent1Pos = reagentSettings.Pos;
+                            assayProParam.Reagent1ValidDate = reagentSettings.ValidDate;
+                        }
+                    }
+                    foreach (ReagentSettingsInfo reagentSettings2 in lstReagentSettings2)
+                    {
+                        if (assayProParam.ProjectName == reagentSettings2.ProjectName)
+                        {
+                            assayProParam.Reagent2Name = reagentSettings2.ReagentName;
+                            assayProParam.Reagent2Pos = reagentSettings2.Pos;
+                            assayProParam.Reagent2ValidDate = reagentSettings2.ValidDate;
+                        }
+                    }
+                    //获取所有试剂1 OR 2信息
+                    proReagentState = (List<ReagentStateInfo>)ism_SqlMap.QueryForList<ReagentStateInfo>("ReagentInfo.QueryReagentStateInfoAll", null);
+                    foreach (ReagentStateInfo reaState in proReagentState)
+                    {
+                        if (assayProParam.ProjectName == reaState.ProjectName)
+                        {
+                            if (reaState.ReagentName == assayProParam.Reagent1Name)
+                            {
+                                assayProParam.Reagent1Vol = reaState.ReagentSurplusVol;
+                            }
+                            if (reaState.ReagentName == assayProParam.Reagent2Name)
+                            {
+                                assayProParam.Reagent2Vol = reaState.ReagentSurplusVol;
+                            }
+                        }
+                    }
+                    lstAssayProParamsResult.Add(assayProParam);
+                }
+            }
+            catch (Exception e)
+            {
+                LogInfo.WriteErrorLog("SettingsAccess_GetAssayProjectParamInfoByNameAndType(string strDBMethod, AssayProjectInfo assayProInfo)==" + e.ToString(), Module.DAO);
+            }
+            return lstAssayProParamsResult;
+        }
+        /// <summary>
         /// 获取结果单位
         /// </summary>
         /// <param name="strDBMethod"></param>
         /// <param name="sender"></param>
         /// <returns></returns>
-        public List<string> QueryProjectResultUnits(string strDBMethod, object sender)
+        public List<string> QueryProjectResultUnits(string strDBMethod)
         {
             List<string> lstUnits = new List<string>();
             try
@@ -249,6 +327,28 @@ namespace BioA.SqlMaps
 
             return calibParamInfo;
         }
+        /// <summary>
+        /// 获取所有项目校准参数信息
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <param name="assayProInfo"></param>
+        /// <returns></returns>
+        public List<AssayProjectCalibrationParamInfo> QueryCalibParamInfoAll(string strDBMethod)
+        {
+            List<AssayProjectCalibrationParamInfo> lstCalibParamInfo = new List<AssayProjectCalibrationParamInfo>();
+
+            try
+            {
+                lstCalibParamInfo = (List<AssayProjectCalibrationParamInfo>)ism_SqlMap.QueryForList<AssayProjectCalibrationParamInfo>("AssayProjectInfo." + strDBMethod, null);
+            }
+            catch (Exception e)
+            {
+                LogInfo.WriteErrorLog("QueryCalibParamByProNameAndType(string strDBMethod, AssayProjectInfo assayProInfo)==" + e.ToString(), Module.DAO);
+            }
+
+            return lstCalibParamInfo;
+        }
+
         /// <summary>
         /// 通过项目名称和项目类型更新项目校准参数
         /// </summary>
@@ -346,13 +446,13 @@ namespace BioA.SqlMaps
         /// <param name="strDBMethod"></param>
         /// <param name="ObjParam"></param>
         /// <returns></returns>
-        public List<string> QueryAssayProAllInfoByDistinctProName(string strDBMethod, object ObjParam)
+        public List<string> QueryAssayProAllInfoByDistinctProName(string strDBMethod)
         {
             List<string> assayProInfos = new List<string>();
 
             try
             {
-                assayProInfos = (List<string>)ism_SqlMap.QueryForList<string>("AssayProjectInfo." + strDBMethod, ObjParam as AssayProjectInfo);
+                assayProInfos = (List<string>)ism_SqlMap.QueryForList<string>("AssayProjectInfo." + strDBMethod, null);
 
                 List<CalcProjectInfo> calcProInfos = (List<CalcProjectInfo>)ism_SqlMap.QueryForList<CalcProjectInfo>("CalcProjectInfo.QueryCalcProjectAllInfo", null);
 
@@ -446,12 +546,34 @@ namespace BioA.SqlMaps
             return lstProNames;
         }
         /// <summary>
+        /// 获取所有组合项目信息
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <returns></returns>
+        public List<CombProjectInfo> QueryProjectAndCombProName(string strDBMethod)
+        {
+            List<CombProjectInfo> lstProjectAndCombProName = new List<CombProjectInfo>();
+            try
+            {
+                lstProjectAndCombProName = (List<CombProjectInfo>)ism_SqlMap.QueryForList<CombProjectInfo>("CombProjectInfo." + strDBMethod, null);
+
+            }
+            catch (Exception e)
+            {
+                LogInfo.WriteErrorLog("QueryProjectByCombProName(string strDBMethod, string CombProName)==" + e.ToString(), Module.DAO);
+            }
+
+            return lstProjectAndCombProName;
+        }
+
+        /// <summary>
         /// 添加组合项目
         /// </summary>
         /// <param name="strDBMethod"></param>
         /// <param name="combProjectInfo"></param>
-        public void AddCombProjectName(string strDBMethod, CombProjectInfo combProjectInfo)
+        public int AddCombProjectName(string strDBMethod, CombProjectInfo combProjectInfo)
         {
+            int intResult = 0;
             try
             {
                 Hashtable hash = new Hashtable();
@@ -459,7 +581,6 @@ namespace BioA.SqlMaps
                 hash.Add("CombProjectCount", combProjectInfo.CombProjectCount);
                 LogInfo.WriteErrorLog(combProjectInfo.CombProjectCount.ToString(), Module.DAO);
                 hash.Add("Remarks", combProjectInfo.Remarks);
-
                 ism_SqlMap.Insert("CombProjectInfo." + strDBMethod, combProjectInfo);
                 foreach (string strPro in combProjectInfo.ProjectNames)
                 {
@@ -470,12 +591,14 @@ namespace BioA.SqlMaps
 
                     ism_SqlMap.Insert("CombProjectInfo.AddCombProject", ht);
                 }
+                intResult = 1;
                 
             }
             catch (Exception e)
             {
                 LogInfo.WriteErrorLog("AddCombProject(string strDBMethod, CombProjectInfo combProjectInfo)==" + e.ToString(), Module.DAO);
             }
+            return intResult;
         }
         /// <summary>
         /// 通过组合项目名称获取条数
@@ -527,13 +650,13 @@ namespace BioA.SqlMaps
         /// <param name="strDBMethod">访问数据库方法名</param>
         /// <param name="combProjectInfo">更新参数</param>
         /// <returns>更新条数</returns>
-        public int UpdateCombProjectName(string strDBMethod, CombProjectInfo combProjectInfoOld, CombProjectInfo combProInfoNew)
+        public int UpdateCombProjectName(string strDBMethod, string combProjectInfoOld, CombProjectInfo combProInfoNew)
         {
             int intResult = 0;
             try
             {
                 Hashtable hash = new Hashtable();
-                hash.Add("CombProjectNameOld", combProjectInfoOld.CombProjectName);
+                hash.Add("CombProjectNameOld", combProjectInfoOld);
                 hash.Add("CombProjectNameNew", combProInfoNew.CombProjectName);
                 hash.Add("CombProjectCountNew", combProInfoNew.CombProjectCount);
                 hash.Add("RemarksNew", combProInfoNew.Remarks);
@@ -541,7 +664,7 @@ namespace BioA.SqlMaps
                 intResult = ism_SqlMap.Update("CombProjectInfo." + strDBMethod, hash);
 
                 // 删除组合项目对应项目列表
-                ism_SqlMap.Delete("CombProjectInfo.DeleteCombProject", combProjectInfoOld.CombProjectName);
+                ism_SqlMap.Delete("CombProjectInfo.DeleteCombProject", combProjectInfoOld);
                 // 插入组合项目对应项目列表
                 foreach (string strProInfo in combProInfoNew.ProjectNames)
                 {
@@ -700,7 +823,7 @@ namespace BioA.SqlMaps
             return intResult;
         }
 
-        public List<LISCommunicateNetworkInfo> QueryLISCommunicateInfo(string strDBMethod, LISCommunicateNetworkInfo lISCommunicateInfo)
+        public List<LISCommunicateNetworkInfo> QueryLISCommunicateInfo(string strDBMethod)
         {
             List<LISCommunicateNetworkInfo> lstLISCommunicateInfos = new List<LISCommunicateNetworkInfo>();
 
@@ -716,39 +839,18 @@ namespace BioA.SqlMaps
             LogInfo.WriteProcessLog(lstLISCommunicateInfos.Count.ToString(), Module.DAO);
             return lstLISCommunicateInfos;
         }
-
-        public List<SerialCommunicationInfo> QuerySerialCommunicationInfo(string strDBMethod, SerialCommunicationInfo lISCommunicateInfo)
+        /// <summary>
+        /// 获取串口参数信息
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <returns></returns>
+        public List<SerialCommunicationInfo> QuerySerialCommunicationInfo(string strDBMethod)
         {
             List<SerialCommunicationInfo> lstLISCommunicateInfos = new List<SerialCommunicationInfo>();
 
             try
             {
-                if (lISCommunicateInfo == null)
-                {
-                    lstLISCommunicateInfos = (List<SerialCommunicationInfo>)ism_SqlMap.QueryForList<SerialCommunicationInfo>("LISCommunicateInfo." + strDBMethod, null);
-                }
-                else
-                {
-                    //Hashtable hash = new Hashtable();
-                    //if (assayProInfo.ProjectName != string.Empty)
-                    //{
-                    //    hash.Add("ProjectName", assayProInfo.ProjectName);
-                    //}
-                    //else if (assayProInfo.SampleType != string.Empty)
-                    //{
-                    //    hash.Add("SampleType", assayProInfo.SampleType);
-                    //}
-                    //else if (assayProInfo.ProFullName != string.Empty)
-                    //{
-                    //    hash.Add("ProFullName", assayProInfo.ProFullName);
-                    //}
-                    //else if (assayProInfo.ChannelNum != string.Empty)
-                    //{
-                    //    hash.Add("ChannelNum", assayProInfo.ChannelNum);
-                    //}
-
-                    //lstAssayProInfos = (List<AssayProjectInfo>)ism_SqlMap.QueryForList<AssayProjectInfo>(strDBMethod, hash);
-                }
+                lstLISCommunicateInfos = (List<SerialCommunicationInfo>)ism_SqlMap.QueryForList<SerialCommunicationInfo>("LISCommunicateInfo." + strDBMethod, null);
             }
             catch (Exception e)
             {
@@ -763,7 +865,7 @@ namespace BioA.SqlMaps
             int intResult = 0;
             try
             {
-                List<LISCommunicateNetworkInfo> lstLISCommunicateInfos = QueryLISCommunicateInfo("NetworkLISCommunicate", null);
+                List<LISCommunicateNetworkInfo> lstLISCommunicateInfos = QueryLISCommunicateInfo("NetworkLISCommunicate");
                 if (lstLISCommunicateInfos.Count > 0)
                     intResult = (int)ism_SqlMap.Update("LISCommunicateInfo." + strDBMethod, lISCommunicateInfo);
                 else
@@ -785,7 +887,7 @@ namespace BioA.SqlMaps
             int intResult = 0;
             try
             {
-                List<SerialCommunicationInfo> lstLISCommunicateInfos = QuerySerialCommunicationInfo("SerialLISCommunicate", null);
+                List<SerialCommunicationInfo> lstLISCommunicateInfos = QuerySerialCommunicationInfo("SerialLISCommunicate");
                 if (lstLISCommunicateInfos.Count > 0)
                     intResult = (int)ism_SqlMap.Update("LISCommunicateInfo." + strDBMethod, serialCommunicationInfo);
                 else
@@ -802,18 +904,18 @@ namespace BioA.SqlMaps
             return intResult;
         }
 
-
-
-        public List<string> QueryDataConfig(string strDBMethod, string dataConfig)
+        /// <summary>
+        /// 获取所有数据结果单位信息 
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <returns></returns>
+        public List<string> QueryDataConfig(string strDBMethod)
         {
 
             List<string> lstQueryDataConfig = new List<string>();
             try
             {
-                if (dataConfig == null)
-                {
-                    lstQueryDataConfig = (List<string>)ism_SqlMap.QueryForList<string>("DataConfig." + strDBMethod, dataConfig);
-                }
+                lstQueryDataConfig = (List<string>)ism_SqlMap.QueryForList<string>("DataConfig." + strDBMethod, null);
             }
 
             catch (Exception e)
@@ -934,16 +1036,17 @@ namespace BioA.SqlMaps
             }
             
         }
-
-        public List<ReagentNeedleAntifoulingStrategyInfo> QueryReagentNeedle(string strDBMethod, ReagentNeedleAntifoulingStrategyInfo reagentNeedleAntifoulingStrategyInfo)
+        /// <summary>
+        /// 获取所有防污试剂针
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <returns></returns>
+        public List<ReagentNeedleAntifoulingStrategyInfo> QueryReagentNeedle(string strDBMethod)
         {
             List<ReagentNeedleAntifoulingStrategyInfo> lstQueryReagentNeedle = new List<ReagentNeedleAntifoulingStrategyInfo>();
             try
             {
-                if (reagentNeedleAntifoulingStrategyInfo == null)
-                {
-                    lstQueryReagentNeedle = (List<ReagentNeedleAntifoulingStrategyInfo>)ism_SqlMap.QueryForList<ReagentNeedleAntifoulingStrategyInfo>("ReagentNeedleInfo." + strDBMethod, reagentNeedleAntifoulingStrategyInfo);
-                }
+                lstQueryReagentNeedle = (List<ReagentNeedleAntifoulingStrategyInfo>)ism_SqlMap.QueryForList<ReagentNeedleAntifoulingStrategyInfo>("ReagentNeedleInfo." + strDBMethod,null);
             }
 
             catch (Exception e)
@@ -1053,16 +1156,17 @@ namespace BioA.SqlMaps
 
             return lstEnvironmentInfos;
         }
-
-        public List<string> QueryDilutionRatio(string strDBMethod, string dataConfig)
+        /// <summary>
+        /// 获取所有稀释比例信息
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <returns></returns>
+        public List<string> QueryDilutionRatio(string strDBMethod)
         {
             List<string> lstQueryDilutionRatio = new List<string>();
             try
             {
-                if (dataConfig == null)
-                {
-                    lstQueryDilutionRatio = (List<string>)ism_SqlMap.QueryForList<string>("DataConfig.QueryDilutionRatio", dataConfig);
-                }
+                lstQueryDilutionRatio = (List<string>)ism_SqlMap.QueryForList<string>("DataConfig.QueryDilutionRatio", null);
             }
 
             catch (Exception e)
@@ -1088,7 +1192,11 @@ namespace BioA.SqlMaps
             }
             return intResult;
         }
-
+        /// <summary>
+        /// 添加稀释比例参数信息
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <param name="dataConfig"></param>
         public void DilutionRatioadd(string strDBMethod, string dataConfig)
         {
             Hashtable hashTable = new Hashtable();
@@ -1295,7 +1403,11 @@ namespace BioA.SqlMaps
 
             return lstQueryCalibrationCurve;
         }
-
+        /// <summary>
+        /// 获取所有清洗液信息
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <returns></returns>
         public List<string> QueryWashingLiquid(string strDBMethod)
         {
             List<string> lstResult = new List<string>();

@@ -25,39 +25,33 @@ namespace BioA.UI
             get { return lstSampleNum; }
             set { lstSampleNum = value; }
         }
-        
-        List<string> rtx = new List<string>();
 
-        private string receiveInfo = "";
+        private List<string> lstReceiveInfo = null;
         /// <summary>
-        /// 任务添加成功或失败的提示
+        /// 批量录入完成后返回的结果
         /// </summary>
-        public string ReceiveInfo
+        public List<string> LstReceiveInfo
         {
-            get { return receiveInfo; }
+            get { return lstReceiveInfo; }
             set
             {
 
                 timer1.Stop();
-                receiveInfo = value;
+                lstReceiveInfo = value;
                 //int MaxNum = System.Convert.ToInt32(receiveInfo.Substring(0, receiveInfo.IndexOf(",")));
                 //string str = receiveInfo.Substring(receiveInfo.IndexOf(",") + 1);
-                this.Invoke(new EventHandler(delegate
+                foreach (string strResult in lstReceiveInfo)
+                {
+                    this.Invoke(new EventHandler(delegate
                     {
-                        rtxtInfo.Text += Environment.NewLine + string.Format(receiveInfo);
-                        string st = string.Format(receiveInfo);
-                        rtx.Add(st);
-                        if (rtx.Count.ToString() == txtSampleAmount.Text.ToString())
-                        {
-                            MessageBox.Show("批量录入成功！");
-                            this.Close();
-                            return;
-                        }
+                        rtxtInfo.Text += Environment.NewLine + string.Format(strResult);
                         //rtxtInfo.Text += Environment.NewLine + string.Format("{0}号样本{1}", MaxNum, str);
                         //string st = string.Format("{0}号样本{1}", MaxNum, str);
                         //rtx.Add(st);
                     }));
-                    
+                }
+                MessageBox.Show("批量录入执行完成！");
+                this.Close();
             }
         }
         /// <summary>

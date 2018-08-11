@@ -21,6 +21,10 @@ namespace BioA.UI
 
         CalibrationTrace calibrationTrace;
 
+        /// <summary>
+        /// 存储客户端发送信息给服务器的参数集合
+        /// </summary>
+        private Dictionary<string, object[]> calibStateDictionary = new Dictionary<string, object[]>();
         public lstvCalibrationState()
         {
             InitializeComponent();
@@ -28,7 +32,7 @@ namespace BioA.UI
             gridView1.Appearance.FocusedRow.Font = font;
         }
 
-        private void calibrationCurve_CalibrationEvent(object sender)
+        private void calibrationCurve_CalibrationEvent(Dictionary<string, object[]> sender)
         {
             CalibrationStateSend(sender);
         }
@@ -51,10 +55,12 @@ namespace BioA.UI
                 calibrationCurveInfo.ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "检测项目").ToString();
                 calibrationCurveInfo.SampleType = this.gridView1.GetRowCellValue(selectedHandle, "样本类型").ToString();
                 calibrationCurve.AddCalibrationCurve(calibrationCurveInfo);
-                CommunicationEntity CalibrationMaintain = new CommunicationEntity();
-                CalibrationMaintain.StrmethodName = "QueryCalibrationCurveInfo";
-                CalibrationMaintain.ObjParam = XmlUtility.Serializer(typeof(CalibrationCurveInfo), calibrationCurveInfo); 
-                CalibrationStateSend(CalibrationMaintain);
+                //CommunicationEntity CalibrationMaintain = new CommunicationEntity();
+                //CalibrationMaintain.StrmethodName = "QueryCalibrationCurveInfo";
+                //CalibrationMaintain.ObjParam = XmlUtility.Serializer(typeof(CalibrationCurveInfo), calibrationCurveInfo); 
+                calibStateDictionary.Clear();
+                calibStateDictionary.Add("QueryCalibrationCurveInfo", new object[] { XmlUtility.Serializer(typeof(CalibrationCurveInfo), calibrationCurveInfo) });
+                CalibrationStateSend(calibStateDictionary);
                 calibrationCurve.StartPosition = FormStartPosition.CenterScreen;
                 calibrationCurve.ShowDialog();  
             }
@@ -75,10 +81,12 @@ namespace BioA.UI
                 calibrationResultinfo.CalibMethod= this.gridView1.GetRowCellValue(selectedHandle, "检测方法").ToString();
                 calibrationResultinfo.ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "检测项目").ToString();
                 calibrationResultinfo.SampleType = this.gridView1.GetRowCellValue(selectedHandle, "样本类型").ToString();
-                CommunicationEntity CalibrationMaintain2 = new CommunicationEntity();
-                CalibrationMaintain2.StrmethodName = "QueryCalibrationResultinfo";
-                CalibrationMaintain2.ObjParam = XmlUtility.Serializer(typeof(CalibrationResultinfo), calibrationResultinfo);
-                CalibrationStateSend(CalibrationMaintain2);
+                //CommunicationEntity CalibrationMaintain = new CommunicationEntity();
+                //CalibrationMaintain.StrmethodName = "QueryCalibrationResultinfo";
+                //CalibrationMaintain.ObjParam = XmlUtility.Serializer(typeof(CalibrationResultinfo), calibrationResultinfo);
+                calibStateDictionary.Clear();
+                calibStateDictionary.Add("QueryCalibrationResultinfo", new object[] { XmlUtility.Serializer(typeof(CalibrationResultinfo), calibrationResultinfo) });
+                CalibrationStateSend(calibStateDictionary);
                 Thread.Sleep(1000);
                 calibrationTrace.CalibrationAdd(calibrationResultinfo);
             }
@@ -102,12 +110,14 @@ namespace BioA.UI
                 calibrationResultinfo.CalibMethod = this.gridView1.GetRowCellValue(selectedHandle, "检测方法").ToString();
                 calibrationResultinfo.ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "检测项目").ToString();
                 calibrationResultinfo.SampleType = this.gridView1.GetRowCellValue(selectedHandle, "样本类型").ToString();
-                CommunicationEntity CalibrationMaintain2 = new CommunicationEntity();
-                //CalibrationMaintain2.StrmethodName = "QueryCalibrationReactionProcess";
+                //CommunicationEntity CalibrationMaintain2 = new CommunicationEntity();
+                ////CalibrationMaintain2.StrmethodName = "QueryCalibrationReactionProcess";
+                ////CalibrationMaintain2.ObjParam = XmlUtility.Serializer(typeof(CalibrationResultinfo), calibrationResultinfo);
+                //CalibrationMaintain2.StrmethodName = "QueryCalibrationResultInfoAndTimeCUVNO";
                 //CalibrationMaintain2.ObjParam = XmlUtility.Serializer(typeof(CalibrationResultinfo), calibrationResultinfo);
-                CalibrationMaintain2.StrmethodName = "QueryCalibrationResultInfoAndTimeCUVNO";
-                CalibrationMaintain2.ObjParam = XmlUtility.Serializer(typeof(CalibrationResultinfo), calibrationResultinfo);
-                CalibrationStateSend(CalibrationMaintain2);
+                calibStateDictionary.Clear();
+                calibStateDictionary.Add("QueryCalibrationResultInfoAndTimeCUVNO",new object[]{ XmlUtility.Serializer(typeof(CalibrationResultinfo), calibrationResultinfo) });
+                CalibrationStateSend(calibStateDictionary);
                 
             }
 
@@ -120,31 +130,31 @@ namespace BioA.UI
 
         private void CalibrationStateLoad()
         {
-            CommunicationEntity CalibrationMaintain = new CommunicationEntity();
-            CalibrationMaintain.StrmethodName = "QueryCalibrationState";
-            CalibrationMaintain.ObjParam = "";
-            CalibrationStateSend(CalibrationMaintain);
+            //CommunicationEntity CalibrationMaintain = new CommunicationEntity();
+            //CalibrationMaintain.StrmethodName = "QueryCalibrationState";
+            //CalibrationMaintain.ObjParam = "";
+            calibStateDictionary.Add("QueryCalibrationState", new object[] { "" });
+            CalibrationStateSend(calibStateDictionary);
 
         }
 
-        private void CalibrationStateSend(object sender)
+        private void CalibrationStateSend(Dictionary<string, object[]> sender)
         {
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibrationState, XmlUtility.Serializer(typeof(CommunicationEntity), sender as CommunicationEntity));
+            var calibStateThread = new Thread(() =>
+            {
+                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.CalibrationState, sender);
+            });
+            calibStateThread.IsBackground = true;
+            calibStateThread.Start();
         }
 
+        /// <summary>
+        /// 存储校准品状态信息
+        /// </summary>
+        DataTable dt = new DataTable();
         private void CalibrationState_Load(object sender, EventArgs e)
         {
-
-            CalibrationStateLoad();
-
-        }
-
-        void AddCalibrationState(List<CalibrationResultinfo> calibratorinfo)
-        {
-             this.Invoke(new EventHandler(delegate
-            {
-            DataTable dt = new DataTable();
-           
+            BeginInvoke(new Action(CalibrationStateLoad));
             dt.Columns.Add("检测项目");
             dt.Columns.Add("样本类型");
             dt.Columns.Add("检测方法");
@@ -153,14 +163,6 @@ namespace BioA.UI
             dt.Columns.Add("A因数");
             dt.Columns.Add("B因数");
             dt.Columns.Add("C因数");
-           // dt.Columns.Add("状态");
-            foreach (CalibrationResultinfo calibrationResultinfo in calibratorinfo)
-            {
-                dt.Rows.Add(new object[] { calibrationResultinfo.ProjectName,calibrationResultinfo.SampleType, calibrationResultinfo .CalibMethod,
-                calibrationResultinfo.BlankAbs,calibrationResultinfo.KFactor,calibrationResultinfo.AFactor,calibrationResultinfo.BFactor,
-                calibrationResultinfo.CFactor
-            });
-            }
             gridControl1.DataSource = dt;
             this.gridView1.Columns[0].OptionsColumn.AllowEdit = false;
             this.gridView1.Columns[1].OptionsColumn.AllowEdit = false;
@@ -170,6 +172,19 @@ namespace BioA.UI
             this.gridView1.Columns[5].OptionsColumn.AllowEdit = false;
             this.gridView1.Columns[6].OptionsColumn.AllowEdit = false;
             this.gridView1.Columns[7].OptionsColumn.AllowEdit = false; 
+        }
+
+        void AddCalibrationState(List<CalibrationResultinfo> calibratorinfo)
+        {
+             BeginInvoke(new Action(() =>
+            {
+                // dt.Columns.Add("状态");
+                foreach (CalibrationResultinfo calibrationResultinfo in calibratorinfo)
+                {
+                    dt.Rows.Add(new object[] { calibrationResultinfo.ProjectName,calibrationResultinfo.SampleType, calibrationResultinfo .CalibMethod,
+                    calibrationResultinfo.BlankAbs,calibrationResultinfo.KFactor,calibrationResultinfo.AFactor,calibrationResultinfo.BFactor,
+                    calibrationResultinfo.CFactor});
+                }
             }));
         }
 

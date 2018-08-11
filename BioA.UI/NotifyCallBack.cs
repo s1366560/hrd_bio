@@ -57,174 +57,6 @@ namespace BioA.UI
         public void DatabaseNotifyFunction(ModuleInfo moduleInfo, string strMethod, object sender)
         {
             Console.WriteLine("DatabaseNotifyFunction begin" + DateTime.Now.Ticks);
-                switch (moduleInfo)
-                {
-                    case ModuleInfo.Login:
-                        if (LoginDataTransferEvent != null)
-                        {
-                            LoginDataTransferEvent(strMethod, sender);
-                        }
-                        break;
-                    case ModuleInfo.WorkingAreaApplyTask:
-                        if (ApplyTaskDataTransferEvent != null)
-                        {
-                            ApplyTaskDataTransferEvent(strMethod, sender);
-                        }
-                        break;
-                    case ModuleInfo.WorkingAreaDataCheck:
-                        if (CommonSampleDataEvent != null)
-                        {
-                            CommonSampleDataEvent(strMethod, sender);
-                        }
-                        break;
-                    case ModuleInfo.WorkingAreaCalibDataCheck:
-                        break;
-                    case ModuleInfo.ReagentState:
-                        if (ReagentStateDataTransferEvent != null)
-                        {
-                            ReagentStateDataTransferEvent(strMethod, sender);
-                        }
-
-                        break;
-                    case ModuleInfo.CalibControlTask:
-                        if (CalibControlTaskDataTransferEvent != null)
-                        {
-                            CalibControlTaskDataTransferEvent(strMethod, sender);
-                        }
-
-                        break;
-                    case ModuleInfo.ReagentSetting:
-                        if (ReagentSettingsDataTransferEvent != null)
-                        {
-                            ReagentSettingsDataTransferEvent(strMethod, sender);
-                        }
-                        break;
-                    case ModuleInfo.CalibrationState:
-                        if (CalibrationStateDataTransferEvent != null)
-                        {
-                            CalibrationStateDataTransferEvent(strMethod, sender);
-                        }
-                        break;
-                    case ModuleInfo.CalibrationMaintain:
-                        if (CalibMaintainDataTransferEvent != null)
-                        {
-                            CalibMaintainDataTransferEvent(strMethod, sender);
-                        }
-                        break;
-                    case ModuleInfo.QCResult:
-                        if (QCResultDataTransferEvent != null)
-                        {
-                            QCResultDataTransferEvent(strMethod, sender);
-                        }
-                        break;
-                    case ModuleInfo.QCMaintain:
-                        if (QCMaintainDataTransferEvent != null)
-                        {
-                            QCMaintainDataTransferEvent(strMethod, sender);
-                        }
-                        break;
-                    case ModuleInfo.QCGraphic:
-                        if (QCGraphicsDataTransferEvent != null)
-                        {
-                            QCGraphicsDataTransferEvent(strMethod, sender);
-                        }
-                        break;
-                    case ModuleInfo.QCTask:
-                        if (QCTaskDataTransferEvent != null)
-                        {
-                            QCTaskDataTransferEvent(strMethod, sender);
-                        }
-                        break;
-                    case ModuleInfo.SettingsChemicalParameter:
-                        if (ChemicalParamDataTransferEvent != null)
-                        {
-                            ChemicalParamDataTransferEvent(strMethod, sender);
-                        }
-                        break;
-                    case ModuleInfo.SettingsCombProject:
-                        if (CombProjectDataTransferEvent != null)
-                        {
-                            CombProjectDataTransferEvent(strMethod, sender);
-                        }
-                        break;
-                    case ModuleInfo.SettingsCalculateItem:
-                        if (CalcProjectDataTransferEvent != null)
-                        {
-                            CalcProjectDataTransferEvent(strMethod, sender);
-                        }
-                        break;
-                    case ModuleInfo.SettingsCrossPollution:
-                        if (ReagentNeedleDataTransferEvent != null)
-                        {
-                            ReagentNeedleDataTransferEvent(strMethod, sender);
-                        }
-                        break;
-                    case ModuleInfo.SettingsDataConfig:
-                        if (DataConfigDataTransferEvent != null)
-                        {
-                            DataConfigDataTransferEvent(strMethod, sender);
-                        }
-                        break;
-                    case ModuleInfo.SettingsEnvironment:
-                        if (EnvironmentDataTransferEvent != null)
-                        {
-                            EnvironmentDataTransferEvent(strMethod, sender);
-                        }
-                        break;
-                    case ModuleInfo.SettingsLISCommunicate:
-                        if (LISCommunicateDataTransferEvent != null)
-                        {
-                            LISCommunicateDataTransferEvent(strMethod, sender);
-                        }
-                        break;
-                    case ModuleInfo.SystemConfigure:
-                        break;
-                    case ModuleInfo.SystemDepartmentManage:
-                        if (DepartmentManageDataTransferEvent != null)
-                        {
-                            DepartmentManageDataTransferEvent(strMethod, sender);
-                        }
-                        break;
-                    case ModuleInfo.SystemEquipmentManage:
-                        if (SystemTestEquipmentEvent != null)
-                        {
-                            SystemTestEquipmentEvent(strMethod, sender);
-                        }
-                        break;
-                    case ModuleInfo.SystemLogCheck:
-                        if (LogDataTransferEvent != null)
-                        {
-                            LogDataTransferEvent(strMethod, sender);
-                        }
-                        break;
-                    case ModuleInfo.SystemMaintenance:
-                        if (SystemMaintenanceDataTransferEvent != null)
-                        {
-                            SystemMaintenanceDataTransferEvent(strMethod, sender);
-                        }
-                        break;
-                    case ModuleInfo.SystemUserManagement:
-                        if (UserManagementDataTransferEvent != null)
-                        {
-                            UserManagementDataTransferEvent(strMethod, sender);
-                        }
-                        break;
-                    case ModuleInfo.SystemVersionInfomation:
-                        break;
-                    case ModuleInfo.MainTain:
-                        if (StartTestTaskDataTransferEvent != null)
-                        {
-                            StartTestTaskDataTransferEvent(strMethod, sender);
-                        }
-                        break;
-                    default:
-                        break;
-                }
-
-                //if (DataTransferEvent != null)
-                //{
-                //    DataTransferEvent(strMethod, sender);
-                //}
             Console.WriteLine("DatabaseNotfityFunction end " + DateTime.Now.Ticks);
         }
 
@@ -255,6 +87,24 @@ namespace BioA.UI
                         }
                     }
                     break;
+                case ModuleInfo.ReagentState:
+                    if (ReagentStateDataTransferEvent != null)
+                    {
+                        foreach (KeyValuePair<string, object> kvp in strMethodParam)
+                        {
+                            ReagentStateDataTransferEvent(kvp.Key, kvp.Value);
+                        }
+                    }
+                    break;
+                case ModuleInfo.ReagentSetting:
+                    if (ReagentSettingsDataTransferEvent != null)
+                    {
+                        foreach (KeyValuePair<string, object> kvp in strMethodParam)
+                        {
+                            ReagentSettingsDataTransferEvent(kvp.Key, kvp.Value);
+                        }
+                    }
+                    break;
                 case ModuleInfo.CalibControlTask:
                     if (CalibControlTaskDataTransferEvent != null)
                     {
@@ -263,6 +113,179 @@ namespace BioA.UI
                             CalibControlTaskDataTransferEvent(kvp.Key, kvp.Value);
                         }
                     }
+                    break;
+                case ModuleInfo.CalibrationState:
+                    if (CalibrationStateDataTransferEvent != null)
+                    {
+                        foreach (KeyValuePair<string, object> kvp in strMethodParam)
+                        {
+                            CalibrationStateDataTransferEvent(kvp.Key, kvp.Value);
+                        }
+                    }
+                    break;
+                case ModuleInfo.CalibrationMaintain:
+                    if (CalibMaintainDataTransferEvent != null)
+                    {
+                        foreach (KeyValuePair<string, object> kvp in strMethodParam)
+                        {
+                            CalibMaintainDataTransferEvent(kvp.Key, kvp.Value);
+                        }
+                    }
+                    break;
+                case ModuleInfo.QCResult:
+                    if (QCResultDataTransferEvent != null)
+                    {
+                        foreach (KeyValuePair<string, object> kvp in strMethodParam)
+                        {
+                            QCResultDataTransferEvent(kvp.Key, kvp.Value);
+                        }
+                    }
+                    break;
+                case ModuleInfo.QCMaintain:
+                    if (QCMaintainDataTransferEvent != null)
+                    {
+                        foreach (KeyValuePair<string, object> kvp in strMethodParam)
+                        {
+                            QCMaintainDataTransferEvent(kvp.Key, kvp.Value);
+                        }
+                    }
+                    break;
+                case ModuleInfo.QCGraphic:
+                    if (QCGraphicsDataTransferEvent != null)
+                    {
+                        foreach (KeyValuePair<string, object> kvp in strMethodParam)
+                        {
+                            QCGraphicsDataTransferEvent(kvp.Key, kvp.Value);
+                        }
+                    }
+                    break;
+                case ModuleInfo.QCTask:
+                    if (QCTaskDataTransferEvent != null)
+                    {
+                        foreach (KeyValuePair<string, object> kvp in strMethodParam)
+                        {
+                            QCTaskDataTransferEvent(kvp.Key, kvp.Value);
+                        }
+                    }
+                    break;
+                case ModuleInfo.SettingsChemicalParameter:
+                    if (ChemicalParamDataTransferEvent != null)
+                    {
+                        foreach (KeyValuePair<string, object> kvp in strMethodParam)
+                        {
+                            ChemicalParamDataTransferEvent(kvp.Key, kvp.Value);
+                        }
+                    }
+                    break;
+                case ModuleInfo.SettingsCombProject:
+                    if (CombProjectDataTransferEvent != null)
+                    {
+                        foreach (KeyValuePair<string, object> kvp in strMethodParam)
+                        {
+                            CombProjectDataTransferEvent(kvp.Key, kvp.Value);
+                        }
+                    }
+                    break;
+                case ModuleInfo.SettingsCalculateItem:
+                    if (CalcProjectDataTransferEvent != null)
+                    {
+                        foreach (KeyValuePair<string, object> kvp in strMethodParam)
+                        {
+                            CalcProjectDataTransferEvent(kvp.Key, kvp.Value);
+                        }
+                    }
+                    break;
+                case ModuleInfo.SettingsCrossPollution:
+                    if (ReagentNeedleDataTransferEvent != null)
+                    {
+                        foreach (KeyValuePair<string, object> kvp in strMethodParam)
+                        {
+                            ReagentNeedleDataTransferEvent(kvp.Key, kvp.Value);
+                        }
+                    }
+                    break;
+                case ModuleInfo.SettingsDataConfig:
+                    if (DataConfigDataTransferEvent != null)
+                    {
+                        foreach (KeyValuePair<string, object> kvp in strMethodParam)
+                        {
+                            DataConfigDataTransferEvent(kvp.Key, kvp.Value);
+                        }
+                    }
+                    break;
+                case ModuleInfo.SettingsEnvironment:
+                    if (EnvironmentDataTransferEvent != null)
+                    {
+                        foreach (KeyValuePair<string, object> kvp in strMethodParam)
+                        {
+                            EnvironmentDataTransferEvent(kvp.Key, kvp.Value);
+                        }
+                    }
+                    break;
+                case ModuleInfo.SettingsLISCommunicate:
+                    if (LISCommunicateDataTransferEvent != null)
+                    {
+                        foreach (KeyValuePair<string, object> kvp in strMethodParam)
+                        {
+                            LISCommunicateDataTransferEvent(kvp.Key, kvp.Value);
+                        }
+                    }
+                    break;
+                case ModuleInfo.SystemDepartmentManage:
+                    if (DepartmentManageDataTransferEvent != null)
+                    {
+                        foreach (KeyValuePair<string, object> kvp in strMethodParam)
+                        {
+                            DepartmentManageDataTransferEvent(kvp.Key, kvp.Value);
+                        }
+                    }
+                    break;
+                case ModuleInfo.SystemEquipmentManage:
+                    if (SystemTestEquipmentEvent != null)
+                    {
+                        foreach (KeyValuePair<string, object> kvp in strMethodParam)
+                        {
+                            SystemTestEquipmentEvent(kvp.Key, kvp.Value);
+                        }
+                    }
+                    break;
+                case ModuleInfo.SystemLogCheck:
+                    if (LogDataTransferEvent != null)
+                    {
+                        foreach (KeyValuePair<string, object> kvp in strMethodParam)
+                        {
+                            LogDataTransferEvent(kvp.Key, kvp.Value);
+                        }
+                    }
+                    break;
+                case ModuleInfo.SystemMaintenance:
+                    if (SystemMaintenanceDataTransferEvent != null)
+                    {
+                        foreach (KeyValuePair<string, object> kvp in strMethodParam)
+                        {
+                            SystemMaintenanceDataTransferEvent(kvp.Key, kvp.Value);
+                        }
+                    }
+                    break;
+                case ModuleInfo.SystemUserManagement:
+                    if (UserManagementDataTransferEvent != null)
+                    {
+                        foreach (KeyValuePair<string, object> kvp in strMethodParam)
+                        {
+                            UserManagementDataTransferEvent(kvp.Key, kvp.Value);
+                        }
+                    }
+                    break;
+                case ModuleInfo.MainTain:
+                    if (StartTestTaskDataTransferEvent != null)
+                    {
+                        foreach (KeyValuePair<string, object> kvp in strMethodParam)
+                        {
+                            StartTestTaskDataTransferEvent(kvp.Key, kvp.Value);
+                        }
+                    }
+                    break;
+                default:
                     break;
             }
         }

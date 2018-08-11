@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/BioA.Common" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/BioA.Common" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:8080/BioAService?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
   <xs:complexType name="CommunicationEntity">
     <xs:sequence>
       <xs:element minOccurs="0" name="ObjFourthParam" nillable="true" type="xs:string" />

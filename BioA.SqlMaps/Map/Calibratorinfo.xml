@@ -107,7 +107,12 @@
     <statement id="QueryCalibPos" ResultClass="Calibratorinfo" >
       select * from CalibratorTb
     </statement>
+    <!-- 获取所有的校准品信息 -->
     <statement id="QueryCalibratorProjectinfo" ResultClass="CalibratorProjectinfo" parameterClass="System.Collections.IDictionary" >
+      select * from CalibratorProjectTb
+    </statement>
+    <!-- QueryCalibratorProjectinfoByCalibName根据校准品名称获取校准项目信息 -->
+    <statement id="QueryCalibratorProjectinfoByCalibName" ResultClass="CalibratorProjectinfo" parameterClass="System.Collections.IDictionary" >
       select * from CalibratorProjectTb where CalibName=#CalibName#
     </statement>
     <statement id="QueryProjectItemsByCalibration" ResultClass="CalibratorProjectinfo" parameterClass="System.Collections.IDictionary" >
@@ -156,10 +161,16 @@
     <statement id="DeleteCalibrationCurveInfo" parameterClass="System.Collections.IDictionary" ResultClass="int">
       delete from CalibrationCurveTb where ProjectName=#ProjectName# and CalibType=#CalibType# and SampleType=#SampleType#
     </statement>
-     <statement id="AddCalibrationCurveInfo" parameterClass="System.Collections.IDictionary">
-       insert into CalibrationCurveTb(CalibName,Pos,CalibConcentration,SampleType,ProjectName,CalibTime,CalibType)
-       values (#CalibName#,#Pos#,#CalibConcentration#,#SampleType#,#ProjectName#,#CalibTime#,#CalibType#)
-     </statement>
+    <!-- 添加校准方法不为K系数法的校准信息 -->
+    <statement id="AddCalibrationCurveInfo" parameterClass="System.Collections.IDictionary">
+      insert into CalibrationCurveTb(CalibName,Pos,CalibConcentration,SampleType,ProjectName,CalibTime,CalibType)
+      values (#CalibName#,#Pos#,#CalibConcentration#,#SampleType#,#ProjectName#,#CalibTime#,#CalibType#)
+    </statement>
+    <!-- 添加校准方法为K系数法的校准信息 -->
+    <statement id="AddCalibrationIsKCurveInfo" parameterClass="System.Collections.IDictionary">
+      insert into CalibrationCurveTb(CalibName,Pos,CalibConcentration,SampleType,ProjectName,CalibTime,CalibType,Factor)
+      values (#CalibName#,#Pos#,#CalibConcentration#,#SampleType#,#ProjectName#,#CalibTime#,#CalibType#,#Factor#)
+    </statement>
     <statement id="QueryCalibrationCurveInfo" resultMap="SDTTableItemResult" parameterClass="System.Collections.IDictionary" >
       select * from SDTTableItemTb where ProjectName=#ProjectName# and SampleType=#SampleType# and CalibMethod=#CalibType# and CalibState=#SUCC#
     </statement>

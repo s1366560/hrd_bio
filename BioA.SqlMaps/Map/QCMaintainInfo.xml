@@ -55,8 +55,9 @@
     <statement id="QueryQCAllInfo" resultClass="QualityControlInfo">
       select * from QualityControlTb where IsLogicalDelete='0'
     </statement>
-    <statement id="QueryRelativelyProjectByQCInfo" parameterClass="int" resultClass="QCRelationProjectInfo">
-      select * from QCRelationProjectTb where QCID=#QCID#
+    <statement id="QueryRelativelyProjectByQCInfo" parameterClass="string" resultClass="QCRelationProjectInfo">
+      select * from QCRelationProjectTb 
+      <!-- QCID=#QCID# --> 
     </statement>
     <statement id="EditQualityControl" parameterClass="System.Collections.IDictionary" resultClass="int">
       update QualityControlTb
@@ -69,9 +70,11 @@
         HorizonLevel = #HorizonLevel#
       where QCID = #OldQCID#
     </statement>
-    <statement id="DeleteQCRelateProInfoByQCID" parameterClass="int">
+    <!-- 根据质控ID删除对应的生化项目信息 -->
+    <statement id="DeleteQCRelateProInfoByQCID" parameterClass="int" resultClass="int">
       delete from QCRelationProjectTb where QCID=#value#
     </statement>
+   
     <statement id="LockQualityControl" parameterClass="QualityControlInfo" resultClass="int">
       update QualityControlTb
       set 
@@ -91,7 +94,7 @@
       union
       select count(*) from QualityControlTb t1 right join QualityControlResultForUserTb t4 on t1.QCID = t4.QCID where t1.QCName = #QCName# and t1.LotNum = #LotNum# and t1.HorizonLevel = #HorizonLevel# and t1.Manufacturer = #Manufacturer#
     </statement>
-    <statement id="LogicalDeleteQC" parameterClass="QualityControlInfo">
+    <statement id="LogicalDeleteQC" parameterClass="QualityControlInfo" resultClass="int">
       delete from QualityControlTb where QCName = #QCName# and LotNum = #LotNum# and HorizonLevel = #HorizonLevel# and Manufacturer = #Manufacturer#
     </statement>
     <statement id="JudgeQCIsContainProject" parameterClass="System.Collections.IDictionary" resultClass="int">

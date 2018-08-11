@@ -19,6 +19,10 @@ namespace BioA.UI
 {
     public partial class DepartmentManage : DevExpress.XtraEditors.XtraUserControl
     {
+        /// <summary>
+        /// 存储客户端发送信息给服务器的参数集合
+        /// </summary>
+        private Dictionary<string, object[]> dePartManageDic = new Dictionary<string, object[]>();
         //private BioAServiceClient serviceClient;
         //private DepartmentManageCallBack notifyCallBack;
         public DepartmentManage()
@@ -147,7 +151,7 @@ namespace BioA.UI
             this.Invoke(new EventHandler(delegate
             {
                 gridView4.Columns.Clear();
-                gridControl4.RefreshDataSource();
+                grdAuditDoctor.RefreshDataSource();
 
                 int i = 1;
                 DataTable dt = new DataTable();
@@ -164,7 +168,7 @@ namespace BioA.UI
                         i++;
                     }
                 }
-                this.gridControl4.DataSource = dt;
+                this.grdAuditDoctor.DataSource = dt;
                 this.gridView4.Columns[0].Width = 70;
 
             }));
@@ -175,7 +179,7 @@ namespace BioA.UI
             this.Invoke(new EventHandler(delegate
             {
                 gridView3.Columns.Clear();
-                gridControl3.RefreshDataSource();
+                grdCheckoutDoctor.RefreshDataSource();
 
                 int i = 1;
                 DataTable dt = new DataTable();
@@ -194,7 +198,7 @@ namespace BioA.UI
                         i++;
                     }
                 }
-                this.gridControl3.DataSource = dt;
+                this.grdCheckoutDoctor.DataSource = dt;
                 this.gridView3.Columns[0].Width = 70;
 
             }));
@@ -205,7 +209,7 @@ namespace BioA.UI
             this.Invoke(new EventHandler(delegate
             {
                 gridView2.Columns.Clear();
-                gridControl2.RefreshDataSource();
+                grdApplyDoctor.RefreshDataSource();
 
                 int i = 1;
                 DataTable dt = new DataTable();
@@ -224,7 +228,7 @@ namespace BioA.UI
                         i++;
                     }
                 }
-                this.gridControl2.DataSource = dt;
+                this.grdApplyDoctor.DataSource = dt;
                 this.gridView2.Columns[0].Width = 70;
 
             }));
@@ -249,7 +253,7 @@ namespace BioA.UI
             this.Invoke(new EventHandler(delegate
             {
                 gridView1.Columns.Clear();
-                gridControl1.RefreshDataSource();
+                grdApplyDepartments.RefreshDataSource();
 
                 int i = 1;
                 DataTable dt = new DataTable();
@@ -266,40 +270,38 @@ namespace BioA.UI
                         i++;
                     }
                 }
-                this.gridControl1.DataSource = dt;
+                this.grdApplyDepartments.DataSource = dt;
                 this.gridView1.Columns[0].Width = 70;
 
             }));
         }
         
 
-        private void QueryDepartmentInfo()
+        
+        private void DepartmentManageSend(Dictionary<string, object[]> sender)
         {
-            CommunicationEntity DataConfig = new CommunicationEntity();
-            DataConfig.StrmethodName = "QueryDepartmentInfo";
-            DataConfig.ObjParam = "";
-            DepartmentManageSend(DataConfig);
+            var depManageThread = new Thread(() =>
+            {
+                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.SystemDepartmentManage, sender);
+            });
+            depManageThread.IsBackground = true;
+            depManageThread.Start();
         }
-        private void QueryApplyDoctorInfo()
-        {
-            CommunicationEntity DataConfig = new CommunicationEntity();
-            DataConfig.StrmethodName = "QueryApplyDoctorInfo";
-            DataConfig.ObjParam = "";
-            DepartmentManageSend(DataConfig);
-        }
-        private void DepartmentManageSend(object sender)
-        {
-
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SystemDepartmentManage, XmlUtility.Serializer(typeof(CommunicationEntity), sender as CommunicationEntity));
-        }
+        /// <summary>
+        /// 申请科室（添加）
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSPAdd_Click(object sender, EventArgs e)
         {
             if (textEdit1.Text.Trim() != "")
             {
-                CommunicationEntity DataConfig = new CommunicationEntity();
-                DataConfig.StrmethodName = "AddDepartmentInfo";
-                DataConfig.ObjParam = textEdit1.Text;
-                DepartmentManageSend(DataConfig);
+                //CommunicationEntity DataConfig = new CommunicationEntity();
+                //DataConfig.StrmethodName = "AddDepartmentInfo";
+                //DataConfig.ObjParam = textEdit1.Text;
+                dePartManageDic.Clear();
+                dePartManageDic.Add("AddDepartmentInfo", new object[] { textEdit1.Text });
+                DepartmentManageSend(dePartManageDic);
                 textEdit1.Text = string.Empty;
             }
             else
@@ -345,28 +347,63 @@ namespace BioA.UI
 
         private void DataLoad()
         {
-            QueryDepartmentInfo();
-            QueryApplyDoctorInfo();
-            QueryLaboratoryPhysician();
-            QueryAuditPhysicianf();
+            dePartManageDic.Clear();
+            //获取所有科室
+            dePartManageDic.Add("QueryDepartmentInfo",null);
+            //获取所有医生信息
+            dePartManageDic.Add("QueryApplyDoctorInfo",null);
+            //获取所有检验医生
+            dePartManageDic.Add("QueryUserInfo", null);
+            //获取所有审核医生信息
+            dePartManageDic.Add("QueryAuditPhysician", null);
+            DepartmentManageSend(dePartManageDic);
         }
-
+        private void QueryDepartmentInfo()
+        {
+            //CommunicationEntity DataConfig = new CommunicationEntity();
+            //获取所有科室
+            //DataConfig.StrmethodName = "QueryDepartmentInfo";
+            //DataConfig.ObjParam = "";
+            dePartManageDic.Clear();
+            dePartManageDic.Add("QueryDepartmentInfo",null);
+            DepartmentManageSend(dePartManageDic);
+        }
+        private void QueryApplyDoctorInfo()
+        {
+            //CommunicationEntity DataConfig = new CommunicationEntity();
+            //获取所有医生信息
+            //DataConfig.StrmethodName = "QueryApplyDoctorInfo";
+            //DataConfig.ObjParam = "";
+            dePartManageDic.Clear();
+            dePartManageDic.Add("QueryApplyDoctorInfo",null);
+            DepartmentManageSend(dePartManageDic);
+        }
         private void QueryAuditPhysicianf()
         {
-            CommunicationEntity DataConfig = new CommunicationEntity();
-            DataConfig.StrmethodName = "QueryAuditPhysician";
-            DataConfig.ObjParam = "";
-            DepartmentManageSend(DataConfig);
+            //CommunicationEntity DataConfig = new CommunicationEntity();
+            //获取所有审核医生信息
+            //DataConfig.StrmethodName = "QueryAuditPhysician";
+            //DataConfig.ObjParam = "";
+            dePartManageDic.Clear();
+            dePartManageDic.Add("QueryAuditPhysician", null);
+            DepartmentManageSend(dePartManageDic);
         }
 
         private void QueryLaboratoryPhysician()
         {
-            CommunicationEntity DataConfig = new CommunicationEntity();
-            DataConfig.StrmethodName = "QueryUserInfo";
-            DataConfig.ObjParam = "";
-            DepartmentManageSend(DataConfig);
+            //CommunicationEntity DataConfig = new CommunicationEntity();
+            //获取所有检验医生
+            //DataConfig.StrmethodName = "QueryUserInfo";
+            //DataConfig.ObjParam = "";
+            dePartManageDic.Clear();
+            dePartManageDic.Add("QueryUserInfo", null);
+            DepartmentManageSend(dePartManageDic);
         }
-
+        /// <summary>
+        /// 申请科室（删除按钮）
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSPDelete_Click(object sender, EventArgs e)
         {
             if (this.gridView1.GetSelectedRows().Count() > 0)
@@ -376,7 +413,6 @@ namespace BioA.UI
                 {
                     return;
                 }
-                CommunicationEntity DataConfig = new CommunicationEntity();
                 int selectedHandle;
                 try
                 {
@@ -385,9 +421,11 @@ namespace BioA.UI
                     if (str1 != null)
                     {
                         textEdit1.Text = str1;
-                        DataConfig.StrmethodName = "DeleteDepartment";
-                        DataConfig.ObjParam = str1;
-                        DepartmentManageSend(DataConfig);
+                        //DataConfig.StrmethodName = "DeleteDepartment";
+                        //DataConfig.ObjParam = str1;
+                        dePartManageDic.Clear();
+                        dePartManageDic.Add("DeleteDepartment", new object[] { str1 });
+                        DepartmentManageSend(dePartManageDic);
                         textEdit1.Text = "";
                     }
                 }
@@ -399,13 +437,20 @@ namespace BioA.UI
            
         }
         CommunicationEntity DataDepartment = new CommunicationEntity();
+        /// <summary>
+        /// 申请科室（修改）
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSPSave_Click(object sender, EventArgs e)
         {
             if (this.gridView1.GetSelectedRows().Count() > 0)
             {
-                DataDepartment.StrmethodName = "UpDataDepartment";
-                DataDepartment.ObjParam = textEdit1.Text;
-                DepartmentManageSend(DataDepartment);
+                //DataDepartment.StrmethodName = "UpDataDepartment";
+                //DataDepartment.ObjParam = textEdit1.Text;
+                dePartManageDic.Clear();
+                dePartManageDic.Add("UpDataDepartment", new object[] { textEdit1.Text });
+                DepartmentManageSend(dePartManageDic);
                 textEdit1.Text = string.Empty;
             }
             else
@@ -425,12 +470,20 @@ namespace BioA.UI
         }
 
 
-
+        /// <summary>
+        /// 申请科室（取消）
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSPCancel_Click(object sender, EventArgs e)
         {
             textEdit1.Text = string.Empty;
         }
-
+        /// <summary>
+        /// 申请医生（添加按钮）
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void simpleButton4_Click(object sender, EventArgs e)
         {
             if (textEdit2.Text.Trim() == "")
@@ -444,15 +497,21 @@ namespace BioA.UI
                 return;
             }
 
-            CommunicationEntity DataConfig = new CommunicationEntity();
+            //CommunicationEntity DataConfig = new CommunicationEntity();
             ApplyDoctorInfo applyDoctorInfo = new ApplyDoctorInfo();
-            DataConfig.StrmethodName = "AddApplyDoctorInfo";
+            //DataConfig.StrmethodName = "AddApplyDoctorInfo";
             applyDoctorInfo.Department = comboBoxEdit1.Text;
             applyDoctorInfo.Doctor = textEdit2.Text;
-            DataConfig.ObjParam = XmlUtility.Serializer(typeof(ApplyDoctorInfo), applyDoctorInfo);
-            DepartmentManageSend(DataConfig);
+            //DataConfig.ObjParam = XmlUtility.Serializer(typeof(ApplyDoctorInfo), applyDoctorInfo);
+            dePartManageDic.Clear();
+            dePartManageDic.Add("AddApplyDoctorInfo", new object[] { XmlUtility.Serializer(typeof(ApplyDoctorInfo), applyDoctorInfo) });
+            DepartmentManageSend(dePartManageDic);
         }
-
+        /// <summary>
+        /// 审核医生（删除按钮）
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void simpleButton1_Click(object sender, EventArgs e)
         {
             if (gridView2.GetSelectedRows().Count() > 0)
@@ -462,7 +521,7 @@ namespace BioA.UI
                 {
                     return;
                 }
-                CommunicationEntity DataConfig = new CommunicationEntity();
+                //CommunicationEntity DataConfig = new CommunicationEntity();
                 ApplyDoctorInfo applyDoctorInfo = new ApplyDoctorInfo();
                 int selectedHandle;
 
@@ -470,10 +529,12 @@ namespace BioA.UI
                 applyDoctorInfo.Doctor = this.gridView2.GetRowCellValue(selectedHandle, "医生名称").ToString();
                 applyDoctorInfo.Department = this.gridView2.GetRowCellValue(selectedHandle, "申请科室").ToString();
 
-                DataConfig.StrmethodName = "DeleteApplyDoctorInfo";
+                //DataConfig.StrmethodName = "DeleteApplyDoctorInfo";
 
-                DataConfig.ObjParam = XmlUtility.Serializer(typeof(ApplyDoctorInfo), applyDoctorInfo);
-                DepartmentManageSend(DataConfig);
+                //DataConfig.ObjParam = XmlUtility.Serializer(typeof(ApplyDoctorInfo), applyDoctorInfo);
+                dePartManageDic.Clear();
+                dePartManageDic.Add("DeleteApplyDoctorInfo", new object[] { XmlUtility.Serializer(typeof(ApplyDoctorInfo), applyDoctorInfo) });
+                DepartmentManageSend(dePartManageDic);
             }
         }
         ApplyDoctorInfo applyDoctorInfoOld = new ApplyDoctorInfo();
@@ -487,20 +548,26 @@ namespace BioA.UI
                 applyDoctorInfoOld.Department = this.gridView2.GetRowCellValue(selectedHandle, "申请科室").ToString();
             }
         }
-
+        /// <summary>
+        /// 申请医生（保存按钮）
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void simpleButton2_Click(object sender, EventArgs e)
         {
             if (this.gridView2.GetSelectedRows().Count() > 0)
             {
 
-                CommunicationEntity DataConfig = new CommunicationEntity();
+                //CommunicationEntity DataConfig = new CommunicationEntity();
                 ApplyDoctorInfo applyDoctorInfo = new ApplyDoctorInfo();
-                DataConfig.StrmethodName = "UpdataApplyDoctorInfo";
+                //DataConfig.StrmethodName = "UpdataApplyDoctorInfo";
                 applyDoctorInfo.Department = comboBoxEdit1.Text;
                 applyDoctorInfo.Doctor = textEdit2.Text;
-                DataConfig.ObjParam = XmlUtility.Serializer(typeof(ApplyDoctorInfo), applyDoctorInfo);
-                DataConfig.ObjLastestParam = XmlUtility.Serializer(typeof(ApplyDoctorInfo), applyDoctorInfoOld);
-                DepartmentManageSend(DataConfig);
+                //DataConfig.ObjParam = XmlUtility.Serializer(typeof(ApplyDoctorInfo), applyDoctorInfo);
+                //DataConfig.ObjLastestParam = XmlUtility.Serializer(typeof(ApplyDoctorInfo), applyDoctorInfoOld);
+                dePartManageDic.Clear();
+                dePartManageDic.Add("UpdataApplyDoctorInfo", new object[] { XmlUtility.Serializer(typeof(ApplyDoctorInfo), applyDoctorInfo), XmlUtility.Serializer(typeof(ApplyDoctorInfo), applyDoctorInfoOld) });
+                DepartmentManageSend(dePartManageDic);
                 textEdit2.Text = "";
             }
             else
@@ -508,20 +575,30 @@ namespace BioA.UI
                 MessageBoxDraw.ShowMsg("没有可修改的申请医师，无法进行修改！", MsgType.OK);
             }
         }
-
+        /// <summary>
+        /// 申请医生（取消按钮）
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void simpleButton3_Click(object sender, EventArgs e)
         {
             textEdit2.Text = "";
         }
-
+        /// <summary>
+        /// 审核医生（添加按钮）
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void simpleButton12_Click(object sender, EventArgs e)
         {
             if (comboBoxEdit2.SelectedIndex > 0)
             {
-                CommunicationEntity DataConfig = new CommunicationEntity();
-                DataConfig.StrmethodName = "AddAuditPhysician";
-                DataConfig.ObjParam = comboBoxEdit2.Text;
-                DepartmentManageSend(DataConfig);
+                //CommunicationEntity DataConfig = new CommunicationEntity();
+                //DataConfig.StrmethodName = "AddAuditPhysician";
+                //DataConfig.ObjParam = comboBoxEdit2.Text;
+                dePartManageDic.Clear();
+                dePartManageDic.Add("AddAuditPhysician", new object[] { comboBoxEdit2.Text });
+                DepartmentManageSend(dePartManageDic);
                 comboBoxEdit2.Text = string.Empty;
             }
             else
@@ -529,7 +606,11 @@ namespace BioA.UI
                 MessageBoxDraw.ShowMsg("请选择待添加的审核医师！", MsgType.OK);
             }
         }
-
+        /// <summary>
+        /// 删除审核医生（删除按钮）
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void simpleButton9_Click(object sender, EventArgs e)
         {
             if (this.gridView4.GetSelectedRows().Count() > 0)
@@ -539,28 +620,27 @@ namespace BioA.UI
                 {
                     return;
                 }
-                CommunicationEntity DataConfig = new CommunicationEntity();
-
+                //CommunicationEntity DataConfig = new CommunicationEntity();
                 int selectedHandle;
-
                 selectedHandle = this.gridView4.GetSelectedRows()[0];
                 string str = this.gridView4.GetRowCellValue(selectedHandle, "医生名称").ToString();
-
-
-                DataConfig.StrmethodName = "DeleteAuditPhysician";
-
-                DataConfig.ObjParam = str;
-                DepartmentManageSend(DataConfig);
+                //DataConfig.StrmethodName = "DeleteAuditPhysician";
+                //DataConfig.ObjParam = str;
+                dePartManageDic.Clear();
+                dePartManageDic.Add("DeleteAuditPhysician", new object[] { str });
+                DepartmentManageSend(dePartManageDic);
             }
         }
 
         private void simpleButton10_Click(object sender, EventArgs e)
         {
-            CommunicationEntity DataConfig = new CommunicationEntity();
-            DataConfig.StrmethodName = "UpdataAuditPhysician";
-            DataConfig.ObjParam = comboBoxEdit2.Text;
-            DataConfig.ObjLastestParam = AuditPhysicianOld;
-            DepartmentManageSend(DataConfig);
+            //CommunicationEntity DataConfig = new CommunicationEntity();
+            //DataConfig.StrmethodName = "UpdataAuditPhysician";
+            //DataConfig.ObjParam = comboBoxEdit2.Text;
+            //DataConfig.ObjLastestParam = AuditPhysicianOld;
+            dePartManageDic.Clear();
+            dePartManageDic.Add("UpdataAuditPhysician", new object[] { comboBoxEdit2.Text, AuditPhysicianOld });
+            DepartmentManageSend(dePartManageDic);
             comboBoxEdit2.Text = string.Empty;
         }
         string AuditPhysicianOld;

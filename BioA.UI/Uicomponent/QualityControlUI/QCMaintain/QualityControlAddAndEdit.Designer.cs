@@ -176,6 +176,7 @@
             this.combLevelConc.Name = "combLevelConc";
             this.combLevelConc.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.combLevelConc.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.combLevelConc.Size = new System.Drawing.Size(100, 20);
             this.combLevelConc.TabIndex = 13;
             // 
@@ -204,6 +205,7 @@
             this.cboPosition.Name = "cboPosition";
             this.cboPosition.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cboPosition.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.cboPosition.Size = new System.Drawing.Size(100, 20);
             this.cboPosition.TabIndex = 16;
             // 

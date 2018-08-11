@@ -39,14 +39,14 @@ namespace BioA.Service
             return myBatis.QueryQCAllInfo(strDBMethod);
         }
 
-        public List<QCRelationProjectInfo> QueryRelativelyProjectByQCInfo(string strDBMethod, QualityControlInfo QCInfo)
+        public List<QCRelationProjectInfo> QueryRelativelyProjectByQCInfo(string strDBMethod, string QCInfo)
         {
             return myBatis.QueryRelativelyProjectByQCInfo(strDBMethod, QCInfo);
         }
 
-        public string EditQualityControl(string strDBMethod, QualityControlInfo oldQCInfo, QualityControlInfo newQCInfo)
+        public string EditQualityControl(string strDBMethod, QualityControlInfo oldQCInfo, QualityControlInfo newQCInfo, List<QCRelationProjectInfo> lstQCRelationProInfo)
         {
-            return myBatis.EditQualityControl(strDBMethod, oldQCInfo, newQCInfo);
+            return myBatis.EditQualityControl(strDBMethod, oldQCInfo, newQCInfo, lstQCRelationProInfo);
         }
 
         public int EditQCRelateProInfo(string strDBMethod, QualityControlInfo QCInfo, List<QCRelationProjectInfo> lstQCRelationProInfo)

@@ -13,11 +13,16 @@ using BioA.Common.IO;
 using BioA.UI.ServiceReference1;
 using System.ServiceModel;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace BioA.UI
 {
     public partial class ReagentNeedle : DevExpress.XtraEditors.XtraUserControl
     {
+        /// <summary>
+        /// 存储客户端发送信息给服务器的参数集合
+        /// </summary>
+        private Dictionary<string, object[]> reagentNeedleDic = new Dictionary<string, object[]>();
         List<ReagentNeedleAntifoulingStrategyInfo> lstReagentNeedleInfo = new List<ReagentNeedleAntifoulingStrategyInfo>();
         ReagentNeedleAntifoulingStrategyInfo reagentNeedleAntifoulingStrategyInfoOld = new ReagentNeedleAntifoulingStrategyInfo();
         List<AssayProjectInfo> lstAssayProInfos = new List<AssayProjectInfo>();
@@ -107,10 +112,12 @@ namespace BioA.UI
         }
         private void QueryReagentNeedle()
         {
-            CommunicationEntity communicationEntity = new CommunicationEntity();
-            communicationEntity.StrmethodName = "QueryReagentNeedle";
-            communicationEntity.ObjParam = "";
-            SendReagentNeedle(communicationEntity);
+            //CommunicationEntity communicationEntity = new CommunicationEntity();
+            //communicationEntity.StrmethodName = "QueryReagentNeedle";
+            //communicationEntity.ObjParam = "";
+            reagentNeedleDic.Clear();
+            reagentNeedleDic.Add("QueryReagentNeedle", null);
+            SendReagentNeedle(reagentNeedleDic);
         }
         private void QueryReagentNeedleAdd(List<ReagentNeedleAntifoulingStrategyInfo> lstQueryReagentNeedle)
         {
@@ -150,9 +157,14 @@ namespace BioA.UI
             }));
         }
 
-        private void SendReagentNeedle(object sender)
+        private void SendReagentNeedle(Dictionary<string, object[]> sender)
         {
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SettingsCrossPollution, XmlUtility.Serializer(typeof(CommunicationEntity), sender as CommunicationEntity));
+            var reagentNeedleThread = new Thread(() =>
+            {
+                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.SettingsCrossPollution, sender);
+            });
+            reagentNeedleThread.IsBackground = true;
+            reagentNeedleThread.Start();
         }
         private void simpleButton1_Click(object sender, EventArgs e)
         {
@@ -216,10 +228,12 @@ namespace BioA.UI
             reagentNeedleAntifoulingStrategyInfo.CleaningLiquidName = cboWashing.Text;
             reagentNeedleAntifoulingStrategyInfo.CleaningLiquidUseVol = (float)Convert.ToDouble(txtUsingVol.Text.Trim());
             reagentNeedleAntifoulingStrategyInfo.CleanTimes = Convert.ToInt32(txtWashingTimes.Text.Trim());
-            CommunicationEntity communicationEntity = new CommunicationEntity();
-            communicationEntity.StrmethodName = "AddReagentNeedle";
-            communicationEntity.ObjParam = XmlUtility.Serializer(typeof(ReagentNeedleAntifoulingStrategyInfo), reagentNeedleAntifoulingStrategyInfo);
-            SendReagentNeedle(communicationEntity);
+            //CommunicationEntity communicationEntity = new CommunicationEntity();
+            //communicationEntity.StrmethodName = "AddReagentNeedle";
+            //communicationEntity.ObjParam = XmlUtility.Serializer(typeof(ReagentNeedleAntifoulingStrategyInfo), reagentNeedleAntifoulingStrategyInfo);
+            reagentNeedleDic.Clear();
+            reagentNeedleDic.Add("AddReagentNeedle", new object[] { XmlUtility.Serializer(typeof(ReagentNeedleAntifoulingStrategyInfo), reagentNeedleAntifoulingStrategyInfo) });
+            SendReagentNeedle(reagentNeedleDic);
 
 
 
@@ -269,13 +283,19 @@ namespace BioA.UI
         }
         private void loadReagentNeedle()
         {
-            QueryReagentNeedle();
-            CommunicationEntity communicationEntity = new CommunicationEntity();
-            communicationEntity.StrmethodName = "QueryAssayProAllInfo";
-            communicationEntity.ObjParam = "";
-            SendReagentNeedle(communicationEntity);
-            communicationEntity.StrmethodName = "QueryWashingLiquid";
-            SendReagentNeedle(communicationEntity);
+            //QueryReagentNeedle();
+            //CommunicationEntity communicationEntity = new CommunicationEntity();
+            //communicationEntity.StrmethodName = "QueryAssayProAllInfo";
+            //communicationEntity.ObjParam = "";
+            //SendReagentNeedle(communicationEntity);
+            //communicationEntity.StrmethodName = "QueryWashingLiquid";
+            //获取所有防污试剂针
+            reagentNeedleDic.Add("QueryReagentNeedle", null);
+            //获取所有生化项目信息
+            reagentNeedleDic.Add("QueryAssayProAllInfo", new object[] { "" });
+            //获取所有清洗液信息
+            reagentNeedleDic.Add("QueryWashingLiquid",null);
+            SendReagentNeedle(reagentNeedleDic);
 
             cboPolSampleType.Properties.Items.AddRange(new object[] { "血清", "尿液", "" });
             cboBePolSampleType.Properties.Items.AddRange(new object[] { "血清", "尿液", "" });
@@ -300,10 +320,11 @@ namespace BioA.UI
                     reagentNeedleAntifoulingStrategyInfo.CleaningLiquidUseVol = (float)Convert.ToDouble(this.gridView1.GetRowCellValue(selectedHandle, "清洗剂体积").ToString());
                     reagentNeedleAntifoulingStrategyInfo.CleanTimes = Convert.ToInt32(this.gridView1.GetRowCellValue(selectedHandle, "清洗次数").ToString());
 
-
-                    ReagentNeedle.StrmethodName = "DeleteReagentNeedle";
-                    ReagentNeedle.ObjParam = XmlUtility.Serializer(typeof(ReagentNeedleAntifoulingStrategyInfo), reagentNeedleAntifoulingStrategyInfo);
-                    SendReagentNeedle(ReagentNeedle);
+                    //ReagentNeedle.StrmethodName = "DeleteReagentNeedle";
+                    //ReagentNeedle.ObjParam = XmlUtility.Serializer(typeof(ReagentNeedleAntifoulingStrategyInfo), reagentNeedleAntifoulingStrategyInfo);
+                    reagentNeedleDic.Clear();
+                    reagentNeedleDic.Add("DeleteReagentNeedle", new object[] { XmlUtility.Serializer(typeof(ReagentNeedleAntifoulingStrategyInfo), reagentNeedleAntifoulingStrategyInfo) });
+                    SendReagentNeedle(reagentNeedleDic);
                 }
             }
 
@@ -371,12 +392,13 @@ namespace BioA.UI
                 reagentNeedleAntifoulingStrategyInfo.CleaningLiquidName = cboWashing.Text;
                 reagentNeedleAntifoulingStrategyInfo.CleaningLiquidUseVol = (float)Convert.ToDouble(txtUsingVol.Text);
                 reagentNeedleAntifoulingStrategyInfo.CleanTimes = Convert.ToInt32(txtWashingTimes.Text);
-                CommunicationEntity communicationEntity = new CommunicationEntity();
-                communicationEntity.StrmethodName = "UpdataReagentNeedle";
-                communicationEntity.ObjParam = XmlUtility.Serializer(typeof(ReagentNeedleAntifoulingStrategyInfo), reagentNeedleAntifoulingStrategyInfo);
-                communicationEntity.ObjLastestParam = XmlUtility.Serializer(typeof(ReagentNeedleAntifoulingStrategyInfo), reagentNeedleAntifoulingStrategyInfoOld);
-
-                SendReagentNeedle(communicationEntity);
+                //CommunicationEntity communicationEntity = new CommunicationEntity();
+                //communicationEntity.StrmethodName = "UpdataReagentNeedle";
+                //communicationEntity.ObjParam = XmlUtility.Serializer(typeof(ReagentNeedleAntifoulingStrategyInfo), reagentNeedleAntifoulingStrategyInfo);
+                //communicationEntity.ObjLastestParam = XmlUtility.Serializer(typeof(ReagentNeedleAntifoulingStrategyInfo), reagentNeedleAntifoulingStrategyInfoOld);
+                reagentNeedleDic.Clear();
+                reagentNeedleDic.Add("UpdataReagentNeedle", new object[] { XmlUtility.Serializer(typeof(ReagentNeedleAntifoulingStrategyInfo), reagentNeedleAntifoulingStrategyInfo), XmlUtility.Serializer(typeof(ReagentNeedleAntifoulingStrategyInfo), reagentNeedleAntifoulingStrategyInfoOld) });
+                SendReagentNeedle(reagentNeedleDic);
             }
             else
             {

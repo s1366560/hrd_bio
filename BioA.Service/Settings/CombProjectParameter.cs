@@ -33,40 +33,53 @@ namespace BioA.Service
         public List<string> QueryProjectByCombProName(string strDBMethod, string CombProName)
         {
             List<string> lstProNames = myBatis.QueryProjectByCombProName(strDBMethod, CombProName);
-            LogInfo.WriteProcessLog("public List<string> QueryProjectByCombProName(string strDBMethod, string CombProName) == " + lstProNames.Count.ToString(), Module.WindowsService);
+            LogInfo.WriteProcessLog("QueryProjectByCombProName(string strDBMethod, string CombProName) == " + lstProNames.Count.ToString(), Module.WindowsService);
 
             return lstProNames;
         }
+        /// <summary>
+        /// 获取所有组合项目信息
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <returns></returns>
+        public List<CombProjectInfo> QueryProjectAndCombProName(string strDBMethod)
+        {
+            List<CombProjectInfo> lstProNames = myBatis.QueryProjectAndCombProName(strDBMethod);
+            LogInfo.WriteProcessLog("QueryProjectAndCombProName(string strDBMethod) == " + lstProNames.Count.ToString(), Module.WindowsService);
+
+            return lstProNames;
+        }
+
         /// <summary>
         /// 添加组合项目
         /// </summary>
         /// <param name="strDBMethod"></param>
         /// <param name="combProjectInfo"></param>
         /// <returns></returns>
-        public string AddCombProjectName(string strDBMethod, CombProjectInfo combProjectInfo)
+        public int AddCombProjectName(string strDBMethod, CombProjectInfo combProjectInfo)
         {
-            string strResult = string.Empty;
+            //string strResult = string.Empty;
 
-            int intResult = myBatis.CombProjectCountByCombProName("CombProjectCountByCombProName", combProjectInfo.CombProjectName);
+            //int intResult = myBatis.CombProjectCountByCombProName("CombProjectCountByCombProName", combProjectInfo.CombProjectName);
 
-            if (intResult == 0)
-            {
-                myBatis.AddCombProjectName(strDBMethod, combProjectInfo);
-                intResult = myBatis.CombProjectCountByCombProName("CombProjectCountByCombProName", combProjectInfo.CombProjectName);
-                if (intResult == 0)
-                {
-                    strResult = "添加失败";
-                }
-                else
-                {
-                    strResult = "添加成功";
-                }
-            }
-            else
-            {
-                strResult = "项目已存在！";
-            }
-            LogInfo.WriteProcessLog("public string AddCombProject(string strDBMethod, CombProjectInfo combProjectInfo) == " + strResult.ToString(), Module.WindowsService);
+            //if (intResult == 0)
+            //{
+            int strResult = myBatis.AddCombProjectName(strDBMethod, combProjectInfo);
+            //    intResult = myBatis.CombProjectCountByCombProName("CombProjectCountByCombProName", combProjectInfo.CombProjectName);
+            //    if (intResult == 0)
+            //    {
+            //        strResult = "添加失败";
+            //    }
+            //    else
+            //    {
+            //        strResult = "添加成功";
+            //    }
+            //}
+            //else
+            //{
+            //    strResult = "项目已存在！";
+            //}
+            //LogInfo.WriteProcessLog("public string AddCombProject(string strDBMethod, CombProjectInfo combProjectInfo) == " + strResult.ToString(), Module.WindowsService);
 
             return strResult;
         }
@@ -89,7 +102,7 @@ namespace BioA.Service
         /// <param name="strDBMethod"></param>
         /// <param name="combProjectInfo"></param>
         /// <returns></returns>
-        public int UpdateCombProjectName(string strDBMethod, CombProjectInfo combProjectInfoOld, CombProjectInfo combProInfoNew)
+        public int UpdateCombProjectName(string strDBMethod, string combProjectInfoOld, CombProjectInfo combProInfoNew)
         {
             int intResult = myBatis.UpdateCombProjectName(strDBMethod, combProjectInfoOld, combProInfoNew);
             LogInfo.WriteProcessLog("public int UpdateCombProject(string strDBMethod, CombProjectInfo combProjectInfoOld, CombProjectInfo combProInfoNew) == " + intResult.ToString(), Module.WindowsService);

@@ -14,6 +14,7 @@ using BioA.Common;
 using BioA.Common.Communication;
 using BioA.Common.IO;
 using System.Threading;
+using System.Diagnostics;
 
 namespace BioA.UI
 {
@@ -36,8 +37,8 @@ namespace BioA.UI
 
         // 项目稀释设置
         List<string[]> lstDiluteInfos = new List<string[]>();
-        //存储查询数据库的参数
-        Dictionary<string, List<object>> dic = new Dictionary<string, List<object>>();
+        //存储客户端发送信息给服务器的参数集合
+        Dictionary<string, object[]> dic = new Dictionary<string, object[]>();
 
         frmBatchInput batchInput;
         PatientInfoFrm patientInfofrm;
@@ -85,32 +86,31 @@ namespace BioA.UI
             patientInfofrm = new PatientInfoFrm();
             combSampleType.SelectedIndex = 1;
             combSampleContainer.SelectedIndex = 0;
-
             Console.WriteLine("ApplyTaskInit End1" + DateTime.Now.Ticks);
-            var connThread = new Thread(()=>{
-                    Console.WriteLine("ApplyTaskInit CONN beg " + DateTime.Now.Ticks);
-                 // 获取最大样本编号
-                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryMaxSampleNum", null)));
-                //// 获取稀释比例值
-                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QuerySampleDiluteRatio", null)));
-                //// 获取项目名称
-                ////CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryProNameForApplyTask", combSampleType.SelectedItem.ToString())));
-                //// 获取组合项目名称
-                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryCombProjectNameAllInfo", null)));
-                //// 获取申请任务列表
-                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryApplyTaskLsvt", null)));
+            Console.WriteLine("ApplyTaskInit CONN beg " + DateTime.Now.Ticks);
+            // 获取最大样本编号
+            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryMaxSampleNum", null)));
+            //// 获取稀释比例值
+            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QuerySampleDiluteRatio", null)));
+            //// 获取项目名称
+            ////CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryProNameForApplyTask", combSampleType.SelectedItem.ToString())));
+            //// 获取组合项目名称
+            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryCombProjectNameAllInfo", null)));
+            //// 获取申请任务列表
+            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryApplyTaskLsvt", null)));
 
-                
-                    dic.Add("QueryMaxSampleNum", new List<object>() { ""});
-                    dic.Add("QuerySampleDiluteRatio", new List<object>() { ""});
-                    dic.Add("QueryApplyTaskLsvt", new List<object>() { ""});
-                    dic.Add("QueryCombProjectNameAllInfo", new List<object>() { ""});
-                    CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaApplyTask, (Dictionary<string, List<object>>)dic);
-                
-                Console.WriteLine("ApplyTaskInit CONN end " + DateTime.Now.Ticks);
-            });
-            connThread.IsBackground = true;
-            connThread.Start();
+            //获取最大样本编号
+            dic.Add("QueryMaxSampleNum", new object[] { "" });
+            //获取所有结果单位
+            dic.Add("QuerySampleDiluteRatio", null);
+            //获取所有任务
+            dic.Add("QueryApplyTaskLsvt", new object[] { "" });
+            //获取所有组合项目信息
+            dic.Add("QueryCombProjectNameAllInfo", new object[] { "" });
+            ClientSendToServices(dic);
+            //CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaApplyTask, dic);
+
+            Console.WriteLine("ApplyTaskInit CONN end " + DateTime.Now.Ticks);
             
             DataTable dt = new DataTable();
             dt.Columns.Add("样本编号");
@@ -120,6 +120,22 @@ namespace BioA.UI
             this.lstvTask.DataSource = dt;
             Console.WriteLine("ApplyTaskInit CONN End " + DateTime.Now.Ticks);
         }
+
+        /// <summary>
+        /// 把客户端信息发送给服务器
+        /// </summary>
+        /// <param name="strMethod"></param>
+        /// <param name="sender"></param>
+        private void ClientSendToServices(Dictionary<string, object[]> param)
+        {
+            var applyTaskThread = new Thread(() =>
+            {
+                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaApplyTask, param);
+            });
+            applyTaskThread.IsBackground = true;
+            applyTaskThread.Start();
+        } 
+
 
         public void DataTransfer_Event(string strMethod, object sender)
         {
@@ -242,7 +258,10 @@ namespace BioA.UI
                         MessageBox.Show("此样本任务已经存在，请重新录入！");
                     }
                     // 获取申请任务列表
-                    CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaApplyTask, new Dictionary<string, List<object>>() { { "QueryApplyTaskLsvt", new List<object>() { "" } } });
+                    dic.Clear();
+                    dic.Add("QueryApplyTaskLsvt", new object[] { "" });
+                    ClientSendToServices(dic);
+                    //CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaApplyTask, new Dictionary<string, List<object>>() { { "QueryApplyTaskLsvt", new List<object>() { "" } } });
                     lstDiluteInfos.Clear();
                     break;
                 case "QueryPatientInfoBySampleNum":
@@ -250,7 +269,8 @@ namespace BioA.UI
                     patientInfofrm.PatientInfoByNum = patientInfo;
                     break;
                 case "AddTaskForBatch":
-                    batchInput.ReceiveInfo = sender as string;
+                    List<string> lstResult = (List<string>)XmlUtility.Deserialize(typeof(List<string>), sender as string);
+                    batchInput.LstReceiveInfo = lstResult;
                     break;
                 case "QueryApplyApartment":
                     patientInfofrm.LstApplyDepartment = (List<string>)XmlUtility.Deserialize(typeof(List<string>), sender as string);
@@ -339,7 +359,11 @@ namespace BioA.UI
             }
             
         }
-
+        /// <summary>
+        /// 申请按钮点击事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnApply_Click(object sender, EventArgs e)
         {
             List<int> lstPanel = new List<int>();
@@ -461,11 +485,14 @@ namespace BioA.UI
             //CommunicationUI.ServiceClient.ClientSendMsgToServiceWon(ModuleInfo.WorkingAreaApplyTask, new Dictionary<string, object>() {{"QueryProNameForApplyTask", combSampleType.SelectedItem.ToString()} });
             if (dic.Count == 5)
             {
-                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaApplyTask, new Dictionary<string, List<object>>() { { "QueryProNameForApplyTask", new List<object>() { combSampleType.SelectedItem.ToString() } } });
+                dic.Clear();
+                dic.Add("QueryProNameForApplyTask", new object[] { combSampleType.SelectedItem.ToString() });
+                ClientSendToServices(dic);
+                //CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaApplyTask, new Dictionary<string, List<object>>() { { "QueryProNameForApplyTask", new List<object>() { combSampleType.SelectedItem.ToString() } } });
             }
             else
             {
-                dic.Add("QueryProNameForApplyTask", new List<object>() { combSampleType.SelectedItem.ToString()});
+                dic.Add("QueryProNameForApplyTask", new object[] { combSampleType.SelectedItem.ToString()});
             }
             lstDiluteInfos.Clear();
         }
@@ -594,9 +621,17 @@ namespace BioA.UI
             //    new CommunicationEntity("AddTask",
             //        XmlUtility.Serializer(typeof(SampleInfo), sampleInfo),
             //        XmlUtility.Serializer(typeof(List<TaskInfo>), lstTaskInfo))));
-            CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaApplyTask, new Dictionary<string, List<object>>() { { "AddTask", new List<object>() { XmlUtility.Serializer(typeof(SampleInfo), sampleInfo), XmlUtility.Serializer(typeof(List<TaskInfo>), lstTaskInfo) } } });
+            dic.Clear();
+            dic.Add("AddTask", new object[] { XmlUtility.Serializer(typeof(SampleInfo), sampleInfo), XmlUtility.Serializer(typeof(List<TaskInfo>), lstTaskInfo) });
+            ClientSendToServices(dic);
+            Thread.Sleep(4000);
+            btnSave.Enabled = true;
         }
-
+        /// <summary>
+        /// 任务列表点击事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void lstvTask_Click(object sender, EventArgs e)
         {
             int selectedHandle;
@@ -605,7 +640,10 @@ namespace BioA.UI
             {
                 selectedHandle = this.gridView1.GetSelectedRows()[0];
                 int SampleNum = System.Convert.ToInt32(this.gridView1.GetRowCellValue(selectedHandle, "样本编号").ToString());
-                CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryTaskInfoBySampleNum", SampleNum.ToString())));
+                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryTaskInfoBySampleNum", SampleNum.ToString())));
+                dic.Clear();
+                dic.Add("QueryTaskInfoBySampleNum", new object[] { SampleNum.ToString() });
+                ClientSendToServices(dic);
 
                 foreach (SampleInfo sampleInfo in lstSampleInfo)
                 {
@@ -623,7 +661,11 @@ namespace BioA.UI
                 }
             }
         }
-
+        /// <summary>
+        /// 批量录入按钮事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnBatchInput_Click(object sender, EventArgs e)
         {
             if (projectPage1.GetSelectedProjects().Count == 0 &&
@@ -652,11 +694,18 @@ namespace BioA.UI
             batchInput.SampleNum = txtSampleNum.Text;
             batchInput.DataTransferEvent += batchInput_DataTransferEvent;
             batchInput.EndBatchEvent += batchInput_EndBatchEvent;
+            batchInput.StartPosition = FormStartPosition.CenterScreen;
             batchInput.ShowDialog();
         }
+        /// <summary>
+        /// 委托批量录入完成后要执行的事件
+        /// </summary>
         private void batchInput_EndBatchEvent()
         {
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryApplyTaskLsvt", null)));
+            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryApplyTaskLsvt", null)));
+            dic.Clear();
+            dic.Add("QueryApplyTaskLsvt", new object[] { "" });
+            ClientSendToServices(dic);
         }
         /// <summary>
         /// 批量录入的委托事件
@@ -665,6 +714,8 @@ namespace BioA.UI
         /// <param name="samAmount"></param>
         private void batchInput_DataTransferEvent(int intStartSamNum, int samAmount)
         {
+            //批量录入给服务器传递参数的集合
+            List<object> inputDictionary = new List<object>();
             List<int> lstSamNum = new List<int>();
             List<int[]> lstPos = new List<int[]>();
             foreach (SampleInfo s in lstSampleInfo)
@@ -786,13 +837,15 @@ namespace BioA.UI
                     }
                 }
 
-                
-                CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity),
-                    new CommunicationEntity("AddTaskForBatch",
-                        XmlUtility.Serializer(typeof(SampleInfo), sampleInfo),
-                        XmlUtility.Serializer(typeof(List<TaskInfo>), lstTaskInfo))));
+                inputDictionary.Add(XmlUtility.Serializer(typeof(List<object>), new List<object>() { XmlUtility.Serializer(typeof(SampleInfo), sampleInfo), XmlUtility.Serializer(typeof(List<TaskInfo>), lstTaskInfo) }));
+                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity),
+                //    new CommunicationEntity("AddTaskForBatch",
+                //        XmlUtility.Serializer(typeof(SampleInfo), sampleInfo),
+                //        XmlUtility.Serializer(typeof(List<TaskInfo>), lstTaskInfo))));
             }
-
+            //CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaApplyTask, new Dictionary<string, List<object>>() {{"AddTaskForBatch",inputDictionary}});
+            dic.Clear();
+            dic.Add("AddTaskForBatch",new object[]{inputDictionary});
             
         }
         AnologSamplePanel anologSamplePanel;

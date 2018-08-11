@@ -32,7 +32,7 @@ namespace BioA.UI
         /// <summary>
         /// 传递访问数据的方法名和参数个数的泛型集合
         /// </summary>
-        Dictionary<string, List<object>> calibDictionary = new Dictionary<string, List<object>>();
+        Dictionary<string, object[]> calibDictionary = new Dictionary<string, object[]>();
         public CalibControlTask()
         {
             InitializeComponent();
@@ -75,8 +75,8 @@ namespace BioA.UI
             //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibControlTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryCombProjectNameAllInfo", null)));
             var calibThread = new Thread(() =>
             {
-                calibDictionary.Add("QueryCalibratorinfoTask", new List<object>() { "" });
-                calibDictionary.Add("QueryCombProjectNameAllInfo", new List<object>() { "" });
+                calibDictionary.Add("QueryCalibratorinfoTask", new object[] { "" });
+                calibDictionary.Add("QueryCombProjectNameAllInfo", new object[] { "" });
                 CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.CalibControlTask, calibDictionary);
             });
             calibThread.IsBackground = true;
@@ -327,7 +327,7 @@ namespace BioA.UI
 
             //保存任务信息
             //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibControlTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryCalibratorinfoTask", XmlUtility.Serializer(typeof(List<CalibratorinfoTask>),lstCalibratorinfoTask))));
-            CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.CalibControlTask, new Dictionary<string, List<object>>() { { "QueryCalibratorinfoTask", new List<object>() { XmlUtility.Serializer(typeof(List<CalibratorinfoTask>), lstCalibratorinfoTask) } } });
+            CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.CalibControlTask, new Dictionary<string, object[]>() { { "QueryCalibratorinfoTask", new object[] { XmlUtility.Serializer(typeof(List<CalibratorinfoTask>), lstCalibratorinfoTask) } } });
         }
 
         /// <summary>
@@ -420,7 +420,7 @@ namespace BioA.UI
                     //获取所有的项目信息
                     //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibControlTask, XmlUtility.Serializer(typeof(CommunicationEntity),
                     //    new CommunicationEntity("QueryProjectNameInfoByCalib", combSampleType.SelectedItem.ToString())));
-                    calibDictionary.Add("QueryProjectNameInfoByCalib", new List<object>() { sampleSerum });
+                    calibDictionary.Add("QueryProjectNameInfoByCalib", new object[] { sampleSerum });
                 }
                 else
                 {
@@ -440,7 +440,7 @@ namespace BioA.UI
                     //获取所有的项目信息
                     //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibControlTask, XmlUtility.Serializer(typeof(CommunicationEntity),
                     //    new CommunicationEntity("QueryProjectNameInfoByCalib", combSampleType.SelectedItem.ToString())));
-                    CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.CalibControlTask, new Dictionary<string, List<object>>() { { "QueryProjectNameInfoByCalib", new List<object>() { sampleUrine } } });
+                    CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.CalibControlTask, new Dictionary<string, object[]>() { { "QueryProjectNameInfoByCalib", new object[] { sampleUrine } } });
                 }
                 else
                 {
@@ -459,7 +459,7 @@ namespace BioA.UI
                     //获取所有的项目信息
                     //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibControlTask, XmlUtility.Serializer(typeof(CommunicationEntity),
                     //    new CommunicationEntity("QueryProjectNameInfoByCalib", combSampleType.SelectedItem.ToString())));
-                    CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.CalibControlTask, new Dictionary<string, List<object>>() { { "QueryProjectNameInfoByCalib", new List<object>() { sampleBlank } } });
+                    CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.CalibControlTask, new Dictionary<string, object[]>() { { "QueryProjectNameInfoByCalib", new object[] { sampleBlank } } });
                 }
                 else
                 {

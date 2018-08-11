@@ -33,7 +33,7 @@ namespace BioA.UI
 
             reactionDiskDebug = new ReactionDiskDebug();
             reactionDiskDebug.SendNetworkEvent += SendNetwork_Event;
-            xtraTabPage1.Controls.Add(reactionDiskDebug);
+            xtrReactionTrayDebug.Controls.Add(reactionDiskDebug);
         }
 
         public void DataTransfer_Event(string strMethod, object sender)
@@ -55,75 +55,75 @@ namespace BioA.UI
 
         private void xtraTabControl1_Click(object sender, EventArgs e)
         {
-            if (xtraTabControl1.SelectedTabPageIndex == 0)
+            if (xtrEquipmentDebug.SelectedTabPageIndex == 0)
             {
-                xtraTabPage1.Controls.Clear();
+                xtrReactionTrayDebug.Controls.Clear();
 
                 if (reactionDiskDebug != null)
                     reactionDiskDebug.SendNetworkEvent -= SendNetwork_Event;
                 reactionDiskDebug = new ReactionDiskDebug();
                 reactionDiskDebug.SendNetworkEvent += SendNetwork_Event;
-                xtraTabPage1.Controls.Add(reactionDiskDebug);
+                xtrReactionTrayDebug.Controls.Add(reactionDiskDebug);
             }
-            else if (xtraTabControl1.SelectedTabPageIndex == 1)
+            else if (xtrEquipmentDebug.SelectedTabPageIndex == 1)
             {
-                xtraTabPage2.Controls.Clear();
+                xtrReagentTrayDebug.Controls.Clear();
 
                 if (reagentPanelDebug != null)
                     reagentPanelDebug.SendNetworkEvent -= SendNetwork_Event;
                 reagentPanelDebug = new ReagentPanelDebug();
                 reagentPanelDebug.SendNetworkEvent += SendNetwork_Event;
-                xtraTabPage2.Controls.Add(reagentPanelDebug);
+                xtrReagentTrayDebug.Controls.Add(reagentPanelDebug);
             }
-            else if (xtraTabControl1.SelectedTabPageIndex == 2)
+            else if (xtrEquipmentDebug.SelectedTabPageIndex == 2)
             {
-                xtraTabPage3.Controls.Clear();
+                xtrSampTrayDebug.Controls.Clear();
 
                 if (samplePanelDebug != null)
                     samplePanelDebug.SendNetworkEvent -= SendNetwork_Event;
                 samplePanelDebug = new SamplePanelDebug();
                 samplePanelDebug.SendNetworkEvent += SendNetwork_Event;
-                xtraTabPage3.Controls.Add(samplePanelDebug);
+                xtrSampTrayDebug.Controls.Add(samplePanelDebug);
             }
-            else if (xtraTabControl1.SelectedTabPageIndex == 3)
+            else if (xtrEquipmentDebug.SelectedTabPageIndex == 3)
             {
-                xtraTabPage4.Controls.Clear();
+                xtrAbsorberDebug.Controls.Clear();
 
                 if (absorberDebug != null)
                     absorberDebug.SendNetworkEvent -= SendNetwork_Event;
                 absorberDebug = new AbsorberDebug();
                 absorberDebug.SendNetworkEvent += SendNetwork_Event;
-                xtraTabPage4.Controls.Add(absorberDebug);
+                xtrAbsorberDebug.Controls.Add(absorberDebug);
             }
-            else if (xtraTabControl1.SelectedTabPageIndex == 4)
+            else if (xtrEquipmentDebug.SelectedTabPageIndex == 4)
             {
-                xtraTabPage5.Controls.Clear();
+                xtrTreaterDebug.Controls.Clear();
 
                 if (agitatorAdjustment != null)
                     agitatorAdjustment.SendNetworkEvent -= SendNetwork_Event;
                 agitatorAdjustment = new AgitatorAdjustment();
                 agitatorAdjustment.SendNetworkEvent += SendNetwork_Event;
-                xtraTabPage5.Controls.Add(agitatorAdjustment);
+                xtrTreaterDebug.Controls.Add(agitatorAdjustment);
             }
-            else if (xtraTabControl1.SelectedTabPageIndex == 5)
+            else if (xtrEquipmentDebug.SelectedTabPageIndex == 5)
             {
-                xtraTabPage6.Controls.Clear();
+                xtrLiquidCircuitDebug.Controls.Clear();
 
                 if (liquidRoadDebug != null)
                     liquidRoadDebug.SendNetworkEvent -= SendNetwork_Event;
                 liquidRoadDebug = new LiquidRoadDebug();
                 liquidRoadDebug.SendNetworkEvent += SendNetwork_Event;
-                xtraTabPage6.Controls.Add(liquidRoadDebug);
+                xtrLiquidCircuitDebug.Controls.Add(liquidRoadDebug);
             }
-            else if (xtraTabControl1.SelectedTabPageIndex == 6)
+            else if (xtrEquipmentDebug.SelectedTabPageIndex == 6)
             {
-                xtraTabPage7.Controls.Clear();
+                xtrOpticalPathDebug.Controls.Clear();
 
                 if (lightSystem != null)
                     lightSystem.SendNetworkEvent -= SendNetwork_Event;
                 lightSystem = new LightSystem();
                 lightSystem.SendNetworkEvent += SendNetwork_Event;
-                xtraTabPage7.Controls.Add(lightSystem);
+                xtrOpticalPathDebug.Controls.Add(lightSystem);
             }
         }
 

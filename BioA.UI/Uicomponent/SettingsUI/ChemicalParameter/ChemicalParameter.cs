@@ -25,13 +25,10 @@ namespace BioA.UI
         public ChemicalParameter()
         {
             InitializeComponent();
-
-            Thread.Sleep(1000);
-            projectParameter = new ProjectParameter();
-            projectParameter.AssayProInfoEvent += AssayProInfo_Event;
-
-
-            xtraTabPage1.Controls.Add(projectParameter);
+            //Thread.Sleep(1000);
+            //projectParameter = new ProjectParameter();
+            //projectParameter.AssayProInfoEvent += AssayProInfo_Event;
+            //xtraTabPage1.Controls.Add(projectParameter);
         }
         
         /// <summary>
@@ -39,18 +36,26 @@ namespace BioA.UI
         /// </summary>
         /// <param name="strAccessSqlMethod"></param>
         /// <param name="sender"></param>
-        private void AssayProInfo_Event(object sender)
+        private void AssayProInfo_Event(Dictionary<string, object[]> sender)
         {
-            string a = XmlUtility.Serializer(typeof(CommunicationEntity), sender as CommunicationEntity);
-
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SettingsChemicalParameter, XmlUtility.Serializer(typeof(CommunicationEntity), sender as CommunicationEntity));
+            //string a = XmlUtility.Serializer(typeof(CommunicationEntity), sender as CommunicationEntity);
+            var chemParamThread = new Thread(() =>
+            {
+                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.SettingsChemicalParameter, sender);
+            });
+            chemParamThread.IsBackground = true;
+            chemParamThread.Start();
         }
 
-
+        /// <summary>
+        /// 保存所有生化项目信息
+        /// </summary>
         List<AssayProjectInfo> lstAssayProInfos = new List<AssayProjectInfo>();
         CommunicationEntity communicationEntity = new CommunicationEntity();
-
-        AssayProjectParamInfo assProParamInfo = new AssayProjectParamInfo();
+        /// <summary>
+        /// 保存所有生化项目参数信息
+        /// </summary>
+        List<AssayProjectParamInfo> assProParamInfo = new List<AssayProjectParamInfo>();
         AssayProjectCalibrationParamInfo calibParam = new AssayProjectCalibrationParamInfo();
 
         /// <summary>
@@ -117,9 +122,10 @@ namespace BioA.UI
                         return;
                     }
                     break;
-                case "GetAssayProjectParamInfoByNameAndType":
-                    assProParamInfo = (AssayProjectParamInfo)XmlUtility.Deserialize(typeof(AssayProjectParamInfo), sender as string);
-                    projectParameter.AssProParamInfoList = assProParamInfo;
+                case "QueryAssayProjectParamInfoAll":
+                    assProParamInfo = (List<AssayProjectParamInfo>)XmlUtility.Deserialize(typeof(List<AssayProjectParamInfo>), sender as string);
+                    projectParameter.LstAssayProParamInfoAll = assProParamInfo;
+                    //projectParameter.AssProParamInfoList = assProParamInfo;
                     break;
                 case "UpdateAssayProjectParamInfo":
                     if ((int)sender == 0)
@@ -132,16 +138,17 @@ namespace BioA.UI
                     }
                     break;
                 case "QueryAssayProAllInfoForCalibParam":   // 为校准参数界面获取所有项目信息
-                    lstAssayProInfos = (List<AssayProjectInfo>)XmlUtility.Deserialize(typeof(List<AssayProjectInfo>), sender as string);
-                    calibrationParameter.LstAssayProInfos = lstAssayProInfos;
+                    //lstAssayProInfos = (List<AssayProjectInfo>)XmlUtility.Deserialize(typeof(List<AssayProjectInfo>), sender as string);
+                    //calibrationParameter.LstAssayProInfos = lstAssayProInfos;
                     break;
-                case "QueryCalibParamByProNameAndType":
-                    AssayProjectCalibrationParamInfo calibParamInfo = (AssayProjectCalibrationParamInfo)XmlUtility.Deserialize(typeof(AssayProjectCalibrationParamInfo), sender as string);
-                    calibrationParameter.CalibParamInfo = calibParamInfo;
+                case "QueryCalibParamInfoAll":
+                    List<AssayProjectCalibrationParamInfo> lstCalibParamInfo = (List<AssayProjectCalibrationParamInfo>)XmlUtility.Deserialize(typeof(List<AssayProjectCalibrationParamInfo>), sender as string);
+                    calibrationParameter.LstCalibParamInfo = lstCalibParamInfo;
+                    //calibrationParameter.LstAssayProInfos = lstAssayProInfos;
                     break;
                 case "QueryAssayProAllInfoForRangeParam":
-                    lstAssayProInfos = (List<AssayProjectInfo>)XmlUtility.Deserialize(typeof(List<AssayProjectInfo>), sender as string);
-                    rangeParameter.LstAssayProInfos = lstAssayProInfos;
+                    //lstAssayProInfos = (List<AssayProjectInfo>)XmlUtility.Deserialize(typeof(List<AssayProjectInfo>), sender as string);
+                    //rangeParameter.LstAssayProInfos = lstAssayProInfos;
                     break;
                 case "QueryRangeParamByProNameAndType":
                     AssayProjectRangeParamInfo rangeParamInfo = (AssayProjectRangeParamInfo)XmlUtility.Deserialize(typeof(AssayProjectRangeParamInfo), sender as string);
@@ -153,8 +160,8 @@ namespace BioA.UI
                     calibrationParameter.AddCalibrator(calibratorProjectinfo);
                     break;
                 case "QueryCalib":
-                    List<Calibratorinfo> lisCalibratorinfo = (List<Calibratorinfo>)XmlUtility.Deserialize(typeof(List<Calibratorinfo>), sender as string);
-                    calibrationParameter.lisCalibratorinfo(lisCalibratorinfo);
+                    //List<Calibratorinfo> lisCalibratorinfo = (List<Calibratorinfo>)XmlUtility.Deserialize(typeof(List<Calibratorinfo>), sender as string);
+                    //calibrationParameter.lisCalibratorinfo(lisCalibratorinfo);
                     break;
                 case "QueryCalibrationCurve":
                     List<CalibrationCurveInfo> calibrationCurveInfo = (List<CalibrationCurveInfo>)XmlUtility.Deserialize(typeof(List<CalibrationCurveInfo>), sender as string);
@@ -178,6 +185,7 @@ namespace BioA.UI
             {
                 xtraTabPage2.Controls.Clear();
                 calibrationParameter = new CalibrationParameter();
+                calibrationParameter.ListAssayprojectInfos = lstAssayProInfos;
                 calibrationParameter.AssayProInfoForCalibParamEvent += AssayProInfo_Event;
                 xtraTabPage2.Controls.Add(calibrationParameter);
             }
@@ -185,6 +193,7 @@ namespace BioA.UI
             {
                 xtraTabPage3.Controls.Clear();
                 rangeParameter = new RangeParameter();
+                rangeParameter.ListAssayprojectInfos = lstAssayProInfos;
                 rangeParameter.AssayProInfoForRangeParamEvent += AssayProInfo_Event;
                 xtraTabPage3.Controls.Add(rangeParameter);
             }
@@ -193,6 +202,16 @@ namespace BioA.UI
         private void xtraTabPage1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void ChemicalParameter_Load(object sender, EventArgs e)
+        {
+            BeginInvoke(new Action(() =>
+            {
+                projectParameter = new ProjectParameter();
+                projectParameter.AssayProInfoEvent += AssayProInfo_Event;
+                xtraTabPage1.Controls.Add(projectParameter);
+            }));
         }
     }
 }

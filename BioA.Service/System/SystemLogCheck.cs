@@ -11,58 +11,36 @@ namespace BioA.Service
     {
 
 
-        internal List<MaintenanceLogInfo> QueryMaintenanceLogInfo(string strDBMethod, string p2)
+        public List<MaintenanceLogInfo> QueryMaintenanceLogInfo(string strDBMethod)
         {
             List<MaintenanceLogInfo> lstQueryMaintenanceLogInfo = new List<MaintenanceLogInfo>();
-            try
-            {
-                lstQueryMaintenanceLogInfo = myBatis.QueryMaintenanceLogInfo(strDBMethod, null);
-                LogInfo.WriteProcessLog(strDBMethod + "zhuszihe33" + lstQueryMaintenanceLogInfo, Module.WindowsService);
-            }
-            catch (Exception e)
-            {
-                LogInfo.WriteErrorLog(e.ToString(), Module.WindowsService);
-            }
+            
+            lstQueryMaintenanceLogInfo = myBatis.QueryMaintenanceLogInfo(strDBMethod);
+            
             return lstQueryMaintenanceLogInfo;
         }
 
-        internal List<MaintenanceLogInfo> QueryOperationLogInfo(string strDBMethod, string p2)
+        public List<MaintenanceLogInfo> QueryOperationLogInfo(string strDBMethod)
         {
             List<MaintenanceLogInfo> lstQueryMaintenanceLogInfo = new List<MaintenanceLogInfo>();
-            try
-            {
-                lstQueryMaintenanceLogInfo = myBatis.QueryOperationLogInfo(strDBMethod, null);
-                LogInfo.WriteProcessLog(strDBMethod + "zhuszihe33" + lstQueryMaintenanceLogInfo, Module.WindowsService);
-            }
-            catch (Exception e)
-            {
-                LogInfo.WriteErrorLog(e.ToString(), Module.WindowsService);
-            }
+            lstQueryMaintenanceLogInfo = myBatis.QueryOperationLogInfo(strDBMethod);
             return lstQueryMaintenanceLogInfo;
         }
 
-        internal List<AlarmLogInfo> QueryAlarmLogInfo(string strDBMethod, string p2)
+        public List<AlarmLogInfo> QueryAlarmLogInfo(string strDBMethod)
         {
             List<AlarmLogInfo> lstQueryAlarmLogInfo = new List<AlarmLogInfo>();
-            try
-            {
-                lstQueryAlarmLogInfo = myBatis.QueryAlarmLogInfo(strDBMethod, null);
-                LogInfo.WriteProcessLog(strDBMethod + "zhuszihe33" + lstQueryAlarmLogInfo, Module.WindowsService);
-            }
-            catch (Exception e)
-            {
-                LogInfo.WriteErrorLog(e.ToString(), Module.WindowsService);
-            }
+            lstQueryAlarmLogInfo = myBatis.QueryAlarmLogInfo(strDBMethod);
             return lstQueryAlarmLogInfo;
         }
 
 
 
-        internal List<AlarmLogInfo> SelectAlarmLogInfo(string strDBMethod, AlarmLogInfo alarmLogInfo)
+        public List<AlarmLogInfo> SelectAlarmLogInfoByUName(string strDBMethod, AlarmLogInfo alarmLogInfo)
         {
             List<AlarmLogInfo> lstQueryAlarmLogInfo = new List<AlarmLogInfo>();
 
-            lstQueryAlarmLogInfo = myBatis.SelectAlarmLogInfo(strDBMethod, alarmLogInfo);
+            lstQueryAlarmLogInfo = myBatis.SelectAlarmLogInfoByUName(strDBMethod, alarmLogInfo);
 
             return lstQueryAlarmLogInfo;
         }

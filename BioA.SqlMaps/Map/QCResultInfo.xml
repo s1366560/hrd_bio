@@ -114,7 +114,7 @@
     <statement id="UpdateQCResultRunLog" parameterClass="System.Collections.IDictionary">
       update QualityControlResultTb set Remarks=#Remarks# where SampleNum=#SampleNum# and ProjectName=#ProjectName# and TCNO=#TCNO# and SampleCreateTime=#SampleCreateTime#
     </statement>
-    <statement id="QueryQualityControlResultTCNO" parameterClass="System.Collections.IDictionary" resultClass="int">
+    <statement id="QueryQualityControlResultTCNO" parameterClass="System.Collections.IDictionary" resultClass="string">
       select TCNO from QualityControlResultTb where ProjectName=#ProjectName# and SampleType=#SampleType# and SampleCreateTime=#SampleCreateTime#
     </statement>
   </statements>

@@ -131,18 +131,13 @@ namespace BioA.SqlMaps
             return intResult;
         }
 
-        public List<string> QueryDepartment(string strDBMethod, string dataConfig)
+        public List<string> QueryDepartment(string strDBMethod)
         {
             List<string> lstQueryDepartment = new List<string>();
             try
             {
-                if (dataConfig == null)
-                {
-                    lstQueryDepartment = (List<string>)ism_SqlMap.QueryForList<string>("DepartmentInfo." + strDBMethod, dataConfig);
-                   
-                }
+                lstQueryDepartment = (List<string>)ism_SqlMap.QueryForList<string>("DepartmentInfo." + strDBMethod, null);
             }
-
             catch (Exception e)
             {
                 LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.DAO);
@@ -150,17 +145,17 @@ namespace BioA.SqlMaps
 
             return lstQueryDepartment;
         }
-
-        public List<UserInfo> QueryUserManagement(string strDBMethod, string dataConfig)
+        /// <summary>
+        /// 获取所有用户（检验医生）
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <returns></returns>
+        public List<UserInfo> QueryUserManagement(string strDBMethod)
         {
             List<UserInfo> lstQueryUserManagement = new List<UserInfo>();
             try
             {
-                if (dataConfig == null)
-                {
-                    lstQueryUserManagement = (List<UserInfo>)ism_SqlMap.QueryForList<UserInfo>("UserInfo." + strDBMethod, dataConfig);
-                    //LogInfo.WriteProcessLog(strDBMethod + "zhuszihe33" + lstQueryUserManagement[0].UserID, Module.WindowsService);
-                }
+                lstQueryUserManagement = (List<UserInfo>)ism_SqlMap.QueryForList<UserInfo>("UserInfo." + strDBMethod, null);
             }
 
             catch (Exception e)
@@ -236,17 +231,17 @@ namespace BioA.SqlMaps
 
             return intResult;
         }
-
-        public List<ApplyDoctorInfo> QueryApplyDoctor(string strDBMethod, string dataConfig)
+        /// <summary>
+        /// 获取所有医生信息
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <returns></returns>
+        public List<ApplyDoctorInfo> QueryApplyDoctorInfo(string strDBMethod)
         {
             List<ApplyDoctorInfo> lstQueryApplyDoctor = new List<ApplyDoctorInfo>();
             try
             {
-                if (dataConfig == null)
-                {
-                    lstQueryApplyDoctor = (List<ApplyDoctorInfo>)ism_SqlMap.QueryForList<ApplyDoctorInfo>("DepartmentInfo." + strDBMethod, dataConfig);
-                   
-                }
+                lstQueryApplyDoctor = (List<ApplyDoctorInfo>)ism_SqlMap.QueryForList<ApplyDoctorInfo>("DepartmentInfo." + strDBMethod, null);
             }
 
             catch (Exception e)
@@ -327,19 +322,18 @@ namespace BioA.SqlMaps
 
             return intResult;
         }
-
-        public List<string> QueryAuditPhysician(string strDBMethod, string dataConfig)
+        /// <summary>
+        /// 获取所有审核医生信息
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <returns></returns>
+        public List<string> QueryAuditPhysician(string strDBMethod)
         {
             List<string> lstQueryAuditPhysician = new List<string>();
             try
             {
-                if (dataConfig == null)
-                {
-                    lstQueryAuditPhysician = (List<string>)ism_SqlMap.QueryForList<string>("DepartmentInfo." + strDBMethod, dataConfig);
-
-                }
+                lstQueryAuditPhysician = (List<string>)ism_SqlMap.QueryForList<string>("DepartmentInfo." + strDBMethod, null);
             }
-
             catch (Exception e)
             {
                 LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.DAO);
@@ -413,19 +407,18 @@ namespace BioA.SqlMaps
 
             return intResult;
         }
-
-        public List<MaintenanceLogInfo> QueryMaintenanceLogInfo(string strDBMethod, string dataConfig)
+        /// <summary>
+        /// 获取所有保养日志信息
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <returns></returns>
+        public List<MaintenanceLogInfo> QueryMaintenanceLogInfo(string strDBMethod)
         {
             List<MaintenanceLogInfo> lstQueryMaintenanceLogInfo = new List<MaintenanceLogInfo>();
             try
             {
-                if (dataConfig == null)
-                {
-                    lstQueryMaintenanceLogInfo = (List<MaintenanceLogInfo>)ism_SqlMap.QueryForList<MaintenanceLogInfo>("LogInfo." + strDBMethod, dataConfig);
-
-                }
+                lstQueryMaintenanceLogInfo = (List<MaintenanceLogInfo>)ism_SqlMap.QueryForList<MaintenanceLogInfo>("LogInfo." + strDBMethod, null);
             }
-
             catch (Exception e)
             {
                 LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.DAO);
@@ -433,17 +426,17 @@ namespace BioA.SqlMaps
 
             return lstQueryMaintenanceLogInfo;
         }
-
-        public List<MaintenanceLogInfo> QueryOperationLogInfo(string strDBMethod, string dataConfig)
+        /// <summary>
+        /// 获取所有操作日志信息
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <returns></returns>
+        public List<MaintenanceLogInfo> QueryOperationLogInfo(string strDBMethod)
         {
             List<MaintenanceLogInfo> lstQueryOperationLogInfo = new List<MaintenanceLogInfo>();
             try
             {
-                if (dataConfig == null)
-                {
-                    lstQueryOperationLogInfo = (List<MaintenanceLogInfo>)ism_SqlMap.QueryForList<MaintenanceLogInfo>("LogInfo." + strDBMethod, dataConfig);
-
-                }
+                lstQueryOperationLogInfo = (List<MaintenanceLogInfo>)ism_SqlMap.QueryForList<MaintenanceLogInfo>("LogInfo." + strDBMethod, null);
             }
 
             catch (Exception e)
@@ -453,17 +446,17 @@ namespace BioA.SqlMaps
 
             return lstQueryOperationLogInfo;
         }
-
-        public List<AlarmLogInfo> QueryAlarmLogInfo(string strDBMethod, string dataConfig)
+        /// <summary>
+        /// 获取所有报警日志
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <returns></returns>
+        public List<AlarmLogInfo> QueryAlarmLogInfo(string strDBMethod)
         {
             List<AlarmLogInfo> lstAlarmLogInfo = new List<AlarmLogInfo>();
             try
             {
-                if (dataConfig == null)
-                {
-                    lstAlarmLogInfo = (List<AlarmLogInfo>)ism_SqlMap.QueryForList<AlarmLogInfo>("LogInfo." + strDBMethod, dataConfig);
-
-                }
+                lstAlarmLogInfo = (List<AlarmLogInfo>)ism_SqlMap.QueryForList<AlarmLogInfo>("LogInfo." + strDBMethod, null);
             }
 
             catch (Exception e)
@@ -473,8 +466,13 @@ namespace BioA.SqlMaps
 
             return lstAlarmLogInfo;
         }
-
-        public List<AlarmLogInfo> SelectAlarmLogInfo(string strDBMethod, AlarmLogInfo alarmLogInfo)
+        /// <summary>
+        /// 根据用户名称获取报警信息
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <param name="alarmLogInfo"></param>
+        /// <returns></returns>
+        public List<AlarmLogInfo> SelectAlarmLogInfoByUName(string strDBMethod, AlarmLogInfo alarmLogInfo)
         {
             List<AlarmLogInfo> lstAlarmLogInfo = new List<AlarmLogInfo>();
             try
@@ -563,13 +561,13 @@ namespace BioA.SqlMaps
             return manu;
         }
 
-        public List<CuvetteBlankInfo> QueryWaterBlankValueByWave(string strMethodName, string strWave)
+        public List<CuvetteBlankInfo> QueryWaterBlankValueByWave(string strMethodName)
         {
             List<CuvetteBlankInfo> lstCuvBlk = new List<CuvetteBlankInfo>();
             try
             {
-                List<CuvetteBlankInfo> cuvBlkNew = ism_SqlMap.QueryForList<CuvetteBlankInfo>("EquipmentManage.QueryWaterNewBlankValueByWave", strWave) as List<CuvetteBlankInfo>;
-                List<CuvetteBlankInfo> cuvBlkOld = ism_SqlMap.QueryForList<CuvetteBlankInfo>("EquipmentManage.QueryWaterOldBlankValueByWave", strWave) as List<CuvetteBlankInfo>;
+                List<CuvetteBlankInfo> cuvBlkNew = ism_SqlMap.QueryForList<CuvetteBlankInfo>("EquipmentManage.QueryWaterNewBlankValueByWave", null) as List<CuvetteBlankInfo>;
+                List<CuvetteBlankInfo> cuvBlkOld = ism_SqlMap.QueryForList<CuvetteBlankInfo>("EquipmentManage.QueryWaterOldBlankValueByWave", null) as List<CuvetteBlankInfo>;
                 foreach (CuvetteBlankInfo cuvNew in cuvBlkNew)
                 {
                     lstCuvBlk.Add(cuvNew);

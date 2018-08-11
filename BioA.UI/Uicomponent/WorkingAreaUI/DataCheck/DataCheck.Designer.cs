@@ -367,7 +367,7 @@
             this.chkFilterClose.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkFilterClose.Properties.Appearance.Options.UseFont = true;
             this.chkFilterClose.Properties.Caption = "关";
-            this.chkFilterClose.Size = new System.Drawing.Size(67, 21);
+            this.chkFilterClose.Size = new System.Drawing.Size(38, 21);
             this.chkFilterClose.TabIndex = 1;
             this.chkFilterClose.CheckedChanged += new System.EventHandler(this.chkFilterClose_CheckedChanged);
             // 
@@ -379,7 +379,7 @@
             this.chkFilterOpen.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkFilterOpen.Properties.Appearance.Options.UseFont = true;
             this.chkFilterOpen.Properties.Caption = "开";
-            this.chkFilterOpen.Size = new System.Drawing.Size(67, 21);
+            this.chkFilterOpen.Size = new System.Drawing.Size(35, 21);
             this.chkFilterOpen.TabIndex = 0;
             this.chkFilterOpen.CheckedChanged += new System.EventHandler(this.chkFilterOpen_CheckedChanged);
             // 
@@ -440,12 +440,14 @@
             // gridView1
             // 
             this.gridView1.GridControl = this.lstvSampleInfo;
+            this.gridView1.IndicatorWidth = 40;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsBehavior.EditingMode = DevExpress.XtraGrid.Views.Grid.GridEditingMode.EditFormInplaceHideCurrentRow;
             this.gridView1.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.MouseDown;
             this.gridView1.OptionsSelection.MultiSelect = true;
             this.gridView1.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
             this.gridView1.OptionsView.ShowGroupPanel = false;
+            this.gridView1.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridView1_CustomDrawRowIndicator);
             // 
             // lstvSampleInfo
             // 

@@ -10,11 +10,16 @@ using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using BioA.Common;
 using BioA.Common.IO;
+using System.Threading;
 
 namespace BioA.UI
 {
     public partial class DataCheck : DevExpress.XtraEditors.XtraUserControl
     {
+        /// <summary>
+        /// 存储客户端发送信息给服务器的参数集合
+        /// </summary>
+        private Dictionary<string, object[]> dataCheckDic = new Dictionary<string, object[]>();
         // 检测结果存储表
         DataTable CheckResultDT = new DataTable();
         //存储病人操作状态信息
@@ -92,18 +97,27 @@ namespace BioA.UI
             //        XmlUtility.Serializer(typeof(SampleInfoForResult), sampleInfo),
             //        strFilter
             //        )));
-            CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaDataCheck, new Dictionary<string, List<object>>() { { "QueryCommonSampleData", new List<object>() { XmlUtility.Serializer(typeof(SampleInfoForResult), sampleInfo), strFilter } } });
-
+            dataCheckDic.Clear();
+            dataCheckDic.Add("QueryCommonSampleData", new object[] { XmlUtility.Serializer(typeof(SampleInfoForResult), sampleInfo), strFilter });
+            SendToServices(dataCheckDic);
 
         }
-
+        /// <summary>
+        /// 筛选点击事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnFilter_Click(object sender, EventArgs e)
         {
             ScreeningSample screeningSample = new ScreeningSample();
             screeningSample.StartPosition = FormStartPosition.CenterScreen;
             screeningSample.ShowDialog();
         }
-
+        /// <summary>
+        /// 筛选启动点击改变事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void chkFilterOpen_CheckedChanged(object sender, EventArgs e)
         {
             if (chkFilterOpen.Checked)
@@ -115,7 +129,11 @@ namespace BioA.UI
                 chkFilterOpen.Checked = true;
             }
         }
-
+        /// <summary>
+        /// 筛选关闭点击改变事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void chkFilterClose_CheckedChanged(object sender, EventArgs e)
         {
             if (chkFilterClose.Checked)
@@ -127,10 +145,13 @@ namespace BioA.UI
                 chkFilterClose.Checked = true;
             }
         }
-
+        /// <summary>
+        /// 审核点击事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnExamine_Click(object sender, EventArgs e)
         {
-
             testAudit.SampleInfos = sampleInfos;
 
             if (this.gridView1.SelectedRowsCount > 0)
@@ -142,12 +163,21 @@ namespace BioA.UI
                 sampleInfo.CreateTime = System.Convert.ToDateTime(this.gridView1.GetRowCellValue(selectedNum, "申请时间"));
 
                 testAudit.SampleInfo = sampleInfo;
+                testAudit.StartPosition = FormStartPosition.CenterScreen;
+                testAudit.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("请选择病人信息！");
+                return;
             }
 
-            testAudit.StartPosition = FormStartPosition.CenterScreen;
-            testAudit.ShowDialog();
         }
-
+        /// <summary>
+        /// 反应监控点击事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnReactionMonitoring_Click(object sender, EventArgs e)
         {
             if (gridView2.SelectedRowsCount > 0 && gridView1.SelectedRowsCount > 0)
@@ -187,7 +217,6 @@ namespace BioA.UI
             BeginInvoke(new Action(loadDataCheck));
 
         }
-
         private void loadDataCheck()
         {
             testAudit = new TestAudit();
@@ -235,10 +264,21 @@ namespace BioA.UI
             dt.Columns.Add("打印状态");
             dt.Columns.Add("手动稀释");
             lstvSampleInfo.DataSource = dt;
-            BeginInvoke(new Action(() =>
+            BeginInvoke(new Action(LoadCommonSampleData));
+        }
+
+        /// <summary>
+        /// 发送给服务器
+        /// </summary>
+        /// <param name="param"></param>
+        private void SendToServices(Dictionary<string, object[]> param)
+        {
+            var dataCheckThread = new Thread(() =>
             {
-                LoadCommonSampleData();
-            }));
+                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaDataCheck, param);
+            });
+            dataCheckThread.IsBackground = true;
+            dataCheckThread.Start();
         }
 
         private void LoadCommonSampleData()
@@ -279,7 +319,9 @@ namespace BioA.UI
             //        XmlUtility.Serializer(typeof(SampleInfoForResult), sampleInfo),
             //        strFilter
             //        )));
-            CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaDataCheck, new Dictionary<string, List<object>>() { { "QueryCommonSampleData", new List<object>() { XmlUtility.Serializer(typeof(SampleInfoForResult), sampleInfo), strFilter } } });
+            dataCheckDic.Clear();
+            dataCheckDic.Add("QueryCommonSampleData", new object[] { XmlUtility.Serializer(typeof(SampleInfoForResult), sampleInfo), strFilter });
+            SendToServices(dataCheckDic);
         }
 
         public void DataTransfer_Event(string strMethod, object sender)
@@ -287,9 +329,10 @@ namespace BioA.UI
             switch (strMethod)
             {
                 case "QueryCommonSampleData":
-                    sampleInfos = (List<SampleInfoForResult>)XmlUtility.Deserialize(typeof(List<SampleInfoForResult>), sender as string);
-                    this.BeginInvoke(new EventHandler(delegate
+                    BeginInvoke(new Action(() => 
                     {
+                        dt.Rows.Clear();
+                        sampleInfos = (List<SampleInfoForResult>)XmlUtility.Deserialize(typeof(List<SampleInfoForResult>), sender as string);
                         //DataTable dt = new DataTable();
                         //dt.Columns.Add("样本编号");
                         //dt.Columns.Add("样本ID");
@@ -335,15 +378,11 @@ namespace BioA.UI
 
                             dt.Rows.Add(new object[] { s.SampleNum, s.SampleID, s.SampleType, s.PatientName, s.Sex, age, s.CreateTime, sampleState, s.IsAudit == false ? "未审核" : "已审核", s.PrintState == "" ? "未打印" : s.PrintState, s.IsOperateDilution ? "是" : "否" });
                         }
-
                         if (dt.Rows.Count > 0)
                         {
-                            BeginInvoke(new Action(() =>
-                            {
-                                lstvSampleInfo.DataSource = dt;
-                                gridView1.SelectRow(0);
-                                lstvSampleInfo_Click(null, null);
-                            }));
+                            lstvSampleInfo.DataSource = dt;
+                            gridView1.SelectRow(0);
+                            lstvSampleInfo_Click(null, null);
                         }
                         else
                         {
@@ -352,33 +391,33 @@ namespace BioA.UI
                     }));
                     break;
                 case "QueryProjectResultBySampleNum":
-                    lstSamResultInfo = (List<SampleResultInfo>)XmlUtility.Deserialize(typeof(List<SampleResultInfo>), sender as string);
-                    this.BeginInvoke(new EventHandler(delegate
+                    BeginInvoke(new Action(() =>
+                    {
+                        CheckResultDT.Rows.Clear();
+                        lstSamResultInfo = (List<SampleResultInfo>)XmlUtility.Deserialize(typeof(List<SampleResultInfo>), sender as string);
+                        foreach (SampleResultInfo s in lstSamResultInfo)
                         {
-                            CheckResultDT.Rows.Clear();
-                            foreach (SampleResultInfo s in lstSamResultInfo)
+                            string taskState = string.Empty;
+                            switch (s.TaskState)
                             {
-                                string taskState = string.Empty;
-                                switch (s.TaskState)
-                                {
-                                    case 0:
-                                        taskState = "待测";
-                                        break;
-                                    case 1:
-                                        taskState = "正在执行";
-                                        break;
-                                    case 2:
-                                        taskState = "已完成";
-                                        break;
-                                    case 3:
-                                        taskState = "被暂停";
-                                        break;
-                                    default:
-                                        break;
-                                }
-                                CheckResultDT.Rows.Add(new object[] { s.ProjectName, s.ConcResult, s.UnitAndRange, s.SampleCreateTime.ToString(), taskState, s.IsResurvey == true ? "是" : "否", s.Confirm });
+                                case 0:
+                                    taskState = "待测";
+                                    break;
+                                case 1:
+                                    taskState = "正在执行";
+                                    break;
+                                case 2:
+                                    taskState = "已完成";
+                                    break;
+                                case 3:
+                                    taskState = "被暂停";
+                                    break;
+                                default:
+                                    break;
                             }
-                        }));
+                            CheckResultDT.Rows.Add(new object[] { s.ProjectName, s.ConcResult, s.UnitAndRange, s.SampleCreateTime.ToString(), taskState, s.IsResurvey == true ? "是" : "否", s.Confirm });
+                        }
+                    }));
                     break;
                 case "QueryProjectResultForTestAudit":
                     testAudit.LstSampleResInfo = (List<SampleResultInfo>)XmlUtility.Deserialize(typeof(List<SampleResultInfo>), sender as string);
@@ -414,7 +453,9 @@ namespace BioA.UI
                             string[] communicate = new string[] { sampleNum.ToString(), dt.ToString(), sampleType };
                             //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaDataCheck,
                             //    XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryProjectResultBySampleNum", XmlUtility.Serializer(typeof(string[]), communicate))));
-                            CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaDataCheck, new Dictionary<string, List<object>>() { { "QueryProjectResultBySampleNum", new List<object>(){ communicate } } });
+                            dataCheckDic.Clear();
+                            dataCheckDic.Add("QueryProjectResultBySampleNum", new object[] { XmlUtility.Serializer(typeof(string[]), communicate) });
+                            SendToServices(dataCheckDic);
                         }
                     }
                     break;
@@ -469,7 +510,7 @@ namespace BioA.UI
 
         private void lstvSampleInfo_Click(object sender, EventArgs e)
         {
-            int iSelected = 0;
+            int iSelected;
             if (gridView1.SelectedRowsCount > 0)
             {
                 iSelected = gridView1.GetSelectedRows()[0];
@@ -479,7 +520,9 @@ namespace BioA.UI
                 string[] communicate = new string[] { sampleNum.ToString(), dt.ToString(), sampleType };
                 //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaDataCheck,
                 //    XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryProjectResultBySampleNum", XmlUtility.Serializer(typeof(string[]), communicate))));
-                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaDataCheck, new Dictionary<string, List<object>>() { { "QueryProjectResultBySampleNum", new List<object>() { communicate } } });
+                dataCheckDic.Clear();
+                dataCheckDic.Add("QueryProjectResultBySampleNum", new object[] { XmlUtility.Serializer(typeof(string[]), communicate) });
+                SendToServices(dataCheckDic);
             }
         }
 
@@ -499,7 +542,9 @@ namespace BioA.UI
                 {
                     //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaDataCheck,
                     //    XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("DeleteCommonSampleBySampleNum", XmlUtility.Serializer(typeof(string[]), communicate))));
-                    CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaDataCheck, new Dictionary<string, List<object>>() { { "DeleteCommonSampleBySampleNum", new List<object>() { communicate } } });
+                    dataCheckDic.Clear();
+                    dataCheckDic.Add("DeleteCommonSampleBySampleNum", new object[] { XmlUtility.Serializer(typeof(string[]), communicate) });
+                    SendToServices(dataCheckDic);
                 }
                 else
                 {
@@ -529,9 +574,13 @@ namespace BioA.UI
 
                     }
                     if (lstCommunicate.Count > 0)
+                    {
                         //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaDataCheck, XmlUtility.Serializer(typeof(CommunicationEntity),
                         //        new CommunicationEntity("BatchAuditSampleTest", XmlUtility.Serializer(typeof(List<string[]>), lstCommunicate))));
-                        CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaDataCheck, new Dictionary<string, List<object>>() { { "BatchAuditSampleTest", new List<object>() { XmlUtility.Serializer(typeof(List<string[]>), lstCommunicate) } } });
+                        dataCheckDic.Clear();
+                        dataCheckDic.Add("BatchAuditSampleTest", new object[] { XmlUtility.Serializer(typeof(List<string[]>), lstCommunicate) } );
+                        SendToServices(dataCheckDic);
+                    }
                 }
             }
         }
@@ -548,8 +597,12 @@ namespace BioA.UI
                 communicates[2] = gridView2.GetRowCellValue(selectedCount, "检测项目") as string;
                 string taskState = gridView2.GetRowCellValue(selectedCount, "任务状态") as string;
                 if (taskState == "已完成" && System.Convert.ToDateTime(communicates[1]) > DateTime.Now.Date)
+                {
                     //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaDataCheck, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("ReviewCheck", XmlUtility.Serializer(typeof(string[]), communicates))));
-                    CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaDataCheck, new Dictionary<string, List<object>>() { { "ReviewCheck", new List<object>() { communicates } } });
+                    dataCheckDic.Clear();
+                    dataCheckDic.Add("ReviewCheck", new object[] { XmlUtility.Serializer(typeof(string[]), communicates) });
+                    SendToServices(dataCheckDic);
+                }
                 else if (System.Convert.ToDateTime(communicates[1]) < DateTime.Now.Date)
                 {
                     MessageBox.Show("仅能对当天已完成检测的任务进行复查操作！");
@@ -599,7 +652,17 @@ namespace BioA.UI
 
                 //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaDataCheck, XmlUtility.Serializer(typeof(CommunicationEntity),
                 //    new CommunicationEntity("ConfirmCommonTask", XmlUtility.Serializer(typeof(string[]), lstConfirmInfo))));
-                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaDataCheck, new Dictionary<string, List<object>>() { {"ConfirmCommonTask", new List<object>() { lstConfirmInfo } } });
+                dataCheckDic.Clear();
+                dataCheckDic.Add("ConfirmCommonTask", new object[] { XmlUtility.Serializer(typeof(string[]), lstConfirmInfo) });
+                SendToServices(dataCheckDic);
+            }
+        }
+
+        private void gridView1_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
+        {
+            if (e.Info.IsRowIndicator && e.RowHandle > -1)
+            {
+                e.Info.DisplayText = (e.RowHandle + 1).ToString();
             }
         }
     }

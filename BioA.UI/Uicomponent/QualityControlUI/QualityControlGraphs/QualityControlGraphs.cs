@@ -64,10 +64,14 @@ namespace BioA.UI
         private int TotalPage;
         //与列名无关的统计数据行的类目数（如，总计，小计......）
         public int TotalNum = 0;
-
+        /// <summary>
+        /// 保存质控结果信息
+        /// </summary>
         List<QCResultForUIInfo> results;
-
-
+        /// <summary>
+        /// 存储客户端发送信息给服务器的参数集合
+        /// </summary>
+        private Dictionary<string, object[]> qcGraphsDic = new Dictionary<string, object[]>();
         public QualityControlGraphs()
         {
             InitializeComponent();
@@ -76,175 +80,6 @@ namespace BioA.UI
             checkedListBox1.SetItemChecked(2, true);
             this.chartControl1.Legend.Visibility = DevExpress.Utils.DefaultBoolean.False;
         }
-        private object[] Saveobj3(object[] obj, List<QCResultForUIInfo> results)
-        {
-            object[] obj2 = new object[obj.Length];
-            obj2[0] = "XSD";
-            for (int i = 1; i < obj.Length; i++)
-            {
-                try
-                {
-                    if (Convert.ToInt32(obj[i]) >= 2 && Convert.ToInt32(obj[i]) < 3 || Convert.ToInt32(obj[i]) <= -2 && Convert.ToInt32(obj[i])>-3)
-                    {
-                        obj2[i] = obj[i];
-                    }                  
-                    else
-                    {
-                        obj2[i] = string.Empty;
-                    }
-                }
-                catch
-                {
-                    obj2[i] = string.Empty;
-                }
-            }
-            return obj2;
-        }
-        private object[] Saveobj2(object[] obj, List<QCResultForUIInfo> results)
-        {
-            object[] obj2 = new object[obj.Length];
-            obj2[0] = "XSD";
-            for (int i = 1; i < obj.Length; i++)
-            {
-                try
-                {
-                    if (Convert.ToInt32(obj[i]) >= 3 || Convert.ToInt32(obj[i]) <= -3)
-                    {
-                        obj2[i] = obj[i];
-                    }
-                    else if (Convert.ToInt32(obj[i]) >= 2  && Convert.ToInt32(obj[i - 1]) >= 2  && Convert.ToInt32(obj[i]) < 3  && Convert.ToInt32(obj[i - 1]) < 3 
-                        || Convert.ToInt32(obj[i]) <= -2  && Convert.ToInt32(obj[i - 1]) <= -2  && Convert.ToInt32(obj[i]) > -3 && Convert.ToInt32(obj[i - 1]) > -3 )
-                    {
-                        obj2[i] = obj[i];
-                    }
-                    else if (Math.Abs(Convert.ToInt32(obj[i]) - Convert.ToInt32(obj[i - 1])) >= 4 && Convert.ToInt32(obj[i - 1]) < 3  && Convert.ToInt32(obj[i - 1]) > -3 
-                        && Convert.ToInt32(obj[i]) > -3 && Convert.ToInt32(obj[i]) < 3 )
-                    {
-                        obj2[i] = obj[i];
-                    }
-                    else if (Convert.ToInt32(obj[i]) >= 1  && Convert.ToInt32(obj[i - 1]) >= 1  && Convert.ToInt32(obj[i - 2]) >= 1  && Convert.ToInt32(obj[i - 3]) >= 1 
-                        && Convert.ToInt32(obj[i]) < 3  && Convert.ToInt32(obj[i - 1]) < 3  && Convert.ToInt32(obj[i - 2]) < 3  && Convert.ToInt32(obj[i - 3]) < 3 
-                        || Convert.ToInt32(obj[i]) <= -1  && Convert.ToInt32(obj[i - 1]) <= -1  && Convert.ToInt32(obj[i - 2]) <= -1 && Convert.ToInt32(obj[i - 3]) <= -1 
-                         && Convert.ToInt32(obj[i]) > -3  && Convert.ToInt32(obj[i - 1]) > -3  && Convert.ToInt32(obj[i - 2]) > -3  && Convert.ToInt32(obj[i - 3]) > -3 )
-                    {
-                        obj2[i] = obj[i];
-                    }
-                    else if (
-                        Convert.ToInt32(obj[i]) > 0 && Convert.ToInt32(obj[i - 1]) > 0 && Convert.ToInt32(obj[i - 2]) > 0 && Convert.ToInt32(obj[i - 3]) > 0 &&
-                        Convert.ToInt32(obj[i - 4]) > 0 && Convert.ToInt32(obj[i - 5]) > 0 && Convert.ToInt32(obj[i - 6]) > 0 && Convert.ToInt32(obj[i - 7]) > 0 &&
-                        Convert.ToInt32(obj[i - 8]) > 0 && Convert.ToInt32(obj[i - 9]) > 0 &&
-                        Convert.ToInt32(obj[i]) < 3 * results[i - 1].TargetSD && Convert.ToInt32(obj[i - 1]) < 3 * results[i - 1].TargetSD && Convert.ToInt32(obj[i - 2]) < 3 * results[i - 1].TargetSD && Convert.ToInt32(obj[i - 3]) < 3 * results[i - 1].TargetSD &&
-                        Convert.ToInt32(obj[i - 4]) < 3 * results[i - 1].TargetSD && Convert.ToInt32(obj[i - 5]) < 3 * results[i - 1].TargetSD && Convert.ToInt32(obj[i - 6]) < 3 * results[i - 1].TargetSD && Convert.ToInt32(obj[i - 7]) < 3 * results[i - 1].TargetSD &&
-                        Convert.ToInt32(obj[i - 8]) < 3 * results[i - 1].TargetSD && Convert.ToInt32(obj[i - 9]) < 3 * results[i - 1].TargetSD
-                       || Convert.ToInt32(obj[i]) < 0 && Convert.ToInt32(obj[i - 1]) < 0 && Convert.ToInt32(obj[i - 2]) < 0 && Convert.ToInt32(obj[i - 3]) < 0
-                        && Convert.ToInt32(obj[i - 4]) < 0 && Convert.ToInt32(obj[i - 5]) < 0 && Convert.ToInt32(obj[i - 6]) < 0 && Convert.ToInt32(obj[i - 7]) < 0
-                        && Convert.ToInt32(obj[i - 8]) < 0 && Convert.ToInt32(obj[i - 9]) < 0 &&
-                        Convert.ToInt32(obj[i]) > -3 * results[i - 1].TargetSD && Convert.ToInt32(obj[i - 1]) > -3 * results[i - 1].TargetSD && Convert.ToInt32(obj[i - 2]) > -3 * results[i - 1].TargetSD && Convert.ToInt32(obj[i - 3]) > -3 * results[i - 1].TargetSD &&
-                        Convert.ToInt32(obj[i - 4]) > -3 * results[i - 1].TargetSD && Convert.ToInt32(obj[i - 5]) > -3 * results[i - 1].TargetSD && Convert.ToInt32(obj[i - 6]) > -3 * results[i - 1].TargetSD && Convert.ToInt32(obj[i - 7]) > -3 * results[i - 1].TargetSD &&
-                        Convert.ToInt32(obj[i - 8]) > -3 * results[i - 1].TargetSD && Convert.ToInt32(obj[i - 9]) > -3 * results[i - 1].TargetSD
-                           )
-                    {
-                        obj2[i] = obj[i];
-                    }
-                    else
-                    {
-                        obj2[i] = string.Empty;
-                    }
-                }
-                catch
-                {
-                    obj2[i] = string.Empty;
-                }
-            }
-            return obj2;
-        }
-
-        //private DataTable CreateData(List<QCResultForUIInfo> results)
-        //{
-        //    List<QCResultForUIInfo> resultsUIInfo = new List<QCResultForUIInfo>();
-        //    List<QCResultForUIInfo> resultstimes = new List<QCResultForUIInfo>();
-        //    for(int i=0;i<results.Count;i++)
-        //    {
-        //        for(int j=0;j<resultsUIInfo.Count;j++)
-        //            {
-        //                if (results[i].SampleCreateTime.ToShortDateString() == resultsUIInfo[j].SampleCreateTime.ToShortDateString()
-        //                    && (results[i].ConcResult - results[i].TargetMean) * (1 / results[i].TargetSD) <
-        //                    (resultsUIInfo[j].ConcResult - resultsUIInfo[j].TargetMean) * (1 / resultsUIInfo[j].TargetSD))
-        //                    {
-        //                        resultsUIInfo.Remove(resultsUIInfo[j]);
-        //                        resultstimes.Add(resultsUIInfo[j]);
-        //                        resultsUIInfo.Add(results[i]);
-        //                    }
-        //                else if (results[i].SampleCreateTime.ToShortDateString() == resultsUIInfo[j].SampleCreateTime.ToShortDateString()
-        //                    && (results[i].ConcResult - results[i].TargetMean) * (1 / results[i].TargetSD) >
-        //                    (resultsUIInfo[j].ConcResult - resultsUIInfo[j].TargetMean) * (1 / resultsUIInfo[j].TargetSD))
-        //                    {
-        //                        resultstimes.Add(resultsUIInfo[j]);
-        //                    }
-        //                else
-        //                    {
-        //                        resultsUIInfo.Add(results[i]);
-        //                    }
-        //            }                                                                         
-                
-        //    }
-        //    resultsUIInfo.Sort(delegate(QCResultForUIInfo x, QCResultForUIInfo y)
-        //    {
-        //        return x.SampleCreateTime.CompareTo(y.SampleCreateTime);
-        //    });
-        //    DataTable dt = new DataTable();
-        //    DataColumn[] dtc = new DataColumn[resultsUIInfo.Count + 1];
-        //    dtc[0] = new DataColumn("日期");
-
-
-        //    for (int i = 0; i < resultsUIInfo.Count; i++)
-        //    {
-        //        dtc[i + 1] = new DataColumn(resultsUIInfo[i].SampleCreateTime.ToString(), typeof(string));            
-        //    }
-
-
-        //    dt.Columns.AddRange(dtc);
-        //    object[] obj = new object[resultsUIInfo.Count + 1];
-        //    object[] obj2 = new object[resultsUIInfo.Count + 1];
-        //    object[] obj5 = new object[resultsUIInfo.Count + 1];
-        //    obj[0] = "SD";
-        //    obj2[0] = "XSD";
-        //    obj5[0] = "XSD";
-        //    for (int i = 0; i < resultsUIInfo.Count; i++)
-        //    {
-        //        obj[i + 1] = (resultsUIInfo[i].ConcResult - resultsUIInfo[i].TargetMean) * (1 / resultsUIInfo[i].TargetSD);                
-        //    }
-
-        //    obj2 = Saveobj2(obj, resultsUIInfo);
-        //    obj5 = Saveobj3(obj, resultsUIInfo);
-        //    dt.Rows.Add(obj);
-        //    dt.Rows.Add(obj2);
-        //    dt.Rows.Add(obj5);
-        //    object[] obj3 = new object[resultsUIInfo.Count + 1];
-        //    for (int i = 0; i < resultsUIInfo.Count; i++)
-        //    {
-        //        for (int j = 0; j < resultstimes.Count; j++)
-        //        {
-        //            if (resultsUIInfo[i].SampleCreateTime.ToShortDateString() == resultstimes[j].SampleCreateTime.ToShortDateString())
-        //            {
-        //                obj3[i + 1] = (resultstimes[j].ConcResult - resultstimes[j].TargetMean) * (1 / resultstimes[j].TargetSD);
-        //                resultstimes.Remove(resultstimes[j]);
-        //            }
-        //            else
-        //            {
-        //                obj3[i + 1] = string.Empty;
-        //            }
-        //        }
-        //    }
-        //    dt.Rows.Add(obj3);
-        //    object[] obj4 = new object[resultsUIInfo.Count + 1];
-        //    object[] obj6 = new object[resultsUIInfo.Count + 1];
-        //    obj6 = Saveobj3(obj3, resultsUIInfo);
-        //    obj4 = Saveobj2(obj3, resultsUIInfo);
-        //    dt.Rows.Add(obj4);
-        //    dt.Rows.Add(obj6);
-        //    return dt;
-        //}
         /// <summary>
         /// 创建表格数据
         /// </summary>
@@ -555,18 +390,13 @@ namespace BioA.UI
             //{
             //    e.HasMorePages = true;
             //}
-
-
         }
-
-
     
-
-
-
-
-    
-
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSearch_Click(object sender, EventArgs e)
         {
             BeginInvoke(new Action(SelectAllQCResultByQCInfo));
@@ -598,12 +428,19 @@ namespace BioA.UI
             qcResForUIInfo.QCTimeStartTS = System.Convert.ToDateTime((dtpStartTime.Value).ToShortDateString());
             qcResForUIInfo.QCTimeEndTS = System.Convert.ToDateTime((dtpEndTime.Value).AddDays(1).ToShortDateString());
 
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCGraphic, XmlUtility.Serializer(typeof(CommunicationEntity),
-                                                                                                             new CommunicationEntity("QueryQCResultForQCGraphics",
-                                                                                                                                     XmlUtility.Serializer(typeof(QCResultForUIInfo),qcResForUIInfo))));
+            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCGraphic, XmlUtility.Serializer(typeof(CommunicationEntity),
+            //                                                                                                 new CommunicationEntity("QueryQCResultForQCGraphics",
+            //                                                                                                                         XmlUtility.Serializer(typeof(QCResultForUIInfo),qcResForUIInfo))));
+            qcGraphsDic.Clear();
+            qcGraphsDic.Add("QueryQCResultForQCGraphics", new object[] { XmlUtility.Serializer(typeof(QCResultForUIInfo), qcResForUIInfo) });
+            CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.QCGraphic,qcGraphsDic);
             // this.chartControl1.Visible = false;
         }
-
+        /// <summary>
+        /// 打印报告
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void simpleButton2_Click_1(object sender, EventArgs e)
         {
            
@@ -762,10 +599,13 @@ namespace BioA.UI
         }
         private void loadQCGraphsInfoLoad()
         {
-            // 1.获取项目名称
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCGraphic, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryProjectName", null)));
-            // 2.获取质控信息
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCGraphic, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryQCAllInfo", null)));
+            //// 1.获取项目名称
+            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCGraphic, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryProjectName", null)));
+            //// 2.获取质控信息
+            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCGraphic, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryQCAllInfo", null)));
+            qcGraphsDic.Add("QueryProjectName",null);
+            qcGraphsDic.Add("QueryQCAllInfo",null);
+            CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.QCGraphic,qcGraphsDic);
         }
         /// <summary>
         /// 接收数据库数据传输
@@ -800,48 +640,60 @@ namespace BioA.UI
                 case "QueryQCResultForQCGraphics":
                     // 包含信息有水平浓度、质控时间、质控结果浓度
                     results = (List<QCResultForUIInfo>)XmlUtility.Deserialize(typeof(List<QCResultForUIInfo>), sender as string);
-                    List<QCResultForUIInfo> QCResultHigh = new List<QCResultForUIInfo>();
-                    List<QCResultForUIInfo> QCResultMin = new List<QCResultForUIInfo>();
-                    List<QCResultForUIInfo> QCResultLow = new List<QCResultForUIInfo>();
-                    
-                    for (int i=0;i<results.Count;i++)
-                    {
-                        if(results[i].HorizonLevel=="高")
-                        {
-                            QCResultHigh.Add(results[i]);
-                        }
-                        if(results[i].HorizonLevel=="中")
-                        {
-                            QCResultMin.Add(results[i]);
-                        }
-                        if (results[i].HorizonLevel == "低")
-                        {
-                            QCResultLow.Add(results[i]);
-                        }
-
-                    }
-                    if (QCResultHigh.Count > 0 && checkedListBox1.GetItemChecked(0))
-                    {
-                        DataTable dtHigh = CreateData(QCResultHigh);
-                        CreateChart(dtHigh, "高");
-                    }
-                    if (QCResultMin.Count > 0 && checkedListBox1.GetItemChecked(1))
-                    {
-                        DataTable dtMin = CreateData(QCResultMin);
-                        CreateChart(dtMin, "中");
-                    }
-                    if (QCResultLow.Count > 0 && checkedListBox1.GetItemChecked(2))
-                    {
-                        DataTable dtLow = CreateData(QCResultLow);
-                        CreateChart(dtLow, "低");
-                    }
-                    Dline(results);
-                    Thread.Sleep(500);
+                    BeginInvoke(new Action(QualityControlPicture));
                     break;
                 default:
                     break;
             }
         }
+
+        private void QualityControlPicture()
+        {
+            List<QCResultForUIInfo> QCResultHigh = new List<QCResultForUIInfo>();
+            List<QCResultForUIInfo> QCResultMin = new List<QCResultForUIInfo>();
+            List<QCResultForUIInfo> QCResultLow = new List<QCResultForUIInfo>();
+
+            for (int i = 0; i < results.Count; i++)
+            {
+                if (results[i].HorizonLevel == "高")
+                {
+                    QCResultHigh.Add(results[i]);
+                }
+                if (results[i].HorizonLevel == "中")
+                {
+                    QCResultMin.Add(results[i]);
+                }
+                if (results[i].HorizonLevel == "低")
+                {
+                    QCResultLow.Add(results[i]);
+                }
+
+            }
+            var qcDlienThread = new Thread(() =>
+            {
+                if (QCResultHigh.Count > 0 && checkedListBox1.GetItemChecked(0))
+                {
+                    DataTable dtHigh = CreateData(QCResultHigh);
+                    CreateChart(dtHigh, "高");
+                }
+                if (QCResultMin.Count > 0 && checkedListBox1.GetItemChecked(1))
+                {
+                    DataTable dtMin = CreateData(QCResultMin);
+                    CreateChart(dtMin, "中");
+                }
+                if (QCResultLow.Count > 0 && checkedListBox1.GetItemChecked(2))
+                {
+                    DataTable dtLow = CreateData(QCResultLow);
+                    CreateChart(dtLow, "低");
+                }
+            });
+            qcDlienThread.IsBackground = true;
+            qcDlienThread.Start();
+            Thread.Sleep(200);
+            Dline(results);
+            
+        }
+
         private void Dline(List<QCResultForUIInfo> results)
         {
             try

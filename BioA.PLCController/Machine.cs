@@ -2824,21 +2824,21 @@ namespace BioA.PLCController
                         rtd.WorkType = WORKTYPE.C;
                         break;
                 }
-                //myBatis.DeleteRealTimeCUVData(rtd);
-                //myBatis.SaveRealTimeCUVData(rtd);
+                myBatis.DeleteRealTimeCUVData(rtd);
+                myBatis.SaveRealTimeCUVData(rtd);
 
-                //TimeCourseInfo TC = new TimeCourseInfo();
-                //TC.TimeCourseNo = rtd.TC;
-                //TC.DrawDate = rtd.DrawDate;
-                //TC.CUVNO = 0;
-                //myBatis.DeleteTimeCourseByTCNO(TC.TimeCourseNo);
-                //myBatis.SaveTimeCourseByTCNO(TC);
+                TimeCourseInfo TC = new TimeCourseInfo();
+                TC.TimeCourseNo = rtd.TC;
+                TC.DrawDate = rtd.DrawDate;
+                TC.CUVNO = 0;
+                myBatis.DeleteTimeCourseByTCNO(TC.TimeCourseNo);
+                myBatis.SaveTimeCourseByTCNO(TC);
 
-                //myBatis.UpdateLatestTC(TC.TimeCourseNo);
+                myBatis.UpdateLatestTC(TC.TimeCourseNo);
 
-                ////new ResultService().CreateResult(T.T, rtd);是在创建任务是创建结果还是在发送任务是创建结果，待定。目前是在创建任务时创建结果
-                ////修改任务发送次数和结果进程编号
-                //UpdateScheduleSendCount(T.T,TC.TimeCourseNo);
+                //new ResultService().CreateResult(T.T, rtd);是在创建任务是创建结果还是在发送任务是创建结果，待定。目前是在创建任务时创建结果
+                //修改任务发送次数和结果进程编号
+                UpdateScheduleSendCount(T.T, TC.TimeCourseNo);
                 
                 
                 

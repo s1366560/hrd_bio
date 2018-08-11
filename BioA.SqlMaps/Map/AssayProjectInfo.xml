@@ -201,7 +201,10 @@
     <select id="GetAssayProjectParamInfoByNameAndType" parameterClass="AssayProjectInfo" resultClass="AssayProjectParamInfo">
       select * from AssayProjectParamInfoTb where ProjectName=#ProjectName# and SampleType=#SampleType#
     </select>
-    
+    <!-- 获取所有生化项目参数信息 -->
+    <select id="QueryAssayProjectParamInfoAll" resultClass="AssayProjectParamInfo">
+      select * from AssayProjectParamInfoTb
+    </select>
 
     <!--<update id="UpdateProjectNameForParam" parameterClass="System.Collections.IDictionary" resultClass="int">
       update AssayProjectParamInfoTb
@@ -282,6 +285,10 @@
     </delete>
     <select id="QueryCalibParamByProNameAndType" resultClass="AssayProjectCalibrationParamInfo" parameterClass="AssayProjectInfo">
       select * from CalibrationParamInfoTb where ProjectName = #ProjectName# and SampleType = #SampleType#
+    </select>
+    <!-- 获取所有校准参数信息 -->
+    <select id="QueryCalibParamInfoAll" resultClass="AssayProjectCalibrationParamInfo">
+      select * from CalibrationParamInfoTb
     </select>
     <select id="CalibParamInfoByProNameAndType" resultClass="string" parameterClass="System.Collections.IDictionary">
       select CalibrationMethod from CalibrationParamInfoTb where ProjectName = #ProjectName# and SampleType = #SampleType#

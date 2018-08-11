@@ -9,24 +9,16 @@ namespace BioA.Service
 {
     class SystemUserManagement : DataTransmit
     {
-        internal List<UserInfo> QueryUserManagement(string strDBMethod, string dataConfig)
+        public List<UserInfo> QueryUserManagement(string strDBMethod)
         {
             List<UserInfo> lstQueryUserManagement = new List<UserInfo>();
-            try
-            {
-                lstQueryUserManagement = myBatis.QueryUserManagement(strDBMethod, null);
-                LogInfo.WriteProcessLog(strDBMethod + "zhuszihe33" + lstQueryUserManagement, Module.WindowsService);
-            }
-            catch (Exception e)
-            {
-                LogInfo.WriteErrorLog(e.ToString(), Module.WindowsService);
-            }
+            lstQueryUserManagement = myBatis.QueryUserManagement(strDBMethod);
             return lstQueryUserManagement;
         }
 
-       
 
-        internal string AddUserInfo(string strDBMethod, UserInfo userInfo)
+
+        public string AddUserInfo(string strDBMethod, UserInfo userInfo)
         {
             string strInfo = string.Empty;
             try
@@ -59,12 +51,12 @@ namespace BioA.Service
             return strInfo;
         }
 
-        internal int EditUserInfoUpDate(string strDBMethod, UserInfo dataConfig, UserInfo dataConfigOld)
+        public int EditUserInfoUpDate(string strDBMethod, UserInfo dataConfig, UserInfo dataConfigOld)
         {
             return myBatis.EditUserInfoUpDate(strDBMethod, dataConfig, dataConfigOld);
         }
 
-        internal int DeleteUserInfo(string strDBMethod, string dataConfig,string UserName)
+        public int DeleteUserInfo(string strDBMethod, string dataConfig, string UserName)
         {
             int count = 0;
 
@@ -92,7 +84,7 @@ namespace BioA.Service
             
         }
 
-        internal List<UserInfo> QueryUserCeation(string strDBMethod, string p2)
+        public List<UserInfo> QueryUserCeation(string strDBMethod, string p2)
         {
             List<UserInfo> lstQueryUserCeation = new List<UserInfo>();
             try

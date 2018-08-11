@@ -17,18 +17,20 @@ namespace BioA.UI
     public partial class Alertlog : DevExpress.XtraEditors.XtraUserControl
     {
 
-        public delegate void LogDelegate(object sender);
+        public delegate void LogDelegate(Dictionary<string, object[]> sender);
         public event LogDelegate LogEvent;
-
-       
+        /// <summary>
+        /// 存储客户端发送信息给服务器的参数集合
+        /// </summary>
+        private Dictionary<string, object[]> alertLogDic = new Dictionary<string, object[]>();
         public Alertlog()
         {
             InitializeComponent();
             Font font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             gridView1.Appearance.HeaderPanel.Font = font;
             gridView1.Appearance.Row.Font = font;
-
             
+
         }
 
       
@@ -55,7 +57,7 @@ namespace BioA.UI
                     {
                         foreach (MaintenanceLogInfo maintenanceLogInfo in lstmaintenanceLogInfo)
                         {
-                            dt.Rows.Add(new object[] { maintenanceLogInfo.UserName, maintenanceLogInfo.LogDetails, maintenanceLogInfo.LogDateTime });
+                            dt.Rows.Add(new object[] {i, maintenanceLogInfo.UserName, maintenanceLogInfo.LogDetails, maintenanceLogInfo.LogDateTime });
 
                             i++;
                         }
@@ -65,17 +67,6 @@ namespace BioA.UI
                     this.gridView1.Columns[1].Width = 1000;
                 }));
             //}
-        }
-        private void QueryMaintenanceLogInfo()
-        {
-            CommunicationEntity DataConfig = new CommunicationEntity();
-            DataConfig.StrmethodName = "QueryMaintenanceLogInfo";
-            DataConfig.ObjParam = "";
-           
-        }
-        private void btnSelectall_Click(object sender, EventArgs e)
-        {
-
         }
 
         public void btnRemove ()
@@ -97,23 +88,19 @@ namespace BioA.UI
         }
         private void loadAlertlog()
         {
-            DataTable dt = new DataTable();
-
-            dt.Columns.Add("用户名");
-            dt.Columns.Add("日志详情");
-            dt.Columns.Add("时间");
-            this.gridControl1.DataSource = dt;
-            this.gridView1.Columns[0].Width = 200;
-            this.gridView1.Columns[1].Width = 800;
-
+            //if (LogEvent != null)
+            //{
+            //    CommunicationEntity DataConfig = new CommunicationEntity();
+            //    DataConfig.StrmethodName = "QueryMaintenanceLogInfo";
+            //    DataConfig.ObjParam = "";
+            //    CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SystemLogCheck, XmlUtility.Serializer(typeof(CommunicationEntity), DataConfig));
+            //    //LogEvent(DataConfig);
+            //}
+            alertLogDic.Clear();
+            //获取保养日志信息
+            alertLogDic.Add("QueryMaintenanceLogInfo", null);
             if (LogEvent != null)
-            {
-                CommunicationEntity DataConfig = new CommunicationEntity();
-                DataConfig.StrmethodName = "QueryMaintenanceLogInfo";
-                DataConfig.ObjParam = "";
-                CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SystemLogCheck, XmlUtility.Serializer(typeof(CommunicationEntity), DataConfig));
-                //LogEvent(DataConfig);
-            }
+                LogEvent(alertLogDic);
         }
 
 
@@ -140,7 +127,7 @@ namespace BioA.UI
                 {
                     foreach (AlarmLogInfo alarmLogInfo in lstalarmLogInfo)
                     {
-                        dt.Rows.Add(new object[] { alarmLogInfo.FaultCode, alarmLogInfo.AlarmReason, alarmLogInfo.LogDetails, alarmLogInfo.AlarmLevel, alarmLogInfo.UserName, alarmLogInfo.LogstartTime});
+                        dt.Rows.Add(new object[] {i, alarmLogInfo.FaultCode, alarmLogInfo.AlarmReason, alarmLogInfo.LogDetails, alarmLogInfo.AlarmLevel, alarmLogInfo.UserName, alarmLogInfo.LogstartTime});
 
                         i++;
                     }
@@ -155,7 +142,11 @@ namespace BioA.UI
 
             }));
         }
-
+        /// <summary>
+        /// 搜索按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSearch_Click(object sender, EventArgs e)
         {
             if (LogEvent != null)
@@ -164,11 +155,15 @@ namespace BioA.UI
                 alarmLogInfo.UserName = textEdit1.Text;
                 alarmLogInfo.LogstartTime = dtpStartTime.Value;
                 alarmLogInfo.LogEndTime = dtpEndTime.Value;
-                CommunicationEntity DataConfig = new CommunicationEntity();
-                DataConfig.StrmethodName = "SelectAlarmLogInfo";
-                DataConfig.ObjParam = XmlUtility.Serializer(typeof(AlarmLogInfo), alarmLogInfo);
-                CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SystemLogCheck, XmlUtility.Serializer(typeof(CommunicationEntity), DataConfig));
+                //CommunicationEntity DataConfig = new CommunicationEntity();
+                //DataConfig.StrmethodName = "SelectAlarmLogInfo";
+                //DataConfig.ObjParam = XmlUtility.Serializer(typeof(AlarmLogInfo), alarmLogInfo);
+                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SystemLogCheck, XmlUtility.Serializer(typeof(CommunicationEntity), DataConfig));
                 //LogEvent(DataConfig);
+                alertLogDic.Clear();
+                alertLogDic.Add("SelectAlarmLogInfoByUName", new object[] { XmlUtility.Serializer(typeof(AlarmLogInfo), alarmLogInfo) });
+                if (LogEvent != null)
+                    LogEvent(alertLogDic);
             }
         }
     }

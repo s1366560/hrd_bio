@@ -16,7 +16,7 @@ namespace BioA.UI
 {
     public partial class ReactionProcessCB : DevExpress.XtraEditors.XtraForm
     {
-        public delegate void CalibrationDelegate(object sender);
+        public delegate void CalibrationDelegate(Dictionary<string, object[]> sender);
         public event CalibrationDelegate CalibrationTimeCoursetEvent;
         public ReactionProcessCB()
         {
@@ -291,7 +291,7 @@ namespace BioA.UI
             comboBoxNum.Text = TestNum.ToString();
             if (CalibrationTimeCoursetEvent != null)
             {
-                CalibrationTimeCoursetEvent(new CommunicationEntity("QueryCalibrationReactionProcess", XmlUtility.Serializer(typeof(TimeCourseInfo), timecuvno)));
+                CalibrationTimeCoursetEvent(new Dictionary<string, object[]>() { { "QueryCalibrationReactionProcess", new object[] { XmlUtility.Serializer(typeof(TimeCourseInfo), timecuvno) } } });
             }
         }
     }

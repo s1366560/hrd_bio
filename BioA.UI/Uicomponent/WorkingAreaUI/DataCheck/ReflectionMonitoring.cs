@@ -59,7 +59,7 @@ namespace BioA.UI
             set
             {
                 sampleReactionInfo = value;
-                this.BeginInvoke(new EventHandler(delegate 
+                BeginInvoke(new Action(() => 
                 { 
                     if (sampleReactionInfo != null)
                     {
@@ -67,7 +67,7 @@ namespace BioA.UI
                         series.ArgumentScaleType = ScaleType.Qualitative;
                         series.LabelsVisibility = DevExpress.Utils.DefaultBoolean.True;//显示标注标签
                         if (sampleReactionInfo.Cuv1Wm != 0)
-                            series.Points.Add(new SeriesPoint(1, (sampleReactionInfo.Cuv1Wm - sampleReactionInfo.CuvBlkWm) - (sampleReactionInfo.Cuv1Ws - sampleReactionInfo.CuvBlkWs)));
+                            series.Points.Add(new SeriesPoint(1, ((sampleReactionInfo.Cuv1Wm - sampleReactionInfo.CuvBlkWm) - (sampleReactionInfo.Cuv1Ws - sampleReactionInfo.CuvBlkWs)).ToString("#0.0000")));
                         if (sampleReactionInfo.Cuv2Wm != 0)
                             series.Points.Add(new SeriesPoint(2, (sampleReactionInfo.Cuv2Wm - sampleReactionInfo.CuvBlkWm) - (sampleReactionInfo.Cuv2Ws - sampleReactionInfo.CuvBlkWs)));
                         if (sampleReactionInfo.Cuv3Wm != 0)
@@ -211,15 +211,17 @@ namespace BioA.UI
             txtProjectState.Text = taskState;
             if (bAudit)
             {
-                CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaDataCheck,
-                XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryCommonTaskReactionForAudit",
-                    XmlUtility.Serializer(typeof(SampleResultInfo), sampleResInfo))));
+                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaDataCheck,
+                //XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryCommonTaskReactionForAudit",
+                //    XmlUtility.Serializer(typeof(SampleResultInfo), sampleResInfo))));
+                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaDataCheck, new Dictionary<string, object[]>() { { "QueryCommonTaskReactionForAudit", new object[] { XmlUtility.Serializer(typeof(SampleResultInfo), sampleResInfo) } } });
             }
             else
             {
-                CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaDataCheck,
-                XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryTimeCourse",
-                    XmlUtility.Serializer(typeof(SampleResultInfo), sampleResInfo))));
+                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaDataCheck,
+                //XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryTimeCourse",
+                //    XmlUtility.Serializer(typeof(SampleResultInfo), sampleResInfo))));
+                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaDataCheck, new Dictionary<string, object[]>() { { "QueryTimeCourse", new object[] { XmlUtility.Serializer(typeof(SampleResultInfo), sampleResInfo) } } });
             }
         }
 

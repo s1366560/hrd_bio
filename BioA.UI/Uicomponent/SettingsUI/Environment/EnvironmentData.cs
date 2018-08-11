@@ -13,11 +13,17 @@ using BioA.Common.IO;
 using BioA.UI.ServiceReference1;
 using System.ServiceModel;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace BioA.UI
 {
     public partial class EnvironmentData : DevExpress.XtraEditors.XtraUserControl
     {
+        /// <summary>
+        /// 存储客户端法送信息给服务器的参数集合
+        /// </summary>
+        private Dictionary<string, object[]> envmentDataDic = new Dictionary<string, object[]>();
+
         List<EnvironmentParamInfo> environmentParamInfo = new List<EnvironmentParamInfo>();
         public EnvironmentData()
         {
@@ -36,10 +42,11 @@ namespace BioA.UI
                 case "UpdateEnvironmentParamInfo":
                     if ((int)sender > 0)
                     {
-                        CommunicationEntity DatacommunicationEntity = new CommunicationEntity();
-                        DatacommunicationEntity.StrmethodName = "QueryEnvironmentParamInfo";
-                        DatacommunicationEntity.ObjParam = "";
-                        EnvironmentDataLoad(DatacommunicationEntity);
+                        //CommunicationEntity DatacommunicationEntity = new CommunicationEntity();
+                        //DatacommunicationEntity.StrmethodName = "QueryEnvironmentParamInfo";
+                        //DatacommunicationEntity.ObjParam = "";
+                        //EnvironmentDataLoad(DatacommunicationEntity);
+                        loadEnvironmentData();
                     }
                     break;
                 default:
@@ -77,16 +84,23 @@ namespace BioA.UI
         }
         private void loadEnvironmentData()
         {
-            CommunicationEntity DatacommunicationEntity = new CommunicationEntity();
-            DatacommunicationEntity.StrmethodName = "QueryEnvironmentParamInfo";
-            DatacommunicationEntity.ObjParam = "";
-            EnvironmentDataLoad(DatacommunicationEntity);
+            //CommunicationEntity DatacommunicationEntity = new CommunicationEntity();
+            //DatacommunicationEntity.StrmethodName = "QueryEnvironmentParamInfo";
+            //DatacommunicationEntity.ObjParam = "";
+            envmentDataDic.Clear();
+            envmentDataDic.Add("QueryEnvironmentParamInfo", null);
+            EnvironmentDataLoad(envmentDataDic);
         }
 
 
-        private void EnvironmentDataLoad(object sender)
+        private void EnvironmentDataLoad(Dictionary<string, object[]> sender)
         {
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SettingsEnvironment, XmlUtility.Serializer(typeof(CommunicationEntity), sender as CommunicationEntity));
+            var envmentDataThread = new Thread(() =>
+            {
+                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.SettingsEnvironment, sender);
+            });
+            envmentDataThread.IsBackground = true;
+            envmentDataThread.Start();
         }
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -146,11 +160,13 @@ namespace BioA.UI
             {
                 environmentParamInfo.AutoFreezeTask  = false;
             }
-            CommunicationEntity DatacommunicationEntity = new CommunicationEntity();
-            DatacommunicationEntity.StrmethodName = "UpdateEnvironmentParamInfo";
-            DatacommunicationEntity.ObjParam = XmlUtility.Serializer(typeof(EnvironmentParamInfo), environmentParamInfo);
-            DatacommunicationEntity.ObjLastestParam = XmlUtility.Serializer(typeof(RunningStateInfo), running);
-            EnvironmentDataLoad(DatacommunicationEntity);
+            //CommunicationEntity DatacommunicationEntity = new CommunicationEntity();
+            //DatacommunicationEntity.StrmethodName = "UpdateEnvironmentParamInfo";
+            //DatacommunicationEntity.ObjParam = XmlUtility.Serializer(typeof(EnvironmentParamInfo), environmentParamInfo);
+            //DatacommunicationEntity.ObjLastestParam = XmlUtility.Serializer(typeof(RunningStateInfo), running);
+            envmentDataDic.Clear();
+            envmentDataDic.Add("UpdateEnvironmentParamInfo", new object[] { XmlUtility.Serializer(typeof(EnvironmentParamInfo), environmentParamInfo), XmlUtility.Serializer(typeof(RunningStateInfo), running) });
+            EnvironmentDataLoad(envmentDataDic);
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

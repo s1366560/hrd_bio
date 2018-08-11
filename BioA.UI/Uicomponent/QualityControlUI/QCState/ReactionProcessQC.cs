@@ -11,6 +11,7 @@ using DevExpress.XtraEditors;
 using DevExpress.XtraCharts;
 using BioA.Common;
 using BioA.Common.IO;
+using System.Threading;
 
 namespace BioA.UI
 {
@@ -98,11 +99,10 @@ namespace BioA.UI
                             cboMeasurePoint.Text = "1";
                             txtAbsorb.Text = ((qCReactionInfo.Cuv1Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv1Ws - qCReactionInfo.CuvBlkWs)).ToString("#0.0000");
                         }));
-                    
+
                 }
             }
         }
-
 
         private void btnClose_Click(object sender, EventArgs e)
         {
@@ -116,7 +116,13 @@ namespace BioA.UI
 
         private void loadReactionProcessQC()
         {
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCResult, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryTimeCourseByQCInfo", XmlUtility.Serializer(typeof(QCResultForUIInfo), qCResInfo))));
+            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCResult, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryTimeCourseByQCInfo", XmlUtility.Serializer(typeof(QCResultForUIInfo), qCResInfo))));
+            var reactionQCThread = new Thread(() =>
+            {
+                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.QCResult, new Dictionary<string, object[]>() { { "QueryTimeCourseByQCInfo", new object[] { XmlUtility.Serializer(typeof(QCResultForUIInfo), qCResInfo) } } });
+            });
+            reactionQCThread.IsBackground = true;
+            reactionQCThread.Start();
 
             txtProjectName.Text = qCResInfo.ProjectName;
             txtSampleType.Text = qCResInfo.SampleType;

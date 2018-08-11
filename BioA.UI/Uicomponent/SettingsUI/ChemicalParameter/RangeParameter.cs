@@ -21,7 +21,7 @@ namespace BioA.UI
         /// </summary>
         /// <param name="strAccessSqlMethod">访问数据库方法名</param>
         /// <param name="sender">参数对象</param>
-        public delegate void AssayProInfoDelegate(object sender);
+        public delegate void AssayProInfoDelegate(Dictionary<string, object[]> sender);
         public event AssayProInfoDelegate AssayProInfoForRangeParamEvent;
         public RangeParameter()
         {
@@ -31,8 +31,25 @@ namespace BioA.UI
             gridView1.Appearance.Row.Font = font;
         }
 
-        private List<AssayProjectInfo> lstAssayProInfos = new List<AssayProjectInfo>();
+        /// <summary>
+        /// 存储客户端发送信息给服务器的参数集合
+        /// </summary>
+        private Dictionary<string, object[]> rangeParamDic = new Dictionary<string, object[]>();
 
+        private List<AssayProjectInfo> listAssayProjectInfos = new List<AssayProjectInfo>();
+        /// <summary>
+        /// 存储所有项目信息
+        /// </summary>
+        public List<AssayProjectInfo> ListAssayprojectInfos
+        {
+            get { return listAssayProjectInfos; }
+            set { listAssayProjectInfos = value; }
+        }
+
+        private List<AssayProjectInfo> lstAssayProInfos = new List<AssayProjectInfo>();
+        /// <summary>
+        /// 显示所有生化项目信息
+        /// </summary>
         public List<AssayProjectInfo> LstAssayProInfos
         {
             get { return lstAssayProInfos; }
@@ -476,7 +493,10 @@ namespace BioA.UI
 
             if (AssayProInfoForRangeParamEvent != null)
             {
-                AssayProInfoForRangeParamEvent(new CommunicationEntity("UpdateRangeParamByProNameAndType", XmlUtility.Serializer(typeof(AssayProjectRangeParamInfo), parameter)));
+                //AssayProInfoForRangeParamEvent(new CommunicationEntity("UpdateRangeParamByProNameAndType", XmlUtility.Serializer(typeof(AssayProjectRangeParamInfo), parameter)));
+                rangeParamDic.Clear();
+                rangeParamDic.Add("UpdateRangeParamByProNameAndType", new object[] { XmlUtility.Serializer(typeof(AssayProjectRangeParamInfo), parameter) });
+                AssayProInfoForRangeParamEvent(rangeParamDic);
 
             }
         }
@@ -494,9 +514,11 @@ namespace BioA.UI
 
             if (AssayProInfoForRangeParamEvent != null)
             {
-                communicationEntity.StrmethodName = "QueryRangeParamByProNameAndType";
-                communicationEntity.ObjParam = XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfo);
-                AssayProInfoForRangeParamEvent(communicationEntity);
+                //communicationEntity.StrmethodName = "QueryRangeParamByProNameAndType";
+                //communicationEntity.ObjParam = XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfo);
+                rangeParamDic.Clear();
+                rangeParamDic.Add("QueryRangeParamByProNameAndType", new object[] { XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfo) });
+                AssayProInfoForRangeParamEvent(rangeParamDic);
             }
 
         }
@@ -508,10 +530,12 @@ namespace BioA.UI
         }
         private void loadRangeParameter()
         {
-            if (AssayProInfoForRangeParamEvent != null)
-            {
-                AssayProInfoForRangeParamEvent(new CommunicationEntity("QueryAssayProAllInfoForRangeParam", null));
-            }
+            this.LstAssayProInfos = this.ListAssayprojectInfos;
+
+            //if (AssayProInfoForRangeParamEvent != null)
+            //{
+            //    AssayProInfoForRangeParamEvent(new CommunicationEntity("QueryAssayProAllInfoForRangeParam", null));
+            //}
         }
         /// <summary>
         /// 切换页面加载数据
@@ -520,7 +544,7 @@ namespace BioA.UI
         {
             if (AssayProInfoForRangeParamEvent != null)
             {
-                AssayProInfoForRangeParamEvent(new CommunicationEntity("QueryAssayProAllInfoForRangeParam", null));
+                //AssayProInfoForRangeParamEvent(new CommunicationEntity("QueryAssayProAllInfoForRangeParam", null));
             }
         }
 
@@ -535,9 +559,11 @@ namespace BioA.UI
 
             if (AssayProInfoForRangeParamEvent != null)
             {
-                communicationEntity.StrmethodName = "QueryRangeParamByProNameAndType";
-                communicationEntity.ObjParam = XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfo);
-                AssayProInfoForRangeParamEvent(communicationEntity);
+                //communicationEntity.StrmethodName = "QueryRangeParamByProNameAndType";
+                //communicationEntity.ObjParam = XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfo);
+                rangeParamDic.Clear();
+                rangeParamDic.Add("QueryRangeParamByProNameAndType", new object[] { XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfo) });
+                AssayProInfoForRangeParamEvent(rangeParamDic);
             }
         }
 

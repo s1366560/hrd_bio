@@ -9,28 +9,22 @@ namespace BioA.Service
 {
     class SettingsDataConfig : DataTransmit
     {
-        public List<string> QueryDataConfig(string strDBMethod, string dataConfig)
+        public List<string> QueryDataConfig(string strDBMethod)
         {
             List<string> lstQueryDataConfig = new List<string>();
-            try
-            {
-                lstQueryDataConfig = myBatis.QueryDataConfig(strDBMethod, dataConfig);
-            }
-            catch (Exception e)
-            {
-                LogInfo.WriteErrorLog(e.ToString(), Module.WindowsService);
-            }
+            lstQueryDataConfig = myBatis.QueryDataConfig(strDBMethod);
+            
             return lstQueryDataConfig;
         }
 
-        internal string DataConfigAdd(string strDBMethod, string dataConfig)
+        public string DataConfigAdd(string strDBMethod, string dataConfig)
         {
             string strInfo = string.Empty;
             try
             {
                 int count = myBatis.SelectDataConfig("QueryDataConfigAdd", dataConfig);
                 // 当count>0代表已存在此项目
-                if (count <= 0)
+                if (count == 0)
                 {
                     myBatis.DataConfigadd(strDBMethod, dataConfig);
                     count = myBatis.SelectDataConfig("QueryDataConfigAdd", dataConfig);
@@ -56,33 +50,27 @@ namespace BioA.Service
             return strInfo;
         }
 
-        internal int UpdataDataConfig(string strDBMethod, string dataConfig, string dataConfigOld)
+        public int UpdataDataConfig(string strDBMethod, string dataConfig, string dataConfigOld)
         {
             return myBatis.UpdateDataConfig(strDBMethod, dataConfig, dataConfigOld);
         }
 
 
 
-        internal int DeleteDataConfig(string strDBMethod, string dataConfig)
+        public int DeleteDataConfig(string strDBMethod, string dataConfig)
         {
             return myBatis.DeleteDataConfig(strDBMethod, dataConfig);
         }
 
-        internal List<string> QueryDilutionRatio(string strDBMethod, string dataConfig)
+        public List<string> QueryDilutionRatio(string strDBMethod)
         {
             List<string> lstQueryDilutionRatio = new List<string>();
-            try
-            {
-                lstQueryDilutionRatio = myBatis.QueryDilutionRatio(strDBMethod, null);
-            }
-            catch (Exception e)
-            {
-                LogInfo.WriteErrorLog(e.ToString(), Module.WindowsService);
-            }
+            lstQueryDilutionRatio = myBatis.QueryDilutionRatio(strDBMethod);
+           
             return lstQueryDilutionRatio;
         }
 
-        internal string DilutionRatioAdd(string strDBMethod, string dataConfig)
+        public string DilutionRatioAdd(string strDBMethod, string dataConfig)
         {
             string strInfo = string.Empty;
             try
@@ -115,12 +103,12 @@ namespace BioA.Service
             return strInfo;
         }
 
-        internal int UpdataDilutionRatio(string strDBMethod, string dataConfig, string dataConfigOld)
+        public int UpdataDilutionRatio(string strDBMethod, string dataConfig, string dataConfigOld)
         {
             return myBatis.UpdataDilutionRatio(strDBMethod, dataConfig, dataConfigOld);
         }
 
-        internal int DeleteDilutionRatio(string strDBMethod, string dataConfig)
+        public int DeleteDilutionRatio(string strDBMethod, string dataConfig)
         {
             return myBatis.DeleteDilutionRatio(strDBMethod, dataConfig);
         }

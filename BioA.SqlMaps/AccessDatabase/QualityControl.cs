@@ -57,7 +57,7 @@ namespace BioA.SqlMaps
             return strResult;
         }
 
-        public string EditQualityControl(string strDBMethod, QualityControlInfo oldQCInfo, QualityControlInfo newQCInfo)
+        public string EditQualityControl(string strDBMethod, QualityControlInfo oldQCInfo, QualityControlInfo newQCInfo, List<QCRelationProjectInfo> lstQCRelationProInfo)
         {
             string strResult = string.Empty;
             try
@@ -78,23 +78,36 @@ namespace BioA.SqlMaps
 
                 if (count > 0)
                 {
-                    strResult = "该质控品已存在，无法完成编辑！";
+                    return strResult = "该质控品已存在，无法完成编辑！";
                 }
 
                 int intUpdate = ism_SqlMap.Update("QCMaintainInfo." + strDBMethod, ht);
 
-                if (intUpdate > 0)
+                if (intUpdate == 0)
                 {
-                    strResult = "编辑成功！";
+                    return strResult = "编辑失败！";
                 }
-                else
+                try
                 {
-                    strResult = "编辑失败！";
+                    // 1.删除之前的数据（质控对应的生化项目）
+                    ism_SqlMap.Delete("QCMaintainInfo.DeleteQCRelateProInfoByQCID", intQCID);
+                    // 2.新增新的数据
+                    foreach (QCRelationProjectInfo qcProInfo in lstQCRelationProInfo)
+                    {
+                        qcProInfo.QCID = intQCID;
+                        ism_SqlMap.Insert("QCMaintainInfo.AddQCRelationProject", qcProInfo);
+                    }
                 }
+                catch (Exception ex)
+                {
+                    LogInfo.WriteErrorLog("EditQualityControl(string strDBMethod, QualityControlInfo oldQCInfo, QualityControlInfo newQCInfo, List<QCRelationProjectInfo> lstQCRelationProInfo) ==" + ex.ToString(),Module.DAO);
+                    return "更新失败！";
+                }
+                strResult = "更新成功！";
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("EditQualityControl(string strDBMethod, QualityControlInfo oldQCInfo, QualityControlInfo newQCInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("EditQualityControl(string strDBMethod, QualityControlInfo oldQCInfo, QualityControlInfo newQCInfo, List<QCRelationProjectInfo> lstQCRelationProInfo)==" + e.ToString(), Module.DAO);
             }
 
             return strResult;
@@ -134,20 +147,25 @@ namespace BioA.SqlMaps
             }
             return lstQCInfos;
         }
-
-        public List<QCRelationProjectInfo> QueryRelativelyProjectByQCInfo(string strDBMethod, QualityControlInfo qcInfo)
+        /// <summary>
+        /// 获取所有校准品对应的所有生化项目
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <param name="qcInfo"></param>
+        /// <returns></returns>
+        public List<QCRelationProjectInfo> QueryRelativelyProjectByQCInfo(string strDBMethod, string qcInfo)
         {
             List<QCRelationProjectInfo> qCRelatePros = new List<QCRelationProjectInfo>();
             try
             {
-                Hashtable ht = new Hashtable();
-                ht.Add("QCName", qcInfo.QCName);
-                ht.Add("LotNum", qcInfo.LotNum);
-                ht.Add("HorizonLevel", qcInfo.HorizonLevel);
-                ht.Add("Manufacturer", qcInfo.Manufacturer);
-                QualityControlInfo getQCInfo = ism_SqlMap.QueryForObject("QCMaintainInfo.QueryQCInfoByUnique", ht) as QualityControlInfo;
-                if (getQCInfo != null)
-                    qCRelatePros = (List<QCRelationProjectInfo>)ism_SqlMap.QueryForList<QCRelationProjectInfo>("QCMaintainInfo." + strDBMethod, getQCInfo.QCID);
+                //Hashtable ht = new Hashtable();
+                //ht.Add("QCName", qcInfo.QCName);
+                //ht.Add("LotNum", qcInfo.LotNum);
+                //ht.Add("HorizonLevel", qcInfo.HorizonLevel);
+                //ht.Add("Manufacturer", qcInfo.Manufacturer);
+                //QualityControlInfo getQCInfo = ism_SqlMap.QueryForObject("QCMaintainInfo.QueryQCInfoByUnique", ht) as QualityControlInfo;
+                //if (getQCInfo != null)
+                qCRelatePros = (List<QCRelationProjectInfo>)ism_SqlMap.QueryForList<QCRelationProjectInfo>("QCMaintainInfo." + strDBMethod,qcInfo);
             }
             catch (Exception e)
             {
@@ -165,7 +183,7 @@ namespace BioA.SqlMaps
             {
                 int intQCID = (int)ism_SqlMap.QueryForObject("QCMaintainInfo.QueryQualityControlQCID", QCInfo);
                 // 1.删除之前的数据
-                ism_SqlMap.Delete("QCMaintainInfo.DeleteQCRelateProInfoByQCID", intQCID);
+                int deleteProInfo = ism_SqlMap.Delete("QCMaintainInfo.DeleteQCRelateProInfoByQCID", intQCID);
                 // 2.新增新的数据
                 foreach (QCRelationProjectInfo qcProInfo in lstQCRelationProInfo)
                 {
@@ -234,7 +252,12 @@ namespace BioA.SqlMaps
                 }
                 else
                 {
-                   
+                    //删除质控品对应的生化项目
+                    int deleteAssayInfo = ism_SqlMap.Delete("QCMaintainInfo.DeleteQCRelateProInfoByQCID", QCInfo.QCID);
+                    if (deleteAssayInfo == 0)
+                    {
+                        return "删除失败！";
+                    }
                     intReturnValue = ism_SqlMap.Delete("QCMaintainInfo.LogicalDeleteQC", QCInfo);
 
                     if (intReturnValue > 0)
@@ -488,14 +511,20 @@ namespace BioA.SqlMaps
                 ht.Add("ProjectName", qcResInfo.ProjectName);
                 ht.Add("SampleType", qcResInfo.SampleType);
                 ht.Add("SampleCreateTime", qcResInfo.SampleCreateTime);
-                int TCNO = (int)ism_SqlMap.QueryForObject("QCResultInfo.QueryQualityControlResultTCNO", ht);
+                string TCNO = (string)ism_SqlMap.QueryForObject("QCResultInfo.QueryQualityControlResultTCNO", ht);
+                if (TCNO != null)
+                {
+                    ht.Clear();
+                    ht.Add("TimeCourseNO", Convert.ToInt32(TCNO));
+                    ht.Add("BengTime", qcResInfo.QCTimeStartTS);
+                    ht.Add("EndTime", qcResInfo.QCTimeEndTS);
 
-                ht.Clear();
-                ht.Add("TimeCourseNO", TCNO);
-                ht.Add("BengTime", qcResInfo.QCTimeStartTS);
-                ht.Add("EndTime", qcResInfo.QCTimeEndTS);
-
-                qCTimeCourse = (TimeCourseInfo)ism_SqlMap.QueryForObject("PLCDataInfo." + strDBMethod, ht);
+                    qCTimeCourse = (TimeCourseInfo)ism_SqlMap.QueryForObject("PLCDataInfo." + strDBMethod, ht);
+                }
+                else
+                {
+                    return null;
+                }
 
             }
             catch (Exception e)
@@ -939,10 +968,10 @@ namespace BioA.SqlMaps
             List<CalibratorProjectinfo> lstCalibratorProjectinfo = new List<CalibratorProjectinfo>();
             try
             {
-                Hashtable hashTable = new Hashtable();
+                //Hashtable hashTable = new Hashtable();
 
-                hashTable.Add("CalibName", calibratorinfo);
-                lstCalibratorProjectinfo = (List<CalibratorProjectinfo>)ism_SqlMap.QueryForList<CalibratorProjectinfo>("Calibrator." + strDBMethod, hashTable);
+                //hashTable.Add("CalibName", calibratorinfo);
+                lstCalibratorProjectinfo = (List<CalibratorProjectinfo>)ism_SqlMap.QueryForList<CalibratorProjectinfo>("Calibrator." + strDBMethod, calibratorinfo);
             }
             catch (Exception e)
             {
@@ -987,7 +1016,7 @@ namespace BioA.SqlMaps
                 Hashtable hashTable = new Hashtable();
 
                 hashTable.Add("CalibName", dataConfig.CalibName);
-                lstCalibratorProjectinfo1 = (List<CalibratorProjectinfo>)ism_SqlMap.QueryForList<CalibratorProjectinfo>("Calibrator." + "QueryCalibratorProjectinfo", hashTable);
+                lstCalibratorProjectinfo1 = (List<CalibratorProjectinfo>)ism_SqlMap.QueryForList<CalibratorProjectinfo>("Calibrator." + "QueryCalibratorProjectinfoByCalibName", hashTable);
                 //1.判断校准品名称是否存在
                 if (lstCalibratorProjectinfo1.Count == 0)
                 {
@@ -1131,7 +1160,7 @@ namespace BioA.SqlMaps
             {
                 Hashtable has = new Hashtable();
                 has.Add("CalibName", Editcalibratorinfo.CalibName);
-                lstCalibratorProjectinfo1 = (List<CalibratorProjectinfo>)ism_SqlMap.QueryForList<CalibratorProjectinfo>("Calibrator." + "QueryCalibratorProjectinfo", has);
+                lstCalibratorProjectinfo1 = (List<CalibratorProjectinfo>)ism_SqlMap.QueryForList<CalibratorProjectinfo>("Calibrator." + "QueryCalibratorProjectinfoByCalibName", has);
                 if (lstCalibratorProjectinfo1.Count == 0)
                 {
                     Hashtable ht = new Hashtable();
@@ -1289,21 +1318,37 @@ namespace BioA.SqlMaps
 
             try
             {
-                for (int i = 0; i < calibrationCurveInfo.Count; i++)
+                Hashtable ht = new Hashtable();
+                if (calibrationCurveInfo.Count == 1)
                 {
-                    Hashtable ht = new Hashtable();
-                    ht.Add("CalibConcentration", calibrationCurveInfo[i].CalibConcentration);
-                    ht.Add("CalibName", calibrationCurveInfo[i].CalibName);
-                    ht.Add("ProjectName", calibrationCurveInfo[i].ProjectName);
-                    ht.Add("SampleType", calibrationCurveInfo[i].SampleType);
-                    ht.Add("Pos", calibrationCurveInfo[i].Pos);
-                    ht.Add("CalibTime", calibrationCurveInfo[i].CalibTime);
-                    ht.Add("CalibType", calibrationCurveInfo[i].CalibType);
-                    //ht.Add("Factor", calibrationCurveInfo[i].Factor);
+                    ht.Add("CalibConcentration", calibrationCurveInfo[0].CalibConcentration);
+                    ht.Add("CalibName", calibrationCurveInfo[0].CalibName);
+                    ht.Add("ProjectName", calibrationCurveInfo[0].ProjectName);
+                    ht.Add("SampleType", calibrationCurveInfo[0].SampleType);
+                    ht.Add("Pos", calibrationCurveInfo[0].Pos);
+                    ht.Add("CalibTime", calibrationCurveInfo[0].CalibTime);
+                    ht.Add("CalibType", calibrationCurveInfo[0].CalibType);
+                    ht.Add("Factor", calibrationCurveInfo[0].Factor);
 
-                    ism_SqlMap.Insert("Calibrator." + strDBMethod, ht);
+                    ism_SqlMap.Insert("Calibrator.AddCalibrationIsKCurveInfo", ht);
                 }
+                else
+                {
+                    for (int i = 0; i < calibrationCurveInfo.Count; i++)
+                    {
+                        ht.Clear();
+                        ht.Add("CalibConcentration", calibrationCurveInfo[i].CalibConcentration);
+                        ht.Add("CalibName", calibrationCurveInfo[i].CalibName);
+                        ht.Add("ProjectName", calibrationCurveInfo[i].ProjectName);
+                        ht.Add("SampleType", calibrationCurveInfo[i].SampleType);
+                        ht.Add("Pos", calibrationCurveInfo[i].Pos);
+                        ht.Add("CalibTime", calibrationCurveInfo[i].CalibTime);
+                        ht.Add("CalibType", calibrationCurveInfo[i].CalibType);
+                        //ht.Add("Factor", calibrationCurveInfo[i].Factor);
 
+                        ism_SqlMap.Insert("Calibrator." + strDBMethod, ht);
+                    }
+                }
             }
             catch (Exception e)
             {

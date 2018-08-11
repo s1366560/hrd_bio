@@ -22,11 +22,18 @@ namespace BioA.UI
         /// </summary>
         /// <param name="strAccessSqlMethod">访问数据库方法名</param>
         /// <param name="sender">参数对象</param>
-        public delegate void AssayProInfoDelegate(object sender);
+        public delegate void AssayProInfoDelegate(Dictionary<string, object[]> sender);
         public event AssayProInfoDelegate AssayProInfoEvent;
 
-        private string strReceiveInfo = "";
+        /// <summary>
+        /// 存储客户端发送信息给服务器的参数集合
+        /// </summary>
+        private Dictionary<string, object[]> proParamDic = new Dictionary<string, object[]>();
 
+        private string strReceiveInfo = "";
+        /// <summary>
+        /// 显示项目参数保存成功或者失败
+        /// </summary>
         public string StrReceiveInfo
         {
             get 
@@ -37,9 +44,15 @@ namespace BioA.UI
             {
                 strReceiveInfo = value;
                 if (strReceiveInfo == "保存失败！")
+                {
                     MessageBoxDraw.ShowMsg(strReceiveInfo, MsgType.Warning);
+                    btnDetele_Click(null, null);
+                }
                 else
+                {
                     MessageBoxDraw.ShowMsg(strReceiveInfo, MsgType.OK);
+                    BeginInvoke(new Action(InitialControl));
+                }
             }
         }
 
@@ -59,7 +72,7 @@ namespace BioA.UI
             //cheProjectAddOrEdit.StartPosition = FormStartPosition.CenterScreen;
         }
 
-        private void cheProjectAddOrEdit_DataHandleEvent(object sender)
+        private void cheProjectAddOrEdit_DataHandleEvent(Dictionary<string, object[]> sender)
         {
            
             if (AssayProInfoEvent != null)
@@ -121,13 +134,17 @@ namespace BioA.UI
                 cboStirring2Intensity.Properties.Items.Add(stirStrength);
             }
             cboStirring2Intensity.SelectedIndex = 1;
-
             // 获取结果单位
+            proParamDic.Add("QueryProjectResultUnits", null);
+            proParamDic.Add("QueryAssayProjectParamInfoAll", null);
+            //获取所有生化项目
+            proParamDic.Add("QueryAssayProAllInfo", new object[]{""});
+            
             if (AssayProInfoEvent != null)
-                AssayProInfoEvent(new CommunicationEntity("QueryProjectResultUnits", null));
-
-            if (AssayProInfoEvent != null)
-                AssayProInfoEvent(new CommunicationEntity("QueryAssayProAllInfo", null));
+                AssayProInfoEvent(proParamDic);
+            
+            //if (AssayProInfoEvent != null)
+            //    AssayProInfoEvent(new CommunicationEntity("QueryAssayProAllInfo", null));
         }
 
         private List<string> _lstUnits = new List<string>();
@@ -152,7 +169,11 @@ namespace BioA.UI
                 }
             }
         }
-
+        /// <summary>
+        /// 取消按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDetele_Click(object sender, EventArgs e)
         {
             AssayProjectInfo assayProInfo = new AssayProjectInfo();
@@ -161,13 +182,19 @@ namespace BioA.UI
             selectedHandle = this.gridView2.GetSelectedRows()[0];
             assayProInfo.ProjectName = this.gridView2.GetRowCellValue(selectedHandle, "项目名称").ToString();
             assayProInfo.SampleType = this.gridView2.GetRowCellValue(selectedHandle, "类型").ToString();
-
-            if (AssayProInfoEvent != null)
+            foreach (AssayProjectParamInfo assayProParam in lstAssayProParamInfoAll)
             {
-                communicationEntity.StrmethodName = "GetAssayProjectParamInfoByNameAndType";
-                communicationEntity.ObjParam = XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfo);
-                AssayProInfoEvent(communicationEntity);
+                if (assayProParam.ProjectName == assayProInfo.ProjectName && assayProParam.SampleType == assayProInfo.SampleType)
+                {
+                    this.AssProParamInfoList = assayProParam;
+                }
             }
+            //if (AssayProInfoEvent != null)
+            //{
+            //    communicationEntity.StrmethodName = "GetAssayProjectParamInfoByNameAndType";
+            //    communicationEntity.ObjParam = XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfo);
+            //    AssayProInfoEvent(communicationEntity);
+            //}
         }
 
 
@@ -186,24 +213,39 @@ namespace BioA.UI
             cheProjectAddOrEdit.Text = "编辑项目";
             if (this.gridView2.GetSelectedRows().Count() > 0)
             {
+                AssayProjectInfo assayProInfo = new AssayProjectInfo();
                 int selectedHandle;
                 selectedHandle = this.gridView2.GetSelectedRows()[0];
-                string str1 = this.gridView2.GetRowCellValue(selectedHandle, "项目名称").ToString();
-                string str2 = this.gridView2.GetRowCellValue(selectedHandle, "类型").ToString();
-                string str3 = this.gridView2.GetRowCellValue(selectedHandle, "项目全称").ToString();
-                string str4 = this.gridView2.GetRowCellValue(selectedHandle, "通道号").ToString();
-                cheProjectAddOrEdit.FormAdd(str1, str2, str3, str4);
+                assayProInfo.ProjectName = this.gridView2.GetRowCellValue(selectedHandle, "项目名称").ToString();
+                assayProInfo.SampleType = this.gridView2.GetRowCellValue(selectedHandle, "类型").ToString();
+                assayProInfo.ProFullName = this.gridView2.GetRowCellValue(selectedHandle, "项目全称").ToString();
+                assayProInfo.ChannelNum = this.gridView2.GetRowCellValue(selectedHandle, "通道号").ToString();
+                cheProjectAddOrEdit.FormAdd(assayProInfo);
                 cheProjectAddOrEdit.ShowDialog();
             }
         }
+
+        private List<AssayProjectParamInfo> lstAssayProParamInfoAll = new List<AssayProjectParamInfo>();
+        /// <summary>
+        /// 存储所有生化项目参数信息
+        /// </summary>
+        public List<AssayProjectParamInfo> LstAssayProParamInfoAll
+        {
+            get { return lstAssayProParamInfoAll; }
+            set { lstAssayProParamInfoAll = value; }
+        }
+
         AssayProjectParamInfo proParamInfo = new AssayProjectParamInfo();
+        /// <summary>
+        /// 显示生化项目对应的生化项目参数信息
+        /// </summary>
         public AssayProjectParamInfo AssProParamInfoList
         {
             get { return proParamInfo; }
             set
             {
                 proParamInfo = value;
-                this.Invoke(new EventHandler(delegate
+                BeginInvoke(new Action(() =>
                 {
                     if (proParamInfo.AnalysisMethod != string.Empty)
                         cboAnalizeMethod.SelectedIndex = cboAnalizeMethod.Properties.Items.IndexOf(proParamInfo.AnalysisMethod);
@@ -323,7 +365,9 @@ namespace BioA.UI
         }
 
         private List<AssayProjectInfo> lstAssayProInfos = new List<AssayProjectInfo>();
-
+        /// <summary>
+        /// 显示所有生化项目信息
+        /// </summary>
         public List<AssayProjectInfo> LstAssayProInfos
         {
             get { return lstAssayProInfos; }
@@ -355,7 +399,10 @@ namespace BioA.UI
                     if (this.gridView2.RowCount > 0)
                     {
                         this.gridView1.SelectRow(0);//FocusedRowHandle = 0;
-                        lstvProject_Click(null, null);
+                        BeginInvoke(new Action(() =>
+                        {
+                            lstvProject_Click(null, null);
+                        }));
                     }
                 }));
             }
@@ -383,9 +430,11 @@ namespace BioA.UI
                     if (AssayProInfoEvent != null)
                     {
 
-                        communicationEntity.StrmethodName = "AssayProjectDelete";
-                        communicationEntity.ObjParam = XmlUtility.Serializer(typeof(List<AssayProjectInfo>), lstAssayProInfo);
-                        AssayProInfoEvent(communicationEntity);
+                        //communicationEntity.StrmethodName = "AssayProjectDelete";
+                        //communicationEntity.ObjParam = XmlUtility.Serializer(typeof(List<AssayProjectInfo>), lstAssayProInfo);
+                        proParamDic.Clear();
+                        proParamDic.Add("AssayProjectDelete", new object[] { XmlUtility.Serializer(typeof(List<AssayProjectInfo>), lstAssayProInfo) });
+                        AssayProInfoEvent(proParamDic);
                     }
                 }
             }
@@ -400,7 +449,6 @@ namespace BioA.UI
         private void SelectAllProjectPara()
         {
             AssayProjectInfo assayProInfo = new AssayProjectInfo();
-            CommunicationEntity communicationEntity = new CommunicationEntity();
             int selectedHandle;
 
             if (this.gridView2.GetSelectedRows().Count() > 0)
@@ -408,13 +456,21 @@ namespace BioA.UI
                 selectedHandle = this.gridView2.GetSelectedRows()[0];
                 assayProInfo.ProjectName = this.gridView2.GetRowCellValue(selectedHandle, "项目名称").ToString();
                 assayProInfo.SampleType = this.gridView2.GetRowCellValue(selectedHandle, "类型").ToString();
-
-                if (AssayProInfoEvent != null)
+                foreach (AssayProjectParamInfo assayProParam in lstAssayProParamInfoAll)
                 {
-                    communicationEntity.StrmethodName = "GetAssayProjectParamInfoByNameAndType";
-                    communicationEntity.ObjParam = XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfo);
-                    AssayProInfoEvent(communicationEntity);
+                    if (assayProParam.ProjectName == assayProInfo.ProjectName && assayProParam.SampleType == assayProInfo.SampleType)
+                    {
+                        this.AssProParamInfoList = assayProParam;
+                    }
                 }
+                //if (AssayProInfoEvent != null)
+                //{
+                //    //communicationEntity.StrmethodName = "GetAssayProjectParamInfoByNameAndType";
+                //    //communicationEntity.ObjParam = XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfo);
+                //    proParamDic.Clear();
+                //    proParamDic.Add("GetAssayProjectParamInfoByNameAndType", new object[] { XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfo) });
+                //    AssayProInfoEvent(proParamDic);
+                //}
             }
         }
 
@@ -424,7 +480,7 @@ namespace BioA.UI
                 return;
 
             AssayProjectParamInfo proParamInfo = new AssayProjectParamInfo();
-            CommunicationEntity communicationEntity = new CommunicationEntity();
+            //CommunicationEntity communicationEntity = new CommunicationEntity();
 
             int selectedHandle;
             selectedHandle = this.gridView2.GetSelectedRows()[0];
@@ -889,9 +945,11 @@ namespace BioA.UI
 
             if (AssayProInfoEvent != null)
             {
-                communicationEntity.StrmethodName = "UpdateAssayProjectParamInfo";
-                communicationEntity.ObjParam = XmlUtility.Serializer(typeof(AssayProjectParamInfo), proParamInfo);
-                AssayProInfoEvent(communicationEntity);
+                //communicationEntity.StrmethodName = "UpdateAssayProjectParamInfo";
+                //communicationEntity.ObjParam = XmlUtility.Serializer(typeof(AssayProjectParamInfo), proParamInfo);
+                proParamDic.Clear();
+                proParamDic.Add("UpdateAssayProjectParamInfo", new object[] { XmlUtility.Serializer(typeof(AssayProjectParamInfo), proParamInfo) });
+                AssayProInfoEvent(proParamDic);
             }
                 
         }

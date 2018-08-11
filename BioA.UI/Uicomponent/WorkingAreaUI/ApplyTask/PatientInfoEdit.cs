@@ -10,12 +10,19 @@ using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using BioA.Common;
 using BioA.Common.IO;
+using System.Threading;
 
 namespace BioA.UI
 {
     public partial class PatientInfoEdit : DevExpress.XtraEditors.XtraUserControl
     {
         private int intSelectedNum = 0;
+
+        /// <summary>
+        /// 存储客户端发送信息给服务器的集合
+        /// </summary>
+        private Dictionary<string, object[]> patientDictionary = new Dictionary<string, object[]>();
+
         public int IntSelectedNum
         {
             get { return intSelectedNum; }
@@ -250,7 +257,11 @@ namespace BioA.UI
         {
 
         }
-
+        /// <summary>
+        /// 保存按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (txtSampleNum.Text != "")
@@ -274,8 +285,11 @@ namespace BioA.UI
                 patient.ClinicalDiagnosis = txtClinicalDiagnosis.Text;
                 patient.Remarks = txtRemarks.Text;
 
-                CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity),
-                    new CommunicationEntity("UpdatePatientInfo", XmlUtility.Serializer(typeof(PatientInfo), patient))));
+                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity),
+                //    new CommunicationEntity("UpdatePatientInfo", XmlUtility.Serializer(typeof(PatientInfo), patient))));
+                patientDictionary.Clear();
+                patientDictionary.Add("UpdatePatientInfo", new object[] { XmlUtility.Serializer(typeof(PatientInfo), patient) });
+                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaApplyTask,patientDictionary);
             }
         }
 
@@ -300,18 +314,30 @@ namespace BioA.UI
         /// </summary>
         private void loadInputPatientInfo()
         {
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask,
-                XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryApplyApartment", null)));
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask,
-                XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryApplyDoctor", null)));
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask,
-                XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryCheckDoctor", null)));
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask,
-                XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryInspectDoctor", null)));
             //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask,
-            //    XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryPatientInfos", null)));
+            //    XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryApplyApartment", null)));
+            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask,
+            //    XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryApplyDoctor", null)));
+            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask,
+            //    XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryCheckDoctor", null)));
+            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask,
+            //    XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryInspectDoctor", null)));
+            ////CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask,
+            ////    XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryPatientInfos", null)));
 
-            combSex.Properties.Items.AddRange(new string[] { "男", "女", "" });
+            patientDictionary.Clear();
+            var patientThread = new Thread(() =>
+            {
+                patientDictionary.Add("QueryApplyApartment", new object[] { "" });
+                patientDictionary.Add("QueryApplyDoctor", new object[] { "" });
+                patientDictionary.Add("QueryCheckDoctor", new object[] { "" });
+                patientDictionary.Add("QueryInspectDoctor", new object[] { "" });
+                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaApplyTask, patientDictionary);
+            });
+            patientThread.IsBackground = true;
+            patientThread.Start();
+
+            combSex.Properties.Items.AddRange(new string[] { "男", "女", "--" });
             combSex.SelectedIndex = 0;
             combPatientType.Properties.Items.AddRange(new string[] { "门诊", "住院" });
             combPatientType.SelectedIndex = 0;
@@ -325,8 +351,9 @@ namespace BioA.UI
             {
                 selectedHandle = this.gridView1.GetSelectedRows()[0];
                 intSelectedNum = System.Convert.ToInt32(this.gridView1.GetRowCellValue(selectedHandle, "样本编号").ToString());
-                CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity),
-                new CommunicationEntity("QueryPatientInfoBySampleNum", intSelectedNum.ToString())));
+                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity),
+                //new CommunicationEntity("QueryPatientInfoBySampleNum", intSelectedNum.ToString())));
+                //CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaApplyTask, new Dictionary<string, List<object>>() { { "QueryPatientInfoBySampleNum", new List<object>() { intSelectedNum.ToString() } } });
             }
         }
     }

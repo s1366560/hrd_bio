@@ -9,9 +9,9 @@ namespace BioA.Service
 {
     public class SystemMaintenance : DataTransmit
     {
-        public List<CuvetteBlankInfo> QueryWaterBlankValueByWave(string strMethodName, string strWave)
+        public List<CuvetteBlankInfo> QueryWaterBlankValueByWave(string strMethodName)
         {
-            return myBatis.QueryWaterBlankValueByWave(strMethodName, strWave);
+            return myBatis.QueryWaterBlankValueByWave(strMethodName);
         }
 
         public List<List<OffSetGain>> QueryNewPhotemetricValue(string strMethodName)

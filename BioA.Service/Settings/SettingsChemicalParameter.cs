@@ -27,17 +27,17 @@ namespace BioA.Service
         }
 
 
-        public List<LISCommunicateNetworkInfo> QueryLISCommunicateInfo(string strDBMethod, LISCommunicateNetworkInfo lISCommunicateInfo)
+        public List<LISCommunicateNetworkInfo> QueryLISCommunicateInfo(string strDBMethod)
         {
-            List<LISCommunicateNetworkInfo> lstLISCommunicateInfo = myBatis.QueryLISCommunicateInfo(strDBMethod, lISCommunicateInfo);
+            List<LISCommunicateNetworkInfo> lstLISCommunicateInfo = myBatis.QueryLISCommunicateInfo(strDBMethod);
             LogInfo.WriteProcessLog(lstLISCommunicateInfo.Count.ToString(), Module.WindowsService);
 
             return lstLISCommunicateInfo;
         }
 
-        public List<SerialCommunicationInfo> QuerySerialCommunicationInfo(string strDBMethod, SerialCommunicationInfo lISCommunicateInfo)
+        public List<SerialCommunicationInfo> QuerySerialCommunicationInfo(string strDBMethod)
         {
-            List<SerialCommunicationInfo> serialCommunicationInfo = myBatis.QuerySerialCommunicationInfo(strDBMethod, lISCommunicateInfo);
+            List<SerialCommunicationInfo> serialCommunicationInfo = myBatis.QuerySerialCommunicationInfo(strDBMethod);
             LogInfo.WriteProcessLog(serialCommunicationInfo.Count.ToString(), Module.WindowsService);
 
             return serialCommunicationInfo;
@@ -90,10 +90,10 @@ namespace BioA.Service
         /// </summary>
         /// <param name="strDBMethod">方法名</param>
         /// <param name="assayProInfo">生化项目参数</param>
-        public AssayProjectParamInfo GetAssayProjectParamInfoByNameAndType(string strDBMethod, AssayProjectInfo assayProInfo)
+        public List<AssayProjectParamInfo> QueryAssayProjectParamInfoAll(string strDBMethod)
         {
-            AssayProjectParamInfo lstAssayProInfos = myBatis.GetAssayProjectParamInfoByNameAndType(strDBMethod, assayProInfo);
-            LogInfo.WriteProcessLog("获取" + lstAssayProInfos.ProjectName + "+" + lstAssayProInfos.SampleType + "项目参数成功", Module.WindowsService);
+            List<AssayProjectParamInfo> lstAssayProInfos = myBatis.QueryAssayProjectParamInfoAll(strDBMethod);
+            //LogInfo.WriteProcessLog("获取" + lstAssayProInfos.ProjectName + "+" + lstAssayProInfos.SampleType + "项目参数成功", Module.WindowsService);
 
             return lstAssayProInfos;
         }
@@ -103,30 +103,22 @@ namespace BioA.Service
         /// </summary>
         /// <param name="strDBMethod">方法名</param>
         /// <param name="sender">生化项目参数</param>
-        public List<string> QueryProjectResultUnits(string strDBMethod, object sender)
+        public List<string> QueryProjectResultUnits(string strDBMethod)
         {
-            List<string> lstUnits = myBatis.QueryProjectResultUnits(strDBMethod, sender);
+            List<string> lstUnits = myBatis.QueryProjectResultUnits(strDBMethod);
 
             return lstUnits;
         }
 
         /// <summary>
-        /// 通过项目名称更新试剂信息
+        /// 根据项目名称更新改项目参数信息
         /// </summary>
         /// <param name="strDBMethod"></param>
         /// <param name="strProName"></param>
         public int UpdateAssayProjectParamInfo(string strDBMethod, AssayProjectParamInfo assayProParamInfo)
         {
             int intResult = 0;
-            try
-            {
-                intResult = myBatis.UpdateAssayProjectParamInfo(strDBMethod, assayProParamInfo);
-            }
-            catch (Exception e)
-            {
-                LogInfo.WriteErrorLog(e.ToString(), Module.WindowsService);
-            }
-
+            intResult = myBatis.UpdateAssayProjectParamInfo(strDBMethod, assayProParamInfo);
             return intResult;
         }
         /// <summary>
@@ -139,14 +131,10 @@ namespace BioA.Service
         {
 
             int Updatecount = 0;
-            try
-            {
-                Updatecount = myBatis.UpdateAssayProCountByNameAndType(strDBMethod, assayProInfoOld, assayProInfo2);
-            }
-            catch (Exception e)
-            {
-                LogInfo.WriteErrorLog(e.ToString(), Module.WindowsService);
-            }
+            Updatecount = myBatis.UpdateAssayProCountByNameAndType(strDBMethod, assayProInfoOld, assayProInfo2);
+            
+            //LogInfo.WriteErrorLog(e.ToString(), Module.WindowsService);
+            
 
             return Updatecount;
 
@@ -163,12 +151,12 @@ namespace BioA.Service
             return myBatis.DeleteAssayProCountByNameAndType(strDBMethod, assayProInfos);
         }
         /// <summary>
-        /// 通过项目名称和项目类型获取项目校准参数
+        /// 获取项目所有校准参数
         /// </summary>
         /// <returns></returns>
-        public AssayProjectCalibrationParamInfo QueryCalibParamByProNameAndType(string strDBMethod, AssayProjectInfo assayProInfo)
+        public List<AssayProjectCalibrationParamInfo> QueryCalibParamInfoAll(string strDBMethod)
         {
-            return myBatis.QueryCalibParamByProNameAndType(strDBMethod, assayProInfo);
+            return myBatis.QueryCalibParamInfoAll(strDBMethod);
         }
 
         /// <summary>
@@ -206,10 +194,10 @@ namespace BioA.Service
         /// <param name="strDBMethod"></param>
         /// <param name="ObjParam"></param>
         /// <returns></returns>
-        public List<string> QueryAssayProAllInfoByDistinctProName(string strDBMethod, object ObjParam)
+        public List<string> QueryAssayProAllInfoByDistinctProName(string strDBMethod)
         {
             List<string> assayProInfos = new List<string>();
-            assayProInfos = myBatis.QueryAssayProAllInfoByDistinctProName(strDBMethod, ObjParam);
+            assayProInfos = myBatis.QueryAssayProAllInfoByDistinctProName(strDBMethod);
 
             return assayProInfos;
         }
@@ -242,15 +230,7 @@ namespace BioA.Service
         public List<Calibratorinfo> QueryCalib(string strDBMethod, string p2)
         {
             List<Calibratorinfo> lstQueryCalib = new List<Calibratorinfo>();
-            try
-            {
-                lstQueryCalib = myBatis.QueryCalib(strDBMethod, p2);
-
-            }
-            catch (Exception e)
-            {
-                LogInfo.WriteErrorLog(e.ToString(), Module.WindowsService);
-            }
+            lstQueryCalib = myBatis.QueryCalib(strDBMethod, p2);
             return lstQueryCalib;
         }
 

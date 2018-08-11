@@ -10,14 +10,21 @@ using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using BioA.Common;
 using BioA.Common.IO;
+using System.Threading;
 
 namespace BioA.UI
 {
     public partial class TestAudit : DevExpress.XtraEditors.XtraForm
     {
+        /// <summary>
+        /// 存储客户端发送信息给服务器的参数集合
+        /// </summary>
+        private Dictionary<string, object[]> testAudtiDic = new Dictionary<string, object[]>();
         // 赋值给检测项目表
         DataTable dtCheckResult = new DataTable();
-
+        /// <summary>
+        /// 存储样本信息结果
+        /// </summary>
         private List<SampleInfoForResult> sampleInfos = new List<SampleInfoForResult>();
         /// <summary>
         /// 父窗体样本信息
@@ -125,6 +132,13 @@ namespace BioA.UI
         {
             InitializeComponent();
             this.ControlBox = false;
+            dtCheckResult.Columns.Add("项目名称");
+            dtCheckResult.Columns.Add("检测结果");
+            dtCheckResult.Columns.Add("单位(参考范围)");
+            dtCheckResult.Columns.Add("申请时间");
+            dtCheckResult.Columns.Add("任务状态");
+            dtCheckResult.Columns.Add("复查");
+            grcCheckResult.DataSource = dtCheckResult;
 
             
         }
@@ -138,17 +152,11 @@ namespace BioA.UI
         /// </summary>
         private void loadTestAudit()
         {
-            dtCheckResult.Columns.Add("项目名称");
-            dtCheckResult.Columns.Add("检测结果");
-            dtCheckResult.Columns.Add("单位(参考范围)");
-            dtCheckResult.Columns.Add("申请时间");
-            dtCheckResult.Columns.Add("任务状态");
-            dtCheckResult.Columns.Add("复查");
-            grcCheckResult.DataSource = dtCheckResult;
+            
             reflectionMonitoring = new ReflectionMonitoring(true);
 
 
-            grcCheckResult.DataSource = dtCheckResult;
+            //grcCheckResult.DataSource = dtCheckResult;
             txtSampleNum.Text = sampleInfo.SampleNum.ToString();
             txtSampleID.Text = sampleInfo.SampleID;
 
@@ -201,10 +209,21 @@ namespace BioA.UI
             }
 
             string[] communicate = new string[] { txtSampleNum.Text, sampleInfo.CreateTime.ToString(), txtSampleType.Text };
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaDataCheck,
-                XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryProjectResultForTestAudit", XmlUtility.Serializer(typeof(string[]), communicate))));
+            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaDataCheck,
+            //    XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryProjectResultForTestAudit", XmlUtility.Serializer(typeof(string[]), communicate))));
+            testAudtiDic.Clear();
+            testAudtiDic.Add("QueryProjectResultForTestAudit", new object[] { XmlUtility.Serializer(typeof(string[]), communicate) });
+            SendToServices(testAudtiDic);
         }
-
+        
+        private void SendToServices(Dictionary<string, object[]> param)
+        {
+            var testAuditThread = new Thread(() =>{
+                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaDataCheck,param);
+            });
+            testAuditThread.IsBackground = true;
+            testAuditThread.Start();
+        }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
@@ -252,7 +271,7 @@ namespace BioA.UI
             {
                 sampleInfo = sampleInfos.Find((obj) => { return obj.SampleNum == CurrentSampleNum; });
 
-                TestAudit_Load(null, null);
+                loadTestAudit();
             }
 
 
@@ -299,7 +318,8 @@ namespace BioA.UI
             {
                 sampleInfo = sampleInfos.Find((obj) => { return obj.SampleNum == CurrentSampleNum; });
 
-                TestAudit_Load(null, null);
+                //TestAudit_Load(null, null);
+                loadTestAudit();
             }
 
 
@@ -329,8 +349,11 @@ namespace BioA.UI
             strCommunicate[0] = txtSampleNum.Text;
             strCommunicate[1] = dtpApplyTime.Value.ToString();
 
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaDataCheck,
-                XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("AuditSampleTest", XmlUtility.Serializer(typeof(string[]), strCommunicate))));
+            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaDataCheck,
+            //    XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("AuditSampleTest", XmlUtility.Serializer(typeof(string[]), strCommunicate))));
+            testAudtiDic.Clear();
+            testAudtiDic.Add("AuditSampleTest", new object[] { XmlUtility.Serializer(typeof(string[]), strCommunicate) });
+            SendToServices(testAudtiDic);
         }
     }
 }

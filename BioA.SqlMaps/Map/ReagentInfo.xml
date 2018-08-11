@@ -67,6 +67,7 @@
     
   </resultMaps>  
   <statements>
+    <!-- 根据项目信息获取试剂状态信息 -->
     <statement id="GetReagentSettingsInfo" parameterClass="System.Collections.IDictionary" resultMap="ReagentSettingsInfoResult">
       <![CDATA[select * from ReagentSettingsTb]]>
       <dynamic prepend="where">
@@ -94,12 +95,19 @@
         </isNotEmpty>
       </dynamic>
     </statement>
+    <!-- 根据项目名称获取对应的试剂1 or 2状态信息 -->
     <statement id="GetReagentStateInfo" parameterClass="string" ResultClass="ReagentStateInfo">
       select * from ReagentStateInfoR1R2Tb where ProjectName=#value#
     </statement>
+    <!-- 获取所有试剂1 OR 2状态信息 -->
+    <statement id="QueryReagentStateInfoAll" ResultClass="ReagentStateInfo">
+      select * from ReagentStateInfoR1R2Tb
+    </statement>
+    <!-- 获取所有试剂1信息 -->
     <statement id="QueryReagentSetting1"  ResultClass="ReagentSettingsInfo">
       select * from ReagentSettingsTb 
     </statement>
+    <!-- 获取所有试剂2信息 -->
     <statement id="QueryReagentSetting2"  ResultClass="ReagentSettingsInfo">
       select * from ReagentSettingsTbR2 
     </statement>

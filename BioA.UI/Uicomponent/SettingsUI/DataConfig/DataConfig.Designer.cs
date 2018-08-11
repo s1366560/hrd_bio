@@ -33,15 +33,15 @@
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.btnDelete = new DevExpress.XtraEditors.SimpleButton();
-            this.btnSave = new DevExpress.XtraEditors.SimpleButton();
-            this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
+            this.btnUpdateResultUnit = new DevExpress.XtraEditors.SimpleButton();
+            this.btnResultUnitCancel = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.textEdit1 = new DevExpress.XtraEditors.TextEdit();
             this.textEdit2 = new DevExpress.XtraEditors.TextEdit();
-            this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
-            this.simpleButton3 = new DevExpress.XtraEditors.SimpleButton();
-            this.simpleButton4 = new DevExpress.XtraEditors.SimpleButton();
-            this.simpleButton5 = new DevExpress.XtraEditors.SimpleButton();
+            this.btnDeleteDilutionRatio = new DevExpress.XtraEditors.SimpleButton();
+            this.btnUpdateDilutionRatio = new DevExpress.XtraEditors.SimpleButton();
+            this.btnDilutionRatioCancel = new DevExpress.XtraEditors.SimpleButton();
+            this.btnAddDilutionRatio = new DevExpress.XtraEditors.SimpleButton();
             this.gridControl2 = new DevExpress.XtraGrid.GridControl();
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
@@ -93,29 +93,29 @@
             this.btnDelete.Text = "删除";
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
-            // btnSave
+            // btnUpdateResultUnit
             // 
-            this.btnSave.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.Appearance.Options.UseFont = true;
-            this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
-            this.btnSave.Location = new System.Drawing.Point(258, 90);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(98, 48);
-            this.btnSave.TabIndex = 18;
-            this.btnSave.Text = "保存";
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.btnUpdateResultUnit.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUpdateResultUnit.Appearance.Options.UseFont = true;
+            this.btnUpdateResultUnit.Image = ((System.Drawing.Image)(resources.GetObject("btnUpdateResultUnit.Image")));
+            this.btnUpdateResultUnit.Location = new System.Drawing.Point(258, 90);
+            this.btnUpdateResultUnit.Name = "btnUpdateResultUnit";
+            this.btnUpdateResultUnit.Size = new System.Drawing.Size(98, 48);
+            this.btnUpdateResultUnit.TabIndex = 18;
+            this.btnUpdateResultUnit.Text = "修改";
+            this.btnUpdateResultUnit.Click += new System.EventHandler(this.btnUpdateResultUnit_Clik);
             // 
-            // btnCancel
+            // btnResultUnitCancel
             // 
-            this.btnCancel.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Appearance.Options.UseFont = true;
-            this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
-            this.btnCancel.Location = new System.Drawing.Point(258, 149);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(98, 48);
-            this.btnCancel.TabIndex = 17;
-            this.btnCancel.Text = "取消";
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnResultUnitCancel.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnResultUnitCancel.Appearance.Options.UseFont = true;
+            this.btnResultUnitCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnResultUnitCancel.Image")));
+            this.btnResultUnitCancel.Location = new System.Drawing.Point(258, 149);
+            this.btnResultUnitCancel.Name = "btnResultUnitCancel";
+            this.btnResultUnitCancel.Size = new System.Drawing.Size(98, 48);
+            this.btnResultUnitCancel.TabIndex = 17;
+            this.btnResultUnitCancel.Text = "取消";
+            this.btnResultUnitCancel.Click += new System.EventHandler(this.btnResultUnitCancel_Click);
             // 
             // simpleButton1
             // 
@@ -147,53 +147,53 @@
             this.textEdit2.Size = new System.Drawing.Size(299, 24);
             this.textEdit2.TabIndex = 27;
             // 
-            // simpleButton2
+            // btnDeleteDilutionRatio
             // 
-            this.simpleButton2.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton2.Appearance.Options.UseFont = true;
-            this.simpleButton2.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton2.Image")));
-            this.simpleButton2.Location = new System.Drawing.Point(400, 144);
-            this.simpleButton2.Name = "simpleButton2";
-            this.simpleButton2.Size = new System.Drawing.Size(98, 48);
-            this.simpleButton2.TabIndex = 26;
-            this.simpleButton2.Text = "删除";
-            this.simpleButton2.Click += new System.EventHandler(this.simpleButton2_Click);
+            this.btnDeleteDilutionRatio.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeleteDilutionRatio.Appearance.Options.UseFont = true;
+            this.btnDeleteDilutionRatio.Image = ((System.Drawing.Image)(resources.GetObject("btnDeleteDilutionRatio.Image")));
+            this.btnDeleteDilutionRatio.Location = new System.Drawing.Point(400, 144);
+            this.btnDeleteDilutionRatio.Name = "btnDeleteDilutionRatio";
+            this.btnDeleteDilutionRatio.Size = new System.Drawing.Size(98, 48);
+            this.btnDeleteDilutionRatio.TabIndex = 26;
+            this.btnDeleteDilutionRatio.Text = "删除";
+            this.btnDeleteDilutionRatio.Click += new System.EventHandler(this.btnDeleteDilutionRatio_Click);
             // 
-            // simpleButton3
+            // btnUpdateDilutionRatio
             // 
-            this.simpleButton3.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton3.Appearance.Options.UseFont = true;
-            this.simpleButton3.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton3.Image")));
-            this.simpleButton3.Location = new System.Drawing.Point(601, 90);
-            this.simpleButton3.Name = "simpleButton3";
-            this.simpleButton3.Size = new System.Drawing.Size(98, 48);
-            this.simpleButton3.TabIndex = 25;
-            this.simpleButton3.Text = "保存";
-            this.simpleButton3.Click += new System.EventHandler(this.simpleButton3_Click);
+            this.btnUpdateDilutionRatio.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUpdateDilutionRatio.Appearance.Options.UseFont = true;
+            this.btnUpdateDilutionRatio.Image = ((System.Drawing.Image)(resources.GetObject("btnUpdateDilutionRatio.Image")));
+            this.btnUpdateDilutionRatio.Location = new System.Drawing.Point(601, 90);
+            this.btnUpdateDilutionRatio.Name = "btnUpdateDilutionRatio";
+            this.btnUpdateDilutionRatio.Size = new System.Drawing.Size(98, 48);
+            this.btnUpdateDilutionRatio.TabIndex = 25;
+            this.btnUpdateDilutionRatio.Text = "修改";
+            this.btnUpdateDilutionRatio.Click += new System.EventHandler(this.btnUpdateDilutionRatio_Click);
             // 
-            // simpleButton4
+            // btnDilutionRatioCancel
             // 
-            this.simpleButton4.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton4.Appearance.Options.UseFont = true;
-            this.simpleButton4.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton4.Image")));
-            this.simpleButton4.Location = new System.Drawing.Point(601, 144);
-            this.simpleButton4.Name = "simpleButton4";
-            this.simpleButton4.Size = new System.Drawing.Size(98, 48);
-            this.simpleButton4.TabIndex = 24;
-            this.simpleButton4.Text = "取消";
-            this.simpleButton4.Click += new System.EventHandler(this.simpleButton4_Click);
+            this.btnDilutionRatioCancel.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDilutionRatioCancel.Appearance.Options.UseFont = true;
+            this.btnDilutionRatioCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnDilutionRatioCancel.Image")));
+            this.btnDilutionRatioCancel.Location = new System.Drawing.Point(601, 144);
+            this.btnDilutionRatioCancel.Name = "btnDilutionRatioCancel";
+            this.btnDilutionRatioCancel.Size = new System.Drawing.Size(98, 48);
+            this.btnDilutionRatioCancel.TabIndex = 24;
+            this.btnDilutionRatioCancel.Text = "取消";
+            this.btnDilutionRatioCancel.Click += new System.EventHandler(this.btnDilutionRatioCancel_Click);
             // 
-            // simpleButton5
+            // btnAddDilutionRatio
             // 
-            this.simpleButton5.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton5.Appearance.Options.UseFont = true;
-            this.simpleButton5.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton5.Image")));
-            this.simpleButton5.Location = new System.Drawing.Point(400, 90);
-            this.simpleButton5.Name = "simpleButton5";
-            this.simpleButton5.Size = new System.Drawing.Size(98, 48);
-            this.simpleButton5.TabIndex = 23;
-            this.simpleButton5.Text = "新增";
-            this.simpleButton5.Click += new System.EventHandler(this.simpleButton5_Click);
+            this.btnAddDilutionRatio.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddDilutionRatio.Appearance.Options.UseFont = true;
+            this.btnAddDilutionRatio.Image = ((System.Drawing.Image)(resources.GetObject("btnAddDilutionRatio.Image")));
+            this.btnAddDilutionRatio.Location = new System.Drawing.Point(400, 90);
+            this.btnAddDilutionRatio.Name = "btnAddDilutionRatio";
+            this.btnAddDilutionRatio.Size = new System.Drawing.Size(98, 48);
+            this.btnAddDilutionRatio.TabIndex = 23;
+            this.btnAddDilutionRatio.Text = "新增";
+            this.btnAddDilutionRatio.Click += new System.EventHandler(this.btnAddDilutionRatio_Click);
             // 
             // gridControl2
             // 
@@ -228,16 +228,16 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.textEdit2);
-            this.Controls.Add(this.simpleButton2);
-            this.Controls.Add(this.simpleButton3);
-            this.Controls.Add(this.simpleButton4);
-            this.Controls.Add(this.simpleButton5);
+            this.Controls.Add(this.btnDeleteDilutionRatio);
+            this.Controls.Add(this.btnUpdateDilutionRatio);
+            this.Controls.Add(this.btnDilutionRatioCancel);
+            this.Controls.Add(this.btnAddDilutionRatio);
             this.Controls.Add(this.gridControl2);
             this.Controls.Add(this.labelControl1);
             this.Controls.Add(this.textEdit1);
             this.Controls.Add(this.btnDelete);
-            this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnUpdateResultUnit);
+            this.Controls.Add(this.btnResultUnitCancel);
             this.Controls.Add(this.simpleButton1);
             this.Controls.Add(this.gridControl1);
             this.Controls.Add(this.lblResultUnitInput);
@@ -261,15 +261,15 @@
         private DevExpress.XtraGrid.GridControl gridControl1;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
         private DevExpress.XtraEditors.SimpleButton btnDelete;
-        private DevExpress.XtraEditors.SimpleButton btnSave;
-        private DevExpress.XtraEditors.SimpleButton btnCancel;
+        private DevExpress.XtraEditors.SimpleButton btnUpdateResultUnit;
+        private DevExpress.XtraEditors.SimpleButton btnResultUnitCancel;
         private DevExpress.XtraEditors.SimpleButton simpleButton1;
         private DevExpress.XtraEditors.TextEdit textEdit1;
         private DevExpress.XtraEditors.TextEdit textEdit2;
-        private DevExpress.XtraEditors.SimpleButton simpleButton2;
-        private DevExpress.XtraEditors.SimpleButton simpleButton3;
-        private DevExpress.XtraEditors.SimpleButton simpleButton4;
-        private DevExpress.XtraEditors.SimpleButton simpleButton5;
+        private DevExpress.XtraEditors.SimpleButton btnDeleteDilutionRatio;
+        private DevExpress.XtraEditors.SimpleButton btnUpdateDilutionRatio;
+        private DevExpress.XtraEditors.SimpleButton btnDilutionRatioCancel;
+        private DevExpress.XtraEditors.SimpleButton btnAddDilutionRatio;
         private DevExpress.XtraGrid.GridControl gridControl2;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView2;
         private DevExpress.XtraEditors.LabelControl labelControl1;

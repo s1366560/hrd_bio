@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="BioAService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="NetTcpBinding_IBioAService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1">
+        </msb:BinaryEncoding>
+        <wsaw:UsingAddressing>
+        </wsaw:UsingAddressing>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/BioA.Service" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/BioA.Common" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IBioAService_GetData_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetData" />
+  </wsdl:message>
+  <wsdl:message name="IBioAService_GetData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBioAService_GetDataUsingDataContract_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDataUsingDataContract" />
+  </wsdl:message>
+  <wsdl:message name="IBioAService_GetDataUsingDataContract_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDataUsingDataContractResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBioAService_RegisterClient_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterClient" />
+  </wsdl:message>
+  <wsdl:message name="IBioAService_ClientSendMsgToClient_InputMessage">
+    <wsdl:part name="parameters" element="tns:ClientSendMsgToClient" />
+  </wsdl:message>
+  <wsdl:message name="IBioAService_ClientSendMsgToClient_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ClientSendMsgToClientResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBioAService_ClientSendMsgToService_InputMessage">
+    <wsdl:part name="parameters" element="tns:ClientSendMsgToService" />
+  </wsdl:message>
+  <wsdl:message name="IBioAService_ClientSendMsgToServiceMethod_InputMessage">
+    <wsdl:part name="parameters" element="tns:ClientSendMsgToServiceMethod" />
+  </wsdl:message>
+  <wsdl:message name="IBioAService_GetClients_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetClients" />
+  </wsdl:message>
+  <wsdl:message name="IBioAService_GetClients_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetClientsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBioAService_NotifyFunction_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyFunction" />
+  </wsdl:message>
+  <wsdl:message name="IBioAService_ClientNotifyFunction_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:ClientNotifyFunction" />
+  </wsdl:message>
+  <wsdl:message name="IBioAService_DatabaseNotifyFunction_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:DatabaseNotifyFunction" />
+  </wsdl:message>
+  <wsdl:message name="IBioAService_DataAllReturnFunction_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:DataAllReturnFunction" />
+  </wsdl:message>
+  <wsdl:portType name="IBioAService">
+    <wsdl:operation name="GetData">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBioAService/GetData" message="tns:IBioAService_GetData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBioAService/GetDataResponse" message="tns:IBioAService_GetData_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDataUsingDataContract">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBioAService/GetDataUsingDataContract" message="tns:IBioAService_GetDataUsingDataContract_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBioAService/GetDataUsingDataContractResponse" message="tns:IBioAService_GetDataUsingDataContract_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RegisterClient">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBioAService/RegisterClient" message="tns:IBioAService_RegisterClient_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ClientSendMsgToClient">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBioAService/ClientSendMsgToClient" message="tns:IBioAService_ClientSendMsgToClient_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBioAService/ClientSendMsgToClientResponse" message="tns:IBioAService_ClientSendMsgToClient_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ClientSendMsgToService">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBioAService/ClientSendMsgToService" message="tns:IBioAService_ClientSendMsgToService_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ClientSendMsgToServiceMethod">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBioAService/ClientSendMsgToServiceMethod" message="tns:IBioAService_ClientSendMsgToServiceMethod_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetClients">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBioAService/GetClients" message="tns:IBioAService_GetClients_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBioAService/GetClientsResponse" message="tns:IBioAService_GetClients_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyFunction">
+      <wsdl:output wsaw:Action="http://tempuri.org/IBioAService/NotifyFunction" message="tns:IBioAService_NotifyFunction_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ClientNotifyFunction">
+      <wsdl:output wsaw:Action="http://tempuri.org/IBioAService/ClientNotifyFunction" message="tns:IBioAService_ClientNotifyFunction_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DatabaseNotifyFunction">
+      <wsdl:output wsaw:Action="http://tempuri.org/IBioAService/DatabaseNotifyFunction" message="tns:IBioAService_DatabaseNotifyFunction_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DataAllReturnFunction">
+      <wsdl:output wsaw:Action="http://tempuri.org/IBioAService/DataAllReturnFunction" message="tns:IBioAService_DataAllReturnFunction_OutputCallbackMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NetTcpBinding_IBioAService" type="tns:IBioAService">
+    <wsp:PolicyReference URI="#NetTcpBinding_IBioAService_policy">
+    </wsp:PolicyReference>
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="GetData">
+      <soap12:operation soapAction="http://tempuri.org/IBioAService/GetData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDataUsingDataContract">
+      <soap12:operation soapAction="http://tempuri.org/IBioAService/GetDataUsingDataContract" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegisterClient">
+      <soap12:operation soapAction="http://tempuri.org/IBioAService/RegisterClient" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="ClientSendMsgToClient">
+      <soap12:operation soapAction="http://tempuri.org/IBioAService/ClientSendMsgToClient" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ClientSendMsgToService">
+      <soap12:operation soapAction="http://tempuri.org/IBioAService/ClientSendMsgToService" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="ClientSendMsgToServiceMethod">
+      <soap12:operation soapAction="http://tempuri.org/IBioAService/ClientSendMsgToServiceMethod" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="GetClients">
+      <soap12:operation soapAction="http://tempuri.org/IBioAService/GetClients" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyFunction">
+      <soap12:operation soapAction="http://tempuri.org/IBioAService/NotifyFunction" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ClientNotifyFunction">
+      <soap12:operation soapAction="http://tempuri.org/IBioAService/ClientNotifyFunction" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DatabaseNotifyFunction">
+      <soap12:operation soapAction="http://tempuri.org/IBioAService/DatabaseNotifyFunction" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DataAllReturnFunction">
+      <soap12:operation soapAction="http://tempuri.org/IBioAService/DataAllReturnFunction" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="BioAService">
+    <wsdl:port name="NetTcpBinding_IBioAService" binding="tns:NetTcpBinding_IBioAService">
+      <soap12:address location="net.tcp://localhost:8080/BioAService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8080/BioAService</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

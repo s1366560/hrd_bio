@@ -19,6 +19,14 @@ namespace BioA.UI
 {
     public partial class CalcProject : DevExpress.XtraEditors.XtraUserControl
     {
+        /// <summary>
+        /// 存储计算项目的信息
+        /// </summary>
+        DataTable dt = new DataTable();
+        /// <summary>
+        /// 存储客户端发送信息给服务器
+        /// </summary>
+        private Dictionary<string, object[]> calcProDic = new Dictionary<string, object[]>();
         AddOrEditCalcItem addOrEditCalcItem;
         public CalcProject()
         {
@@ -26,9 +34,14 @@ namespace BioA.UI
             
         }
 
-        private void DataSend_Event(object sender)
+        private void DataSend_Event(Dictionary<string, object[]> sender)
         {
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SettingsCalculateItem, XmlUtility.Serializer(typeof(CommunicationEntity), sender as CommunicationEntity));
+            var calcProThread = new Thread(() =>
+            {
+                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.SettingsCalculateItem, sender);
+            });
+            calcProThread.IsBackground = true;
+            calcProThread.Start();
         }
         
         public void CalcProjectDataTransfer_Event(string strMethod, object sender)
@@ -56,8 +69,9 @@ namespace BioA.UI
                         {
                             addOrEditCalcItem.Close();
                         }));
-
-                        DataSend_Event(new CommunicationEntity("QueryCalcProjectAllInfo", null));
+                        calcProDic.Clear();
+                        calcProDic.Add("QueryCalcProjectAllInfo", null);
+                        DataSend_Event(calcProDic);
                     }
                     break;
                 case "UpdateCalcProject":
@@ -68,7 +82,9 @@ namespace BioA.UI
                         {
                             addOrEditCalcItem.Close();
                         }));
-                        DataSend_Event(new CommunicationEntity("QueryCalcProjectAllInfo", null));
+                        calcProDic.Clear();
+                        calcProDic.Add("QueryCalcProjectAllInfo", null);
+                        DataSend_Event(calcProDic);
                     }
                     else
                     {
@@ -80,7 +96,9 @@ namespace BioA.UI
                     int j = (int)sender;
                     if (j > 0)
                     {
-                        DataSend_Event(new CommunicationEntity("QueryCalcProjectAllInfo", null));
+                        calcProDic.Clear();
+                        calcProDic.Add("QueryCalcProjectAllInfo", null);
+                        DataSend_Event(calcProDic);
                     }
                     else
                     {
@@ -102,18 +120,6 @@ namespace BioA.UI
             this.Invoke(new EventHandler(delegate {
                 this.lstCalcProjectInfo.RefreshDataSource();
                 int i = 1;
-
-                DataTable dt = new DataTable();
-                dt.Columns.AddRange(new DataColumn[]{
-                    new DataColumn(){ColumnName = "编号", MaxLength = 50},
-                    new DataColumn(){ColumnName = "项目名称", MaxLength = 100},
-                    new DataColumn(){ColumnName = "报告名称", MaxLength = 200},
-                    new DataColumn(){ColumnName = "单位", MaxLength = 70},
-                    new DataColumn(){ColumnName = "样本类型", MaxLength = 70},
-                    new DataColumn(){ColumnName = "计算公式", MaxLength = 300},
-                    new DataColumn(){ColumnName = "参考范围", MaxLength = 100}
-                });
-
                 foreach (CalcProjectInfo calcProInfo in lstCalcProInfos)
                 {
                     string range = "";
@@ -121,15 +127,6 @@ namespace BioA.UI
                         range = (calcProInfo.ReferenceRangeLow == 100000000 ? "" : calcProInfo.ReferenceRangeLow.ToString()) + " - " + (calcProInfo.ReferenceRangeHigh == 100000000 ? "" : calcProInfo.ReferenceRangeHigh.ToString());
                     dt.Rows.Add(new object[] { i, calcProInfo.CalcProjectName, calcProInfo.CalcProjectFullName, calcProInfo.Unit, calcProInfo.SampleType, calcProInfo.CalcFormula, range });
                 }
-
-                this.lstCalcProjectInfo.DataSource = dt;
-                this.gridView1.Columns[0].Width = 50;
-                this.gridView1.Columns[1].Width = 200;
-                this.gridView1.Columns[2].Width = 300;
-                this.gridView1.Columns[3].Width = 100;
-                this.gridView1.Columns[4].Width = 150;
-                this.gridView1.Columns[5].Width = 500;
-                this.gridView1.Columns[6].Width = 300;
             }));
         }
 
@@ -186,11 +183,39 @@ namespace BioA.UI
             Font font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             gridView1.Appearance.HeaderPanel.Font = font;
             gridView1.Appearance.Row.Font = font;
-            Thread.Sleep(1000);
+            
+            dt.Columns.AddRange(new DataColumn[]{
+                new DataColumn(){ColumnName = "编号", MaxLength = 50},
+                new DataColumn(){ColumnName = "项目名称", MaxLength = 100},
+                new DataColumn(){ColumnName = "报告名称", MaxLength = 200},
+                new DataColumn(){ColumnName = "单位", MaxLength = 70},
+                new DataColumn(){ColumnName = "样本类型", MaxLength = 70},
+                new DataColumn(){ColumnName = "计算公式", MaxLength = 300},
+                new DataColumn(){ColumnName = "参考范围", MaxLength = 100}
+            });
+            this.lstCalcProjectInfo.DataSource = dt;
+            this.gridView1.Columns[0].Width = 50;
+            this.gridView1.Columns[1].Width = 200;
+            this.gridView1.Columns[2].Width = 300;
+            this.gridView1.Columns[3].Width = 100;
+            this.gridView1.Columns[4].Width = 150;
+            this.gridView1.Columns[5].Width = 500;
+            this.gridView1.Columns[6].Width = 300;
+            this.gridView1.Columns[0].OptionsColumn.AllowEdit = false;
+            this.gridView1.Columns[1].OptionsColumn.AllowEdit = false;
+            this.gridView1.Columns[2].OptionsColumn.AllowEdit = false;
+            this.gridView1.Columns[3].OptionsColumn.AllowEdit = false;
+            this.gridView1.Columns[4].OptionsColumn.AllowEdit = false;
+            this.gridView1.Columns[5].OptionsColumn.AllowEdit = false;
+            this.gridView1.Columns[6].OptionsColumn.AllowEdit = false;
+            //Thread.Sleep(1000);
 
             //Thread.Sleep(1000);
-            // new Thread(new ParameterizedThreadStart(DataSend_Event)).Start(new CommunicationEntity("QueryCalcProjectAllInfo", null));
-            DataSend_Event(new CommunicationEntity("QueryCalcProjectAllInfo", null));
+            // new Thread(new ParameterizedThreadStart(DataSend_Event)).Start(new CommunicationEntity("QueryCalcProjectAllInfo", null));3
+            calcProDic.Clear();
+            calcProDic.Add("QueryCalcProjectAllInfo", null);
+            //获取所有计算项目信息
+            DataSend_Event(calcProDic);
         }
 
         private void btnDetele_Click(object sender, EventArgs e)
@@ -205,7 +230,9 @@ namespace BioA.UI
                     calcProInfo.SampleType = this.gridView1.GetRowCellValue(this.gridView1.GetSelectedRows()[0], "样本类型").ToString();
                     List<CalcProjectInfo> lstCalcProInfos = new List<CalcProjectInfo>();
                     lstCalcProInfos.Add(calcProInfo);
-                    DataSend_Event(new CommunicationEntity("DeleteCalcProject", XmlUtility.Serializer(typeof(List<CalcProjectInfo>), lstCalcProInfos)));
+                    calcProDic.Clear();
+                    calcProDic.Add("DeleteCalcProject", new object[] { XmlUtility.Serializer(typeof(List<CalcProjectInfo>), lstCalcProInfos) });
+                    DataSend_Event(calcProDic);
                 }
             }
         }

@@ -100,7 +100,7 @@
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(118, 40);
             this.btnSave.TabIndex = 3;
-            this.btnSave.Text = "保存";
+            this.btnSave.Text = "修改";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnDelete
@@ -151,21 +151,21 @@
             // xtraTabPage2
             // 
             this.xtraTabPage2.Name = "xtraTabPage2";
-            this.xtraTabPage2.Size = new System.Drawing.Size(1291, 537);
+            this.xtraTabPage2.Size = new System.Drawing.Size(1291, 517);
             this.xtraTabPage2.TabPageWidth = 80;
             this.xtraTabPage2.Text = "第二页";
             // 
             // xtraTabPage3
             // 
             this.xtraTabPage3.Name = "xtraTabPage3";
-            this.xtraTabPage3.Size = new System.Drawing.Size(1291, 537);
+            this.xtraTabPage3.Size = new System.Drawing.Size(1291, 517);
             this.xtraTabPage3.TabPageWidth = 80;
             this.xtraTabPage3.Text = "第三页";
             // 
             // xtraTabPage4
             // 
             this.xtraTabPage4.Name = "xtraTabPage4";
-            this.xtraTabPage4.Size = new System.Drawing.Size(1291, 537);
+            this.xtraTabPage4.Size = new System.Drawing.Size(1291, 517);
             this.xtraTabPage4.TabPageWidth = 80;
             this.xtraTabPage4.Text = "第四页";
             // 

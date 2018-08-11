@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using BioA.Common;
 using BioA.Common.IO;
+using System.Threading;
 
 namespace BioA.UI
 {
@@ -17,7 +18,15 @@ namespace BioA.UI
     {
         frmEditQCResult frmEditQCRes;
         ReactionProcessQC reactionProcessQC;
+        /// <summary>
+        /// 存储客户端发送信息给服务器的参数集合
+        /// </summary>
+        private Dictionary<string, object[]> qcStateDic = new Dictionary<string, object[]>();
 
+        /// <summary>
+        /// 保存质控任务状态信息 
+        /// </summary>
+        DataTable dt = new DataTable();
         public QualityControlState()
         {
             InitializeComponent();
@@ -51,7 +60,11 @@ namespace BioA.UI
                 reactionProcessQC.ShowDialog();
             }
         }
-
+        /// <summary>
+        /// 重复性点击事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnRepeat_Click(object sender, EventArgs e)
         {
             List<float> lstConcResults = new List<float>();
@@ -105,13 +118,59 @@ namespace BioA.UI
             Font font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             gridView1.Appearance.HeaderPanel.Font = font;
             gridView1.Appearance.Row.Font = font;
+
+            var qcStateThread = new Thread(() =>
+            {
+                QCResultForUIInfo qcResultForUI = new QCResultForUIInfo();
+                qcResultForUI.QCTimeStartTS = DateTime.Now.Date;
+                qcResultForUI.QCTimeEndTS = DateTime.Now.Date.AddDays(1);
+                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCResult, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryQCResultInfo", XmlUtility.Serializer(typeof(QCResultForUIInfo), qcResultForUI))));
+                qcStateDic.Clear();
+                qcStateDic.Add("QueryQCResultInfo", new object[] { XmlUtility.Serializer(typeof(QCResultForUIInfo), qcResultForUI) });
+                ClientSendToServices(qcStateDic);
+            });
+            qcStateThread.IsBackground = true;
+            qcStateThread.Start();
+            
+            dt.Columns.Add("质控品名称");
+            dt.Columns.Add("项目名称");
+            dt.Columns.Add("样本类型");
+            dt.Columns.Add("批号");
+            dt.Columns.Add("位置");
+            dt.Columns.Add("水平浓度");
+            dt.Columns.Add("理论平均值");
+            dt.Columns.Add("理论标准差");
+            dt.Columns.Add("浓度");
+            dt.Columns.Add("质控时间");
+            dt.Columns.Add("生产厂家");
+            this.lstQCResult.DataSource = dt;
+            this.gridView1.Columns[0].OptionsColumn.AllowEdit = false;
+            this.gridView1.Columns[1].OptionsColumn.AllowEdit = false;
+            this.gridView1.Columns[2].OptionsColumn.AllowEdit = false;
+            this.gridView1.Columns[3].OptionsColumn.AllowEdit = false;
+            this.gridView1.Columns[4].OptionsColumn.AllowEdit = false;
+            this.gridView1.Columns[5].OptionsColumn.AllowEdit = false;
+            this.gridView1.Columns[6].OptionsColumn.AllowEdit = false;
+            this.gridView1.Columns[7].OptionsColumn.AllowEdit = false;
+            this.gridView1.Columns[8].OptionsColumn.AllowEdit = false;
+            this.gridView1.Columns[9].OptionsColumn.AllowEdit = false;
+            this.gridView1.Columns[10].OptionsColumn.AllowEdit = false;
             frmEditQCRes = new frmEditQCResult();
             reactionProcessQC = new ReactionProcessQC();
+        }
 
-            QCResultForUIInfo qcResultForUI = new QCResultForUIInfo();
-            qcResultForUI.QCTimeStartTS = DateTime.Now.Date;
-            qcResultForUI.QCTimeEndTS = DateTime.Now.Date.AddDays(1);
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCResult, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryQCResultInfo", XmlUtility.Serializer(typeof(QCResultForUIInfo), qcResultForUI))));
+        /// <summary>
+        /// 发送信息给服务器
+        /// </summary>
+        /// <param name="param"></param>
+        private void ClientSendToServices(Dictionary<string, object[]> param)
+        {
+            var qcStateThread = new Thread(() =>
+            {
+                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.QCTask, param);
+            });
+            qcStateThread.IsBackground = true;
+            qcStateThread.Start();
         }
 
         /// <summary>
@@ -140,7 +199,10 @@ namespace BioA.UI
                             this.frmEditQCRes.Close();
                         }));
 
-                        CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCResult, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryQCResultInfo", XmlUtility.Serializer(typeof(QCResultForUIInfo), new QCResultForUIInfo() { QCTimeStartTS = dtpQCStartTime.Value, QCTimeEndTS = dtpQCEndTime.Value }))));
+                        //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCResult, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryQCResultInfo", XmlUtility.Serializer(typeof(QCResultForUIInfo), new QCResultForUIInfo() { QCTimeStartTS = dtpQCStartTime.Value, QCTimeEndTS = dtpQCEndTime.Value }))));
+                        qcStateDic.Clear();
+                        qcStateDic.Add("QueryQCResultInfo", new object[] { XmlUtility.Serializer(typeof(QCResultForUIInfo), new QCResultForUIInfo() { QCTimeStartTS = dtpQCStartTime.Value, QCTimeEndTS = dtpQCEndTime.Value })});
+                        ClientSendToServices(qcStateDic);
                     }
                     break;
                 case "AddQCResultForManual":
@@ -151,7 +213,10 @@ namespace BioA.UI
                             this.frmEditQCRes.Close();
                         }));
 
-                        CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCResult, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryQCResultInfo", XmlUtility.Serializer(typeof(QCResultForUIInfo), new QCResultForUIInfo() { QCTimeStartTS = dtpQCStartTime.Value, QCTimeEndTS = dtpQCEndTime.Value }))));
+                        //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCResult, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryQCResultInfo", XmlUtility.Serializer(typeof(QCResultForUIInfo), new QCResultForUIInfo() { QCTimeStartTS = dtpQCStartTime.Value, QCTimeEndTS = dtpQCEndTime.Value }))));
+                        qcStateDic.Clear();
+                        qcStateDic.Add("QueryQCResultInfo", new object[] { XmlUtility.Serializer(typeof(QCResultForUIInfo), new QCResultForUIInfo() { QCTimeStartTS = dtpQCStartTime.Value, QCTimeEndTS = dtpQCEndTime.Value })});
+                        ClientSendToServices(qcStateDic);
                     }
                     else
                     {
@@ -165,7 +230,10 @@ namespace BioA.UI
                         {
                             this.frmEditQCRes.Close();
                         }));
-                        CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCResult, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryQCResultInfo", XmlUtility.Serializer(typeof(QCResultForUIInfo), new QCResultForUIInfo()))));
+                        //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCResult, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryQCResultInfo", XmlUtility.Serializer(typeof(QCResultForUIInfo), new QCResultForUIInfo()))));
+                        qcStateDic.Clear();
+                        qcStateDic.Add("QueryQCResultInfo", new object[] { XmlUtility.Serializer(typeof(QCResultForUIInfo), new QCResultForUIInfo())});
+                        ClientSendToServices(qcStateDic);
                     }
                     else
                     {
@@ -174,8 +242,14 @@ namespace BioA.UI
                     break;
                 case "QueryTimeCourseByQCInfo":
                     TimeCourseInfo qcTimeCourse = (TimeCourseInfo)XmlUtility.Deserialize(typeof(TimeCourseInfo), sender as string);
-
-                    reactionProcessQC.QCReactionInfo = qcTimeCourse;
+                    if (qcTimeCourse != null)
+                    {
+                        reactionProcessQC.QCReactionInfo = qcTimeCourse;
+                    }
+                    else
+                    {
+                        MessageBox.Show("该项目没有执行检测！");
+                    }
                     break;
                 default:
                     break;
@@ -187,37 +261,11 @@ namespace BioA.UI
             this.Invoke(new EventHandler(delegate {
                 this.lstQCResult.RefreshDataSource();
 
-                DataTable dt = new DataTable();
-                dt.Columns.Add("质控品名称");
-                dt.Columns.Add("项目名称");
-                dt.Columns.Add("样本类型");
-                dt.Columns.Add("批号");
-                dt.Columns.Add("位置");
-                dt.Columns.Add("水平浓度");
-                dt.Columns.Add("理论平均值");
-                dt.Columns.Add("理论标准差");
-                dt.Columns.Add("浓度");      
-                dt.Columns.Add("质控时间");
-                dt.Columns.Add("生产厂家");
-
                 foreach (QCResultForUIInfo qCResInfo in lstQCResultInfos)
                 {
                     dt.Rows.Add(new object[] { qCResInfo.QCName, qCResInfo.ProjectName, qCResInfo.SampleType, qCResInfo.LotNum, qCResInfo.Pos, qCResInfo.HorizonLevel,
                                                qCResInfo.TargetMean, qCResInfo.TargetSD, qCResInfo.ConcResult, qCResInfo.SampleCreateTime, qCResInfo.Manufacturer });
                 }
-
-                this.lstQCResult.DataSource = dt;
-                this.gridView1.Columns[0].OptionsColumn.AllowEdit = false;
-                this.gridView1.Columns[1].OptionsColumn.AllowEdit = false;
-                this.gridView1.Columns[2].OptionsColumn.AllowEdit = false;
-                this.gridView1.Columns[3].OptionsColumn.AllowEdit = false;
-                this.gridView1.Columns[4].OptionsColumn.AllowEdit = false;
-                this.gridView1.Columns[5].OptionsColumn.AllowEdit = false;
-                this.gridView1.Columns[6].OptionsColumn.AllowEdit = false;
-                this.gridView1.Columns[7].OptionsColumn.AllowEdit = false;
-                this.gridView1.Columns[8].OptionsColumn.AllowEdit = false;
-                this.gridView1.Columns[9].OptionsColumn.AllowEdit = false;
-                this.gridView1.Columns[10].OptionsColumn.AllowEdit = false;
             }));
         }
 
@@ -229,7 +277,10 @@ namespace BioA.UI
             qcResInfo.LotNum = txtLotNum.Text;
             qcResInfo.QCTimeStartTS = System.Convert.ToDateTime(dtpQCStartTime.Text);
             qcResInfo.QCTimeEndTS = System.Convert.ToDateTime(dtpQCEndTime.Text).AddDays(1);
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCResult, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryQCResultInfo", XmlUtility.Serializer(typeof(QCResultForUIInfo), qcResInfo))));
+            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCResult, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryQCResultInfo", XmlUtility.Serializer(typeof(QCResultForUIInfo), qcResInfo))));
+            qcStateDic.Clear();
+            qcStateDic.Add("QueryQCResultInfo", new object[] { XmlUtility.Serializer(typeof(QCResultForUIInfo), qcResInfo) });
+            ClientSendToServices(qcStateDic);
         }
 
         private void btnEdit_Click(object sender, EventArgs e)

@@ -11,13 +11,25 @@ using DevExpress.XtraEditors;
 using BioA.Common;
 using BioA.Common.IO;
 using DevExpress.XtraGrid;
-using BioA.Common;
+using System.Threading;
 namespace BioA.UI
 {
     public partial class ReagentSetting : DevExpress.XtraEditors.XtraUserControl
     {
         frmLoadingReagent frmloadingReagent;
         List<AssayProjectInfo> lstAssayProInfos = new List<AssayProjectInfo>();
+        /// <summary>
+        /// 存储客户端发送给服务器信息的集合
+        /// </summary>
+        private Dictionary<string, object[]> reagentDictionary = new Dictionary<string, object[]>();
+        /// <summary>
+        /// 保存试剂1设置信息
+        /// </summary>
+        DataTable dt1 = new DataTable();
+        /// <summary>
+        /// 保存试剂2设置信息
+        /// </summary>
+        DataTable dt2 = new DataTable();
         public ReagentSetting()
         {
             InitializeComponent();
@@ -46,9 +58,11 @@ namespace BioA.UI
                 reagentSettingsInfo.ReagentName = this.gridView1.GetRowCellValue(selectedHandle, "试剂名称").ToString();
                 if (reagentSettingsInfo.ReagentName != null)
                 {
-                    DataConfig.StrmethodName = "DeleteReagentSettingsR1";
-                    DataConfig.ObjParam = XmlUtility.Serializer(typeof(ReagentSettingsInfo), reagentSettingsInfo);
-                    ReagentSettingLoad(DataConfig);
+                    //DataConfig.StrmethodName = "DeleteReagentSettingsR1";
+                    //DataConfig.ObjParam = XmlUtility.Serializer(typeof(ReagentSettingsInfo), reagentSettingsInfo);
+                    reagentDictionary.Clear();
+                    reagentDictionary.Add("DeleteReagentSettingsR1", new object[] { XmlUtility.Serializer(typeof(ReagentSettingsInfo), reagentSettingsInfo) });
+                    ReagentSettingLoad(reagentDictionary);
                 }
 
             }
@@ -77,14 +91,58 @@ namespace BioA.UI
             frmloadingReagent.ShowDialog();
         }
 
-        private void ReagentSettingLoad(object sender)
+        private void ReagentSettingLoad(Dictionary<string, object[]> sender)
         {
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.ReagentSetting, XmlUtility.Serializer(typeof(CommunicationEntity), sender as CommunicationEntity));
+            var reagentSetThread = new Thread(() =>
+            {
+                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.ReagentSetting, sender);
+            });
+            reagentSetThread.IsBackground = true;
+            reagentSetThread.Start();
         }
 
         private void ReagentSetting_Load(object sender, EventArgs e)
         {
             BeginInvoke(new Action(ReagentSettingLoad));
+            
+            dt1.Columns.Add("试剂名称");
+            dt1.Columns.Add("试剂类型");
+            dt1.Columns.Add("位置");
+            dt1.Columns.Add("检测项目");
+            dt1.Columns.Add("有效日期");
+            dt1.Columns.Add("容器");
+            dt1.Columns.Add("批号");
+            //试剂1
+            gridControl1.DataSource = dt1;
+            this.gridView1.Columns[0].OptionsColumn.AllowEdit = false;
+            this.gridView1.Columns[1].OptionsColumn.AllowEdit = false;
+            this.gridView1.Columns[2].OptionsColumn.AllowEdit = false;
+            this.gridView1.Columns[3].OptionsColumn.AllowEdit = false;
+            //this.gridView1.Columns[4].OptionsColumn.AllowEdit = false;
+            //this.gridView1.Columns[5].OptionsColumn.AllowEdit = false;
+            this.gridView1.Columns[4].OptionsColumn.AllowEdit = false;
+            this.gridView1.Columns[5].OptionsColumn.AllowEdit = false;
+            this.gridView1.Columns[6].OptionsColumn.AllowEdit = false;
+
+            dt2.Columns.Add("试剂名称");
+            dt2.Columns.Add("试剂类型");
+            dt2.Columns.Add("位置");
+            dt2.Columns.Add("检测项目");
+            dt2.Columns.Add("有效日期");
+            dt2.Columns.Add("容器");
+            dt2.Columns.Add("批号");
+            //试剂2
+            gridControl2.DataSource = dt2;
+            this.gridView2.Columns[0].OptionsColumn.AllowEdit = false;
+            this.gridView2.Columns[1].OptionsColumn.AllowEdit = false;
+            this.gridView2.Columns[2].OptionsColumn.AllowEdit = false;
+            this.gridView2.Columns[3].OptionsColumn.AllowEdit = false;
+            //this.gridView2.Columns[4].OptionsColumn.AllowEdit = false;
+            //this.gridView2.Columns[5].OptionsColumn.AllowEdit = false;
+            this.gridView2.Columns[4].OptionsColumn.AllowEdit = false;
+            this.gridView2.Columns[5].OptionsColumn.AllowEdit = false;
+            this.gridView2.Columns[6].OptionsColumn.AllowEdit = false;
+
         }
         private void ReagentSettingLoad()
         {
@@ -95,14 +153,18 @@ namespace BioA.UI
             gridView2.Appearance.Row.Font = font;
             frmloadingReagent = new frmLoadingReagent();
 
-            CommunicationEntity Reagent1 = new CommunicationEntity();
-            Reagent1.StrmethodName = "QueryReagentSetting1";
-            Reagent1.ObjParam = "";
-            ReagentSettingLoad(Reagent1);
-            CommunicationEntity Reagent2 = new CommunicationEntity();
-            Reagent2.StrmethodName = "QueryReagentSetting2";
-            Reagent2.ObjParam = "";
-            ReagentSettingLoad(Reagent2);
+            //CommunicationEntity Reagent1 = new CommunicationEntity();
+            //Reagent1.StrmethodName = "QueryReagentSetting1";
+            //Reagent1.ObjParam = "";
+            //ReagentSettingLoad(Reagent1);
+            //CommunicationEntity Reagent2 = new CommunicationEntity();
+            //Reagent2.StrmethodName = "QueryReagentSetting2";
+            //Reagent2.ObjParam = "";
+            //ReagentSettingLoad(Reagent2);
+            reagentDictionary.Clear();
+            reagentDictionary.Add("QueryReagentSetting1", new object[] { "" });
+            reagentDictionary.Add("QueryReagentSetting2", new object[] { "" });
+            ReagentSettingLoad(reagentDictionary);
         }
 
         private void InitialReagentInfos2(List<ReagentSettingsInfo> lstReagentSettingsInfo)
@@ -111,31 +173,23 @@ namespace BioA.UI
             {
                 gridControl2.RefreshDataSource();
 
-                DataTable dt = new DataTable();
-                dt.Columns.Add("试剂名称");
-                dt.Columns.Add("试剂类型");
-                dt.Columns.Add("位置");
-                dt.Columns.Add("检测项目");
-                dt.Columns.Add("有效日期");
-                dt.Columns.Add("容器");
-                dt.Columns.Add("批号");
+                //DataTable dt = new DataTable();
+                //dt.Columns.Add("试剂名称");
+                //dt.Columns.Add("试剂类型");
+                //dt.Columns.Add("位置");
+                //dt.Columns.Add("检测项目");
+                //dt.Columns.Add("有效日期");
+                //dt.Columns.Add("容器");
+                //dt.Columns.Add("批号");
                 foreach (ReagentSettingsInfo reagentSettingsInfo in lstReagentSettingsInfo)
                 {
-                    dt.Rows.Add(new object[] { reagentSettingsInfo.ReagentName,reagentSettingsInfo.ReagentType ,reagentSettingsInfo.Pos, reagentSettingsInfo.ProjectName
+                    dt2.Rows.Add(new object[] { reagentSettingsInfo.ReagentName,reagentSettingsInfo.ReagentType ,reagentSettingsInfo.Pos, reagentSettingsInfo.ProjectName
                         //, reagentSettingsInfo.ResidualQuantity, reagentSettingsInfo.Measuredquantity
                         ,reagentSettingsInfo.ValidDate.ToString("yyyy-MM-dd"),reagentSettingsInfo.ReagentContainer,reagentSettingsInfo.BatchNum
                     });
                 }
-                gridControl2.DataSource = dt;
-                this.gridView2.Columns[0].OptionsColumn.AllowEdit = false;
-                this.gridView2.Columns[1].OptionsColumn.AllowEdit = false;
-                this.gridView2.Columns[2].OptionsColumn.AllowEdit = false;
-                this.gridView2.Columns[3].OptionsColumn.AllowEdit = false;
-                //this.gridView2.Columns[4].OptionsColumn.AllowEdit = false;
-                //this.gridView2.Columns[5].OptionsColumn.AllowEdit = false;
-                this.gridView2.Columns[4].OptionsColumn.AllowEdit = false;
-                this.gridView2.Columns[5].OptionsColumn.AllowEdit = false;
-                this.gridView2.Columns[6].OptionsColumn.AllowEdit = false;
+                
+                
             }));
         }
         private void InitialReagentInfos(List<ReagentSettingsInfo> lstReagentSettingsInfo)
@@ -143,31 +197,21 @@ namespace BioA.UI
             this.Invoke(new EventHandler(delegate
             {
                 gridControl1.RefreshDataSource();
-                DataTable dt = new DataTable();
-                dt.Columns.Add("试剂名称");
-                dt.Columns.Add("试剂类型");
-                dt.Columns.Add("位置");
-                dt.Columns.Add("检测项目");
-                dt.Columns.Add("有效日期");
-                dt.Columns.Add("容器");
-                dt.Columns.Add("批号");
+                //DataTable dt = new DataTable();
+                //dt.Columns.Add("试剂名称");
+                //dt.Columns.Add("试剂类型");
+                //dt.Columns.Add("位置");
+                //dt.Columns.Add("检测项目");
+                //dt.Columns.Add("有效日期");
+                //dt.Columns.Add("容器");
+                //dt.Columns.Add("批号");
                 foreach (ReagentSettingsInfo reagentSettingsInfo in lstReagentSettingsInfo)
                 {
-                    dt.Rows.Add(new object[] { reagentSettingsInfo.ReagentName,reagentSettingsInfo.ReagentType ,reagentSettingsInfo.Pos, reagentSettingsInfo.ProjectName
+                    dt1.Rows.Add(new object[] { reagentSettingsInfo.ReagentName,reagentSettingsInfo.ReagentType ,reagentSettingsInfo.Pos, reagentSettingsInfo.ProjectName
                         //, reagentSettingsInfo.ResidualQuantity, reagentSettingsInfo.Measuredquantity
                        ,reagentSettingsInfo.ValidDate.ToString("yyyy-MM-dd"),reagentSettingsInfo.ReagentContainer,reagentSettingsInfo.BatchNum
                     });
                 }
-                gridControl1.DataSource = dt;
-                this.gridView1.Columns[0].OptionsColumn.AllowEdit = false;
-                this.gridView1.Columns[1].OptionsColumn.AllowEdit = false;
-                this.gridView1.Columns[2].OptionsColumn.AllowEdit = false;
-                this.gridView1.Columns[3].OptionsColumn.AllowEdit = false;
-                //this.gridView1.Columns[4].OptionsColumn.AllowEdit = false;
-                //this.gridView1.Columns[5].OptionsColumn.AllowEdit = false;
-                this.gridView1.Columns[4].OptionsColumn.AllowEdit = false;
-                this.gridView1.Columns[5].OptionsColumn.AllowEdit = false;
-                this.gridView1.Columns[6].OptionsColumn.AllowEdit = false;
             }));
         }
         List<ReagentSettingsInfo> lstReagentSettingsInfo = new List<ReagentSettingsInfo>();
@@ -275,9 +319,11 @@ namespace BioA.UI
                 reagentSettingsInfo.ReagentName = this.gridView2.GetRowCellValue(selectedHandle, "试剂名称").ToString();
                 if (reagentSettingsInfo.ReagentName != null)
                 {
-                    DataConfig.StrmethodName = "DeleteReagentSettingsR2";
-                    DataConfig.ObjParam = XmlUtility.Serializer(typeof(ReagentSettingsInfo), reagentSettingsInfo);
-                    ReagentSettingLoad(DataConfig);
+                    //DataConfig.StrmethodName = "DeleteReagentSettingsR2";
+                    //DataConfig.ObjParam = XmlUtility.Serializer(typeof(ReagentSettingsInfo), reagentSettingsInfo);
+                    reagentDictionary.Clear();
+                    reagentDictionary.Add("DeleteReagentSettingsR2", new object[] { XmlUtility.Serializer(typeof(ReagentSettingsInfo), reagentSettingsInfo) });
+                    ReagentSettingLoad(reagentDictionary);
                 }
             }
         }

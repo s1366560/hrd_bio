@@ -12,11 +12,17 @@ using BioA.Common;
 using DevExpress.XtraEditors.Repository;
 using System.Text.RegularExpressions;
 using BioA.Common.IO;
+using System.Threading;
 
 namespace BioA.UI
 {
     public partial class QualityControlAddAndEdit : DevExpress.XtraEditors.XtraForm
     {
+        /// <summary>
+        /// 客户端发送信息给服务器的参数集合
+        /// </summary>
+        private Dictionary<string, object[]> qcAddDic = new Dictionary<string, object[]>();
+
         private List<AssayProjectInfo> lstAssayProInfos = new List<AssayProjectInfo>();
         /// <summary>
         /// 新增界面项目信息
@@ -29,8 +35,8 @@ namespace BioA.UI
                 lstAssayProInfos = value;
                 try
                 {
-                    this.Invoke(new EventHandler(delegate
-                        {
+                    //this.Invoke(new EventHandler(delegate
+                    //    {
                             lstvQCMaintainInfos.RefreshDataSource();
                             dataTable.Rows.Clear();
                             List<int> lstSelected = new List<int>();
@@ -65,7 +71,7 @@ namespace BioA.UI
                             {
                                 this.gridView1.SelectRow(selected - 1);
                             }
-                        }));
+                        //}));
                 }
                 catch (Exception e)
                 {
@@ -139,36 +145,40 @@ namespace BioA.UI
                         {
                             if (this.Text == "新增质控品")
                             {
-                                txtQCName.Text = string.Empty;
-                                combLevelConc.SelectedIndex = 1;
-                                txtLotNum.Text = string.Empty;
-                                cboPosition.SelectedIndex = 0;
-                                txtManufacturer.Text = string.Empty;
-                                dtpInvalidDate.ResetText();
+                                MessageBox.Show("添加成功！");
+                                this.Close();
+                                //txtQCName.Text = string.Empty;
+                                //combLevelConc.SelectedIndex = 1;
+                                //txtLotNum.Text = string.Empty;
+                                //cboPosition.SelectedIndex = 0;
+                                //txtManufacturer.Text = string.Empty;
+                                //dtpInvalidDate.ResetText();
 
 
-                                lstvQCMaintainInfos.RefreshDataSource();
-                                dataTable.Rows.Clear();
-                                int i = 1;
-                                //gridControl1
-                                if (lstAssayProInfos.Count != 0)
-                                {
-                                    foreach (AssayProjectInfo assayProInfo in lstAssayProInfos)
-                                    {
-                                        dataTable.Rows.Add(new object[] { i, assayProInfo.ProjectName, assayProInfo.SampleType, null, null });
-                                        i++;
-                                    }
-                                }
-                                this.gridView1.ClearSelection();
+                                //lstvQCMaintainInfos.RefreshDataSource();
+                                //dataTable.Rows.Clear();
+                                //int i = 1;
+                                ////gridControl1
+                                //if (lstAssayProInfos.Count != 0)
+                                //{
+                                //    foreach (AssayProjectInfo assayProInfo in lstAssayProInfos)
+                                //    {
+                                //        dataTable.Rows.Add(new object[] { i, assayProInfo.ProjectName, assayProInfo.SampleType, null, null });
+                                //        i++;
+                                //    }
+                                //}
+                                //this.gridView1.ClearSelection();
                             }
                             else
                             {
-                                CommunicationEntity communicationInfo = new CommunicationEntity();
-                                communicationInfo.StrmethodName = "EditQCRelateProInfo";
-                                communicationInfo.ObjParam = XmlUtility.Serializer(typeof(QualityControlInfo), qcInfo);
-                                communicationInfo.ObjLastestParam = XmlUtility.Serializer(typeof(List<QCRelationProjectInfo>), lstQCRelationProInfo);
+                                //CommunicationEntity communicationInfo = new CommunicationEntity();
+                                //communicationInfo.StrmethodName = "EditQCRelateProInfo";
+                                //communicationInfo.ObjParam = XmlUtility.Serializer(typeof(QualityControlInfo), qcInfo);
+                                //communicationInfo.ObjLastestParam = XmlUtility.Serializer(typeof(List<QCRelationProjectInfo>), lstQCRelationProInfo);
 
-                                CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCMaintain, XmlUtility.Serializer(typeof(CommunicationEntity), communicationInfo));
+                                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCMaintain, XmlUtility.Serializer(typeof(CommunicationEntity), communicationInfo));
+                                MessageBox.Show("更新成功！");
+                                this.Close();
                             }
                         }
                     }));
@@ -186,16 +196,16 @@ namespace BioA.UI
             { 
                 lstPosition = value;
 
-                //List<string> lstAllPosition = RunConfigureUtility.QCPosition;
-                //foreach (string str in lstPosition)
-                //{
-                //    lstAllPosition.Remove(str);
-                //}
-                //this.Invoke(new EventHandler(delegate
-                //    {
-                //        cboPosition.Properties.Items.AddRange(lstAllPosition);
-                //        cboPosition.SelectedIndex = 0;
-                //    }));                
+                List<string> lstAllPosition = RunConfigureUtility.QCPosition;
+                foreach (string str in lstPosition)
+                {
+                    lstAllPosition.Remove(str);
+                }
+                this.Invoke(new EventHandler(delegate
+                    {
+                        cboPosition.Properties.Items.AddRange(lstAllPosition);
+                        cboPosition.SelectedIndex = 0;
+                    }));                
             }
         }
 
@@ -204,6 +214,30 @@ namespace BioA.UI
         {
             InitializeComponent();
             this.ControlBox = false;
+            dataTable.Columns.Add("序号");
+            dataTable.Columns.Add("项目名称");
+            dataTable.Columns.Add("样本类型");
+            dataTable.Columns.Add("靶值");
+            dataTable.Columns.Add("SD");
+
+            lstvQCMaintainInfos.DataSource = dataTable;
+
+            this.gridView1.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
+            this.gridView1.Columns[0].OptionsColumn.AllowEdit = false;
+            this.gridView1.Columns[1].OptionsColumn.AllowEdit = false;
+            this.gridView1.Columns[2].OptionsColumn.AllowEdit = false;
+            this.gridView1.Columns[0].Width = 50;
+            this.gridView1.Columns[1].Width = 200;
+            this.gridView1.Columns[2].Width = 200;
+            this.gridView1.Columns[3].Width = 100;
+            this.gridView1.Columns[4].Width = 100;
+            //获取配置文件中质控品水平浓度
+            foreach (string levelConc in RunConfigureUtility.QCLevelConc)
+            {
+                combLevelConc.Properties.Items.Add(levelConc);
+            }
+            //获取质控品位置
+            cboPosition.Properties.Items.AddRange(RunConfigureUtility.QCPosition);
 
             
         }
@@ -215,6 +249,11 @@ namespace BioA.UI
 
         QualityControlInfo qcInfo = new QualityControlInfo();
         List<QCRelationProjectInfo> lstQCRelationProInfo = new List<QCRelationProjectInfo>();
+        /// <summary>
+        /// 质控品信息保存事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSave_Click(object sender, EventArgs e)
         {
             lstQCRelationProInfo.Clear();
@@ -235,25 +274,32 @@ namespace BioA.UI
                 MessageBox.Show("质控品生产厂家不能为空，请填写生产厂家！");
                 return;
             }
-
-            foreach (int i in this.gridView1.GetSelectedRows())
+            if (this.gridView1.SelectedRowsCount != 0)
             {
-                DataRow dr = this.gridView1.GetDataRow(i);
-
-                try
+                foreach (int i in this.gridView1.GetSelectedRows())
                 {
-                    if (!Regex.IsMatch(((string)dr.ItemArray[3]).Trim(), @"^(-?\d+)(\.\d+)?$") ||
-                        !Regex.IsMatch(((string)dr.ItemArray[4]).Trim(), @"^(-?\d+)(\.\d+)?$") )
+                    DataRow dr = this.gridView1.GetDataRow(i);
+
+                    try
+                    {
+                        if (!Regex.IsMatch(((string)dr.ItemArray[3]).Trim(), @"^(-?\d+)(\.\d+)?$") ||
+                            !Regex.IsMatch(((string)dr.ItemArray[4]).Trim(), @"^(-?\d+)(\.\d+)?$"))
+                        {
+                            MessageBox.Show("质控品对应生化项目录入数据有误，请检查并修改！");
+                            return;
+                        }
+                    }
+                    catch (Exception ex)
                     {
                         MessageBox.Show("质控品对应生化项目录入数据有误，请检查并修改！");
                         return;
                     }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("质控品对应生化项目录入数据有误，请检查并修改！");
-                    return;
-                }
+            }
+            else
+            {
+                MessageBox.Show("请选择对应的生化项目！");
+                return;
             }
 
             //QualityControlInfo qcInfo = new QualityControlInfo();
@@ -284,25 +330,43 @@ namespace BioA.UI
 
             if (this.Text == "新增质控品")
             {
-                CommunicationEntity communicationInfo = new CommunicationEntity();
-                communicationInfo.StrmethodName = "AddQualityControl";
-                communicationInfo.ObjParam = XmlUtility.Serializer(typeof(QualityControlInfo), qcInfo);
-                communicationInfo.ObjLastestParam = XmlUtility.Serializer(typeof(List<QCRelationProjectInfo>), lstQCRelationProInfo);
+                //CommunicationEntity communicationInfo = new CommunicationEntity();
+                //communicationInfo.StrmethodName = "AddQualityControl";
+                //communicationInfo.ObjParam = XmlUtility.Serializer(typeof(QualityControlInfo), qcInfo);
+                //communicationInfo.ObjLastestParam = XmlUtility.Serializer(typeof(List<QCRelationProjectInfo>), lstQCRelationProInfo);
 
-                CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCMaintain, XmlUtility.Serializer(typeof(CommunicationEntity), communicationInfo));
+                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCMaintain, XmlUtility.Serializer(typeof(CommunicationEntity), communicationInfo));
+                qcAddDic.Clear();
+                qcAddDic.Add("AddQualityControl", new object[] { XmlUtility.Serializer(typeof(QualityControlInfo), qcInfo), XmlUtility.Serializer(typeof(List<QCRelationProjectInfo>), lstQCRelationProInfo) });
+                SendToServices(qcAddDic);
+
             }
             else
             {
-                CommunicationEntity communicationInfo = new CommunicationEntity();
-                communicationInfo.StrmethodName = "EditQualityControl";
-                communicationInfo.ObjParam = XmlUtility.Serializer(typeof(QualityControlInfo), qCOldInfo);
-                communicationInfo.ObjLastestParam = XmlUtility.Serializer(typeof(QualityControlInfo), qcInfo);
-                CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCMaintain, XmlUtility.Serializer(typeof(CommunicationEntity), communicationInfo));
-
-                
+                //CommunicationEntity communicationInfo = new CommunicationEntity();
+                //communicationInfo.StrmethodName = "EditQualityControl";
+                //communicationInfo.ObjParam = XmlUtility.Serializer(typeof(QualityControlInfo), qCOldInfo);
+                //communicationInfo.ObjLastestParam = XmlUtility.Serializer(typeof(QualityControlInfo), qcInfo);
+                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCMaintain, XmlUtility.Serializer(typeof(CommunicationEntity), communicationInfo));
+                qcAddDic.Clear();
+                qcAddDic.Add("EditQualityControl", new object[] { XmlUtility.Serializer(typeof(QualityControlInfo), qCOldInfo), XmlUtility.Serializer(typeof(QualityControlInfo), qcInfo), XmlUtility.Serializer(typeof(List<QCRelationProjectInfo>), lstQCRelationProInfo) });
+                SendToServices(qcAddDic);
             }
 
             
+        }
+        /// <summary>
+        /// 发送信息给服务器
+        /// </summary>
+        /// <param name="param"></param>
+        private void SendToServices(Dictionary<string, object[]> param)
+        {
+            var qcAddThread = new Thread(() =>
+            {
+                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.QCMaintain, param);
+            });
+            qcAddThread.IsBackground = true;
+            qcAddThread.Start();
         }
 
         private void QualityControlAddAndEdit_Load(object sender, EventArgs e)
@@ -313,32 +377,8 @@ namespace BioA.UI
 
         private void loadQualityControlAddAndEdit()
         {
-            foreach (string levelConc in RunConfigureUtility.QCLevelConc)
-            {
-                combLevelConc.Properties.Items.Add(levelConc);
-            }
-
-            cboPosition.Properties.Items.AddRange(RunConfigureUtility.QCPosition);
-            cboPosition.SelectedIndex = 0;
-            combLevelConc.SelectedIndex = 1;
-
-            dataTable.Columns.Add("序号");
-            dataTable.Columns.Add("项目名称");
-            dataTable.Columns.Add("样本类型");
-            dataTable.Columns.Add("靶值");
-            dataTable.Columns.Add("SD");
-
-            lstvQCMaintainInfos.DataSource = dataTable;
-
-            this.gridView1.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
-            this.gridView1.Columns[0].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[1].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[2].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[0].Width = 50;
-            this.gridView1.Columns[1].Width = 200;
-            this.gridView1.Columns[2].Width = 200;
-            this.gridView1.Columns[3].Width = 100;
-            this.gridView1.Columns[4].Width = 100;
+            //cboPosition.SelectedIndex = 0;
+            //combLevelConc.SelectedIndex = 1;
 
             if (this.Text == "新增质控品")
             {

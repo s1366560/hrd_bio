@@ -16,8 +16,13 @@ namespace BioA.UI
 {
     public partial class CheProjectAddOrEdit : DevExpress.XtraEditors.XtraForm
     {
+        /// <summary>
+        /// 存储客户端发送信息给服务器的参数集合
+        /// </summary>
+        private Dictionary<string, object[]> cheProAddOrEditDic = new Dictionary<string, object[]>();
+
         //BioAServiceClient service = new BioAServiceClient();
-        public delegate void DataHandle(object sender);
+        public delegate void DataHandle(Dictionary<string, object[]> sender);
         public event DataHandle DataHandleEvent;
 
         AssayProjectInfo assayProInfoOld = new AssayProjectInfo();
@@ -33,14 +38,14 @@ namespace BioA.UI
 
             cboSampleType.SelectedIndex = 1;
         }
-        public void FormAdd(string strProShortName, string strSampleType, string strProLongName, string strChannelNumber)
+        public void FormAdd(AssayProjectInfo assayProInfo)
         {
-            txtProShortName.Text = strProShortName;
-            txtProLongName.Text = strProLongName;
-            txtChannelNumber.Text = strChannelNumber;
-            cboSampleType.Text = strSampleType;
-            assayProInfoOld.ProjectName = strProShortName;
-            assayProInfoOld.SampleType = strSampleType;
+            txtProShortName.Text = assayProInfo.ProjectName;
+            txtProLongName.Text = assayProInfo.ProFullName;
+            txtChannelNumber.Text = assayProInfo.ChannelNum;
+            cboSampleType.Text = assayProInfo.SampleType;
+            assayProInfoOld.ProjectName = assayProInfo.ProjectName;
+            assayProInfoOld.SampleType = assayProInfo.SampleType;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -75,10 +80,13 @@ namespace BioA.UI
                 {
                     if (DataHandleEvent != null)
                     {
-                        CommunicationEntity communicationEntity = new CommunicationEntity();
-                        communicationEntity.ObjParam = XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfo);
-                        communicationEntity.StrmethodName = "AssayProjectAdd";
-                        DataHandleEvent(communicationEntity);
+                        //CommunicationEntity communicationEntity = new CommunicationEntity();
+                        //communicationEntity.ObjParam = XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfo);
+                        //communicationEntity.StrmethodName = "AssayProjectAdd";
+                        //DataHandleEvent(communicationEntity);
+                        cheProAddOrEditDic.Clear();
+                        cheProAddOrEditDic.Add("AssayProjectAdd", new object[] { XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfo) });
+                        DataHandleEvent(cheProAddOrEditDic);
                         this.Close();
                     }
 
@@ -87,11 +95,14 @@ namespace BioA.UI
                 {
                     if (DataHandleEvent != null)
                     {
-                        CommunicationEntity communicationEntity = new CommunicationEntity();
-                        communicationEntity.ObjLastestParam = XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfo);
-                        communicationEntity.StrmethodName = "AssayProjectEdit";
-                        communicationEntity.ObjParam = XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfoOld);
-                        DataHandleEvent(communicationEntity);
+                        //CommunicationEntity communicationEntity = new CommunicationEntity();
+                        //communicationEntity.ObjLastestParam = XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfo);
+                        //communicationEntity.StrmethodName = "AssayProjectEdit";
+                        //communicationEntity.ObjParam = XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfoOld);
+                        //DataHandleEvent(communicationEntity);
+                        cheProAddOrEditDic.Clear();
+                        cheProAddOrEditDic.Add("AssayProjectEdit", new object[] { XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfoOld), XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfo) });
+                        DataHandleEvent(cheProAddOrEditDic);
                         this.Close();
                     }
 

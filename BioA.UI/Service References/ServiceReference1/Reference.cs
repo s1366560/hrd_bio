@@ -11,7 +11,6 @@
 namespace BioA.UI.ServiceReference1 {
     using System.Runtime.Serialization;
     using System;
-    using System.Collections.Generic;
     
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -109,48 +108,54 @@ namespace BioA.UI.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBioAService/ClientSendMsgToService")]
         System.Threading.Tasks.Task ClientSendMsgToServiceAsync(BioA.Common.ModuleInfo sendClientName, string param);
         
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBioAService/ClientSendMsgToServiceMethod")]
+        void ClientSendMsgToServiceMethod(BioA.Common.ModuleInfo sendClientName, System.Collections.Generic.Dictionary<string, object[]> param);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBioAService/ClientSendMsgToServiceMethod")]
+        System.Threading.Tasks.Task ClientSendMsgToServiceMethodAsync(BioA.Common.ModuleInfo sendClientName, System.Collections.Generic.Dictionary<string, object[]> param);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBioAService/GetClients", ReplyAction="http://tempuri.org/IBioAService/GetClientsResponse")]
         string[] GetClients();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBioAService/GetClients", ReplyAction="http://tempuri.org/IBioAService/GetClientsResponse")]
         System.Threading.Tasks.Task<string[]> GetClientsAsync();
-
-        [System.ServiceModel.OperationContractAttribute(IsOneWay = true, Action ="http://tempuri.org/IBioAService/ClientSendMsgToServiceMethod")]
-        void ClientSendMsgToServiceMethod(BioA.Common.ModuleInfo sendClientName, Dictionary<string, List<object>>param);
-
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface IBioAServiceCallback {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBioAService/NotifyFunction")]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(string[]))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BioA.UI.ServiceReference1.CompositeType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BioA.Common.CommunicationEntity))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BioA.Common.ModuleInfo))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.Dictionary<string, object[]>))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(object[]))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(string[]))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.Dictionary<string, object>))]
         void NotifyFunction(object sender);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBioAService/ClientNotifyFunction")]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(string[]))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BioA.UI.ServiceReference1.CompositeType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BioA.Common.CommunicationEntity))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BioA.Common.ModuleInfo))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.Dictionary<string, object[]>))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(object[]))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(string[]))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.Dictionary<string, object>))]
         void ClientNotifyFunction(string strSendClientName, object Sender);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBioAService/DatabaseNotifyFunction")]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(string[]))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BioA.UI.ServiceReference1.CompositeType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BioA.Common.CommunicationEntity))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BioA.Common.ModuleInfo))]
-        void DatabaseNotifyFunction(BioA.Common.ModuleInfo moduleInfo, string strMethod, object sender);
-
-        [System.ServiceModel.OperationContractAttribute(IsOneWay = true, Action ="http://tempuri.org/IBioAService/DataAllReturnFunction")]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BioA.Common.ModuleInfo))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(object))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.Dictionary<string, object[]>))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(object[]))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(string[]))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BioA.UI.ServiceReference1.CompositeType))]
-        void DataAllReturnFunction(BioA.Common.ModuleInfo moduleInfo, Dictionary<string, object> strMethodParam);
-
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.Dictionary<string, object>))]
+        void DatabaseNotifyFunction(BioA.Common.ModuleInfo moduleInfo, string strMethod, object sender);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBioAService/DataAllReturnFunction")]
+        void DataAllReturnFunction(BioA.Common.ModuleInfo moduleInfo, System.Collections.Generic.Dictionary<string, object> strMethodParam);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -221,17 +226,20 @@ namespace BioA.UI.ServiceReference1 {
             return base.Channel.ClientSendMsgToServiceAsync(sendClientName, param);
         }
         
+        public void ClientSendMsgToServiceMethod(BioA.Common.ModuleInfo sendClientName, System.Collections.Generic.Dictionary<string, object[]> param) {
+            base.Channel.ClientSendMsgToServiceMethod(sendClientName, param);
+        }
+        
+        public System.Threading.Tasks.Task ClientSendMsgToServiceMethodAsync(BioA.Common.ModuleInfo sendClientName, System.Collections.Generic.Dictionary<string, object[]> param) {
+            return base.Channel.ClientSendMsgToServiceMethodAsync(sendClientName, param);
+        }
+        
         public string[] GetClients() {
             return base.Channel.GetClients();
         }
         
         public System.Threading.Tasks.Task<string[]> GetClientsAsync() {
             return base.Channel.GetClientsAsync();
-        }
-
-        public void ClientSendMsgToServiceMethod(BioA.Common.ModuleInfo sendClientName, Dictionary<string, List<object>>param)
-        {
-            base.Channel.ClientSendMsgToServiceMethod(sendClientName, param);
         }
     }
 }

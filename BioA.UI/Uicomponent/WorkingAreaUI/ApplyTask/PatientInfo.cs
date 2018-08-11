@@ -155,10 +155,19 @@ namespace BioA.UI
             grpPatientInfoCheck.Controls.Clear();
             grpPatientInfoCheck.Controls.Add(patientInfoEdit);
 
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity),
-                new CommunicationEntity("QueryPatientInfoBySampleNum", intSelectedNum.ToString())));
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask,
-                XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryPatientInfos", null)));
+            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity),
+            //    new CommunicationEntity("QueryPatientInfoBySampleNum", intSelectedNum.ToString())));
+            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask,
+            //    XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryPatientInfos", null)));
+            Dictionary<string, object[]> patientDictionary = new Dictionary<string, object[]>();
+            var patientThread = new Thread(() =>
+            {
+                patientDictionary.Add("QueryPatientInfoBySampleNum", new object[] { intSelectedNum.ToString() });
+                patientDictionary.Add("QueryPatientInfos", new object[] { "" });
+                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaApplyTask, patientDictionary);
+            });
+            patientThread.IsBackground = true;
+            patientThread.Start();
         }
     }
 }

@@ -24,13 +24,6 @@ namespace BioA.UI
         public RMThirdMenu()
         {
             InitializeComponent();
-
-            ultravioletRays = new UltravioletRays();
-            waterBlankCheck = new WaterBlankCheck();
-            blankInterface = new BlankInterface();
-            waterBlankCheck.SendNetworkEvent += SendNetwork_Event;
-            xtraTabPage1.Controls.Add(blankInterface);
-            xtraTabPage1.Controls.Add(waterBlankCheck);
         }
 
         public void DataTransfer_Event(string strMethod, object sender)
@@ -76,8 +69,8 @@ namespace BioA.UI
             if (xtraTabControl1.SelectedTabPageIndex == 0)
             {
                 xtraTabPage1.Controls.Clear();
-                if (waterBlankCheck != null)
-                    waterBlankCheck.SendNetworkEvent -= SendNetwork_Event;
+                //if (waterBlankCheck != null)
+                //    waterBlankCheck.SendNetworkEvent -= SendNetwork_Event;
                 waterBlankCheck = new WaterBlankCheck();
                 blankInterface = new BlankInterface();
                 waterBlankCheck.SendNetworkEvent += SendNetwork_Event;
@@ -110,6 +103,18 @@ namespace BioA.UI
         {
             if (SendNetworkEvent != null)
                 SendNetworkEvent(sender);
+        }
+
+        private void RMThirdMenu_Load(object sender, EventArgs e)
+        {
+            BeginInvoke(new Action(() =>
+            {
+                waterBlankCheck = new WaterBlankCheck();
+                blankInterface = new BlankInterface();
+                waterBlankCheck.SendNetworkEvent += SendNetwork_Event;
+                xtraTabPage1.Controls.Add(blankInterface);
+                xtraTabPage1.Controls.Add(waterBlankCheck);
+            }));
         }
     }
 }

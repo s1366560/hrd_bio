@@ -43,17 +43,11 @@ namespace BioA.Service
             return strInfo;
         }
 
-        public List<ReagentNeedleAntifoulingStrategyInfo> QueryReagentNeedle(string strDBMethod, ReagentNeedleAntifoulingStrategyInfo reagentNeedleAntifoulingStrategyInfo)
+        public List<ReagentNeedleAntifoulingStrategyInfo> QueryReagentNeedle(string strDBMethod)
         {
             List<ReagentNeedleAntifoulingStrategyInfo> lstQueryReagentNeedle = new List<ReagentNeedleAntifoulingStrategyInfo>();
-            try
-            {
-                lstQueryReagentNeedle = myBatis.QueryReagentNeedle(strDBMethod, null);
-            }
-            catch (Exception e)
-            {
-                LogInfo.WriteErrorLog(e.ToString(), Module.WindowsService);
-            }
+            lstQueryReagentNeedle = myBatis.QueryReagentNeedle(strDBMethod);
+            
             return lstQueryReagentNeedle;
         }
 
