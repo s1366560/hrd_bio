@@ -28,6 +28,7 @@ namespace BioA.Common
         private float absValue;
         private float concResult;
         private DateTime sampleCreateTime;
+        private DateTime sampleCompletionTime;
         /// <summary>
         /// 样本号
         /// </summary>
@@ -74,7 +75,14 @@ namespace BioA.Common
             get { return sampleCreateTime; }
             set { sampleCreateTime = value; }
         }
-
+        /// <summary>
+        /// 样本完成时间
+        /// </summary>
+        public DateTime SampleCompletionTime
+        {
+            get { return sampleCompletionTime; }
+            set { sampleCompletionTime = value; }
+        }
         /// <summary>
         /// 吸光度
         /// </summary>

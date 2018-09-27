@@ -406,6 +406,14 @@
             this.simpleButton1.TabIndex = 0;
             this.simpleButton1.Click += new System.EventHandler(this.simpleButton_Click);
             // 
+            // toolTip1
+            // 
+            this.toolTip1.ForeColor = System.Drawing.Color.OrangeRed;
+            this.toolTip1.IsBalloon = true;
+            this.toolTip1.ShowAlways = true;
+            this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Warning;
+            this.toolTip1.ToolTipTitle = "警告！";
+            // 
             // simpleButton29
             // 
             this.simpleButton29.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("simpleButton29.BackgroundImage")));

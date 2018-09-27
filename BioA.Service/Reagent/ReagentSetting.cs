@@ -66,11 +66,14 @@ namespace BioA.Service
                 }
                 if(str=="")
                 {
+                    //保存试剂信息
                     str = myBatis.AddreagentSettingInfo(strDBMethod, reagentSettingsInfo);
                 }
 
-                // 添加或更新试剂状态
-                if (reagentSettingsInfo.ReagentType != "清洗剂")
+                // 保存或更新试剂状态信息
+                //if (reagentSettingsInfo.ReagentType != "清洗剂")
+                //{
+                if (str == "试剂R1装载成功！")
                 {
                     ReagentStateInfoR1R2 reagentState = myBatis.QueryReagentStateInfoByProjectName("QueryReagentStateInfoByProjectName", reagentSettingsInfo);
                     if (reagentState == null)
@@ -92,13 +95,16 @@ namespace BioA.Service
                     }
                 }
                 else
-                {
-                    ReagentStateInfoR1R2 addReagentState = new ReagentStateInfoR1R2();
-                    addReagentState.ReagentType = reagentSettingsInfo.ReagentType;
-                    addReagentState.ReagentName = reagentSettingsInfo.ReagentName;
-                    addReagentState.Pos = reagentSettingsInfo.Pos;
-                    myBatis.AddreagentStateInfoR1R2("reagentStateAdd", addReagentState);
-                }
+                    return str;
+                //}
+                //else
+                //{
+                //    ReagentStateInfoR1R2 addReagentState = new ReagentStateInfoR1R2();
+                //    addReagentState.ReagentType = reagentSettingsInfo.ReagentType;
+                //    addReagentState.ReagentName = reagentSettingsInfo.ReagentName;
+                //    addReagentState.Pos = reagentSettingsInfo.Pos;
+                //    myBatis.AddreagentStateInfoR1R2("reagentStateAdd", addReagentState);
+                //}
                                  
                 
             }
@@ -113,6 +119,7 @@ namespace BioA.Service
             string str = "";
             try
             {
+                
                 List<ReagentSettingsInfo> lstReagentSettingsInfo = myBatis.QueryReagentSettingsInfo2("QueryReagentSetting2", null);
                 
                 for (int i = 0; i < lstReagentSettingsInfo.Count; i++)
@@ -140,7 +147,9 @@ namespace BioA.Service
                     str = myBatis.AddreagentSettingInfo2(strDBMethod, reagentSettingsInfo);
                 }
                 // 添加或更新试剂状态
-                if (reagentSettingsInfo.ReagentType != "清洗剂")
+                //if (reagentSettingsInfo.ReagentType != "清洗剂")
+                //{
+                if (str == "试剂R2装载成功！")
                 {
                     ReagentStateInfoR1R2 reagentState = myBatis.QueryReagentStateInfoByProjectName("QueryReagentStateInfoByProjectName", reagentSettingsInfo);
                     if (reagentState == null)
@@ -150,7 +159,8 @@ namespace BioA.Service
                         addReagentState.ReagentType2 = reagentSettingsInfo.ReagentType;
                         addReagentState.ReagentName2 = reagentSettingsInfo.ReagentName;
                         addReagentState.Pos2 = reagentSettingsInfo.Pos;
-                        myBatis.AddreagentStateInfoR1R2("reagentStateAdd2", addReagentState);                    }
+                        string reagentStateR1R2 = myBatis.AddreagentStateInfoR1R2("reagentStateAdd2", addReagentState);
+                    }
                     else
                     {
                         // 更新
@@ -161,13 +171,16 @@ namespace BioA.Service
                     }
                 }
                 else
-                {
-                    ReagentStateInfoR1R2 addReagentState = new ReagentStateInfoR1R2();
-                    addReagentState.ReagentType2 = reagentSettingsInfo.ReagentType;
-                    addReagentState.ReagentName2 = reagentSettingsInfo.ReagentName;
-                    addReagentState.Pos2 = reagentSettingsInfo.Pos;
-                    myBatis.AddreagentStateInfoR1R2("reagentStateAdd", addReagentState);
-                }
+                    return str;
+                //}
+                //else
+                //{
+                //    ReagentStateInfoR1R2 addReagentState = new ReagentStateInfoR1R2();
+                //    addReagentState.ReagentType2 = reagentSettingsInfo.ReagentType;
+                //    addReagentState.ReagentName2 = reagentSettingsInfo.ReagentName;
+                //    addReagentState.Pos2 = reagentSettingsInfo.Pos;
+                //    myBatis.AddreagentStateInfoR1R2("reagentStateAdd", addReagentState);
+                //}
                                
 
 
@@ -193,8 +206,8 @@ namespace BioA.Service
             {
                 ReagentStateInfoR1R2 reagentR1AndR2 = myBatis.SelectReagentStateForR1R2("SelectReagentStateForR1R2", DeletereagentSettingsInfo);
                 // 判断试剂2设置是否存在同一项目的试剂，如果存在，更新试剂状态表，如果不存在，删除试剂表对应数据
-                if (reagentR1AndR2.ReagentName2 == null && reagentR1AndR2.ReagentType2 == null &&
-                    reagentR1AndR2.ReagentName2 == "" && reagentR1AndR2.ReagentType2 == "")
+                if ((reagentR1AndR2.ReagentName2 == null && reagentR1AndR2.ReagentType2 == null) ||
+                    (reagentR1AndR2.ReagentName2 == "" && reagentR1AndR2.ReagentType2 == ""))
                 {
                     //根据删除试剂R1R2表中试剂2对应的数据
                     myBatis.DeletereagentStateInfoR1R2("DeletereagentStateInfoR1R2", DeletereagentSettingsInfo);
@@ -226,8 +239,8 @@ namespace BioA.Service
             {
                 ReagentStateInfoR1R2 reagentR1AndR2 = myBatis.SelectReagentStateForR1R2("SelectReagentStateForR1R2", DeletereagentSettingsInfo);
                 // 判断试剂2设置是否存在同一项目的试剂，如果存在，更新试剂状态表，如果不存在，删除试剂表对应数据
-                if (reagentR1AndR2.ReagentName == null  && reagentR1AndR2.ReagentType == null &&
-                    reagentR1AndR2.ProjectName == "" && reagentR1AndR2.ReagentType == "")
+                if ((reagentR1AndR2.ReagentName == null  && reagentR1AndR2.ReagentType == null) ||
+                    (reagentR1AndR2.ReagentName == "" && reagentR1AndR2.ReagentType == ""))
                 {
                     //myBatis.DeletereagentStateInfoR2("DeletereagentStateInfoR2", DeletereagentSettingsInfo);
                     //根据删除试剂R1R2表中试剂2对应的数据

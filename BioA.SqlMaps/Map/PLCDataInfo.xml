@@ -123,6 +123,16 @@
       <result property="Cuv49Ws" column="Cuv49Ws" />
       <!--<result property="CalibConcentration" column="CalibConcentration" />-->
     </resultMap>
+
+    <resultMap id="TroubleLogInfoResult" class="TroubleLog">
+      <result property="DrawDate" column="DrawDate" />
+      <result property="TroubleCode" column="TroubleCode" />
+      <result property="TroubleInfo" column="TroubleInfo"/>
+      <result property="TroubleType" column="TroubleType"/>
+      <result property="TroubleUnit" column="TroubleUnit"/>
+      <result property="IsConfirm" column="IsConfirm"/>
+    </resultMap>
+    
   </resultMaps>
   <statements>
     <statement id="GetWorkingDisk" resultClass="int">
@@ -131,6 +141,19 @@
     <statement id="TroubleLogSave" parameterClass="System.Collections.IDictionary">
       insert into TroubleLogTb(DrawDate, TroubleCode, TroubleInfo, TroubleType, TroubleUnit, IsConfirm) values (#DrawDate#, #TroubleCode#, #TroubleInfo#, #TroubleType#, #TroubleUnit#, #IsConfirm#)
     </statement>
+    <!-- 获取故障信息 -->
+    <select id="SelectTroubleLogInfoByTimeQuantum" parameterClass="System.Collections.IDictionary" resultMap="TroubleLogInfoResult">
+      select * from troublelogtb where DrawDate between #logStateTime# and #logEnditTime# and IsConfirm ='0'
+    </select>
+    <!-- 确认修改故障信息 -->
+    <update id="AffirmTroubleLogInfo" parameterClass ="string" resultClass="int">
+      update troublelogtb set IsConfirm = '1' where DrawDate=#value#
+    </update>
+    <!-- 获取当天的故障信息总行数 -->
+    <select id="GetTroubleInfoCount" parameterClass="string" resultClass="int">
+      select count(*) from troublelogtb where IsConfirm='0' and DateDiff(DrawDate,#value#)=0
+    </select>
+    
     <statement id="UpdateLatestCUVPanelTemperature" parameterClass="float">
       update RunningStateTb set CUVPanelTemp=#value#
     </statement>
@@ -266,9 +289,11 @@
       select FinishTimes from TaskTb  where ProjectName=#ProjectName# and SampleNum=#SampleNum# and CreateDate between #StartTime# and #EndTime#
     </statement>
     
+    <!--2018 9/4
     <statement id="UpdteTaskState" parameterClass="System.Collections.IDictionary">
       update TaskTb set TaskState = 2 where ProjectName=#ProjectName# and SampleNum=#SampleNum# and InspectTimes=TaskState and CreateDate between #StartTime# and #EndTime#
     </statement>
+    -->
     <statement id="GetSDTScheduleFinishCount" parameterClass="System.Collections.IDictionary" resultClass="int">
       select FinishTimes from CalibratorinfoTaskTb where ProjectName=#ProjectName# and SampleNum=#SampleNum# and CalibName=#CalibratorName# and CreateDate=#CreateDate#
     </statement>
@@ -325,7 +350,7 @@
       update QCTaskTb set TaskState=#TaskState# where ProjectName=#ProjectName# and SampleType=#SampleType# and SampleNum=#SampleNum#
     </statement>
     <statement id="UpdateTaskStatePerform" parameterClass="System.Collections.IDictionary">
-      update TaskTb set TaskState=#TaskState# where ProjectName=#ProjectName# and SampleType=#SampleType# and SampleNum=#SampleNum# 
+      update TaskTb set TaskState=#TaskState# where SampleNum=#SampleNum# and ProjectName=#ProjectName# and CreateDate=#CreateDate#
     </statement>
     <statement id="UpdateSampleStatePerform" parameterClass="System.Collections.IDictionary">
       update SampleTb set SampleState=#TaskState# where SampleNum=#SampleNum# and CreateTime=#CreateTime#
@@ -348,11 +373,11 @@
     <statement id="DeleteNotTodayCalibTask" parameterClass="System.Collections.IDictionary">
       delete from CalibratorinfoTaskTb where DATEDIFF(#TargetDate#,CreateDate)!=0
     </statement>
-    <statement id="GetRunningDate">
+    <statement id="GetRunningDate" resultClass="string">
       select DrawDate from RunningStateTb
     </statement>
     <statement id="InitRunningState" parameterClass="System.Collections.IDictionary">
-      update RunningStateTb set WorkDisk='1',LastestSMPNO="LastestSMPNO",LastestTC='0',DrawDate=#DrawDate# where DATEDIFF(#TargetDate#,CreateDate)!=0
+      update RunningStateTb set WorkDisk='1',LastestSMPNO=#LastestSMPNO#,LastestTC='0',DrawDate=#DrawDate# where DATEDIFF(#TargetDate#,DrawDate)!=0
     </statement>
     <statement id="ClearRTData">
       delete from RealTimeCUVDataTb
@@ -414,8 +439,14 @@
     <statement id="UpdateRealTimeState" parameterClass="System.Collections.IDictionary">
       update RealTimeCUVDataTb set CUVPoint=#CUVPoint# where WorkNo=#WORKNO#
     </statement>
+    <!-- 下位机接收任务成功，返回的进程杯号，在修改样本结果中的反应进程编号
     <statement id="UpdateSampleResultTCNO" parameterClass="System.Collections.IDictionary">
       update SampleResultTb set TCNO=#TCNO# where SampleNum=#SampleNum# and ProjectName=#ProjectName# and SampleType=#SampleType# and SampleCreateTime=#SampleCreateTime#
+    </statement>
+    -->
+    <statement id="AddSampleResultInfo" parameterClass="System.Collections.IDictionary">
+      insert into SampleResultTb (SampleNum, SampleCreateTime, ProjectName, SampleType, TCNO, SampleCompletionStatus)
+      values(#SampleNum#, #SampleCreateTime#, #ProjectName#, #SampleType#, #TCNO#, #SampleCompletionStatus#)
     </statement>
     <statement id="UpdateQualityControlResultTCNO" parameterClass="System.Collections.IDictionary">
       update QualityControlResultTb set TCNO=#TCNO# where SampleNum=#SampleNum# and ProjectName=#ProjectName# and SampleType=#SampleType# and SampleCreateTime=#SampleCreateTime#
@@ -424,7 +455,7 @@
       update CalibrationResultTb set TCNO=#TCNO# where SampleNum=#SampleNum# and ProjectName=#ProjectName# and SampleType=#SampleType# and CalibratorName=#CalibName# and CalibrationDT=#CalibrationDT#
     </statement>-->
     <statement id ="QuerySampleResultTCNO" parameterClass ="System.Collections.IDictionary" ResultClass ="string">
-      select TCNO from SampleResultTb where SampleNum=#SampleNum# and ProjectName=#ProjectName# and SampleType=#SampleType# and SampleCreateTime =#SampleCreateTime#
+      select TCNO from SampleResultTb where SampleNum=#SampleNum# and ProjectName=#ProjectName# and SampleType=#SampleType# and SampleCompletionTime =#SampleCompletionTime#
     </statement>
     <statement id="QueryCalibrationReactionProcess" ResultClass="TimeCourseInfo" parameterClass="System.Collections.IDictionary" >
       <!--select * from calibrationreactionprocesstb where ProjectName=#ProjectName# and CalibName=#CalibName# and SampleType=#SampleType#-->
@@ -449,6 +480,9 @@
     <statement id="QueryTimeCourseByQCInfo" parameterClass="System.Collections.IDictionary" resultClass="TimeCourseInfo">
       select * from TimeCourseTb where  TimeCourseNO=#TimeCourseNO# and DrawDate between #BengTime# and #EndTime#
     </statement>
-    
+    <!-- 2018/9/4 修改样本结果表中状态为1 Remarks（备注）字段 -->
+    <statement id="UpdateSampleResultState" parameterClass="string">
+      update sampleresulttb set Remarks=#value#  where SampleCompletionStatus='1'
+    </statement>
   </statements>
 </sqlMap>

@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BioA.SqlMaps
@@ -95,12 +96,12 @@ namespace BioA.SqlMaps
             {
                 //#DrawDate#, #TroubleCode#, #TroubleInfo#, #TroubleType#, #TroubleUnit#, #IsConfirm#
                 Hashtable ht = new Hashtable();
-                ht.Add("DrawDate", troubleLog.DrawDT);
+                ht.Add("DrawDate", troubleLog.DrawDate);
                 ht.Add("TroubleCode", troubleLog.TroubleCode);
                 ht.Add("TroubleInfo", troubleLog.TroubleInfo);
                 ht.Add("TroubleType", troubleLog.TroubleType);
                 ht.Add("TroubleUnit", troubleLog.TroubleUnit);
-                ht.Add("IsConfirm", troubleLog.IsComfirm);
+                ht.Add("IsConfirm", troubleLog.IsConfirm);
                 ism_SqlMap.Insert("PLCDataInfo." + strMethodName, ht);
             }
             catch (Exception e)
@@ -272,7 +273,12 @@ namespace BioA.SqlMaps
                 LogInfo.WriteErrorLog("UpdateABSData(long t, int p, float pw, float sw)==" + e.ToString(), Module.DAO);
             }
         }
-
+        /// <summary>
+        /// 修改普通任务完成次数
+        /// </summary>
+        /// <param name="smp"></param>
+        /// <param name="assay"></param>
+        /// <param name="count"></param>
         public void UpdateSMPScheduleFinishCount(string smp, string assay, int count)
         {
             try
@@ -333,23 +339,23 @@ namespace BioA.SqlMaps
 
             return taskInfo;
         }
-
-        public void UpdteTaskState(string sn, string assay)
-        {
-            try
-            {
-                Hashtable ht = new Hashtable();
-                ht.Add("SampleNum", sn);
-                ht.Add("ProjectName", assay);
-                ht.Add("StartTime", DateTime.Now.ToShortDateString());
-                ht.Add("EndTime", DateTime.Now.AddDays(1).ToShortDateString());
-                ism_SqlMap.Delete("PLCDataInfo.UpdteTaskState", ht);
-            }
-            catch (Exception e)
-            {
-                LogInfo.WriteErrorLog("UpdteTaskState(string sn, string assay)==" + e.ToString(), Module.DAO);
-            }
-        }
+        //2018 9/4
+        //public void UpdteTaskState(string sn, string assay)
+        //{
+        //    try
+        //    {
+        //        Hashtable ht = new Hashtable();
+        //        ht.Add("SampleNum", sn);
+        //        ht.Add("ProjectName", assay);
+        //        ht.Add("StartTime", DateTime.Now.ToShortDateString());
+        //        ht.Add("EndTime", DateTime.Now.AddDays(1).ToShortDateString());
+        //        ism_SqlMap.Delete("PLCDataInfo.UpdteTaskState", ht);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        LogInfo.WriteErrorLog("UpdteTaskState(string sn, string assay)==" + e.ToString(), Module.DAO);
+        //    }
+        //}
         /// <summary>
         /// 获取校准任务完成次数
         /// </summary>
@@ -939,9 +945,9 @@ namespace BioA.SqlMaps
             try
             {
                 Hashtable ht = new Hashtable();
-                ht.Add("ProjectName", task.ProjectName);
-                ht.Add("SampleType", task.SampleType);
                 ht.Add("SampleNum", task.SampleNum);
+                ht.Add("ProjectName", task.ProjectName);
+                ht.Add("CreateDate", task.CreateDate);
                 ht.Add("TaskState", taskState);
                 ism_SqlMap.Update("PLCDataInfo.UpdateTaskStatePerform", ht);
             }
@@ -1082,13 +1088,14 @@ namespace BioA.SqlMaps
                 LogInfo.WriteErrorLog("SetUnfinishedScheduleContinue()==" + e.ToString(), Module.DAO);
             }
         }
-
-        public DateTime GetRunningDate()
+        
+        public string GetRunningDate()
         {
-            DateTime dateTime = new DateTime();
+            //DateTime dateTime = new DateTime();
+            string dateTime = "";
             try
             {
-                dateTime = (DateTime)ism_SqlMap.QueryForObject("PLCDataInfo.GetRunningDate", null);
+                dateTime = (string)ism_SqlMap.QueryForObject("PLCDataInfo.GetRunningDate", null);
             }
             catch (Exception e)
             {
@@ -1252,6 +1259,22 @@ namespace BioA.SqlMaps
             return count;
         }
         /// <summary>
+        /// 修改没有完成样本结果的 remarks 字段
+        /// </summary>
+        public void SetNorResultNA()
+        {
+            try
+            {
+                string remarks = "任务测试中断";
+                ism_SqlMap.Update("PLCDataInfo.UpdateSampleResultState", remarks);
+            }
+            catch(Exception e)
+            {
+                LogInfo.WriteErrorLog("SetNorResultNA()==" + e.ToString(), Module.DAO);
+            }
+        }
+
+        /// <summary>
         /// 查询校准任务发送的次数
         /// </summary>
         /// <param name="sampleNum"></param>
@@ -1405,24 +1428,25 @@ namespace BioA.SqlMaps
             }
         }
         /// <summary>
-        /// 修改样本结果中进程编号（TCNO）
+        /// 保存样本结果信息
         /// </summary>
         /// <param name="sampleNum"></param>
         /// <param name="projectName"></param>
         /// <param name="sampleType"></param>
         /// <param name="TCNO"></param>
-        public void UpdateSampleResultTCNO(string sampleNum, string projectName, string sampleType, DateTime sampleCreateTime, int TCNO)
+        public void AddSampleResultInfo(string sampleNum, DateTime sampleCreateTime, string projectName, string sampleType, int TCNO)
         {//T.SMPNO, T.ASSAY, T.SAMPLETYPE,
             try
             {
                 Hashtable ht = new Hashtable();
                 ht.Add("SampleNum", sampleNum);
+                ht.Add("SampleCreateTime",sampleCreateTime );
                 ht.Add("ProjectName", projectName);
                 ht.Add("SampleType", sampleType);
-                ht.Add("SampleCreateTime",sampleCreateTime );
                 ht.Add("TCNO", TCNO);
+                ht.Add("SampleCompletionStatus", TaskState.START);
 
-                ism_SqlMap.Update("PLCDataInfo.UpdateSampleResultTCNO", ht);
+                ism_SqlMap.Insert("PLCDataInfo.AddSampleResultInfo", ht);
             }
             catch (Exception e)
             {
@@ -1546,6 +1570,29 @@ namespace BioA.SqlMaps
                 LogInfo.WriteErrorLog("GetAllTaskCount()==" + e.ToString(), Module.DAO);
             }
             return task;
+        }
+        /// <summary>
+        /// 获取当天故障信息总行数
+        /// </summary>
+        /// <returns></returns>
+        public bool TroubleLogInfo()
+        {
+            int count = 0;
+            int count2 = 0;
+            try
+            {
+                count = (int)ism_SqlMap.QueryForObject("PLCDataInfo.GetTroubleInfoCount", DateTime.Now.ToShortDateString());
+                Thread.Sleep(5 * 1000);
+                count2 = (int)ism_SqlMap.QueryForObject("PLCDataInfo.GetTroubleInfoCount", DateTime.Now.ToShortDateString());
+            }catch(Exception ex)
+            {
+                LogInfo.WriteErrorLog("TroubleLogInfo()==" + ex.ToString(), Module.DAO);
+                return false;
+            }
+            if ((count2 - count) > 0)
+                return true;
+            else
+                return false;
         }
     }
 }

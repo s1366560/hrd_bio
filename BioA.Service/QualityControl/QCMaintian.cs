@@ -29,9 +29,8 @@ namespace BioA.Service
 
         public string AddQualityControl(string strDBMethod, QualityControlInfo qcInfo, List<QCRelationProjectInfo> lstQCRelationProInfo)
         {
-            string str = myBatis.AddQualityControl(strDBMethod, qcInfo, lstQCRelationProInfo);
+            return myBatis.AddQualityControl(strDBMethod, qcInfo, lstQCRelationProInfo);
 
-            return str;
         }
 
         public List<QualityControlInfo> QueryQCAllInfo(string strDBMethod)

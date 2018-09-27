@@ -257,86 +257,8 @@ namespace BioA.UI
                         }
                     }
                 }
-                //this.Invoke(new EventHandler(delegate 
-                //    {
-                //        foreach (string str in selectedProjects)
-                //        {
-                //            if (simpleButton1.Text != null && simpleButton1.Text == str)
-                //            {
-                //                simpleButton1.Tag = "1";
-                //                simpleButton1.ForeColor = Color.Red;
-                //            }
-                //        }
-                //    }));
             }
         }
-        
-
-        /// <summary>
-        /// 显示项目是否能用和错误信息提示
-        /// </summary>
-        private List<string[]> selectedProjects1 = new List<string[]>();
-        public List<string[]> SelectedProjects1
-        {
-            get { return selectedProjects1; }
-            set
-            {
-                selectedProjects1 = value;
-
-                ResetControlState();
-                this.Invoke(new EventHandler(delegate { this.toolTip1.RemoveAll(); }));
-                foreach (Control control in this.Controls)
-                {
-                    if (control.GetType() == typeof(System.Windows.Forms.Button))
-                    {
-                        foreach (string[] str in selectedProjects1)
-                        {
-                            if (control.Text == str[0])
-                            {
-                                this.Invoke(new EventHandler(delegate
-                                {
-                                    if (str[1] == "true")
-                                    {
-                                        control.Tag = "0";
-                                        control.ForeColor = Color.Black;
-                                        control.Enabled = true;
-                                    }
-                                    else if (str[2] == "该项目没有对应的校准品！")
-                                    {
-
-                                        control.Enabled = false;
-                                    }
-                                    else
-                                    {
-                                        control.Tag = "2";
-                                        control.ForeColor = Color.Orange;
-                                        control.Enabled = true;
-
-                                        if (str[2] != null && str[3] != null && str[4] != null)
-                                            this.toolTip1.SetToolTip(control, str[2] + System.Environment.NewLine + str[3] + System.Environment.NewLine + str[4]);
-                                        else if (str[2] != null && str[3] != null)
-                                            this.toolTip1.SetToolTip(control, str[2] + System.Environment.NewLine + str[3]);
-                                        else if (str[2] != null && str[4] != null)
-                                            this.toolTip1.SetToolTip(control, str[2] + System.Environment.NewLine + str[4]);
-                                        else if (str[3] != null && str[4] != null)
-                                            this.toolTip1.SetToolTip(control, str[3] + System.Environment.NewLine + str[4]);
-                                        else if (str[2] != null)
-                                            this.toolTip1.SetToolTip(control, str[2]);
-                                        else if (str[3] != null)
-                                            this.toolTip1.SetToolTip(control, str[3]);
-                                        else if (str[4] != null)
-                                            this.toolTip1.SetToolTip(control, str[4]);
-                                        else if (str[5] != null)
-                                            this.toolTip1.SetToolTip(control, str[5]);
-                                    }
-                                }));
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
         private List<string> selectedProjectsForComb = new List<string>();
         /// <summary>
         /// 设置被选中项目for组合项目

@@ -53,6 +53,7 @@
     <Compile Include="Communication\Network\DataReadWrite.cs" />
     <Compile Include="Communication\Network\SERVER.cs" />
     <Compile Include="ComputerInfo.cs" />
+    <Compile Include="DiscreteStatisticalInfo.cs" />
     <Compile Include="EncryptionText.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -200,6 +201,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="StateInfo.cs" />
+    <Compile Include="StatValue.cs" />
     <Compile Include="~NetWork\Client.cs" />
     <Compile Include="~NetWork\DataReadWrite.cs" />
     <Compile Include="~NetWork\NetWorkCommon.cs" />

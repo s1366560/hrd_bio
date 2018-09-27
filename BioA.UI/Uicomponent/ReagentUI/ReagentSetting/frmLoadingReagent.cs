@@ -10,19 +10,35 @@ using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using BioA.Common;
 using BioA.Common.IO;
+using System.Threading;
 
 namespace BioA.UI
 {
     public partial class frmLoadingReagent : DevExpress.XtraEditors.XtraForm
     {
-        private string recieveInfo = "";
 
+        public delegate void GetsReagent(Dictionary<string, ReagentSettingsInfo> keyValuePairs);//声明一个委托
+        public event GetsReagent GetsReagentEvent;//声明一个委托事件
+
+        /// <summary>
+        /// 存储客户端发送信息给服务器的参数集合
+        /// </summary>
+        private Dictionary<string, object[]> frmLoadingReagentDic = new Dictionary<string, object[]>();
+
+        private string recieveInfo = "";
         public string RecieveInfo
         {
             set
             {
                 recieveInfo = value;
-                MessageBoxDraw.ShowMsg(recieveInfo, MsgType.Warning);
+                frmLoadingReagentDic.Clear();
+                Dictionary<string, ReagentSettingsInfo> dic = new Dictionary<string, ReagentSettingsInfo>();
+                dic.Add(recieveInfo, reagentSettingsInfo);
+                if (GetsReagentEvent != null)
+                {
+                    GetsReagentEvent(dic);
+                }
+                
             }
         }
 
@@ -77,10 +93,10 @@ namespace BioA.UI
 
         private void loadFrmReagent()
         {
-            CommunicationEntity AssayProInfo = new CommunicationEntity();
-            AssayProInfo.StrmethodName = "QueryAssayProAllInfo";
-            AssayProInfo.ObjParam = "";
-            ReagentSettingLoad(AssayProInfo);
+            frmLoadingReagentDic.Clear();
+            //获取所有生化项目信息
+            frmLoadingReagentDic.Add("QueryAssayProAllInfo", new object[]{""});
+            SendInfoToService(frmLoadingReagentDic);
             cboProjectCheck.Text = "请选择";
         }
 
@@ -196,10 +212,14 @@ namespace BioA.UI
             txtBatchNum.Text = "";
 
         }
+        /// <summary>
+        /// 私有变量，存储试剂保存信息
+        /// </summary>
+        private ReagentSettingsInfo reagentSettingsInfo;
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            ReagentSettingsInfo reagentSettingsInfo = new ReagentSettingsInfo();
+            reagentSettingsInfo = new ReagentSettingsInfo();
             reagentSettingsInfo.Barcode = txtBarcode.Text;
             reagentSettingsInfo.BatchNum = txtBatchNum.Text;
 
@@ -251,19 +271,18 @@ namespace BioA.UI
 
             if (this.Text == "试剂装载R1")
             {
-                CommunicationEntity communicationEntity = new CommunicationEntity();
-                communicationEntity.ObjParam = XmlUtility.Serializer(typeof(ReagentSettingsInfo), reagentSettingsInfo);
-                communicationEntity.StrmethodName = "reagentSettingAddR1";
-                ReagentSettingLoad(communicationEntity);
+                frmLoadingReagentDic.Clear();
+                //新增试剂1信息
+                frmLoadingReagentDic.Add("reagentSettingAddR1", new object[] { XmlUtility.Serializer(typeof(ReagentSettingsInfo), reagentSettingsInfo) });
+                SendInfoToService(frmLoadingReagentDic);
 
             }
             else if (this.Text == "试剂装载R2")
             {
-                CommunicationEntity communicationEntity = new CommunicationEntity();
-                communicationEntity.ObjParam = XmlUtility.Serializer(typeof(ReagentSettingsInfo), reagentSettingsInfo);
-                communicationEntity.StrmethodName = "reagentSettingAddR2";
-                ReagentSettingLoad(communicationEntity);
-
+                frmLoadingReagentDic.Clear();
+                //新增试剂2信息
+                frmLoadingReagentDic.Add("reagentSettingAddR2", new object[] { XmlUtility.Serializer(typeof(ReagentSettingsInfo), reagentSettingsInfo) });
+                SendInfoToService(frmLoadingReagentDic);
             }
             else
             {
@@ -325,10 +344,18 @@ namespace BioA.UI
 
 
         }
-
-        private void ReagentSettingLoad(object sender)
+        /// <summary>
+        /// 发送信息给服务器
+        /// </summary>
+        /// <param name="sender"></param>
+        private void SendInfoToService(Dictionary<string, object[]> sender)
         {
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.ReagentSetting, XmlUtility.Serializer(typeof(CommunicationEntity), sender as CommunicationEntity));
+            var frmLoadingReagentThread = new Thread(() =>
+            {
+                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.ReagentSetting, sender);
+            });
+            frmLoadingReagentThread.IsBackground = true;
+            frmLoadingReagentThread.Start();
         }
 
         private void frmLoadingReagent_FormClosing(object sender, FormClosingEventArgs e)

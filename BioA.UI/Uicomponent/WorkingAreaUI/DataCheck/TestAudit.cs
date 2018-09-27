@@ -23,7 +23,7 @@ namespace BioA.UI
         // 赋值给检测项目表
         DataTable dtCheckResult = new DataTable();
         /// <summary>
-        /// 存储样本信息结果
+        /// 存储父窗体样本信息结果
         /// </summary>
         private List<SampleInfoForResult> sampleInfos = new List<SampleInfoForResult>();
         /// <summary>
@@ -67,19 +67,16 @@ namespace BioA.UI
                         foreach (SampleResultInfo s in lstSampleResInfo)
                         {
                             string taskState = string.Empty;
-                            switch (s.TaskState)
+                            switch (s.SampleCompletionStatus)
                             {
                                 case 0:
-                                    taskState = "待测中";
+                                    taskState = "异常";
                                     break;
                                 case 1:
-                                    taskState = "执行中";
+                                    taskState = "检测中";
                                     break;
                                 case 2:
                                     taskState = "已完成";
-                                    break;
-                                case 3:
-                                    taskState = "被暂停";
                                     break;
                             }
 
@@ -239,7 +236,7 @@ namespace BioA.UI
                 SampleResultInfo sampleRes = new SampleResultInfo();
                 sampleRes.ProjectName = grvCheckResult.GetRowCellValue(selectNum, "项目名称") as string;
                 sampleRes.ConcResult = (float)System.Convert.ToDouble(grvCheckResult.GetRowCellValue(selectNum, "检测结果"));
-                sampleRes.SampleCreateTime = System.Convert.ToDateTime(grvCheckResult.GetRowCellValue(selectNum, "申请时间"));
+                sampleRes.SampleCreateTime = System.Convert.ToDateTime(grvCheckResult.GetRowCellValue(selectNum, "完成时间"));
                 reflectionMonitoring.SampleResInfo = sampleRes;
                 reflectionMonitoring.SampleInfoForRes = sampleInfo;
 

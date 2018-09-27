@@ -10,11 +10,16 @@ using System.Windows.Forms;
 using BioA.Common;
 using BioA.Common.IO;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace BioA.UI
 {
     public partial class frmEditQCResult : Form
     {
+        /// <summary>
+        /// 存储客户端发送信息给服务器的参数集合
+        /// </summary>
+        private Dictionary<string, object[]> frmEditQCResultDic = new Dictionary<string, object[]>();
         private enum EditModel
         {
             Edit = 0,
@@ -105,9 +110,12 @@ namespace BioA.UI
         private void btnAdd_Click(object sender, EventArgs e)
         {
             editModel = EditModel.Add;
-
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCResult, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryQCInfosForAddQCResult", null)));
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCResult, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryProjectName", null)));
+            frmEditQCResultDic.Clear();
+            //获取质控品信息和质控结果信息
+            frmEditQCResultDic.Add("QueryQCInfosForAddQCResult", null);
+            //获取所有项目名称
+            frmEditQCResultDic.Add("QueryProjectName", null);
+            SendInfoToService(frmEditQCResultDic);
 
             cboQCName.Properties.ReadOnly = false;
             cboSampleType.Properties.ReadOnly = false;
@@ -139,6 +147,21 @@ namespace BioA.UI
             cboSampleType.Properties.Items.AddRange(RunConfigureUtility.SampleTypes);
             cboPosition.Properties.Items.AddRange(RunConfigureUtility.QCPosition);
             cboHorizonLevel.Properties.Items.AddRange(RunConfigureUtility.QCLevelConc);
+        }
+
+        /// <summary>
+        /// 发送信息给服务器
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SendInfoToService(Dictionary<string, object[]> sender)
+        {
+            var frmEditQCThread = new Thread (() =>
+            {
+                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.QCResult, sender);
+            });
+            frmEditQCThread.IsBackground = true;
+            frmEditQCThread.Start();
         }
 
         private void frmEditQCResult_Load(object sender, EventArgs e)
@@ -217,15 +240,16 @@ namespace BioA.UI
             switch (editModel)
             {
                 case EditModel.Edit:
-                    CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCResult, XmlUtility.Serializer(typeof(CommunicationEntity), 
-                                                                                                                    new CommunicationEntity("EditQCResultForManual",
-                                                                                                                                            XmlUtility.Serializer(typeof(QCResultForUIInfo), qCResInfo),
-                                                                                                                                            XmlUtility.Serializer(typeof(QCResultForUIInfo), qcResEditOrAdd))));
+                    frmEditQCResultDic.Clear();
+                    //修改质控结果信息
+                    frmEditQCResultDic.Add("EditQCResultForManual", new object[] { XmlUtility.Serializer(typeof(QCResultForUIInfo), qCResInfo), XmlUtility.Serializer(typeof(QCResultForUIInfo), qcResEditOrAdd) });
+                    SendInfoToService(frmEditQCResultDic);
                     break;
                 case EditModel.Add:
-                    CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCResult, XmlUtility.Serializer(typeof(CommunicationEntity),
-                                                                                                                    new CommunicationEntity("AddQCResultForManual",
-                                                                                                                                            XmlUtility.Serializer(typeof(QCResultForUIInfo), qcResEditOrAdd))));
+                    frmEditQCResultDic.Clear();
+                    //新增质控结果信息
+                    frmEditQCResultDic.Add("AddQCResultForManual", new object[] { XmlUtility.Serializer(typeof(QCResultForUIInfo), qcResEditOrAdd) });
+                    SendInfoToService(frmEditQCResultDic);
                     break;
                 case EditModel.Delete:
                     break;
@@ -238,8 +262,10 @@ namespace BioA.UI
         {
             if (editModel == EditModel.Edit)
             {
-                CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCResult, XmlUtility.Serializer(typeof(CommunicationEntity),
-                                                                                                                    new CommunicationEntity("DeleteQCResult", XmlUtility.Serializer(typeof(QCResultForUIInfo), qCResInfo))));
+                frmEditQCResultDic.Clear();
+                //删除质控结果信息
+                frmEditQCResultDic.Add("DeleteQCResult", new object[] { XmlUtility.Serializer(typeof(QCResultForUIInfo), qCResInfo) });
+                SendInfoToService(frmEditQCResultDic);
             }
         }
     }

@@ -56,7 +56,7 @@ namespace BioA.Service
 
                 int count = myBatis.SelectAssayProCountByNameAndType("SelectAssayProCountByPrimarykey", assayProInfo);
                 // 当count>0代表已存在此项目
-                if (count <= 0)
+                if (count == 0)
                 {
                     myBatis.AddAssayProject(strDBMethod, assayProInfo);
                     count = myBatis.SelectAssayProCountByNameAndType("SelectAssayProCountByPrimarykey", assayProInfo);
@@ -66,7 +66,7 @@ namespace BioA.Service
                         strInfo[1] = assayProInfo.SampleType;
                         strInfo[2] = assayProInfo.ProFullName;
                         strInfo[3] = assayProInfo.ChannelNum;
-                       strInfo[4] = "项目创建成功！";
+                        strInfo[4] = "项目创建成功！";
                     }
                     else
                     {
@@ -117,9 +117,8 @@ namespace BioA.Service
         /// <param name="strProName"></param>
         public int UpdateAssayProjectParamInfo(string strDBMethod, AssayProjectParamInfo assayProParamInfo)
         {
-            int intResult = 0;
-            intResult = myBatis.UpdateAssayProjectParamInfo(strDBMethod, assayProParamInfo);
-            return intResult;
+            return myBatis.UpdateAssayProjectParamInfo(strDBMethod, assayProParamInfo);
+             
         }
         /// <summary>
         /// 编辑生化项目
@@ -145,7 +144,7 @@ namespace BioA.Service
         /// <param name="strDBMethod"></param>
         /// <param name="assayProInfos"></param>
         /// <returns>返回删除条数</returns>
-        public int AssayProjectDelete(string strDBMethod, List<AssayProjectInfo> assayProInfos)
+        public int AssayProjectDelete(string strDBMethod, AssayProjectInfo assayProInfos)
         {
 
             return myBatis.DeleteAssayProCountByNameAndType(strDBMethod, assayProInfos);

@@ -34,35 +34,108 @@ namespace BioA.PLCController
         public int WN { get; set; }
         public TASK T { get; set; }
     }
+    #region 处理任务给下位机执行的数据
     public class TASK
     {
-        public string SMPNO { get; set; }//样本编号
-        public string ASSAY { get; set; }//测试项目
-        public string SAMPLETYPE { get; set; }//样本类型(血清 尿液)标志
-        public string VOLTYPE { get; set; }//样本体积类型
-        public string RACK { get; set; }//样本管架号
-        public string DISK { get; set; }//样本盘号
-        public string SMPPOS { get; set; }//样本位置
-        public int PT { get; set; }//样本识别标识
-        public int PPNO { get; set; }//防止交叉污染编号
-        public int DPOS { get; set; }//稀释液位置
-        public int PW { get; set; }//主波长
-        public int SW { get; set; }//次波长
-        public int CT { get; set; }//容器类型
-        public string CALIBNAME { get; set; }//校准品名称
-        public DateTime CalibDate { get; set; }//任务创建时间
-        public int R1POS { get; set; }//试剂1位置
-
-        public int R1VOL { get; set; }//试剂1体积
-        public int R2POS { get; set; }//试剂2位置
-        public int R2VOL { get; set; }//试剂2体积
-        public int PV { get; set; }//稀释前体积
-        public int V { get; set; }//反应体积
-        public int DV { get; set; }//稀释液体积
+        /// <summary>
+        /// 样本编号
+        /// </summary>
+        public string SMPNO { get; set; }
+        /// <summary>
+        /// 测试项目
+        /// </summary>
+        public string ASSAY { get; set; }
+        /// <summary>
+        /// 样本类型(血清 尿液)标志
+        /// </summary>
+        public string SAMPLETYPE { get; set; }
+        /// <summary>
+        /// 样本体积类型
+        /// </summary>
+        public string VOLTYPE { get; set; }
+        /// <summary>
+        /// 样本管架号
+        /// </summary>
+        public string RACK { get; set; }
+        /// <summary>
+        /// 样本盘号
+        /// </summary>
+        public string DISK { get; set; }
+        /// <summary>
+        /// 样本位置
+        /// </summary>
+        public string SMPPOS { get; set; }
+        /// <summary>
+        /// 样本识别标识
+        /// </summary>
+        public int PT { get; set; }
+        /// <summary>
+        /// 防止交叉污染编号
+        /// </summary>
+        public int PPNO { get; set; }
+        /// <summary>
+        /// 稀释液位置
+        /// </summary>
+        public int DPOS { get; set; }
+        /// <summary>
+        /// 主波长
+        /// </summary>
+        public int PW { get; set; }
+        /// <summary>
+        /// 次波长
+        /// </summary>
+        public int SW { get; set; }
+        /// <summary>
+        /// 容器类型
+        /// </summary>
+        public int CT { get; set; }
+        /// <summary>
+        /// 校准品名称
+        /// </summary>
+        public string CALIBNAME { get; set; }
+        /// <summary>
+        /// 任务创建时间
+        /// </summary>
+        public DateTime CalibDate { get; set; }
+        /// <summary>
+        /// 试剂1位置
+        /// </summary>
+        public int R1POS { get; set; }
+        /// <summary>
+        /// 试剂1体积
+        /// </summary>
+        public int R1VOL { get; set; }
+        /// <summary>
+        /// 试剂2位置
+        /// </summary>
+        public int R2POS { get; set; }
+        /// <summary>
+        /// 试剂2体积
+        /// </summary>
+        public int R2VOL { get; set; }
+        /// <summary>
+        /// 稀释前体积
+        /// </summary>
+        public int PV { get; set; }
+        /// <summary>
+        /// 反应体积
+        /// </summary>
+        public int V { get; set; }
+        /// <summary>
+        /// 稀释液体积
+        /// </summary>
+        public int DV { get; set; }
         //public string ASSAYTYPE { get; set; }//项目识别标志(生化 离子)
-        public int SF1 { get; set; }//项目搅拌1强度
-        public int SF2 { get; set; }//项目搅拌2强度
+        /// <summary>
+        /// 项目搅拌1强度
+        /// </summary>
+        public int SF1 { get; set; }
+        /// <summary>
+        /// 项目搅拌2强度
+        /// </summary>
+        public int SF2 { get; set; }
     }
+    #endregion
 
     public class Machine
     {
@@ -310,22 +383,30 @@ namespace BioA.PLCController
                     {
                         cp.Protocol = MachineControlProtocol.HexStringToByteArray(v, ',');
                     }
-                    try
-                    {
-                        cp.Offset = int.Parse(o);
-                    }
-                    catch
-                    {
+                    if (o == "")
                         cp.Offset = 0;
-                    }
-                    try
-                    {
-                        cp.IsAdjustNode = bool.Parse(i);
-                    }
-                    catch
-                    {
+                    else
+                        cp.Offset = int.Parse(o);
+                    if (i == "")
                         cp.IsAdjustNode = false;
-                    }
+                    else
+                        cp.IsAdjustNode = bool.Parse(i);
+                    //try
+                    //{
+                    //    cp.Offset = int.Parse(o);
+                    //}
+                    //catch
+                    //{
+                    //    cp.Offset = 0;
+                    //}
+                    //try
+                    //{
+                    //    cp.IsAdjustNode = bool.Parse(i);
+                    //}
+                    //catch
+                    //{
+                    //    cp.IsAdjustNode = false;
+                    //}
 
                     CommandProtocol.Add(n, cp);
                 }
@@ -425,12 +506,12 @@ namespace BioA.PLCController
             Thread.Sleep(1000);
             
             this.IsPauseSchedule = false;
-            //new ResultService().SetNorResultNA();//标记没有计算的结果为NA
+            myBatis.SetNorResultNA();//标记状态为1，把Rmarks字段改为（ "任务测试中断'）
             InitSDTSchedule();
             myBatis.ClearNotTodaySchedule();
             myBatis.SetUnfinishedScheduleContinue();
 
-            if (myBatis.GetRunningDate() != DateTime.Now.Date)
+            if (myBatis.GetRunningDate() != DateTime.Now.Date.ToString())
             {
                 //SampleSer.BackUpYesterdaySamples();
                 //SampleSer.ClearYesterdaySamples();
@@ -1003,7 +1084,7 @@ namespace BioA.PLCController
 
                         float tempoffset = myBatis.GetTempOffset("GetTempOffset");
                         float ct = float.Parse(tempstr);
-                        if (ct > (37.0f + tempoffset) || ct < (37.0f - tempoffset))
+                        if (ct > (37.2f + tempoffset) || ct < (36.8f - tempoffset))
                         {
                             this.MachineState.Fired = AnalyzeEvent.SCAN_Temp_INVALID;
                             this.MachineState.State = MachineReturnState.Machine17 + tempstr;
@@ -2416,9 +2497,12 @@ namespace BioA.PLCController
                 
                 t.DPOS = System.Convert.ToInt32(myBatis.GetRGTDilutePosition());
 
-                t.PT = 3;
                 t.DISK = myBatis.GetWorkingDisk().ToString();
                 t.SMPPOS = myBatis.QueryCalib("QueryCalib", S.CalibName)[0].Pos;
+                if (t.SMPPOS.Substring(0, 1) == "B")
+                    t.PT = 2;
+                else
+                    t.PT = 3;
                 t.CT = (myBatis.SMPContainerType(myBatis.GetSDTSMPContainerType())).Code;
 
                 t.PV = (int)(assayProParam.CalibStosteVol * 10);
@@ -2530,6 +2614,11 @@ namespace BioA.PLCController
 
             HasCleared = true;
         }
+        /// <summary>
+        /// 处理下质控任务数据
+        /// </summary>
+        /// <param name="count"></param>
+        /// <returns></returns>
         List<TASK> LoadQCTask(int count)
         {
             List<TASK> Tasks = new List<TASK>();
@@ -2744,7 +2833,11 @@ namespace BioA.PLCController
 
             return tasks;
         }
-
+        /// <summary>
+        /// 处理下定标/普通任务数据
+        /// </summary>
+        /// <param name="count"></param>
+        /// <returns></returns>
         List<TASK> LoadNorTask(int count)
         {
             List<TASK> Tasks = new List<TASK>();
@@ -2850,7 +2943,7 @@ namespace BioA.PLCController
             {
                 case 0:
                 case 1:
-                    myBatis.UpdateSampleResultTCNO(T.SMPNO, T.ASSAY, T.SAMPLETYPE, T.CalibDate, TimeCourseNo);
+                    myBatis.AddSampleResultInfo(T.SMPNO,T.CalibDate,T.ASSAY,T.SAMPLETYPE,TimeCourseNo);
                     myBatis.UpdateSMPScheduleSendCount(T.SMPNO, T.ASSAY, T.SAMPLETYPE, myBatis.GetSMPScheduleSendCount(T.SMPNO, T.ASSAY, T.SAMPLETYPE) + 1);
                     break;
                 case 2:

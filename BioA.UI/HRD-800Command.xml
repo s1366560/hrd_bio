@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
 <MachineConfigure>
-  <SerialPort Port="COM6"/>
+  <SerialPort Port="COM7"/>
   <!--命令字典-->
   <CommandProtocol>
     <Command  Name ="CheckSumRight" Value="0x06"/>
@@ -55,6 +55,7 @@
     <Command  Name ="SampleArmFromFlumeToSMPOuterLoop" Value="0x02, 0x60,0x30, 0x03, 0x00, 0x00" IsAdjustNode="True"/>
     <Command  Name ="SampleArmFromFlumeToSMPInnerLoop" Value="0x02, 0x61,0x30, 0x03, 0x00, 0x00"  IsAdjustNode="True"/>
     <Command  Name ="SampleArmFromFlumeToMutiFuncLoop" Value="0x02, 0x62,0x30, 0x03, 0x00, 0x00"  IsAdjustNode="True"/>
+    <Command  Name ="SampleArmFromFlumeToMIDFuncLoop" Value="0x02, 0x63,0x30, 0x03, 0x00, 0x00"  IsAdjustNode="True"/>
     <Command  Name ="SampleArmFromFlumeToDilCUV" Value="0x02, 0x67, 0x30,0x03, 0x00, 0x00"  IsAdjustNode="True"/>
     <Command  Name ="SampleArmFromDilCUVToCUV" Value="0x02, 0x6B,0x30, 0x03, 0x00, 0x00"  IsAdjustNode="True"/>
     <Command  Name ="SampleArmFromSamplingPositionToCUV" Value="0x02, 0x64,0x30, 0x03, 0x00, 0x00"  IsAdjustNode="True"/>

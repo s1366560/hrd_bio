@@ -467,31 +467,53 @@ namespace BioA.SqlMaps
             return lstAlarmLogInfo;
         }
         /// <summary>
-        /// 根据用户名称获取报警信息
+        /// 根据时间段获取报警信息
         /// </summary>
         /// <param name="strDBMethod"></param>
         /// <param name="alarmLogInfo"></param>
         /// <returns></returns>
-        public List<AlarmLogInfo> SelectAlarmLogInfoByUName(string strDBMethod, AlarmLogInfo alarmLogInfo)
+        public List<TroubleLog> SelectTroubleLogInfoByTimeQuantum(string strDBMethod, string logStateTime, string logEnditTime)
         {
-            List<AlarmLogInfo> lstAlarmLogInfo = new List<AlarmLogInfo>();
+            List<TroubleLog> lstTroubleLogInfo = new List<TroubleLog>();
             try
             {
                 Hashtable hashTable = new Hashtable();
-                hashTable.Add("UserName", alarmLogInfo.UserName);
-                hashTable.Add("LogDateTime1", alarmLogInfo.LogstartTime);
-                hashTable.Add("LogDateTime2", alarmLogInfo.LogEndTime);
+                hashTable.Add("logStateTime", logStateTime);
+                hashTable.Add("logEnditTime", logEnditTime);
 
-                lstAlarmLogInfo = (List<AlarmLogInfo>)ism_SqlMap.QueryForList<AlarmLogInfo>("LogInfo." + strDBMethod, hashTable);
+                lstTroubleLogInfo = (List<TroubleLog>)ism_SqlMap.QueryForList<TroubleLog>("PLCDataInfo." + strDBMethod, hashTable);
             }
 
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("SelectTroubleLogInfoByTimeQuantum(string strDBMethod, string logStateTime, string logEnditTime) ==" + e.ToString(), Module.DAO);
             }
 
-            return lstAlarmLogInfo;
+            return lstTroubleLogInfo;
         }
+        /// <summary>
+        /// 确认故障错误和警告信息
+        /// </summary>
+        /// <param name="strDBMethid"></param>
+        /// <param name="lstDrawDateTime"></param>
+        /// <returns></returns>
+        public int AffirmTroubleLogInfo(string strDBMethid, List<string> lstDrawDateTime)
+        {
+            int result = 0;
+            try
+            {
+                foreach(string drawDateTime in lstDrawDateTime)
+                {
+                   result = ism_SqlMap.Update("PLCDataInfo." +strDBMethid, drawDateTime);
+                }
+            }
+            catch(Exception ex)
+            {
+                LogInfo.WriteErrorLog("AffirmTroubleLogInfo(string strDBMethid, List<string> lstDrawDateTime) == " + ex.ToString(), Module.DAO);
+            }
+            return result;
+        }
+
 
         public List<UserInfo> QueryUserCeation(string strDBMethod, string p2)
         {

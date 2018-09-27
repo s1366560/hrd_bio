@@ -10,14 +10,14 @@ namespace BioA.SqlMaps
 {
     public partial class MyBatis
     {
-        public string UserLogin(string strMethodName, string[] strCommunicates)
+        public string UserLogin(string strMethodName, string userName, string password)
         {
             string strResult = string.Empty;
             try
             {
                 Hashtable ht = new Hashtable();
-                ht.Add("UserID", strCommunicates[0]);
-                ht.Add("Password", strCommunicates[1]);
+                ht.Add("UserID", userName);
+                ht.Add("Password", password);
 
                 int count = (int)ism_SqlMap.QueryForObject("LogInfo." + strMethodName, ht);
 
@@ -37,13 +37,26 @@ namespace BioA.SqlMaps
 
             return strResult;
         }
-
+        /// <summary>
+        /// 用户登录前获取权限
+        /// </summary>
+        /// <param name="strMethodName"></param>
+        /// <param name="UserName"></param>
+        /// <returns></returns>
         public UserInfo QueryUserAuthority(string strMethodName, string UserName)
         {
             UserInfo userInfo = new UserInfo();
             try
             {
+                Hashtable hashtable = new Hashtable();
                 userInfo = ism_SqlMap.QueryForObject("LogInfo." + strMethodName, UserName) as UserInfo;
+                if(userInfo.UserName != null && userInfo.UserPassword != null)
+                {
+                    hashtable.Add("UserName", userInfo.UserName);
+                    hashtable.Add("LogDetails", "登录系统");
+                    hashtable.Add("LogDateTime", DateTime.Now);
+                    ism_SqlMap.Insert("LogInfo.SaveLoginLog", hashtable);
+                }
             }
             catch (Exception e)
             {
@@ -52,8 +65,21 @@ namespace BioA.SqlMaps
             return userInfo;
         }
 
-
-
-
+        /// <summary>
+        /// 保存保养日志信息
+        /// </summary>
+        /// <param name="strDBMethodParam"></param>
+        /// <param name="maintenanceLogInfo"></param>
+        public void SaveMaintenanceLogInfo(string strDBMethodParam, MaintenanceLogInfo maintenanceLogInfo)
+        {
+            try
+            {
+                ism_SqlMap.Insert("LogInfo." + strDBMethodParam, maintenanceLogInfo);
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("SaveMaintenanceLogInfo(string strDBMethodParam, MaintenanceLogInfo maintenanceLogInfo) ==" + ex.ToString(), Module.DAO);
+            }
+        }
     }
 }

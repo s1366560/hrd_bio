@@ -253,9 +253,9 @@ namespace BioA.UI
 
             foreach (Control control in this.Controls)
             {
-                if (control.GetType() == typeof(DevExpress.XtraEditors.SimpleButton))
+                if (control.GetType() == typeof(System.Windows.Forms.Button))
                 {
-                    if (control.Tag == "1")
+                    if (control.Tag =="1")
                     {
                         if (control.Text != string.Empty)
                         {
@@ -276,7 +276,7 @@ namespace BioA.UI
                 if (control.GetType() == typeof(DevExpress.XtraEditors.SimpleButton))
                 {
                     control.Text = null;
-                    if (control.Tag == "1")
+                    if (control.Tag =="1")
                     {
                         control.Tag = "0";
                         this.Invoke(new EventHandler(delegate

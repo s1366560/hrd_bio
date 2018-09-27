@@ -29,11 +29,11 @@ namespace BioA.Common.Entities
             set { _PatID = value; }
         }
         //患者姓名
-        private string _Name;
-        public string Name
+        private string _PatientName;
+        public string PatientName
         {
-            get { return _Name; }
-            set { _Name = value; }
+            get { return _PatientName; }
+            set { _PatientName = value; }
         }
         //患者性别
         private string _Gender;

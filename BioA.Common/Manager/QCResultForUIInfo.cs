@@ -50,12 +50,12 @@ namespace BioA.Common
         }
         /// <summary>
         /// 样本类型
-        /// </summary>
-        public string SampleType
-        {
-            get { return sampleType; }
-            set { sampleType = value; }
-        }
+        ///// </summary>
+        //public string SampleType
+        //{
+        //    get { return sampleType; }
+        //    set { sampleType = value; }
+        //}
         /// <summary>
         /// 位置
         /// </summary>

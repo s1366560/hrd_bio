@@ -134,42 +134,104 @@ namespace BioA.UI
 
             this.Invoke(new EventHandler(delegate
             {
+                float f = 0.0f;
                 if (listCalibrationCurve != null )
                 {
                     if (listCalibrationCurve.BlkItem != null && listCalibrationCurve.BlkItem != "")
                     {
-                        textEditBlkConc.Text = listCalibrationCurve.BlkConc.ToString();
-                        textEditBlkAbs.Text = listCalibrationCurve.BlkAbs.ToString();
+                        textEditBlkConc.Text = listCalibrationCurve.BlkConc.ToString("#0.00");
+                        textEditBlkAbs.Text = listCalibrationCurve.BlkAbs.ToString("#0.0000");
+                        this.textEditBlkFactor.Text = "0.00";
                     }
                     if (listCalibrationCurve.Calib1Item != null && listCalibrationCurve.Calib1Item != "")
                     {
-                        textEditSDT1Conc.Text = listCalibrationCurve.SDT1Conc.ToString();
-                        textEditSDT1Abs.Text = listCalibrationCurve.SDT1Abs.ToString();
+                        textEditSDT1Conc.Text = listCalibrationCurve.SDT1Conc.ToString("#0.00");
+                        textEditSDT1Abs.Text = listCalibrationCurve.SDT1Abs.ToString("#0.0000");
+                        try
+                        {
+                            f = listCalibrationCurve.SDT1Conc / (listCalibrationCurve.SDT1Abs - listCalibrationCurve.BlkAbs);
+                        }
+                        catch
+                        {
+                            f = 0.0f;
+                        }
+                        this.textEditFactor1.Text = float.IsInfinity(f) == true ? "0.00" : f.ToString("#0.00");
+                        this.textEditFactor1.Text = float.IsNaN(f) == true ? "0.00" : f.ToString("#0.00");
                     }
                     if (listCalibrationCurve.Calib2Item != null && listCalibrationCurve.Calib2Item != "")
                     {
-                        textEditSDT2Conc.Text = listCalibrationCurve.SDT2Conc.ToString();
-                        textEditSDT2Abs.Text = listCalibrationCurve.SDT2Abs.ToString();
+                        textEditSDT2Conc.Text = listCalibrationCurve.SDT2Conc.ToString("#0.00");
+                        textEditSDT2Abs.Text = listCalibrationCurve.SDT2Abs.ToString("#0.0000");
+                        try
+                        {
+                            f = listCalibrationCurve.SDT2Conc / (listCalibrationCurve.SDT2Abs - listCalibrationCurve.BlkAbs);
+                        }
+                        catch
+                        {
+                            f = 0.0f;
+                        }
+                        this.textEditFactor2.Text = float.IsInfinity(f) == true ? "0.00":f.ToString("#0.00");
+                        this.textEditFactor2.Text = float.IsNaN(f) == true ? "0.00" : f.ToString("#0.00");
                     }
                     if (listCalibrationCurve.Calib3Item != null && listCalibrationCurve.Calib3Item != "")
                     {
-                        textEditSDT3Conc.Text = listCalibrationCurve.SDT3Conc.ToString();
-                        textEditSDT3Abs.Text = listCalibrationCurve.SDT3Abs.ToString();
+                        textEditSDT3Conc.Text = listCalibrationCurve.SDT3Conc.ToString("#0.00");
+                        textEditSDT3Abs.Text = listCalibrationCurve.SDT3Abs.ToString("#0.0000");
+                        try
+                        {
+                            f = listCalibrationCurve.SDT3Conc / (listCalibrationCurve.SDT3Abs - listCalibrationCurve.BlkAbs);
+                        }
+                        catch
+                        {
+                            f = 0.0f;
+                        }
+                        this.textEditFactor3.Text = float.IsInfinity(f) == true ? "0.00" : f.ToString("#0.00");
+                        this.textEditFactor3.Text = float.IsNaN(f) == true ? "0.00" : f.ToString("#0.00");
                     }
                     if (listCalibrationCurve.Calib4Item != null && listCalibrationCurve.Calib4Item != "")
                     {
-                        textEditSDT4Conc.Text = listCalibrationCurve.SDT4Conc.ToString();
-                        textEditSDT4Abs.Text = listCalibrationCurve.SDT4Abs.ToString();
+                        textEditSDT4Conc.Text = listCalibrationCurve.SDT4Conc.ToString("#0.00");
+                        textEditSDT4Abs.Text = listCalibrationCurve.SDT4Abs.ToString("#0.0000");
+                        try
+                        {
+                            f = listCalibrationCurve.SDT4Conc / (listCalibrationCurve.SDT4Abs - listCalibrationCurve.BlkAbs);
+                        }
+                        catch
+                        {
+                            f = 0.0f;
+                        }
+                        this.textEditFactor4.Text = float.IsInfinity(f) == true ? "0.00" : f.ToString("#0.00");
+                        this.textEditFactor4.Text = float.IsNaN(f) == true ? "0.00" : f.ToString("#0.00");
                     }
                     if (listCalibrationCurve.Calib5Item != null && listCalibrationCurve.Calib5Item != "")
                     {
-                        textEditSDT5Conc.Text = listCalibrationCurve.SDT5Conc.ToString();
-                        textEditSDT5Abs.Text = listCalibrationCurve.SDT5Abs.ToString();
+                        textEditSDT5Conc.Text = listCalibrationCurve.SDT5Conc.ToString("#0.00");
+                        textEditSDT5Abs.Text = listCalibrationCurve.SDT5Abs.ToString("#0.0000");
+                        try
+                        {
+                            f = listCalibrationCurve.SDT5Conc / (listCalibrationCurve.SDT5Abs - listCalibrationCurve.BlkAbs);
+                        }
+                        catch
+                        {
+                            f = 0.0f;
+                        }
+                        this.textEditFactor5.Text = float.IsInfinity(f) == true ? "0.00" : f.ToString("#0.00");
+                        this.textEditFactor5.Text = float.IsNaN(f) == true ? "0.00" : f.ToString("#0.00");
                     }
                     if(listCalibrationCurve.Calib6Item !=null && listCalibrationCurve.Calib6Item != "")
                     {
-                        textEditSDT6Conc.Text = listCalibrationCurve.SDT6Conc.ToString();
-                        textEditSDT6Abs.Text = listCalibrationCurve.SDT6Abs.ToString();
+                        textEditSDT6Conc.Text = listCalibrationCurve.SDT6Conc.ToString("#0.00");
+                        textEditSDT6Abs.Text = listCalibrationCurve.SDT6Abs.ToString("#0.0000");
+                        try
+                        {
+                            f = listCalibrationCurve.SDT6Conc / (listCalibrationCurve.SDT6Abs - listCalibrationCurve.BlkAbs);
+                        }
+                        catch
+                        {
+                            f = 0.0f;
+                        }
+                        this.textEditFactor6.Text = float.IsInfinity(f) == true ? "0.00" : f.ToString("#0.00");
+                        this.textEditFactor6.Text = float.IsNaN(f) == true ? "0.00" : f.ToString("#0.00");
                     }
                 }
             }));
@@ -180,106 +242,56 @@ namespace BioA.UI
         List<SDTTableItem> lisCalibrationCurve = new List<SDTTableItem>();
         public void SelectedlistCalibrationCurve(List<SDTTableItem> listCalibrationCurve)
         {
-            List<DateTime> str = new List<DateTime>();
+            //List<DateTime> str = new List<DateTime>();
 
              this.Invoke(new EventHandler(delegate
                 {
-                    for (int i = 0; i < listCalibrationCurve.Count; i++)
+                    int i;
+                    for (i = 0; i < listCalibrationCurve.Count; i++)
                     {
                         lisCalibrationCurve.Add(listCalibrationCurve[i]);
-                        str.Add(listCalibrationCurve[i].DrawDate);
-
-                        if (i != listCalibrationCurve.Count - 1)
+                        comBoxEditCalibTime.Properties.Items.Add(listCalibrationCurve[i].DrawDate);
+                        if(listCalibrationCurve[i].IsUsed == true)
                         {
-                            if (listCalibrationCurve[i].DrawDate < listCalibrationCurve[i + 1].DrawDate)
-                            {
-                                comBoxEditCalibTime.Text = listCalibrationCurve[i + 1].DrawDate.ToString();
-                            }
-                            else
-                            {
-                                comBoxEditCalibTime.Text = listCalibrationCurve[0].DrawDate.ToString();
-                            }
-                        }                          
-                    }
-                    //str.Sort();
-                    comBoxEditCalibTime.Properties.Items.Clear();
-                    //List<DateTime> str1 = str.Distinct().ToList();
-                    if (str.Count > 1)
-                    {
-                        for (int j = 0; j < str.Count; j++)
-                        {
-                            comBoxEditCalibTime.Properties.Items.Add(str[j]);
+                            comBoxEditCalibTime.SelectedIndex = i;
                         }
                     }
-                    else
+                    if(comBoxEditCalibTime.Text == "" && listCalibrationCurve.Count > 0)
                     {
-                        comBoxEditCalibTime.Properties.Items.AddRange(str);
-                        comBoxEditCalibTime.SelectedIndex = 0;
-                    }
-
-                    //List<SDTTableItem> calibrationCurve = new List<SDTTableItem>();
-                    //for (int i = 0; i < lisCalibrationCurve.Count; i++)
-                    //{
-                    //    if ((comBoxEditCalibTime.SelectedIndex = i).ToString() == lisCalibrationCurve[i].DrawDate.ToString())
-                    //    {
-                    //        calibrationCurve.Add(lisCalibrationCurve[i]);
-                    //    }
-                    //}
-                    if (lisCalibrationCurve.Count > 1)
-                    {
-                        CalibConcentrationAdd(lisCalibrationCurve[lisCalibrationCurve.Count -1]);
-                        chartControl1.Series.Clear();
-                        DataTable dt = new DataTable();
-                        dt = CreateData();
-                        CreateChart(dt);
-                    }
-                    else if(lisCalibrationCurve.Count == 1)
-                    {
-                        CalibConcentrationAdd(lisCalibrationCurve[0]);
-                        chartControl1.Series.Clear();
-                        DataTable dt = new DataTable();
-                        dt = CreateData();
-                        CreateChart(dt);
+                        comBoxEditCalibTime.SelectedIndex = i - 1;
                     }
                 }));           
         }
 
-        private void comboBoxEdit1_SelectedIndexChanged(object sender, EventArgs e)
+        private void comBoxEditCalibTime_SelectedIndexChanged(object sender, EventArgs e)
         {
             textEditBlkConc.Text = "";
             textEditBlkAbs.Text = "";
+            textEditBlkFactor.Text = "";
             textEditSDT1Conc.Text = "";
             textEditSDT1Abs.Text = "";
+            textEditFactor1.Text = "";
             textEditSDT2Conc.Text = "";
             textEditSDT2Abs.Text = "";
+            textEditFactor2.Text = "";
             textEditSDT3Conc.Text = "";
             textEditSDT3Abs.Text = "";
+            textEditFactor3.Text = "";
             textEditSDT4Conc.Text = "";
             textEditSDT4Abs.Text = "";
+            textEditFactor4.Text = "";
             textEditSDT5Conc.Text = "";
             textEditSDT5Abs.Text = "";
+            textEditFactor5.Text = "";
             textEditSDT6Conc.Text = "";
             textEditSDT6Abs.Text = "";
-            //List<SDTTableItem> calibrationCurve = new List<SDTTableItem>();
-            //for(int i = 0; i < lisCalibrationCurve.Count;i++)
-            //{               
-            //    if(comboBoxEdit1.Text==lisCalibrationCurve[i].DrawDate.ToString())
-            //    {
-            //        calibrationCurve.Add(lisCalibrationCurve[i]);
-            //    }               
-            //}
+            textEditFactor6.Text = "";
+
             SDTTableItem calibrationCurve = new SDTTableItem();
             string projectName = textEditProjectName.Text;
             string CalibMethod = textEditCalibMethod.Text;
             string sampleType = textEditSampleType.Text;
-            string drawDate = comBoxEditCalibTime.Text;
-            DateTime DrawDate = Convert.ToDateTime(drawDate);
-            //int drawDate  = time.IndexOf('/');
-            //int calibDate = time.IndexOf('/', drawDate);
-            //string drDate = time.Substring(0, drawDate);
-            //string caDate = time.Substring(drawDate + 1, calibDate);
-            //DateTime DrawDate = DateTime.ParseExact(drDate, "yyyyMMdd HH:mm:ss", System.Globalization.CultureInfo.CurrentCulture);
-            //DateTime CalibDate = DateTime.ParseExact(caDate, "yyyyMMdd HH:mm:ss", System.Globalization.CultureInfo.CurrentCulture);
+            DateTime DrawDate = Convert.ToDateTime(comBoxEditCalibTime.Text);
             foreach (SDTTableItem sdt in lisCalibrationCurve)
             {
                 if (sdt.ProjectName == projectName && sdt.SampleType == sampleType && sdt.CalibMethod == CalibMethod && sdt.DrawDate == DrawDate)
@@ -294,66 +306,33 @@ namespace BioA.UI
             CreateChart(dt);
         }
 
-        private void simpleButton2_Click(object sender, EventArgs e)
+        private void btnSave_Click(object sender, EventArgs e)
         {
-            SDTTableItem sDTTableItem = new SDTTableItem();
-            sDTTableItem.ProjectName= textEditProjectName.Text;
-            sDTTableItem.SampleType = textEditSampleType.Text;
-            if (textEditCalibMethod.Text.Trim() != "")
+            
+            if (textEditCalibMethod.Text != "K系数法")
             {
-                sDTTableItem.CalibMethod = textEditCalibMethod.Text;
+                SDTTableItem sDTTableItem = new SDTTableItem();
+                sDTTableItem.ProjectName = textEditProjectName.Text;
+                sDTTableItem.SampleType = textEditSampleType.Text;
+                sDTTableItem.DrawDate = Convert.ToDateTime(comBoxEditCalibTime.Text);
+                sDTTableItem.IsUsed = true;
+                if (textEditCalibMethod.Text.Trim() != "")
+                {
+                    sDTTableItem.CalibMethod = textEditCalibMethod.Text;
+                }
+                else
+                {
+                    MessageBox.Show("校准方法不能为空！");
+                }
+                if (CalibrationEvent != null)
+                {
+                    CalibrationEvent(new Dictionary<string, object[]>() { { "SaveSDTTableItem", new object[] { XmlUtility.Serializer(typeof(SDTTableItem), sDTTableItem) } } });
+                }
             }
             else
             {
-                MessageBox.Show("校准方法不能为空！");
-                
+                MessageBox.Show("改项目没有对应的校准曲线！不能保存！");
             }
-
-            
-            if (textEditBlkConc.Text.Trim() != "")
-            {
-                sDTTableItem.BlkAbs = (float)Convert.ToDouble(textEditBlkAbs.Text);
-                sDTTableItem.BlkConc = (float)Convert.ToDouble(textEditBlkConc.Text);
-            }
-            if (textEditSDT1Conc.Text.Trim() != "")
-            {
-                sDTTableItem.SDT1Abs = (float)Convert.ToDouble(textEditSDT1Abs.Text);
-                sDTTableItem.SDT1Conc = (float)Convert.ToDouble(textEditSDT1Conc.Text);
-            }
-            if (textEditSDT2Conc.Text.Trim() != "")
-            {
-                sDTTableItem.SDT2Abs = (float)Convert.ToDouble(textEditSDT2Abs.Text);
-                sDTTableItem.SDT2Conc = (float)Convert.ToDouble(textEditSDT2Conc.Text);
-            }
-            if (textEditSDT3Conc.Text.Trim() != "")
-            {
-                sDTTableItem.SDT3Abs = (float)Convert.ToDouble(textEditSDT3Abs.Text);
-                sDTTableItem.SDT3Conc = (float)Convert.ToDouble(textEditSDT3Conc.Text);
-            }
-            if (textEditSDT4Conc.Text.Trim() != "")
-            {
-                sDTTableItem.SDT4Abs = (float)Convert.ToDouble(textEditSDT4Abs.Text);
-                sDTTableItem.SDT4Conc = (float)Convert.ToDouble(textEditSDT4Conc.Text);
-            }
-            if (textEditSDT5Conc.Text.Trim() != "")
-            {
-                sDTTableItem.SDT5Abs = (float)Convert.ToDouble(textEditSDT5Abs.Text);
-                sDTTableItem.SDT5Conc = (float)Convert.ToDouble(textEditSDT5Conc.Text);
-            }
-            if (textEditSDT6Conc.Text.Trim() != "")
-            {
-                sDTTableItem.SDT6Abs = (float)Convert.ToDouble(textEditSDT6Abs.Text);
-                sDTTableItem.SDT6Conc = (float)Convert.ToDouble(textEditSDT6Conc.Text);
-            }
-            if (CalibrationEvent!=null)
-            {
-                CalibrationEvent(new Dictionary<string, object[]>() { { "AddSDTTableItem", new object[] { XmlUtility.Serializer(typeof(SDTTableItem), sDTTableItem) } } });
-            }
-
-        }
-
-        private void CalibrationCurve_Load(object sender, EventArgs e)
-        {
 
         }
 

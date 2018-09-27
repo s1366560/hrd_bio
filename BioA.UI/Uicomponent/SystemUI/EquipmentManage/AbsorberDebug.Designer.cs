@@ -91,6 +91,7 @@
             this.btnWaterChannelTROR2 = new DevExpress.XtraEditors.SimpleButton();
             this.btnInitializeRAD2 = new DevExpress.XtraEditors.SimpleButton();
             this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
+            this.btnWaterChannelTCMR = new DevExpress.XtraEditors.SimpleButton();
             this.SuspendLayout();
             // 
             // lblSampleArmDebug
@@ -109,7 +110,7 @@
             this.btnInitializeSMD.Appearance.Options.UseFont = true;
             this.btnInitializeSMD.Location = new System.Drawing.Point(71, 46);
             this.btnInitializeSMD.Name = "btnInitializeSMD";
-            this.btnInitializeSMD.Size = new System.Drawing.Size(150, 50);
+            this.btnInitializeSMD.Size = new System.Drawing.Size(135, 50);
             this.btnInitializeSMD.TabIndex = 1;
             this.btnInitializeSMD.Text = "初始化";
             this.btnInitializeSMD.Click += new System.EventHandler(this.btnCommand_Click);
@@ -118,9 +119,9 @@
             // 
             this.btnToBottom.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnToBottom.Appearance.Options.UseFont = true;
-            this.btnToBottom.Location = new System.Drawing.Point(1407, 46);
+            this.btnToBottom.Location = new System.Drawing.Point(1424, 46);
             this.btnToBottom.Name = "btnToBottom";
-            this.btnToBottom.Size = new System.Drawing.Size(150, 50);
+            this.btnToBottom.Size = new System.Drawing.Size(135, 50);
             this.btnToBottom.TabIndex = 2;
             this.btnToBottom.Text = "至底";
             this.btnToBottom.Click += new System.EventHandler(this.btnCommand_Click);
@@ -129,9 +130,9 @@
             // 
             this.btnCuvetteTWC.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCuvetteTWC.Appearance.Options.UseFont = true;
-            this.btnCuvetteTWC.Location = new System.Drawing.Point(1240, 46);
+            this.btnCuvetteTWC.Location = new System.Drawing.Point(1273, 46);
             this.btnCuvetteTWC.Name = "btnCuvetteTWC";
-            this.btnCuvetteTWC.Size = new System.Drawing.Size(150, 50);
+            this.btnCuvetteTWC.Size = new System.Drawing.Size(135, 50);
             this.btnCuvetteTWC.TabIndex = 3;
             this.btnCuvetteTWC.Text = "比色杯至水槽";
             this.btnCuvetteTWC.Click += new System.EventHandler(this.btnCommand_Click);
@@ -140,9 +141,9 @@
             // 
             this.btnSamplingPlaceTC.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSamplingPlaceTC.Appearance.Options.UseFont = true;
-            this.btnSamplingPlaceTC.Location = new System.Drawing.Point(1073, 46);
+            this.btnSamplingPlaceTC.Location = new System.Drawing.Point(1121, 46);
             this.btnSamplingPlaceTC.Name = "btnSamplingPlaceTC";
-            this.btnSamplingPlaceTC.Size = new System.Drawing.Size(150, 50);
+            this.btnSamplingPlaceTC.Size = new System.Drawing.Size(135, 50);
             this.btnSamplingPlaceTC.TabIndex = 4;
             this.btnSamplingPlaceTC.Text = "采样位至比色杯";
             this.btnSamplingPlaceTC.Click += new System.EventHandler(this.btnCommand_Click);
@@ -151,9 +152,9 @@
             // 
             this.btnDilutionCuvetteTC.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDilutionCuvetteTC.Appearance.Options.UseFont = true;
-            this.btnDilutionCuvetteTC.Location = new System.Drawing.Point(906, 46);
+            this.btnDilutionCuvetteTC.Location = new System.Drawing.Point(971, 46);
             this.btnDilutionCuvetteTC.Name = "btnDilutionCuvetteTC";
-            this.btnDilutionCuvetteTC.Size = new System.Drawing.Size(150, 50);
+            this.btnDilutionCuvetteTC.Size = new System.Drawing.Size(135, 50);
             this.btnDilutionCuvetteTC.TabIndex = 5;
             this.btnDilutionCuvetteTC.Text = "稀释比色杯至比色杯";
             this.btnDilutionCuvetteTC.Click += new System.EventHandler(this.btnCommand_Click);
@@ -162,9 +163,9 @@
             // 
             this.btnWaterChannelTDC.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnWaterChannelTDC.Appearance.Options.UseFont = true;
-            this.btnWaterChannelTDC.Location = new System.Drawing.Point(739, 46);
+            this.btnWaterChannelTDC.Location = new System.Drawing.Point(820, 46);
             this.btnWaterChannelTDC.Name = "btnWaterChannelTDC";
-            this.btnWaterChannelTDC.Size = new System.Drawing.Size(150, 50);
+            this.btnWaterChannelTDC.Size = new System.Drawing.Size(135, 50);
             this.btnWaterChannelTDC.TabIndex = 6;
             this.btnWaterChannelTDC.Text = "水槽至稀释比色杯";
             this.btnWaterChannelTDC.Click += new System.EventHandler(this.btnCommand_Click);
@@ -173,9 +174,9 @@
             // 
             this.btnWaterChannelTFC.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnWaterChannelTFC.Appearance.Options.UseFont = true;
-            this.btnWaterChannelTFC.Location = new System.Drawing.Point(572, 46);
+            this.btnWaterChannelTFC.Location = new System.Drawing.Point(669, 46);
             this.btnWaterChannelTFC.Name = "btnWaterChannelTFC";
-            this.btnWaterChannelTFC.Size = new System.Drawing.Size(150, 50);
+            this.btnWaterChannelTFC.Size = new System.Drawing.Size(135, 50);
             this.btnWaterChannelTFC.TabIndex = 7;
             this.btnWaterChannelTFC.Text = "水槽至多功能圈";
             this.btnWaterChannelTFC.Click += new System.EventHandler(this.btnCommand_Click);
@@ -184,9 +185,9 @@
             // 
             this.btnWaterChannelTCIR.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnWaterChannelTCIR.Appearance.Options.UseFont = true;
-            this.btnWaterChannelTCIR.Location = new System.Drawing.Point(405, 46);
+            this.btnWaterChannelTCIR.Location = new System.Drawing.Point(517, 46);
             this.btnWaterChannelTCIR.Name = "btnWaterChannelTCIR";
-            this.btnWaterChannelTCIR.Size = new System.Drawing.Size(150, 50);
+            this.btnWaterChannelTCIR.Size = new System.Drawing.Size(135, 50);
             this.btnWaterChannelTCIR.TabIndex = 8;
             this.btnWaterChannelTCIR.Text = "水槽至样本内圈";
             this.btnWaterChannelTCIR.Click += new System.EventHandler(this.btnCommand_Click);
@@ -195,9 +196,9 @@
             // 
             this.btnWaterChannelTCOR.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnWaterChannelTCOR.Appearance.Options.UseFont = true;
-            this.btnWaterChannelTCOR.Location = new System.Drawing.Point(238, 46);
+            this.btnWaterChannelTCOR.Location = new System.Drawing.Point(219, 46);
             this.btnWaterChannelTCOR.Name = "btnWaterChannelTCOR";
-            this.btnWaterChannelTCOR.Size = new System.Drawing.Size(150, 50);
+            this.btnWaterChannelTCOR.Size = new System.Drawing.Size(135, 50);
             this.btnWaterChannelTCOR.TabIndex = 9;
             this.btnWaterChannelTCOR.Text = "水槽至样本外圈";
             this.btnWaterChannelTCOR.Click += new System.EventHandler(this.btnCommand_Click);
@@ -208,7 +209,7 @@
             this.btnToTop.Appearance.Options.UseFont = true;
             this.btnToTop.Location = new System.Drawing.Point(1574, 46);
             this.btnToTop.Name = "btnToTop";
-            this.btnToTop.Size = new System.Drawing.Size(150, 50);
+            this.btnToTop.Size = new System.Drawing.Size(135, 50);
             this.btnToTop.TabIndex = 10;
             this.btnToTop.Text = "至顶";
             this.btnToTop.Click += new System.EventHandler(this.btnCommand_Click);
@@ -777,10 +778,22 @@
             this.labelControl3.TabIndex = 43;
             this.labelControl3.Text = "试剂臂1调试：";
             // 
+            // btnWaterChannelTCMR
+            // 
+            this.btnWaterChannelTCMR.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnWaterChannelTCMR.Appearance.Options.UseFont = true;
+            this.btnWaterChannelTCMR.Location = new System.Drawing.Point(366, 46);
+            this.btnWaterChannelTCMR.Name = "btnWaterChannelTCMR";
+            this.btnWaterChannelTCMR.Size = new System.Drawing.Size(135, 50);
+            this.btnWaterChannelTCMR.TabIndex = 63;
+            this.btnWaterChannelTCMR.Text = "水槽至样本中间圈";
+            this.btnWaterChannelTCMR.Click += new System.EventHandler(this.btnCommand_Click);
+            // 
             // AbsorberDebug
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnWaterChannelTCMR);
             this.Controls.Add(this.btnSaveCalibrationSA2);
             this.Controls.Add(this.btnDownCalibrationSA2);
             this.Controls.Add(this.btnUpCalibrationSA2);
@@ -917,5 +930,6 @@
         private DevExpress.XtraEditors.SimpleButton btnWaterChannelTROR2;
         private DevExpress.XtraEditors.SimpleButton btnInitializeRAD2;
         private DevExpress.XtraEditors.LabelControl labelControl3;
+        private DevExpress.XtraEditors.SimpleButton btnWaterChannelTCMR;
     }
 }

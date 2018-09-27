@@ -17,26 +17,31 @@ namespace BioA.SqlMaps
         /// <param name="strAccessDBMethod">方法名</param>
         /// <param name="assayProject">参数</param>
         /// <returns></returns>
-
         public int SelectAssayProCountByNameAndType(string strAccessDBMethod, AssayProjectInfo assayProject)
         {
-            Hashtable hashTable = new Hashtable();
-            hashTable.Add("proName", assayProject.ProjectName);
-            hashTable.Add("proType", assayProject.SampleType);
-            return (int)ism_SqlMap.QueryForObject("AssayProjectInfo." + strAccessDBMethod, hashTable);
+            int resultCout = 0;
+            try
+            {
+                Hashtable hashTable = new Hashtable();
+                hashTable.Add("ProjectName", assayProject.ProjectName);
+                hashTable.Add("SampleType", assayProject.SampleType);
+                resultCout = (int)ism_SqlMap.QueryForObject("AssayProjectInfo." + strAccessDBMethod, hashTable);
+            }
+            catch (Exception e)
+            {
+                LogInfo.WriteErrorLog(e.ToString(), Module.WindowsService);
+            }
+            return resultCout;
         }
-        public int DeleteAssayProCountByNameAndType(string strAccessDBMethod, List<AssayProjectInfo> assayProject)
+        public int DeleteAssayProCountByNameAndType(string strAccessDBMethod, AssayProjectInfo assayProject)
         {
             int deletecount = 0;
             try
             {
-                for (int i = 0; i <= assayProject.Count - 1; i++)
-                {
-                    Hashtable hashTable = new Hashtable();
-                    hashTable.Add("proName", assayProject[i].ProjectName);
-                    hashTable.Add("proType", assayProject[i].SampleType);
-                    deletecount = (int)ism_SqlMap.QueryForObject("AssayProjectInfo.DeleteAssayProject", hashTable);
-                }
+                Hashtable hashTable = new Hashtable();
+                hashTable.Add("proName", assayProject.ProjectName);
+                hashTable.Add("proType", assayProject.SampleType);
+                deletecount = (int)ism_SqlMap.QueryForObject("AssayProjectInfo.DeleteAssayProject", hashTable);
             }
             catch (Exception e)
             {
@@ -98,12 +103,19 @@ namespace BioA.SqlMaps
         /// <returns></returns>
         public void AddAssayProject(string strAccessDBMethod, AssayProjectInfo assayProject)
         {
-            ism_SqlMap.Insert("AssayProjectInfo." + strAccessDBMethod, assayProject);
-            ism_SqlMap.Insert("AssayProjectInfo.AddAssayProjectparamInfo", assayProject);
-            ism_SqlMap.Insert("AssayProjectInfo.AddCalibrationParam", assayProject);
-            ism_SqlMap.Insert("AssayProjectInfo.AddRangeParam", assayProject);
-            ism_SqlMap.Insert("AssayProjectInfo.AddProRunSequenceTb",assayProject);
-            LogInfo.WriteProcessLog("Insert生化项目" + assayProject.ProjectName, Module.DAO);
+            try
+            {
+                ism_SqlMap.Insert("AssayProjectInfo." + strAccessDBMethod, assayProject);
+                ism_SqlMap.Insert("AssayProjectInfo.AddAssayProjectparamInfo", assayProject);
+                ism_SqlMap.Insert("AssayProjectInfo.AddCalibrationParam", assayProject);
+                ism_SqlMap.Insert("AssayProjectInfo.AddRangeParam", assayProject);
+                ism_SqlMap.Insert("AssayProjectInfo.AddProRunSequenceTb",assayProject);
+            }
+            catch(Exception e)
+            {
+                LogInfo.WriteProcessLog("Insert生化项目" + assayProject.ProjectName, Module.DAO);
+            }
+
         }
         /// <summary>
         /// 获取生化项目信息
@@ -360,36 +372,7 @@ namespace BioA.SqlMaps
             int intResult = 0;
             try
             {
-                intResult = (int)ism_SqlMap.Update("AssayProjectInfo." + strDBMethod, assayProInfo);
-                //intResult = (int)ism_SqlMap.Update("AssayProjectInfo." + strDBMethod, assayProInfo);
-
-                //Hashtable ht = new Hashtable();
-                //ht.Add("ProjectName", assayProInfo.ProjectName);
-                //ht.Add("SampleType", assayProInfo.SampleType);
-                //int count = (int)ism_SqlMap.QueryForObject("Calibrator.QuerySDTTableItemTbCountByProject", ht);
-
-                //ht.Add("CalibMethod", assayProInfo.CalibrationMethod);
-                //ht.Add("CalibConcentration0", assayProInfo.CalibConcentration0);
-                //ht.Add("CalibConcentration1", assayProInfo.CalibConcentration1);
-                //ht.Add("CalibConcentration2", assayProInfo.CalibConcentration2);
-                //ht.Add("CalibConcentration3", assayProInfo.CalibConcentration3);
-                //ht.Add("CalibConcentration4", assayProInfo.CalibConcentration4);
-                //ht.Add("CalibConcentration5", assayProInfo.CalibConcentration5);
-                //ht.Add("CalibConcentration6", assayProInfo.CalibConcentration6);
-                //ht.Add("CalibName0", assayProInfo.CalibName0);
-                //ht.Add("CalibName1", assayProInfo.CalibName1);
-                //ht.Add("CalibName2", assayProInfo.CalibName2);
-                //ht.Add("CalibName3", assayProInfo.CalibName3);
-                //ht.Add("CalibName4", assayProInfo.CalibName4);
-                //ht.Add("CalibName5", assayProInfo.CalibName5);
-                //ht.Add("CalibName6", assayProInfo.CalibName6);
-                //ht.Add("AbsoluteFactor", assayProInfo.Factor);
-
-                //if (count > 0)
-                //    ism_SqlMap.Update("Calibrator.UpdateSDTTableItemTbByProject", ht);
-                //else
-                //    ism_SqlMap.Insert("Calibrator.AddSDTTableItemTbByProject", ht);
-
+                intResult = ism_SqlMap.Update("AssayProjectInfo." + strDBMethod, assayProInfo);
             }
             catch (Exception e)
             {

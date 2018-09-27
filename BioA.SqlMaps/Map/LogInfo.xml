@@ -2,7 +2,8 @@
 <sqlMap namespace="LogInfo" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
   <alias>
     <typeAlias alias="MaintenanceLogInfo" type="BioA.Common.MaintenanceLogInfo, BioA.Common" />
-    <typeAlias alias="AlarmLogInfo" type="BioA.Common.AlarmLogInfo, BioA.Common" />
+    <!-- <typeAlias alias="AlarmLogInfo" type="BioA.Common.AlarmLogInfo, BioA.Common" />
+    <typeAlias alias="TroubleLog" type="BioA.Common.TroubleLog, BioA.Common"  -->
   </alias>
   <resultMaps>
     <resultMap id="LogInfoResult" class="MaintenanceLogInfo">
@@ -10,8 +11,7 @@
       <result property="LogDetails" column="LogDetails"/>
       <result property="LogDateTime" column="LogDateTime"/>     
     </resultMap>
-
-    
+    <!--
       <resultMap id="AlarmLogInfoResult" class="AlarmLogInfo">
         <result property="FaultCode" column="FaultCode" />
         <result property="AlarmReason" column="AlarmReason"/>
@@ -21,7 +21,16 @@
         <result property="LogDateTime" column="LogDateTime"/>
         <result property="IsSolve" column="IsSolve"/>
       </resultMap>
-      
+     
+    <resultMap id="TroubleLogInfoResult" class="TroubleLog">
+      <result property="DrawDT" column="DrawDT" />
+      <result property="TroubleType" column="TroubleType"/>
+      <result property="TroubleUnit" column="TroubleUnit"/>
+      <result property="TroubleCode" column="TroubleCode" />
+      <result property="TroubleInfo" column="TroubleInfo"/>
+      <result property="IsComfirm" column="IsComfirm"/>
+    </resultMap>
+   -->
   </resultMaps>
 
   
@@ -34,12 +43,11 @@
     <select id="QueryOperationLogInfo" resultClass="MaintenanceLogInfo">
       SELECT * FROM OperateLogTb
     </select>
+    <!--
     <select id="QueryAlarmLogInfo" resultClass="AlarmLogInfo">
       SELECT * FROM AlarmLog
     </select>
-    <select id="SelectAlarmLogInfo" resultMap="AlarmLogInfoResult">
-      SELECT * FROM AlarmLog where UserName=#UserName# and LogDateTime between #LogDateTime1# and #LogDateTime2#
-    </select>
+    -->
     
     <select id="SelectUserInfo" ResultClass="int" parameterClass="System.Collections.IDictionary">
       select count(*) from UserInfoTb where UserID=#UserID#
@@ -69,6 +77,14 @@
       #LISCommunicate#,#RouMaintain#,#EquipDebug#,#UserManage#,#DepartManage#,#Configuration#,
       #LogCheck#,#VersionInfo#
       )
+    </insert>
+    <!-- 保存用户登录系统信息 -->
+    <insert id="SaveLoginLog" parameterClass="System.Collections.IDictionary">
+      insert into loginlogtb(UserName, LogDetails, LogDateTime) values(#UserName#,#LogDetails#,#LogDateTime#)
+    </insert>
+    <!-- 记录保养日志信息 -->
+    <insert id="SaveMintenanceLog" parameterClass="MaintenanceLogInfo">
+      insert into maintainlogtb(UserName,LogDetails,LogDateTime) values(#UserName#,#LogDetails#,#LogDateTime#)
     </insert>
     <select id="UserLogin" parameterClass="System.Collections.IDictionary" resultClass="int">
       select count(*) from UserInfoTb where UserID=#UserID# and UserPassword=#Password#

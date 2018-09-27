@@ -45,6 +45,7 @@ namespace BioA.UI
         public ApplyQCTask()
         {
             InitializeComponent();
+            
         }
 
         private void tabcProject_Click(object sender, EventArgs e)
@@ -84,7 +85,7 @@ namespace BioA.UI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ApplyQCTask_Load(object sender, EventArgs e)
+        public void ApplyQCTask_Load(object sender, EventArgs e)
         {
             BeginInvoke(new Action(loadApplyQCTask));
             
@@ -137,7 +138,7 @@ namespace BioA.UI
             {
                 //显示质控编号和质控任务
                 case "QueryBigestQCTaskInfoForToday":
-                    this.BeginInvoke(new EventHandler(delegate 
+                    this.BeginInvoke(new Action (() => 
                         {
                             List<QCTaskInfo> lstQCTask = (List<QCTaskInfo>)XmlUtility.Deserialize(typeof(List<QCTaskInfo>), sender as string);
                             DataTable dt = new DataTable();
@@ -182,6 +183,7 @@ namespace BioA.UI
                     break;
                     //质控品信息
                 case "QueryQCAllInfoForUnLocked":
+                    lstQCInfos.Clear();
                     lstQCInfos = (List<QualityControlInfo>)XmlUtility.Deserialize(typeof(List<QualityControlInfo>), sender as string);
                     this.Invoke(new EventHandler(delegate
                         {
@@ -334,7 +336,7 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (combPosition.SelectedItem == "" || combPosition.SelectedItem == "请选择" || combPosition.SelectedItem == null)
+            if (combPosition.SelectedItem.ToString() == "" || combPosition.SelectedItem.ToString() == "请选择" || combPosition.SelectedItem == null)
             {
                 MessageBox.Show("请选择质控品！");
                 return;

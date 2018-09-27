@@ -1372,6 +1372,8 @@
       TCNO int Null,
       AbsValue float Null,
       ConcResult float Null,
+      SampleCompletionTime NULL,<!-- 任务完成时间 -->
+      SampleCompletionStatus NULL,<!-- 任务完成状态 -->
       Remarks char(128) Null,
       IsResurvey tinyint Not Null Default 0,
       Confirm tinyint Null

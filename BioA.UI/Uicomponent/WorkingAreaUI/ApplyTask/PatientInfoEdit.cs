@@ -190,8 +190,10 @@ namespace BioA.UI
                 strUpdateInfo = value;
                 if (strUpdateInfo == "更新成功！")
                 {
-                    CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask,
-                        XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryPatientInfos", null)));
+                    patientDictionary.Clear();
+                    //获取所有病人信息
+                    patientDictionary.Add("QueryPatientInfos", null);
+                    SendInfoToService(patientDictionary);
                     int i = 1;
                     while (true)
                     {
@@ -252,11 +254,20 @@ namespace BioA.UI
             InitializeComponent();
             this.Dock = DockStyle.Fill;
         }
-
-        private void btnCancel_Click(object sender, EventArgs e)
+        /// <summary>
+        /// 发送信息给服务端
+        /// </summary>
+        /// <param name="sender"></param>
+        private void SendInfoToService(Dictionary<string, object[]> sender)
         {
-
+            var patientInfoThread = new Thread(() =>
+            {
+                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaApplyTask, sender);
+            });
+            patientInfoThread.IsBackground = true;
+            patientInfoThread.Start();
         }
+
         /// <summary>
         /// 保存按钮
         /// </summary>
@@ -288,8 +299,9 @@ namespace BioA.UI
                 //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity),
                 //    new CommunicationEntity("UpdatePatientInfo", XmlUtility.Serializer(typeof(PatientInfo), patient))));
                 patientDictionary.Clear();
+                //修改病人信息
                 patientDictionary.Add("UpdatePatientInfo", new object[] { XmlUtility.Serializer(typeof(PatientInfo), patient) });
-                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaApplyTask,patientDictionary);
+                SendInfoToService(patientDictionary);
             }
         }
 
@@ -314,29 +326,17 @@ namespace BioA.UI
         /// </summary>
         private void loadInputPatientInfo()
         {
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask,
-            //    XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryApplyApartment", null)));
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask,
-            //    XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryApplyDoctor", null)));
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask,
-            //    XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryCheckDoctor", null)));
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask,
-            //    XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryInspectDoctor", null)));
-            ////CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask,
-            ////    XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryPatientInfos", null)));
-
             patientDictionary.Clear();
-            var patientThread = new Thread(() =>
-            {
-                patientDictionary.Add("QueryApplyApartment", new object[] { "" });
-                patientDictionary.Add("QueryApplyDoctor", new object[] { "" });
-                patientDictionary.Add("QueryCheckDoctor", new object[] { "" });
-                patientDictionary.Add("QueryInspectDoctor", new object[] { "" });
-                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaApplyTask, patientDictionary);
-            });
-            patientThread.IsBackground = true;
-            patientThread.Start();
-
+            //获取部门信息
+            patientDictionary.Add("QueryDepartmentInfo", null);
+            //获取医生信息
+            patientDictionary.Add("QueryApplyDoctor", null);
+            //获取审核医生信息
+            patientDictionary.Add("QueryCheckDoctor", null);
+            //获取检验医生信息
+            patientDictionary.Add("QueryInspectDoctor", null);
+            SendInfoToService(patientDictionary);
+            
             combSex.Properties.Items.AddRange(new string[] { "男", "女", "--" });
             combSex.SelectedIndex = 0;
             combPatientType.Properties.Items.AddRange(new string[] { "门诊", "住院" });

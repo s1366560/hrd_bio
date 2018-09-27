@@ -9,11 +9,16 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BioA.Common;
 using BioA.Common.IO;
+using System.Threading;
 
 namespace BioA.UI
 {
     public partial class AnologSamplePanel : Form
     {
+        /// <summary>
+        /// 存储客户端发送信息给服务器
+        /// </summary>
+        private static Dictionary<string, object[]> anologSampDic = new Dictionary<string, object[]>();
         public AnologSamplePanel(string PanelNumPanelNum)
         {
             InitializeComponent();
@@ -5681,9 +5686,24 @@ namespace BioA.UI
 
         private void AnologSamplePanel_Load(object sender, EventArgs e)
         {
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask,
-                        XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QuerySamplePanelState", "1")));
-                    
+            BeginInvoke(new Action(() =>
+            {
+                anologSampDic.Add("QuerySamplePanelState", new object[] { "1" });
+                SendToService(anologSampDic);
+            }));
+        }
+        /// <summary>
+        /// 发送信息给服务器
+        /// </summary>
+        /// <param name="sender"></param>
+        private void SendToService(Dictionary<string, object[]> sender)
+        {
+            var anologSampThread = new Thread(() =>
+            {
+                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaApplyTask, anologSampDic);
+            });
+            anologSampThread.IsBackground = true;
+            anologSampThread.Start();
         }
 
         private void btnChangePanel_Click(object sender, EventArgs e)
@@ -5693,8 +5713,9 @@ namespace BioA.UI
             {
                 if (MessageBoxDraw.ShowMsg(string.Format("是否切换成逻辑盘{0}", panelNum), MsgType.Question) == System.Windows.Forms.DialogResult.OK)
                 {
-                    CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask,
-                        XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("UpdateRunningTaskWorDisk", panelNum)));
+                    anologSampDic.Clear();
+                    anologSampDic.Add("UpdateRunningTaskWorDisk", new object[] { panelNum });
+                    SendToService(anologSampDic);
                     this.WorkDiskNum.Text = "当前工作盘号：" + panelNum;
                 }
             }

@@ -119,19 +119,6 @@ namespace BioA.UI
             gridView1.Appearance.HeaderPanel.Font = font;
             gridView1.Appearance.Row.Font = font;
 
-            var qcStateThread = new Thread(() =>
-            {
-                QCResultForUIInfo qcResultForUI = new QCResultForUIInfo();
-                qcResultForUI.QCTimeStartTS = DateTime.Now.Date;
-                qcResultForUI.QCTimeEndTS = DateTime.Now.Date.AddDays(1);
-                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCResult, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryQCResultInfo", XmlUtility.Serializer(typeof(QCResultForUIInfo), qcResultForUI))));
-                qcStateDic.Clear();
-                qcStateDic.Add("QueryQCResultInfo", new object[] { XmlUtility.Serializer(typeof(QCResultForUIInfo), qcResultForUI) });
-                ClientSendToServices(qcStateDic);
-            });
-            qcStateThread.IsBackground = true;
-            qcStateThread.Start();
-            
             dt.Columns.Add("质控品名称");
             dt.Columns.Add("项目名称");
             dt.Columns.Add("样本类型");
@@ -157,6 +144,14 @@ namespace BioA.UI
             this.gridView1.Columns[10].OptionsColumn.AllowEdit = false;
             frmEditQCRes = new frmEditQCResult();
             reactionProcessQC = new ReactionProcessQC();
+            
+            QCResultForUIInfo qcResultForUI = new QCResultForUIInfo();
+            qcResultForUI.QCTimeStartTS = DateTime.Now.Date;
+            qcResultForUI.QCTimeEndTS = DateTime.Now.Date.AddDays(1);
+            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCResult, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryQCResultInfo", XmlUtility.Serializer(typeof(QCResultForUIInfo), qcResultForUI))));
+            qcStateDic.Clear();
+            qcStateDic.Add("QueryQCResultInfo", new object[] { XmlUtility.Serializer(typeof(QCResultForUIInfo), qcResultForUI) });
+            ClientSendToServices(qcStateDic);
         }
 
         /// <summary>
@@ -167,7 +162,7 @@ namespace BioA.UI
         {
             var qcStateThread = new Thread(() =>
             {
-                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.QCTask, param);
+                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.QCResult, param);
             });
             qcStateThread.IsBackground = true;
             qcStateThread.Start();
@@ -311,6 +306,19 @@ namespace BioA.UI
             {
                 frmEditQCRes.StartPosition = FormStartPosition.CenterParent;
                 frmEditQCRes.ShowDialog();
+            }
+        }
+        /// <summary>
+        /// 列表序列号
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void gridView1_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
+        {
+            e.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            if (e.Info.IsRowIndicator && e.RowHandle > -1)
+            {
+                e.Info.DisplayText = (e.RowHandle + 1).ToString();
             }
         }
     }

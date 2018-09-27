@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraCharts.XYDiagram xyDiagram1 = new DevExpress.XtraCharts.XYDiagram();
-            DevExpress.XtraCharts.Series series1 = new DevExpress.XtraCharts.Series();
-            DevExpress.XtraCharts.LineSeriesView lineSeriesView1 = new DevExpress.XtraCharts.LineSeriesView();
+            DevExpress.XtraCharts.XYDiagram xyDiagram2 = new DevExpress.XtraCharts.XYDiagram();
+            DevExpress.XtraCharts.Series series2 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.LineSeriesView lineSeriesView2 = new DevExpress.XtraCharts.LineSeriesView();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CalibrationCurve));
             this.lblProjectTesting = new DevExpress.XtraEditors.LabelControl();
             this.std1 = new DevExpress.XtraEditors.LabelControl();
@@ -44,6 +44,14 @@
             this.std6 = new DevExpress.XtraEditors.LabelControl();
             this.std5 = new DevExpress.XtraEditors.LabelControl();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.textEditFactor6 = new DevExpress.XtraEditors.TextEdit();
+            this.textEditFactor5 = new DevExpress.XtraEditors.TextEdit();
+            this.textEditFactor4 = new DevExpress.XtraEditors.TextEdit();
+            this.textEditFactor3 = new DevExpress.XtraEditors.TextEdit();
+            this.textEditFactor2 = new DevExpress.XtraEditors.TextEdit();
+            this.textEditFactor1 = new DevExpress.XtraEditors.TextEdit();
+            this.textEditBlkFactor = new DevExpress.XtraEditors.TextEdit();
+            this.labControlFactor = new DevExpress.XtraEditors.LabelControl();
             this.textEditSDT6Abs = new DevExpress.XtraEditors.TextEdit();
             this.textEditSDT6Conc = new DevExpress.XtraEditors.TextEdit();
             this.textEditSDT5Abs = new DevExpress.XtraEditors.TextEdit();
@@ -64,11 +72,18 @@
             this.textEditCalibMethod = new DevExpress.XtraEditors.TextEdit();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.comBoxEditCalibTime = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
+            this.btnSave = new DevExpress.XtraEditors.SimpleButton();
             this.textEditSampleType = new DevExpress.XtraEditors.TextEdit();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.textEditFactor6.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEditFactor5.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEditFactor4.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEditFactor3.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEditFactor2.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEditFactor1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEditBlkFactor.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEditSDT6Abs.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEditSDT6Conc.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEditSDT5Abs.Properties)).BeginInit();
@@ -84,9 +99,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.textEditBlkAbs.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEditBlkConc.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(series1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(series2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEditProjectName.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEditCalibMethod.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.comBoxEditCalibTime.Properties)).BeginInit();
@@ -105,43 +120,43 @@
             // 
             // std1
             // 
-            this.std1.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.std1.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.std1.Appearance.Options.UseFont = true;
-            this.std1.Location = new System.Drawing.Point(18, 65);
+            this.std1.Location = new System.Drawing.Point(13, 65);
             this.std1.Name = "std1";
-            this.std1.Size = new System.Drawing.Size(27, 17);
+            this.std1.Size = new System.Drawing.Size(31, 17);
             this.std1.TabIndex = 1;
             this.std1.Text = "std1";
             // 
             // lblWaterBlank
             // 
-            this.lblWaterBlank.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWaterBlank.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblWaterBlank.Appearance.Options.UseFont = true;
-            this.lblWaterBlank.Location = new System.Drawing.Point(18, 35);
+            this.lblWaterBlank.Location = new System.Drawing.Point(13, 35);
             this.lblWaterBlank.Name = "lblWaterBlank";
-            this.lblWaterBlank.Size = new System.Drawing.Size(42, 17);
+            this.lblWaterBlank.Size = new System.Drawing.Size(45, 17);
             this.lblWaterBlank.TabIndex = 2;
             this.lblWaterBlank.Text = "水空白";
             // 
             // lblabsorbance
             // 
-            this.lblabsorbance.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblabsorbance.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblabsorbance.Appearance.Options.UseFont = true;
-            this.lblabsorbance.Location = new System.Drawing.Point(160, 5);
+            this.lblabsorbance.Location = new System.Drawing.Point(144, 5);
             this.lblabsorbance.Name = "lblabsorbance";
-            this.lblabsorbance.Size = new System.Drawing.Size(42, 17);
+            this.lblabsorbance.Size = new System.Drawing.Size(45, 17);
             this.lblabsorbance.TabIndex = 3;
             this.lblabsorbance.Text = "吸光度";
             // 
             // lblConcentration
             // 
-            this.lblConcentration.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblConcentration.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblConcentration.Appearance.Options.UseFont = true;
-            this.lblConcentration.Location = new System.Drawing.Point(91, 5);
+            this.lblConcentration.Location = new System.Drawing.Point(80, 5);
             this.lblConcentration.Name = "lblConcentration";
-            this.lblConcentration.Size = new System.Drawing.Size(28, 17);
+            this.lblConcentration.Size = new System.Drawing.Size(38, 17);
             this.lblConcentration.TabIndex = 4;
-            this.lblConcentration.Text = "浓度";
+            this.lblConcentration.Text = "浓  度";
             // 
             // lblCalibrationMethod
             // 
@@ -155,56 +170,64 @@
             // 
             // std4
             // 
-            this.std4.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.std4.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.std4.Appearance.Options.UseFont = true;
-            this.std4.Location = new System.Drawing.Point(18, 155);
+            this.std4.Location = new System.Drawing.Point(13, 155);
             this.std4.Name = "std4";
-            this.std4.Size = new System.Drawing.Size(27, 17);
+            this.std4.Size = new System.Drawing.Size(31, 17);
             this.std4.TabIndex = 6;
             this.std4.Text = "std4";
             // 
             // std3
             // 
-            this.std3.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.std3.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.std3.Appearance.Options.UseFont = true;
-            this.std3.Location = new System.Drawing.Point(18, 125);
+            this.std3.Location = new System.Drawing.Point(13, 125);
             this.std3.Name = "std3";
-            this.std3.Size = new System.Drawing.Size(27, 17);
+            this.std3.Size = new System.Drawing.Size(31, 17);
             this.std3.TabIndex = 7;
             this.std3.Text = "std3";
             // 
             // std2
             // 
-            this.std2.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.std2.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.std2.Appearance.Options.UseFont = true;
-            this.std2.Location = new System.Drawing.Point(18, 95);
+            this.std2.Location = new System.Drawing.Point(13, 95);
             this.std2.Name = "std2";
-            this.std2.Size = new System.Drawing.Size(27, 17);
+            this.std2.Size = new System.Drawing.Size(31, 17);
             this.std2.TabIndex = 8;
             this.std2.Text = "std2";
             // 
             // std6
             // 
-            this.std6.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.std6.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.std6.Appearance.Options.UseFont = true;
-            this.std6.Location = new System.Drawing.Point(18, 215);
+            this.std6.Location = new System.Drawing.Point(13, 215);
             this.std6.Name = "std6";
-            this.std6.Size = new System.Drawing.Size(27, 17);
+            this.std6.Size = new System.Drawing.Size(31, 17);
             this.std6.TabIndex = 9;
             this.std6.Text = "std6";
             // 
             // std5
             // 
-            this.std5.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.std5.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.std5.Appearance.Options.UseFont = true;
-            this.std5.Location = new System.Drawing.Point(18, 185);
+            this.std5.Location = new System.Drawing.Point(13, 185);
             this.std5.Name = "std5";
-            this.std5.Size = new System.Drawing.Size(27, 17);
+            this.std5.Size = new System.Drawing.Size(31, 17);
             this.std5.TabIndex = 10;
             this.std5.Text = "std5";
             // 
             // groupControl1
             // 
+            this.groupControl1.Controls.Add(this.textEditFactor6);
+            this.groupControl1.Controls.Add(this.textEditFactor5);
+            this.groupControl1.Controls.Add(this.textEditFactor4);
+            this.groupControl1.Controls.Add(this.textEditFactor3);
+            this.groupControl1.Controls.Add(this.textEditFactor2);
+            this.groupControl1.Controls.Add(this.textEditFactor1);
+            this.groupControl1.Controls.Add(this.textEditBlkFactor);
+            this.groupControl1.Controls.Add(this.labControlFactor);
             this.groupControl1.Controls.Add(this.textEditSDT6Abs);
             this.groupControl1.Controls.Add(this.textEditSDT6Conc);
             this.groupControl1.Controls.Add(this.textEditSDT5Abs);
@@ -231,13 +254,93 @@
             this.groupControl1.Location = new System.Drawing.Point(12, 64);
             this.groupControl1.Name = "groupControl1";
             this.groupControl1.ShowCaption = false;
-            this.groupControl1.Size = new System.Drawing.Size(236, 259);
+            this.groupControl1.Size = new System.Drawing.Size(271, 259);
             this.groupControl1.TabIndex = 11;
             this.groupControl1.Text = "groupControl1";
             // 
+            // textEditFactor6
+            // 
+            this.textEditFactor6.Location = new System.Drawing.Point(199, 212);
+            this.textEditFactor6.Name = "textEditFactor6";
+            this.textEditFactor6.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textEditFactor6.Properties.Appearance.Options.UseFont = true;
+            this.textEditFactor6.Properties.ReadOnly = true;
+            this.textEditFactor6.Size = new System.Drawing.Size(66, 24);
+            this.textEditFactor6.TabIndex = 33;
+            // 
+            // textEditFactor5
+            // 
+            this.textEditFactor5.Location = new System.Drawing.Point(199, 182);
+            this.textEditFactor5.Name = "textEditFactor5";
+            this.textEditFactor5.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textEditFactor5.Properties.Appearance.Options.UseFont = true;
+            this.textEditFactor5.Properties.ReadOnly = true;
+            this.textEditFactor5.Size = new System.Drawing.Size(66, 24);
+            this.textEditFactor5.TabIndex = 32;
+            // 
+            // textEditFactor4
+            // 
+            this.textEditFactor4.Location = new System.Drawing.Point(199, 152);
+            this.textEditFactor4.Name = "textEditFactor4";
+            this.textEditFactor4.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textEditFactor4.Properties.Appearance.Options.UseFont = true;
+            this.textEditFactor4.Properties.ReadOnly = true;
+            this.textEditFactor4.Size = new System.Drawing.Size(66, 24);
+            this.textEditFactor4.TabIndex = 31;
+            // 
+            // textEditFactor3
+            // 
+            this.textEditFactor3.Location = new System.Drawing.Point(199, 122);
+            this.textEditFactor3.Name = "textEditFactor3";
+            this.textEditFactor3.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textEditFactor3.Properties.Appearance.Options.UseFont = true;
+            this.textEditFactor3.Properties.ReadOnly = true;
+            this.textEditFactor3.Size = new System.Drawing.Size(66, 24);
+            this.textEditFactor3.TabIndex = 30;
+            // 
+            // textEditFactor2
+            // 
+            this.textEditFactor2.Location = new System.Drawing.Point(199, 92);
+            this.textEditFactor2.Name = "textEditFactor2";
+            this.textEditFactor2.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textEditFactor2.Properties.Appearance.Options.UseFont = true;
+            this.textEditFactor2.Properties.ReadOnly = true;
+            this.textEditFactor2.Size = new System.Drawing.Size(66, 24);
+            this.textEditFactor2.TabIndex = 29;
+            // 
+            // textEditFactor1
+            // 
+            this.textEditFactor1.Location = new System.Drawing.Point(199, 62);
+            this.textEditFactor1.Name = "textEditFactor1";
+            this.textEditFactor1.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textEditFactor1.Properties.Appearance.Options.UseFont = true;
+            this.textEditFactor1.Properties.ReadOnly = true;
+            this.textEditFactor1.Size = new System.Drawing.Size(66, 24);
+            this.textEditFactor1.TabIndex = 28;
+            // 
+            // textEditBlkFactor
+            // 
+            this.textEditBlkFactor.Location = new System.Drawing.Point(199, 32);
+            this.textEditBlkFactor.Name = "textEditBlkFactor";
+            this.textEditBlkFactor.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textEditBlkFactor.Properties.Appearance.Options.UseFont = true;
+            this.textEditBlkFactor.Properties.ReadOnly = true;
+            this.textEditBlkFactor.Size = new System.Drawing.Size(66, 24);
+            this.textEditBlkFactor.TabIndex = 27;
+            // 
+            // labControlFactor
+            // 
+            this.labControlFactor.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labControlFactor.Appearance.Options.UseFont = true;
+            this.labControlFactor.Location = new System.Drawing.Point(214, 5);
+            this.labControlFactor.Name = "labControlFactor";
+            this.labControlFactor.Size = new System.Drawing.Size(38, 17);
+            this.labControlFactor.TabIndex = 26;
+            this.labControlFactor.Text = "因  子";
+            // 
             // textEditSDT6Abs
             // 
-            this.textEditSDT6Abs.Location = new System.Drawing.Point(151, 212);
+            this.textEditSDT6Abs.Location = new System.Drawing.Point(132, 212);
             this.textEditSDT6Abs.Name = "textEditSDT6Abs";
             this.textEditSDT6Abs.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textEditSDT6Abs.Properties.Appearance.Options.UseFont = true;
@@ -247,7 +350,7 @@
             // 
             // textEditSDT6Conc
             // 
-            this.textEditSDT6Conc.Location = new System.Drawing.Point(72, 212);
+            this.textEditSDT6Conc.Location = new System.Drawing.Point(65, 212);
             this.textEditSDT6Conc.Name = "textEditSDT6Conc";
             this.textEditSDT6Conc.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textEditSDT6Conc.Properties.Appearance.Options.UseFont = true;
@@ -257,7 +360,7 @@
             // 
             // textEditSDT5Abs
             // 
-            this.textEditSDT5Abs.Location = new System.Drawing.Point(151, 182);
+            this.textEditSDT5Abs.Location = new System.Drawing.Point(132, 182);
             this.textEditSDT5Abs.Name = "textEditSDT5Abs";
             this.textEditSDT5Abs.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textEditSDT5Abs.Properties.Appearance.Options.UseFont = true;
@@ -267,7 +370,7 @@
             // 
             // textEditSDT5Conc
             // 
-            this.textEditSDT5Conc.Location = new System.Drawing.Point(72, 182);
+            this.textEditSDT5Conc.Location = new System.Drawing.Point(65, 182);
             this.textEditSDT5Conc.Name = "textEditSDT5Conc";
             this.textEditSDT5Conc.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textEditSDT5Conc.Properties.Appearance.Options.UseFont = true;
@@ -277,7 +380,7 @@
             // 
             // textEditSDT4Abs
             // 
-            this.textEditSDT4Abs.Location = new System.Drawing.Point(151, 152);
+            this.textEditSDT4Abs.Location = new System.Drawing.Point(132, 152);
             this.textEditSDT4Abs.Name = "textEditSDT4Abs";
             this.textEditSDT4Abs.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textEditSDT4Abs.Properties.Appearance.Options.UseFont = true;
@@ -287,7 +390,7 @@
             // 
             // textEditSDT4Conc
             // 
-            this.textEditSDT4Conc.Location = new System.Drawing.Point(72, 152);
+            this.textEditSDT4Conc.Location = new System.Drawing.Point(65, 152);
             this.textEditSDT4Conc.Name = "textEditSDT4Conc";
             this.textEditSDT4Conc.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textEditSDT4Conc.Properties.Appearance.Options.UseFont = true;
@@ -297,7 +400,7 @@
             // 
             // textEditSDT3Abs
             // 
-            this.textEditSDT3Abs.Location = new System.Drawing.Point(151, 122);
+            this.textEditSDT3Abs.Location = new System.Drawing.Point(132, 122);
             this.textEditSDT3Abs.Name = "textEditSDT3Abs";
             this.textEditSDT3Abs.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textEditSDT3Abs.Properties.Appearance.Options.UseFont = true;
@@ -307,7 +410,7 @@
             // 
             // textEditSDT3Conc
             // 
-            this.textEditSDT3Conc.Location = new System.Drawing.Point(72, 122);
+            this.textEditSDT3Conc.Location = new System.Drawing.Point(65, 122);
             this.textEditSDT3Conc.Name = "textEditSDT3Conc";
             this.textEditSDT3Conc.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textEditSDT3Conc.Properties.Appearance.Options.UseFont = true;
@@ -317,7 +420,7 @@
             // 
             // textEditSDT2Abs
             // 
-            this.textEditSDT2Abs.Location = new System.Drawing.Point(151, 92);
+            this.textEditSDT2Abs.Location = new System.Drawing.Point(132, 92);
             this.textEditSDT2Abs.Name = "textEditSDT2Abs";
             this.textEditSDT2Abs.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textEditSDT2Abs.Properties.Appearance.Options.UseFont = true;
@@ -327,7 +430,7 @@
             // 
             // textEditSDT2Conc
             // 
-            this.textEditSDT2Conc.Location = new System.Drawing.Point(72, 92);
+            this.textEditSDT2Conc.Location = new System.Drawing.Point(65, 92);
             this.textEditSDT2Conc.Name = "textEditSDT2Conc";
             this.textEditSDT2Conc.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textEditSDT2Conc.Properties.Appearance.Options.UseFont = true;
@@ -337,7 +440,7 @@
             // 
             // textEditSDT1Abs
             // 
-            this.textEditSDT1Abs.Location = new System.Drawing.Point(151, 62);
+            this.textEditSDT1Abs.Location = new System.Drawing.Point(132, 62);
             this.textEditSDT1Abs.Name = "textEditSDT1Abs";
             this.textEditSDT1Abs.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textEditSDT1Abs.Properties.Appearance.Options.UseFont = true;
@@ -347,7 +450,7 @@
             // 
             // textEditSDT1Conc
             // 
-            this.textEditSDT1Conc.Location = new System.Drawing.Point(72, 62);
+            this.textEditSDT1Conc.Location = new System.Drawing.Point(65, 62);
             this.textEditSDT1Conc.Name = "textEditSDT1Conc";
             this.textEditSDT1Conc.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textEditSDT1Conc.Properties.Appearance.Options.UseFont = true;
@@ -357,7 +460,7 @@
             // 
             // textEditBlkAbs
             // 
-            this.textEditBlkAbs.Location = new System.Drawing.Point(151, 32);
+            this.textEditBlkAbs.Location = new System.Drawing.Point(132, 32);
             this.textEditBlkAbs.Name = "textEditBlkAbs";
             this.textEditBlkAbs.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textEditBlkAbs.Properties.Appearance.Options.UseFont = true;
@@ -367,7 +470,8 @@
             // 
             // textEditBlkConc
             // 
-            this.textEditBlkConc.Location = new System.Drawing.Point(72, 32);
+            this.textEditBlkConc.EditValue = "";
+            this.textEditBlkConc.Location = new System.Drawing.Point(65, 32);
             this.textEditBlkConc.Name = "textEditBlkConc";
             this.textEditBlkConc.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textEditBlkConc.Properties.Appearance.Options.UseFont = true;
@@ -378,42 +482,42 @@
             // chartControl1
             // 
             this.chartControl1.DataBindings = null;
-            xyDiagram1.AxisX.MinorCount = 1;
-            xyDiagram1.AxisX.NumericScaleOptions.AutoGrid = false;
-            xyDiagram1.AxisX.Title.Text = "浓度";
-            xyDiagram1.AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
-            xyDiagram1.AxisX.VisibleInPanesSerializable = "-1";
-            xyDiagram1.AxisX.VisualRange.Auto = false;
-            xyDiagram1.AxisX.VisualRange.AutoSideMargins = false;
-            xyDiagram1.AxisX.VisualRange.MaxValueSerializable = "30";
-            xyDiagram1.AxisX.VisualRange.MinValueSerializable = "0";
-            xyDiagram1.AxisX.VisualRange.SideMarginsValue = 0.5D;
-            xyDiagram1.AxisX.WholeRange.Auto = false;
-            xyDiagram1.AxisX.WholeRange.AutoSideMargins = false;
-            xyDiagram1.AxisX.WholeRange.MaxValueSerializable = "30";
-            xyDiagram1.AxisX.WholeRange.MinValueSerializable = "0";
-            xyDiagram1.AxisX.WholeRange.SideMarginsValue = 0.5D;
-            xyDiagram1.AxisY.MinorCount = 9;
-            xyDiagram1.AxisY.NumericScaleOptions.AutoGrid = false;
-            xyDiagram1.AxisY.NumericScaleOptions.GridSpacing = 0.1D;
-            xyDiagram1.AxisY.Title.Text = "吸光度";
-            xyDiagram1.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
-            xyDiagram1.AxisY.VisibleInPanesSerializable = "-1";
-            xyDiagram1.AxisY.VisualRange.Auto = false;
-            xyDiagram1.AxisY.VisualRange.AutoSideMargins = false;
-            xyDiagram1.AxisY.VisualRange.MaxValueSerializable = "1";
-            xyDiagram1.AxisY.VisualRange.MinValueSerializable = "0";
-            xyDiagram1.AxisY.VisualRange.SideMarginsValue = 0.5D;
-            xyDiagram1.AxisY.WholeRange.Auto = false;
-            xyDiagram1.AxisY.WholeRange.AutoSideMargins = false;
-            xyDiagram1.AxisY.WholeRange.MaxValueSerializable = "4";
-            xyDiagram1.AxisY.WholeRange.MinValueSerializable = "-4";
-            xyDiagram1.AxisY.WholeRange.SideMarginsValue = 0D;
-            xyDiagram1.EnableAxisXScrolling = true;
-            xyDiagram1.EnableAxisXZooming = true;
-            xyDiagram1.EnableAxisYScrolling = true;
-            xyDiagram1.EnableAxisYZooming = true;
-            this.chartControl1.Diagram = xyDiagram1;
+            xyDiagram2.AxisX.MinorCount = 1;
+            xyDiagram2.AxisX.NumericScaleOptions.AutoGrid = false;
+            xyDiagram2.AxisX.Title.Text = "浓度";
+            xyDiagram2.AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+            xyDiagram2.AxisX.VisibleInPanesSerializable = "-1";
+            xyDiagram2.AxisX.VisualRange.Auto = false;
+            xyDiagram2.AxisX.VisualRange.AutoSideMargins = false;
+            xyDiagram2.AxisX.VisualRange.MaxValueSerializable = "30";
+            xyDiagram2.AxisX.VisualRange.MinValueSerializable = "0";
+            xyDiagram2.AxisX.VisualRange.SideMarginsValue = 0.5D;
+            xyDiagram2.AxisX.WholeRange.Auto = false;
+            xyDiagram2.AxisX.WholeRange.AutoSideMargins = false;
+            xyDiagram2.AxisX.WholeRange.MaxValueSerializable = "30";
+            xyDiagram2.AxisX.WholeRange.MinValueSerializable = "0";
+            xyDiagram2.AxisX.WholeRange.SideMarginsValue = 0.5D;
+            xyDiagram2.AxisY.MinorCount = 9;
+            xyDiagram2.AxisY.NumericScaleOptions.AutoGrid = false;
+            xyDiagram2.AxisY.NumericScaleOptions.GridSpacing = 0.1D;
+            xyDiagram2.AxisY.Title.Text = "吸光度";
+            xyDiagram2.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+            xyDiagram2.AxisY.VisibleInPanesSerializable = "-1";
+            xyDiagram2.AxisY.VisualRange.Auto = false;
+            xyDiagram2.AxisY.VisualRange.AutoSideMargins = false;
+            xyDiagram2.AxisY.VisualRange.MaxValueSerializable = "1";
+            xyDiagram2.AxisY.VisualRange.MinValueSerializable = "0";
+            xyDiagram2.AxisY.VisualRange.SideMarginsValue = 0.5D;
+            xyDiagram2.AxisY.WholeRange.Auto = false;
+            xyDiagram2.AxisY.WholeRange.AutoSideMargins = false;
+            xyDiagram2.AxisY.WholeRange.MaxValueSerializable = "4";
+            xyDiagram2.AxisY.WholeRange.MinValueSerializable = "-4";
+            xyDiagram2.AxisY.WholeRange.SideMarginsValue = 0D;
+            xyDiagram2.EnableAxisXScrolling = true;
+            xyDiagram2.EnableAxisXZooming = true;
+            xyDiagram2.EnableAxisYScrolling = true;
+            xyDiagram2.EnableAxisYZooming = true;
+            this.chartControl1.Diagram = xyDiagram2;
             this.chartControl1.Legend.AlignmentHorizontal = DevExpress.XtraCharts.LegendAlignmentHorizontal.Center;
             this.chartControl1.Legend.AlignmentVertical = DevExpress.XtraCharts.LegendAlignmentVertical.TopOutside;
             this.chartControl1.Legend.Direction = DevExpress.XtraCharts.LegendDirection.LeftToRight;
@@ -423,15 +527,15 @@
             this.chartControl1.Legend.TextColor = System.Drawing.Color.Blue;
             this.chartControl1.Legend.Title.Text = "";
             this.chartControl1.Legend.Visibility = DevExpress.Utils.DefaultBoolean.False;
-            this.chartControl1.Location = new System.Drawing.Point(249, 63);
+            this.chartControl1.Location = new System.Drawing.Point(289, 63);
             this.chartControl1.Name = "chartControl1";
-            series1.LegendName = "Legend";
-            series1.Name = "Series 1";
-            series1.TopNOptions.Mode = DevExpress.XtraCharts.TopNMode.ThresholdPercent;
-            series1.View = lineSeriesView1;
+            series2.LegendName = "Legend";
+            series2.Name = "Series 1";
+            series2.TopNOptions.Mode = DevExpress.XtraCharts.TopNMode.ThresholdPercent;
+            series2.View = lineSeriesView2;
             this.chartControl1.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
-        series1};
-            this.chartControl1.Size = new System.Drawing.Size(976, 622);
+        series2};
+            this.chartControl1.Size = new System.Drawing.Size(1016, 622);
             this.chartControl1.TabIndex = 25;
             // 
             // btnClose
@@ -485,19 +589,19 @@
             this.comBoxEditCalibTime.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.comBoxEditCalibTime.Size = new System.Drawing.Size(168, 24);
             this.comBoxEditCalibTime.TabIndex = 34;
-            this.comBoxEditCalibTime.SelectedIndexChanged += new System.EventHandler(this.comboBoxEdit1_SelectedIndexChanged);
+            this.comBoxEditCalibTime.SelectedIndexChanged += new System.EventHandler(this.comBoxEditCalibTime_SelectedIndexChanged);
             // 
-            // simpleButton2
+            // btnSave
             // 
-            this.simpleButton2.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton2.Appearance.Options.UseFont = true;
-            this.simpleButton2.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton2.Image")));
-            this.simpleButton2.Location = new System.Drawing.Point(994, 694);
-            this.simpleButton2.Name = "simpleButton2";
-            this.simpleButton2.Size = new System.Drawing.Size(87, 53);
-            this.simpleButton2.TabIndex = 35;
-            this.simpleButton2.Text = "保存";
-            this.simpleButton2.Click += new System.EventHandler(this.simpleButton2_Click);
+            this.btnSave.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSave.Appearance.Options.UseFont = true;
+            this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
+            this.btnSave.Location = new System.Drawing.Point(994, 694);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(87, 53);
+            this.btnSave.TabIndex = 35;
+            this.btnSave.Text = "保存";
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // textEditSampleType
             // 
@@ -523,10 +627,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1247, 757);
+            this.ClientSize = new System.Drawing.Size(1317, 757);
             this.Controls.Add(this.textEditSampleType);
             this.Controls.Add(this.labelControl2);
-            this.Controls.Add(this.simpleButton2);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.comBoxEditCalibTime);
             this.Controls.Add(this.labelControl1);
             this.Controls.Add(this.textEditCalibMethod);
@@ -539,10 +643,16 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "CalibrationCurve";
             this.Text = "校准曲线";
-            this.Load += new System.EventHandler(this.CalibrationCurve_Load);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             this.groupControl1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.textEditFactor6.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEditFactor5.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEditFactor4.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEditFactor3.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEditFactor2.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEditFactor1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEditBlkFactor.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEditSDT6Abs.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEditSDT6Conc.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEditSDT5Abs.Properties)).EndInit();
@@ -557,9 +667,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.textEditSDT1Conc.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEditBlkAbs.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEditBlkConc.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(series1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(series2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEditProjectName.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEditCalibMethod.Properties)).EndInit();
@@ -597,15 +707,23 @@
         private DevExpress.XtraEditors.TextEdit textEditSDT1Abs;
         private DevExpress.XtraEditors.TextEdit textEditSDT1Conc;
         private DevExpress.XtraEditors.TextEdit textEditBlkAbs;
-        private DevExpress.XtraEditors.TextEdit textEditBlkConc;
         private DevExpress.XtraCharts.ChartControl chartControl1;
         private DevExpress.XtraEditors.SimpleButton btnClose;
         private DevExpress.XtraEditors.TextEdit textEditProjectName;
         private DevExpress.XtraEditors.TextEdit textEditCalibMethod;
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraEditors.ComboBoxEdit comBoxEditCalibTime;
-        private DevExpress.XtraEditors.SimpleButton simpleButton2;
+        private DevExpress.XtraEditors.SimpleButton btnSave;
         private DevExpress.XtraEditors.TextEdit textEditSampleType;
         private DevExpress.XtraEditors.LabelControl labelControl2;
+        private DevExpress.XtraEditors.LabelControl labControlFactor;
+        private DevExpress.XtraEditors.TextEdit textEditFactor6;
+        private DevExpress.XtraEditors.TextEdit textEditFactor5;
+        private DevExpress.XtraEditors.TextEdit textEditFactor4;
+        private DevExpress.XtraEditors.TextEdit textEditFactor3;
+        private DevExpress.XtraEditors.TextEdit textEditFactor2;
+        private DevExpress.XtraEditors.TextEdit textEditFactor1;
+        private DevExpress.XtraEditors.TextEdit textEditBlkFactor;
+        private DevExpress.XtraEditors.TextEdit textEditBlkConc;
     }
 }

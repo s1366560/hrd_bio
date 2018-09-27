@@ -63,6 +63,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.lstvSampleInfo = new DevExpress.XtraGrid.GridControl();
+            this.btnSelect = new DevExpress.XtraEditors.SimpleButton();
+            this.btnReverseSelection = new DevExpress.XtraEditors.SimpleButton();
+            this.DiscreteStatistics = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.txtCaseNumber.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lstvInspectProInfo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
@@ -150,7 +153,7 @@
             this.btnReview.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReview.Appearance.Options.UseFont = true;
             this.btnReview.Image = ((System.Drawing.Image)(resources.GetObject("btnReview.Image")));
-            this.btnReview.Location = new System.Drawing.Point(1491, 817);
+            this.btnReview.Location = new System.Drawing.Point(1346, 815);
             this.btnReview.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnReview.Name = "btnReview";
             this.btnReview.Size = new System.Drawing.Size(106, 44);
@@ -173,15 +176,15 @@
             // 
             // simpleButton1
             // 
-            this.simpleButton1.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.simpleButton1.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.simpleButton1.Appearance.Options.UseFont = true;
             this.simpleButton1.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton1.Image")));
             this.simpleButton1.Location = new System.Drawing.Point(945, 64);
             this.simpleButton1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.simpleButton1.Name = "simpleButton1";
-            this.simpleButton1.Size = new System.Drawing.Size(75, 49);
+            this.simpleButton1.Size = new System.Drawing.Size(94, 49);
             this.simpleButton1.TabIndex = 47;
-            this.simpleButton1.Text = "查找";
+            this.simpleButton1.Text = "查 找";
             this.simpleButton1.Click += new System.EventHandler(this.simpleButton1_Click);
             // 
             // lblTO
@@ -224,8 +227,11 @@
             // gridView2
             // 
             this.gridView2.GridControl = this.lstvInspectProInfo;
+            this.gridView2.IndicatorWidth = 40;
             this.gridView2.Name = "gridView2";
+            this.gridView2.OptionsSelection.CheckBoxSelectorColumnWidth = 40;
             this.gridView2.OptionsView.ShowGroupPanel = false;
+            this.gridView2.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridView2_CustomDrawRowIndicator);
             this.gridView2.CellValueChanging += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.gridView2_CellValueChanging);
             // 
             // repositoryItemCheckEdit1
@@ -398,7 +404,7 @@
             // dtpInspectTimeStart
             // 
             this.dtpInspectTimeStart.CustomFormat = "yyyy-MM-dd";
-            this.dtpInspectTimeStart.Font = new System.Drawing.Font("SimSun", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.dtpInspectTimeStart.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.dtpInspectTimeStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpInspectTimeStart.Location = new System.Drawing.Point(401, 80);
             this.dtpInspectTimeStart.Name = "dtpInspectTimeStart";
@@ -408,7 +414,7 @@
             // dtpInspectTimeOld
             // 
             this.dtpInspectTimeOld.CustomFormat = "yyyy-MM-dd";
-            this.dtpInspectTimeOld.Font = new System.Drawing.Font("SimSun", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.dtpInspectTimeOld.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.dtpInspectTimeOld.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpInspectTimeOld.Location = new System.Drawing.Point(555, 80);
             this.dtpInspectTimeOld.Name = "dtpInspectTimeOld";
@@ -420,7 +426,7 @@
             this.btnSave.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.Appearance.Options.UseFont = true;
             this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
-            this.btnSave.Location = new System.Drawing.Point(1603, 817);
+            this.btnSave.Location = new System.Drawing.Point(1461, 815);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(103, 43);
             this.btnSave.TabIndex = 61;
@@ -439,15 +445,21 @@
             // 
             // gridView1
             // 
+            this.gridView1.CustomizationFormBounds = new System.Drawing.Rectangle(1704, 838, 216, 187);
             this.gridView1.GridControl = this.lstvSampleInfo;
             this.gridView1.IndicatorWidth = 40;
             this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsBehavior.Editable = false;
             this.gridView1.OptionsBehavior.EditingMode = DevExpress.XtraGrid.Views.Grid.GridEditingMode.EditFormInplaceHideCurrentRow;
             this.gridView1.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.MouseDown;
+            this.gridView1.OptionsSelection.CheckBoxSelectorColumnWidth = 40;
             this.gridView1.OptionsSelection.MultiSelect = true;
             this.gridView1.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
+            this.gridView1.OptionsSelection.ResetSelectionClickOutsideCheckboxSelector = true;
             this.gridView1.OptionsView.ShowGroupPanel = false;
             this.gridView1.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridView1_CustomDrawRowIndicator);
+            this.gridView1.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gridView1_RowCellStyle);
+            this.gridView1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.gridView1_MouseMove);
             // 
             // lstvSampleInfo
             // 
@@ -462,6 +474,38 @@
             this.gridView1});
             this.lstvSampleInfo.Click += new System.EventHandler(this.lstvSampleInfo_Click);
             // 
+            // btnSelect
+            // 
+            this.btnSelect.Image = ((System.Drawing.Image)(resources.GetObject("btnSelect.Image")));
+            this.btnSelect.Location = new System.Drawing.Point(1160, 816);
+            this.btnSelect.Name = "btnSelect";
+            this.btnSelect.Size = new System.Drawing.Size(84, 43);
+            this.btnSelect.TabIndex = 63;
+            this.btnSelect.Text = "全选";
+            this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
+            // 
+            // btnReverseSelection
+            // 
+            this.btnReverseSelection.Image = ((System.Drawing.Image)(resources.GetObject("btnReverseSelection.Image")));
+            this.btnReverseSelection.Location = new System.Drawing.Point(1253, 816);
+            this.btnReverseSelection.Name = "btnReverseSelection";
+            this.btnReverseSelection.Size = new System.Drawing.Size(84, 43);
+            this.btnReverseSelection.TabIndex = 64;
+            this.btnReverseSelection.Text = "反选";
+            this.btnReverseSelection.Click += new System.EventHandler(this.btnReverseSelection_Click);
+            // 
+            // DiscreteStatistics
+            // 
+            this.DiscreteStatistics.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DiscreteStatistics.Appearance.Options.UseFont = true;
+            this.DiscreteStatistics.Image = ((System.Drawing.Image)(resources.GetObject("DiscreteStatistics.Image")));
+            this.DiscreteStatistics.Location = new System.Drawing.Point(1576, 815);
+            this.DiscreteStatistics.Name = "DiscreteStatistics";
+            this.DiscreteStatistics.Size = new System.Drawing.Size(130, 43);
+            this.DiscreteStatistics.TabIndex = 65;
+            this.DiscreteStatistics.Text = "离 散 统 计";
+            this.DiscreteStatistics.Click += new System.EventHandler(this.DiscreteStatistics_Click);
+            // 
             // DataCheck
             // 
             this.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -469,6 +513,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.Controls.Add(this.DiscreteStatistics);
+            this.Controls.Add(this.btnReverseSelection);
+            this.Controls.Add(this.btnSelect);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.dtpInspectTimeOld);
@@ -540,7 +587,6 @@
         private DevExpress.XtraEditors.LabelControl lblInspectTime;
         private DevExpress.XtraEditors.LabelControl lblSampleNumber;
         private System.Windows.Forms.GroupBox grpSampleCheck;
-        private DevExpress.XtraEditors.CheckEdit chkEmergencyTreatment;
         private DevExpress.XtraEditors.CheckEdit chkRoutineSample;
         private System.Windows.Forms.GroupBox grpFilter;
         private DevExpress.XtraEditors.CheckEdit chkFilterClose;
@@ -555,7 +601,9 @@
         private System.Windows.Forms.Label label1;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
         private DevExpress.XtraGrid.GridControl lstvSampleInfo;
-
-
+        private DevExpress.XtraEditors.CheckEdit chkEmergencyTreatment;
+        private DevExpress.XtraEditors.SimpleButton btnSelect;
+        private DevExpress.XtraEditors.SimpleButton btnReverseSelection;
+        private DevExpress.XtraEditors.SimpleButton DiscreteStatistics;
     }
 }

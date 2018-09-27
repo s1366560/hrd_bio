@@ -38,7 +38,7 @@ namespace BioA.UI
                 sampleResInfo = value; 
                 if (lstSampleResInfo.Count > 0)
                 {
-                    sampleResInfo = lstSampleResInfo.Find((obj) => { return sampleResInfo.ProjectName == obj.ProjectName && sampleResInfo.SampleCreateTime == obj.SampleCreateTime; });
+                    sampleResInfo = lstSampleResInfo.Find((obj) => { return sampleResInfo.ProjectName == obj.ProjectName && sampleResInfo.SampleCompletionTime == obj.SampleCompletionTime; });
                 }
             }
         }
@@ -63,9 +63,11 @@ namespace BioA.UI
                 { 
                     if (sampleReactionInfo != null)
                     {
+                        this.CUVNO.Visible = true;
+                        labCUVNO.Text = sampleReactionInfo.CUVNO.ToString();
                         Series series = new Series("ReactionLine", ViewType.Line);
                         series.ArgumentScaleType = ScaleType.Qualitative;
-                        series.LabelsVisibility = DevExpress.Utils.DefaultBoolean.True;//显示标注标签
+                        //series.LabelsVisibility = DevExpress.Utils.DefaultBoolean.True;//显示标注标签
                         if (sampleReactionInfo.Cuv1Wm != 0)
                             series.Points.Add(new SeriesPoint(1, ((sampleReactionInfo.Cuv1Wm - sampleReactionInfo.CuvBlkWm) - (sampleReactionInfo.Cuv1Ws - sampleReactionInfo.CuvBlkWs)).ToString("#0.0000")));
                         if (sampleReactionInfo.Cuv2Wm != 0)
@@ -173,6 +175,7 @@ namespace BioA.UI
 
         private void btnClose_Click(object sender, EventArgs e)
         {
+            this.labCUVNO.Text = "";
             this.Close();
         }
 
@@ -185,6 +188,7 @@ namespace BioA.UI
 
         private void loadReflectionMonitoring()
         {
+            CUVNO.Visible = false;
             txtSampleNum.Text = sampleInfoForRes.SampleNum.ToString();
             dtpApplyTime.Value = sampleResInfo.SampleCreateTime;
             txtSampleName.Text = sampleResInfo.ProjectName;
@@ -193,34 +197,25 @@ namespace BioA.UI
             chartReaction.Series.Clear();
 
             string taskState = string.Empty;
-            switch (sampleResInfo.TaskState)
+            switch (sampleResInfo.SampleCompletionStatus)
             {
                 case 0:
-                    taskState = "待测中";
+                    taskState = "异常";
                     break;
                 case 1:
-                    taskState = "执行中";
+                    taskState = "检测中";
                     break;
                 case 2:
                     taskState = "已完成";
-                    break;
-                case 3:
-                    taskState = "被暂停";
                     break;
             }
             txtProjectState.Text = taskState;
             if (bAudit)
             {
-                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaDataCheck,
-                //XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryCommonTaskReactionForAudit",
-                //    XmlUtility.Serializer(typeof(SampleResultInfo), sampleResInfo))));
                 CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaDataCheck, new Dictionary<string, object[]>() { { "QueryCommonTaskReactionForAudit", new object[] { XmlUtility.Serializer(typeof(SampleResultInfo), sampleResInfo) } } });
             }
             else
             {
-                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaDataCheck,
-                //XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryTimeCourse",
-                //    XmlUtility.Serializer(typeof(SampleResultInfo), sampleResInfo))));
                 CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaDataCheck, new Dictionary<string, object[]>() { { "QueryTimeCourse", new object[] { XmlUtility.Serializer(typeof(SampleResultInfo), sampleResInfo) } } });
             }
         }

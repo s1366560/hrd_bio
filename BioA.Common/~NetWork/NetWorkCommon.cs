@@ -12,7 +12,7 @@ namespace BioA.Common.NetWork
         public static string LocalIPAddress()
         {
             string hostName = Dns.GetHostName();   //获取本机名
-            IPHostEntry localhost = Dns.GetHostByName(hostName);
+            IPHostEntry localhost = Dns.GetHostEntry(hostName);
             IPAddress localaddr = localhost.AddressList[0];
 
             return localaddr.ToString();

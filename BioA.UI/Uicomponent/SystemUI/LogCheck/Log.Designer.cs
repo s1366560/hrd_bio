@@ -53,22 +53,22 @@
             // 
             this.xtraTabPage1.Name = "xtraTabPage1";
             this.xtraTabPage1.Size = new System.Drawing.Size(1705, 838);
-            this.xtraTabPage1.TabPageWidth = 80;
-            this.xtraTabPage1.Text = "保养日志";
+            this.xtraTabPage1.TabPageWidth = 100;
+            this.xtraTabPage1.Text = "机器故障/报警日志";
             // 
             // xtraTabPage3
             // 
             this.xtraTabPage3.Name = "xtraTabPage3";
             this.xtraTabPage3.Size = new System.Drawing.Size(1705, 838);
             this.xtraTabPage3.TabPageWidth = 80;
-            this.xtraTabPage3.Text = "操作日志";
+            this.xtraTabPage3.Text = "保养日志";
             // 
             // xtraTabPage4
             // 
             this.xtraTabPage4.Name = "xtraTabPage4";
             this.xtraTabPage4.Size = new System.Drawing.Size(1705, 838);
             this.xtraTabPage4.TabPageWidth = 80;
-            this.xtraTabPage4.Text = "报警日志";
+            this.xtraTabPage4.Text = "操作日志";
             // 
             // Log
             // 

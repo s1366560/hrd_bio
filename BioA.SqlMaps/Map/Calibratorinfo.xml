@@ -100,7 +100,22 @@
       <result property="TaskState" column="TaskState" />            
     </resultMap>    
   </resultMaps>
+  <parameterMaps>
+    <parameterMap id="CalibratorProjectRI" class="Hashtable">
+      <parameter property="NumTime" column="NumTime"/>
+      <parameter property="calibratorName" column="calibratorName" />
+      <parameter property="proName" column="proName" />
+      <parameter property="samType" column="samType" />
+      <parameter property="n" column="n" direction="Output"/>
+    </parameterMap>
+  </parameterMaps>
+  
   <statements>
+    <!-- 删除校准品信息和校准对应的项目信息 -->
+    <procedure id="DeleteCalibratorProjectRI" parameterMap="CalibratorProjectRI">
+      DeleteCalibratorProjectRI
+    </procedure>
+    
     <statement id="QueryCalibrationMaintain" ResultClass="Calibratorinfo" >
       select * from CalibratorTb
     </statement>
@@ -127,9 +142,16 @@
     <statement id="DeleteCalibrationMaintain" parameterClass="System.Collections.IDictionary" ResultClass="int">
       delete from CalibratorTb where CalibName=#CalibName#
     </statement>
-    <statement id="DeleteCalibratorProjectinfo" parameterClass="System.Collections.IDictionary" ResultClass="int">
+    <statement id="DeleteCalibratorProject" parameterClass="System.Collections.IDictionary" ResultClass="int">
       delete from CalibratorProjectTb where CalibName=#CalibName#
     </statement>
+    <!-- 删除校准项目参数信息 -->
+    <statement id="DeleteCalibrationParamInfo" parameterClass="System.Collections.IDictionary" ResultClass="int">
+      delete from calibrationparaminfotb where ProjectName=#ProjectName# and SampleType=#SampleType# and CalibrationMethod is not null
+    </statement>
+    <insert id="SaveCalibrationParam" parameterClass="System.Collections.IDictionary">
+      insert into CalibrationParamInfoTb (ProjectName, SampleType) values(#ProjectName#, #SampleType#)
+    </insert>
     <statement id="EditCalibratorinfo" parameterClass="System.Collections.IDictionary" ResultClass="int">
       update CalibratorTb set
       CalibName = #CalibName#,
@@ -156,6 +178,14 @@
     </statement>
     <statement id="QueryCalibResultInfo" parameterClass="System.Collections.IDictionary" resultClass="CalibrationResultinfo">
       select * from CalibrationResultTb where  ProjectName=#ProjectName# and SampleNum=#SampleNum# and TCNO=#TCNO#
+    </statement>
+    <!-- 根据条件 查询校准品项目参数信息表的总行数 -->
+    <statement id="QueryCalibParamProInfoCout" parameterClass="System.Collections.IDictionary" ResultClass="int">
+      select count(*) from calibrationparaminfotb where ProjectName=#ProjectName# and SampleType=#SampleType# and CalibrationMethod is not null
+    </statement>
+    <!-- 根据条件查询校准品任务表中的总行数 -->
+    <statement id="QueryCalibTaskCountByProName" ResultClass="int" parameterClass="System.Collections.IDictionary" >
+      select count(*) from CalibratorinfoTaskTb where ProjectName=#ProjectName# and SampleType=#SampleType# and TaskState!=2
     </statement>
     
     <statement id="DeleteCalibrationCurveInfo" parameterClass="System.Collections.IDictionary" ResultClass="int">
@@ -186,9 +216,9 @@
     <statement id="QueryCalibrationResultInfoAndTimeCUVNO" ResultClass="CalibrationResultinfo" parameterClass="System.Collections.IDictionary" >
       select calib.*,t.CUVNO from calibrationresulttb calib left join sdttableitemtb sdt on calib.ProjectName = sdt.ProjectName and calib.SampleType=sdt.SampleType and calib.CalibMethod=sdt.CalibMethod 
         and calib.CalibrationDT=sdt.DrawDate left join timecoursetb t on calib.TCNO=t.TimeCourseNO
-          where sdt.ProjectName=#ProjectName# and sdt.SampleType=#SampleType# and sdt.CalibMethod=#CalibMethod# and sdt.CalibState='SUCCESSFUL'
+          where sdt.ProjectName=#ProjectName# and sdt.SampleType=#SampleType# and sdt.CalibMethod=#CalibMethod# and sdt.CalibState='SUCCESSFUL' and sdt.IsUsed = true
     </statement>
-    <statement id="QueryKCtMethodCalibrationResultInfoAndTimeCUVNO" ResultClass="CalibrationResultinfo" parameterClass="System.Collections.IDictionary" >
+    <statement id="QueryKMethodCalibResultInfoOrTimeCUVNO" ResultClass="CalibrationResultinfo" parameterClass="System.Collections.IDictionary" >
       select calib.*,t.CUVNO from calibrationresulttb calib left join timecoursetb t on calib.TCNO=t.TimeCourseNO
       where calib.ProjectName=#ProjectName# and calib.SampleType=#SampleType# and calib.CalibMethod=#CalibMethod# and calib.CalibrationState='2';
     </statement>
@@ -230,10 +260,16 @@
     <statement id="QueryAssayProAllInfo" ResultClass="CalibratorinfoTask" parameterClass="System.Collections.IDictionary" >
       select * from CalibratorinfoTaskTb where CreateDate=#CreateDate#
     </statement>
-    <statement id="DeleteSDTTableItem" parameterClass="System.Collections.IDictionary" ResultClass="int">
-      delete from sdttableitemtb where ProjectName=#ProjectName# and SampleType=#SampleType#
+    <!-- 保存最新的校准曲线状态 -->
+    <statement id="SaveSDTTableItem" parameterClass="System.Collections.IDictionary" ResultClass="int">
+      update sdttableitemtb set IsUsed = #IsUsed#  where ProjectName=#ProjectName# and SampleType=#SampleType# and CalibMethod=#CalibMethod# and DrawDate=#DrawDate#
     </statement>
-    <!--<statement id="AddSDTTableItem" parameterClass="System.Collections.IDictionary">      insert into sdttableitemtb(CalibMethod,ProjectName,BlkAbs,BlkConc,SDT1Abs,SDT1Conc,SDT2Abs,SDT2Conc,SDT3Abs,SDT3Conc,SDT4Abs,SDT4Conc,SDT5Abs,SDT5Conc,SDT6Abs,SDT6Conc,SampleType)
+    <!-- 修改之前被使用的校准曲线状态 -->
+    <statement id="BeforeUpdateSDTTableItemIsUsedState" parameterClass="System.Collections.IDictionary">
+      update sdttableitemtb set IsUsed = false  where ProjectName=#ProjectName# and SampleType=#SampleType# and CalibMethod=#CalibMethod# and DrawDate!=#DrawDate#
+    </statement>
+    <!--<statement id="AddSDTTableItem" parameterClass="System.Collections.IDictionary">      
+    insert into sdttableitemtb(CalibMethod,ProjectName,BlkAbs,BlkConc,SDT1Abs,SDT1Conc,SDT2Abs,SDT2Conc,SDT3Abs,SDT3Conc,SDT4Abs,SDT4Conc,SDT5Abs,SDT5Conc,SDT6Abs,SDT6Conc,SampleType)
       values (#CalibMethod#,#ProjectName#,#BlkAbs#,#BlkConc#,#SDT1Abs#,#SDT1Conc#,#SDT2Abs#,#SDT2Conc#,#SDT3Abs#,#SDT3Conc#,#SDT4Abs#,#SDT4Conc#,#SDT5Abs#,#SDT5Conc#,#SDT6Abs#,#SDT6Conc#,#SampleType#)
     </statement>-->
  

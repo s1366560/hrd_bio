@@ -16,11 +16,7 @@ namespace BioA.SqlMaps
             List<ReagentSettingsInfo> lstReagentSettingsInfo = new List<ReagentSettingsInfo>();
             try
             {
-                if (dataConfig == null)
-                {
-                    lstReagentSettingsInfo = (List<ReagentSettingsInfo>)ism_SqlMap.QueryForList<ReagentSettingsInfo>("ReagentInfo." + strDBMethod, dataConfig);
-
-                }
+                lstReagentSettingsInfo = (List<ReagentSettingsInfo>)ism_SqlMap.QueryForList<ReagentSettingsInfo>("ReagentInfo." + strDBMethod, dataConfig);
             }
 
             catch (Exception e)
@@ -64,9 +60,9 @@ namespace BioA.SqlMaps
             hashTable.Add("ReagentType", reagentSettingsInfo.ReagentType);
 
             try
-            {
+            { 
                 ism_SqlMap.Insert("ReagentInfo." + strDBMethod, hashTable);
-                return "";
+                return "试剂R1装载成功！";
             }
             catch (Exception e)
             {
@@ -93,7 +89,7 @@ namespace BioA.SqlMaps
             try
             {
                 ism_SqlMap.Insert("ReagentInfo." + strDBMethod, hashTable);
-                return "";
+                return "试剂R2装载成功！";
             }
             catch (Exception e)
             {
@@ -143,28 +139,23 @@ namespace BioA.SqlMaps
             }
             return intResult;
         }
-
-        public List<ReagentStateInfoR1R2> QueryReagentStateInfo(string strDBMethod, string dataConfig)
+        /// <summary>
+        /// 获取所有R1、R2试剂状态信息
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <returns></returns>
+        public List<ReagentStateInfoR1R2> QueryReagentStateInfo(string strDBMethod)
         {
             List<ReagentStateInfoR1R2> lstReagentStateInfo = new List<ReagentStateInfoR1R2>();
-            
             try
             {
-                if (dataConfig == null)
-                {
-                    lstReagentStateInfo = (List<ReagentStateInfoR1R2>)ism_SqlMap.QueryForList<ReagentStateInfoR1R2>("ReagentInfo." + strDBMethod, dataConfig);
-
-                    LogInfo.WriteProcessLog(XmlUtility.Serializer(typeof(List<ReagentStateInfoR1R2>), lstReagentStateInfo) + "zhuszihe22", Module.WindowsService);
-                }
+                lstReagentStateInfo = (List<ReagentStateInfoR1R2>)ism_SqlMap.QueryForList<ReagentStateInfoR1R2>("ReagentInfo." + strDBMethod, null);
             }                 
 
             catch (Exception e)
             {
                 LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.DAO);
             }
-
-          
-
             return lstReagentStateInfo;
         }
 
@@ -211,31 +202,48 @@ namespace BioA.SqlMaps
             }
             return reagentState;
         }
-
-        public int UpdataReagentStateInfo(string strDBMethod, ReagentStateInfoR1R2 reagentStateInfo)
+        /// <summary>
+        /// 修改试剂锁定/解锁状态：
+        ///     1.如果（strResult > 0）：修改成功，然后再重新获取所有试剂状态信息
+        ///     2.如果（strResult = 0）：修改失败，直接返回空对象。
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <param name="lstReagentStateInfo"></param>
+        /// <returns></returns>
+        public List<ReagentStateInfoR1R2> UpdataReagentStateInfo(string strDBMethod, List<ReagentStateInfoR1R2> lstReagentStateInfo)
         {
+            List<ReagentStateInfoR1R2> lstResultRegaentInfoR1R2 = new List<ReagentStateInfoR1R2>();
             int strResult = 0;
             try
             {
-                Hashtable hashTable = new Hashtable();
-
-                if (reagentStateInfo.ReagentType == "清洗剂" || reagentStateInfo.ReagentType2 == "清洗剂")
+                foreach (ReagentStateInfoR1R2 reagentStateInfo in lstReagentStateInfo)
                 {
-                    hashTable.Add("ReagentType", reagentStateInfo.ReagentType);
-                    hashTable.Add("ReagentType2", reagentStateInfo.ReagentType2);
-                    hashTable.Add("ReagentName", reagentStateInfo.ReagentName);
-                    hashTable.Add("ReagentName2", reagentStateInfo.ReagentName2);
+                    Hashtable hashTable = new Hashtable();
+
+                    if (reagentStateInfo.ReagentType == "清洗剂" || reagentStateInfo.ReagentType2 == "清洗剂")
+                    {
+                        hashTable.Add("ReagentType", reagentStateInfo.ReagentType);
+                        hashTable.Add("ReagentType2", reagentStateInfo.ReagentType2);
+                        hashTable.Add("ReagentName", reagentStateInfo.ReagentName);
+                        hashTable.Add("ReagentName2", reagentStateInfo.ReagentName2);
+                    }
+                    else
+                    {
+                        hashTable.Add("ReagentType", reagentStateInfo.ReagentType);
+                        hashTable.Add("ReagentType2", reagentStateInfo.ReagentType2);
+                        hashTable.Add("ReagentName", "");
+                        hashTable.Add("ReagentName2", "");
+                    }
+
+                    hashTable.Add("ProjectName", reagentStateInfo.ProjectName);
+                    strResult += ism_SqlMap.Update("ReagentInfo." + strDBMethod, reagentStateInfo);
+                }
+                if (strResult > 0)
+                {
+                    lstResultRegaentInfoR1R2 = (List<ReagentStateInfoR1R2>)ism_SqlMap.QueryForList<ReagentStateInfoR1R2>("ReagentInfo.QueryReagentState", null);
                 }
                 else
-                {
-                    hashTable.Add("ReagentType", reagentStateInfo.ReagentType);
-                    hashTable.Add("ReagentType2", reagentStateInfo.ReagentType2);
-                    hashTable.Add("ReagentName", "");
-                    hashTable.Add("ReagentName2", "");
-                }
-
-                hashTable.Add("ProjectName", reagentStateInfo.ProjectName);
-                strResult = ism_SqlMap.Update("ReagentInfo." + strDBMethod, reagentStateInfo);
+                    return null;
                 
             }
             catch (Exception e)
@@ -243,44 +251,50 @@ namespace BioA.SqlMaps
                 LogInfo.WriteErrorLog("LockQualityControl(string strDBMethod, QualityControlInfo QCInfo)==" + e.ToString(), Module.DAO);
             }
 
-            return strResult;
+            return lstResultRegaentInfoR1R2;
         }
+        /// <summary>
+        ///  修改试剂解锁状态：
+        ///     1.如果（strResult > 0）：修改成功，然后再重新获取所有试剂状态信息
+        ///     2.如果（strResult = 0）：修改失败，直接返回空对象。
+        /// </summary>
+        /// <param name="time"></param>
+        //public List<ReagentStateInfoR1R2> UpdataUnlockReagentStateInfo(string strDBMethod, List<ReagentStateInfoR1R2> lstReagentStateInfo)
+        //{
+        //    List<ReagentStateInfoR1R2> lstResultRegaentInfoR1R2 = new List<ReagentStateInfoR1R2>();
+        //    int strResult = 0;
+        //    try
+        //    {
+        //        foreach(ReagentStateInfoR1R2 reagentStateInfo in lstReagentStateInfo) 
+        //        {
+        //            Hashtable hashTable = new Hashtable();
 
-        public int UpdataUnlockReagentStateInfo(string strDBMethod, List<ReagentStateInfoR1R2> ReagentStateInfo)
-        {
-            int strResult = 0;
-            try
-            {
-                for (int i = 0; i < ReagentStateInfo.Count; i++)
-                {
-                    Hashtable hashTable = new Hashtable();
+        //            if (reagentStateInfo[i].ReagentType == "清洗剂" || reagentStateInfo.ReagentType2 == "清洗剂")
+        //            {
+        //                hashTable.Add("ReagentType", reagentStateInfo.ReagentType);
+        //                hashTable.Add("ReagentType2", reagentStateInfo.ReagentType2);
+        //                hashTable.Add("ReagentName", reagentStateInfo.ReagentName);
+        //                hashTable.Add("ReagentName2", reagentStateInfo.ReagentName2);
+        //            }
+        //            else
+        //            {
+        //                hashTable.Add("ReagentType", reagentStateInfo.ReagentType);
+        //                hashTable.Add("ReagentType2", reagentStateInfo.ReagentType2);
+        //                hashTable.Add("ReagentName", "");
+        //                hashTable.Add("ReagentName2", "");
+        //            }
 
-                    if (ReagentStateInfo[i].ReagentType == "清洗剂" || ReagentStateInfo[i].ReagentType2 == "清洗剂")
-                    {
-                        hashTable.Add("ReagentType", ReagentStateInfo[i].ReagentType);
-                        hashTable.Add("ReagentType2", ReagentStateInfo[i].ReagentType2);
-                        hashTable.Add("ReagentName", ReagentStateInfo[i].ReagentName);
-                        hashTable.Add("ReagentName2", ReagentStateInfo[i].ReagentName2);
-                    }
-                    else
-                    {
-                        hashTable.Add("ReagentType", ReagentStateInfo[i].ReagentType);
-                        hashTable.Add("ReagentType2", ReagentStateInfo[i].ReagentType2);
-                        hashTable.Add("ReagentName", "");
-                        hashTable.Add("ReagentName2", "");
-                    }
+        //            hashTable.Add("ProjectName", reagentStateInfo.ProjectName);
+        //            strResult += ism_SqlMap.Update("ReagentInfo." + strDBMethod, hashTable);
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        LogInfo.WriteErrorLog("LockQualityControl(string strDBMethod, QualityControlInfo QCInfo)==" + e.ToString(), Module.DAO);
+        //    }
 
-                    hashTable.Add("ProjectName", ReagentStateInfo[i].ProjectName);
-                    strResult += ism_SqlMap.Update("ReagentInfo." + strDBMethod, hashTable);
-                }
-            }
-            catch (Exception e)
-            {
-                LogInfo.WriteErrorLog("LockQualityControl(string strDBMethod, QualityControlInfo QCInfo)==" + e.ToString(), Module.DAO);
-            }
-
-            return strResult;
-        }
+        //    return strResult;
+        //}
 
         public void UpdateDetergentUsingStartingTime(DateTime time)
         {

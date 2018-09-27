@@ -51,15 +51,22 @@ namespace BioA.Common.IO
         public static string Read(XmlNode node, string attribute)
         {
             string value = "";
-            try
-            {
-                //TODO: 异常需要提前判定输入内容，不应该用异常处理正常逻辑
-                value = (attribute.Equals("") ? node.InnerText : node.Attributes[attribute].Value);
-            }
-            catch (Exception e)
-            {
-                LogInfo.WriteErrorLog("XMLHelper.cs_Read(XmlNode node, string attribute)==" + e.ToString(), Module.Common);
-            }
+            //try
+            //{
+                if (node.Attributes[attribute] == null)
+                {
+                    return node.InnerText;
+                }
+                else
+                {
+                    //TODO: 异常需要提前判定输入内容，不应该用异常处理正常逻辑
+                    value = node.Attributes[attribute].Value;
+                }
+            //}
+            //catch (Exception e)
+            //{
+            //    LogInfo.WriteErrorLog("XMLHelper.cs_Read(XmlNode node, string attribute)==" + e.ToString(), Module.Common);
+            //}
             return value;
         }
         public static XmlNode GetNode(string path, string node)

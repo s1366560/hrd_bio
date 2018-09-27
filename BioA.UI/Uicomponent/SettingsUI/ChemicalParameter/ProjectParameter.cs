@@ -24,6 +24,11 @@ namespace BioA.UI
         /// <param name="sender">参数对象</param>
         public delegate void AssayProInfoDelegate(Dictionary<string, object[]> sender);
         public event AssayProInfoDelegate AssayProInfoEvent;
+        
+        /// <summary>
+        /// 存储所有生化项目信息
+        /// </summary>
+        private DataTable dt = new DataTable();
 
         /// <summary>
         /// 存储客户端发送信息给服务器的参数集合
@@ -46,13 +51,27 @@ namespace BioA.UI
                 if (strReceiveInfo == "保存失败！")
                 {
                     MessageBoxDraw.ShowMsg(strReceiveInfo, MsgType.Warning);
-                    btnDetele_Click(null, null);
                 }
                 else
                 {
+                    lstAssayProParamInfoAll.RemoveAll(x => x.ProjectName == saveProParamInfo.ProjectName && x.SampleType == saveProParamInfo.SampleType);
+                    lstAssayProParamInfoAll.Add(saveProParamInfo);
                     MessageBoxDraw.ShowMsg(strReceiveInfo, MsgType.OK);
-                    BeginInvoke(new Action(InitialControl));
                 }
+                this.Invoke(new EventHandler(delegate { cheProjectAddOrEdit.Close(); }));
+            }
+        }
+        /// <summary>
+        /// 处理删除和修改项目信息后关闭子窗体
+        /// </summary>
+        private int _EnditOrDeleteProInfoHandle;
+        public int EnditOrDeleteProInfoHandle
+        {
+            get { return _EnditOrDeleteProInfoHandle; }
+            set
+            {
+                _EnditOrDeleteProInfoHandle = value;
+                this.Invoke(new EventHandler(delegate { cheProjectAddOrEdit.Close(); }));
             }
         }
 
@@ -82,60 +101,78 @@ namespace BioA.UI
         private void ProjectParameter_Load(object sender, EventArgs e)
         {
             //"QueryAssayProAllInfo", null
-            BeginInvoke(new Action(InitialControl)); 
-
-            
+            BeginInvoke(new Action(InitialControl));
+            dt.Columns.Add("序号");
+            dt.Columns.Add("项目名称");
+            dt.Columns.Add("类型");
+            dt.Columns.Add("项目全称");
+            dt.Columns.Add("通道号");
         }
 
         private void InitialControl()
         {
             // 分析方法
-            foreach (string analizeMethod in RunConfigureUtility.AnalizeMethodList)
-            {
-                cboAnalizeMethod.Properties.Items.Add(analizeMethod);
-            }
+            //foreach (string analizeMethod in RunConfigureUtility.AnalizeMethodList)
+            //{
+                cboAnalizeMethod.Properties.Items.AddRange(RunConfigureUtility.AnalizeMethodList);
+            //}
+            //测光点范围
+            //foreach (string reactionPoints in RunConfigureUtility.ReactionPoints)
+            //{
+            //List<string> lstReactionPoints = RunConfigureUtility.ReactionPoints;
+            //lstReactionPoints.Insert(0, "0");
+                txtCheckLightDot1.Properties.Items.Add("0");
+                txtCheckLightDot1.Properties.Items.AddRange(RunConfigureUtility.ReactionPoints);
+                txtCheckLightDot2.Properties.Items.Add("0");
+                txtCheckLightDot2.Properties.Items.AddRange(RunConfigureUtility.ReactionPoints);
+                txtCheckLightDot3.Properties.Items.AddRange(RunConfigureUtility.ReactionPoints);
+                txtCheckLightDot4.Properties.Items.AddRange(RunConfigureUtility.ReactionPoints);
+            //}
+
             //cboAnalizeMethod.SelectedIndex = 0;
             // 小数位数
-            foreach (string resultDecimal in RunConfigureUtility.ResultDecimalList)
-            {
-                cboDecimal.Properties.Items.Add(resultDecimal);
-            }
+            //foreach (string resultDecimal in RunConfigureUtility.ResultDecimalList)
+            //{
+            cboDecimal.Properties.Items.AddRange(RunConfigureUtility.ResultDecimalList);
+            //}
             //cboDecimal.SelectedIndex = 0;
             // 波长
             cboSecWaveLength.Properties.Items.Add("请选择");
-            foreach (string wave in RunConfigureUtility.WaveLengthList)
-            {
-                cboWaveLength.Properties.Items.Add(wave);
-                cboSecWaveLength.Properties.Items.Add(wave);
-            }
+            //foreach (string wave in RunConfigureUtility.WaveLengthList)
+            //{
+                cboWaveLength.Properties.Items.AddRange(RunConfigureUtility.WaveLengthList);
+                cboSecWaveLength.Properties.Items.AddRange(RunConfigureUtility.WaveLengthList);
+            //}
             //cboWaveLength.SelectedIndex = 0;
+
             //cboSecWaveLength.SelectedIndex = 0;
             // 范围方向
-            foreach (string boundDirection in RunConfigureUtility.BoundDirectionList)
-            {
-                cboBoundDirection.Properties.Items.Add(boundDirection);
-            }
+            //foreach (string boundDirection in RunConfigureUtility.BoundDirectionList)
+            //{
+                cboBoundDirection.Properties.Items.AddRange(RunConfigureUtility.BoundDirectionList);
+            //}
             cboBoundDirection.SelectedIndex = 0;
             // 反应方向
-            foreach (string reactionDirection in RunConfigureUtility.ReactionDirectionList)
-            {
-                cboReactionDirection.Properties.Items.Add(reactionDirection);
-            }
+            //foreach (string reactionDirection in RunConfigureUtility.ReactionDirectionList)
+            //{
+                cboReactionDirection.Properties.Items.AddRange(RunConfigureUtility.ReactionDirectionList);
+            //}
             cboReactionDirection.SelectedIndex = 0;
             // 搅拌1强度
-            foreach (string stirStrength in RunConfigureUtility.StirStrengthList)
-            {
-                cboStirring1Intensity.Properties.Items.Add(stirStrength);
-            }
+            //foreach (string stirStrength in RunConfigureUtility.StirStrengthList)
+            //{
+                cboStirring1Intensity.Properties.Items.AddRange(RunConfigureUtility.StirStrengthList);
+            //}
             cboStirring1Intensity.SelectedIndex = 1;
             // 搅拌2强度
-            foreach (string stirStrength in RunConfigureUtility.StirStrengthList)
-            {
-                cboStirring2Intensity.Properties.Items.Add(stirStrength);
-            }
+            //foreach (string stirStrength in RunConfigureUtility.StirStrengthList)
+            //{
+                cboStirring2Intensity.Properties.Items.AddRange(RunConfigureUtility.StirStrengthList);
+            //}
             cboStirring2Intensity.SelectedIndex = 1;
             // 获取结果单位
             proParamDic.Add("QueryProjectResultUnits", null);
+            //获取所有生化项目对应的参数信息
             proParamDic.Add("QueryAssayProjectParamInfoAll", null);
             //获取所有生化项目
             proParamDic.Add("QueryAssayProAllInfo", new object[]{""});
@@ -189,12 +226,6 @@ namespace BioA.UI
                     this.AssProParamInfoList = assayProParam;
                 }
             }
-            //if (AssayProInfoEvent != null)
-            //{
-            //    communicationEntity.StrmethodName = "GetAssayProjectParamInfoByNameAndType";
-            //    communicationEntity.ObjParam = XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfo);
-            //    AssayProInfoEvent(communicationEntity);
-            //}
         }
 
 
@@ -210,6 +241,7 @@ namespace BioA.UI
 
         private void btnEditProject_Click(object sender, EventArgs e)
         {
+            cheProjectAddOrEdit.BeforeClearingTheData();
             cheProjectAddOrEdit.Text = "编辑项目";
             if (this.gridView2.GetSelectedRows().Count() > 0)
             {
@@ -221,6 +253,7 @@ namespace BioA.UI
                 assayProInfo.ProFullName = this.gridView2.GetRowCellValue(selectedHandle, "项目全称").ToString();
                 assayProInfo.ChannelNum = this.gridView2.GetRowCellValue(selectedHandle, "通道号").ToString();
                 cheProjectAddOrEdit.FormAdd(assayProInfo);
+                cheProjectAddOrEdit.StartPosition = FormStartPosition.CenterScreen;
                 cheProjectAddOrEdit.ShowDialog();
             }
         }
@@ -247,39 +280,58 @@ namespace BioA.UI
                 proParamInfo = value;
                 BeginInvoke(new Action(() =>
                 {
+                    //检测方法
                     if (proParamInfo.AnalysisMethod != string.Empty)
                         cboAnalizeMethod.SelectedIndex = cboAnalizeMethod.Properties.Items.IndexOf(proParamInfo.AnalysisMethod);
                     else
-                    {
                         cboAnalizeMethod.Text = "请选择";
-                    }
-
-                    txtCheckLightDot1.Text = proParamInfo.MeasureLightDot1 == 0 ? "" : proParamInfo.MeasureLightDot1.ToString();
-                    txtCheckLightDot2.Text = proParamInfo.MeasureLightDot2 == 0 ? "" : proParamInfo.MeasureLightDot2.ToString();
-                    txtCheckLightDot3.Text = proParamInfo.MeasureLightDot3 == 0 ? "" : proParamInfo.MeasureLightDot3.ToString();
-                    txtCheckLightDot4.Text = proParamInfo.MeasureLightDot4 == 0 ? "" : proParamInfo.MeasureLightDot4.ToString();
-
+                   //测光点1
+                    if (proParamInfo.MeasureLightDot1 == 0)
+                        txtCheckLightDot1.SelectedIndex = 0;
+                    else
+                        txtCheckLightDot1.Text = proParamInfo.MeasureLightDot1.ToString();
+                    //测光点2
+                    if (proParamInfo.MeasureLightDot2 == 0)
+                        txtCheckLightDot2.SelectedIndex = 0;
+                    else
+                        txtCheckLightDot2.Text = proParamInfo.MeasureLightDot2.ToString();
+                    //测光点3
+                    if (proParamInfo.MeasureLightDot3 == 0)
+                        txtCheckLightDot3.SelectedIndex = 42;
+                    else
+                        txtCheckLightDot3.Text = proParamInfo.MeasureLightDot3.ToString();
+                    //测光点4
+                    if (proParamInfo.MeasureLightDot4 == 0)
+                        txtCheckLightDot4.SelectedIndex = 42;
+                    else
+                        txtCheckLightDot4.Text = proParamInfo.MeasureLightDot4.ToString();
+                    //小数点
                     if (proParamInfo.ResultDecimal != 100000000)
                         cboDecimal.SelectedIndex = cboDecimal.Properties.Items.IndexOf(proParamInfo.ResultDecimal.ToString());
                     else
                         cboDecimal.Text = "请选择";
-
+                    //结果单位
                     if (proParamInfo.ResultUnit != string.Empty)
                         cboResultUnit.SelectedIndex = cboResultUnit.Properties.Items.IndexOf(proParamInfo.ResultUnit);
                     else
                         cboResultUnit.Text = "请选择";
-
+                    //主波长
                     if (proParamInfo.MainWaveLength != 0)
                         cboWaveLength.SelectedIndex = cboWaveLength.Properties.Items.IndexOf(proParamInfo.MainWaveLength.ToString());
                     else
                         cboWaveLength.Text = "请选择";
-
+                    //次波长
                     if (proParamInfo.SecWaveLength != 0)
                         cboSecWaveLength.SelectedIndex = cboSecWaveLength.Properties.Items.IndexOf(proParamInfo.SecWaveLength.ToString());
                     else 
                         cboSecWaveLength.Text = "请选择";
-
-                    txtInstrumentFactorA.Text = proParamInfo.InstrumentFactorA == 100000000 ? "" : proParamInfo.InstrumentFactorA.ToString();
+                    //仪器因素法A
+                    if (proParamInfo.InstrumentFactorA == 100000000)
+                        txtInstrumentFactorA.Text = "";
+                    else if (proParamInfo.InstrumentFactorA == 0)
+                        txtInstrumentFactorA.Text = "1";
+                    else
+                        proParamInfo.InstrumentFactorA.ToString();
                     txtInstrumentFactorB.Text = proParamInfo.InstrumentFactorB == 100000000 ? "" : proParamInfo.InstrumentFactorB.ToString();
                     txtComStosteVol.Text = proParamInfo.ComStosteVol == 100000000 ? "" : proParamInfo.ComStosteVol.ToString();
                     txtComSamVol.Text = proParamInfo.ComSamVol == 100000000 ? "" : proParamInfo.ComSamVol.ToString();
@@ -364,6 +416,40 @@ namespace BioA.UI
             }
         }
 
+        private string[] itemsIsCreateSuccess;
+        /// <summary>
+        /// 处理生化项目保存是否成功
+        /// </summary>
+        public string[] ItemsIsCreateSuccess
+        {
+            get { return itemsIsCreateSuccess; }
+            set
+            {
+                itemsIsCreateSuccess = new string[value.Length];
+                itemsIsCreateSuccess = value;
+                if (itemsIsCreateSuccess[4] == "项目创建成功！")
+                {
+                    AssayProjectInfo assyInfo = new AssayProjectInfo();
+                    assyInfo.ProjectName = itemsIsCreateSuccess[0];
+                    assyInfo.SampleType = itemsIsCreateSuccess[1];
+                    assyInfo.ProFullName = itemsIsCreateSuccess[2];
+                    assyInfo.ChannelNum = itemsIsCreateSuccess[3];
+                    lstAssayProInfos.Add(assyInfo);
+                    this.LstAssayProInfos = lstAssayProInfos;
+                    MessageBox.Show(itemsIsCreateSuccess[4]);
+                }
+                else
+                {
+                    MessageBox.Show(itemsIsCreateSuccess[4]);
+                }
+                this.Invoke(new EventHandler(delegate 
+                { 
+                    cheProjectAddOrEdit.Close();
+                }));
+            }
+        }
+
+
         private List<AssayProjectInfo> lstAssayProInfos = new List<AssayProjectInfo>();
         /// <summary>
         /// 显示所有生化项目信息
@@ -373,18 +459,13 @@ namespace BioA.UI
             get { return lstAssayProInfos; }
             set
             {
-                lstAssayProInfos = value;
-                this.Invoke(new EventHandler(delegate 
+                this.Invoke(new EventHandler(delegate
                 {
+                    lstAssayProInfos = value;
                     lstvProject.RefreshDataSource();
                     int i = 1;
-                    DataTable dt = new DataTable();
 
-                    dt.Columns.Add("序号");
-                    dt.Columns.Add("项目名称");
-                    dt.Columns.Add("类型");
-                    dt.Columns.Add("项目全称");
-                    dt.Columns.Add("通道号");
+                    dt.Rows.Clear();
                     if (lstAssayProInfos.Count != 0)
                     {
                         foreach (AssayProjectInfo assayProInfo in lstAssayProInfos)
@@ -394,15 +475,12 @@ namespace BioA.UI
                             i++;
                         }
                     }
-
                     this.lstvProject.DataSource = dt;
+
                     if (this.gridView2.RowCount > 0)
                     {
                         this.gridView1.SelectRow(0);//FocusedRowHandle = 0;
-                        BeginInvoke(new Action(() =>
-                        {
-                            lstvProject_Click(null, null);
-                        }));
+                        lstvProject_Click(null, null);
                     }
                 }));
             }
@@ -415,25 +493,17 @@ namespace BioA.UI
                 if (MessageBoxDraw.ShowMsg("是否确认删除", MsgType.YesNo) == DialogResult.Yes)
                 {
                     AssayProjectInfo assayProInfo = new AssayProjectInfo();
-                    List<AssayProjectInfo> lstAssayProInfo = new List<AssayProjectInfo>();
-                    CommunicationEntity communicationEntity = new CommunicationEntity();
                     int selectedHandle;
                     selectedHandle = this.gridView2.GetSelectedRows()[0];
 
 
                     assayProInfo.ProjectName = this.gridView2.GetRowCellValue(selectedHandle, "项目名称").ToString();
                     assayProInfo.SampleType = this.gridView2.GetRowCellValue(selectedHandle, "类型").ToString();
-                    assayProInfo.ProFullName = this.gridView2.GetRowCellValue(selectedHandle, "项目全称").ToString();
-                    assayProInfo.ChannelNum = this.gridView2.GetRowCellValue(selectedHandle, "通道号").ToString();
-                    lstAssayProInfo.Add(assayProInfo);
 
                     if (AssayProInfoEvent != null)
                     {
-
-                        //communicationEntity.StrmethodName = "AssayProjectDelete";
-                        //communicationEntity.ObjParam = XmlUtility.Serializer(typeof(List<AssayProjectInfo>), lstAssayProInfo);
                         proParamDic.Clear();
-                        proParamDic.Add("AssayProjectDelete", new object[] { XmlUtility.Serializer(typeof(List<AssayProjectInfo>), lstAssayProInfo) });
+                        proParamDic.Add("AssayProjectDelete", new object[] { XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfo) });
                         AssayProInfoEvent(proParamDic);
                     }
                 }
@@ -473,19 +543,23 @@ namespace BioA.UI
                 //}
             }
         }
+        
+        /// <summary>
+        /// 存储（保存生化项目参数信息）
+        /// </summary>
+        private AssayProjectParamInfo saveProParamInfo;
 
         private void btnParamSave_Click(object sender, EventArgs e)
         {
             if (this.gridView2.GetSelectedRows().Count() <= 0)
                 return;
 
-            AssayProjectParamInfo proParamInfo = new AssayProjectParamInfo();
-            //CommunicationEntity communicationEntity = new CommunicationEntity();
+            saveProParamInfo = new AssayProjectParamInfo();
 
             int selectedHandle;
             selectedHandle = this.gridView2.GetSelectedRows()[0];
-            proParamInfo.ProjectName = this.gridView2.GetRowCellValue(selectedHandle, "项目名称").ToString();
-            proParamInfo.SampleType = this.gridView2.GetRowCellValue(selectedHandle, "类型").ToString();
+            saveProParamInfo.ProjectName = this.gridView2.GetRowCellValue(selectedHandle, "项目名称").ToString();
+            saveProParamInfo.SampleType = this.gridView2.GetRowCellValue(selectedHandle, "类型").ToString();
 
             if (cboAnalizeMethod.SelectedIndex < 0)
             {
@@ -493,13 +567,13 @@ namespace BioA.UI
                 return;
             }
             else
-                proParamInfo.AnalysisMethod = cboAnalizeMethod.SelectedIndex >= 0 ? cboAnalizeMethod.SelectedItem.ToString() : "";
+                saveProParamInfo.AnalysisMethod = cboAnalizeMethod.SelectedIndex >= 0 ? cboAnalizeMethod.SelectedItem.ToString() : "";
 
             if (txtCheckLightDot1.Enabled == true)
             {
                 if (Regex.IsMatch(txtCheckLightDot1.Text.Trim(), "^([0-9]{1,})$") && System.Convert.ToInt32(txtCheckLightDot1.Text.Trim()) > 0 && System.Convert.ToInt32(txtCheckLightDot1.Text.Trim()) <= RunConfigureUtility.LastPoint)
                 {
-                    proParamInfo.MeasureLightDot1 = System.Convert.ToInt32(txtCheckLightDot1.Text);
+                    saveProParamInfo.MeasureLightDot1 = System.Convert.ToInt32(txtCheckLightDot1.Text);
                 }
                 else
                 {
@@ -512,7 +586,7 @@ namespace BioA.UI
             {
                 if (Regex.IsMatch(txtCheckLightDot2.Text.Trim(), "^([0-9]{1,})$") && System.Convert.ToInt32(txtCheckLightDot2.Text.Trim()) > 0 && System.Convert.ToInt32(txtCheckLightDot2.Text.Trim()) <= RunConfigureUtility.LastPoint)
                 {
-                    proParamInfo.MeasureLightDot2 = System.Convert.ToInt32(txtCheckLightDot2.Text);
+                    saveProParamInfo.MeasureLightDot2 = System.Convert.ToInt32(txtCheckLightDot2.Text);
                 }
                 else
                 {
@@ -525,7 +599,7 @@ namespace BioA.UI
             {
                 if (Regex.IsMatch(txtCheckLightDot3.Text.Trim(), "^([0-9]{1,})$") && System.Convert.ToInt32(txtCheckLightDot3.Text.Trim()) > 0 && System.Convert.ToInt32(txtCheckLightDot3.Text.Trim()) <= RunConfigureUtility.LastPoint)
                 {
-                    proParamInfo.MeasureLightDot3 = System.Convert.ToInt32(txtCheckLightDot3.Text);
+                    saveProParamInfo.MeasureLightDot3 = System.Convert.ToInt32(txtCheckLightDot3.Text);
                 }
                 else
                 {
@@ -538,7 +612,7 @@ namespace BioA.UI
             {
                 if (Regex.IsMatch(txtCheckLightDot4.Text.Trim(), "^([0-9]{1,})$") && System.Convert.ToInt32(txtCheckLightDot4.Text.Trim()) > 0 && System.Convert.ToInt32(txtCheckLightDot4.Text.Trim()) <= RunConfigureUtility.LastPoint)
                 {
-                    proParamInfo.MeasureLightDot4 = System.Convert.ToInt32(txtCheckLightDot4.Text);
+                    saveProParamInfo.MeasureLightDot4 = System.Convert.ToInt32(txtCheckLightDot4.Text);
                 }
                 else
                 {
@@ -567,28 +641,28 @@ namespace BioA.UI
 
             if (cboDecimal.SelectedIndex >= 0)
             {
-                proParamInfo.ResultDecimal = System.Convert.ToInt32(cboDecimal.SelectedItem.ToString());
+                saveProParamInfo.ResultDecimal = System.Convert.ToInt32(cboDecimal.SelectedItem.ToString());
             }
 
-            proParamInfo.ResultUnit = cboResultUnit.SelectedIndex >= 0 ? cboResultUnit.SelectedItem.ToString() : "";
+            saveProParamInfo.ResultUnit = cboResultUnit.SelectedIndex >= 0 ? cboResultUnit.SelectedItem.ToString() : "";
             if (cboWaveLength.SelectedIndex < 0)
             {
                 MessageBoxDraw.ShowMsg("请选择主波长！", MsgType.Warning);
                 return;
             }
             else
-                proParamInfo.MainWaveLength = cboWaveLength.SelectedIndex >= 0 ? System.Convert.ToInt32(cboWaveLength.SelectedItem.ToString()) : 100000000;
+                saveProParamInfo.MainWaveLength = cboWaveLength.SelectedIndex >= 0 ? System.Convert.ToInt32(cboWaveLength.SelectedItem.ToString()) : 100000000;
             // 次波长
             if (cboSecWaveLength.Text == "请选择")
             {
 
             }
             else
-                proParamInfo.SecWaveLength = cboSecWaveLength.SelectedIndex >= 0 ? System.Convert.ToInt32(cboSecWaveLength.SelectedItem.ToString()) : 100000000; 
+                saveProParamInfo.SecWaveLength = cboSecWaveLength.SelectedIndex >= 0 ? System.Convert.ToInt32(cboSecWaveLength.SelectedItem.ToString()) : 100000000; 
 
             if (Regex.IsMatch(txtInstrumentFactorA.Text.Trim(), @"^(-?\d+)(\.\d+)?$"))
             {
-                proParamInfo.InstrumentFactorA = (float)System.Convert.ToDouble(txtInstrumentFactorA.Text);
+                saveProParamInfo.InstrumentFactorA = (float)System.Convert.ToDouble(txtInstrumentFactorA.Text);
             }
             else
             {
@@ -598,7 +672,7 @@ namespace BioA.UI
 
             if (Regex.IsMatch(txtInstrumentFactorB.Text.Trim(), @"^(-?\d+)(\.\d+)?$"))
             {
-                proParamInfo.InstrumentFactorB = (float)System.Convert.ToDouble(txtInstrumentFactorB.Text);
+                saveProParamInfo.InstrumentFactorB = (float)System.Convert.ToDouble(txtInstrumentFactorB.Text);
             }
             else
             {
@@ -628,9 +702,9 @@ namespace BioA.UI
                     (float)System.Convert.ToDouble(txtComSamVol.Text) >= 2 && (float)System.Convert.ToDouble(txtComSamVol.Text) <= 20 &&
                     (float)System.Convert.ToDouble(txtComDilutionVol.Text) >= 60 && (float)System.Convert.ToDouble(txtComDilutionVol.Text) <= 300))
                 {
-                    proParamInfo.ComStosteVol = (float)System.Convert.ToDouble(txtComStosteVol.Text);
-                    proParamInfo.ComSamVol = (float)System.Convert.ToDouble(txtComSamVol.Text);
-                    proParamInfo.ComDilutionVol = (float)System.Convert.ToDouble(txtComDilutionVol.Text);
+                    saveProParamInfo.ComStosteVol = (float)System.Convert.ToDouble(txtComStosteVol.Text);
+                    saveProParamInfo.ComSamVol = (float)System.Convert.ToDouble(txtComSamVol.Text);
+                    saveProParamInfo.ComDilutionVol = (float)System.Convert.ToDouble(txtComDilutionVol.Text);
                 }
                 else if ((float)System.Convert.ToDouble(txtComStosteVol.Text) < 1.5)
                 {
@@ -679,9 +753,9 @@ namespace BioA.UI
                     (float)System.Convert.ToDouble(txtDecSamVol.Text) >= 2 && (float)System.Convert.ToDouble(txtDecSamVol.Text) <= 20 &&
                     (float)System.Convert.ToDouble(txtDecDilutionVol.Text) >= 60 && (float)System.Convert.ToDouble(txtDecDilutionVol.Text) <= 300))
                 {
-                    proParamInfo.DecStosteVol = (float)System.Convert.ToDouble(txtDecStosteVol.Text);
-                    proParamInfo.DecSamVol = (float)System.Convert.ToDouble(txtDecSamVol.Text);
-                    proParamInfo.DecDilutionVol = (float)System.Convert.ToDouble(txtDecDilutionVol.Text);
+                    saveProParamInfo.DecStosteVol = (float)System.Convert.ToDouble(txtDecStosteVol.Text);
+                    saveProParamInfo.DecSamVol = (float)System.Convert.ToDouble(txtDecSamVol.Text);
+                    saveProParamInfo.DecDilutionVol = (float)System.Convert.ToDouble(txtDecDilutionVol.Text);
                 }
                 else if ((float)System.Convert.ToDouble(txtDecStosteVol.Text) < 1.5)
                 {
@@ -730,9 +804,9 @@ namespace BioA.UI
                     (float)System.Convert.ToDouble(txtIncSamVol.Text) >= 2 && (float)System.Convert.ToDouble(txtIncSamVol.Text) <= 20 &&
                     (float)System.Convert.ToDouble(txtIncDilutionVol.Text) >= 60 && (float)System.Convert.ToDouble(txtIncDilutionVol.Text) <= 300))
                 {
-                    proParamInfo.IncStosteVol = (float)System.Convert.ToDouble(txtIncStosteVol.Text);
-                    proParamInfo.IncSamVol = (float)System.Convert.ToDouble(txtIncSamVol.Text);
-                    proParamInfo.IncDilutionVol = (float)System.Convert.ToDouble(txtIncDilutionVol.Text);
+                    saveProParamInfo.IncStosteVol = (float)System.Convert.ToDouble(txtIncStosteVol.Text);
+                    saveProParamInfo.IncSamVol = (float)System.Convert.ToDouble(txtIncSamVol.Text);
+                    saveProParamInfo.IncDilutionVol = (float)System.Convert.ToDouble(txtIncDilutionVol.Text);
                 }
                 else if ((float)System.Convert.ToDouble(txtIncStosteVol.Text) < 1.5)
                 {
@@ -781,9 +855,9 @@ namespace BioA.UI
                     (float)System.Convert.ToDouble(txtCalibSamVol.Text) >= 2 && (float)System.Convert.ToDouble(txtCalibSamVol.Text) <= 20 &&
                     (float)System.Convert.ToDouble(txtCalibDilutionVol.Text) >= 60 && (float)System.Convert.ToDouble(txtCalibDilutionVol.Text) <= 300))
                 {
-                    proParamInfo.CalibStosteVol = (float)(System.Convert.ToDouble(txtCalibStosteVol.Text));
-                    proParamInfo.CalibSamVol = (float)System.Convert.ToDouble(txtCalibSamVol.Text);
-                    proParamInfo.CalibDilutionVol = (float)System.Convert.ToDouble(txtCalibDilutionVol.Text);
+                    saveProParamInfo.CalibStosteVol = (float)(System.Convert.ToDouble(txtCalibStosteVol.Text));
+                    saveProParamInfo.CalibSamVol = (float)System.Convert.ToDouble(txtCalibSamVol.Text);
+                    saveProParamInfo.CalibDilutionVol = (float)System.Convert.ToDouble(txtCalibDilutionVol.Text);
                 }
                 else if ((float)System.Convert.ToDouble(txtCalibStosteVol.Text) < 1.5)
                 {
@@ -848,15 +922,15 @@ namespace BioA.UI
             //    return;
             //}
 
-            proParamInfo.ComStosteVol = (float)System.Convert.ToDouble(txtComStosteVol.Text);
-            proParamInfo.ComSamVol = (float)System.Convert.ToDouble(txtComSamVol.Text);
-            proParamInfo.ComDilutionVol = (float)System.Convert.ToDouble(txtComDilutionVol.Text);
-            proParamInfo.DecStosteVol = (float)System.Convert.ToDouble(txtDecStosteVol.Text);
-            proParamInfo.DecSamVol = (float)System.Convert.ToDouble(txtDecSamVol.Text);
-            proParamInfo.DecDilutionVol = (float)System.Convert.ToDouble(txtDecDilutionVol.Text);
-            proParamInfo.IncStosteVol = (float)System.Convert.ToDouble(txtIncStosteVol.Text);
-            proParamInfo.IncSamVol = (float)System.Convert.ToDouble(txtIncSamVol.Text);
-            proParamInfo.IncDilutionVol = (float)System.Convert.ToDouble(txtIncDilutionVol.Text);
+            saveProParamInfo.ComStosteVol = (float)System.Convert.ToDouble(txtComStosteVol.Text);
+            saveProParamInfo.ComSamVol = (float)System.Convert.ToDouble(txtComSamVol.Text);
+            saveProParamInfo.ComDilutionVol = (float)System.Convert.ToDouble(txtComDilutionVol.Text);
+            saveProParamInfo.DecStosteVol = (float)System.Convert.ToDouble(txtDecStosteVol.Text);
+            saveProParamInfo.DecSamVol = (float)System.Convert.ToDouble(txtDecSamVol.Text);
+            saveProParamInfo.DecDilutionVol = (float)System.Convert.ToDouble(txtDecDilutionVol.Text);
+            saveProParamInfo.IncStosteVol = (float)System.Convert.ToDouble(txtIncStosteVol.Text);
+            saveProParamInfo.IncSamVol = (float)System.Convert.ToDouble(txtIncSamVol.Text);
+            saveProParamInfo.IncDilutionVol = (float)System.Convert.ToDouble(txtIncDilutionVol.Text);
 
             if (txtFirstSlope.Text.Trim() != "" && txtSecondSlope.Text.Trim() != "" &&
                 txtFirstSlopeHigh.Text.Trim() != "" && txtSecondSlopeHigh.Text.Trim() != "")
@@ -868,10 +942,10 @@ namespace BioA.UI
                     Regex.IsMatch(txtSecondSlopeHigh.Text.Trim(), @"^(-?\d+)(\.\d+)?$")
                     )
                 {
-                    proParamInfo.FirstSlope = (float)System.Convert.ToDouble(txtFirstSlope.Text);
-                    proParamInfo.SecondSlope = (float)System.Convert.ToDouble(txtSecondSlope.Text);
-                    proParamInfo.FirstSlopeHigh = (float)System.Convert.ToDouble(txtFirstSlopeHigh.Text);
-                    proParamInfo.SecondSlopeHigh = (float)System.Convert.ToDouble(txtSecondSlopeHigh.Text);
+                    saveProParamInfo.FirstSlope = (float)System.Convert.ToDouble(txtFirstSlope.Text);
+                    saveProParamInfo.SecondSlope = (float)System.Convert.ToDouble(txtSecondSlope.Text);
+                    saveProParamInfo.FirstSlopeHigh = (float)System.Convert.ToDouble(txtFirstSlopeHigh.Text);
+                    saveProParamInfo.SecondSlopeHigh = (float)System.Convert.ToDouble(txtSecondSlopeHigh.Text);
                 }
                 else
                 {
@@ -895,15 +969,15 @@ namespace BioA.UI
                     Regex.IsMatch(txtLimit2.Text.Trim(), @"^(-?\d+)(\.\d+)?$")
                     )
                 {
-                    proParamInfo.ProLowestBound = (float)System.Convert.ToDouble(txtProLowestBound.Text);
-                    proParamInfo.ProHighestBound = (float)System.Convert.ToDouble(txtProHighestBound.Text);
-                    proParamInfo.Pmp1 = System.Convert.ToInt32(txtPmp1.Text);
-                    proParamInfo.Pmp2 = System.Convert.ToInt32(txtPmp2.Text);
-                    proParamInfo.Pmp3 = System.Convert.ToInt32(txtPmp3.Text);
-                    proParamInfo.Pmp4 = System.Convert.ToInt32(txtPmp4.Text);
-                    proParamInfo.BoundDirection = cboBoundDirection.SelectedIndex >= 0 ? cboBoundDirection.SelectedItem.ToString() : "";
-                    proParamInfo.Limit1 = (float)System.Convert.ToDouble(txtLimit1.Text);
-                    proParamInfo.Limit2 = (float)System.Convert.ToDouble(txtLimit2.Text);
+                    saveProParamInfo.ProLowestBound = (float)System.Convert.ToDouble(txtProLowestBound.Text);
+                    saveProParamInfo.ProHighestBound = (float)System.Convert.ToDouble(txtProHighestBound.Text);
+                    saveProParamInfo.Pmp1 = System.Convert.ToInt32(txtPmp1.Text);
+                    saveProParamInfo.Pmp2 = System.Convert.ToInt32(txtPmp2.Text);
+                    saveProParamInfo.Pmp3 = System.Convert.ToInt32(txtPmp3.Text);
+                    saveProParamInfo.Pmp4 = System.Convert.ToInt32(txtPmp4.Text);
+                    saveProParamInfo.BoundDirection = cboBoundDirection.SelectedIndex >= 0 ? cboBoundDirection.SelectedItem.ToString() : "";
+                    saveProParamInfo.Limit1 = (float)System.Convert.ToDouble(txtLimit1.Text);
+                    saveProParamInfo.Limit2 = (float)System.Convert.ToDouble(txtLimit2.Text);
                 }
                 else
                 {
@@ -917,7 +991,7 @@ namespace BioA.UI
             {
                 if (Regex.IsMatch(txtAbsLimitValue.Text.Trim(), @"^(-?\d+)(\.\d+)?$"))
                 {
-                    proParamInfo.AbsLimitValue = (float)System.Convert.ToDouble(txtAbsLimitValue.Text);
+                    saveProParamInfo.AbsLimitValue = (float)System.Convert.ToDouble(txtAbsLimitValue.Text);
                 }
                 else
                 {
@@ -926,15 +1000,15 @@ namespace BioA.UI
                 }
             }
 
-            proParamInfo.ReactionDirection = cboReactionDirection.SelectedIndex >= 0 ? cboReactionDirection.SelectedItem.ToString() : "";
-            proParamInfo.Stirring1Intensity = cboStirring1Intensity.SelectedIndex >= 0 ? cboStirring1Intensity.SelectedItem.ToString() : "";
-            proParamInfo.Stirring2Intensity = cboStirring2Intensity.SelectedIndex >= 0 ? cboStirring2Intensity.SelectedItem.ToString() : "";
+            saveProParamInfo.ReactionDirection = cboReactionDirection.SelectedIndex >= 0 ? cboReactionDirection.SelectedItem.ToString() : "";
+            saveProParamInfo.Stirring1Intensity = cboStirring1Intensity.SelectedIndex >= 0 ? cboStirring1Intensity.SelectedItem.ToString() : "";
+            saveProParamInfo.Stirring2Intensity = cboStirring2Intensity.SelectedIndex >= 0 ? cboStirring2Intensity.SelectedItem.ToString() : "";
 
             if (Regex.IsMatch(txtReagent1VolSettings.Text.Trim(), @"^\d+(\.\d+)?$") &&
                 Regex.IsMatch(txtReagent2VolSettings.Text.Trim(), @"^\d+(\.\d+)?$"))
             {
-                proParamInfo.Reagent1VolSettings = System.Convert.ToInt32(txtReagent1VolSettings.Text);
-                proParamInfo.Reagent2VolSettings = System.Convert.ToInt32(txtReagent2VolSettings.Text);
+                saveProParamInfo.Reagent1VolSettings = System.Convert.ToInt32(txtReagent1VolSettings.Text);
+                saveProParamInfo.Reagent2VolSettings = System.Convert.ToInt32(txtReagent2VolSettings.Text);
             }
             else
             {
@@ -946,9 +1020,9 @@ namespace BioA.UI
             if (AssayProInfoEvent != null)
             {
                 //communicationEntity.StrmethodName = "UpdateAssayProjectParamInfo";
-                //communicationEntity.ObjParam = XmlUtility.Serializer(typeof(AssayProjectParamInfo), proParamInfo);
+                //communicationEntity.ObjParam = XmlUtility.Serializer(typeof(AssayProjectParamInfo), saveProParamInfo);
                 proParamDic.Clear();
-                proParamDic.Add("UpdateAssayProjectParamInfo", new object[] { XmlUtility.Serializer(typeof(AssayProjectParamInfo), proParamInfo) });
+                proParamDic.Add("UpdateAssayProjectParamInfo", new object[] { XmlUtility.Serializer(typeof(AssayProjectParamInfo), saveProParamInfo) });
                 AssayProInfoEvent(proParamDic);
             }
                 
@@ -963,50 +1037,50 @@ namespace BioA.UI
                     txtCheckLightDot2.Enabled = false;
                     txtCheckLightDot3.Enabled = true;
                     txtCheckLightDot4.Enabled = true;
-                    txtCheckLightDot1.Text = "";
-                    txtCheckLightDot2.Text = "";
-                    txtCheckLightDot3.Text = "";
-                    txtCheckLightDot4.Text = "";
+                    txtCheckLightDot1.SelectedIndex = 0;
+                    txtCheckLightDot2.SelectedIndex = 0;
+                    txtCheckLightDot3.SelectedIndex = 42;
+                    txtCheckLightDot4.SelectedIndex = 42;
                     break;
                 case "二点终点法":
                     txtCheckLightDot1.Enabled = true;
                     txtCheckLightDot2.Enabled = true;
                     txtCheckLightDot3.Enabled = true;
                     txtCheckLightDot4.Enabled = true;
-                    txtCheckLightDot1.Text = "";
-                    txtCheckLightDot2.Text = "";
-                    txtCheckLightDot3.Text = "";
-                    txtCheckLightDot4.Text = "";
+                    txtCheckLightDot1.SelectedIndex = 0;
+                    txtCheckLightDot2.SelectedIndex = 0;
+                    txtCheckLightDot3.SelectedIndex = 42;
+                    txtCheckLightDot4.SelectedIndex = 42;
                     break;
                 case "速率A法":
                     txtCheckLightDot1.Enabled = false;
                     txtCheckLightDot2.Enabled = false;
                     txtCheckLightDot3.Enabled = true;
                     txtCheckLightDot4.Enabled = true;
-                    txtCheckLightDot1.Text = "";
-                    txtCheckLightDot2.Text = "";
-                    txtCheckLightDot3.Text = "";
-                    txtCheckLightDot4.Text = "";
+                    txtCheckLightDot1.SelectedIndex = 0;
+                    txtCheckLightDot2.SelectedIndex = 0;
+                    txtCheckLightDot3.SelectedIndex = 42;
+                    txtCheckLightDot4.SelectedIndex = 42;
                     break;
                 case "速率B法":
                     txtCheckLightDot1.Enabled = true;
                     txtCheckLightDot2.Enabled = true;
                     txtCheckLightDot3.Enabled = true;
                     txtCheckLightDot4.Enabled = true;
-                    txtCheckLightDot1.Text = "";
-                    txtCheckLightDot2.Text = "";
-                    txtCheckLightDot3.Text = "";
-                    txtCheckLightDot4.Text = "";
+                    txtCheckLightDot1.SelectedIndex = 0;
+                    txtCheckLightDot2.SelectedIndex = 0;
+                    txtCheckLightDot3.SelectedIndex = 42;
+                    txtCheckLightDot4.SelectedIndex = 42;
                     break;
                 default:
                     txtCheckLightDot1.Enabled = false;
                     txtCheckLightDot2.Enabled = false;
                     txtCheckLightDot3.Enabled = false;
                     txtCheckLightDot4.Enabled = false;
-                    txtCheckLightDot1.Text = "";
-                    txtCheckLightDot2.Text = "";
-                    txtCheckLightDot3.Text = "";
-                    txtCheckLightDot4.Text = "";
+                    txtCheckLightDot1.SelectedIndex = 0;
+                    txtCheckLightDot2.SelectedIndex = 0;
+                    txtCheckLightDot3.SelectedIndex = 42;
+                    txtCheckLightDot4.SelectedIndex = 42;
                     break;
             }
         }

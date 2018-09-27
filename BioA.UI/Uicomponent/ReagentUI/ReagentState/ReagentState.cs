@@ -12,6 +12,8 @@ using BioA.Common;
 using BioA.Common.IO;
 using BioA.Common.Machine;
 using System.Threading;
+using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 
 namespace BioA.UI
 {
@@ -40,16 +42,13 @@ namespace BioA.UI
      
         private void ReagentStateLoad()
         {
-            //CommunicationEntity Reagent = new CommunicationEntity();
-            //Reagent.StrmethodName = "QueryReagentState";
-            //Reagent.ObjParam = "";
-            //ReagentStateSend(Reagent);
             reagentDictionary.Clear();
             reagentDictionary.Add("QueryReagentState", new object[] { "" });
 
             ReagentStateSend(reagentDictionary);
             gridView1.OptionsSelection.MultiSelect = true;
             gridView1.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
+            gridView1.OptionsSelection.ResetSelectionClickOutsideCheckboxSelector = true;
         }
 
         private void ReagentStateSend(Dictionary<string, object[]> sender)
@@ -77,7 +76,7 @@ namespace BioA.UI
             dt.Columns.Add("试剂2剩余容量ml");
             dt.Columns.Add("试剂2剩余容量%");
             dt.Columns.Add("是否锁定");
-            gridControl1.DataSource = dt;
+            gridReagentState.DataSource = dt;
             this.gridView1.Columns[0].OptionsColumn.AllowEdit = false;
             this.gridView1.Columns[1].OptionsColumn.AllowEdit = false;
             this.gridView1.Columns[2].OptionsColumn.AllowEdit = false;
@@ -108,12 +107,26 @@ namespace BioA.UI
                     }));
                     break;
                 case "LockReagentState":
-                    string Count = (string)XmlUtility.Deserialize(typeof(string), sender as string);
-                    ReagentStateLoad();                   
+                    lstReagentStateInfo.Clear();
+                    lstReagentStateInfo = (List<ReagentStateInfoR1R2>)XmlUtility.Deserialize(typeof(List<ReagentStateInfoR1R2>), sender as string);
+                    if (lstReagentStateInfo.Count == 0)
+                        MessageBox.Show("设置试剂状态失败！");
+                    else
+                        BeginInvoke(new Action(() =>
+                        {
+                            InitialReagentStateInfo(lstReagentStateInfo);
+                        }));
                     break;
                 case "UnlockReagentState":
-                    string Counts = (string)XmlUtility.Deserialize(typeof(string), sender as string);
-                    ReagentStateLoad();
+                    lstReagentStateInfo.Clear();
+                    lstReagentStateInfo = (List<ReagentStateInfoR1R2>)XmlUtility.Deserialize(typeof(List<ReagentStateInfoR1R2>), sender as string);
+                    if (lstReagentStateInfo.Count == 0)
+                        MessageBox.Show("设置试剂状态失败！");
+                    else
+                        BeginInvoke(new Action(() =>
+                        {
+                            InitialReagentStateInfo(lstReagentStateInfo);
+                        }));
                     break;             
             }
         }
@@ -142,9 +155,9 @@ namespace BioA.UI
             }
             this.Invoke(new EventHandler(delegate
             {
-                gridControl1.RefreshDataSource();
-                
+                gridReagentState.RefreshDataSource();
 
+                dt.Rows.Clear();
                 foreach (ReagentStateInfoR1R2 reagentStateInfo in lisReagentStateInfo3)
                 {
                     if (reagentStateInfo.ReagentName == "")
@@ -170,7 +183,8 @@ namespace BioA.UI
                         dt.Rows.Add(new object[] { reagentStateInfo.ProjectName,reagentStateInfo.ReagentName,reagentStateInfo.ResidualQuantity,reagentStateInfo.Pos,
                             reagentStateInfo.ReagentType,
                             //reagentStateInfo.BatchNum,
-                            reagentStateInfo.ReagentResidualVol,reagentStateInfo.ValidPercent + "%",                            reagentStateInfo.ReagentName2,reagentStateInfo.ResidualQuantity2,reagentStateInfo.Pos2,reagentStateInfo.ReagentType2,
+                            reagentStateInfo.ReagentResidualVol,reagentStateInfo.ValidPercent + "%",
+                            reagentStateInfo.ReagentName2,reagentStateInfo.ResidualQuantity2,reagentStateInfo.Pos2,reagentStateInfo.ReagentType2,
                             //reagentStateInfo.BatchNum2,
                             reagentStateInfo.ReagentResidualVol2,reagentStateInfo.ValidPercent2 + "%",
                             reagentStateInfo.Locked == true ? "锁定" : "未锁定"
@@ -204,7 +218,11 @@ namespace BioA.UI
         {
             gridView1.SelectAll();
         }
-        
+        /// <summary>
+        /// 锁定状态
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnLocking_Click(object sender, EventArgs e)
         {
             List<ReagentStateInfoR1R2> ReagentStateInfo = new List<ReagentStateInfoR1R2>();
@@ -223,15 +241,16 @@ namespace BioA.UI
                 reagentStateInfoR1R2.Locked = true;
                 ReagentStateInfo.Add(reagentStateInfoR1R2);
             }
-            //CommunicationEntity Reagent = new CommunicationEntity();
-            //Reagent.StrmethodName = "LockReagentState";
-            //Reagent.ObjParam = XmlUtility.Serializer(typeof(List<ReagentStateInfoR1R2>), ReagentStateInfo); 
             reagentDictionary.Clear();
             reagentDictionary.Add("LockReagentState", new object[] { XmlUtility.Serializer(typeof(List<ReagentStateInfoR1R2>), ReagentStateInfo) });
             ReagentStateSend(reagentDictionary);           
         }
-
-        private void simpleButton4_Click(object sender, EventArgs e)
+        /// <summary>
+        /// 解锁状态
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void deblocking_Click(object sender, EventArgs e)
         {
             List<ReagentStateInfoR1R2> ReagentStateInfo = new List<ReagentStateInfoR1R2>();
 
@@ -249,31 +268,11 @@ namespace BioA.UI
                 reagentStateInfoR1R2.Locked = true;
                 ReagentStateInfo.Add(reagentStateInfoR1R2);
             }
-            //CommunicationEntity Reagent = new CommunicationEntity();
-            //Reagent.StrmethodName = "UnlockReagentState";
-            //Reagent.ObjParam = XmlUtility.Serializer(typeof(List<ReagentStateInfoR1R2>), ReagentStateInfo); ;
             reagentDictionary.Clear();
             reagentDictionary.Add("UnlockReagentState", new object[] { XmlUtility.Serializer(typeof(List<ReagentStateInfoR1R2>), ReagentStateInfo) });
             ReagentStateSend(reagentDictionary);
         }
-
-        private void gridView1_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
-        {
-            int hand = e.RowHandle;//行号
-            if (hand < 0)
-            {
-                return;
-            }
-            DataRow dr = gridView1.GetDataRow(hand);
-            if (dr == null)
-                return;
-            string str = gridView1.GetRowCellValue(hand, "是否锁定").ToString();
-            if (str=="True")
-            {
-                e.Appearance.ForeColor = Color.Red;//字体颜色
-                e.Appearance.BackColor = Color.Linen;//行背景颜色
-            }
-        }
+       
         private void btnReverseSelection_Click(object sender, EventArgs e)
         {
             int[] aaa = this.gridView1.GetSelectedRows();
@@ -383,19 +382,78 @@ namespace BioA.UI
                     cmd.Para = "2:" + pos.TrimEnd('|');
                     cmd.State = 1;
 
-                    var ResidueR2Thread = new Thread(() =>
+                    BeginInvoke(new Action(() =>
                     {
                         //发送命令
                         SendNetworkCommandEvent(cmd);
-                    });
-                    ResidueR2Thread.IsBackground = true;
-                    ResidueR2Thread.Start();
+                    }));
                 }
             }
             else
             {
                 MessageBoxDraw.ShowMsg("请选择待检测余量的项目！", MsgType.Warning);
             }
+        }
+
+        //私有成员变量
+        private int hotTrackRow = DevExpress.XtraGrid.GridControl.InvalidRowHandle;
+        /// <summary>
+        /// 存储测试点下面每一行的句柄
+        /// </summary>
+        private int HotTrackRow
+        {
+            get
+            {
+                return hotTrackRow;
+            }
+            set
+            {
+                if (hotTrackRow != value)
+
+                {
+                    int prevHotTrackRow = hotTrackRow;
+
+                    hotTrackRow = value;
+                    gridView1.RefreshRow(prevHotTrackRow);
+
+                    gridView1.RefreshRow(hotTrackRow);
+                    if (hotTrackRow >= 0)
+                        gridReagentState.Cursor = Cursors.Hand;
+
+                    else
+                        gridReagentState.Cursor = Cursors.Default;
+                }
+            }
+        }
+        //鼠标滑过gridview时，鼠标所指行显示浅蓝色
+        private void gridView1_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
+        {
+            if (e.RowHandle == HotTrackRow)
+                e.Appearance.BackColor = Color.CornflowerBlue;
+            int hand = e.RowHandle;//行号
+            if (hand < 0)
+            {
+                return;
+            }
+            DataRow dr = gridView1.GetDataRow(hand);
+            if (dr == null)
+                return;
+            string str = gridView1.GetRowCellValue(hand, "是否锁定").ToString();
+            if (str == "True")
+            {
+                e.Appearance.ForeColor = Color.Red;//字体颜色
+                e.Appearance.BackColor = Color.Linen;//行背景颜色
+            }
+        }
+        //获取指定点的gridview视图坐标信息
+        private void gridView1_MouseMove(object sender, MouseEventArgs e)
+        {
+            GridView view = sender as GridView;
+            GridHitInfo info = view.CalcHitInfo(new Point(e.X, e.Y));
+            if (info.InRowCell)
+                HotTrackRow = info.RowHandle;
+            else
+                HotTrackRow = DevExpress.XtraGrid.GridControl.InvalidRowHandle;
         }
     }
 }

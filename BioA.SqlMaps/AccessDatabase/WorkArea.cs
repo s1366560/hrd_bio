@@ -99,18 +99,20 @@ namespace BioA.SqlMaps
                 }
                 else
                 {
+                    //保存样本信息表
                     ism_SqlMap.Insert("WorkAreaApplyTask.AddSample", sampleInfo);
-
                     foreach (TaskInfo t in lstSampleInfo)
                     {
+                        //保存任务
                         ism_SqlMap.Insert("WorkAreaApplyTask.AddTask", t);
 
-                        ht.Clear();
-                        ht.Add("SampleNum", t.SampleNum);
-                        ht.Add("SampleCreateTime", t.CreateDate);
-                        ht.Add("ProjectName", t.ProjectName);
-                        ht.Add("SampleType", t.SampleType);
-                        ism_SqlMap.Insert("WorkAreaApplyTask.AddSampleResult", ht);
+                        //保存样本结果表 2018 9/3
+                        //ht.Clear();
+                        //ht.Add("SampleNum", t.SampleNum);
+                        //ht.Add("SampleCreateTime", t.CreateDate);
+                        //ht.Add("ProjectName", t.ProjectName);
+                        //ht.Add("SampleType", t.SampleType);
+                        //ism_SqlMap.Insert("WorkAreaApplyTask.AddSampleResult", ht);
                         //ism_SqlMap.Insert("WorkAreaApplyTask.AddSampleReactionProcess", ht);
                     }
 
@@ -199,13 +201,17 @@ namespace BioA.SqlMaps
             }
             return str;
         }
-
-        public List<string> QueryApplyApartment(string strMethodName)
+        /// <summary>
+        /// 获取所有部门信息
+        /// </summary>
+        /// <param name="strMethodName"></param>
+        /// <returns></returns>
+        public List<string> QueryDepartmentInfo(string strMethodName)
         {
             List<string> lstApplyDepartment = new List<string>();
             try
             {
-                lstApplyDepartment = (List<string>)ism_SqlMap.QueryForList<string>("DepartmentInfo.QueryDepartmentInfo", null);
+                lstApplyDepartment = (List<string>)ism_SqlMap.QueryForList<string>("DepartmentInfo." + strMethodName, null);
             }
             catch (Exception e)
             {
@@ -367,7 +373,7 @@ namespace BioA.SqlMaps
                 //ht.Add("StartDateTime", System.Convert.ToDateTime(strConditions[1]).Date);
                 //ht.Add("EndDateTime", System.Convert.ToDateTime(strConditions[1]).AddDays(1).Date);
 
-                lstSampleResultInfo = (List<SampleResultInfo>)ism_SqlMap.QueryForList<SampleResultInfo>("CommonDataCheck.QueryProjectResultBySampleNum", ht);
+                lstSampleResultInfo = (List<SampleResultInfo>)ism_SqlMap.QueryForList<SampleResultInfo>("CommonDataCheck." + strMethodName, ht);
             }
             catch (Exception e)
             {
@@ -472,7 +478,12 @@ namespace BioA.SqlMaps
 
             return strResult;
         }
-
+        /// <summary>
+        /// 获取普通任务结果（每个比色杯43个点的反应进程结果）
+        /// </summary>
+        /// <param name="strMethodName"></param>
+        /// <param name="sampleResInfo"></param>
+        /// <returns></returns>
         public TimeCourseInfo QueryCommonTaskReaction(string strMethodName, SampleResultInfo sampleResInfo)
         {
             string sampleResultTCNO = "";
@@ -483,7 +494,7 @@ namespace BioA.SqlMaps
                 ht.Add("ProjectName", sampleResInfo.ProjectName);
                 ht.Add("SampleNum", sampleResInfo.SampleNum);
                 ht.Add("SampleType", sampleResInfo.SampleType);
-                ht.Add("SampleCreateTime", sampleResInfo.SampleCreateTime);
+                ht.Add("SampleCompletionTime", sampleResInfo.SampleCompletionTime);
                 sampleResultTCNO = (string)ism_SqlMap.QueryForObject("PLCDataInfo.QuerySampleResultTCNO", ht);
                 if (sampleResultTCNO != null && sampleResultTCNO != string.Empty)
                 {
@@ -665,20 +676,27 @@ namespace BioA.SqlMaps
 
             return dilutionType;
         }
-
+        /// <summary>
+        /// 每完成一个任务就修改结果结果表吸光度值、浓度值、完成时间、完成状态
+        /// </summary>
+        /// <param name="samResultInfo"></param>
         public void UpdateCurrentNORResult(SampleResultInfo samResultInfo)
         {
             try
             {
                 Hashtable ht = new Hashtable();
-                ht.Add("ProjectName", samResultInfo.ProjectName);
-                ht.Add("SampleType", samResultInfo.SampleType);
+                //修改样本结果条件不需要这么多。 2018/9/3
+                //ht.Add("ProjectName", samResultInfo.ProjectName);
+                //ht.Add("SampleType", samResultInfo.SampleType);
+                ht.Add("TCNO", samResultInfo.TCNO);
                 ht.Add("SampleCreateTime", samResultInfo.SampleCreateTime);
-                ht.Add("SampleNum", samResultInfo.SampleNum);
+                //ht.Add("SampleNum", samResultInfo.SampleNum);
                 ht.Add("AbsValue", samResultInfo.AbsValue);
                 ht.Add("ConcResult", samResultInfo.ConcResult);
+                ht.Add("SampleCompletionStatus", TaskState.SUCC);
+                ht.Add("SampleCompletionTime", DateTime.Now.ToString());
 
-                ism_SqlMap.QueryForObject("WorkAreaApplyTask.UpdateCurrentNORResult", ht);
+                ism_SqlMap.Update("WorkAreaApplyTask.UpdateCurrentNORResult", ht);
             }
             catch (Exception e)
             {

@@ -14,6 +14,9 @@ namespace BioA.UI
 {
     public partial class ProCombPage2 : UserControl
     {
+        //声明一个委托
+        public delegate void ClickProCombNamePage2(string sender);
+        public event ClickProCombNamePage2 clickProCombNamePage2Event;
         public ProCombPage2()
         {
             InitializeComponent();
@@ -144,23 +147,24 @@ namespace BioA.UI
         {
             Button simpleButton = sender as Button;
 
-            if (simpleButton.Tag as string == "1")
+            if (simpleButton.Text != "")
             {
-                simpleButton.Tag = "0";
+                if (simpleButton.Tag as string == "1")
+                {
+                    simpleButton.Tag = "0";
 
-                simpleButton.ForeColor = Color.Black;
-            }
-            else if (simpleButton.Tag as string == "0")
-            {
-                simpleButton.Tag = "1";
-
-                simpleButton.ForeColor = Color.Red;
-            }
-            else
-            {
-                simpleButton.Tag = "1";
-
-                simpleButton.ForeColor = Color.Red;
+                    simpleButton.ForeColor = Color.Black;
+                }
+                else if (simpleButton.Tag as string == "0" || simpleButton.Tag == null)
+                {
+                    simpleButton.Tag = "1";
+                    simpleButton.ForeColor = Color.Red;
+                    //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryProjectByCombProName", simpleButton.Text)));
+                    if (clickProCombNamePage2Event != null)
+                    {
+                        clickProCombNamePage2Event(simpleButton.Text.ToString());
+                    }
+                }
             }
         }
     }

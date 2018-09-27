@@ -15,6 +15,10 @@ namespace BioA.UI
 {
     public partial class CalibProCombPage2 : DevExpress.XtraEditors.XtraUserControl
     {
+        //声明一委托 
+        public delegate void ClickCombProNamePage2(string sender);
+        public event ClickCombProNamePage2 clickCombProNamePage2Event;
+
         public CalibProCombPage2()
         {
             InitializeComponent();
@@ -151,19 +155,17 @@ namespace BioA.UI
                     simpleButton.Tag = "0";
 
                     simpleButton.ForeColor = Color.Black;
-                    CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibControlTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryProjectByCombProName", simpleButton.Text.ToString())));
+                    //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibControlTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryProjectByCombProName", simpleButton.Text.ToString())));
                 }
-                else if (simpleButton.Tag as string == "0")
+                else if (simpleButton.Tag as string == "0" || simpleButton.Tag == null)
                 {
                     simpleButton.Tag = "1";
                     simpleButton.ForeColor = Color.Red;
-                    CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibControlTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryProjectByCombProName", simpleButton.Text.ToString())));
-                }
-                else
-                {
-                    simpleButton.Tag = "1";
-                    simpleButton.ForeColor = Color.Red;
-                    CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibControlTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryProjectByCombProName", simpleButton.Text.ToString())));
+                    //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibControlTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryProjectByCombProName", simpleButton.Text.ToString())));
+                    if (clickCombProNamePage2Event != null)
+                    {
+                        clickCombProNamePage2Event(simpleButton.Text.ToString());
+                    }
                 }
             }
         }

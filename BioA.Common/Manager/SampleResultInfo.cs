@@ -15,7 +15,6 @@ namespace BioA.Common
         {
             iD = 0;
             sampleNum = 0;
-            taskState = 0;
             unitAndRange = string.Empty;
             //startTime = DateTime.Now;
             isResurvey = false;
@@ -53,10 +52,10 @@ namespace BioA.Common
         /// <summary>
         /// 样本状态
         /// </summary>
-        public int TaskState
+        public int SampleCompletionStatus
         {
-            get { return taskState; }
-            set { taskState = value; }
+            get { return sampleCompletionStatus; }
+            set { sampleCompletionStatus = value; }
         }
         /// <summary>
         /// 开始时间
@@ -66,6 +65,7 @@ namespace BioA.Common
         //    get { return startTime; }
         //    set { startTime = value; }
         //}
+        
         /// <summary>
         /// 是否从重测
         /// </summary>
@@ -87,7 +87,7 @@ namespace BioA.Common
 
         private int iD;
         private int sampleNum;
-        private int taskState;
+        private int sampleCompletionStatus;
         private string unitAndRange;
         //private DateTime startTime;
         private bool isResurvey;

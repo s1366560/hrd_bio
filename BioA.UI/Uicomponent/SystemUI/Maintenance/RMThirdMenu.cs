@@ -10,20 +10,30 @@ using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using BioA.Common.IO;
 using BioA.Common;
+using System.Threading;
 
 namespace BioA.UI
 {
+    public delegate void SendMaintenanceNameDelegate(string MaintenanceName);
+
     public partial class RMThirdMenu : DevExpress.XtraEditors.XtraUserControl
     {
         public event SendNetworkDelegate SendNetworkEvent;
         
+        /// <summary>
+        /// 存储用户名
+        /// </summary>
+        public static string _userName;
+
         UltravioletRays ultravioletRays;
         WaterBlankCheck waterBlankCheck;
         CleaningMaintenance cleaningMaintenance;
         BlankInterface blankInterface;
-        public RMThirdMenu()
+
+        public RMThirdMenu(string userName)
         {
             InitializeComponent();
+            _userName = userName;
         }
 
         public void DataTransfer_Event(string strMethod, object sender)
@@ -69,31 +79,28 @@ namespace BioA.UI
             if (xtraTabControl1.SelectedTabPageIndex == 0)
             {
                 xtraTabPage1.Controls.Clear();
-                //if (waterBlankCheck != null)
-                //    waterBlankCheck.SendNetworkEvent -= SendNetwork_Event;
                 waterBlankCheck = new WaterBlankCheck();
                 blankInterface = new BlankInterface();
                 waterBlankCheck.SendNetworkEvent += SendNetwork_Event;
+                waterBlankCheck.SendMaintenanceNameEvent += SendMaintenanceName_Event;
                 xtraTabPage1.Controls.Add(blankInterface);
                 xtraTabPage1.Controls.Add(waterBlankCheck);
             }
             else if (xtraTabControl1.SelectedTabPageIndex == 1)
             {
                 xtraTabPage2.Controls.Clear();
-                if (ultravioletRays != null)
-                    ultravioletRays.SendNetworkEvent -= SendNetwork_Event;
                 ultravioletRays = new UltravioletRays();
                 ultravioletRays.SendNetworkEvent += SendNetwork_Event;
+                ultravioletRays.SendMaintenanceNameEvent += SendMaintenanceName_Event;
                 xtraTabPage2.Controls.Add(ultravioletRays);
             }
             else if (xtraTabControl1.SelectedTabPageIndex == 2)
             {
                 xtraTabPage3.Controls.Clear();
-
-                if (cleaningMaintenance != null)
-                    cleaningMaintenance.SendNetworkEvent -= SendNetwork_Event;
+                
                 cleaningMaintenance = new CleaningMaintenance();
                 cleaningMaintenance.SendNetworkEvent += SendNetwork_Event;
+                cleaningMaintenance.SendMaintenanceNameEvent += SendMaintenanceName_Event;
                 xtraTabPage3.Controls.Add(cleaningMaintenance);
             }
            
@@ -104,6 +111,24 @@ namespace BioA.UI
             if (SendNetworkEvent != null)
                 SendNetworkEvent(sender);
         }
+        /// <summary>
+        /// 保存保养日志信息
+        /// </summary>
+        /// <param name="maintenanceName"></param>
+        private void SendMaintenanceName_Event(string maintenanceName)
+        {
+
+            MaintenanceLogInfo maintenanceLogInfo = new MaintenanceLogInfo();
+            maintenanceLogInfo.UserName = _userName;
+            maintenanceLogInfo.LogDetails = maintenanceName;
+            maintenanceLogInfo.LogDateTime = DateTime.Now.ToString();
+            var MaintenanceLogInfoThread = new Thread(() => 
+            { 
+                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.Login, new Dictionary<string, object[]>() { { "SaveMintenanceLog", new object[] { XmlUtility.Serializer(typeof(MaintenanceLogInfo), maintenanceLogInfo) } } });
+            });
+            MaintenanceLogInfoThread.IsBackground = true;
+            MaintenanceLogInfoThread.Start();
+        }
 
         private void RMThirdMenu_Load(object sender, EventArgs e)
         {
@@ -112,6 +137,7 @@ namespace BioA.UI
                 waterBlankCheck = new WaterBlankCheck();
                 blankInterface = new BlankInterface();
                 waterBlankCheck.SendNetworkEvent += SendNetwork_Event;
+                waterBlankCheck.SendMaintenanceNameEvent += SendMaintenanceName_Event;
                 xtraTabPage1.Controls.Add(blankInterface);
                 xtraTabPage1.Controls.Add(waterBlankCheck);
             }));

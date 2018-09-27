@@ -29,34 +29,35 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReagentState));
-            this.gridControl1 = new DevExpress.XtraGrid.GridControl();
+            this.gridReagentState = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.btnLocking = new DevExpress.XtraEditors.SimpleButton();
             this.btnReverseSelection = new DevExpress.XtraEditors.SimpleButton();
             this.btnSelect = new DevExpress.XtraEditors.SimpleButton();
-            this.simpleButton4 = new DevExpress.XtraEditors.SimpleButton();
+            this.deblocking = new DevExpress.XtraEditors.SimpleButton();
             this.btnR1MarginDetection = new DevExpress.XtraEditors.SimpleButton();
             this.btnR2MarginDetection = new DevExpress.XtraEditors.SimpleButton();
-            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridReagentState)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             this.SuspendLayout();
             // 
-            // gridControl1
+            // gridReagentState
             // 
-            this.gridControl1.Location = new System.Drawing.Point(17, 39);
-            this.gridControl1.MainView = this.gridView1;
-            this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(1689, 804);
-            this.gridControl1.TabIndex = 0;
-            this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridReagentState.Location = new System.Drawing.Point(17, 39);
+            this.gridReagentState.MainView = this.gridView1;
+            this.gridReagentState.Name = "gridReagentState";
+            this.gridReagentState.Size = new System.Drawing.Size(1689, 804);
+            this.gridReagentState.TabIndex = 0;
+            this.gridReagentState.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
             // 
             // gridView1
             // 
-            this.gridView1.GridControl = this.gridControl1;
+            this.gridView1.GridControl = this.gridReagentState;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsView.ShowGroupPanel = false;
             this.gridView1.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gridView1_RowCellStyle);
+            this.gridView1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.gridView1_MouseMove);
             // 
             // btnLocking
             // 
@@ -88,15 +89,15 @@
             this.btnSelect.Text = "全选";
             this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
             // 
-            // simpleButton4
+            // deblocking
             // 
-            this.simpleButton4.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton4.Image")));
-            this.simpleButton4.Location = new System.Drawing.Point(1257, 859);
-            this.simpleButton4.Name = "simpleButton4";
-            this.simpleButton4.Size = new System.Drawing.Size(84, 45);
-            this.simpleButton4.TabIndex = 5;
-            this.simpleButton4.Text = "解锁";
-            this.simpleButton4.Click += new System.EventHandler(this.simpleButton4_Click);
+            this.deblocking.Image = ((System.Drawing.Image)(resources.GetObject("deblocking.Image")));
+            this.deblocking.Location = new System.Drawing.Point(1257, 859);
+            this.deblocking.Name = "deblocking";
+            this.deblocking.Size = new System.Drawing.Size(84, 45);
+            this.deblocking.TabIndex = 5;
+            this.deblocking.Text = "解锁";
+            this.deblocking.Click += new System.EventHandler(this.deblocking_Click);
             // 
             // btnR1MarginDetection
             // 
@@ -124,15 +125,15 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.btnR2MarginDetection);
             this.Controls.Add(this.btnR1MarginDetection);
-            this.Controls.Add(this.simpleButton4);
+            this.Controls.Add(this.deblocking);
             this.Controls.Add(this.btnSelect);
             this.Controls.Add(this.btnReverseSelection);
             this.Controls.Add(this.btnLocking);
-            this.Controls.Add(this.gridControl1);
+            this.Controls.Add(this.gridReagentState);
             this.Name = "ReagentState";
             this.Size = new System.Drawing.Size(1745, 928);
             this.Load += new System.EventHandler(this.ReagentState_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridReagentState)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             this.ResumeLayout(false);
 
@@ -140,12 +141,12 @@
 
         #endregion
 
-        private DevExpress.XtraGrid.GridControl gridControl1;
+        private DevExpress.XtraGrid.GridControl gridReagentState;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
         private DevExpress.XtraEditors.SimpleButton btnLocking;
         private DevExpress.XtraEditors.SimpleButton btnReverseSelection;
         private DevExpress.XtraEditors.SimpleButton btnSelect;
-        private DevExpress.XtraEditors.SimpleButton simpleButton4;
+        private DevExpress.XtraEditors.SimpleButton deblocking;
         private DevExpress.XtraEditors.SimpleButton btnR1MarginDetection;
         private DevExpress.XtraEditors.SimpleButton btnR2MarginDetection;
     }

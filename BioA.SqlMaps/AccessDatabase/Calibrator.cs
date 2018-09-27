@@ -144,11 +144,11 @@ namespace BioA.SqlMaps
                         
                         if (sdtItem.BlkAbs == 0)
                         {
-                            fAbsNew = calibResInfo.BlankAbs;
+                            fAbsNew = calibResInfo.CalibAbs;
                         }
                         else
                         {
-                            fAbsNew = (sdtItem.BlkAbs + calibResInfo.BlankAbs) / 2;
+                            fAbsNew = (sdtItem.BlkAbs + calibResInfo.CalibAbs) / 2;
                         }
                         ht.Add("BlkAbs", fAbsNew);
                     }

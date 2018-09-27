@@ -11,13 +11,15 @@ using DevExpress.XtraEditors;
 using BioA.Common.Machine;
 using BioA.Common;
 using BioA.Common.IO;
+using BioA.Service;
 
 namespace BioA.UI
 {
-    public partial class 
-    WaterBlankCheck : DevExpress.XtraEditors.XtraUserControl
+    public partial class WaterBlankCheck : DevExpress.XtraEditors.XtraUserControl
     {
         public event SendNetworkDelegate SendNetworkEvent;
+
+        public event SendMaintenanceNameDelegate SendMaintenanceNameEvent;
         public WaterBlankCheck()
         {
             InitializeComponent();
@@ -405,19 +407,27 @@ namespace BioA.UI
             }
         }
        
-
+        /// <summary>
+        /// 清洗比色杯
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnStartCleaning_Click(object sender, EventArgs e)
         {
             string strSender = "";
             strSender = MachineInfo.SubsystemList.Find(str => str.Name == "Common").ComponetList.Find(componet => componet.Name == "Maintance").CommandList.Find(command => command.FullName == btnStartCleaning.Text).Name;
-
+            
             if (SendNetworkEvent != null && strSender != "")
             {
                 SendNetworkEvent(strSender);
             }
+            if(SendMaintenanceNameEvent != null)
+            {
+                SendMaintenanceNameEvent(btnStartCleaning.Text);
+            }
         }
 
-        private void WaterBlankCheck_Load(object sender, EventArgs e)
+        public void WaterBlankCheck_Load(object sender, EventArgs e)
         {
             BeginInvoke(new Action(loadQueryAllCuvetteValue));
         }
@@ -436,8 +446,6 @@ namespace BioA.UI
             textEdit2.Text = (0.3).ToString();
             textEdit1.BackColor = Color.Yellow;
             textEdit2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SystemMaintenance,
-            //    XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryWaterBlankValueByWave", null)));
             CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.SystemMaintenance, new Dictionary<string, object[]>() { { "QueryWaterBlankValueByWave", null } });
         }
 

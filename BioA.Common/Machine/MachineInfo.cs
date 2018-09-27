@@ -87,57 +87,70 @@ namespace BioA.Common.Machine
         public static Componet GetComponet(XmlNode compoentNode)
         {
             Componet c = new Componet();
-            c.Name = XMLHelper.Read(compoentNode, "Name");
-            string IsAdjuststr = XMLHelper.Read(compoentNode, "IsAdjust");
-            if (string.IsNullOrEmpty(IsAdjuststr) || string.IsNullOrWhiteSpace(IsAdjuststr))
+            try
             {
-                c.IsAdjust = false;
-            }
-            else
-            {
-                c.IsAdjust = bool.Parse(IsAdjuststr);
-            }
-
-            c.Flag = XMLHelper.Read(compoentNode, "Flag");
-            
-            List<Command> CommandList = new List<Command>();
-            XmlNodeList nodes = compoentNode.SelectNodes("Command");
-            foreach (XmlElement element in nodes)
-            {
-                Command C = new Command();
-                C.Name = XMLHelper.Read(element, "Name");
-                C.FullName = XMLHelper.Read(element, "FullName");
-                string IsAdjustID = XMLHelper.Read(element, "AdjustID");
-                if (string.IsNullOrEmpty(IsAdjustID) || string.IsNullOrWhiteSpace(IsAdjustID))
+                c.Name = XMLHelper.Read(compoentNode, "Name");
+                string IsAdjuststr = XMLHelper.Read(compoentNode, "IsAdjust");
+                if (string.IsNullOrEmpty(IsAdjuststr) || string.IsNullOrWhiteSpace(IsAdjuststr))
                 {
-                    C.AdjustID = 0;
+                    c.IsAdjust = false;
                 }
                 else
                 {
-                    C.AdjustID = int.Parse(IsAdjustID);
+                    c.IsAdjust = bool.Parse(IsAdjuststr);
                 }
-                CommandList.Add(C);
-            }
 
-            c.CommandList = CommandList;
+                c.Flag = XMLHelper.Read(compoentNode, "Flag");
+
+                List<Command> CommandList = new List<Command>();
+                XmlNodeList nodes = compoentNode.SelectNodes("Command");
+                foreach (XmlElement element in nodes)
+                {
+                    Command C = new Command();
+                    C.Name = XMLHelper.Read(element, "Name");
+                    C.FullName = XMLHelper.Read(element, "FullName");
+                    string IsAdjustID = XMLHelper.Read(element, "AdjustID");
+                    if (string.IsNullOrEmpty(IsAdjustID) || string.IsNullOrWhiteSpace(IsAdjustID))
+                    {
+                        C.AdjustID = 0;
+                    }
+                    else
+                    {
+                        C.AdjustID = int.Parse(IsAdjustID);
+                    }
+                    CommandList.Add(C);
+                }
+
+                c.CommandList = CommandList;
+            }
+            catch(Exception ex)
+            {
+                LogInfo.WriteErrorLog("Class MachineInfo{ public static Componet GetComponet(XmlNode compoentNode)}" + ex.ToString(), Module.Common );
+            }
             return c;
         }
         public static Subsystem GetSubsystem(XmlNode subsystemNode)
         {
             Subsystem s = new Subsystem();
-            s.Name = XMLHelper.Read(subsystemNode, "Name");
-            s.ID = XMLHelper.Read(subsystemNode, "SID");
-            s.IsNavi = XMLHelper.Read(subsystemNode, "DebugNavi") != "" ? bool.Parse(XMLHelper.Read(subsystemNode, "DebugNavi")) : false;
-            s.IsDynLoad = XMLHelper.Read(subsystemNode, "DynicLoad") != "" ? bool.Parse(XMLHelper.Read(subsystemNode, "DynicLoad")) : false;
-            List<Componet> ComponetList = new List<Componet>();
-            XmlNodeList nodes = subsystemNode.SelectNodes("Componet");
-            foreach (XmlElement element in nodes)
+            try
             {
-                Componet c = GetComponet(element);
-                ComponetList.Add(c);
+                s.Name = XMLHelper.Read(subsystemNode, "Name");
+                s.ID = XMLHelper.Read(subsystemNode, "SID");
+                s.IsNavi = XMLHelper.Read(subsystemNode, "DebugNavi") != "" ? bool.Parse(XMLHelper.Read(subsystemNode, "DebugNavi")) : false;
+                s.IsDynLoad = XMLHelper.Read(subsystemNode, "DynicLoad") != "" ? bool.Parse(XMLHelper.Read(subsystemNode, "DynicLoad")) : false;
+                List<Componet> ComponetList = new List<Componet>();
+                XmlNodeList nodes = subsystemNode.SelectNodes("Componet");
+                foreach (XmlElement element in nodes)
+                {
+                    Componet c = GetComponet(element);
+                    ComponetList.Add(c);
+                }
+                s.ComponetList = ComponetList;
             }
-            s.ComponetList = ComponetList;
-
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("XMLHelper.cs_Read(XmlNode subsystemNode)==" + ex.ToString(), Module.Common);
+            }
             return s;
         }
 

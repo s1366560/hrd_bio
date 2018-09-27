@@ -15,6 +15,9 @@ namespace BioA.UI
     public partial class CleaningMaintenance : DevExpress.XtraEditors.XtraUserControl
     {
         public event SendNetworkDelegate SendNetworkEvent;
+
+        public event SendMaintenanceNameDelegate SendMaintenanceNameEvent;
+
         public CleaningMaintenance()
         {
             InitializeComponent();
@@ -39,10 +42,13 @@ namespace BioA.UI
                 default:
                     break;
             }
-
             if (SendNetworkEvent != null && strSender != "")
             {
                 SendNetworkEvent(strSender);
+            }
+            if(SendMaintenanceNameEvent != null)
+            {
+                SendMaintenanceNameEvent(((SimpleButton)sender).Text);
             }
         }
 

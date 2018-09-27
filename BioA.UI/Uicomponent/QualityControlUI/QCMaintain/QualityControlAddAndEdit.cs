@@ -18,6 +18,12 @@ namespace BioA.UI
 {
     public partial class QualityControlAddAndEdit : DevExpress.XtraEditors.XtraForm
     {
+        //声明一个委托
+        public delegate void TransmitQCInfoAndTestProjectInfo(string result, Dictionary<QualityControlInfo, List<QCRelationProjectInfo>> keyValuePairs);
+        //声明一个事件
+        public event TransmitQCInfoAndTestProjectInfo TransmitQCAndTestProjectInfoEvent;
+
+
         /// <summary>
         /// 客户端发送信息给服务器的参数集合
         /// </summary>
@@ -115,73 +121,59 @@ namespace BioA.UI
         /// </summary>
         public string StrReturnInfo
         {
-            get { return strReturnInfo; }
             set
             {
                 strReturnInfo = value;
-                this.Invoke(new EventHandler(delegate
+                if (strReturnInfo == "该质控品已存在，无法完成编辑！")
+                {
+                    MessageBox.Show("该质控品已存在，无法完成编辑！");
+                    return;
+                }
+                else if (strReturnInfo == "编辑失败！")
+                {
+                    MessageBox.Show("编辑失败！");
+                    return;
+                }
+                if (strReturnInfo == "该质控品已存在，无法添加！")
+                {
+                    MessageBox.Show("该质控品已存在，无法添加！");
+                    return;
+                }
+                else if (strReturnInfo == "质控品添加失败，请联系管理员！")
+                {
+                    MessageBox.Show("质控品添加失败，请联系管理员！");
+                    return;
+                }
+                else
+                {
+                    if (this.Text == "新增质控品")
                     {
-                        if (strReturnInfo == "该质控品已存在，无法完成编辑！")
+                        if(strReturnInfo == "已成功添加质控品信息！")
                         {
-                            MessageBox.Show("该质控品已存在，无法完成编辑！");
-                            return;
-                        }
-                        else if (strReturnInfo == "编辑失败！")
-                        {
-                            MessageBox.Show("编辑失败！");
-                            return;
-                        }
-                        if (strReturnInfo == "该质控品已存在，无法添加！")
-                        {
-                            MessageBox.Show("该质控品已存在，无法添加！");
-                            return;
-                        }
-                        else if (strReturnInfo == "质控品添加失败，请联系管理员！")
-                        {
-                            MessageBox.Show("质控品添加失败，请联系管理员！");
-                            return;
-                        }
-                        else
-                        {
-                            if (this.Text == "新增质控品")
+                            Dictionary<QualityControlInfo, List<QCRelationProjectInfo>> keyValuePairs = new Dictionary<QualityControlInfo, List<QCRelationProjectInfo>>();
+                            keyValuePairs.Add(qcInfo, lstQCRelationProInfo);
+                            strReturnInfo = this.Text;
+                            if (TransmitQCAndTestProjectInfoEvent != null)
                             {
-                                MessageBox.Show("添加成功！");
-                                this.Close();
-                                //txtQCName.Text = string.Empty;
-                                //combLevelConc.SelectedIndex = 1;
-                                //txtLotNum.Text = string.Empty;
-                                //cboPosition.SelectedIndex = 0;
-                                //txtManufacturer.Text = string.Empty;
-                                //dtpInvalidDate.ResetText();
-
-
-                                //lstvQCMaintainInfos.RefreshDataSource();
-                                //dataTable.Rows.Clear();
-                                //int i = 1;
-                                ////gridControl1
-                                //if (lstAssayProInfos.Count != 0)
-                                //{
-                                //    foreach (AssayProjectInfo assayProInfo in lstAssayProInfos)
-                                //    {
-                                //        dataTable.Rows.Add(new object[] { i, assayProInfo.ProjectName, assayProInfo.SampleType, null, null });
-                                //        i++;
-                                //    }
-                                //}
-                                //this.gridView1.ClearSelection();
-                            }
-                            else
-                            {
-                                //CommunicationEntity communicationInfo = new CommunicationEntity();
-                                //communicationInfo.StrmethodName = "EditQCRelateProInfo";
-                                //communicationInfo.ObjParam = XmlUtility.Serializer(typeof(QualityControlInfo), qcInfo);
-                                //communicationInfo.ObjLastestParam = XmlUtility.Serializer(typeof(List<QCRelationProjectInfo>), lstQCRelationProInfo);
-
-                                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCMaintain, XmlUtility.Serializer(typeof(CommunicationEntity), communicationInfo));
-                                MessageBox.Show("更新成功！");
-                                this.Close();
+                                TransmitQCAndTestProjectInfoEvent(strReturnInfo, keyValuePairs);
                             }
                         }
-                    }));
+                    }
+                    else
+                    {
+                        if(strReturnInfo == "更新成功！")
+                        {
+                            Dictionary<QualityControlInfo, List<QCRelationProjectInfo>> keyValuePairs = new Dictionary<QualityControlInfo, List<QCRelationProjectInfo>>();
+                            keyValuePairs.Add(qcInfo, lstQCRelationProInfo);
+                            strReturnInfo = this.Text;
+                            if (TransmitQCAndTestProjectInfoEvent != null)
+                            {
+                                TransmitQCAndTestProjectInfoEvent(strReturnInfo, keyValuePairs);
+                            }
+                        }
+                        
+                    }
+                }
             }
         }
 
@@ -246,8 +238,13 @@ namespace BioA.UI
         {
             this.Close();
         }
-
+        /// <summary>
+        /// 存储质控品信息
+        /// </summary>
         QualityControlInfo qcInfo = new QualityControlInfo();
+        /// <summary>
+        /// 存储一个质控品对应的一个或多个检测项目信息
+        /// </summary>
         List<QCRelationProjectInfo> lstQCRelationProInfo = new List<QCRelationProjectInfo>();
         /// <summary>
         /// 质控品信息保存事件
@@ -330,12 +327,6 @@ namespace BioA.UI
 
             if (this.Text == "新增质控品")
             {
-                //CommunicationEntity communicationInfo = new CommunicationEntity();
-                //communicationInfo.StrmethodName = "AddQualityControl";
-                //communicationInfo.ObjParam = XmlUtility.Serializer(typeof(QualityControlInfo), qcInfo);
-                //communicationInfo.ObjLastestParam = XmlUtility.Serializer(typeof(List<QCRelationProjectInfo>), lstQCRelationProInfo);
-
-                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCMaintain, XmlUtility.Serializer(typeof(CommunicationEntity), communicationInfo));
                 qcAddDic.Clear();
                 qcAddDic.Add("AddQualityControl", new object[] { XmlUtility.Serializer(typeof(QualityControlInfo), qcInfo), XmlUtility.Serializer(typeof(List<QCRelationProjectInfo>), lstQCRelationProInfo) });
                 SendToServices(qcAddDic);
@@ -343,11 +334,6 @@ namespace BioA.UI
             }
             else
             {
-                //CommunicationEntity communicationInfo = new CommunicationEntity();
-                //communicationInfo.StrmethodName = "EditQualityControl";
-                //communicationInfo.ObjParam = XmlUtility.Serializer(typeof(QualityControlInfo), qCOldInfo);
-                //communicationInfo.ObjLastestParam = XmlUtility.Serializer(typeof(QualityControlInfo), qcInfo);
-                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCMaintain, XmlUtility.Serializer(typeof(CommunicationEntity), communicationInfo));
                 qcAddDic.Clear();
                 qcAddDic.Add("EditQualityControl", new object[] { XmlUtility.Serializer(typeof(QualityControlInfo), qCOldInfo), XmlUtility.Serializer(typeof(QualityControlInfo), qcInfo), XmlUtility.Serializer(typeof(List<QCRelationProjectInfo>), lstQCRelationProInfo) });
                 SendToServices(qcAddDic);

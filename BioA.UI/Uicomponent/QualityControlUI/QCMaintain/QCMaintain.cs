@@ -44,7 +44,7 @@ namespace BioA.UI
         /// </summary>
         private List<QCRelationProjectInfo> lstQCRelationProjectInfo = new List<QCRelationProjectInfo>();
         /// <summary>
-        /// 
+        /// 所有生化项目信息
         /// </summary>
         private List<AssayProjectInfo> lstAssayProInfo = new List<AssayProjectInfo>();
         public QCMaintain()
@@ -96,13 +96,14 @@ namespace BioA.UI
             gridView2.Appearance.HeaderPanel.Font = font;
             gridView2.Appearance.Row.Font = font;
             qualityControlAddAndEdit = new QualityControlAddAndEdit();
-
+            qualityControlAddAndEdit.TransmitQCAndTestProjectInfoEvent += Execute_TransmitQCAndTestProjectInfoEvent;
             
-
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCMaintain, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryQCAllInfo", null)));
             qcMaintainDic.Clear();
+            //获取质控品信息对应的所有项目信息
             qcMaintainDic.Add("QueryRelativelyProjectByQCInfo", null);
+            //获取所有质控信息
             qcMaintainDic.Add("QueryQCAllInfo",null);
+            //获取所有项目信息
             qcMaintainDic.Add("QueryAssayProAllInfo", new object[] { "" });
             SendToServices(qcMaintainDic);
         }
@@ -119,6 +120,47 @@ namespace BioA.UI
             qcMianThread.IsBackground = true;
             qcMianThread.Start();
         }
+        /// <summary>
+        /// 执行（质控品新增和修改后传递的参数方法）事件
+        /// </summary>
+        /// <param name="result"></param>
+        /// <param name="keyValuePairs"></param>
+        private void Execute_TransmitQCAndTestProjectInfoEvent(string result, Dictionary<QualityControlInfo, List<QCRelationProjectInfo>> keyValuePairs)
+        {
+            if(result == "新增质控品")
+            {
+                foreach( var keyValues in keyValuePairs)
+                {
+                    lstQualityControlInfo.Add(keyValues.Key);
+                    foreach(var value in keyValues.Value)
+                    {
+                        lstQCRelationProjectInfo.Add(value);
+                    }
+                }
+                InitQCInfos(lstQualityControlInfo);
+                MessageBox.Show("质控品添加成功！");
+                this.Invoke(new EventHandler(delegate { qualityControlAddAndEdit.Close(); }));
+            }
+            else
+            {
+                if(result == "编辑质控品")
+                {
+                    foreach (var keyValues in keyValuePairs)
+                    {
+                        lstQualityControlInfo.RemoveAll(r => r.QCName == keyValues.Key.QCName && r.QCID == keyValues.Key.QCID);
+                        lstQualityControlInfo.Add(keyValues.Key);
+                        foreach (var value in keyValues.Value)
+                        {
+                            lstQCRelationProjectInfo.RemoveAll( p => p.QCID == value.QCID && p.QCName == value.QCName);
+                            lstQCRelationProjectInfo.Add(value);
+                        }
+                    }
+                    InitQCInfos(lstQualityControlInfo);
+                    MessageBox.Show("质控品修改成功！");
+                    this.Invoke(new EventHandler(delegate { qualityControlAddAndEdit.Close(); }));
+                }
+            }
+        }
 
         /// <summary>
         /// 编辑
@@ -128,14 +170,12 @@ namespace BioA.UI
         private void btnEdit_Click(object sender, EventArgs e)
         {
             if (this.gridView1.GetSelectedRows().Count() > 0)
-            {                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCMaintain, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryQCPosition", null)));
-
+            { 
                 if (qCInfoForEdit.IsLocked == false)
                 {
                     MessageBox.Show("该质控品在激活条件下无法编辑，请冻结此质控品！");
                     return;
                 }                
-                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCMaintain, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryAssayProAllInfo", null)));
                 qualityControlAddAndEdit.QCOldInfo = qCInfoForEdit;
                 qualityControlAddAndEdit.QCRelateProInfo = qcRelationProForEdit;
                 qualityControlAddAndEdit.Text = "编辑质控品";
@@ -155,8 +195,6 @@ namespace BioA.UI
             qualityControlAddAndEdit.Text = "新增质控品";
             qualityControlAddAndEdit.StartPosition = FormStartPosition.CenterScreen;
 
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCMaintain, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryAssayProAllInfo", null)));
-           // CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCMaintain, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryQCPosition", null)));
             qualityControlAddAndEdit.LstAssayProInfos = lstAssayProInfo;
             qualityControlAddAndEdit.ShowDialog();
         }
@@ -170,7 +208,6 @@ namespace BioA.UI
             switch (strMethod)
             {
                 case "QueryAssayProAllInfo":
-                    //qualityControlAddAndEdit.LstAssayProInfos = (List<AssayProjectInfo>)XmlUtility.Deserialize(typeof(List<AssayProjectInfo>), sender as string);
                     lstAssayProInfo = (List<AssayProjectInfo>)XmlUtility.Deserialize(typeof(List<AssayProjectInfo>), sender as string);
                     break;
                 case "QueryQCPosition":
@@ -178,21 +215,17 @@ namespace BioA.UI
                     break;
                 case "AddQualityControl":
                     qualityControlAddAndEdit.StrReturnInfo = sender as string;
-                    //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCMaintain, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryQCAllInfo", null)));
-                    BeginInvoke(new Action(loadQCMaintain));
                     break;
                 case "QueryQCAllInfo":
                     lstQualityControlInfo = (List<QualityControlInfo>)XmlUtility.Deserialize(typeof(List<QualityControlInfo>), sender as string);
                     InitQCInfos(lstQualityControlInfo);
                     break;
                 case "QueryRelativelyProjectByQCInfo":
-                    //InitQCRelatePros((List<QCRelationProjectInfo>)XmlUtility.Deserialize(typeof(List<QCRelationProjectInfo>), sender as string));
                     lstQCRelationProjectInfo = (List<QCRelationProjectInfo>)XmlUtility.Deserialize(typeof(List<QCRelationProjectInfo>), sender as string);
                     break;
                 case "EditQualityControl":
                     qualityControlAddAndEdit.StrReturnInfo = sender as string;
-                    //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCMaintain, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryQCAllInfo", null)));
-                    BeginInvoke(new Action(loadQCMaintain));
+                    
                     break;
                 case "EditQCRelateProInfo":
                     if (((int)sender) > 0)
@@ -201,8 +234,9 @@ namespace BioA.UI
                             {
                                 qualityControlAddAndEdit.Close();
                             }));
-                        
-                        CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCMaintain, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryQCAllInfo", null)));
+                        qcMaintainDic.Clear();
+                        qcMaintainDic.Add("QueryQCAllInfo", null);
+                        SendToServices(qcMaintainDic);
                     }
                     else
                     {
@@ -214,7 +248,6 @@ namespace BioA.UI
                     int iLockRes = (int)sender;
                     if (iLockRes > 0)
                     {
-                        //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCMaintain, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryQCAllInfo", null)));
                         qcMaintainDic.Clear();
                         qcMaintainDic.Add("QueryQCAllInfo", null);
                         SendToServices(qcMaintainDic);
@@ -228,7 +261,6 @@ namespace BioA.UI
                     int iUnLockRes = (int)sender;
                     if (iUnLockRes > 0)
                     {
-                        //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCMaintain, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryQCAllInfo", null)));
                         qcMaintainDic.Clear();
                         qcMaintainDic.Add("QueryQCAllInfo", null);
                         SendToServices(qcMaintainDic);
@@ -249,7 +281,6 @@ namespace BioA.UI
                     }
                     else
                     {
-                        //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCMaintain, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryQCAllInfo", null)));
                         qcMaintainDic.Clear();
                         qcMaintainDic.Add("QueryQCAllInfo", null);
                         SendToServices(qcMaintainDic);
@@ -336,11 +367,6 @@ namespace BioA.UI
                         qcRelationProForEdit.Add(qcInfo);
                     }
                 }
-                //CommunicationEntity communicationEntity = new CommunicationEntity();
-                //communicationEntity.StrmethodName = "QueryRelativelyProjectByQCInfo";
-                //communicationEntity.ObjParam = XmlUtility.Serializer(typeof(QualityControlInfo), qCInfoForEdit);
-                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCMaintain, XmlUtility.Serializer(typeof(CommunicationEntity), communicationEntity));
-                //CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.QCMaintain, new Dictionary<string, List<object>>() { { "QueryRelativelyProjectByQCInfo", new object[] { XmlUtility.Serializer(typeof(QualityControlInfo), qCInfoForEdit) } } });
             }
 
         }
@@ -373,11 +399,6 @@ namespace BioA.UI
                     qcInfo.IsLocked = true;
                 }
 
-
-                //CommunicationEntity communicationEntity = new CommunicationEntity();
-                //communicationEntity.StrmethodName = "LockQualityControl";
-                //communicationEntity.ObjParam = XmlUtility.Serializer(typeof(QualityControlInfo), qcInfo);
-                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCMaintain, XmlUtility.Serializer(typeof(CommunicationEntity), communicationEntity));
                 qcMaintainDic.Clear();
                 qcMaintainDic.Add("LockQualityControl", new object[] { XmlUtility.Serializer(typeof(QualityControlInfo), qcInfo) });
                 SendToServices(qcMaintainDic);
@@ -426,10 +447,6 @@ namespace BioA.UI
                 }
 
 
-                //CommunicationEntity communicationEntity = new CommunicationEntity();
-                //communicationEntity.StrmethodName = "UnLockQualityControl";
-                //communicationEntity.ObjParam = XmlUtility.Serializer(typeof(QualityControlInfo), qcInfo);
-                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCMaintain, XmlUtility.Serializer(typeof(CommunicationEntity), communicationEntity));
                 qcMaintainDic.Clear();
                 qcMaintainDic.Add("UnLockQualityControl", new object[] { XmlUtility.Serializer(typeof(QualityControlInfo), qcInfo) });
                 SendToServices(qcMaintainDic);
@@ -461,10 +478,6 @@ namespace BioA.UI
                     return;
                 }
 
-                //CommunicationEntity communicationEntity = new CommunicationEntity();
-                //communicationEntity.StrmethodName = "DeleteQualityControl";
-                //communicationEntity.ObjParam = XmlUtility.Serializer(typeof(QualityControlInfo), qcInfo);
-                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCMaintain, XmlUtility.Serializer(typeof(CommunicationEntity), communicationEntity));
                 qcMaintainDic.Clear();
                 qcMaintainDic.Add("DeleteQualityControl", new object[] { XmlUtility.Serializer(typeof(QualityControlInfo), qcInfo) });
                 SendToServices(qcMaintainDic);

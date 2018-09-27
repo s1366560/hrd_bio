@@ -16,6 +16,10 @@ namespace BioA.UI
 {
     public partial class ProCombPage1 : DevExpress.XtraEditors.XtraUserControl
     {
+        //声明一个委托
+        public delegate void ClickProCombNamePage(string sender);
+        public event ClickProCombNamePage clickProCombNamePageEvent;
+
         public ProCombPage1()
         {
             InitializeComponent();
@@ -154,17 +158,15 @@ namespace BioA.UI
 
                     simpleButton.ForeColor = Color.Black;
                 }
-                else if (simpleButton.Tag as string == "0")
+                else if (simpleButton.Tag as string == "0" || simpleButton.Tag == null)
                 {
                     simpleButton.Tag = "1";
                     simpleButton.ForeColor = Color.Red;
-                    CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryProjectByCombProName", simpleButton.Text)));
-                }
-                else
-                {
-                    simpleButton.Tag = "1";
-                    simpleButton.ForeColor = Color.Red;
-                    CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryProjectByCombProName", simpleButton.Text)));
+                    //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryProjectByCombProName", simpleButton.Text)));
+                    if (clickProCombNamePageEvent != null)
+                    {
+                        clickProCombNamePageEvent(simpleButton.Text.ToString());
+                    }
                 }
             }
         }

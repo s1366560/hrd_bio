@@ -34,15 +34,14 @@ namespace BioA.Service
             return lstQueryAlarmLogInfo;
         }
 
-
-
-        public List<AlarmLogInfo> SelectAlarmLogInfoByUName(string strDBMethod, AlarmLogInfo alarmLogInfo)
+        public List<TroubleLog> SelectTroubleLogInfoByTimeQuantum(string strDBMethod, string logStateTime, string logEnditTime)
         {
-            List<AlarmLogInfo> lstQueryAlarmLogInfo = new List<AlarmLogInfo>();
+           return myBatis.SelectTroubleLogInfoByTimeQuantum(strDBMethod, logStateTime, logEnditTime);
+        }
 
-            lstQueryAlarmLogInfo = myBatis.SelectAlarmLogInfoByUName(strDBMethod, alarmLogInfo);
-
-            return lstQueryAlarmLogInfo;
+        public int AffirmTroubleLogInfo(string strDBMethid, List<string> lstDrawDateTime)
+        {
+            return myBatis.AffirmTroubleLogInfo(strDBMethid, lstDrawDateTime);
         }
     }
 }

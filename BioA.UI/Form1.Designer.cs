@@ -50,6 +50,7 @@ namespace BioA.UI
             DevExpress.Utils.SuperToolTip superToolTip4 = new DevExpress.Utils.SuperToolTip();
             DevExpress.Utils.ToolTipTitleItem toolTipTitleItem4 = new DevExpress.Utils.ToolTipTitleItem();
             this.ribbonControl1 = new DevExpress.XtraBars.Ribbon.RibbonControl();
+            this.galleryDropDown1 = new DevExpress.XtraBars.Ribbon.GalleryDropDown(this.components);
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem3 = new DevExpress.XtraBars.BarButtonItem();
@@ -125,11 +126,13 @@ namespace BioA.UI
             this.textEdit2 = new DevExpress.XtraEditors.TextEdit();
             this.pictureEdit1 = new DevExpress.XtraEditors.PictureEdit();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labUserName = new System.Windows.Forms.Label();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label2 = new System.Windows.Forms.Label();
+            this.lblSampleContainer = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.galleryDropDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.accordionControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtInfoPrompt.Properties)).BeginInit();
@@ -145,6 +148,7 @@ namespace BioA.UI
             // 
             // ribbonControl1
             // 
+            this.ribbonControl1.ApplicationButtonDropDownControl = this.galleryDropDown1;
             this.ribbonControl1.ExpandCollapseItem.Id = 0;
             this.ribbonControl1.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
             this.ribbonControl1.ExpandCollapseItem,
@@ -173,13 +177,18 @@ namespace BioA.UI
             this.barButtonItem17,
             this.barButtonItem18});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 1;
+            this.ribbonControl1.MaxItemId = 34;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
             this.ribbonControl1.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2010;
             this.ribbonControl1.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbonControl1.Size = new System.Drawing.Size(1701, 165);
+            // 
+            // galleryDropDown1
+            // 
+            this.galleryDropDown1.Name = "galleryDropDown1";
+            this.galleryDropDown1.Ribbon = this.ribbonControl1;
             // 
             // barButtonItem1
             // 
@@ -188,6 +197,9 @@ namespace BioA.UI
             // 
             // barButtonItem2
             // 
+            this.barButtonItem2.ActAsDropDown = true;
+            this.barButtonItem2.AllowDrawArrow = false;
+            this.barButtonItem2.AllowGlyphSkinning = DevExpress.Utils.DefaultBoolean.False;
             this.barButtonItem2.Caption = "  试  剂   ";
             this.barButtonItem2.Id = 2;
             this.barButtonItem2.LargeGlyph = global::BioA.UI.Properties.Resources.RGTContainer;
@@ -199,6 +211,8 @@ namespace BioA.UI
             // 
             // barButtonItem3
             // 
+            this.barButtonItem3.ActAsDropDown = true;
+            this.barButtonItem3.AllowDrawArrow = false;
             this.barButtonItem3.Caption = "  校  准 ";
             this.barButtonItem3.Id = 3;
             this.barButtonItem3.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem3.LargeGlyph")));
@@ -260,8 +274,9 @@ namespace BioA.UI
             // barButtonItem4
             // 
             this.barButtonItem4.ActAsDropDown = true;
-            this.barButtonItem4.ButtonStyle = DevExpress.XtraBars.BarButtonStyle.DropDown;
+            this.barButtonItem4.AllowDrawArrow = false;
             this.barButtonItem4.Caption = "   质  控 ";
+            this.barButtonItem4.DropDownControl = this.galleryDropDown1;
             this.barButtonItem4.Id = 17;
             this.barButtonItem4.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem4.LargeGlyph")));
             this.barButtonItem4.Name = "barButtonItem4";
@@ -335,6 +350,9 @@ namespace BioA.UI
             // 
             // barButtonItem11
             // 
+            this.barButtonItem11.ActAsDropDown = true;
+            this.barButtonItem11.AllowDrawArrow = false;
+            this.barButtonItem11.AllowHtmlText = DevExpress.Utils.DefaultBoolean.False;
             this.barButtonItem11.Caption = "系统设置";
             this.barButtonItem11.Id = 27;
             this.barButtonItem11.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem11.LargeGlyph")));
@@ -343,6 +361,8 @@ namespace BioA.UI
             // 
             // barButtonItem12
             // 
+            this.barButtonItem12.ActAsDropDown = true;
+            this.barButtonItem12.AllowDrawArrow = false;
             this.barButtonItem12.Caption = "安全管理";
             this.barButtonItem12.Id = 28;
             this.barButtonItem12.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem12.LargeGlyph")));
@@ -351,6 +371,8 @@ namespace BioA.UI
             // 
             // barButtonItem13
             // 
+            this.barButtonItem13.ActAsDropDown = true;
+            this.barButtonItem13.AllowDrawArrow = false;
             this.barButtonItem13.Caption = "启动操作";
             this.barButtonItem13.Id = 29;
             this.barButtonItem13.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem13.LargeGlyph")));
@@ -359,6 +381,8 @@ namespace BioA.UI
             // 
             // barButtonItem14
             // 
+            this.barButtonItem14.ActAsDropDown = true;
+            this.barButtonItem14.AllowDrawArrow = false;
             this.barButtonItem14.Caption = "暂停操作";
             this.barButtonItem14.Id = 30;
             this.barButtonItem14.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem14.LargeGlyph")));
@@ -367,6 +391,8 @@ namespace BioA.UI
             // 
             // barButtonItem15
             // 
+            this.barButtonItem15.ActAsDropDown = true;
+            this.barButtonItem15.AllowDrawArrow = false;
             this.barButtonItem15.Caption = "停止操作";
             this.barButtonItem15.Id = 31;
             this.barButtonItem15.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem15.LargeGlyph")));
@@ -375,6 +401,8 @@ namespace BioA.UI
             // 
             // barButtonItem16
             // 
+            this.barButtonItem16.ActAsDropDown = true;
+            this.barButtonItem16.AllowDrawArrow = false;
             this.barButtonItem16.Caption = "反应盘状态";
             this.barButtonItem16.Id = 32;
             this.barButtonItem16.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem16.LargeGlyph")));
@@ -383,6 +411,8 @@ namespace BioA.UI
             // 
             // barButtonItem17
             // 
+            this.barButtonItem17.ActAsDropDown = true;
+            this.barButtonItem17.AllowDrawArrow = false;
             this.barButtonItem17.Caption = "工 作 区";
             this.barButtonItem17.Glyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem17.Glyph")));
             this.barButtonItem17.Id = 33;
@@ -395,6 +425,8 @@ namespace BioA.UI
             // 
             // barButtonItem18
             // 
+            this.barButtonItem18.ActAsDropDown = true;
+            this.barButtonItem18.AllowDrawArrow = false;
             this.barButtonItem18.Caption = "LIS设置";
             this.barButtonItem18.Id = 34;
             this.barButtonItem18.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem18.LargeGlyph")));
@@ -415,6 +447,7 @@ namespace BioA.UI
             this.ribbonPageGroup11,
             this.ribbonPageGroup12});
             this.ribbonPage1.Image = ((System.Drawing.Image)(resources.GetObject("ribbonPage1.Image")));
+            this.ribbonPage1.KeyTip = "H";
             this.ribbonPage1.Name = "ribbonPage1";
             this.ribbonPage1.Text = "HRD800";
             // 
@@ -499,192 +532,303 @@ namespace BioA.UI
             // ReagentStateElement4
             // 
             this.ReagentStateElement4.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
-            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image),
             new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Text),
             new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.ContextButtons),
-            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl)});
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl),
+            //new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image, DevExpress.XtraBars.Navigation.HeaderElementAlignment.Right)
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image)});
             this.ReagentStateElement4.Height = 50;
             this.ReagentStateElement4.Name = "ReagentStateElement4";
             this.ReagentStateElement4.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.ReagentStateElement4.Text = "             试剂状态";
+            this.ReagentStateElement4.Text = "             试剂状态   ";
             this.ReagentStateElement4.Click += new System.EventHandler(this.accordionControlElement4_Click);
             // 
             // ReagentSettingElement5
             // 
+            this.ReagentSettingElement5.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Text),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.ContextButtons, DevExpress.XtraBars.Navigation.HeaderElementAlignment.Left),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl)});
             this.ReagentSettingElement5.Height = 50;
             this.ReagentSettingElement5.Name = "ReagentSettingElement5";
             this.ReagentSettingElement5.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.ReagentSettingElement5.Text = "             试剂设置";
+            this.ReagentSettingElement5.Text = "             试剂设置   ";
             this.ReagentSettingElement5.Click += new System.EventHandler(this.accordionControlElement5_Click);
             // 
             // CalibrationStateElement6
             // 
+            this.CalibrationStateElement6.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Text),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.ContextButtons)});
             this.CalibrationStateElement6.Height = 50;
             this.CalibrationStateElement6.Name = "CalibrationStateElement6";
             this.CalibrationStateElement6.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.CalibrationStateElement6.Text = "             校准状态";
+            this.CalibrationStateElement6.Text = "             校准状态   ";
             this.CalibrationStateElement6.Click += new System.EventHandler(this.accordionControlElement7_Click);
             // 
             // CalibrationMaintainElement7
             // 
+            this.CalibrationMaintainElement7.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Text),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.ContextButtons)});
             this.CalibrationMaintainElement7.Height = 50;
             this.CalibrationMaintainElement7.Name = "CalibrationMaintainElement7";
             this.CalibrationMaintainElement7.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.CalibrationMaintainElement7.Text = "             校准品维护";
+            this.CalibrationMaintainElement7.Text = "             校准品维护   ";
             this.CalibrationMaintainElement7.Click += new System.EventHandler(this.accordionControlElement6_Click);
             // 
             // QCStateElement8
             // 
+            this.QCStateElement8.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Text),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.ContextButtons)});
             this.QCStateElement8.Height = 50;
             this.QCStateElement8.Name = "QCStateElement8";
             this.QCStateElement8.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.QCStateElement8.Text = "             质控状态";
+            this.QCStateElement8.Text = "             质控状态   ";
             this.QCStateElement8.Click += new System.EventHandler(this.accordionControlElement8_Click);
             // 
             // QCMaintainElement9
             // 
+            this.QCMaintainElement9.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Text),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.ContextButtons)});
             this.QCMaintainElement9.Height = 50;
             this.QCMaintainElement9.Name = "QCMaintainElement9";
             this.QCMaintainElement9.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.QCMaintainElement9.Text = "             质控品维护";
+            this.QCMaintainElement9.Text = "             质控品维护   ";
             this.QCMaintainElement9.Click += new System.EventHandler(this.accordionControlElement9_Click);
             // 
             // ChemicalParameterElement10
             // 
+            this.ChemicalParameterElement10.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Text),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.ContextButtons)});
             this.ChemicalParameterElement10.Height = 50;
             this.ChemicalParameterElement10.Name = "ChemicalParameterElement10";
             this.ChemicalParameterElement10.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.ChemicalParameterElement10.Text = "             化学参数";
+            this.ChemicalParameterElement10.Text = "             化学参数   ";
             this.ChemicalParameterElement10.Click += new System.EventHandler(this.accordionControlElement10_Click);
             // 
             // CombProjectElement11
             // 
+            this.CombProjectElement11.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Text),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.ContextButtons)});
             this.CombProjectElement11.Height = 50;
             this.CombProjectElement11.Name = "CombProjectElement11";
             this.CombProjectElement11.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.CombProjectElement11.Text = "             组合项目";
+            this.CombProjectElement11.Text = "             组合项目   ";
             this.CombProjectElement11.Click += new System.EventHandler(this.accordionControlElement11_Click);
             // 
             // CalcProjectElement12
             // 
+            this.CalcProjectElement12.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Text),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.ContextButtons)});
             this.CalcProjectElement12.Height = 50;
             this.CalcProjectElement12.Name = "CalcProjectElement12";
             this.CalcProjectElement12.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.CalcProjectElement12.Text = "             计算项目";
+            this.CalcProjectElement12.Text = "             计算项目   ";
             this.CalcProjectElement12.Click += new System.EventHandler(this.accordionControlElement12_Click);
             // 
             // EnvironmentElement13
             // 
+            this.EnvironmentElement13.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Text),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.ContextButtons)});
             this.EnvironmentElement13.Height = 50;
             this.EnvironmentElement13.Name = "EnvironmentElement13";
             this.EnvironmentElement13.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.EnvironmentElement13.Text = "             环境参数";
+            this.EnvironmentElement13.Text = "             环境参数   ";
             this.EnvironmentElement13.Click += new System.EventHandler(this.accordionControlElement13_Click);
             // 
             // CrossPollutionElement14
             // 
+            this.CrossPollutionElement14.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Text),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.ContextButtons)});
             this.CrossPollutionElement14.Height = 50;
             this.CrossPollutionElement14.Name = "CrossPollutionElement14";
             this.CrossPollutionElement14.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.CrossPollutionElement14.Text = "             交叉污染";
+            this.CrossPollutionElement14.Text = "             交叉污染   ";
             this.CrossPollutionElement14.Click += new System.EventHandler(this.accordionControlElement14_Click);
             // 
             // DataConfigElement15
             // 
+            this.DataConfigElement15.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Text),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.ContextButtons)});
             this.DataConfigElement15.Height = 50;
             this.DataConfigElement15.Name = "DataConfigElement15";
             this.DataConfigElement15.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.DataConfigElement15.Text = "             数据配置";
+            this.DataConfigElement15.Text = "             数据配置   ";
             this.DataConfigElement15.Click += new System.EventHandler(this.accordionControlElement15_Click);
             // 
             // LISCommunicateElement16
             // 
+            this.LISCommunicateElement16.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Text),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.ContextButtons)});
             this.LISCommunicateElement16.Height = 50;
             this.LISCommunicateElement16.Name = "LISCommunicateElement16";
             this.LISCommunicateElement16.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.LISCommunicateElement16.Text = "             LIS通讯";
+            this.LISCommunicateElement16.Text = "             LIS通讯   ";
             this.LISCommunicateElement16.Click += new System.EventHandler(this.accordionControlElement16_Click);
             // 
             // MaintenanceElement17
             // 
+            this.MaintenanceElement17.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Text),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.ContextButtons)});
             this.MaintenanceElement17.Height = 50;
             this.MaintenanceElement17.Name = "MaintenanceElement17";
             this.MaintenanceElement17.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.MaintenanceElement17.Text = "             常规保养";
+            this.MaintenanceElement17.Text = "             常规保养   ";
             this.MaintenanceElement17.Click += new System.EventHandler(this.accordionControlElement17_Click);
             // 
             // EquipmentManageElement18
             // 
+            this.EquipmentManageElement18.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Text),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.ContextButtons)});
             this.EquipmentManageElement18.Height = 50;
             this.EquipmentManageElement18.Name = "EquipmentManageElement18";
             this.EquipmentManageElement18.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.EquipmentManageElement18.Text = "             设备调试";
+            this.EquipmentManageElement18.Text = "             设备调试   ";
             this.EquipmentManageElement18.Click += new System.EventHandler(this.accordionControlElement18_Click);
             // 
             // UserManagementElement19
             // 
+            this.UserManagementElement19.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Text),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.ContextButtons)});
             this.UserManagementElement19.Height = 50;
             this.UserManagementElement19.Name = "UserManagementElement19";
             this.UserManagementElement19.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.UserManagementElement19.Text = "             用户管理";
+            this.UserManagementElement19.Text = "             用户管理   ";
             this.UserManagementElement19.Click += new System.EventHandler(this.accordionControlElement19_Click);
             // 
             // DepartmentManageElement20
             // 
+            this.DepartmentManageElement20.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Text),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.ContextButtons)});
             this.DepartmentManageElement20.Height = 50;
             this.DepartmentManageElement20.Name = "DepartmentManageElement20";
             this.DepartmentManageElement20.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.DepartmentManageElement20.Text = "             科室管理";
+            this.DepartmentManageElement20.Text = "             科室管理   ";
             this.DepartmentManageElement20.Click += new System.EventHandler(this.accordionControlElement20_Click);
             // 
             // ConfigureElement21
             // 
+            this.ConfigureElement21.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Text),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.ContextButtons)});
             this.ConfigureElement21.Height = 50;
             this.ConfigureElement21.Name = "ConfigureElement21";
             this.ConfigureElement21.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.ConfigureElement21.Text = "             配置";
+            this.ConfigureElement21.Text = "             配置   ";
             this.ConfigureElement21.Click += new System.EventHandler(this.accordionControlElement21_Click);
             // 
             // LogCheckElement22
             // 
+            this.LogCheckElement22.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Text),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.ContextButtons)});
             this.LogCheckElement22.Height = 50;
             this.LogCheckElement22.Name = "LogCheckElement22";
             this.LogCheckElement22.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.LogCheckElement22.Text = "             日志查看";
+            this.LogCheckElement22.Text = "             日志查看   ";
             this.LogCheckElement22.Click += new System.EventHandler(this.accordionControlElement22_Click);
             // 
             // VersionInfomationElement23
             // 
+            this.VersionInfomationElement23.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Text),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.ContextButtons)});
             this.VersionInfomationElement23.Height = 50;
             this.VersionInfomationElement23.Name = "VersionInfomationElement23";
             this.VersionInfomationElement23.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.VersionInfomationElement23.Text = "             版本信息";
+            this.VersionInfomationElement23.Text = "             版本信息   ";
             this.VersionInfomationElement23.Click += new System.EventHandler(this.accordionControlElement23_Click);
             // 
             // QCGraphicElement24
             // 
+            this.QCGraphicElement24.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Text),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.ContextButtons)});
             this.QCGraphicElement24.Expanded = true;
             this.QCGraphicElement24.Height = 50;
             this.QCGraphicElement24.Name = "QCGraphicElement24";
             this.QCGraphicElement24.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.QCGraphicElement24.Text = "             质控图";
+            this.QCGraphicElement24.Text = "             质控图   ";
             this.QCGraphicElement24.Click += new System.EventHandler(this.accordionControlElement24_Click);
             // 
             // QCTaskElement25
-            // 
+            //
+            this.QCTaskElement25.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Text),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.ContextButtons)});
             this.QCTaskElement25.Expanded = true;
             this.QCTaskElement25.Height = 50;
             this.QCTaskElement25.Name = "QCTaskElement25";
             this.QCTaskElement25.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.QCTaskElement25.Text = "             质控任务";
+            this.QCTaskElement25.Text = "             质控任务   ";
             this.QCTaskElement25.Click += new System.EventHandler(this.accordionControlElement25_Click);
             // 
             // CalibTaskElement26
             // 
+            this.CalibTaskElement26.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Text),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.ContextButtons)});
             this.CalibTaskElement26.Height = 50;
             this.CalibTaskElement26.Name = "CalibTaskElement26";
             this.CalibTaskElement26.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.CalibTaskElement26.Text = "             校准任务";
+            this.CalibTaskElement26.Text = "             校准任务   ";
             this.CalibTaskElement26.Click += new System.EventHandler(this.accordionControlElement26_Click);
             // 
             // WorkingAreaApplyTaskElement1
@@ -697,15 +841,20 @@ namespace BioA.UI
             this.WorkingAreaApplyTaskElement1.Height = 50;
             this.WorkingAreaApplyTaskElement1.Name = "WorkingAreaApplyTaskElement1";
             this.WorkingAreaApplyTaskElement1.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.WorkingAreaApplyTaskElement1.Text = "             申请审核";
+            this.WorkingAreaApplyTaskElement1.Text = "             申请审核   ";
             this.WorkingAreaApplyTaskElement1.Click += new System.EventHandler(this.accordionControlElement1_Click);
             // 
             // WorkingAreaDataCheckElement2
             // 
+            this.WorkingAreaDataCheckElement2.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Text),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.ContextButtons)});
             this.WorkingAreaDataCheckElement2.Height = 50;
             this.WorkingAreaDataCheckElement2.Name = "WorkingAreaDataCheckElement2";
             this.WorkingAreaDataCheckElement2.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.WorkingAreaDataCheckElement2.Text = "             数据审核";
+            this.WorkingAreaDataCheckElement2.Text = "             数据审核   ";
             this.WorkingAreaDataCheckElement2.Click += new System.EventHandler(this.accordionControlElement2_Click);
             // 
             // ribbonPageGroup7
@@ -718,9 +867,9 @@ namespace BioA.UI
             this.pictureBox1.BackColor = System.Drawing.SystemColors.Info;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(1518, 100);
+            this.pictureBox1.Location = new System.Drawing.Point(1500, 100);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(151, 41);
+            this.pictureBox1.Size = new System.Drawing.Size(171, 29);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
@@ -729,7 +878,7 @@ namespace BioA.UI
             // 
             this.txtInfoPrompt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtInfoPrompt.EditValue = "机器正常启动";
-            this.txtInfoPrompt.Location = new System.Drawing.Point(856, 32);
+            this.txtInfoPrompt.Location = new System.Drawing.Point(841, 32);
             this.txtInfoPrompt.MenuManager = this.ribbonControl1;
             this.txtInfoPrompt.Name = "txtInfoPrompt";
             this.txtInfoPrompt.Properties.Appearance.BackColor = System.Drawing.SystemColors.Info;
@@ -737,19 +886,23 @@ namespace BioA.UI
             this.txtInfoPrompt.Properties.Appearance.Options.UseBackColor = true;
             this.txtInfoPrompt.Properties.Appearance.Options.UseFont = true;
             this.txtInfoPrompt.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat;
-            this.txtInfoPrompt.Size = new System.Drawing.Size(434, 40);
+            this.txtInfoPrompt.Properties.ReadOnly = true;
+            this.txtInfoPrompt.Size = new System.Drawing.Size(433, 40);
             this.txtInfoPrompt.TabIndex = 7;
             // 
             // pictureBox2
             // 
             this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox2.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureBox2.ErrorImage")));
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(823, 35);
+            this.pictureBox2.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox2.InitialImage")));
+            this.pictureBox2.Location = new System.Drawing.Point(796, 32);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(33, 31);
+            this.pictureBox2.Size = new System.Drawing.Size(42, 39);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 11;
             this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
             // pcThirdArea
             // 
@@ -764,7 +917,7 @@ namespace BioA.UI
             // 
             this.pictureEdit3.Cursor = System.Windows.Forms.Cursors.Default;
             this.pictureEdit3.EditValue = global::BioA.UI.Properties.Resources.未标题3_1;
-            this.pictureEdit3.Location = new System.Drawing.Point(271, 32);
+            this.pictureEdit3.Location = new System.Drawing.Point(293, 34);
             this.pictureEdit3.MenuManager = this.ribbonControl1;
             this.pictureEdit3.Name = "pictureEdit3";
             this.pictureEdit3.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
@@ -772,7 +925,7 @@ namespace BioA.UI
             this.pictureEdit3.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
             this.pictureEdit3.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Stretch;
             this.pictureEdit3.Properties.ZoomAccelerationFactor = 1D;
-            this.pictureEdit3.Size = new System.Drawing.Size(27, 40);
+            this.pictureEdit3.Size = new System.Drawing.Size(21, 38);
             this.pictureEdit3.TabIndex = 28;
             // 
             // pictureEdit2
@@ -824,32 +977,32 @@ namespace BioA.UI
             // 
             this.pictureEdit1.Cursor = System.Windows.Forms.Cursors.Default;
             this.pictureEdit1.EditValue = global::BioA.UI.Properties.Resources.微信图片_20170819143641;
-            this.pictureEdit1.Location = new System.Drawing.Point(268, 32);
+            this.pictureEdit1.Location = new System.Drawing.Point(266, 34);
             this.pictureEdit1.MenuManager = this.ribbonControl1;
             this.pictureEdit1.Name = "pictureEdit1";
             this.pictureEdit1.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.pictureEdit1.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
             this.pictureEdit1.Properties.ZoomAccelerationFactor = 1D;
-            this.pictureEdit1.Size = new System.Drawing.Size(531, 40);
+            this.pictureEdit1.Size = new System.Drawing.Size(531, 38);
             this.pictureEdit1.TabIndex = 22;
             // 
             // progressBar1
             // 
             this.progressBar1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(236)))), ((int)(((byte)(239)))));
-            this.progressBar1.Location = new System.Drawing.Point(303, 48);
+            this.progressBar1.Location = new System.Drawing.Point(301, 50);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(458, 6);
             this.progressBar1.TabIndex = 26;
             // 
-            // label1
+            // labUserName
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(1592, 41);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(64, 17);
-            this.label1.TabIndex = 30;
-            this.label1.Text = "诸葛孔明";
+            this.labUserName.AutoSize = true;
+            this.labUserName.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labUserName.Location = new System.Drawing.Point(1592, 41);
+            this.labUserName.Name = "labUserName";
+            this.labUserName.Size = new System.Drawing.Size(64, 17);
+            this.labUserName.TabIndex = 30;
+            this.labUserName.Text = "诸葛孔明";
             // 
             // contextMenuStrip1
             // 
@@ -865,11 +1018,25 @@ namespace BioA.UI
             // 
             this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label2.Location = new System.Drawing.Point(303, 50);
+            this.label2.Location = new System.Drawing.Point(301, 53);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(95, 2);
             this.label2.TabIndex = 32;
             this.label2.Tag = "0";
+            // 
+            // lblSampleContainer
+            // 
+            this.lblSampleContainer.Appearance.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSampleContainer.Appearance.Options.UseFont = true;
+            this.lblSampleContainer.Appearance.Options.UseTextOptions = true;
+            this.lblSampleContainer.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.lblSampleContainer.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
+            this.lblSampleContainer.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.lblSampleContainer.Location = new System.Drawing.Point(213, 34);
+            this.lblSampleContainer.Name = "lblSampleContainer";
+            this.lblSampleContainer.Size = new System.Drawing.Size(82, 38);
+            this.lblSampleContainer.TabIndex = 34;
+            this.lblSampleContainer.Text = "反应盘恒温水槽温度：";
             // 
             // Form1
             // 
@@ -877,9 +1044,10 @@ namespace BioA.UI
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1701, 906);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureEdit3);
+            this.Controls.Add(this.lblSampleContainer);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.labUserName);
             this.Controls.Add(this.pictureEdit2);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.pictureEdit1);
@@ -897,6 +1065,7 @@ namespace BioA.UI
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.galleryDropDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.accordionControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtInfoPrompt.Properties)).EndInit();
@@ -933,9 +1102,6 @@ namespace BioA.UI
         //一下是第一个的三个
         private DevExpress.XtraBars.Navigation.AccordionControlElement WorkingAreaApplyTaskElement1;
         private DevExpress.XtraBars.Navigation.AccordionControlElement WorkingAreaDataCheckElement2;
-        //private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement3;
-        //以下是第二个的两个
-        private DevExpress.XtraBars.Navigation.AccordionControlElement ReagentStateElement4;
         private DevExpress.XtraBars.Navigation.AccordionControlElement ReagentSettingElement5;
         //以下是第三个的两个
         private DevExpress.XtraBars.Navigation.AccordionControlElement CalibrationStateElement6;
@@ -990,7 +1156,6 @@ namespace BioA.UI
         private DevExpress.XtraBars.BarButtonItem barButtonItem15;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup9;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup10;
-        private System.Windows.Forms.PictureBox pictureBox2;
        // private DevExpress.XtraBars.Navigation.NavigationFrame navigationFrame1;
        // private DevExpress.XtraBars.Navigation.NavigationPage navigationPage1;
        // private DevExpress.XtraBars.Navigation.NavigationPage navigationPage2;
@@ -1009,12 +1174,15 @@ namespace BioA.UI
         private System.Windows.Forms.ProgressBar progressBar1;
         private DevExpress.XtraEditors.PictureEdit pictureEdit2;
         private DevExpress.XtraEditors.PictureEdit pictureEdit3;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labUserName;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private DevExpress.XtraBars.BarButtonItem barButtonItem3;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label label2;
-        
+        private DevExpress.XtraEditors.LabelControl lblSampleContainer;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private DevExpress.XtraBars.Ribbon.GalleryDropDown galleryDropDown1;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement ReagentStateElement4;
     }
 }
 

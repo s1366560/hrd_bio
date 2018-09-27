@@ -48,6 +48,14 @@ namespace BioA.UI
             assayProInfoOld.SampleType = assayProInfo.SampleType;
         }
 
+        public void BeforeClearingTheData()
+        {
+            txtProShortName.Text = "";
+            cboSampleType.SelectedIndex = 1;
+            txtProLongName.Text = "";
+            txtChannelNumber.Text = "";
+        }
+
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -80,14 +88,9 @@ namespace BioA.UI
                 {
                     if (DataHandleEvent != null)
                     {
-                        //CommunicationEntity communicationEntity = new CommunicationEntity();
-                        //communicationEntity.ObjParam = XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfo);
-                        //communicationEntity.StrmethodName = "AssayProjectAdd";
-                        //DataHandleEvent(communicationEntity);
                         cheProAddOrEditDic.Clear();
                         cheProAddOrEditDic.Add("AssayProjectAdd", new object[] { XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfo) });
                         DataHandleEvent(cheProAddOrEditDic);
-                        this.Close();
                     }
 
                 }
@@ -95,23 +98,12 @@ namespace BioA.UI
                 {
                     if (DataHandleEvent != null)
                     {
-                        //CommunicationEntity communicationEntity = new CommunicationEntity();
-                        //communicationEntity.ObjLastestParam = XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfo);
-                        //communicationEntity.StrmethodName = "AssayProjectEdit";
-                        //communicationEntity.ObjParam = XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfoOld);
-                        //DataHandleEvent(communicationEntity);
                         cheProAddOrEditDic.Clear();
                         cheProAddOrEditDic.Add("AssayProjectEdit", new object[] { XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfoOld), XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfo) });
                         DataHandleEvent(cheProAddOrEditDic);
-                        this.Close();
                     }
 
                 }
-                txtProShortName.Text = "";
-                cboSampleType.SelectedIndex = 1;
-                txtProLongName.Text = "";
-                txtChannelNumber.Text = "";
-
             }
         }
     }

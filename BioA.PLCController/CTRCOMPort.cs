@@ -79,23 +79,35 @@ namespace BioA.PLCController
         void InitPort(XmlNode SerialPortNode)
         {
             this._PortName = XMLHelper.Read(SerialPortNode, "Port");
-
             if (this.SP.IsOpen == false)
             {
                 try
                 {
+                    string[] names = SerialPort.GetPortNames();  //获取本机所有串口名
                     this.SP.PortName = this._PortName;     //串口名称
                     this.SP.BaudRate = 19200;              //串口波特率
                     this.SP.DataBits = 8;                  //串口数据位
                     this.SP.Parity = Parity.None;          //是否校验
                     this.SP.StopBits = StopBits.One;       //停止位
                     this.SP.ReadBufferSize = 2048;         //读缓存
-                    this.SP.Open();                        //打开串口
-                    this.SP.WriteTimeout = 1000;           //写延迟1秒
-                    this.SP.ReadTimeout = 1000;            //读延迟1秒
-                    this.SP.ReceivedBytesThreshold = 1;
 
-                    Console.WriteLine(this.PortName + " is open successfully!");
+                    for (int i = 0; i < names.Length; i++)
+                    {
+                        if (names[i] == this.SP.PortName)
+                        {
+                            this.SP.Open();                 //打开串口
+                            this.SP.WriteTimeout = 1000;           //写延迟1秒
+                            this.SP.ReadTimeout = 1000;            //读延迟1秒
+                            this.SP.ReceivedBytesThreshold = 1;
+                            Console.WriteLine(this.PortName + " is open successfully!");
+                            break;
+                        }
+                    }
+                    if (this.SP.IsOpen == false)
+                    {
+                        Console.WriteLine(this.PortName + "Serial port open failed! cause:There is no connection to the serial port or the serial port name does not exist");
+                    }
+
                 }
                 catch (Exception e)
                 {

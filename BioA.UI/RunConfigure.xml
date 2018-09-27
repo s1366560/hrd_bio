@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <RunSetting>
   <Processes>
+    <Process Name="BioA.PLCController" Path="E:\HRD_BioA\bin\Release\BioA.PLCController.exe" RunLevel="4"/>
   </Processes>
+  <BioA.PLCController IP="127.0.0.1" />
   <AbsCalcMethods>
     <Method Name="OnePointMethod" />
     <Method Name="TwoPointMethod" />
@@ -14,7 +16,7 @@
   <TimeCourse LightSpan="2.0" PTInterval="0,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5,13.5" />
   <R2Point Point="17" />
   <ResultDecimal Values="0,1,2,3,4" />
-  <StirStrengths Values="高,中,低" />
+  <StirStrengths Values="低,中,高" />
   <SampleContainers Values="样本管,样本杯" />
   <SampleTypes Values=",血清,尿液" />
   <AnalizeMethods Values="一点终点法,二点终点法,速率A法,速率B法" />
@@ -32,7 +34,7 @@
   <CheckSampleTaskState FilterSwitch="true" Completed="True" Starting="True" NoStart="False" />
   <Reagentpos Values="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90" />
   <Reagentpos2 Values="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90" />
-  <CalibPosition Values="S1,S2,S3,S4,S5,S6,S7,S8,S9,S10,S11,S12,S13,S14,S15,S16,S17,S18,S19,S20" />
+  <CalibPosition Values="B1,B2,S1,S2,S3,S4,S5,S6,S7,S8,S9,S10,S11,S12,S13,S14,S15,S16,S17,S18,S19,S20,S21,S22,S23,S24,S25,S26,S27,S28" />
   <UserAuthorityInitial>
     <Authority Key="申请测试" Value="true" />
     <Authority Key="数据审核" Value="true" />

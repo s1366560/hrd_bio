@@ -63,6 +63,7 @@
             this.combPosNum = new DevExpress.XtraEditors.ComboBoxEdit();
             this.labDetectionNum = new System.Windows.Forms.Label();
             this.txtBoxDetectionNum = new System.Windows.Forms.TextBox();
+            this.simpleButCancel = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.chkManuallyDilute.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkEmergency.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpProject)).BeginInit();
@@ -318,7 +319,7 @@
             this.btnSampleDishState.Size = new System.Drawing.Size(118, 43);
             this.btnSampleDishState.TabIndex = 23;
             this.btnSampleDishState.Text = "样本盘状态";
-            this.btnSampleDishState.Click += new System.EventHandler(this.btnSampleDishState_Click);
+            this.btnSampleDishState.Click += new System.EventHandler(this.BtnSampleDishState_Click);
             // 
             // btnDilutionSetting
             // 
@@ -425,13 +426,26 @@
             this.txtBoxDetectionNum.Name = "txtBoxDetectionNum";
             this.txtBoxDetectionNum.Size = new System.Drawing.Size(67, 24);
             this.txtBoxDetectionNum.TabIndex = 39;
-            this.txtBoxDetectionNum.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBoxDetectionNum_KeyPress);
-            this.txtBoxDetectionNum.Leave += new System.EventHandler(this.txtBoxDetectionNum_Leave);
+            this.txtBoxDetectionNum.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtBoxDetectionNum_KeyPress);
+            this.txtBoxDetectionNum.Leave += new System.EventHandler(this.TxtBoxDetectionNum_Leave);
+            // 
+            // simpleButCancel
+            // 
+            this.simpleButCancel.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.simpleButCancel.Appearance.Options.UseFont = true;
+            this.simpleButCancel.Image = ((System.Drawing.Image)(resources.GetObject("simpleButCancel.Image")));
+            this.simpleButCancel.Location = new System.Drawing.Point(400, 852);
+            this.simpleButCancel.Name = "simpleButCancel";
+            this.simpleButCancel.Size = new System.Drawing.Size(98, 43);
+            this.simpleButCancel.TabIndex = 40;
+            this.simpleButCancel.Text = "取消";
+            this.simpleButCancel.Click += new System.EventHandler(this.SimpleButCancel_Click);
             // 
             // ApplyTask
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.simpleButCancel);
             this.Controls.Add(this.txtBoxDetectionNum);
             this.Controls.Add(this.labDetectionNum);
             this.Controls.Add(this.btnDilutionSetting);
@@ -518,5 +532,6 @@
         private DevExpress.XtraEditors.LabelControl labelControl2;
         private System.Windows.Forms.Label labDetectionNum;
         private System.Windows.Forms.TextBox txtBoxDetectionNum;
+        private DevExpress.XtraEditors.SimpleButton simpleButCancel;
     }
 }

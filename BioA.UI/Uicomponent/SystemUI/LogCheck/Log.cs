@@ -18,11 +18,9 @@ namespace BioA.UI
 {
     public partial class Log : DevExpress.XtraEditors.XtraUserControl
     {
-        //private BioAServiceClient serviceClient;
-        //private LogCallBack notifyCallBack;
         Alertlog Maintenancealertlog;
         Alertlog OperationLogInfo;
-        Alertlog AlarmLog;
+        TroubleLogInfo troubleLog;
         /// <summary>
         /// 存储客户端发送信息给服务器的参数集合
         /// </summary>
@@ -30,14 +28,6 @@ namespace BioA.UI
         public Log()
         {
             InitializeComponent();
-            //notifyCallBack = new LogCallBack();
-            
-            //AlarmLog.LogEvent += alertlog_LogEvent;
-            //Maintenancealertlog.LogEvent += alertlog_LogEvent;           
-            //serviceClient = new BioAServiceClient(new InstanceContext(notifyCallBack));
-            // 注册客户端
-            //serviceClient.RegisterClient(XmlUtility.Serializer(typeof(ModuleInfo), ModuleInfo.SystemLogCheck));
-            //notifyCallBack.DataTransferEvent += DataTransfer_Event;
           
         }
 
@@ -52,7 +42,7 @@ namespace BioA.UI
         }
 
         List<MaintenanceLogInfo> maintenanceLogInfo = new List<MaintenanceLogInfo>();
-        List<AlarmLogInfo> lstalarmLogInfo = new List<AlarmLogInfo>();
+        //List<TroubleLog> lstTroubleLogInfo = new List<TroubleLog>();
         public void DataTransfer_Event(string strMethod, object sender)
         {
             switch (strMethod)
@@ -72,14 +62,16 @@ namespace BioA.UI
 
                     break;
 
-                case "QueryAlarmLogInfo":
-                    lstalarmLogInfo = (List<AlarmLogInfo>)XmlUtility.Deserialize(typeof(List<AlarmLogInfo>), sender as string);
-                    AlarmLog.AlarmLogInfoAdd(lstalarmLogInfo);
+                case "SelectTroubleLogInfoByTimeQuantum":
+                    List<TroubleLog> lstTroubleLogInfo = (List<TroubleLog>)XmlUtility.Deserialize(typeof(List<TroubleLog>), sender as string);
+                    troubleLog.TroubleLogInfoAdd(lstTroubleLogInfo);
                     break;
-
-                case "SelectAlarmLogInfoByUName":
-                     lstalarmLogInfo = (List<AlarmLogInfo>)XmlUtility.Deserialize(typeof(List<AlarmLogInfo>), sender as string);
-                     AlarmLog.AlarmLogInfoAdd(lstalarmLogInfo);
+                case "AffirmTroubleLogInfo":
+                    int result = (int)sender;
+                    if(result > 0)
+                    {
+                        troubleLog.Result = result;
+                    }
                     break;
                 
             }
@@ -93,38 +85,29 @@ namespace BioA.UI
         {
             if (xtraTabControl1.SelectedTabPageIndex == 0)
             {
-                Maintenancealertlog = new Alertlog();
-                Maintenancealertlog.btnRemove();
-                Maintenancealertlog.LogEvent += alertlog_LogEvent;
-                xtraTabPage1.Controls.Add(Maintenancealertlog);
+                xtraTabPage1.Controls.Clear();
+                troubleLog = new TroubleLogInfo();
+                troubleLog.TroubleLogEvent += alertlog_LogEvent;
+                xtraTabPage1.Controls.Add(troubleLog);
 
             }            
             else if (xtraTabControl1.SelectedTabPageIndex == 1)
             {
+                xtraTabPage3.Controls.Clear();
+                Maintenancealertlog = new Alertlog();
+                Maintenancealertlog.LogEvent += alertlog_LogEvent;
+                xtraTabPage3.Controls.Add(Maintenancealertlog);
+            }
+            else if (xtraTabControl1.SelectedTabPageIndex == 2)
+            {
+                xtraTabPage4.Controls.Clear();
                 OperationLogInfo = new Alertlog();
-                //CommunicationEntity DataConfig = new CommunicationEntity();
-                //DataConfig.StrmethodName = "QueryOperationLogInfo";
-                //DataConfig.ObjParam = "";
                 logDictionary.Clear();
                 //获取操作日志信息
                 logDictionary.Add("QueryOperationLogInfo", null);
                 alertlog_LogEvent(logDictionary);
-                OperationLogInfo.btnRemove();
                 Maintenancealertlog.LogEvent += alertlog_LogEvent;
-                xtraTabPage3.Controls.Add(OperationLogInfo);
-            }
-            else if (xtraTabControl1.SelectedTabPageIndex == 2)
-            {
-                AlarmLog = new Alertlog();
-                //CommunicationEntity DataConfig = new CommunicationEntity();
-                //DataConfig.StrmethodName = "QueryAlarmLogInfo";
-                //DataConfig.ObjParam = "";
-                logDictionary.Clear();
-                //获取报警日志信息
-                logDictionary.Add("QueryAlarmLogInfo", null);
-                alertlog_LogEvent(logDictionary);
-                Maintenancealertlog.LogEvent += alertlog_LogEvent;
-                xtraTabPage4.Controls.Add(AlarmLog);              
+                xtraTabPage4.Controls.Add(OperationLogInfo);
             }
            
         }
@@ -135,10 +118,9 @@ namespace BioA.UI
         }
         private void loadLog()
         {
-            Maintenancealertlog = new Alertlog();
-            Maintenancealertlog.btnRemove();
-            Maintenancealertlog.LogEvent += alertlog_LogEvent;
-            xtraTabPage1.Controls.Add(Maintenancealertlog);
+            troubleLog = new TroubleLogInfo();
+            troubleLog.TroubleLogEvent += alertlog_LogEvent;
+            xtraTabPage1.Controls.Add(troubleLog);
         }
        
     }

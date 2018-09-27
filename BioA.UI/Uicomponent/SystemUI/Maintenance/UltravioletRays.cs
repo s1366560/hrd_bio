@@ -17,6 +17,8 @@ namespace BioA.UI
     public partial class UltravioletRays : DevExpress.XtraEditors.XtraUserControl
     {
         public event SendNetworkDelegate SendNetworkEvent;
+
+        public event SendMaintenanceNameDelegate SendMaintenanceNameEvent;
         public UltravioletRays()
         {
             InitializeComponent();
@@ -102,6 +104,10 @@ namespace BioA.UI
             if (SendNetworkEvent != null && strSender != "")
             {
                 SendNetworkEvent(strSender);
+            }
+            if(SendMaintenanceNameEvent != null)
+            {
+                SendMaintenanceNameEvent(btnPhotometricCalibration.Text);
             }
         }
 

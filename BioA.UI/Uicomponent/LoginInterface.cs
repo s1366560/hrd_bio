@@ -1,0 +1,200 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using BioA.Common;
+using BioA.Common.IO;
+using System.Diagnostics;
+using System.IO;
+
+namespace BioA.UI
+{
+    public partial class LoginInterface : Form
+    {
+        //同步信号
+        ManualResetEvent _AllDone = new ManualResetEvent(false);
+        /// <summary>
+        /// 存储客户端发送信息给服务端的参数集合
+        /// </summary>
+        private Dictionary<string, object[]> loginDic = new Dictionary<string, object[]>();
+
+        public delegate void LoginDataTransferDelegate(object sender);
+        public event LoginDataTransferDelegate LoginEvent;
+
+        public LoginInterface()
+        {
+            InitializeComponent();
+            //progBarLogin.Visible = false;
+            Type type= CommunicationUI.ServiceClient.State.GetType();
+            
+        }
+
+        private void BtnLogin_Click(object sender, EventArgs e)
+        {
+            if (txtUserName.Text == "")
+            {
+                MessageBoxDraw.ShowMsg("用户名输入不能为空", "警告", MsgType.Warning);
+                return;
+            }
+
+            if (txtPassword.Text == "")
+            {
+                MessageBoxDraw.ShowMsg("密码输入不能为空", "警告", MsgType.Warning);
+                return;
+            }
+            string password = EncryptionText.EncryptDES(txtPassword.Text, KeyManager.PWDKey);
+            txtUserName.ReadOnly = true;
+            txtPassword.ReadOnly = true;
+            btnLogin.Enabled = false;
+            lblStarting.Text = "登录中";
+            overtime = 0;
+            timer1.Start();
+            //progBarLogin.Visible = true;
+            //progBarLogin.Value = 0;
+            loginDic.Clear();
+            loginDic.Add("UserLogin", new object[] { txtUserName.Text, password });
+            SendInfoToService(loginDic);
+        }
+        /// <summary>
+        /// 发送信息给服务端
+        /// </summary>
+        /// <param name="sender"></param>
+        private void SendInfoToService(Dictionary<string, object[]> sender)
+        {
+            CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.Login, sender);
+        }
+
+        public void DataTransfer_Event(string strMethod, object sender)
+        {
+            switch (strMethod)
+            {
+                case "UserLogin":
+                    if ((sender as string) == "登录成功！")
+                    {
+                        loginDic.Clear();
+                        loginDic.Add("QueryUserAuthority", new object[] { txtUserName.Text});
+                        SendInfoToService(loginDic);
+                        var serialThread = new Thread(LoadProcess);
+                        serialThread.IsBackground = true;
+                        serialThread.Start();
+                        Thread.Sleep(4000);
+                        this.Invoke(new EventHandler(delegate
+                            {
+                                //lblStarting.Text = "登录成功！";
+                                timer1.Stop();
+                                this.DialogResult = DialogResult.OK;
+                                this.Close();
+                            }));
+                    }
+                    else
+                    {
+                        this.Invoke(new EventHandler(delegate
+                            {
+                                lblStarting.Text = "登录失败，请重新登录！";
+                                timer1.Stop();
+                                //progBarLogin.Visible = false;
+                                btnLogin.Enabled = true;
+                                txtUserName.ReadOnly = false;
+                                txtPassword.ReadOnly = false;
+                                
+                            }));
+                    }
+                    break;
+                case "QueryUserAuthority":
+                    UserInfo userInfo = XmlUtility.Deserialize(typeof(UserInfo), sender as string) as UserInfo;
+                    Program.userInfo = userInfo;
+                    break;
+            }
+        }
+        //登录超时
+        int overtime = 0;
+        int i = 0;
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            i++;
+            if (i <= 6)
+            {
+                lblStarting.Text += "•";
+            }
+            else
+            {
+                overtime++;
+                lblStarting.Text = "登录中";
+                i = 0;
+            }
+            if(overtime > 2)
+            {
+                btnLogin.Enabled = true;
+                txtUserName.ReadOnly = false;
+                txtPassword.ReadOnly = false;
+                lblStarting.Text = "登录超时，请重新登录！";
+            }
+            
+        }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void simpleButton1_Click(object sender, EventArgs e)
+        {
+            if (MessageBoxDraw.ShowMsg("确认要关闭系统吗？", MsgType.Question) == System.Windows.Forms.DialogResult.OK)
+            {
+                this.Close();
+                this.Dispose();
+                System.Environment.Exit(System.Environment.ExitCode);
+            }
+        }
+        /// <summary>
+        /// 异步线程启动串口连接
+        /// </summary>
+        public void LoadProcess()
+        {
+            Console.Write("dasdasdas");
+            foreach (ProcessInfo s in RunConfigureUtility.ProcessPathList)
+            {
+                try
+                {
+                    FileInfo fileInfo = new FileInfo(s.ProcessName);
+                    if (fileInfo.Extension.Equals(".exe"))
+                    {
+                        ProcessStartInfo startInfo = new ProcessStartInfo(s.ProcessName);
+                        startInfo.WindowStyle = ProcessWindowStyle.Normal;
+                        startInfo.CreateNoWindow = true;
+
+                        Process[] processes = Process.GetProcessesByName(fileInfo.Name.Replace(fileInfo.Extension, ""));
+                        if (processes.Count() == 0)
+                        {
+                            Process process = new Process();
+                            process.StartInfo = startInfo;
+
+                            process.Start();
+
+                            switch (s.RunLevel)
+                            {
+                                case 0: process.PriorityClass = ProcessPriorityClass.Idle; break;
+                                case 1: process.PriorityClass = ProcessPriorityClass.BelowNormal; break;
+                                case 2: process.PriorityClass = ProcessPriorityClass.Normal; break;
+                                case 3: process.PriorityClass = ProcessPriorityClass.AboveNormal; break;
+                                case 4: process.PriorityClass = ProcessPriorityClass.High; break;
+                                case 5: process.PriorityClass = ProcessPriorityClass.RealTime; break;
+                            }
+
+                            //process.WaitForInputIdle();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+        }
+    }
+}

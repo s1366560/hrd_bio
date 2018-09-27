@@ -35,9 +35,9 @@ namespace BioA.UI
         /// </summary>
         private List<CalibratorProjectinfo> lstCalibrationCorrespondingProInfo = new List<CalibratorProjectinfo>();
         /// <summary>
-        /// 保存已用的所有校准品位置
+        /// 保存校准品界面已用校准品位置
         /// </summary>
-        private List<Calibratorinfo> calibratorPos;
+        private List<string> _LstCalibratorPos = new List<string>();
         public CalibMaintain()
         {
             InitializeComponent();
@@ -49,6 +49,37 @@ namespace BioA.UI
             gridView2.Appearance.FocusedRow.Font = font;
             calibAddAndEdit = new CalibAddAndEdit();
             calibAddAndEdit.DataHandleEvent+=calibAddAndEdit_DataHandleEvent;
+            calibAddAndEdit.CalibrationSaveOrEnditSuccessEvent += calibAddAndEdit_SaveOrEnditSuccessEvent;
+        }
+        /// <summary>
+        /// 校准品保存成功后被触发的事件
+        /// </summary>
+        /// <param name="calibInfo"></param>
+        /// <param name="lstCalibProInfo"></param>
+        private void calibAddAndEdit_SaveOrEnditSuccessEvent(string CalibAddOrUpdateState, Calibratorinfo calibInfo, List<CalibratorProjectinfo> lstCalibProInfo)
+        {
+            if (CalibAddOrUpdateState == "Add")
+            {
+                calibratorinfo.Add(calibInfo);
+                foreach (CalibratorProjectinfo calibProIfo in lstCalibProInfo)
+                {
+                    calibratorProjectinfo.Add(calibProIfo);
+                }
+                DisplayCalibrationInfo(calibratorinfo);
+            }
+            else
+            {
+                string calibName = CalibAddOrUpdateState.Substring(CalibAddOrUpdateState.IndexOf(".")+1);
+                calibratorinfo.RemoveAll(x => x.CalibName == calibName);
+                calibratorinfo.Add(calibInfo);
+                foreach (CalibratorProjectinfo calibProIfo in lstCalibProInfo)
+                {
+                    calibratorProjectinfo.RemoveAll(x => x.ProjectName == calibProIfo.ProjectName && x.CalibName == calibProIfo.CalibName);
+                    calibratorProjectinfo.Add(calibProIfo);
+                }
+                DisplayCalibrationInfo(calibratorinfo);
+            }
+
         }
 
         private void calibAddAndEdit_DataHandleEvent(Dictionary<string, object[]> sender)
@@ -71,18 +102,15 @@ namespace BioA.UI
         }
         private void CalibrationMaintainLoad()
         {
-            //CommunicationEntity CalibrationMaintain = new CommunicationEntity();
-            //CalibrationMaintain.StrmethodName = "QueryCalibrationMaintain";
-            //CalibrationMaintain.ObjParam = "";
             calibMainDictionary.Clear();
             //获取所有校准品对应的所有项目信息
             calibMainDictionary.Add("QueryCalibratorProjectinfo", new object[] { "" });
             //获取所有校准品信息
             calibMainDictionary.Add("QueryCalibrationMaintain", new object[] { "" });
             //获取所有生化项目信息
-            calibMainDictionary.Add("QueryAssayProAllInfo", new object[] { "" });
+            calibMainDictionary.Add("QueryAssayProAllInfo", null);
             //获取所有校准品位置
-            calibMainDictionary.Add("QueryCalibPos", new object[] { "" });
+            //calibMainDictionary.Add("QueryCalibPos", new object[] { "" });
             CalibrationMaintainSend(calibMainDictionary);
         }
         /// <summary>
@@ -93,13 +121,27 @@ namespace BioA.UI
         private void btnAdd_Click(object sender, EventArgs e)
         {
             calibAddAndEdit.clear();
-            //CommunicationEntity CalibrationMaintain = new CommunicationEntity();
-            //CalibrationMaintain.StrmethodName = "QueryAssayProAllInfo";
-            //CalibrationMaintain.ObjParam = "";
             calibAddAndEdit.LisassayProjectInfo = lisassayProjectInfo;
             calibAddAndEdit.Text = "装载校准品";
+            this.BeginInvoke(new Action(AddOrEditCalibPos));
             calibAddAndEdit.StartPosition = FormStartPosition.CenterScreen;
             calibAddAndEdit.ShowDialog();                    
+        }
+        /// <summary>
+        /// 添加和编辑获取校准品列表中的所有校准位置
+        /// </summary>
+        private void AddOrEditCalibPos()
+        {
+            this._LstCalibratorPos.Clear();
+            if (this.gridView1.RowCount > 0)
+            {
+                for (int i =0; i < this.gridView1.RowCount; i++)
+                {
+                    string CalibPos = (string)this.gridView1.GetRowCellValue(i, "装载位置");
+                    this._LstCalibratorPos.Add(CalibPos);
+                }
+            }
+            calibAddAndEdit.Listcalibratorinfo = this._LstCalibratorPos;
         }
 
         /// <summary>
@@ -112,7 +154,6 @@ namespace BioA.UI
             if (gridView1.SelectedRowsCount > 0)
             {
                 Calibratorinfo calibratorinfo = new Calibratorinfo();
-                CommunicationEntity CalibrationMaintain = new CommunicationEntity();
                 int selectedHandle = this.gridView1.GetSelectedRows()[0];
                 calibratorinfo.CalibName = this.gridView1.GetRowCellValue(selectedHandle, "校准品名称").ToString();
                 calibratorinfo.InvalidDate = Convert.ToDateTime(this.gridView1.GetRowCellValue(selectedHandle, "失效日期"));
@@ -120,10 +161,11 @@ namespace BioA.UI
                 calibratorinfo.Manufacturer = this.gridView1.GetRowCellValue(selectedHandle, "生产厂家").ToString();
                 calibratorinfo.Pos = this.gridView1.GetRowCellValue(selectedHandle, "装载位置").ToString();
                 calibAddAndEdit.EditCalibratorName = calibratorinfo.CalibName;
-                //显示所有项目信息
+                ////显示所有项目信息
                 calibAddAndEdit.LisassayProjectInfo = lisassayProjectInfo;
                 //显示校准品包含的项目信息
                 calibAddAndEdit.LstCalibrationCorrespondingProInfo = lstCalibrationCorrespondingProInfo;
+                this.BeginInvoke(new Action(AddOrEditCalibPos));
                 calibAddAndEdit.Calibratorinfo_Load(calibratorinfo);
                 calibAddAndEdit.Text = "编辑校准品";
                 calibAddAndEdit.StartPosition = FormStartPosition.CenterScreen;
@@ -171,6 +213,11 @@ namespace BioA.UI
             this.gridView2.Columns[1].OptionsColumn.AllowEdit = false;
             this.gridView2.Columns[2].OptionsColumn.AllowEdit = false;
         }
+
+        /// <summary>
+        /// 存储所有校准品信息
+        /// </summary>
+        List<Calibratorinfo> calibratorinfo;
         /// <summary>
         ///     校准品维护界面：
         ///         后端数据传到前端UI事件
@@ -182,86 +229,77 @@ namespace BioA.UI
             switch (strMethod)
             {
                 case "QueryCalibrationMaintain":
-                    List<Calibratorinfo> calibratorinfo = (List<Calibratorinfo>)XmlUtility.Deserialize(typeof(List<Calibratorinfo>), sender as string);
+                    calibratorinfo = (List<Calibratorinfo>)XmlUtility.Deserialize(typeof(List<Calibratorinfo>), sender as string);
                     BeginInvoke(new Action(() =>
                     {
-                        lstvCalibInfo.RefreshDataSource();
-                        dtCalib.Rows.Clear();
-                        foreach (Calibratorinfo calibInfo in calibratorinfo)
-                        {
-                            dtCalib.Rows.Add(new object[] { calibInfo.CalibName,calibInfo.Pos,calibInfo.LotNum,
-                        calibInfo.InvalidDate.ToString("yyyy-MM-dd"),calibInfo.Manufacturer});
-                        }
-                        if (dtCalib.Rows.Count > 0)
-                        {
-                            gridView1.SelectRow(0);
-                            gridControl1_Click(null, null);
-                        }
+                        DisplayCalibrationInfo(calibratorinfo);
                     }));
                     break;
                 case "QueryCalibratorProjectinfo":
                     calibratorProjectinfo = (List<CalibratorProjectinfo>)XmlUtility.Deserialize(typeof(List<CalibratorProjectinfo>), sender as string);
-                    //BeginInvoke(new Action(() =>
-                    //{
-                    //    lstvDetectionProject.RefreshDataSource();
-                    //    dtProject.Rows.Clear();
-                    //    foreach (CalibratorProjectinfo calibProjectInfo in calibratorProjectinfo)
-                    //    {
-                    //        dtProject.Rows.Add(new object[] {calibProjectInfo.ProjectName,calibProjectInfo.SampleType,calibProjectInfo.CalibConcentration});
-                    //    }
-
-                    //}));
                     break;              
+
                 case  "QueryAssayProAllInfo":
                     lisassayProjectInfo = (List<AssayProjectInfo>)XmlUtility.Deserialize(typeof(List<AssayProjectInfo>), sender as string);
-                    //calibAddAndEdit.LisassayProjectInfo = lisassayProjectInfo;
                     break;
+
                 case "AddCalibratorinfo":
                     string strAddCalib = sender as string;
-                    if (strAddCalib == "你添加的校准品名称已存在！" || strAddCalib == "添加校准任务失败！")
+                    calibAddAndEdit.StrReturnInfo = strAddCalib;
+                    break;
+
+                case "DeleteCalibrationMaintain":
+                    string strResult = sender as string;
+                    if (strResult == "删除成功！")
                     {
-                        calibAddAndEdit.StrReturnInfo = strAddCalib;
+                        for (int i = 0; i < lstCalibProjectInfo.Count; i++)
+                        {
+                            if (i == 0)
+                            {
+                                calibratorinfo.RemoveAll(y => y.CalibName == lstCalibProjectInfo[i].CalibName);
+                            }
+                            calibratorProjectinfo.RemoveAll(x => x.ProjectName == lstCalibProjectInfo[i].ProjectName && x.SampleType == lstCalibProjectInfo[i].SampleType);
+                        }
+                        BeginInvoke(new Action(() => { DisplayCalibrationInfo(calibratorinfo); }));
+                        MessageBox.Show(strResult);
                     }
                     else
-                    {
-                        calibAddAndEdit.StrReturnInfo = "新增校准品成功！";
-                        //calibAddAndEdit.CalibClose = "";
-                        CalibrationMaintainLoad();
-                    }              
+                        MessageBox.Show(strResult);
                     break;
-                case "AddCalibratorProjectinfo":
-                    CalibrationMaintainLoad();                   
-                    break;
-                case "DeleteCalibrationMaintain":
-                    CalibrationMaintainLoad();
-                    break;
-                //case "DeleteCalibratorProjectinfo":
-                //    CalibrationMaintainLoad();
-                //    break;
+
                 case "EditCalibratorinfo":
                     string strUpdateCalib = sender as string;
-                    if (strUpdateCalib == "修改校准任务失败！" || strUpdateCalib == "您修改的校准品名称已经存在！")
-                    {
-                        calibAddAndEdit.StrReturnInfo = strUpdateCalib;
-                    }
-                    else
-                    {
-                        calibAddAndEdit.StrReturnInfo = "成功修改校准品！";
-                        //calibAddAndEdit.CalibClose = "";   
-                        CalibrationMaintainLoad();
-                    }
+                    calibAddAndEdit.StrReturnInfo = strUpdateCalib;
                     break;
-                //case "QueryProjectItemsByCalibration":
-                //    List<CalibratorProjectinfo> lisCalibratorProjectinfo1 = XmlUtility.Deserialize(typeof(List<CalibratorProjectinfo>), sender as string) as List<CalibratorProjectinfo>;
-                //    calibAddAndEdit.LisCalibratorProjectinfo1 = lisCalibratorProjectinfo1;
+                    //服务层没有注释掉
+                //case "QueryCalibPos":
+                //    calibratorPos = (List<Calibratorinfo>)XmlUtility.Deserialize(typeof(List<Calibratorinfo>), sender as string);
+                //    calibAddAndEdit.LstCalibPos = calibratorPos;
                 //    break;
-                case "QueryCalibPos":
-                    calibratorPos = (List<Calibratorinfo>)XmlUtility.Deserialize(typeof(List<Calibratorinfo>), sender as string);
-                    calibAddAndEdit.LstCalibPos = calibratorPos;
-                    //calibAddAndEdit.Listcalibratorinfo = calibratorPos;
-                    break;
             }
         }
+        /// <summary>
+        /// 界面显示校准品信息
+        /// </summary>
+        /// <param name="lstcalibInfo"></param>
+        private void DisplayCalibrationInfo(List<Calibratorinfo> lstcalibInfo)
+        {
+            this.Invoke(new EventHandler(delegate 
+            { 
+                lstvCalibInfo.RefreshDataSource();
+                dtCalib.Rows.Clear();
+                foreach (Calibratorinfo calibInfo in lstcalibInfo)
+                {
+                    dtCalib.Rows.Add(new object[] { calibInfo.CalibName,calibInfo.Pos,calibInfo.LotNum,calibInfo.InvalidDate.ToString("yyyy-MM-dd"),calibInfo.Manufacturer});
+                }
+                if (dtCalib.Rows.Count > 0)
+                {
+                    gridView1.SelectRow(0);
+                    gridControl1_Click(null, null);
+                }
+            }));
+        }
+
         /// <summary>
         /// 校准品列表点击事件
         /// </summary>
@@ -293,12 +331,17 @@ namespace BioA.UI
             }
         }
         /// <summary>
+        /// 存储删除校准品信息和对应的项目信息
+        /// </summary>
+        private List<CalibratorProjectinfo> lstCalibProjectInfo;
+        /// <summary>
         /// 删除校准品点击事件
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            lstCalibProjectInfo = new List<CalibratorProjectinfo>();
             if (gridView1.SelectedRowsCount > 0)
             {
                 int selectedHandle;
@@ -306,22 +349,24 @@ namespace BioA.UI
                 DialogResult result = MessageBoxDraw.ShowMsg("请确认是否删除！", MsgType.YesNo);
                 if (result == DialogResult.Yes)
                 {
+                    string calibName = this.gridView1.GetRowCellValue(selectedHandle, "校准品名称").ToString();
+                    for(int i =0; i< gridView2.RowCount; i++)
+                    {
+                        CalibratorProjectinfo calibProjectInfo = new CalibratorProjectinfo();
+                        calibProjectInfo.ProjectName = this.gridView2.GetRowCellValue(i, "项目名称").ToString();
+                        calibProjectInfo.SampleType = this.gridView2.GetRowCellValue(i, "样本类型").ToString();
+                        calibProjectInfo.CalibName = calibName;
+                        lstCalibProjectInfo.Add(calibProjectInfo);
+                        
+                    }
+                    calibMainDictionary.Clear();
+                    calibMainDictionary.Add("DeleteCalibrationMaintain", new object[] { XmlUtility.Serializer(typeof(List<CalibratorProjectinfo>), lstCalibProjectInfo) });
+                    CalibrationMaintainSend(calibMainDictionary);
                 }
                 else
                 {
                     return;
                 }
-                string str = this.gridView1.GetRowCellValue(selectedHandle, "校准品名称").ToString();
-                //CommunicationEntity CalibrationMaintain = new CommunicationEntity();
-                //CalibrationMaintain.StrmethodName = "DeleteCalibrationMaintain";
-                //CalibrationMaintain.ObjParam = str;
-                calibMainDictionary.Clear();
-                calibMainDictionary.Add("DeleteCalibrationMaintain", new object[] { str });
-                CalibrationMaintainSend(calibMainDictionary);
-                //CommunicationEntity CalibrationMaintain = new CommunicationEntity();
-                //CalibrationMaintain.StrmethodName = "DeleteCalibratorProjectinfo";
-                //CalibrationMaintain.ObjParam = str;
-                //CalibrationMaintainSend(CalibrationMaintain);
             }           
         }   
     }

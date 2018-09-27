@@ -16,7 +16,7 @@
         <Command Name="WashCuvette" FullName="清洗比色杯" />
         <Command Name="WashByDetergent" FullName="清洗系统" />
         <Command Name="PhotometerAutoCheck" FullName="光度计检测" />
-        <Command Name="PhotometerManualCheck" FullName="开始扫描" />
+        <Command Name="PhotometerManualCheck" FullName="开始扫描" />  
         <Command Name="PhotometerManualCheckStop" FullName="停止扫描" />
         <Command Name="RGTPanel1VolScan" FullName="扫描试剂1余量" />
         <Command Name="RGTPanel2VolScan" FullName="扫描试剂2余量" />
@@ -108,6 +108,7 @@
       <Componet Name="样本臂">
         <Command Name="SampleArmInitialize" FullName="初始化" />
         <Command Name="SampleArmFromFlumeToSMPOuterLoop" FullName="水槽至样本外圈" />
+        <Command Name="SampleArmFromFlumeToMIDFuncLoop" FullName="水槽至样本中间圈" />
         <Command Name="SampleArmFromFlumeToSMPInnerLoop" FullName="水槽至样本内圈" />
         <Command Name="SampleArmFromFlumeToMutiFuncLoop" FullName="水槽至多功能圈" />
         <Command Name="SampleArmFromFlumeToDilCUV" FullName="水槽至稀释比色杯" />

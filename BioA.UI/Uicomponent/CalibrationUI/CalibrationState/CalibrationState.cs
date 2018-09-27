@@ -55,9 +55,6 @@ namespace BioA.UI
                 calibrationCurveInfo.ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "检测项目").ToString();
                 calibrationCurveInfo.SampleType = this.gridView1.GetRowCellValue(selectedHandle, "样本类型").ToString();
                 calibrationCurve.AddCalibrationCurve(calibrationCurveInfo);
-                //CommunicationEntity CalibrationMaintain = new CommunicationEntity();
-                //CalibrationMaintain.StrmethodName = "QueryCalibrationCurveInfo";
-                //CalibrationMaintain.ObjParam = XmlUtility.Serializer(typeof(CalibrationCurveInfo), calibrationCurveInfo); 
                 calibStateDictionary.Clear();
                 calibStateDictionary.Add("QueryCalibrationCurveInfo", new object[] { XmlUtility.Serializer(typeof(CalibrationCurveInfo), calibrationCurveInfo) });
                 CalibrationStateSend(calibStateDictionary);
@@ -81,9 +78,6 @@ namespace BioA.UI
                 calibrationResultinfo.CalibMethod= this.gridView1.GetRowCellValue(selectedHandle, "检测方法").ToString();
                 calibrationResultinfo.ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "检测项目").ToString();
                 calibrationResultinfo.SampleType = this.gridView1.GetRowCellValue(selectedHandle, "样本类型").ToString();
-                //CommunicationEntity CalibrationMaintain = new CommunicationEntity();
-                //CalibrationMaintain.StrmethodName = "QueryCalibrationResultinfo";
-                //CalibrationMaintain.ObjParam = XmlUtility.Serializer(typeof(CalibrationResultinfo), calibrationResultinfo);
                 calibStateDictionary.Clear();
                 calibStateDictionary.Add("QueryCalibrationResultinfo", new object[] { XmlUtility.Serializer(typeof(CalibrationResultinfo), calibrationResultinfo) });
                 CalibrationStateSend(calibStateDictionary);
@@ -110,29 +104,17 @@ namespace BioA.UI
                 calibrationResultinfo.CalibMethod = this.gridView1.GetRowCellValue(selectedHandle, "检测方法").ToString();
                 calibrationResultinfo.ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "检测项目").ToString();
                 calibrationResultinfo.SampleType = this.gridView1.GetRowCellValue(selectedHandle, "样本类型").ToString();
-                //CommunicationEntity CalibrationMaintain2 = new CommunicationEntity();
-                ////CalibrationMaintain2.StrmethodName = "QueryCalibrationReactionProcess";
-                ////CalibrationMaintain2.ObjParam = XmlUtility.Serializer(typeof(CalibrationResultinfo), calibrationResultinfo);
-                //CalibrationMaintain2.StrmethodName = "QueryCalibrationResultInfoAndTimeCUVNO";
-                //CalibrationMaintain2.ObjParam = XmlUtility.Serializer(typeof(CalibrationResultinfo), calibrationResultinfo);
                 calibStateDictionary.Clear();
                 calibStateDictionary.Add("QueryCalibrationResultInfoAndTimeCUVNO",new object[]{ XmlUtility.Serializer(typeof(CalibrationResultinfo), calibrationResultinfo) });
                 CalibrationStateSend(calibStateDictionary);
                 
             }
-
-
-           // ReactionProcessCB reactionProcessCB = new ReactionProcessCB();
-           // reactionProcessCB.SampleReactionInfo=calibrationReactionProcess[0];
             reactionProcessCB.StartPosition = FormStartPosition.CenterScreen;
             reactionProcessCB.ShowDialog();
         }
 
         private void CalibrationStateLoad()
         {
-            //CommunicationEntity CalibrationMaintain = new CommunicationEntity();
-            //CalibrationMaintain.StrmethodName = "QueryCalibrationState";
-            //CalibrationMaintain.ObjParam = "";
             calibStateDictionary.Add("QueryCalibrationState", new object[] { "" });
             CalibrationStateSend(calibStateDictionary);
 
@@ -207,7 +189,7 @@ namespace BioA.UI
                     calibrationCurveInfo = (List<SDTTableItem>)XmlUtility.Deserialize(typeof(List<SDTTableItem>), sender as string);
                     calibrationCurve.SelectedlistCalibrationCurve(calibrationCurveInfo);
                     break;
-                case "AddSDTTableItem":
+                case "SaveSDTTableItem":
                     string str = sender as string;
                     if (str == "校准曲线保存成功！")
                     {

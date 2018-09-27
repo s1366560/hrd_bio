@@ -10,6 +10,13 @@ namespace BioA.SqlMaps
 {
     public partial class MyBatis
     {
+        /// <summary>
+        /// 新增质控品
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <param name="qcInfo"></param>
+        /// <param name="lstQCRelationProInfo"></param>
+        /// <returns></returns>
         public string AddQualityControl(string strDBMethod, QualityControlInfo qcInfo, List<QCRelationProjectInfo> lstQCRelationProInfo)
         {
             string strResult = "";
@@ -56,7 +63,14 @@ namespace BioA.SqlMaps
 
             return strResult;
         }
-
+        /// <summary>
+        /// 修改质控品信息和检测项目信息
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <param name="oldQCInfo"></param>
+        /// <param name="newQCInfo"></param>
+        /// <param name="lstQCRelationProInfo"></param>
+        /// <returns></returns>
         public string EditQualityControl(string strDBMethod, QualityControlInfo oldQCInfo, QualityControlInfo newQCInfo, List<QCRelationProjectInfo> lstQCRelationProInfo)
         {
             string strResult = string.Empty;
@@ -230,7 +244,12 @@ namespace BioA.SqlMaps
 
             return strResult;
         }
-
+        /// <summary>
+        /// 删除质控品信息和对应的检测项目信息
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <param name="QCInfo"></param>
+        /// <returns></returns>
         public string DeleteQualityControl(string strDBMethod, QualityControlInfo QCInfo)
         {
             string strResult = string.Empty;
@@ -1009,7 +1028,7 @@ namespace BioA.SqlMaps
         /// <returns>返回成功或者失败信息</returns>
         public string AddCalibratorinfo(string strDBMethod, Calibratorinfo dataConfig, List<CalibratorProjectinfo> dataConfig1)
         {
-            string strResult = "添加校准任务成功！";
+            string strResult = "添加校准品任务成功！";
             List<CalibratorProjectinfo> lstCalibratorProjectinfo1 = new List<CalibratorProjectinfo>();
             try
             {
@@ -1030,12 +1049,12 @@ namespace BioA.SqlMaps
                    
                     for (int i = 0; i < dataConfig1.Count; i++)
                     {
-                        Hashtable ht1 = new Hashtable();
-                        ht1.Add("CalibConcentration", dataConfig1[i].CalibConcentration);
-                        ht1.Add("SampleType", dataConfig1[i].SampleType);
-                        ht1.Add("CalibName", dataConfig1[i].CalibName);
-                        ht1.Add("ProjectName", dataConfig1[i].ProjectName);
-                        ism_SqlMap.Insert("Calibrator." + "AddCalibratorProjectinfo", ht1);
+                        ht.Clear();
+                        ht.Add("CalibConcentration", dataConfig1[i].CalibConcentration);
+                        ht.Add("SampleType", dataConfig1[i].SampleType);
+                        ht.Add("CalibName", dataConfig1[i].CalibName);
+                        ht.Add("ProjectName", dataConfig1[i].ProjectName);
+                        ism_SqlMap.Insert("Calibrator." + "AddCalibratorProjectinfo", ht);
                     }
                 }
                 else
@@ -1047,7 +1066,7 @@ namespace BioA.SqlMaps
             catch (Exception e)
             {
                 LogInfo.WriteErrorLog("AddCalibratorinfo(string strDBMethod, Calibratorinfo dataConfig, List<CalibratorProjectinfo> dataConfig1)==" + e.ToString(), Module.DAO);
-                strResult = "添加校准任务失败！";
+                strResult = "添加校准品失败！";
             }
             
             return strResult;
@@ -1093,52 +1112,45 @@ namespace BioA.SqlMaps
         /// <param name="strDBMethod">访问数据库名</param>
         /// <param name="p2">参数</param>
         /// <returns>返回删成功或者失败</returns>
-        public string DeleteCalibrationMaintain(string strDBMethod, string p2)
+        public string DeleteCalibrationMaintain(string strDBMethod, List<CalibratorProjectinfo> lstCalibProjectInfo)
         {
-            string strReturn = "删除成功！";
+            string strReturn = null;
+            int strResult = 0;
             try
             {
-                
                 Hashtable has = new Hashtable();
-                has.Add("CalibName", p2); 
-                int strResult = ism_SqlMap.Delete("Calibrator." + "DeleteCalibratorProjectinfo", has);
-                
-                Hashtable hashTable = new Hashtable();
-                hashTable.Add("CalibName", p2);
-                strResult = ism_SqlMap.Delete("Calibrator." + strDBMethod, hashTable);                
+                foreach(CalibratorProjectinfo calibPro in lstCalibProjectInfo)
+                {
+                    has.Clear();
+                    has.Add("ProjectName", calibPro.ProjectName);
+                    has.Add("SampleType", calibPro.SampleType);
+                    strResult += (int)ism_SqlMap.QueryForObject("Calibrator.QueryCalibTaskCountByProName", has);
+
+                }
+                if (strResult == 0)
+                {
+                    for (int i = 0; i < lstCalibProjectInfo.Count; i++)
+                    {
+                        has.Clear();
+                        has.Add("NumTime", i);
+                        has.Add("calibratorName", lstCalibProjectInfo[i].CalibName);
+                        has.Add("proName", lstCalibProjectInfo[i].ProjectName);
+                        has.Add("samType", lstCalibProjectInfo[i].SampleType);
+                        strResult += (int)ism_SqlMap.QueryForObject("Calibrator.DeleteCalibratorProjectRI", has);
+                    }
+                    if(strResult > 0)
+                        strReturn = "删除成功！";
+                    else
+                        strReturn = "删除失败！";
+                }
+                else strReturn = "删除的校准品项目正在执行中！不能删除！";
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("DeleteCalibrationMaintain( DeleteCalibratorProjectinfo, string p2)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("DeleteCalibrationMaintain(string strDBMethod, List<CalibratorProjectinfo> lstCalibProjectInfo)==" + e.ToString(), Module.DAO);
                 strReturn = "删除失败！";
             }
             return strReturn;
-        }
-
-        /// <summary>
-        ///     校准品维护界面：
-        ///         删除项目信息
-        /// </summary>
-        /// <param name="strDBMethod">访问数据库名</param>
-        /// <param name="p2">参数</param>
-        /// <returns>返回被删除的行数</returns>
-        public int DeleteCalibratorProjectinfo(string strDBMethod, string p2)
-        {
-            int count = 0;
-            try
-            {
-                Hashtable hashTable = new Hashtable();
-
-                hashTable.Add("CalibName", p2);
-
-                count = ism_SqlMap.Delete("Calibrator." + strDBMethod, hashTable);
-
-            }
-            catch (Exception e)
-            {
-                LogInfo.WriteErrorLog("DeleteDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.DAO);
-            }
-            return count;
         }
 
         /// <summary>
@@ -1153,43 +1165,61 @@ namespace BioA.SqlMaps
         
         public string EditCalibratorinfo(string strDBMethod, Calibratorinfo Editcalibratorinfo, string p2, List<CalibratorProjectinfo> lisEditCalibratorProjectinfo)
         {
-            string updateCalibResult="校准品和项目信息修改成功！";
+            string updateCalibResult= "校准品和项目信息修改成功！";
             List<CalibratorProjectinfo> lstCalibratorProjectinfo1 = new List<CalibratorProjectinfo>();
-
+            Hashtable hashtable = new Hashtable();
             try
             {
-                Hashtable has = new Hashtable();
-                has.Add("CalibName", Editcalibratorinfo.CalibName);
-                lstCalibratorProjectinfo1 = (List<CalibratorProjectinfo>)ism_SqlMap.QueryForList<CalibratorProjectinfo>("Calibrator." + "QueryCalibratorProjectinfoByCalibName", has);
-                if (lstCalibratorProjectinfo1.Count == 0)
+                int paramResult = 0;
+                foreach(CalibratorProjectinfo calibPro in lisEditCalibratorProjectinfo)
                 {
-                    Hashtable ht = new Hashtable();
-                    ht.Add("Pos", Editcalibratorinfo.Pos);
-                    ht.Add("Manufacturer", Editcalibratorinfo.Manufacturer);
-                    ht.Add("LotNum", Editcalibratorinfo.LotNum);
-                    ht.Add("InvalidDate", Editcalibratorinfo.InvalidDate);
-                    ht.Add("CalibName", Editcalibratorinfo.CalibName);
-                    ht.Add("CalibNameOld", p2);
-                    ism_SqlMap.Update("Calibrator." + strDBMethod, ht);
+                    hashtable.Clear();
+                    hashtable.Add("ProjectName", calibPro.ProjectName);
+                    hashtable.Add("SampleType", calibPro.SampleType);
+                    paramResult += (int)ism_SqlMap.QueryForObject("Calibrator.QueryCalibParamProInfoCout", hashtable);
+                }
+                if (paramResult == 0)
+                {
+                    //删除校准品对应的项目信息
+                    ism_SqlMap.Delete("Calibrator.DeleteCalibratorProject", p2);
 
-                    for (int i = 0; i < lisEditCalibratorProjectinfo.Count; i++)
+                    hashtable.Clear();
+                    hashtable.Add("CalibName", Editcalibratorinfo.CalibName);
+                    lstCalibratorProjectinfo1 = (List<CalibratorProjectinfo>)ism_SqlMap.QueryForList<CalibratorProjectinfo>("Calibrator.QueryCalibratorProjectinfoByCalibName", hashtable);
+                    if (lstCalibratorProjectinfo1.Count == 0)
                     {
-                        Hashtable ht1 = new Hashtable();
-                        ht1.Add("CalibConcentration", lisEditCalibratorProjectinfo[i].CalibConcentration);
-                        ht1.Add("SampleType", lisEditCalibratorProjectinfo[i].SampleType);
-                        ht1.Add("CalibName", lisEditCalibratorProjectinfo[i].CalibName);
-                        ht1.Add("ProjectName", lisEditCalibratorProjectinfo[i].ProjectName);
-                        ism_SqlMap.Update("Calibrator." + "AddCalibratorProjectinfo", ht1);
+                        hashtable.Clear();
+                        hashtable.Add("Pos", Editcalibratorinfo.Pos);
+                        hashtable.Add("Manufacturer", Editcalibratorinfo.Manufacturer);
+                        hashtable.Add("LotNum", Editcalibratorinfo.LotNum);
+                        hashtable.Add("InvalidDate", Editcalibratorinfo.InvalidDate);
+                        hashtable.Add("CalibName", Editcalibratorinfo.CalibName);
+                        hashtable.Add("CalibNameOld", p2);
+                        //更新校准品信息
+                        ism_SqlMap.Update("Calibrator." + strDBMethod, hashtable);
+
+                        for (int i = 0; i < lisEditCalibratorProjectinfo.Count; i++)
+                        {
+                            hashtable.Clear();
+                            hashtable.Add("CalibConcentration", lisEditCalibratorProjectinfo[i].CalibConcentration);
+                            hashtable.Add("SampleType", lisEditCalibratorProjectinfo[i].SampleType);
+                            hashtable.Add("CalibName", lisEditCalibratorProjectinfo[i].CalibName);
+                            hashtable.Add("ProjectName", lisEditCalibratorProjectinfo[i].ProjectName);
+                            //插入校准品对应的项目信息
+                            ism_SqlMap.Insert("Calibrator.AddCalibratorProjectinfo", hashtable);
+                        }
+                    }
+                    else
+                    {
+                        updateCalibResult = "您修改的校准品名称已经存在！";
                     }
                 }
                 else
-                {
-                    updateCalibResult = "您修改的校准品名称已经存在！";
-                }
+                    updateCalibResult = "改校准品已被使用！";
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("EditQCResultForManual(string strDBMethod, QCResultForUIInfo qcResOldInfo, QCResultForUIInfo qcResNewInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("EditCalibratorinfo(string strDBMethod, Calibratorinfo Editcalibratorinfo, string p2, List<CalibratorProjectinfo> lisEditCalibratorProjectinfo)==" + e.ToString(), Module.DAO);
                 return updateCalibResult = "校准品和项目信息修改失败！";
             }
             return updateCalibResult;
@@ -1689,78 +1719,89 @@ namespace BioA.SqlMaps
                 Hashtable ht = new Hashtable();
                 ht.Add("ProjectName", dataConfig.ProjectName);
                 ht.Add("SampleType", dataConfig.SampleType);
-                ism_SqlMap.Delete("Calibrator.DeleteSDTTableItem",ht);
-            }
-            catch (Exception e)
-            {
-                LogInfo.WriteErrorLog("AddQCTask(string strDBMethod, List<QCTaskInfo> lstQCTaskInfos)==" + e.ToString(), Module.DAO);
-            }
-
-            try
-            {
-                //Hashtable ht = new Hashtable();
-                //ht.Add("ProjectName", dataConfig.ProjectName);
-                //ht.Add("CalibMethod", dataConfig.CalibMethod);
-                //ht.Add("BlkAbs", dataConfig.BlkAbs);
-                //ht.Add("BlkConc", dataConfig.BlkConc);
-                //ht.Add("SDT1Abs", dataConfig.SDT1Abs);
-                //ht.Add("SDT1Conc", dataConfig.SDT1Conc);
-                //ht.Add("SDT2Abs", dataConfig.SDT2Abs);
-                //ht.Add("SDT2Conc", dataConfig.SDT2Conc);
-                //ht.Add("SDT3Abs", dataConfig.SDT3Abs);
-                //ht.Add("SDT3Conc", dataConfig.SDT3Conc);
-                //ht.Add("SDT4Abs", dataConfig.SDT4Abs);
-                //ht.Add("SDT4Conc", dataConfig.SDT4Conc);
-                //ht.Add("SDT5Abs", dataConfig.SDT5Abs);
-                //ht.Add("SDT5Conc", dataConfig.SDT5Conc);
-                //ht.Add("SDT6Abs", dataConfig.SDT6Abs);
-                //ht.Add("SDT6Conc", dataConfig.SDT6Conc);
-                //ht.Add("SampleType", dataConfig.SampleType);
-                //ism_SqlMap.Insert("Calibrator." + strDBMethod, ht);
-                if (dataConfig.CalibMethod == "K系数法")
+                ht.Add("CalibMethod", dataConfig.CalibMethod);
+                ht.Add("DrawDate", dataConfig.DrawDate);
+                ht.Add("IsUsed",dataConfig.IsUsed);
+                int updateResult = ism_SqlMap.Update("Calibrator.SaveSDTTableItem", ht);
+                if(updateResult > 0)
                 {
-                    Hashtable ht2 = new Hashtable();
-                    ht2.Add("ProjectName", dataConfig.ProjectName);
-                    ht2.Add("CalibMethod", dataConfig.CalibMethod);
-                    ht2.Add("SampleType", dataConfig.SampleType);
-                    ht2.Add("BlkAbs", dataConfig.BlkAbs);
-                    ht2.Add("BlkConc", dataConfig.BlkConc);
-                    ht2.Add("CalibDate", dataConfig.CalibDate);
-                    ism_SqlMap.Insert("Calibrator." + strDBMethod, ht2);
+                    ism_SqlMap.Update("Calibrator.BeforeUpdateSDTTableItemIsUsedState", ht);
                 }
                 else
-                {
-                    Hashtable ht = new Hashtable();
-                    ht.Add("ProjectName", dataConfig.ProjectName);
-                    ht.Add("CalibMethod", dataConfig.CalibMethod);
-                    ht.Add("BlkAbs", dataConfig.BlkAbs);
-                    ht.Add("BlkConc", dataConfig.BlkConc);
-                    ht.Add("SDT1Abs", dataConfig.SDT1Abs);
-                    ht.Add("SDT1Conc", dataConfig.SDT1Conc);
-                    ht.Add("SDT2Abs", dataConfig.SDT2Abs);
-                    ht.Add("SDT2Conc", dataConfig.SDT2Conc);
-                    ht.Add("SDT3Abs", dataConfig.SDT3Abs);
-                    ht.Add("SDT3Conc", dataConfig.SDT3Conc);
-                    ht.Add("SDT4Abs", dataConfig.SDT4Abs);
-                    ht.Add("SDT4Conc", dataConfig.SDT4Conc);
-                    ht.Add("SDT5Abs", dataConfig.SDT5Abs);
-                    ht.Add("SDT5Conc", dataConfig.SDT5Conc);
-                    ht.Add("SDT6Abs", dataConfig.SDT6Abs);
-                    ht.Add("SDT6Conc", dataConfig.SDT6Conc);
-                    ht.Add("SampleType", dataConfig.SampleType);
-                    ht.Add("CalibDate", dataConfig.CalibDate);
-              
-                    ism_SqlMap.Insert("Calibrator." + strDBMethod, ht);
-                }
-
+                    strResult = "校准曲线保存失败！";
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("AddQCTask(string strDBMethod, List<QCTaskInfo> lstQCTaskInfos)==" + e.ToString(), Module.DAO);
-                return strResult = "校准曲线保存失败！";
+                LogInfo.WriteErrorLog("AddSDTTableItem(string strDBMethod, SDTTableItem dataConfig)==" + e.ToString(), Module.DAO);
+                return strResult = "校准曲线保存异常！";
             }
-
             return strResult;
+
+            //try
+            //{
+            //    //Hashtable ht = new Hashtable();
+            //    //ht.Add("ProjectName", dataConfig.ProjectName);
+            //    //ht.Add("CalibMethod", dataConfig.CalibMethod);
+            //    //ht.Add("BlkAbs", dataConfig.BlkAbs);
+            //    //ht.Add("BlkConc", dataConfig.BlkConc);
+            //    //ht.Add("SDT1Abs", dataConfig.SDT1Abs);
+            //    //ht.Add("SDT1Conc", dataConfig.SDT1Conc);
+            //    //ht.Add("SDT2Abs", dataConfig.SDT2Abs);
+            //    //ht.Add("SDT2Conc", dataConfig.SDT2Conc);
+            //    //ht.Add("SDT3Abs", dataConfig.SDT3Abs);
+            //    //ht.Add("SDT3Conc", dataConfig.SDT3Conc);
+            //    //ht.Add("SDT4Abs", dataConfig.SDT4Abs);
+            //    //ht.Add("SDT4Conc", dataConfig.SDT4Conc);
+            //    //ht.Add("SDT5Abs", dataConfig.SDT5Abs);
+            //    //ht.Add("SDT5Conc", dataConfig.SDT5Conc);
+            //    //ht.Add("SDT6Abs", dataConfig.SDT6Abs);
+            //    //ht.Add("SDT6Conc", dataConfig.SDT6Conc);
+            //    //ht.Add("SampleType", dataConfig.SampleType);
+            //    //ism_SqlMap.Insert("Calibrator." + strDBMethod, ht);
+            //    if (dataConfig.CalibMethod == "K系数法")
+            //    {
+            //        Hashtable ht2 = new Hashtable();
+            //        ht2.Add("ProjectName", dataConfig.ProjectName);
+            //        ht2.Add("CalibMethod", dataConfig.CalibMethod);
+            //        ht2.Add("SampleType", dataConfig.SampleType);
+            //        ht2.Add("BlkAbs", dataConfig.BlkAbs);
+            //        ht2.Add("BlkConc", dataConfig.BlkConc);
+            //        ht2.Add("CalibDate", dataConfig.CalibDate);
+            //        ism_SqlMap.Insert("Calibrator." + strDBMethod, ht2);
+            //    }
+            //    else
+            //    {
+            //        Hashtable ht = new Hashtable();
+            //        ht.Add("ProjectName", dataConfig.ProjectName);
+            //        ht.Add("CalibMethod", dataConfig.CalibMethod);
+            //        ht.Add("BlkAbs", dataConfig.BlkAbs);
+            //        ht.Add("BlkConc", dataConfig.BlkConc);
+            //        ht.Add("SDT1Abs", dataConfig.SDT1Abs);
+            //        ht.Add("SDT1Conc", dataConfig.SDT1Conc);
+            //        ht.Add("SDT2Abs", dataConfig.SDT2Abs);
+            //        ht.Add("SDT2Conc", dataConfig.SDT2Conc);
+            //        ht.Add("SDT3Abs", dataConfig.SDT3Abs);
+            //        ht.Add("SDT3Conc", dataConfig.SDT3Conc);
+            //        ht.Add("SDT4Abs", dataConfig.SDT4Abs);
+            //        ht.Add("SDT4Conc", dataConfig.SDT4Conc);
+            //        ht.Add("SDT5Abs", dataConfig.SDT5Abs);
+            //        ht.Add("SDT5Conc", dataConfig.SDT5Conc);
+            //        ht.Add("SDT6Abs", dataConfig.SDT6Abs);
+            //        ht.Add("SDT6Conc", dataConfig.SDT6Conc);
+            //        ht.Add("SampleType", dataConfig.SampleType);
+            //        ht.Add("CalibDate", dataConfig.CalibDate);
+
+            //        ism_SqlMap.Insert("Calibrator." + strDBMethod, ht);
+            //    }
+
+            //}
+            //catch (Exception e)
+            //{
+            //    LogInfo.WriteErrorLog("AddQCTask(string strDBMethod, List<QCTaskInfo> lstQCTaskInfos)==" + e.ToString(), Module.DAO);
+            //    return strResult = "校准曲线保存失败！";
+            //}
+
+
         }
 
         /// <summary>
@@ -1842,7 +1883,7 @@ namespace BioA.SqlMaps
                     ht.Add("ProjectName", calibrationResultinfoAndTimeCUVNO.ProjectName);
                     ht.Add("SampleType", calibrationResultinfoAndTimeCUVNO.SampleType);
                     ht.Add("CalibMethod", calibrationResultinfoAndTimeCUVNO.CalibMethod);
-                    lstCalibrationResultinfoAndTimeCUVNO = (List<CalibrationResultinfo>)ism_SqlMap.QueryForList<CalibrationResultinfo>("Calibrator.QueryKCtMethodCalibrationResultInfoAndTimeCUVNO", ht);
+                    lstCalibrationResultinfoAndTimeCUVNO = (List<CalibrationResultinfo>)ism_SqlMap.QueryForList<CalibrationResultinfo>("Calibrator.QueryKMethodCalibResultInfoOrTimeCUVNO", ht);
                 }
             }
             catch (Exception e)

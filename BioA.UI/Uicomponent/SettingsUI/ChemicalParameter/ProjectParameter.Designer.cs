@@ -36,6 +36,9 @@
             this.btnDeleteProject = new DevExpress.XtraEditors.SimpleButton();
             this.btnEditProject = new DevExpress.XtraEditors.SimpleButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label22 = new System.Windows.Forms.Label();
+            this.cboStirring2Intensity = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.labelControl12 = new DevExpress.XtraEditors.LabelControl();
             this.label18 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -75,10 +78,6 @@
             this.cboResultUnit = new DevExpress.XtraEditors.ComboBoxEdit();
             this.cboDecimal = new DevExpress.XtraEditors.ComboBoxEdit();
             this.cboAnalizeMethod = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.txtCheckLightDot4 = new DevExpress.XtraEditors.TextEdit();
-            this.txtCheckLightDot3 = new DevExpress.XtraEditors.TextEdit();
-            this.txtCheckLightDot2 = new DevExpress.XtraEditors.TextEdit();
-            this.txtCheckLightDot1 = new DevExpress.XtraEditors.TextEdit();
             this.lblLinearBound = new DevExpress.XtraEditors.LabelControl();
             this.lblProzoneBound = new DevExpress.XtraEditors.LabelControl();
             this.lblAbsorbanceLimit = new DevExpress.XtraEditors.LabelControl();
@@ -139,13 +138,15 @@
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.lblAnalizeMethod = new DevExpress.XtraEditors.LabelControl();
-            this.label22 = new System.Windows.Forms.Label();
-            this.cboStirring2Intensity = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.labelControl12 = new DevExpress.XtraEditors.LabelControl();
+            this.txtCheckLightDot4 = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.txtCheckLightDot3 = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.txtCheckLightDot1 = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.txtCheckLightDot2 = new DevExpress.XtraEditors.ComboBoxEdit();
             ((System.ComponentModel.ISupportInitialize)(this.lstvProject)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cboStirring2Intensity.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtReagent2VolSettings.Properties)).BeginInit();
@@ -173,10 +174,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.cboResultUnit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboDecimal.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboAnalizeMethod.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtCheckLightDot4.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtCheckLightDot3.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtCheckLightDot2.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtCheckLightDot1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpReagentSetting)).BeginInit();
             this.grpReagentSetting.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtRea2ValidDate.Properties)).BeginInit();
@@ -201,7 +198,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtComDilutionVol.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtComSamVol.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtComStosteVol.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboStirring2Intensity.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtCheckLightDot4.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtCheckLightDot3.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtCheckLightDot1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtCheckLightDot2.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // lstvProject
@@ -261,6 +261,10 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.txtCheckLightDot2);
+            this.panel1.Controls.Add(this.txtCheckLightDot1);
+            this.panel1.Controls.Add(this.txtCheckLightDot3);
+            this.panel1.Controls.Add(this.txtCheckLightDot4);
             this.panel1.Controls.Add(this.label22);
             this.panel1.Controls.Add(this.cboStirring2Intensity);
             this.panel1.Controls.Add(this.labelControl12);
@@ -296,10 +300,6 @@
             this.panel1.Controls.Add(this.cboResultUnit);
             this.panel1.Controls.Add(this.cboDecimal);
             this.panel1.Controls.Add(this.cboAnalizeMethod);
-            this.panel1.Controls.Add(this.txtCheckLightDot4);
-            this.panel1.Controls.Add(this.txtCheckLightDot3);
-            this.panel1.Controls.Add(this.txtCheckLightDot2);
-            this.panel1.Controls.Add(this.txtCheckLightDot1);
             this.panel1.Controls.Add(this.lblLinearBound);
             this.panel1.Controls.Add(this.lblProzoneBound);
             this.panel1.Controls.Add(this.lblAbsorbanceLimit);
@@ -319,6 +319,38 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1266, 738);
             this.panel1.TabIndex = 4;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.ForeColor = System.Drawing.Color.Red;
+            this.label22.Location = new System.Drawing.Point(475, 482);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(14, 14);
+            this.label22.TabIndex = 75;
+            this.label22.Text = "*";
+            // 
+            // cboStirring2Intensity
+            // 
+            this.cboStirring2Intensity.Location = new System.Drawing.Point(366, 479);
+            this.cboStirring2Intensity.Name = "cboStirring2Intensity";
+            this.cboStirring2Intensity.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboStirring2Intensity.Properties.Appearance.Options.UseFont = true;
+            this.cboStirring2Intensity.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cboStirring2Intensity.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.cboStirring2Intensity.Size = new System.Drawing.Size(100, 24);
+            this.cboStirring2Intensity.TabIndex = 74;
+            // 
+            // labelControl12
+            // 
+            this.labelControl12.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl12.Appearance.Options.UseFont = true;
+            this.labelControl12.Location = new System.Drawing.Point(272, 482);
+            this.labelControl12.Name = "labelControl12";
+            this.labelControl12.Size = new System.Drawing.Size(92, 17);
+            this.labelControl12.TabIndex = 73;
+            this.labelControl12.Text = "搅拌浆2强度：";
             // 
             // label18
             // 
@@ -633,6 +665,7 @@
             // 
             // txtInstrumentFactorA
             // 
+            this.txtInstrumentFactorA.EditValue = "1";
             this.txtInstrumentFactorA.Location = new System.Drawing.Point(718, 95);
             this.txtInstrumentFactorA.Name = "txtInstrumentFactorA";
             this.txtInstrumentFactorA.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -721,42 +754,6 @@
             this.cboAnalizeMethod.Size = new System.Drawing.Size(135, 24);
             this.cboAnalizeMethod.TabIndex = 25;
             this.cboAnalizeMethod.SelectedIndexChanged += new System.EventHandler(this.cboAnalizeMethod_SelectedIndexChanged);
-            // 
-            // txtCheckLightDot4
-            // 
-            this.txtCheckLightDot4.Location = new System.Drawing.Point(509, 52);
-            this.txtCheckLightDot4.Name = "txtCheckLightDot4";
-            this.txtCheckLightDot4.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCheckLightDot4.Properties.Appearance.Options.UseFont = true;
-            this.txtCheckLightDot4.Size = new System.Drawing.Size(52, 24);
-            this.txtCheckLightDot4.TabIndex = 24;
-            // 
-            // txtCheckLightDot3
-            // 
-            this.txtCheckLightDot3.Location = new System.Drawing.Point(451, 52);
-            this.txtCheckLightDot3.Name = "txtCheckLightDot3";
-            this.txtCheckLightDot3.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCheckLightDot3.Properties.Appearance.Options.UseFont = true;
-            this.txtCheckLightDot3.Size = new System.Drawing.Size(52, 24);
-            this.txtCheckLightDot3.TabIndex = 23;
-            // 
-            // txtCheckLightDot2
-            // 
-            this.txtCheckLightDot2.Location = new System.Drawing.Point(393, 52);
-            this.txtCheckLightDot2.Name = "txtCheckLightDot2";
-            this.txtCheckLightDot2.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCheckLightDot2.Properties.Appearance.Options.UseFont = true;
-            this.txtCheckLightDot2.Size = new System.Drawing.Size(52, 24);
-            this.txtCheckLightDot2.TabIndex = 22;
-            // 
-            // txtCheckLightDot1
-            // 
-            this.txtCheckLightDot1.Location = new System.Drawing.Point(335, 52);
-            this.txtCheckLightDot1.Name = "txtCheckLightDot1";
-            this.txtCheckLightDot1.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCheckLightDot1.Properties.Appearance.Options.UseFont = true;
-            this.txtCheckLightDot1.Size = new System.Drawing.Size(52, 24);
-            this.txtCheckLightDot1.TabIndex = 21;
             // 
             // lblLinearBound
             // 
@@ -1387,37 +1384,53 @@
             this.lblAnalizeMethod.TabIndex = 0;
             this.lblAnalizeMethod.Text = "分析方法：";
             // 
-            // label22
+            // txtCheckLightDot4
             // 
-            this.label22.AutoSize = true;
-            this.label22.ForeColor = System.Drawing.Color.Red;
-            this.label22.Location = new System.Drawing.Point(475, 482);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(14, 14);
-            this.label22.TabIndex = 75;
-            this.label22.Text = "*";
-            // 
-            // cboStirring2Intensity
-            // 
-            this.cboStirring2Intensity.Location = new System.Drawing.Point(366, 479);
-            this.cboStirring2Intensity.Name = "cboStirring2Intensity";
-            this.cboStirring2Intensity.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboStirring2Intensity.Properties.Appearance.Options.UseFont = true;
-            this.cboStirring2Intensity.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.txtCheckLightDot4.Location = new System.Drawing.Point(509, 52);
+            this.txtCheckLightDot4.Name = "txtCheckLightDot4";
+            this.txtCheckLightDot4.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCheckLightDot4.Properties.Appearance.Options.UseFont = true;
+            this.txtCheckLightDot4.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cboStirring2Intensity.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.cboStirring2Intensity.Size = new System.Drawing.Size(100, 24);
-            this.cboStirring2Intensity.TabIndex = 74;
+            this.txtCheckLightDot4.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.txtCheckLightDot4.Size = new System.Drawing.Size(52, 24);
+            this.txtCheckLightDot4.TabIndex = 76;
             // 
-            // labelControl12
+            // txtCheckLightDot3
             // 
-            this.labelControl12.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl12.Appearance.Options.UseFont = true;
-            this.labelControl12.Location = new System.Drawing.Point(272, 482);
-            this.labelControl12.Name = "labelControl12";
-            this.labelControl12.Size = new System.Drawing.Size(92, 17);
-            this.labelControl12.TabIndex = 73;
-            this.labelControl12.Text = "搅拌浆2强度：";
+            this.txtCheckLightDot3.Location = new System.Drawing.Point(451, 52);
+            this.txtCheckLightDot3.Name = "txtCheckLightDot3";
+            this.txtCheckLightDot3.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCheckLightDot3.Properties.Appearance.Options.UseFont = true;
+            this.txtCheckLightDot3.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.txtCheckLightDot3.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.txtCheckLightDot3.Size = new System.Drawing.Size(52, 24);
+            this.txtCheckLightDot3.TabIndex = 77;
+            // 
+            // txtCheckLightDot1
+            // 
+            this.txtCheckLightDot1.Location = new System.Drawing.Point(335, 52);
+            this.txtCheckLightDot1.Name = "txtCheckLightDot1";
+            this.txtCheckLightDot1.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCheckLightDot1.Properties.Appearance.Options.UseFont = true;
+            this.txtCheckLightDot1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.txtCheckLightDot1.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.txtCheckLightDot1.Size = new System.Drawing.Size(52, 24);
+            this.txtCheckLightDot1.TabIndex = 78;
+            // 
+            // txtCheckLightDot2
+            // 
+            this.txtCheckLightDot2.Location = new System.Drawing.Point(393, 52);
+            this.txtCheckLightDot2.Name = "txtCheckLightDot2";
+            this.txtCheckLightDot2.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCheckLightDot2.Properties.Appearance.Options.UseFont = true;
+            this.txtCheckLightDot2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.txtCheckLightDot2.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.txtCheckLightDot2.Size = new System.Drawing.Size(52, 24);
+            this.txtCheckLightDot2.TabIndex = 79;
             // 
             // ProjectParameter
             // 
@@ -1436,6 +1449,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cboStirring2Intensity.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             this.groupControl1.PerformLayout();
@@ -1464,10 +1478,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.cboResultUnit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboDecimal.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboAnalizeMethod.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtCheckLightDot4.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtCheckLightDot3.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtCheckLightDot2.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtCheckLightDot1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpReagentSetting)).EndInit();
             this.grpReagentSetting.ResumeLayout(false);
             this.grpReagentSetting.PerformLayout();
@@ -1494,7 +1504,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtComDilutionVol.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtComSamVol.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtComStosteVol.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboStirring2Intensity.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtCheckLightDot4.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtCheckLightDot3.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtCheckLightDot1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtCheckLightDot2.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1531,10 +1544,6 @@
         private DevExpress.XtraEditors.ComboBoxEdit cboResultUnit;
         private DevExpress.XtraEditors.ComboBoxEdit cboDecimal;
         private DevExpress.XtraEditors.ComboBoxEdit cboAnalizeMethod;
-        private DevExpress.XtraEditors.TextEdit txtCheckLightDot4;
-        private DevExpress.XtraEditors.TextEdit txtCheckLightDot3;
-        private DevExpress.XtraEditors.TextEdit txtCheckLightDot2;
-        private DevExpress.XtraEditors.TextEdit txtCheckLightDot1;
         private DevExpress.XtraEditors.LabelControl lblLinearBound;
         private DevExpress.XtraEditors.LabelControl lblProzoneBound;
         private DevExpress.XtraEditors.LabelControl lblAbsorbanceLimit;
@@ -1614,5 +1623,9 @@
         private System.Windows.Forms.Label label22;
         private DevExpress.XtraEditors.ComboBoxEdit cboStirring2Intensity;
         private DevExpress.XtraEditors.LabelControl labelControl12;
+        private DevExpress.XtraEditors.ComboBoxEdit txtCheckLightDot2;
+        private DevExpress.XtraEditors.ComboBoxEdit txtCheckLightDot1;
+        private DevExpress.XtraEditors.ComboBoxEdit txtCheckLightDot3;
+        private DevExpress.XtraEditors.ComboBoxEdit txtCheckLightDot4;
     }
 }

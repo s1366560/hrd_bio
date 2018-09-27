@@ -25,7 +25,14 @@ namespace BioA.UI
         private List<string> lstAssayProInfos = new List<string>();
         private List<string[]> lstQCRelateProject = new List<string[]>();
         //private List<string[]> lstQCRelateProject1 = new List<string[]>();
+        /// <summary>
+        /// 存储所有组合项目对应的生化项目信息
+        /// </summary>
         private List<string> lstProjects = new List<string>();
+        /// <summary>
+        /// 存储组合项目名和项目名
+        /// </summary>
+        private List<CombProjectInfo> lstCombProInfo = new List<CombProjectInfo>();
         //样本编号
         int intPos = 0;
 
@@ -44,13 +51,6 @@ namespace BioA.UI
         {
             BeginInvoke(new Action(CalibControlTaskInit));
             
-            ////获取样本号
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibControlTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryBigestCalibCTaskInfoForToday",null)));
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibControlTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryAssayProNameAllInfo", combSampleType.SelectedItem.ToString())));
-            //根据样本类型获取所有项目信息
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibControlTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryAssayProNameAll", DateTime.Now.Date.ToString(), DateTime.Now.Date.AddDays(1).ToString())));
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibControlTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryProjectNameInfoByCalib", combSampleType.SelectedItem.ToString())));
-            
         }
         private void CalibControlTaskInit()
         {
@@ -60,6 +60,8 @@ namespace BioA.UI
             projectPage4 = new CalibProjectPage4();
             calibProCombPage1 = new CalibProCombPage1();
             calibProCombPage2 = new CalibProCombPage2();
+            calibProCombPage1.clickCombProNameEvent += HandleClickCombProNameEvent;
+            calibProCombPage2.clickCombProNamePage2Event += HandleClickCombProNameEvent;
             xtraTabPage1.Controls.Add(projectPage1);
             xtraTabPage2.Controls.Add(projectPage2);
             xtraTabPage3.Controls.Add(projectPage3);
@@ -75,14 +77,40 @@ namespace BioA.UI
             //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibControlTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryCombProjectNameAllInfo", null)));
             var calibThread = new Thread(() =>
             {
+                //获取所有任务信息
                 calibDictionary.Add("QueryCalibratorinfoTask", new object[] { "" });
+                //获取所有组合项目信息
                 calibDictionary.Add("QueryCombProjectNameAllInfo", new object[] { "" });
+                //获取所有组合项目名和项目名
+                calibDictionary.Add("QueryProjectAndCombProName", null);
                 CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.CalibControlTask, calibDictionary);
             });
             calibThread.IsBackground = true;
             calibThread.Start();
         }
-       
+        /// <summary>
+        /// 处理组合页面委托事件传递过来的数据
+        /// </summary>
+        /// <param name="sender"></param>
+        private void HandleClickCombProNameEvent(string sender)
+        {
+            lstProjects.Clear();
+            foreach (CombProjectInfo combProInfo in lstCombProInfo)
+            {
+                if (combProInfo.CombProjectName == sender)
+                {
+                    lstProjects.Add(combProInfo.ProjectName);
+                }
+            }
+            if (lstProjects.Count > 0)
+            {
+                projectPage1.SelectedProjects = lstProjects;
+                projectPage2.SelectedProjects = lstProjects;
+                projectPage3.SelectedProjects = lstProjects;
+                projectPage4.SelectedProjects = lstProjects;
+            }
+        }
+
         /// <summary>
         /// xtratabcontrol控件的标签页点击事件
         /// </summary>
@@ -177,7 +205,7 @@ namespace BioA.UI
         List<string[]> lstBlankProject = new List<string[]>();
         #endregion;
         /// <summary>
-        /// 接收数据返回函数
+        /// 存储所有的组合项目名
         /// </summary>
         List<string> lstCombProName = new List<string>();
         public void DataTransfer_Event(string strMethod, object sender)
@@ -221,12 +249,15 @@ namespace BioA.UI
                     calibProCombPage2.LstAssayProInfos = lstCombProName;
 
                     break;
-                case "QueryProjectByCombProName":
-                    lstProjects = (List<string>)XmlUtility.Deserialize(typeof(List<string>), sender as string);
-                    projectPage1.SelectedProjects = lstProjects;
-                    projectPage2.SelectedProjects = lstProjects;
-                    projectPage3.SelectedProjects = lstProjects;
-                    projectPage4.SelectedProjects = lstProjects;
+                //case "QueryProjectByCombProName":
+                //    lstProjects = (List<string>)XmlUtility.Deserialize(typeof(List<string>), sender as string);
+                //    projectPage1.SelectedProjects = lstProjects;
+                //    projectPage2.SelectedProjects = lstProjects;
+                //    projectPage3.SelectedProjects = lstProjects;
+                //    projectPage4.SelectedProjects = lstProjects;
+                //    break;
+                case "QueryProjectAndCombProName":
+                    lstCombProInfo = (List<CombProjectInfo>)XmlUtility.Deserialize(typeof(List<CombProjectInfo>), sender as string);
                     break;
                 //case "QueryAssayProNameAll":
                 //    List<CalibratorinfoTask> lstCalibrationInfo = (List<CalibratorinfoTask>)XmlUtility.Deserialize(typeof(List<CalibratorinfoTask>), sender as string);

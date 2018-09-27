@@ -15,6 +15,10 @@ namespace BioA.UI
 {
     public partial class CalibProCombPage1 : DevExpress.XtraEditors.XtraUserControl
     {
+        //声明一个委托
+        public delegate void ClickCombProName(string sender);
+        public event ClickCombProName clickCombProNameEvent;
+
         public CalibProCombPage1()
         {
             InitializeComponent();
@@ -150,17 +154,15 @@ namespace BioA.UI
                     simpleButton.ForeColor = Color.Black;
                     //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibControlTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryProjectByCombProName", simpleButton.Text.ToString())));
                 }
-                else if (simpleButton.Tag as string == "0")
+                else if (simpleButton.Tag as string == "0" || simpleButton.Tag == null)
                 {
                     simpleButton.Tag = "1";
                     simpleButton.ForeColor = Color.Red;
-                    CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibControlTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryProjectByCombProName", simpleButton.Text.ToString())));
-                }
-                else
-                {
-                    simpleButton.Tag = "1";
-                    simpleButton.ForeColor = Color.Red;
-                    //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibControlTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryProjectByCombProName", simpleButton.Text.ToString())));
+                    //CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.CalibControlTask, new Dictionary<string, object[]> { { "QueryProjectByCombProName", new object[] { simpleButton.Text.ToString() } } });
+                    if (clickCombProNameEvent != null)
+                    {
+                        clickCombProNameEvent(simpleButton.Text.ToString());
+                    }
                 }
             }
         }

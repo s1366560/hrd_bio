@@ -50,8 +50,7 @@ namespace BioA.UI.Uicomponent.Analog
             {
                 if (MessageBoxDraw.ShowMsg("确认修改工作盘号？", MsgType.Question) == System.Windows.Forms.DialogResult.OK)
                 {
-                    CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask,
-                        XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("UpdateRunningTaskWorDisk", strPanel)));
+                    CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaApplyTask, new Dictionary<string, object[]> { { "UpdateRunningTaskWorDisk", new object[] { strPanel } } });
                     this.Close();
                 }
             }

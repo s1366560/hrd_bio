@@ -35,6 +35,7 @@ namespace BioA.PLCController.Interface
                     break;
                 }
             }
+            //比色表编号
             int BlkCUVNO = MachineControlProtocol.HexConverToDec(Data[blki+1], Data[blki + 2], Data[blki + 3]);
             int BlkWN = MachineControlProtocol.HexConverToDec(Data[2], Data[3], Data[4]);
             myBatis.SaveCuvNumber(BlkWN, BlkCUVNO);
@@ -45,9 +46,13 @@ namespace BioA.PLCController.Interface
             int PressErrorWn = 0;
             while (count<=44)
             {
+                //工作盘号
                 int WN = MachineControlProtocol.HexConverToDec(Data[i], Data[i + 1], Data[i + 2]);
+                //比色杯测光点
                 int PT = MachineControlProtocol.HexConverToDec(Data[i + 3], Data[i + 4]);
+                //主波长比色杯值
                 float PWL = MachineControlProtocol.HexConverToFloat(Data[i + 5], Data[i + 6], Data[i + 7], Data[i + 8], Data[i + 9], Data[i + 10]);
+                //次波长比色杯值
                 float SWL = MachineControlProtocol.HexConverToFloat(Data[i + 11], Data[i + 12], Data[i + 13], Data[i + 14], Data[i + 15], Data[i + 16]);
 
                 if (PWL > -0.000001 && PWL < 0.000001)
@@ -549,10 +554,12 @@ namespace BioA.PLCController.Interface
                     case WORKTYPE.E:
                         TaskInfo t = new TaskInfo();
                         t = myBatis.GetSMPSchedule(realTimeData.SmpNo, realTimeData.Assay);
-                        if (t != null && t.FinishTimes >= t.InspectTimes)
+                        if (t != null && t.FinishTimes == t.InspectTimes)
                         {
                             myBatis.UpdateSampleStatePerform(t, TaskState.SUCC);
-                            myBatis.UpdteTaskState(t.SampleNum.ToString(), t.ProjectName);
+                            //2018 9/4
+                            //myBatis.UpdteTaskState(t.SampleNum.ToString(), t.ProjectName);
+                            myBatis.UpdateTaskStatePerform(t, TaskState.SUCC);
                         }
                         break;
                     case WORKTYPE.B:

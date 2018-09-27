@@ -31,18 +31,19 @@ BEGIN
     
     if n = 0
     then
-    begin
-		delete from AssayProjectParamInfoTb where ProjectName=proName and SampleType=proType;
-		delete from CalibrationParamInfoTb where ProjectName=proName and SampleType=proType;
-		delete from RangeParamInfoTb where ProjectName=proName and SampleType=proType;
-        delete from assayprojectinfotb where ProjectName=proName and SampleType=proType;
-	end;
+		begin
+			delete from AssayProjectParamInfoTb where ProjectName=proName and SampleType=proType;
+			delete from CalibrationParamInfoTb where ProjectName=proName and SampleType=proType;
+			delete from RangeParamInfoTb where ProjectName=proName and SampleType=proType;
+			delete from assayprojectinfotb where ProjectName=proName and SampleType=proType;
+		end;
     end if;
 	select n;
 
 END;
 //
 DELIMITER ;
+
 DROP PROCEDURE IF EXISTS UpdateAssayProject;  
 DELIMITER //
 create procedure UpdateAssayProject(IN proModifyName text, IN proproModifyType text, IN proFullName text, IN channelNum text, IN proOldName text, IN proOldType text, OUT n int)
@@ -89,3 +90,51 @@ BEGIN
 END;
 //
 DELIMITER ;
+
+-- 删除校准品项目信息和校准品信息 
+USE `bioadb`;
+DROP procedure IF EXISTS `DeleteCalibratorProjectRI`;
+
+DELIMITER $$
+USE `bioadb`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `DeleteCalibratorProjectRI`(IN NumTime int, IN calibratorName varchar(50), IN proName varchar(50), in samType varchar(50),  OUT n int)
+BEGIN
+	declare counts int default 0;
+    set n = 0;
+    if NumTime = 0 then
+		begin
+			select count(*) into counts from calibratorprojecttb where CalibName=calibratorName;
+            set n = counts;
+            if n > 0 then
+				begin
+					delete from calibratorprojecttb where CalibName=calibratorName;
+                    select count(*) into counts from calibratortb where CalibName=calibratorName;
+					if counts > 0 then
+						begin
+							delete from calibratortb where CalibName=calibratorName;
+						end;
+					end if;
+                end;
+			end if;
+			
+        end;
+	end if;
+	select count(*) into counts from calibrationparaminfotb where ProjectName=proName and SampleType=samType and CalibrationMethod is not null;
+	if counts > 0
+		then
+			set n = n+ counts;
+			begin
+				delete from calibrationparaminfotb where ProjectName=proName and SampleType=samType;
+				insert into CalibrationParamInfoTb (ProjectName, SampleType) values(proName, samType);
+			end;
+	end if;
+    select n;
+END$$
+
+DELIMITER ;
+
+
+
+
+
+

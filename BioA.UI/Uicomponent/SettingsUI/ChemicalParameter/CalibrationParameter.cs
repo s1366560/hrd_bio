@@ -119,18 +119,18 @@ namespace BioA.UI
                 calibParamInfo = value;
                 BeginInvoke(new Action(() =>
                 {
-                    if (calibParamInfo.CalibrationMethod == "" || calibParamInfo.CalibrationMethod == "NULL")
+                    if (calibParamInfo.CalibrationMethod == "")
                     {
                         cboCalibMethod.Text = "请选择";
-                        nullinfo();
+                        this.nullinfo();
                         cboCalibTimes.SelectedIndex = 0;
-                        AddCalibratorProjectinfo();
+                        this.BeginInvoke(new Action(AddCalibratorProjectinfo));
                     }
                     else
                     {
                         ClearCalibName();
                         cboCalibMethod.Text = calibParamInfo.CalibrationMethod;
-                        nullinfo();
+                        this.nullinfo();
                         txtCalibPoint.Text = calibParamInfo.Point.ToString();
                         txtAbsLimit.Text = calibParamInfo.AbsLimit.ToString();
                         txtSpan.Text = calibParamInfo.Span.ToString();
@@ -219,6 +219,16 @@ namespace BioA.UI
             txtPos6.Text = "";
             txtPos7.Text = "";
             textEdit1.Text = "";
+            txtCalibPoint.Text = "0";
+            txtAbsLimit.Text = "0";
+            txtSpan.Text = "0";
+            txtSensitivityLow.Text = "0";
+            txtSensitivityHigh.Text = "0";
+            txtDuplicatePercent.Text = "0";
+            txtDuplicateAbs.Text = "0";
+            cboCalibTimes.Text = "0";
+            txtBlankAbsLow.Text = "0";
+            txtBlankAbsHigh.Text = "0";
         }
         
         private void AddCalibrationCurveInfo ()
@@ -339,8 +349,11 @@ namespace BioA.UI
             ClientSendMsgToServices(calibParamDic);
          
         }
+        /// <summary>
+        /// 存储保存校准项目参数信息对象
+        /// </summary>
+        private AssayProjectCalibrationParamInfo parameter;
 
-   
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (cboCalibMethod.Text == "请选择" || cboCalibMethod.Text == null)
@@ -466,8 +479,7 @@ namespace BioA.UI
            
             if (this.gridView1.GetSelectedRows().Count() > 0)
             {
-                AssayProjectCalibrationParamInfo parameter = new AssayProjectCalibrationParamInfo();
-
+                parameter = new AssayProjectCalibrationParamInfo();
                 parameter.ProjectName = this.gridView1.GetRowCellValue(this.gridView1.GetSelectedRows()[0], "项目名称").ToString();
                 parameter.SampleType = this.gridView1.GetRowCellValue(this.gridView1.GetSelectedRows()[0], "类型").ToString();
 
@@ -703,10 +715,7 @@ namespace BioA.UI
                 }
                 calibParamDic.Clear();
                 calibParamDic.Add("UpdateCalibParamByProNameAndType", new object[] { XmlUtility.Serializer(typeof(AssayProjectCalibrationParamInfo), parameter) });
-                //ClientSendMsgToServices(calibParamDic);
-             //   CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SettingsChemicalParameter, XmlUtility.Serializer(typeof(CommunicationEntity),
-             //new CommunicationEntity("UpdateCalibParamByProNameAndType", XmlUtility.Serializer(typeof(AssayProjectCalibrationParamInfo), parameter))));
-
+                //保存或更新校准方法对应的校准品信息
                 BeginInvoke(new Action(AddCalibrationCurveInfo));
         
             }
@@ -716,8 +725,8 @@ namespace BioA.UI
         /// </summary>
         public void GetDataInfo()
         {
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SettingsChemicalParameter, XmlUtility.Serializer(typeof(CommunicationEntity),
-        new CommunicationEntity("QueryAssayProAllInfoForCalibParam", null)));
+        //    CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SettingsChemicalParameter, XmlUtility.Serializer(typeof(CommunicationEntity),
+        //new CommunicationEntity("QueryAssayProAllInfoForCalibParam", null)));
 
         }
 
@@ -758,15 +767,31 @@ namespace BioA.UI
 
         }
 
-        private void ClientSendMsgToServices(object sender)
+        private void ClientSendMsgToServices(Dictionary<string, object[]> sender)
         {
             var calibParamThread = new Thread(() =>
             {
-                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.SettingsChemicalParameter, sender as Dictionary<string, object[]>);
+                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.SettingsChemicalParameter, sender);
             });
             calibParamThread.IsBackground = true;
             calibParamThread.Start();
         }
+        /// <summary>
+        /// 校准项目参数保存成功或失败处理信息
+        /// </summary>
+        public void ProcessSuccessOrFailureInfo(int sender)
+        {
+            if (sender > 0)
+            {
+                this.lstCalibParamInfo.RemoveAll(x => x.ProjectName == parameter.ProjectName && x.SampleType == parameter.SampleType);
+                this.lstCalibParamInfo.Add(this.parameter);
+                this.LstCalibParamInfo = lstCalibParamInfo;
+                this.Invoke(new EventHandler(delegate { MessageBox.Show("校准项目参数保存成功！"); }));
+            }
+            else
+                MessageBox.Show("校准项目参数保存失败！");
+        }
+
 
         /// <summary>
         /// 生化项目信息列表点击事件
@@ -831,49 +856,17 @@ namespace BioA.UI
         }
         private void AddCalibratorProjectinfo()
         {
-            CommunicationEntity communicationEntity = new CommunicationEntity();
             CalibratorProjectinfo calibrationResultinfo = new CalibratorProjectinfo();
             int selectedHandle;
-            try
-            {
-                if (this.gridView1.SelectedRowsCount > 0)
-                {
-                    selectedHandle = this.gridView1.GetSelectedRows()[0];
-                    calibrationResultinfo.ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "项目名称").ToString();
-                }
-            }
-            catch
-            {
-
-            }
-
-            communicationEntity.StrmethodName = "QueryCalibratorProinfo";
-            communicationEntity.ObjParam = calibrationResultinfo.ProjectName;
-
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SettingsChemicalParameter, XmlUtility.Serializer(typeof(CommunicationEntity), communicationEntity));
-            
-        }
-
-        private void QueryCalibrationCurveInfo()
-        {
-            CommunicationEntity communicationEntity = new CommunicationEntity();
-            CalibrationCurveInfo CalibrationCurveInfoResultinfo = new CalibrationCurveInfo();
-            int selectedHandle;
-            try
+            if (this.gridView1.SelectedRowsCount > 0)
             {
                 selectedHandle = this.gridView1.GetSelectedRows()[0];
-
-                CalibrationCurveInfoResultinfo.ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "项目名称").ToString();
+                calibrationResultinfo.ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "项目名称").ToString();
             }
-            catch
-            {
-
-            }
-       
-                communicationEntity.StrmethodName = "QueryCalibrationCurve";
-                communicationEntity.ObjParam = CalibrationCurveInfoResultinfo.ProjectName;
-       
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SettingsChemicalParameter, XmlUtility.Serializer(typeof(CommunicationEntity), communicationEntity));
+            calibParamDic.Clear();
+            calibParamDic.Add("QueryCalibratorProinfo", new object[] { calibrationResultinfo.ProjectName });
+            ClientSendMsgToServices(calibParamDic);
+            
         }
         /// <summary>
         /// 取消按钮

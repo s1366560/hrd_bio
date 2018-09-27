@@ -9,70 +9,7 @@
 //------------------------------------------------------------------------------
 
 namespace BioA.UI.ServiceReference1 {
-    using System.Runtime.Serialization;
-    using System;
     
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="CompositeType", Namespace="http://schemas.datacontract.org/2004/07/BioA.Service")]
-    [System.SerializableAttribute()]
-    public partial class CompositeType : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool BoolValueField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string StringValueField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool BoolValue {
-            get {
-                return this.BoolValueField;
-            }
-            set {
-                if ((this.BoolValueField.Equals(value) != true)) {
-                    this.BoolValueField = value;
-                    this.RaisePropertyChanged("BoolValue");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string StringValue {
-            get {
-                return this.StringValueField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.StringValueField, value) != true)) {
-                    this.StringValueField = value;
-                    this.RaisePropertyChanged("StringValue");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IBioAService", CallbackContract=typeof(BioA.UI.ServiceReference1.IBioAServiceCallback))]
@@ -85,10 +22,10 @@ namespace BioA.UI.ServiceReference1 {
         System.Threading.Tasks.Task<string> GetDataAsync(int value);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBioAService/GetDataUsingDataContract", ReplyAction="http://tempuri.org/IBioAService/GetDataUsingDataContractResponse")]
-        BioA.UI.ServiceReference1.CompositeType GetDataUsingDataContract(BioA.UI.ServiceReference1.CompositeType composite);
+        BioA.Service.CompositeType GetDataUsingDataContract(BioA.Service.CompositeType composite);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBioAService/GetDataUsingDataContract", ReplyAction="http://tempuri.org/IBioAService/GetDataUsingDataContractResponse")]
-        System.Threading.Tasks.Task<BioA.UI.ServiceReference1.CompositeType> GetDataUsingDataContractAsync(BioA.UI.ServiceReference1.CompositeType composite);
+        System.Threading.Tasks.Task<BioA.Service.CompositeType> GetDataUsingDataContractAsync(BioA.Service.CompositeType composite);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBioAService/RegisterClient")]
         void RegisterClient(string strClientName);
@@ -125,7 +62,7 @@ namespace BioA.UI.ServiceReference1 {
     public interface IBioAServiceCallback {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBioAService/NotifyFunction")]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BioA.UI.ServiceReference1.CompositeType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BioA.Service.CompositeType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BioA.Common.CommunicationEntity))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BioA.Common.ModuleInfo))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.Dictionary<string, object[]>))]
@@ -135,7 +72,7 @@ namespace BioA.UI.ServiceReference1 {
         void NotifyFunction(object sender);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBioAService/ClientNotifyFunction")]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BioA.UI.ServiceReference1.CompositeType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BioA.Service.CompositeType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BioA.Common.CommunicationEntity))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BioA.Common.ModuleInfo))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.Dictionary<string, object[]>))]
@@ -145,7 +82,7 @@ namespace BioA.UI.ServiceReference1 {
         void ClientNotifyFunction(string strSendClientName, object Sender);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBioAService/DatabaseNotifyFunction")]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BioA.UI.ServiceReference1.CompositeType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BioA.Service.CompositeType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BioA.Common.CommunicationEntity))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BioA.Common.ModuleInfo))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.Dictionary<string, object[]>))]
@@ -194,11 +131,11 @@ namespace BioA.UI.ServiceReference1 {
             return base.Channel.GetDataAsync(value);
         }
         
-        public BioA.UI.ServiceReference1.CompositeType GetDataUsingDataContract(BioA.UI.ServiceReference1.CompositeType composite) {
+        public BioA.Service.CompositeType GetDataUsingDataContract(BioA.Service.CompositeType composite) {
             return base.Channel.GetDataUsingDataContract(composite);
         }
         
-        public System.Threading.Tasks.Task<BioA.UI.ServiceReference1.CompositeType> GetDataUsingDataContractAsync(BioA.UI.ServiceReference1.CompositeType composite) {
+        public System.Threading.Tasks.Task<BioA.Service.CompositeType> GetDataUsingDataContractAsync(BioA.Service.CompositeType composite) {
             return base.Channel.GetDataUsingDataContractAsync(composite);
         }
         

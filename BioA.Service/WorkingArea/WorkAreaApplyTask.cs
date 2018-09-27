@@ -31,7 +31,7 @@ namespace BioA.Service
                 projectInfo[0] = project;
                 // 1.判断项目参数是否有效
                 AssayProjectParamInfo assayProParam = myBatis.GetAssayProjectParamInfoByNameAndType("GetAssayProjectParamInfoByNameAndType", new AssayProjectInfo() { ProjectName = project, SampleType = sampleType });
-                // 2.判断试剂是否存在——判断试剂是否锁定
+                // 2.判断试剂是否存在
                 ReagentStateInfoR1R2 reagentState = myBatis.QueryReagentStateInfoByProjectName("QueryReagentStateInfoByProjectName", new ReagentSettingsInfo() { ProjectName = project, ReagentType = sampleType });
                 // 3.判断校准曲线是否可用
                 bool bExist = myBatis.CalibCurveBeExistByProNameAndType("CalibCurveBeExistByProNameAndType", new string[]{ project, sampleType });
@@ -49,6 +49,14 @@ namespace BioA.Service
                     else if (reagentState.Locked == true)
                     {
                         projectInfo[3] = "该项目对应试剂被锁定，无法使用！";
+                    }
+                    else if (reagentState.ReagentName != "" && reagentState.ValidPercent < 5)
+                    {
+                        projectInfo[3] = "此项目对应的试剂1余量不足！";
+                    }
+                    else if (reagentState.ReagentName2 != "" && reagentState.ValidPercent < 5)
+                    {
+                        projectInfo[3] = "此项目对应的试剂2余量不足！";
                     }
 
                     if (bExist == false)
@@ -79,6 +87,14 @@ namespace BioA.Service
                     else if (reagentState.Locked == true)
                     {
                         projectInfo[3] = "该项目对应试剂被锁定，无法使用！";
+                    }
+                    else if (reagentState.ReagentName != "" && reagentState.ValidPercent < 5)
+                    {
+                        projectInfo[3] = "此项目对应的试剂1余量不足！";
+                    }
+                    else if (reagentState.ReagentName2 != "" && reagentState.ValidPercent < 5)
+                    {
+                        projectInfo[3] = "此项目对应的试剂2余量不足！";
                     }
 
                 }
@@ -130,9 +146,9 @@ namespace BioA.Service
             return myBatis.UpdatePatientInfo(strMethodName, patientInfo);
         }
 
-        public List<string> QueryApplyApartment(string strMethodName)
+        public List<string> QueryDepartmentInfo(string strMethodName)
         {
-            return myBatis.QueryApplyApartment(strMethodName);
+            return myBatis.QueryDepartmentInfo(strMethodName);
         }
 
         public List<string> QueryApplyDoctor(string strMethodName)

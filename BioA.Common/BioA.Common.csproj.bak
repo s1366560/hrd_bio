@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E1438A53-5DDE-42C0-B2FF-0F4A892E95B6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BioA.Common</RootNamespace>
+    <AssemblyName>BioA.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v16.1, Version=16.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Printing.v16.1.Core, Version=16.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v16.1, Version=16.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v16.1, Version=16.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CalcMethod\ABSProcess.cs" />
+    <Compile Include="CalcMethod\CalculateConc.cs" />
+    <Compile Include="Communication\CommunicationEntity.cs" />
+    <Compile Include="Communication\Network\CLIENT.cs" />
+    <Compile Include="Communication\Network\DataReadWrite.cs" />
+    <Compile Include="Communication\Network\SERVER.cs" />
+    <Compile Include="ComputerInfo.cs" />
+    <Compile Include="EncryptionText.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\AdjustNode.cs" />
+    <Compile Include="Entities\AssayRgtUsingCountItem.cs" />
+    <Compile Include="Entities\AssayRunPara.cs" />
+    <Compile Include="Entities\AssayValuePara.cs" />
+    <Compile Include="Entities\CalItem.cs" />
+    <Compile Include="Entities\CLItem.cs" />
+    <Compile Include="Entities\CombItem.cs" />
+    <Compile Include="Entities\CrossContaminationItem.cs" />
+    <Compile Include="Entities\Department.cs" />
+    <Compile Include="Entities\DepartmentDoctor.cs" />
+    <Compile Include="Entities\DetergentBar.cs" />
+    <Compile Include="Entities\DetergentInfo.cs" />
+    <Compile Include="Entities\Doctor.cs" />
+    <Compile Include="Entities\ERRInfo.cs" />
+    <Compile Include="Entities\ErrorInfoManager.cs" />
+    <Compile Include="Entities\Hospital.cs" />
+    <Compile Include="Entities\LisConnector.cs" />
+    <Compile Include="Entities\MachineRunningState.cs" />
+    <Compile Include="Entities\ManuOffsetGain.cs" />
+    <Compile Include="Entities\MntLog.cs" />
+    <Compile Include="Entities\OffSetGain.cs" />
+    <Compile Include="Entities\OperatingLog.cs" />
+    <Compile Include="Entities\PatientSampleRemark.cs" />
+    <Compile Include="Entities\PrinterConnector.cs" />
+    <Compile Include="Entities\PrintItem.cs" />
+    <Compile Include="Entities\Productor.cs" />
+    <Compile Include="Entities\QCItem.cs" />
+    <Compile Include="Entities\QCSchedule.cs" />
+    <Compile Include="Entities\Reagent.cs" />
+    <Compile Include="Entities\ReagentBarcode.cs" />
+    <Compile Include="Entities\ReagentItem.cs" />
+    <Compile Include="Entities\RealTimeCUV.cs" />
+    <Compile Include="Entities\RefRange.cs" />
+    <Compile Include="Entities\ResRangeItem.cs" />
+    <Compile Include="Entities\Result.cs" />
+    <Compile Include="Entities\ResultRange.cs" />
+    <Compile Include="Entities\ResultSet.cs" />
+    <Compile Include="Entities\RESUnit.cs" />
+    <Compile Include="Entities\RGTContainerType.cs" />
+    <Compile Include="Entities\RGTPosition.cs" />
+    <Compile Include="Entities\RunAssaySQ.cs" />
+    <Compile Include="Entities\Sample.cs" />
+    <Compile Include="Entities\SamplePressSensionInfo.cs" />
+    <Compile Include="Entities\Schedule.cs" />
+    <Compile Include="Entities\SDTItem.cs" />
+    <Compile Include="Entities\SDTTableItem.cs" />
+    <Compile Include="Entities\SDTTableSet.cs" />
+    <Compile Include="Entities\SMPCalItem.cs" />
+    <Compile Include="Entities\SMPCombItem.cs" />
+    <Compile Include="Entities\SMPContainerLisSetData.cs" />
+    <Compile Include="Entities\SMPContainerType.cs" />
+    <Compile Include="Entities\SMPItem.cs" />
+    <Compile Include="Entities\SMPPatient.cs" />
+    <Compile Include="Entities\SMPPosition.cs" />
+    <Compile Include="Entities\SMPType.cs" />
+    <Compile Include="Entities\SMPTypeLisSetData.cs" />
+    <Compile Include="Entities\SMPVolRf.cs" />
+    <Compile Include="Entities\TimeCourse.cs" />
+    <Compile Include="Entities\TroubleLog.cs" />
+    <Compile Include="Entities\WashSettingData.cs" />
+    <Compile Include="Graphics\DrawGraphics.cs" />
+    <Compile Include="IO\Files.cs" />
+    <Compile Include="IO\XMLHelper.cs" />
+    <Compile Include="IO\XmlUtility.cs" />
+    <Compile Include="KeyManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LOG\LogInfo.cs" />
+    <Compile Include="Machine\CommandProtocol.cs" />
+    <Compile Include="Machine\CommandService.cs" />
+    <Compile Include="Machine\Componet.cs" />
+    <Compile Include="Machine\MachineControlProtocol.cs" />
+    <Compile Include="Machine\MachineInfo.cs" />
+    <Compile Include="Machine\MachineReturnState.cs" />
+    <Compile Include="Machine\MachineState.cs" />
+    <Compile Include="Machine\ManuOffsetGain.cs" />
+    <Compile Include="Machine\Subsystem.cs" />
+    <Compile Include="Manager\AdjustNode.cs" />
+    <Compile Include="Manager\AssayProjectCalibrationParamInfo.cs" />
+    <Compile Include="Manager\AssayProjectInfo.cs" />
+    <Compile Include="Manager\AssayProjectParamInfo.cs" />
+    <Compile Include="Manager\AssayProjectRangeParamInfo.cs" />
+    <Compile Include="Manager\CalcProjectInfo.cs" />
+    <Compile Include="Manager\ApplyDoctorInfo.cs" />
+    <Compile Include="Manager\AlarmLogInfo.cs" />
+    <Compile Include="Manager\CalibrationResultinfo.cs" />
+    <Compile Include="Manager\Calibratorinfo.cs" />
+    <Compile Include="Manager\CalibratorinfoTask.cs" />
+    <Compile Include="Manager\CalibratorProjectinfo.cs" />
+    <Compile Include="Manager\CalibrationCurveInfo.cs" />
+    <Compile Include="Manager\CalibrationReactionProcess.cs" />
+    <Compile Include="Manager\CLItem.cs" />
+    <Compile Include="Manager\CuvetteBlankInfo.cs" />
+    <Compile Include="Manager\OffSetGain.cs" />
+    <Compile Include="Manager\PhotometricGainInfo.cs" />
+    <Compile Include="Manager\ProjectRunSequenceInfo.cs" />
+    <Compile Include="Manager\RealTimeCUVDataInfo.cs" />
+    <Compile Include="Manager\ResultInfo.cs" />
+    <Compile Include="Manager\RunningStateInfo.cs" />
+    <Compile Include="Manager\Sample.cs" />
+    <Compile Include="Manager\Schedule.cs" />
+    <Compile Include="Manager\SDTTableItem.cs" />
+    <Compile Include="Manager\linshi.cs" />
+    <Compile Include="Manager\MaintenanceLogInfo.cs" />
+    <Compile Include="Manager\PatientInfo.cs" />
+    <Compile Include="Manager\QCReactionProcessInfo.cs" />
+    <Compile Include="Manager\QCRelationProjectInfo.cs" />
+    <Compile Include="Manager\QCResultForUIInfo.cs" />
+    <Compile Include="Manager\QCTaskInfo.cs" />
+    <Compile Include="Manager\QCTaskInfoQuery.cs" />
+    <Compile Include="Manager\QualityControlInfo.cs" />
+    <Compile Include="Manager\QualityControlResultInfo.cs" />
+    <Compile Include="Manager\ReagentStateInfoR1R2.cs" />
+    <Compile Include="Manager\SampleInfo.cs" />
+    <Compile Include="Manager\SampleInfoForResult.cs" />
+    <Compile Include="Manager\SampleReactionProcessInfo.cs" />
+    <Compile Include="Manager\SampleResultInfo.cs" />
+    <Compile Include="Manager\SMPContainerTypeInfo.cs" />
+    <Compile Include="Manager\TaskInfo.cs" />
+    <Compile Include="Manager\TaskInfoForSamplePanelInfo.cs" />
+    <Compile Include="Manager\TimeCourseInfo.cs" />
+    <Compile Include="Manager\TroubleLog.cs" />
+    <Compile Include="Manager\UserAuthorization.cs" />
+    <Compile Include="Manager\CombProjectInfo.cs" />
+    <Compile Include="Manager\CuvetteAntifoulingStrategyInfo.cs" />
+    <Compile Include="Manager\EnvironmentParamInfo.cs" />
+    <Compile Include="Manager\LISCommunicateNetworkInfo.cs" />
+    <Compile Include="Manager\ProjectReagentStateInfo.cs" />
+    <Compile Include="Manager\ReagentNeedleAntifoulingStrategyInfo.cs" />
+    <Compile Include="Manager\ReagentSettingsInfo.cs" />
+    <Compile Include="Manager\ReagentStateInfo.cs" />
+    <Compile Include="Manager\SampleNeedleAntifoulingStrategyInfo.cs" />
+    <Compile Include="Manager\SerialCommunicationInfo.cs" />
+    <Compile Include="Manager\UserInfo.cs" />
+    <Compile Include="ModuleInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RegularRegex.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RunConfigureUtility.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="StateInfo.cs" />
+    <Compile Include="~NetWork\Client.cs" />
+    <Compile Include="~NetWork\DataReadWrite.cs" />
+    <Compile Include="~NetWork\NetWorkCommon.cs" />
+    <Compile Include="~NetWork\Server.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

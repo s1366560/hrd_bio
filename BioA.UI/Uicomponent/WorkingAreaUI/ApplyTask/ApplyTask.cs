@@ -39,6 +39,10 @@ namespace BioA.UI
         List<string[]> lstDiluteInfos = new List<string[]>();
         //存储客户端发送信息给服务器的参数集合
         Dictionary<string, object[]> dic = new Dictionary<string, object[]>();
+        /// <summary>
+        /// 存储所有获取到的组合项目名和项目名
+        /// </summary>
+        private List<CombProjectInfo> lstCombProInfo = new List<CombProjectInfo>();
 
         frmBatchInput batchInput;
         PatientInfoFrm patientInfofrm;
@@ -66,6 +70,8 @@ namespace BioA.UI
             projectPage4 = new ProjectPage4();
             proCombPage1 = new ProCombPage1();
             proCombPage2 = new ProCombPage2();
+            proCombPage1.clickProCombNamePageEvent += HenderClickProCombNamePageEvent;
+            proCombPage2.clickProCombNamePage2Event += HenderClickProCombNamePageEvent;
             Console.WriteLine("ApplyTaskINit " + DateTime.Now.Ticks);
             xtraTabPage1.Controls.Add(projectPage1);
             xtraTabPage2.Controls.Add(projectPage2);
@@ -81,24 +87,13 @@ namespace BioA.UI
             combPosNum.Properties.Items.AddRange(RunConfigureUtility.SamplePosition);
             combSampleType.Properties.Items.AddRange(RunConfigureUtility.SampleTypes);
             combSampleContainer.Properties.Items.AddRange(RunConfigureUtility.SampleContainerList);
-            
+
             batchInput = new frmBatchInput();
             patientInfofrm = new PatientInfoFrm();
             combSampleType.SelectedIndex = 1;
             combSampleContainer.SelectedIndex = 0;
             Console.WriteLine("ApplyTaskInit End1" + DateTime.Now.Ticks);
             Console.WriteLine("ApplyTaskInit CONN beg " + DateTime.Now.Ticks);
-            // 获取最大样本编号
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryMaxSampleNum", null)));
-            //// 获取稀释比例值
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QuerySampleDiluteRatio", null)));
-            //// 获取项目名称
-            ////CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryProNameForApplyTask", combSampleType.SelectedItem.ToString())));
-            //// 获取组合项目名称
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryCombProjectNameAllInfo", null)));
-            //// 获取申请任务列表
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryApplyTaskLsvt", null)));
-
             //获取最大样本编号
             dic.Add("QueryMaxSampleNum", new object[] { "" });
             //获取所有结果单位
@@ -107,11 +102,13 @@ namespace BioA.UI
             dic.Add("QueryApplyTaskLsvt", new object[] { "" });
             //获取所有组合项目信息
             dic.Add("QueryCombProjectNameAllInfo", new object[] { "" });
+            //获取所有组合项目名和生化项目名
+            dic.Add("QueryProjectAndCombProName", null);
             ClientSendToServices(dic);
             //CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaApplyTask, dic);
 
             Console.WriteLine("ApplyTaskInit CONN end " + DateTime.Now.Ticks);
-            
+
             DataTable dt = new DataTable();
             dt.Columns.Add("样本编号");
             dt.Columns.Add("位置");
@@ -119,6 +116,29 @@ namespace BioA.UI
 
             this.lstvTask.DataSource = dt;
             Console.WriteLine("ApplyTaskInit CONN End " + DateTime.Now.Ticks);
+        }
+        /// <summary>
+        /// 处理组合项目名点击事件
+        /// </summary>
+        /// <param name="sender"></param>
+        private void HenderClickProCombNamePageEvent(string sender)
+        {
+            //存储项目名称
+            List<string> lstProNames = new List<string>();
+            foreach (CombProjectInfo combProInfo in lstCombProInfo)
+            {
+                if (combProInfo.CombProjectName == sender)
+                {
+                    lstProNames.Add(combProInfo.ProjectName);
+                }
+            }
+            if (lstProNames.Count > 0)
+            {
+                projectPage1.SelectedProjects = lstProNames;
+                projectPage2.SelectedProjects = lstProNames;
+                projectPage3.SelectedProjects = lstProNames;
+                projectPage4.SelectedProjects = lstProNames;
+            }
         }
 
         /// <summary>
@@ -134,7 +154,7 @@ namespace BioA.UI
             });
             applyTaskThread.IsBackground = true;
             applyTaskThread.Start();
-        } 
+        }
 
 
         public void DataTransfer_Event(string strMethod, object sender)
@@ -174,7 +194,7 @@ namespace BioA.UI
 
                     if (lstSampleInfo != null)
                     {
-                        foreach (SampleInfo s in lstSampleInfo) 
+                        foreach (SampleInfo s in lstSampleInfo)
                         {
                             string strState = string.Empty;
                             if (s.SampleState == 0)
@@ -190,7 +210,7 @@ namespace BioA.UI
                             lstPanel.Add(s.PanelNum);
                             lstPosition.Add(s.SamplePos);
                             lstSamNum.Add(s.SampleNum);
-                        }                    
+                        }
                     }
                     this.Invoke(new EventHandler(delegate
                         {
@@ -217,7 +237,7 @@ namespace BioA.UI
                                 combPosNum.SelectedItem = "1";
                             }
 
-    
+
                             txtSampleNum.Text = lstSamNum.Count > 0 ? (lstSamNum.Max() + 1).ToString() : (1).ToString();
                             intMaxSampleNum = System.Convert.ToInt32(txtSampleNum.Text) - 1;
                         }));
@@ -225,12 +245,15 @@ namespace BioA.UI
                 case "QuerySampleDiluteRatio":
                     lstDilutionRatio = (List<string>)XmlUtility.Deserialize(typeof(List<string>), sender as string);
                     break;
-                case "QueryProjectByCombProName":
-                    List<string> lstProjects = (List<string>)XmlUtility.Deserialize(typeof(List<string>), sender as string);
-                    projectPage1.SelectedProjects = lstProjects;
-                    projectPage2.SelectedProjects = lstProjects;
-                    projectPage3.SelectedProjects = lstProjects;
-                    projectPage4.SelectedProjects = lstProjects;
+                //case "QueryProjectByCombProName":
+                //    List<string> lstProjects = (List<string>)XmlUtility.Deserialize(typeof(List<string>), sender as string);
+                //    projectPage1.SelectedProjects = lstProjects;
+                //    projectPage2.SelectedProjects = lstProjects;
+                //    projectPage3.SelectedProjects = lstProjects;
+                //    projectPage4.SelectedProjects = lstProjects;
+                //    break;
+                case "QueryProjectAndCombProName":
+                    lstCombProInfo = (List<CombProjectInfo>)XmlUtility.Deserialize(typeof(List<CombProjectInfo>), sender as string);
                     break;
                 case "QueryTaskInfoBySampleNum":
                     List<TaskInfo> lstTaskInfos = XmlUtility.Deserialize(typeof(List<TaskInfo>), sender as string) as List<TaskInfo>;
@@ -249,7 +272,7 @@ namespace BioA.UI
                     projectPage2.SelectedProjects = lstProjects1;
                     projectPage3.SelectedProjects = lstProjects1;
                     projectPage4.SelectedProjects = lstProjects1;
-                    
+
                     break;
                 case "AddTask":
                     string strAddTaskInfo = sender as string;
@@ -305,7 +328,7 @@ namespace BioA.UI
         {
             if (grpProject.SelectedTabPageIndex == 0)
             {
-               
+
                 xtraTabPage1.Controls.Add(projectPage1);
             }
             else if (grpProject.SelectedTabPageIndex == 1)
@@ -357,7 +380,7 @@ namespace BioA.UI
             {
                 MessageBox.Show("请选中任务后，录入病人信息！");
             }
-            
+
         }
         /// <summary>
         /// 申请按钮点击事件
@@ -450,7 +473,7 @@ namespace BioA.UI
                 }
 
                 if (exist == false)
-                    lstTemporary.Add(new string[]{str,"常规体积", ""});
+                    lstTemporary.Add(new string[] { str, "常规体积", "" });
             }
 
 
@@ -472,7 +495,7 @@ namespace BioA.UI
                 {
                     e.Handled = true;
                 }
-            }  
+            }
         }
         /// <summary>
         /// 改变样本类型
@@ -481,18 +504,15 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void combSampleType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryProNameForApplyTask", combSampleType.SelectedItem.ToString())));
-            //CommunicationUI.ServiceClient.ClientSendMsgToServiceWon(ModuleInfo.WorkingAreaApplyTask, new Dictionary<string, object>() {{"QueryProNameForApplyTask", combSampleType.SelectedItem.ToString()} });
-            if (dic.Count == 5)
+            if (dic.Count == 6 || dic.Count == 1)
             {
                 dic.Clear();
                 dic.Add("QueryProNameForApplyTask", new object[] { combSampleType.SelectedItem.ToString() });
                 ClientSendToServices(dic);
-                //CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaApplyTask, new Dictionary<string, List<object>>() { { "QueryProNameForApplyTask", new List<object>() { combSampleType.SelectedItem.ToString() } } });
             }
             else
             {
-                dic.Add("QueryProNameForApplyTask", new object[] { combSampleType.SelectedItem.ToString()});
+                dic.Add("QueryProNameForApplyTask", new object[] { combSampleType.SelectedItem.ToString() });
             }
             lstDiluteInfos.Clear();
         }
@@ -530,7 +550,7 @@ namespace BioA.UI
             // 2.判断盘号+位置是否已被申请任务
             foreach (SampleInfo s in lstSampleInfo)
             {
-                if (s.PanelNum == System.Convert.ToInt32(combPanelNum.SelectedItem.ToString()) && 
+                if (s.PanelNum == System.Convert.ToInt32(combPanelNum.SelectedItem.ToString()) &&
                     s.SamplePos == System.Convert.ToInt32(combPosNum.SelectedItem.ToString()))
                 {
                     MessageBox.Show(string.Format("{0}样本盘中的{1}号位置已被占用，请重新选择！", combPanelNum.SelectedItem.ToString(), combPosNum.SelectedItem.ToString()));
@@ -621,6 +641,7 @@ namespace BioA.UI
             //    new CommunicationEntity("AddTask",
             //        XmlUtility.Serializer(typeof(SampleInfo), sampleInfo),
             //        XmlUtility.Serializer(typeof(List<TaskInfo>), lstTaskInfo))));
+            SimpleButCancel_Click(null, null);
             dic.Clear();
             dic.Add("AddTask", new object[] { XmlUtility.Serializer(typeof(SampleInfo), sampleInfo), XmlUtility.Serializer(typeof(List<TaskInfo>), lstTaskInfo) });
             ClientSendToServices(dic);
@@ -838,18 +859,14 @@ namespace BioA.UI
                 }
 
                 inputDictionary.Add(XmlUtility.Serializer(typeof(List<object>), new List<object>() { XmlUtility.Serializer(typeof(SampleInfo), sampleInfo), XmlUtility.Serializer(typeof(List<TaskInfo>), lstTaskInfo) }));
-                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity),
-                //    new CommunicationEntity("AddTaskForBatch",
-                //        XmlUtility.Serializer(typeof(SampleInfo), sampleInfo),
-                //        XmlUtility.Serializer(typeof(List<TaskInfo>), lstTaskInfo))));
             }
-            //CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaApplyTask, new Dictionary<string, List<object>>() {{"AddTaskForBatch",inputDictionary}});
             dic.Clear();
-            dic.Add("AddTaskForBatch",new object[]{inputDictionary});
-            
+            //添加批量录入的任务信息
+            dic.Add("AddTaskForBatch", new object[] { inputDictionary });
+
         }
         AnologSamplePanel anologSamplePanel;
-        private void btnSampleDishState_Click(object sender, EventArgs e)
+        private void BtnSampleDishState_Click(object sender, EventArgs e)
         {
             anologSamplePanel = new AnologSamplePanel(combPanelNum.Text);
             anologSamplePanel.ShowDialog();
@@ -859,22 +876,22 @@ namespace BioA.UI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void txtBoxDetectionNum_KeyPress(object sender, KeyPressEventArgs e)
+        private void TxtBoxDetectionNum_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
             if ((e.KeyChar >= '0' && e.KeyChar <= '9') || e.KeyChar == (char)8)
             {
                 e.Handled = false;
             }
-            
-            
+
+
         }
         /// <summary>
         /// 限制检测次数不能超过161
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void txtBoxDetectionNum_Leave(object sender, EventArgs e)
+        private void TxtBoxDetectionNum_Leave(object sender, EventArgs e)
         {
             if (txtBoxDetectionNum.Text != "")
             {
@@ -887,9 +904,43 @@ namespace BioA.UI
                 if (Convert.ToInt32(txtBoxDetectionNum.Text.Trim()) == 0)
                 {
                     txtBoxDetectionNum.Text = "1";
-                } 
+                }
             }
         }
+        /// <summary>
+        /// 取消
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SimpleButCancel_Click(object sender, EventArgs e)
+        {
+            //调用取消函数
+            ResetControlState(projectPage1.Controls);
+            ResetControlState(projectPage2.Controls);
+            ResetControlState(projectPage3.Controls);
+            ResetControlState(projectPage4.Controls);
+            ResetControlState(proCombPage1.Controls);
+            ResetControlState(proCombPage2.Controls);
+        }
+        //取消选中的项目
+        public void ResetControlState(ControlCollection controls)
+        {
+            foreach (Control control in controls)
+            {
+                if (control.GetType() == typeof(System.Windows.Forms.Button))
+                {
+                    if (control.Tag == "1")
+                    {
+                        control.Tag = "0";
+                        this.Invoke(new EventHandler(delegate
+                        {
+                            control.ForeColor = Color.Black;
+                            control.Enabled = true;
+                        }));
+                    }
+                }
 
+            }
+        }
     }
 }

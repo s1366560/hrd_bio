@@ -71,10 +71,12 @@
       insert into SampleTb (SampleNum, CreateTime, SampleState, SamContainer, SampleType, Barcode, PanelNum, SamplePos, IsOperateDilution, IsEmergency, IsPrinted, IsSend)
       values(#SampleNum#, #CreateTime#, #SampleState#, #SamContainer#, #SampleType#, #Barcode#, #PanelNum#, #SamplePos#, #IsOperateDilution#, #IsEmergency#, #IsPrinted#, #IsSend#)
     </statement>
-    <statement id="AddSampleResult" parameterClass="System.Collections.IDictionary">
+    
+    <!-- 保存任务时，就直接保存了样本结果，所有不在这保存了，任务执行成功后再保存<statement id="AddSampleResult" parameterClass="System.Collections.IDictionary">
       insert into SampleResultTb (SampleNum, SampleCreateTime, ProjectName, SampleType)
       values(#SampleNum#, #SampleCreateTime#, #ProjectName#, #SampleType#)
-    </statement>
+    </statement> -->
+    
     <statement id="AddTask" parameterClass="TaskInfo">
       insert into TaskTb (SampleNum, CreateDate, ProjectName, SampleType, SampleDilute, DilutedRatio, InspectTimes, SendTimes, FinishTimes, TaskState)
       values(#SampleNum#, #CreateDate#, #ProjectName#, #SampleType#, #SampleDilute#, #DilutedRatio#, #InspectTimes#, #SendTimes#, #FinishTimes#, #TaskState#)
@@ -147,8 +149,8 @@
       select SampleDilute from TaskTb where SampleNum=#SampleNum# and CreateDate=#SampleCreateTime# and ProjectName=#ProjectName# and SampleType=#SampleType#
     </statement>
     <statement id="UpdateCurrentNORResult" parameterClass="System.Collections.IDictionary">
-      update SampleResultTb set AbsValue=#AbsValue#, ConcResult=#ConcResult#
-      where SampleNum=#SampleNum# and SampleCreateTime=#SampleCreateTime# and ProjectName=#ProjectName# and SampleType=#SampleType#
+      update SampleResultTb set AbsValue=#AbsValue#, ConcResult=#ConcResult#, SampleCompletionTime=#SampleCompletionTime#, SampleCompletionStatus=#SampleCompletionStatus#
+      where TCNO=#TCNO# and SampleCreateTime=#SampleCreateTime#
     </statement>
     <statement id="UpdateNorTaskState" parameterClass="System.Collections.IDictionary">
       update TaskTb set TaskState='0' where ProjectName=#ProjectName# and SampleType=#SampleType# and InspectTimes>SendTimes

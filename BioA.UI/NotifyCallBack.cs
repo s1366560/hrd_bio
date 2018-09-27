@@ -69,6 +69,15 @@ namespace BioA.UI
         {
             switch (moduleInfo)
             {
+                case ModuleInfo.Login:
+                    if (LoginDataTransferEvent != null)
+                    {
+                        foreach (KeyValuePair<string, object> kvp in strMethodParam)
+                        {
+                            LoginDataTransferEvent(kvp.Key, kvp.Value);
+                        }
+                    }
+                    break;
                 case ModuleInfo.WorkingAreaApplyTask:
                     if (ApplyTaskDataTransferEvent != null)
                     {

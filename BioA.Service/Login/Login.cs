@@ -9,14 +9,19 @@ namespace BioA.Service
 {
     public class Login : DataTransmit
     {
-        public string UserLogin(string strMethodName, string[] strCommunicates)
+        public string UserLogin(string strMethodName, string userName, string password)
         {
-            return myBatis.UserLogin(strMethodName, strCommunicates);
+            return myBatis.UserLogin(strMethodName, userName, password);
         }
 
         public UserInfo QueryUserAuthority(string strMethodName, string UserName)
         {
             return myBatis.QueryUserAuthority(strMethodName, UserName);
+        }
+
+        public void ISaveMaintenanceLogInfo(string strDBMethodParam, MaintenanceLogInfo maintenanceLogInfo)
+        {
+            myBatis.SaveMaintenanceLogInfo(strDBMethodParam,maintenanceLogInfo);
         }
     }
 }

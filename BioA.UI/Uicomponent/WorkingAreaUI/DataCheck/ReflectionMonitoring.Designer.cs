@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReflectionMonitoring));
-            DevExpress.XtraCharts.XYDiagram xyDiagram1 = new DevExpress.XtraCharts.XYDiagram();
-            DevExpress.XtraCharts.Series series1 = new DevExpress.XtraCharts.Series();
-            DevExpress.XtraCharts.PointSeriesLabel pointSeriesLabel1 = new DevExpress.XtraCharts.PointSeriesLabel();
-            DevExpress.XtraCharts.LineSeriesView lineSeriesView1 = new DevExpress.XtraCharts.LineSeriesView();
-            DevExpress.XtraCharts.ChartTitle chartTitle1 = new DevExpress.XtraCharts.ChartTitle();
+            DevExpress.XtraCharts.XYDiagram xyDiagram4 = new DevExpress.XtraCharts.XYDiagram();
+            DevExpress.XtraCharts.Series series4 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.PointSeriesLabel pointSeriesLabel4 = new DevExpress.XtraCharts.PointSeriesLabel();
+            DevExpress.XtraCharts.LineSeriesView lineSeriesView4 = new DevExpress.XtraCharts.LineSeriesView();
+            DevExpress.XtraCharts.ChartTitle chartTitle4 = new DevExpress.XtraCharts.ChartTitle();
             this.txtProjectState = new DevExpress.XtraEditors.TextEdit();
             this.lblSampleStatus = new System.Windows.Forms.Label();
             this.lblSampleID = new System.Windows.Forms.Label();
@@ -46,15 +46,17 @@
             this.txtConcResult = new DevExpress.XtraEditors.TextEdit();
             this.label2 = new System.Windows.Forms.Label();
             this.chartReaction = new DevExpress.XtraCharts.ChartControl();
+            this.CUVNO = new System.Windows.Forms.Label();
+            this.labCUVNO = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.txtProjectState.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSampleNum.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSampleName.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtConcResult.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartReaction)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(series1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(pointSeriesLabel1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(series4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(pointSeriesLabel4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView4)).BeginInit();
             this.SuspendLayout();
             // 
             // txtProjectState
@@ -163,60 +165,79 @@
             // chartReaction
             // 
             this.chartReaction.DataBindings = null;
-            xyDiagram1.AxisX.MinorCount = 1;
-            xyDiagram1.AxisX.NumericScaleOptions.AutoGrid = false;
-            xyDiagram1.AxisX.Title.Text = "测光点";
-            xyDiagram1.AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
-            xyDiagram1.AxisX.VisibleInPanesSerializable = "-1";
-            xyDiagram1.AxisX.VisualRange.Auto = false;
-            xyDiagram1.AxisX.VisualRange.AutoSideMargins = false;
-            xyDiagram1.AxisX.VisualRange.MaxValueSerializable = "42.5";
-            xyDiagram1.AxisX.VisualRange.MinValueSerializable = "-1";
-            xyDiagram1.AxisX.VisualRange.SideMarginsValue = 0D;
-            xyDiagram1.AxisX.WholeRange.Auto = false;
-            xyDiagram1.AxisX.WholeRange.AutoSideMargins = false;
-            xyDiagram1.AxisX.WholeRange.MaxValueSerializable = "42.5";
-            xyDiagram1.AxisX.WholeRange.MinValueSerializable = "0";
-            xyDiagram1.AxisX.WholeRange.SideMarginsValue = 1D;
-            xyDiagram1.AxisY.MinorCount = 9;
-            xyDiagram1.AxisY.NumericScaleOptions.AutoGrid = false;
-            xyDiagram1.AxisY.NumericScaleOptions.GridSpacing = 0.1D;
-            xyDiagram1.AxisY.Title.Text = "吸光度";
-            xyDiagram1.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
-            xyDiagram1.AxisY.VisibleInPanesSerializable = "-1";
-            xyDiagram1.AxisY.VisualRange.Auto = false;
-            xyDiagram1.AxisY.VisualRange.AutoSideMargins = false;
-            xyDiagram1.AxisY.VisualRange.MaxValueSerializable = "0.636857142857143";
-            xyDiagram1.AxisY.VisualRange.MinValueSerializable = "-0.223142857142857";
-            xyDiagram1.AxisY.VisualRange.SideMarginsValue = 0D;
-            xyDiagram1.AxisY.WholeRange.Auto = false;
-            xyDiagram1.AxisY.WholeRange.AutoSideMargins = false;
-            xyDiagram1.AxisY.WholeRange.MaxValueSerializable = "4";
-            xyDiagram1.AxisY.WholeRange.MinValueSerializable = "-4";
-            xyDiagram1.AxisY.WholeRange.SideMarginsValue = 0.05D;
-            xyDiagram1.EnableAxisXScrolling = true;
-            xyDiagram1.EnableAxisXZooming = true;
-            xyDiagram1.EnableAxisYScrolling = true;
-            xyDiagram1.EnableAxisYZooming = true;
-            this.chartReaction.Diagram = xyDiagram1;
+            xyDiagram4.AxisX.MinorCount = 1;
+            xyDiagram4.AxisX.NumericScaleOptions.AutoGrid = false;
+            xyDiagram4.AxisX.Title.Text = "测光点";
+            xyDiagram4.AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+            xyDiagram4.AxisX.VisibleInPanesSerializable = "-1";
+            xyDiagram4.AxisX.VisualRange.Auto = false;
+            xyDiagram4.AxisX.VisualRange.AutoSideMargins = false;
+            xyDiagram4.AxisX.VisualRange.MaxValueSerializable = "42.5";
+            xyDiagram4.AxisX.VisualRange.MinValueSerializable = "-1";
+            xyDiagram4.AxisX.VisualRange.SideMarginsValue = 0D;
+            xyDiagram4.AxisX.WholeRange.Auto = false;
+            xyDiagram4.AxisX.WholeRange.AutoSideMargins = false;
+            xyDiagram4.AxisX.WholeRange.MaxValueSerializable = "42.5";
+            xyDiagram4.AxisX.WholeRange.MinValueSerializable = "0";
+            xyDiagram4.AxisX.WholeRange.SideMarginsValue = 1D;
+            xyDiagram4.AxisY.MinorCount = 9;
+            xyDiagram4.AxisY.NumericScaleOptions.AutoGrid = false;
+            xyDiagram4.AxisY.NumericScaleOptions.GridSpacing = 0.1D;
+            xyDiagram4.AxisY.Title.Text = "吸光度";
+            xyDiagram4.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+            xyDiagram4.AxisY.VisibleInPanesSerializable = "-1";
+            xyDiagram4.AxisY.VisualRange.Auto = false;
+            xyDiagram4.AxisY.VisualRange.AutoSideMargins = false;
+            xyDiagram4.AxisY.VisualRange.MaxValueSerializable = "0.636857142857143";
+            xyDiagram4.AxisY.VisualRange.MinValueSerializable = "-0.223142857142857";
+            xyDiagram4.AxisY.VisualRange.SideMarginsValue = 0D;
+            xyDiagram4.AxisY.WholeRange.Auto = false;
+            xyDiagram4.AxisY.WholeRange.AutoSideMargins = false;
+            xyDiagram4.AxisY.WholeRange.MaxValueSerializable = "4";
+            xyDiagram4.AxisY.WholeRange.MinValueSerializable = "-4";
+            xyDiagram4.AxisY.WholeRange.SideMarginsValue = 0.05D;
+            xyDiagram4.EnableAxisXScrolling = true;
+            xyDiagram4.EnableAxisXZooming = true;
+            xyDiagram4.EnableAxisYScrolling = true;
+            xyDiagram4.EnableAxisYZooming = true;
+            this.chartReaction.Diagram = xyDiagram4;
             this.chartReaction.Legend.Name = "Default Legend";
             this.chartReaction.Legend.Visibility = DevExpress.Utils.DefaultBoolean.False;
             this.chartReaction.Location = new System.Drawing.Point(44, 91);
             this.chartReaction.Name = "chartReaction";
-            pointSeriesLabel1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            series1.Label = pointSeriesLabel1;
-            series1.LegendName = "Default Legend";
-            lineSeriesView1.LineMarkerOptions.BorderColor = System.Drawing.Color.White;
-            lineSeriesView1.LineMarkerOptions.Color = System.Drawing.Color.White;
-            series1.View = lineSeriesView1;
+            pointSeriesLabel4.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series4.Label = pointSeriesLabel4;
+            series4.LegendName = "Default Legend";
+            lineSeriesView4.LineMarkerOptions.BorderColor = System.Drawing.Color.White;
+            lineSeriesView4.LineMarkerOptions.Color = System.Drawing.Color.White;
+            series4.View = lineSeriesView4;
             this.chartReaction.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
-        series1};
+        series4};
             this.chartReaction.Size = new System.Drawing.Size(906, 452);
             this.chartReaction.TabIndex = 41;
-            chartTitle1.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            chartTitle1.Text = "反应进程";
+            chartTitle4.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            chartTitle4.Text = "反应进程";
             this.chartReaction.Titles.AddRange(new DevExpress.XtraCharts.ChartTitle[] {
-            chartTitle1});
+            chartTitle4});
+            // 
+            // CUVNO
+            // 
+            this.CUVNO.AutoSize = true;
+            this.CUVNO.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CUVNO.Location = new System.Drawing.Point(423, 53);
+            this.CUVNO.Name = "CUVNO";
+            this.CUVNO.Size = new System.Drawing.Size(78, 17);
+            this.CUVNO.TabIndex = 48;
+            this.CUVNO.Text = "比色杯号：";
+            // 
+            // labCUVNO
+            // 
+            this.labCUVNO.AutoSize = true;
+            this.labCUVNO.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labCUVNO.Location = new System.Drawing.Point(492, 53);
+            this.labCUVNO.Name = "labCUVNO";
+            this.labCUVNO.Size = new System.Drawing.Size(0, 17);
+            this.labCUVNO.TabIndex = 49;
             // 
             // ReflectionMonitoring
             // 
@@ -224,6 +245,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1002, 606);
+            this.Controls.Add(this.labCUVNO);
+            this.Controls.Add(this.CUVNO);
             this.Controls.Add(this.txtConcResult);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtSampleName);
@@ -245,10 +268,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtSampleNum.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSampleName.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtConcResult.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(pointSeriesLabel1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(series1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(pointSeriesLabel4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(series4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartReaction)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -269,5 +292,7 @@
         private DevExpress.XtraEditors.TextEdit txtConcResult;
         private System.Windows.Forms.Label label2;
         private DevExpress.XtraCharts.ChartControl chartReaction;
+        private System.Windows.Forms.Label CUVNO;
+        private System.Windows.Forms.Label labCUVNO;
     }
 }

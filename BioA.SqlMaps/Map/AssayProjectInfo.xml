@@ -134,17 +134,17 @@
   </resultMaps>
   <parameterMaps>
     <parameterMap id="ProjectInfo" class="Hashtable">
-      <parameter property="proName"  column=""  />
-      <parameter property="proType"  column=""  />
+      <parameter property="proName" column="proName"/>
+      <parameter property="proType" column="proType"/>
       <parameter property="n" column="n" direction="Output"/>
     </parameterMap>
     <parameterMap id="UpdateAssayProInfo" class="Hashtable">
-      <parameter property="proModifyName" column="" />
-      <parameter property="proModifyType" column="" />
-      <parameter property="proFullName" column="" />
-      <parameter property="channelNum" column="" />
-      <parameter property="proOldName" column="" />
-      <parameter property="proOldType" column="" />
+      <parameter property="proModifyName" column="proModifyName" />
+      <parameter property="proModifyType" column="proModifyType" />
+      <parameter property="proFullName" column="proFullName" />
+      <parameter property="channelNum" column="channelNum" />
+      <parameter property="proOldName" column="proOldName" />
+      <parameter property="proOldType" column="proOldType" />
       <parameter property="n" column="n" direction="Output"/>
     </parameterMap>
   </parameterMaps>

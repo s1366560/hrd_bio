@@ -119,21 +119,27 @@ namespace BioA.Common
         }
 
         private string resultUnit;
-
+        /// <summary>
+        /// 结果单位
+        /// </summary>
         public string ResultUnit
         {
             get { return resultUnit; }
             set { resultUnit = value; }
         }
         private int mainWaveLength;
-
+        /// <summary>
+        /// 主波长
+        /// </summary>
         public int MainWaveLength
         {
             get { return mainWaveLength; }
             set { mainWaveLength = value; }
         }
         private int secWaveLength;
-
+        /// <summary>
+        /// 次波长
+        /// </summary>
         public int SecWaveLength
         {
             get { return secWaveLength; }

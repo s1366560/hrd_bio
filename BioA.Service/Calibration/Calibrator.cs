@@ -48,11 +48,7 @@ namespace BioA.Service
 
         public string AddCalibratorinfo(string strDBMethod, Calibratorinfo dataConfig, List<CalibratorProjectinfo> dataConfig1)
         {
-            string strInfo = string.Empty;
-
-            strInfo = myBatis.AddCalibratorinfo(strDBMethod, dataConfig, dataConfig1);
-            
-            return strInfo;
+            return myBatis.AddCalibratorinfo(strDBMethod, dataConfig, dataConfig1);
         }
 
         /// <summary>
@@ -61,14 +57,14 @@ namespace BioA.Service
         /// </summary>
         /// <param name="strDBMethod">访问数据库名</param>
         /// <param name="p2">参数</param>
-        public string DeleteCalibrationMaintain(string strDBMethod, string p2)
+        public string DeleteCalibrationMaintain(string strDBMethod, List<CalibratorProjectinfo> lstCalibProjectInfo)
         {
-            return myBatis.DeleteCalibrationMaintain(strDBMethod, p2);
+            return myBatis.DeleteCalibrationMaintain(strDBMethod, lstCalibProjectInfo);
         }
 
         public string EditCalibratorinfo(string strDBMethod, Calibratorinfo Editcalibratorinfo, string p2,List<CalibratorProjectinfo> lisEditCalibratorProjectinfo)
         {
-            myBatis.DeleteCalibratorProjectinfo("DeleteCalibratorProjectinfo", p2);
+            //myBatis.DeleteCalibratorProjectinfo("DeleteCalibratorProjectinfo", p2);
             return myBatis.EditCalibratorinfo(strDBMethod, Editcalibratorinfo, p2, lisEditCalibratorProjectinfo);
         }
 
@@ -89,9 +85,7 @@ namespace BioA.Service
 
         public List<SDTTableItem> QueryCalibrationCurveInfo(string strDBMethod, CalibrationCurveInfo calibrationCurveInfo)
         {
-            List<SDTTableItem> lstCalibrationResultinfo = new List<SDTTableItem>();
-
-            return lstCalibrationResultinfo = myBatis.QueryCalibrationCurveInfo(strDBMethod, calibrationCurveInfo);
+            return myBatis.QueryCalibrationCurveInfo(strDBMethod, calibrationCurveInfo);
         }
 
         /// <summary>
@@ -226,11 +220,7 @@ namespace BioA.Service
 
         public string AddSDTTableItem(string strDBMethod, SDTTableItem dataConfig)
         {
-            string strInfo = string.Empty;
-
-            strInfo = myBatis.AddSDTTableItem(strDBMethod, dataConfig);
-
-            return strInfo;
+            return myBatis.AddSDTTableItem(strDBMethod, dataConfig);
         }
 
         public List<CalibrationResultinfo> QueryCalibrationResultinfo(string strDBMethod, CalibrationResultinfo calibrationResultinfo)
@@ -255,9 +245,7 @@ namespace BioA.Service
         /// <returns></returns>
         public List<CalibrationResultinfo> QueryCalibrationResultInfoAndTimeCUVNO(string strDBMethod, CalibrationResultinfo calibrationResultinfoAndTimeCUVNO)
         {
-            List<CalibrationResultinfo> lstCalibrationReactionProcess = new List<CalibrationResultinfo>();
-
-            return lstCalibrationReactionProcess = myBatis.QueryCalibrationResultInfoAndTimeCUVNO(strDBMethod, calibrationResultinfoAndTimeCUVNO);
+            return myBatis.QueryCalibrationResultInfoAndTimeCUVNO(strDBMethod, calibrationResultinfoAndTimeCUVNO);
         }
        
 

@@ -18,6 +18,11 @@ namespace BioA.UI
 {
     public partial class ChemicalParameter : DevExpress.XtraEditors.XtraUserControl
     {
+        /// <summary>
+        /// 存储客户端发送信息给服务器
+        /// </summary>
+        private Dictionary<string, object[]> chemicalParamDic = new Dictionary<string, object[]>();
+
         ProjectParameter projectParameter;
         RangeParameter rangeParameter;
         CalibrationParameter calibrationParameter;
@@ -51,7 +56,6 @@ namespace BioA.UI
         /// 保存所有生化项目信息
         /// </summary>
         List<AssayProjectInfo> lstAssayProInfos = new List<AssayProjectInfo>();
-        CommunicationEntity communicationEntity = new CommunicationEntity();
         /// <summary>
         /// 保存所有生化项目参数信息
         /// </summary>
@@ -76,33 +80,16 @@ namespace BioA.UI
                     break;
                 case "AssayProjectAdd":
                     string[] str = (string[])XmlUtility.Deserialize(typeof(string[]), sender as string);
-                    if (str[4] == "项目创建成功！")
-                    {
-                        AssayProjectInfo assyInfo = new AssayProjectInfo();
-                        assyInfo.ProjectName = str[0];
-                        assyInfo.SampleType = str[1];
-                        assyInfo.ProFullName = str[2];
-                        assyInfo.ChannelNum = str[3];
-                        lstAssayProInfos.Add(assyInfo);
-                        projectParameter.LstAssayProInfos = lstAssayProInfos;
-                    }
-                    else if (str[4] == "项目创建失败，请联系管理员！")
-                    {
-                        projectParameter.LstAssayProInfos = lstAssayProInfos;
-                    }
-                    else if (str[4] == "该项目已存在，请重新录入。")
-                    {
-                        projectParameter.LstAssayProInfos = lstAssayProInfos;
-                    } 
-                    MessageBox.Show(str[4]);
-                    //communicationEntity.StrmethodName = "QueryAssayProAllInfo";
-                    //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SettingsChemicalParameter, XmlUtility.Serializer(typeof(CommunicationEntity), communicationEntity));
+                    projectParameter.ItemsIsCreateSuccess = str;
                     break;
                 case "AssayProjectEdit":
+                    projectParameter.EnditOrDeleteProInfoHandle = (int)sender;
                     if ((int)sender == 0)
                     {
-                        communicationEntity.StrmethodName = "QueryAssayProAllInfo";
-                        CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SettingsChemicalParameter, XmlUtility.Serializer(typeof(CommunicationEntity), communicationEntity));
+                        chemicalParamDic.Clear();
+                        chemicalParamDic.Add("QueryAssayProAllInfo", new object[]{ ""});
+                        AssayProInfo_Event(chemicalParamDic);
+                        MessageBoxDraw.ShowMsg("修改成功！", MsgType.OK);
                     }
                     else
                     {
@@ -113,14 +100,19 @@ namespace BioA.UI
                 case "AssayProjectDelete":
                     if ((int)sender == 0)
                     {
-                        communicationEntity.StrmethodName = "QueryAssayProAllInfo";
-                        CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SettingsChemicalParameter, XmlUtility.Serializer(typeof(CommunicationEntity), communicationEntity));
+                        chemicalParamDic.Clear();
+                        chemicalParamDic.Add("QueryAssayProAllInfo", new object[] { "" });
+                        AssayProInfo_Event(chemicalParamDic);
+                        MessageBoxDraw.ShowMsg("删除成功！", MsgType.OK);
                     }
                     else
                     {
                         MessageBoxDraw.ShowMsg("请检查校准品、质控品、计算项目和组合项目是否包含被删除的项目，如果存在，不能删除！", MsgType.Warning);
                         return;
                     }
+                    break;
+                case "UpdateCalibParamByProNameAndType":
+                    calibrationParameter.ProcessSuccessOrFailureInfo((int)sender);
                     break;
                 case "QueryAssayProjectParamInfoAll":
                     assProParamInfo = (List<AssayProjectParamInfo>)XmlUtility.Deserialize(typeof(List<AssayProjectParamInfo>), sender as string);

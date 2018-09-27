@@ -37,14 +37,15 @@ namespace BioA.UI
                     lblSampleArmDebug.Text = sub.ComponetList[0].Name;
                     btnInitializeSMD.Text = sub.ComponetList[0].CommandList[0].FullName;
                     btnWaterChannelTCOR.Text = sub.ComponetList[0].CommandList[1].FullName;
-                    btnWaterChannelTCIR.Text = sub.ComponetList[0].CommandList[2].FullName;
-                    btnWaterChannelTFC.Text = sub.ComponetList[0].CommandList[3].FullName;
-                    btnWaterChannelTDC.Text = sub.ComponetList[0].CommandList[4].FullName;
-                    btnDilutionCuvetteTC.Text = sub.ComponetList[0].CommandList[5].FullName;
-                    btnSamplingPlaceTC.Text = sub.ComponetList[0].CommandList[6].FullName;
-                    btnCuvetteTWC.Text = sub.ComponetList[0].CommandList[7].FullName;
-                    btnToBottom.Text = sub.ComponetList[0].CommandList[8].FullName;
-                    btnToTop.Text = sub.ComponetList[0].CommandList[9].FullName;
+                    btnWaterChannelTCMR.Text = sub.ComponetList[0].CommandList[2].FullName;
+                    btnWaterChannelTCIR.Text = sub.ComponetList[0].CommandList[3].FullName;
+                    btnWaterChannelTFC.Text = sub.ComponetList[0].CommandList[4].FullName;
+                    btnWaterChannelTDC.Text = sub.ComponetList[0].CommandList[5].FullName;
+                    btnDilutionCuvetteTC.Text = sub.ComponetList[0].CommandList[6].FullName;
+                    btnSamplingPlaceTC.Text = sub.ComponetList[0].CommandList[7].FullName;
+                    btnCuvetteTWC.Text = sub.ComponetList[0].CommandList[8].FullName;
+                    btnToBottom.Text = sub.ComponetList[0].CommandList[9].FullName;
+                    btnToTop.Text = sub.ComponetList[0].CommandList[10].FullName;
 
                     lblSampleAM.Text = sub.ComponetList[1].Name;
                     btnInitializeSAM.Text = sub.ComponetList[1].CommandList[0].FullName;
@@ -121,6 +122,9 @@ namespace BioA.UI
                         break;
                     case "btnWaterChannelTCOR":
                         strSender = ConfigureInfo.ComponetList.Find(componet => componet.Name == lblSampleArmDebug.Text).CommandList.Find(command => command.FullName == btnWaterChannelTCOR.Text).Name;
+                        break;
+                    case "btnWaterChannelTCMR":
+                        strSender = ConfigureInfo.ComponetList.Find(componet => componet.Name == lblSampleArmDebug.Text).CommandList.Find(command => command.FullName == btnWaterChannelTCMR.Text).Name;
                         break;
                     case "btnWaterChannelTCIR":
                         strSender = ConfigureInfo.ComponetList.Find(componet => componet.Name == lblSampleArmDebug.Text).CommandList.Find(command => command.FullName == btnWaterChannelTCIR.Text).Name;
