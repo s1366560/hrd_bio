@@ -66,7 +66,7 @@ namespace BioA.PLCController.Interface
             if (p > 0)
             {
                 ReagentSettingsInfo reaSettingInfo = myBatis.GetReagentSettingsInfoByPos(d, p);
-                if (reaSettingInfo != null && v > 0 && v > v2)
+                if (reaSettingInfo != null && v > 0 && v2 ==0)
                 {
                     myBatis.UpdateNorTaskState(reaSettingInfo.ProjectName, reaSettingInfo.ReagentType);
                     myBatis.UpdateQCTaskState(reaSettingInfo.ProjectName, reaSettingInfo.ReagentType);

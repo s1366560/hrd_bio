@@ -41,14 +41,31 @@ namespace BioA.Common
         }
 
         /// <summary>
-        /// 单位（范围参数）
+        /// 单位
         /// </summary>
         public string UnitAndRange
         {
             get { return unitAndRange; }
             set { unitAndRange = value; }
         }
-        
+        /// <summary>
+        /// 中文名称
+        /// </summary>
+        public string ChineseName
+        {
+            get { return chineseName; }
+            set { chineseName = value; }
+        }
+
+        /// <summary>
+        /// 年龄 范围参数
+        /// </summary>
+        public string RangeParameter
+        {
+            get { return rangeParameter; }
+            set { rangeParameter = value; }
+        }
+
         /// <summary>
         /// 样本状态
         /// </summary>
@@ -88,7 +105,9 @@ namespace BioA.Common
         private int iD;
         private int sampleNum;
         private int sampleCompletionStatus;
+        private string chineseName;
         private string unitAndRange;
+        private string rangeParameter;
         //private DateTime startTime;
         private bool isResurvey;
         private bool confirm;

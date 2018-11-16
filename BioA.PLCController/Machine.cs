@@ -994,6 +994,8 @@ namespace BioA.PLCController
                 AnalyzeDataSignal.Set();
             }
         }
+        //任务次数
+        private int _TasksNumber = 0; 
 
         long TaskSumCount = 0;
 
@@ -1158,6 +1160,7 @@ namespace BioA.PLCController
                 case 0x1F:
                     this.StopLoadTask();
                     this.MachineState.Fired = AnalyzeEvent.MACHINE_WILL_FINIFSHSCHEDULE;
+                    this._TasksNumber = 0;
                     this.MachineState.State = "该批次任务即将完成"; 
                     break;
                 case 0x26://任务测试结束
@@ -1292,7 +1295,7 @@ namespace BioA.PLCController
                     break;
                 case 0x10://请求生化任务或者ISE任务
                     Console.WriteLine(DateTime.Now.ToString("HH:mm:ss.fff")+" 0x10 ask for task!");
-                    this.RequestWorkCount += 1;
+                    this._TasksNumber += 1;
                     if (this.MachineState.Command!=null && this.MachineState.Command.Name == "AbortSchedule")//发送紧急停止
                     {
                         StopSchedule();
@@ -1353,7 +1356,13 @@ namespace BioA.PLCController
                                 {
                                     switch (this.MachineState.Command.Name)
                                     {
-                                        case "StartSchedule": this.MachineState.State = "等待测试任务..."; break;
+                                        case "StartSchedule": this.MachineState.State = "等待测试任务...";
+                                            this._TasksNumber++;
+                                            if (this._TasksNumber == 1)
+                                                this.MachineState.Fired = AnalyzeEvent.TASK_STATUS_DETECTION;
+                                            else if (this._TasksNumber == 2)
+                                                this.MachineState.Fired = null;
+                                            break;
                                         case "WashByDetergent": this.MachineState.State = "系统清洗即将完成"; break;
                                     }
                                 }
@@ -1660,7 +1669,7 @@ namespace BioA.PLCController
                             this.MachineState.Command.State = 2;
                             this.MachineNumber = this.MachineState.StateValue;//设备SN号
                             this.MachineState.State = "完成读取激活码.";
-                            this.Sending("CheckWashingLiquid");
+                            //this.Sending("CheckWashingLiquid");
                             break;
                         case 0x33:
                             // 接收3
@@ -1671,7 +1680,7 @@ namespace BioA.PLCController
                             this.MachineState.Command.State = 2;
                             this.MachineNumber = this.MachineState.StateValue;//设备SN号
                             this.MachineState.State = "完成读取SN码.";
-                            this.Sending("ReadActivityCode");
+                            //this.Sending("ReadActivityCode");
                             break;
                         case 0x35:
                             //接收2
@@ -1682,7 +1691,7 @@ namespace BioA.PLCController
                                 this.MachineState.Fired = AnalyzeEvent.WORKSTATION_MATCHING;
                                 this.MachineState.Command.State = 2;
                                 this.MachineState.State = "系统校验通过.";
-                                this.Sending("ReadSN");
+                                //this.Sending("ReadSN");
                             }
                             else
                             {
@@ -1700,7 +1709,7 @@ namespace BioA.PLCController
                             this.MachineState.Command.State = 2;
                             this.MachineState.State = "获取硬件信息.";
                             this.MachineState.Fired = null;//消息驱动置空
-                            this.Sending("ReadLicense");
+                            //this.Sending("ReadLicense");
                             break;
                         //case 0x3c:
                         //    string str3c = ParseDictionary[0x096].Parse(data);
@@ -1786,6 +1795,7 @@ namespace BioA.PLCController
             }
         }
         #endregion
+
 
         private bool IsWaterExchangeEnable(int state1, int state2)
         {

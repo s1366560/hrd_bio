@@ -30,6 +30,16 @@
         </isNotEmpty>
       </dynamic>
     </select>
+    <!-- 根据传入的条件获取获取样本信息和病人信息 -->
+    <select id="GetSamplePatientInfo" parameterClass="System.Collections.IDictionary" resultClass="SampleInfoForResult">
+      select t1.SampleType, t1.CreateTime, t1.IsOperateDilution, t1.SampleState, t1.IsAudit, t1.IsPrinted, t2.* from
+        SampleTb t1 left join PatientInfoTb t2 on t1.SampleNum = t2.SampleNum and t1.CreateTime = t2.InputTime where t1.CreateTime=#CreateTime# and t1.SampleNum=#SampleNum#
+    </select>
+    <!-- 根据传入的条件获取样本结果信息 -->
+    <select id="GetSampleResultInfo" parameterClass="System.Collections.IDictionary" resultClass="SampleResultInfo">
+      select * from SampleResultTb where SampleNum=#SampleNum# and SampleCreateTime = #CreateTime#
+    </select>
+    
     <statement id="QueryProjectResultBySampleNum" parameterClass="System.Collections.IDictionary" resultClass="SampleResultInfo">
       <!--select * from SampleResultTb t1 left join TaskTb t2 on t1.SampleNum=t2.SampleNum and t1.SampleCreateTime=t2.CreateDate  
         and t1.ProjectName=t2.ProjectName where t1.SampleNum=#SampleNum# and t1.SampleCreateTime between #StartDateTime# and #EndDateTime#-->

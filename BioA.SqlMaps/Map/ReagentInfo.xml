@@ -96,7 +96,7 @@
       </dynamic>
     </statement>
     <!-- 根据项目名称获取对应的试剂1 or 2状态信息 -->
-    <statement id="GetReagentStateInfo" parameterClass="string" ResultClass="ReagentStateInfo">
+    <statement id="GetReagentStateInfo" parameterClass="string" ResultClass="ReagentStateInfoR1R2">
       select * from ReagentStateInfoR1R2Tb where ProjectName=#value#
     </statement>
     <!-- 获取所有试剂1 OR 2状态信息 -->

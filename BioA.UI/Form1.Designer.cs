@@ -71,7 +71,6 @@ namespace BioA.UI
             this.barButtonItem11 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem12 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem13 = new DevExpress.XtraBars.BarButtonItem();
-            this.barButtonItem14 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem15 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem16 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem17 = new DevExpress.XtraBars.BarButtonItem();
@@ -84,7 +83,6 @@ namespace BioA.UI
             this.ribbonPageGroup5 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup6 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup8 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.ribbonPageGroup9 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup10 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup11 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup12 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -171,13 +169,12 @@ namespace BioA.UI
             this.barButtonItem11,
             this.barButtonItem12,
             this.barButtonItem13,
-            this.barButtonItem14,
             this.barButtonItem15,
             this.barButtonItem16,
             this.barButtonItem17,
             this.barButtonItem18});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 34;
+            this.ribbonControl1.MaxItemId = 1;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
@@ -379,16 +376,6 @@ namespace BioA.UI
             this.barButtonItem13.Name = "barButtonItem13";
             this.barButtonItem13.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem13_ItemClick);
             // 
-            // barButtonItem14
-            // 
-            this.barButtonItem14.ActAsDropDown = true;
-            this.barButtonItem14.AllowDrawArrow = false;
-            this.barButtonItem14.Caption = "暂停操作";
-            this.barButtonItem14.Id = 30;
-            this.barButtonItem14.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem14.LargeGlyph")));
-            this.barButtonItem14.Name = "barButtonItem14";
-            this.barButtonItem14.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem14_ItemClick);
-            // 
             // barButtonItem15
             // 
             this.barButtonItem15.ActAsDropDown = true;
@@ -442,12 +429,10 @@ namespace BioA.UI
             this.ribbonPageGroup5,
             this.ribbonPageGroup6,
             this.ribbonPageGroup8,
-            this.ribbonPageGroup9,
             this.ribbonPageGroup10,
             this.ribbonPageGroup11,
             this.ribbonPageGroup12});
             this.ribbonPage1.Image = ((System.Drawing.Image)(resources.GetObject("ribbonPage1.Image")));
-            this.ribbonPage1.KeyTip = "H";
             this.ribbonPage1.Name = "ribbonPage1";
             this.ribbonPage1.Text = "HRD800";
             // 
@@ -493,12 +478,6 @@ namespace BioA.UI
             this.ribbonPageGroup8.Name = "ribbonPageGroup8";
             this.ribbonPageGroup8.Text = "                               ";
             // 
-            // ribbonPageGroup9
-            // 
-            this.ribbonPageGroup9.ItemLinks.Add(this.barButtonItem14);
-            this.ribbonPageGroup9.Name = "ribbonPageGroup9";
-            this.ribbonPageGroup9.Text = "                              ";
-            // 
             // ribbonPageGroup10
             // 
             this.ribbonPageGroup10.ItemLinks.Add(this.barButtonItem15);
@@ -535,12 +514,11 @@ namespace BioA.UI
             new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Text),
             new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.ContextButtons),
             new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl),
-            //new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image, DevExpress.XtraBars.Navigation.HeaderElementAlignment.Right)
             new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image)});
             this.ReagentStateElement4.Height = 50;
             this.ReagentStateElement4.Name = "ReagentStateElement4";
             this.ReagentStateElement4.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.ReagentStateElement4.Text = "             试剂状态   ";
+            this.ReagentStateElement4.Text = "             试剂状态       ";
             this.ReagentStateElement4.Click += new System.EventHandler(this.accordionControlElement4_Click);
             // 
             // ReagentSettingElement5
@@ -553,7 +531,7 @@ namespace BioA.UI
             this.ReagentSettingElement5.Height = 50;
             this.ReagentSettingElement5.Name = "ReagentSettingElement5";
             this.ReagentSettingElement5.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.ReagentSettingElement5.Text = "             试剂设置   ";
+            this.ReagentSettingElement5.Text = "             试剂设置       ";
             this.ReagentSettingElement5.Click += new System.EventHandler(this.accordionControlElement5_Click);
             // 
             // CalibrationStateElement6
@@ -566,7 +544,7 @@ namespace BioA.UI
             this.CalibrationStateElement6.Height = 50;
             this.CalibrationStateElement6.Name = "CalibrationStateElement6";
             this.CalibrationStateElement6.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.CalibrationStateElement6.Text = "             校准状态   ";
+            this.CalibrationStateElement6.Text = "             校准状态       ";
             this.CalibrationStateElement6.Click += new System.EventHandler(this.accordionControlElement7_Click);
             // 
             // CalibrationMaintainElement7
@@ -579,7 +557,7 @@ namespace BioA.UI
             this.CalibrationMaintainElement7.Height = 50;
             this.CalibrationMaintainElement7.Name = "CalibrationMaintainElement7";
             this.CalibrationMaintainElement7.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.CalibrationMaintainElement7.Text = "             校准品维护   ";
+            this.CalibrationMaintainElement7.Text = "             校准品维护     ";
             this.CalibrationMaintainElement7.Click += new System.EventHandler(this.accordionControlElement6_Click);
             // 
             // QCStateElement8
@@ -592,7 +570,7 @@ namespace BioA.UI
             this.QCStateElement8.Height = 50;
             this.QCStateElement8.Name = "QCStateElement8";
             this.QCStateElement8.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.QCStateElement8.Text = "             质控状态   ";
+            this.QCStateElement8.Text = "             质控状态       ";
             this.QCStateElement8.Click += new System.EventHandler(this.accordionControlElement8_Click);
             // 
             // QCMaintainElement9
@@ -605,7 +583,7 @@ namespace BioA.UI
             this.QCMaintainElement9.Height = 50;
             this.QCMaintainElement9.Name = "QCMaintainElement9";
             this.QCMaintainElement9.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.QCMaintainElement9.Text = "             质控品维护   ";
+            this.QCMaintainElement9.Text = "             质控品维护     ";
             this.QCMaintainElement9.Click += new System.EventHandler(this.accordionControlElement9_Click);
             // 
             // ChemicalParameterElement10
@@ -618,7 +596,7 @@ namespace BioA.UI
             this.ChemicalParameterElement10.Height = 50;
             this.ChemicalParameterElement10.Name = "ChemicalParameterElement10";
             this.ChemicalParameterElement10.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.ChemicalParameterElement10.Text = "             化学参数   ";
+            this.ChemicalParameterElement10.Text = "             化学参数       ";
             this.ChemicalParameterElement10.Click += new System.EventHandler(this.accordionControlElement10_Click);
             // 
             // CombProjectElement11
@@ -631,7 +609,7 @@ namespace BioA.UI
             this.CombProjectElement11.Height = 50;
             this.CombProjectElement11.Name = "CombProjectElement11";
             this.CombProjectElement11.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.CombProjectElement11.Text = "             组合项目   ";
+            this.CombProjectElement11.Text = "             组合项目       ";
             this.CombProjectElement11.Click += new System.EventHandler(this.accordionControlElement11_Click);
             // 
             // CalcProjectElement12
@@ -644,7 +622,7 @@ namespace BioA.UI
             this.CalcProjectElement12.Height = 50;
             this.CalcProjectElement12.Name = "CalcProjectElement12";
             this.CalcProjectElement12.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.CalcProjectElement12.Text = "             计算项目   ";
+            this.CalcProjectElement12.Text = "             计算项目       ";
             this.CalcProjectElement12.Click += new System.EventHandler(this.accordionControlElement12_Click);
             // 
             // EnvironmentElement13
@@ -657,7 +635,7 @@ namespace BioA.UI
             this.EnvironmentElement13.Height = 50;
             this.EnvironmentElement13.Name = "EnvironmentElement13";
             this.EnvironmentElement13.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.EnvironmentElement13.Text = "             环境参数   ";
+            this.EnvironmentElement13.Text = "             环境参数       ";
             this.EnvironmentElement13.Click += new System.EventHandler(this.accordionControlElement13_Click);
             // 
             // CrossPollutionElement14
@@ -670,7 +648,7 @@ namespace BioA.UI
             this.CrossPollutionElement14.Height = 50;
             this.CrossPollutionElement14.Name = "CrossPollutionElement14";
             this.CrossPollutionElement14.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.CrossPollutionElement14.Text = "             交叉污染   ";
+            this.CrossPollutionElement14.Text = "             交叉污染       ";
             this.CrossPollutionElement14.Click += new System.EventHandler(this.accordionControlElement14_Click);
             // 
             // DataConfigElement15
@@ -683,7 +661,7 @@ namespace BioA.UI
             this.DataConfigElement15.Height = 50;
             this.DataConfigElement15.Name = "DataConfigElement15";
             this.DataConfigElement15.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.DataConfigElement15.Text = "             数据配置   ";
+            this.DataConfigElement15.Text = "             数据配置       ";
             this.DataConfigElement15.Click += new System.EventHandler(this.accordionControlElement15_Click);
             // 
             // LISCommunicateElement16
@@ -696,7 +674,7 @@ namespace BioA.UI
             this.LISCommunicateElement16.Height = 50;
             this.LISCommunicateElement16.Name = "LISCommunicateElement16";
             this.LISCommunicateElement16.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.LISCommunicateElement16.Text = "             LIS通讯   ";
+            this.LISCommunicateElement16.Text = "             LIS通讯         ";
             this.LISCommunicateElement16.Click += new System.EventHandler(this.accordionControlElement16_Click);
             // 
             // MaintenanceElement17
@@ -709,7 +687,7 @@ namespace BioA.UI
             this.MaintenanceElement17.Height = 50;
             this.MaintenanceElement17.Name = "MaintenanceElement17";
             this.MaintenanceElement17.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.MaintenanceElement17.Text = "             常规保养   ";
+            this.MaintenanceElement17.Text = "             常规保养       ";
             this.MaintenanceElement17.Click += new System.EventHandler(this.accordionControlElement17_Click);
             // 
             // EquipmentManageElement18
@@ -722,7 +700,7 @@ namespace BioA.UI
             this.EquipmentManageElement18.Height = 50;
             this.EquipmentManageElement18.Name = "EquipmentManageElement18";
             this.EquipmentManageElement18.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.EquipmentManageElement18.Text = "             设备调试   ";
+            this.EquipmentManageElement18.Text = "             设备调试       ";
             this.EquipmentManageElement18.Click += new System.EventHandler(this.accordionControlElement18_Click);
             // 
             // UserManagementElement19
@@ -735,7 +713,7 @@ namespace BioA.UI
             this.UserManagementElement19.Height = 50;
             this.UserManagementElement19.Name = "UserManagementElement19";
             this.UserManagementElement19.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.UserManagementElement19.Text = "             用户管理   ";
+            this.UserManagementElement19.Text = "             用户管理       ";
             this.UserManagementElement19.Click += new System.EventHandler(this.accordionControlElement19_Click);
             // 
             // DepartmentManageElement20
@@ -748,7 +726,7 @@ namespace BioA.UI
             this.DepartmentManageElement20.Height = 50;
             this.DepartmentManageElement20.Name = "DepartmentManageElement20";
             this.DepartmentManageElement20.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.DepartmentManageElement20.Text = "             科室管理   ";
+            this.DepartmentManageElement20.Text = "             科室管理       ";
             this.DepartmentManageElement20.Click += new System.EventHandler(this.accordionControlElement20_Click);
             // 
             // ConfigureElement21
@@ -761,7 +739,7 @@ namespace BioA.UI
             this.ConfigureElement21.Height = 50;
             this.ConfigureElement21.Name = "ConfigureElement21";
             this.ConfigureElement21.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.ConfigureElement21.Text = "             配置   ";
+            this.ConfigureElement21.Text = "             配    置       ";
             this.ConfigureElement21.Click += new System.EventHandler(this.accordionControlElement21_Click);
             // 
             // LogCheckElement22
@@ -774,7 +752,7 @@ namespace BioA.UI
             this.LogCheckElement22.Height = 50;
             this.LogCheckElement22.Name = "LogCheckElement22";
             this.LogCheckElement22.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.LogCheckElement22.Text = "             日志查看   ";
+            this.LogCheckElement22.Text = "             日志查看       ";
             this.LogCheckElement22.Click += new System.EventHandler(this.accordionControlElement22_Click);
             // 
             // VersionInfomationElement23
@@ -787,35 +765,35 @@ namespace BioA.UI
             this.VersionInfomationElement23.Height = 50;
             this.VersionInfomationElement23.Name = "VersionInfomationElement23";
             this.VersionInfomationElement23.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.VersionInfomationElement23.Text = "             版本信息   ";
+            this.VersionInfomationElement23.Text = "             版本信息       ";
             this.VersionInfomationElement23.Click += new System.EventHandler(this.accordionControlElement23_Click);
             // 
             // QCGraphicElement24
             // 
+            this.QCGraphicElement24.Expanded = true;
             this.QCGraphicElement24.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
             new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Text),
             new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image),
             new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl),
             new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.ContextButtons)});
-            this.QCGraphicElement24.Expanded = true;
             this.QCGraphicElement24.Height = 50;
             this.QCGraphicElement24.Name = "QCGraphicElement24";
             this.QCGraphicElement24.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.QCGraphicElement24.Text = "             质控图   ";
+            this.QCGraphicElement24.Text = "             质 控 图        ";
             this.QCGraphicElement24.Click += new System.EventHandler(this.accordionControlElement24_Click);
             // 
             // QCTaskElement25
-            //
+            // 
+            this.QCTaskElement25.Expanded = true;
             this.QCTaskElement25.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
             new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Text),
             new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image),
             new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl),
             new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.ContextButtons)});
-            this.QCTaskElement25.Expanded = true;
             this.QCTaskElement25.Height = 50;
             this.QCTaskElement25.Name = "QCTaskElement25";
             this.QCTaskElement25.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.QCTaskElement25.Text = "             质控任务   ";
+            this.QCTaskElement25.Text = "             质控任务       ";
             this.QCTaskElement25.Click += new System.EventHandler(this.accordionControlElement25_Click);
             // 
             // CalibTaskElement26
@@ -828,7 +806,7 @@ namespace BioA.UI
             this.CalibTaskElement26.Height = 50;
             this.CalibTaskElement26.Name = "CalibTaskElement26";
             this.CalibTaskElement26.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.CalibTaskElement26.Text = "             校准任务   ";
+            this.CalibTaskElement26.Text = "             校准任务       ";
             this.CalibTaskElement26.Click += new System.EventHandler(this.accordionControlElement26_Click);
             // 
             // WorkingAreaApplyTaskElement1
@@ -841,7 +819,7 @@ namespace BioA.UI
             this.WorkingAreaApplyTaskElement1.Height = 50;
             this.WorkingAreaApplyTaskElement1.Name = "WorkingAreaApplyTaskElement1";
             this.WorkingAreaApplyTaskElement1.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.WorkingAreaApplyTaskElement1.Text = "             申请审核   ";
+            this.WorkingAreaApplyTaskElement1.Text = "             申请审核       ";
             this.WorkingAreaApplyTaskElement1.Click += new System.EventHandler(this.accordionControlElement1_Click);
             // 
             // WorkingAreaDataCheckElement2
@@ -854,7 +832,7 @@ namespace BioA.UI
             this.WorkingAreaDataCheckElement2.Height = 50;
             this.WorkingAreaDataCheckElement2.Name = "WorkingAreaDataCheckElement2";
             this.WorkingAreaDataCheckElement2.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.WorkingAreaDataCheckElement2.Text = "             数据审核   ";
+            this.WorkingAreaDataCheckElement2.Text = "             数据审核       ";
             this.WorkingAreaDataCheckElement2.Click += new System.EventHandler(this.accordionControlElement2_Click);
             // 
             // ribbonPageGroup7
@@ -1059,8 +1037,12 @@ namespace BioA.UI
             this.Controls.Add(this.accordionControl1);
             this.Controls.Add(this.txtInfoPrompt);
             this.Controls.Add(this.ribbonControl1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form1";
             this.Ribbon = this.ribbonControl1;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "全自动生化分析仪操作平台";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -1152,9 +1134,7 @@ namespace BioA.UI
         private DevExpress.XtraBars.BarButtonItem barButtonItem12;
         private DevExpress.XtraEditors.MemoEdit txtInfoPrompt;
         private DevExpress.XtraBars.BarButtonItem barButtonItem13;
-        private DevExpress.XtraBars.BarButtonItem barButtonItem14;
         private DevExpress.XtraBars.BarButtonItem barButtonItem15;
-        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup9;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup10;
        // private DevExpress.XtraBars.Navigation.NavigationFrame navigationFrame1;
        // private DevExpress.XtraBars.Navigation.NavigationPage navigationPage1;

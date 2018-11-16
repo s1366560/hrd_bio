@@ -16,9 +16,9 @@ namespace BioA.UI
     public partial class ApplyQCTask : UserControl
     {
         // 项目页
-        QCProjectPage1 projectPage1;
-        QCProjectPage2 projectPage2;
-        QCProjectPage3 projectPage3;
+        private QCProjectPage1 projectPage1 = new QCProjectPage1();
+        private QCProjectPage2 projectPage2 = new QCProjectPage2();
+        private QCProjectPage3 projectPage3 = new QCProjectPage3();
         // 质控品信息
         List<QualityControlInfo> lstQCInfos = new List<QualityControlInfo>();
         // 所有生化项目名称
@@ -93,9 +93,9 @@ namespace BioA.UI
 
         private void loadApplyQCTask()
         {
-            projectPage1 = new QCProjectPage1();
-            projectPage2 = new QCProjectPage2();
-            projectPage3 = new QCProjectPage3();
+            //projectPage1 = new QCProjectPage1();
+            //projectPage2 = new QCProjectPage2();
+            //projectPage3 = new QCProjectPage3();
             xtraTabPage1.Controls.Add(projectPage1);
             xtraTabPage2.Controls.Add(projectPage2);
             xtraTabPage3.Controls.Add(projectPage3);
@@ -125,6 +125,15 @@ namespace BioA.UI
             });
             qcTaskThread.IsBackground = true;
             qcTaskThread.Start();
+        }
+        /// <summary>
+        /// 任务执行中获取任务执行状态
+        /// </summary>
+        public void QueryTasksStatus()
+        {
+            qcTaskDictionary.Clear();
+            qcTaskDictionary.Add("QueryBigestQCTaskInfoForToday", new object[] { "" });
+            ClientSendToServices(qcTaskDictionary);
         }
 
         /// <summary>

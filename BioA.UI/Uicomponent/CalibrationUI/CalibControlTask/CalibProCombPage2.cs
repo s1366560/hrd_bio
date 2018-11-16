@@ -111,7 +111,7 @@ namespace BioA.UI
             {
                 if (control.GetType() == typeof(System.Windows.Forms.Button))
                 {
-                    if (control.Tag == "1")
+                    if (control.Tag.ToString() == "1")
                     {
                         if (control.Text != string.Empty)
                         {
@@ -131,7 +131,7 @@ namespace BioA.UI
             {
                 if (control.GetType() == typeof(System.Windows.Forms.Button))
                 {
-                    if (control.Tag == "1")
+                    if (control.Tag.ToString() == "1")
                     {
                         control.Tag = "0";
                         this.Invoke(new EventHandler(delegate

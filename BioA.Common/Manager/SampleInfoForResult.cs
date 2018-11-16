@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace BioA.Common
 {
-    public class SampleInfoForResult
+    public class SampleInfoForResult:PatientInfo
     {
         public SampleInfoForResult()
         {
-            sampleNum = 0;
-            sampleID = string.Empty;
+            //sampleNum = 0;
+            //sampleID = string.Empty;
             sampleType = string.Empty;
-            patientName = string.Empty;
-            sex = string.Empty;
-            age = 0;
+            //patientName = string.Empty;
+            //sex = string.Empty;
+            //age = 0;
             isAudit = false;
             printState = string.Empty;
             isOperateDilution = false;
@@ -24,13 +24,13 @@ namespace BioA.Common
             sampleState = 0;
            
         }
-      
-        private int sampleNum;
-        private string sampleID;
+
+        //private int sampleNum;
+        //private string sampleID;
         private string sampleType;
-        private string patientName;
-        private string sex;
-        private int age;
+        //private string patientName;
+        //private string sex;
+        //private int age;
         private DateTime createTime;
         private bool isAudit;
         private string printState;
@@ -41,19 +41,19 @@ namespace BioA.Common
         /// <summary>
         /// 样本编号
         /// </summary>
-        public int SampleNum
-        {
-            get { return sampleNum; }
-            set { sampleNum = value; }
-        }
-        /// <summary>
-        /// 样本ID
-        /// </summary>
-        public string SampleID
-        {
-            get { return sampleID; }
-            set { sampleID = value; }
-        }
+        //public int SampleNum
+        //{
+        //    get { return sampleNum; }
+        //    set { sampleNum = value; }
+        //}
+        ///// <summary>
+        ///// 样本ID
+        ///// </summary>
+        //public string SampleID
+        //{
+        //    get { return sampleID; }
+        //    set { sampleID = value; }
+        //}
         /// <summary>
         /// 样本类型
         /// </summary>
@@ -65,27 +65,27 @@ namespace BioA.Common
         /// <summary>
         /// 病人信息
         /// </summary>
-        public string PatientName
-        {
-            get { return patientName; }
-            set { patientName = value; }
-        }
-        /// <summary>
-        /// 性别
-        /// </summary>
-        public string Sex
-        {
-            get { return sex; }
-            set { sex = value; }
-        }
+        //public string PatientName
+        //{
+        //    get { return patientName; }
+        //    set { patientName = value; }
+        //}
+        ///// <summary>
+        ///// 性别
+        ///// </summary>
+        //public string Sex
+        //{
+        //    get { return sex; }
+        //    set { sex = value; }
+        //}
         /// <summary>
         /// 年龄
         /// </summary>
-        public int Age
-        {
-            get { return age; }
-            set { age = value; }
-        }
+        //public int Age
+        //{
+        //    get { return age; }
+        //    set { age = value; }
+        //}
         /// <summary>
         /// 申请时间
         /// </summary>

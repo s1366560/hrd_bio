@@ -15,26 +15,27 @@ using BioA.Common.Communication;
 using BioA.Common.IO;
 using System.Threading;
 using System.Diagnostics;
+using BioA.Service;
 
 namespace BioA.UI
 {
     public partial class ApplyTask : DevExpress.XtraEditors.XtraUserControl
     {
-        ProjectPage1 projectPage1;
-        ProjectPage2 projectPage2;
-        ProjectPage3 projectPage3;
-        ProjectPage4 projectPage4;
-        ProCombPage1 proCombPage1;
-        ProCombPage2 proCombPage2;
-
+        //项目第一页~~ 4页 窗体
+        private ProjectPage1 projectPage1 = new ProjectPage1();
+        private ProjectPage2 projectPage2 = new ProjectPage2();
+        private ProjectPage3 projectPage3 = new ProjectPage3();
+        private ProjectPage4 projectPage4 = new ProjectPage4();
+        //组合项目第一页和第二页窗体
+        private ProCombPage1 proCombPage1 = new ProCombPage1();
+        private ProCombPage2 proCombPage2 = new ProCombPage2();
         // 最大样本号
         private int intMaxSampleNum = 0;
-
-        // 任务存储
+        // 任务列表信息存储
         List<SampleInfo> lstSampleInfo = new List<SampleInfo>();
         // 样本稀释比例
         List<string> lstDilutionRatio = new List<string>();
-
+        
         // 项目稀释设置
         List<string[]> lstDiluteInfos = new List<string[]>();
         //存储客户端发送信息给服务器的参数集合
@@ -43,9 +44,10 @@ namespace BioA.UI
         /// 存储所有获取到的组合项目名和项目名
         /// </summary>
         private List<CombProjectInfo> lstCombProInfo = new List<CombProjectInfo>();
-
-        frmBatchInput batchInput;
-        PatientInfoFrm patientInfofrm;
+        //批量录入信息窗体
+        frmBatchInput batchInput = new frmBatchInput();
+        //病人信息窗体
+        PatientInfoFrm patientInfofrm = new PatientInfoFrm();
         public ApplyTask()
         {
             InitializeComponent();
@@ -64,12 +66,12 @@ namespace BioA.UI
         /// </summary>
         private void ApplyTaskInit()
         {
-            projectPage1 = new ProjectPage1();
-            projectPage2 = new ProjectPage2();
-            projectPage3 = new ProjectPage3();
-            projectPage4 = new ProjectPage4();
-            proCombPage1 = new ProCombPage1();
-            proCombPage2 = new ProCombPage2();
+            //projectPage1 = new ProjectPage1();
+            //projectPage2 = new ProjectPage2();
+            //projectPage3 = new ProjectPage3();
+            //projectPage4 = new ProjectPage4();
+            //proCombPage1 = new ProCombPage1();
+            //proCombPage2 = new ProCombPage2();
             proCombPage1.clickProCombNamePageEvent += HenderClickProCombNamePageEvent;
             proCombPage2.clickProCombNamePage2Event += HenderClickProCombNamePageEvent;
             Console.WriteLine("ApplyTaskINit " + DateTime.Now.Ticks);
@@ -88,8 +90,7 @@ namespace BioA.UI
             combSampleType.Properties.Items.AddRange(RunConfigureUtility.SampleTypes);
             combSampleContainer.Properties.Items.AddRange(RunConfigureUtility.SampleContainerList);
 
-            batchInput = new frmBatchInput();
-            patientInfofrm = new PatientInfoFrm();
+            
             combSampleType.SelectedIndex = 1;
             combSampleContainer.SelectedIndex = 0;
             Console.WriteLine("ApplyTaskInit End1" + DateTime.Now.Ticks);
@@ -106,17 +107,19 @@ namespace BioA.UI
             dic.Add("QueryProjectAndCombProName", null);
             ClientSendToServices(dic);
             //CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaApplyTask, dic);
-
-            Console.WriteLine("ApplyTaskInit CONN end " + DateTime.Now.Ticks);
-
-            DataTable dt = new DataTable();
-            dt.Columns.Add("样本编号");
-            dt.Columns.Add("位置");
-            dt.Columns.Add("样本状态");
-
-            this.lstvTask.DataSource = dt;
             Console.WriteLine("ApplyTaskInit CONN End " + DateTime.Now.Ticks);
         }
+
+        /// <summary>
+        /// 任务执行中获取任务执行状态
+        /// </summary>
+        public void QueryTasksStatus()
+        {
+            dic.Clear();
+            dic.Add("QueryApplyTaskLsvt", new object[] { "" });
+            ClientSendToServices(dic);
+        }
+
         /// <summary>
         /// 处理组合项目名点击事件
         /// </summary>
@@ -148,14 +151,19 @@ namespace BioA.UI
         /// <param name="sender"></param>
         private void ClientSendToServices(Dictionary<string, object[]> param)
         {
-            var applyTaskThread = new Thread(() =>
+            new Thread(() =>
             {
                 CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaApplyTask, param);
-            });
-            applyTaskThread.IsBackground = true;
-            applyTaskThread.Start();
+            })
+            { IsBackground = true }.Start();
         }
 
+        //样本盘号
+        List<int> lstPanel = new List<int>();
+        //样本位置
+        List<int> lstPosition = new List<int>();
+        //样本编号
+        List<int> lstSamNum = new List<int>();
 
         public void DataTransfer_Event(string strMethod, object sender)
         {
@@ -183,15 +191,16 @@ namespace BioA.UI
                     break;
                 case "QueryApplyTaskLsvt":
                     lstSampleInfo = (List<SampleInfo>)XmlUtility.Deserialize(typeof(List<SampleInfo>), sender as string);
+                    //项目任务数据存储
                     DataTable dt = new DataTable();
                     dt.Columns.Add("样本编号");
                     dt.Columns.Add("位置");
                     dt.Columns.Add("样本状态");
 
-                    List<int> lstPanel = new List<int>();
-                    List<int> lstPosition = new List<int>();
-                    List<int> lstSamNum = new List<int>();
-
+                    lstPanel.Clear();
+                    lstPosition.Clear();
+                    lstSamNum.Clear();
+                    dt.Rows.Clear();
                     if (lstSampleInfo != null)
                     {
                         foreach (SampleInfo s in lstSampleInfo)
@@ -215,29 +224,7 @@ namespace BioA.UI
                     this.Invoke(new EventHandler(delegate
                         {
                             lstvTask.DataSource = dt;
-
-                            int iPanel = lstPanel.Count > 0 ? lstPanel.Max() : 0;
-                            int iPosition = lstPanel.Count > 0 ? lstPosition.Max() : 0;
-
-                            if (iPosition < 120)
-                            {
-                                if (iPanel > 0)
-                                {
-                                    combPanelNum.SelectedItem = iPanel.ToString();
-                                }
-                                else
-                                {
-                                    combPanelNum.SelectedItem = "1";
-                                }
-                                combPosNum.SelectedItem = (iPosition + 1).ToString();
-                            }
-                            else
-                            {
-                                combPanelNum.SelectedItem = (iPanel + 1).ToString();
-                                combPosNum.SelectedItem = "1";
-                            }
-
-
+                            this.SamplePanelAndPosNum();
                             txtSampleNum.Text = lstSamNum.Count > 0 ? (lstSamNum.Max() + 1).ToString() : (1).ToString();
                             intMaxSampleNum = System.Convert.ToInt32(txtSampleNum.Text) - 1;
                         }));
@@ -265,6 +252,7 @@ namespace BioA.UI
                         strTaskInfo[0] = t.ProjectName;
                         strTaskInfo[1] = t.SampleDilute;
                         strTaskInfo[2] = t.DilutedRatio.ToString();
+                        txtBoxDetectionNum.Text = t.InspectTimes.ToString();
                         lstDiluteInfos.Add(strTaskInfo);
                         lstProjects1.Add(t.ProjectName);
                     }
@@ -389,48 +377,17 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void btnApply_Click(object sender, EventArgs e)
         {
-            List<int> lstPanel = new List<int>();
-            List<int> lstPosition = new List<int>();
-            List<int> lstSamNum = new List<int>();
-
-            if (lstSampleInfo != null)
-            {
-                foreach (SampleInfo s in lstSampleInfo)
-                {
-                    lstPanel.Add(s.PanelNum);
-                    lstPosition.Add(s.SamplePos);
-                    lstSamNum.Add(s.SampleNum);
-                }
-            }
 
             txtSampleNum.Text = lstSamNum.Count > 0 ? (lstSamNum.Max() + 1).ToString() : (1).ToString();
 
-            int iPanel = lstPanel.Count > 0 ? lstPanel.Max() : 0;
-            int iPosition = lstPanel.Count > 0 ? lstPosition.Max() : 0;
-
-            if (iPosition < 120)
-            {
-                if (iPanel > 0)
-                {
-                    combPanelNum.SelectedItem = iPanel.ToString();
-                }
-                else
-                {
-                    combPanelNum.SelectedItem = "1";
-                }
-                combPosNum.SelectedItem = (iPosition + 1).ToString();
-            }
-            else
-            {
-                combPanelNum.SelectedItem = (iPanel + 1).ToString();
-                combPosNum.SelectedItem = "1";
-            }
-            projectPage1.ResetControlState();
-            projectPage2.ResetControlState();
-            projectPage3.ResetControlState();
-            projectPage4.ResetControlState();
-            proCombPage1.ResetControlState();
-            proCombPage2.ResetControlState();
+            this.SamplePanelAndPosNum();
+            //projectPage1.ResetControlState();
+            //projectPage2.ResetControlState();
+            //projectPage3.ResetControlState();
+            //projectPage4.ResetControlState();
+            //proCombPage1.ResetControlState();
+            //proCombPage2.ResetControlState();
+            SimpleButCancel_Click(null,null);
 
             lstDiluteInfos.Clear();
         }
@@ -641,12 +598,25 @@ namespace BioA.UI
             //    new CommunicationEntity("AddTask",
             //        XmlUtility.Serializer(typeof(SampleInfo), sampleInfo),
             //        XmlUtility.Serializer(typeof(List<TaskInfo>), lstTaskInfo))));
-            SimpleButCancel_Click(null, null);
-            dic.Clear();
-            dic.Add("AddTask", new object[] { XmlUtility.Serializer(typeof(SampleInfo), sampleInfo), XmlUtility.Serializer(typeof(List<TaskInfo>), lstTaskInfo) });
-            ClientSendToServices(dic);
-            Thread.Sleep(4000);
+            //dic.Clear();
+            //dic.Add("AddTask", new object[] { XmlUtility.Serializer(typeof(SampleInfo), sampleInfo), XmlUtility.Serializer(typeof(List<TaskInfo>), lstTaskInfo) });
+            //ClientSendToServices(dic);
+            //Thread.Sleep(2000);
+            string SaveIsSuccess = new WorkAreaApplyTask().AddTask("AddTask", sampleInfo, lstTaskInfo);
+            if (SaveIsSuccess == "此样本任务已经存在，请重新录入！")
+            {
+                MessageBox.Show("此样本任务已经存在，请重新录入！");
+                btnSave.Enabled = true;
+                return;
+            }
+            else
+            {
+                dic.Clear();
+                dic.Add("QueryApplyTaskLsvt", new object[] { "" });
+                ClientSendToServices(dic);
+            }
             btnSave.Enabled = true;
+            SimpleButCancel_Click(null, null);
         }
         /// <summary>
         /// 任务列表点击事件
@@ -655,16 +625,16 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void lstvTask_Click(object sender, EventArgs e)
         {
+            SimpleButCancel_Click(null, null);
             int selectedHandle;
 
             if (this.gridView1.GetSelectedRows().Count() > 0)
             {
                 selectedHandle = this.gridView1.GetSelectedRows()[0];
                 int SampleNum = System.Convert.ToInt32(this.gridView1.GetRowCellValue(selectedHandle, "样本编号").ToString());
-                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryTaskInfoBySampleNum", SampleNum.ToString())));
-                dic.Clear();
-                dic.Add("QueryTaskInfoBySampleNum", new object[] { SampleNum.ToString() });
-                ClientSendToServices(dic);
+                //dic.Clear();
+                //dic.Add("QueryTaskInfoBySampleNum", new object[] { SampleNum.ToString() });
+                //ClientSendToServices(dic);
 
                 foreach (SampleInfo sampleInfo in lstSampleInfo)
                 {
@@ -680,6 +650,24 @@ namespace BioA.UI
                         chkManuallyDilute.Checked = sampleInfo.IsOperateDilution;
                     }
                 }
+                List<TaskInfo> lstTaskInfos = new WorkAreaApplyTask().QueryTaskInfoBySampleNum("QueryTaskInfoBySampleNum", SampleNum.ToString());
+                lstDiluteInfos.Clear();
+                List<string> lstProjects1 = new List<string>();
+                foreach (TaskInfo t in lstTaskInfos)
+                {
+                    string[] strTaskInfo = new string[3];
+                    strTaskInfo[0] = t.ProjectName;
+                    strTaskInfo[1] = t.SampleDilute;
+                    strTaskInfo[2] = t.DilutedRatio.ToString();
+                    txtBoxDetectionNum.Text = t.InspectTimes.ToString();
+                    lstDiluteInfos.Add(strTaskInfo);
+                    lstProjects1.Add(t.ProjectName);
+                }
+                projectPage1.SelectedProjects = lstProjects1;
+                projectPage2.SelectedProjects = lstProjects1;
+                projectPage3.SelectedProjects = lstProjects1;
+                projectPage4.SelectedProjects = lstProjects1;
+                
             }
         }
         /// <summary>
@@ -736,7 +724,8 @@ namespace BioA.UI
         private void batchInput_DataTransferEvent(int intStartSamNum, int samAmount)
         {
             //批量录入给服务器传递参数的集合
-            List<object> inputDictionary = new List<object>();
+            object[] inputDictionary = new object[samAmount];
+            List<object> lstObjec = new List<object>();
             List<int> lstSamNum = new List<int>();
             List<int[]> lstPos = new List<int[]>();
             foreach (SampleInfo s in lstSampleInfo)
@@ -779,7 +768,9 @@ namespace BioA.UI
                         if (pos >= 120)
                         {
                             panel++;
-                            pos = 1;
+                            combPosNum.SelectedItem = "1";
+                            pos = 0;
+                            lstPos.Clear();
                         }
                         else
                         {
@@ -858,11 +849,12 @@ namespace BioA.UI
                     }
                 }
 
-                inputDictionary.Add(XmlUtility.Serializer(typeof(List<object>), new List<object>() { XmlUtility.Serializer(typeof(SampleInfo), sampleInfo), XmlUtility.Serializer(typeof(List<TaskInfo>), lstTaskInfo) }));
+                inputDictionary[i] = (new object[] { XmlUtility.Serializer(typeof(SampleInfo), sampleInfo), XmlUtility.Serializer(typeof(List<TaskInfo>), lstTaskInfo) });
             }
             dic.Clear();
             //添加批量录入的任务信息
-            dic.Add("AddTaskForBatch", new object[] { inputDictionary });
+            dic.Add("AddTaskForBatch", new object[] { XmlUtility.Serializer(typeof(object[]), inputDictionary) });
+            ClientSendToServices(dic);
 
         }
         AnologSamplePanel anologSamplePanel;
@@ -927,19 +919,57 @@ namespace BioA.UI
         {
             foreach (Control control in controls)
             {
-                if (control.GetType() == typeof(System.Windows.Forms.Button))
+                if (control.Text != "" && control.Text != string.Empty)
                 {
-                    if (control.Tag == "1")
+                    if (control.GetType() == typeof(System.Windows.Forms.Button))
                     {
-                        control.Tag = "0";
-                        this.Invoke(new EventHandler(delegate
+                        if (control.Tag.ToString() == "1")
                         {
-                            control.ForeColor = Color.Black;
-                            control.Enabled = true;
-                        }));
+                            control.Tag = "0";
+                            this.Invoke(new EventHandler(delegate
+                            {
+                                control.ForeColor = Color.Black;
+                                control.Enabled = true;
+                            }));
+                        }
                     }
                 }
 
+            }
+        }
+        /// <summary>
+        /// 样本盘号和样本位置
+        /// </summary>
+        private void SamplePanelAndPosNum()
+        {
+            int iPanel = lstPanel.Count > 0 ? lstPanel.Max() : 0;
+            int iPosition = lstPosition.Count > 0 ? lstPosition.Max() : 0;
+
+
+            if (iPosition < 120)
+            {
+                if (iPanel > 0)
+                {
+                    combPanelNum.SelectedItem = iPanel.ToString();
+                }
+                else
+                {
+                    combPanelNum.SelectedItem = "1";
+                }
+                //List<string> lstPos = RunConfigureUtility.SamplePosition;
+                //combPosNum.Properties.Items.Clear();
+                //foreach (var item in lstPosition)
+                //{
+                //    lstPos.RemoveAll(x => x == item.ToString());
+                //}
+                //combPosNum.Properties.Items.AddRange(lstPos);
+                //combPosNum.SelectedIndex = 0;
+                combPosNum.SelectedItem = (iPosition + 1).ToString();
+            }
+            else
+            {
+                combPanelNum.SelectedItem = (iPanel + 1).ToString();
+                combPosNum.SelectedItem = "1";
             }
         }
     }

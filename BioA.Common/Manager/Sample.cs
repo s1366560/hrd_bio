@@ -32,6 +32,7 @@ namespace BioA.Common
         public const string COMPLETE_CHECK_WASHLIQUID = "23";
         public const string COMPLETED_SCAN_MSTATE = "24";
         public const string HAS_SCHEDULE_WARNNING = "25";
+        public const string TASK_STATUS_DETECTION = "26";//检查任务状态
     }
 
 

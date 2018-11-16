@@ -1444,6 +1444,7 @@ namespace BioA.SqlMaps
                 ht.Add("ProjectName", projectName);
                 ht.Add("SampleType", sampleType);
                 ht.Add("TCNO", TCNO);
+                ht.Add("SampleCompletionTime", DateTime.Now.ToString());
                 ht.Add("SampleCompletionStatus", TaskState.START);
 
                 ism_SqlMap.Insert("PLCDataInfo.AddSampleResultInfo", ht);
@@ -1567,7 +1568,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetAllTaskCount()==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetAllTaskCount()==" + e.ToString(), Module.PLCData);
             }
             return task;
         }
@@ -1586,13 +1587,67 @@ namespace BioA.SqlMaps
                 count2 = (int)ism_SqlMap.QueryForObject("PLCDataInfo.GetTroubleInfoCount", DateTime.Now.ToShortDateString());
             }catch(Exception ex)
             {
-                LogInfo.WriteErrorLog("TroubleLogInfo()==" + ex.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("TroubleLogInfo()==" + ex.ToString(), Module.PLCData);
                 return false;
             }
             if ((count2 - count) > 0)
                 return true;
             else
                 return false;
+        }
+        /// <summary>
+        /// 获取病人信息、样本信息、样本结果信息
+        /// </summary>
+        /// <param name="samp"></param>
+        /// <param name="dateTime"></param>
+        /// <param name="samplePatientInfo"></param>
+        /// <returns></returns>
+        public List<SampleResultInfo> GetSmpPrintValues(string samp, DateTime dateTime, out SampleInfoForResult samplePatientInfo)
+        {
+            List<SampleResultInfo> lstSample = null;
+            SampleInfoForResult sampleInfoForResult = null;
+            Hashtable hashtable = new Hashtable();
+            hashtable.Add("SampleNum",samp);
+            hashtable.Add("CreateTime",dateTime);
+            try
+            {
+                //获取样本信息和病人信息
+                sampleInfoForResult = (SampleInfoForResult)ism_SqlMap.QueryForObject("CommonDataCheck.GetSamplePatientInfo", hashtable);
+                //获取样本结果信息
+                lstSample = (List<SampleResultInfo>)ism_SqlMap.QueryForList<SampleResultInfo>("CommonDataCheck.GetSampleResultInfo", hashtable);
+                //根据项目名称和样本类型移除该集合中相同的元素
+                if (lstSample != null)
+                {
+                    List<SampleResultInfo> resultInfos = lstSample.Where((x, i) => lstSample.FindIndex(y => y.ProjectName == x.ProjectName && y.SampleType == x.SampleType) == i).ToList();
+                    foreach (var item in resultInfos)
+                    {
+                        hashtable.Clear();
+                        hashtable.Add("ProjectName", item.ProjectName);
+                        hashtable.Add("SampleType", item.SampleType);
+                        //获取项目的中文名称
+                        string chineseName = ism_SqlMap.QueryForObject("AssayProjectInfo.GetProjectFullName", hashtable) as string;
+                        //获取单位信息
+                        string unit = ism_SqlMap.QueryForObject("AssayProjectInfo.GetProjectUnitInfo", hashtable) as string;
+                        foreach (var s in lstSample)
+                        {
+                            if (s.ProjectName == item.ProjectName && s.SampleType == item.SampleType && s.SampleCreateTime == item.SampleCreateTime)
+                            {
+                                s.ChineseName = chineseName;
+                                s.UnitAndRange = unit;
+                            }
+                        }
+                    }
+                }
+
+            }
+            catch(Exception ex)
+            {
+                LogInfo.WriteErrorLog("GetSmpPrintValues(string samp, DateTime dateTime, out SampleInfoForResult samplePatientInfo) ==" + ex.ToString(), Module.PLCData);
+                samplePatientInfo = null;
+                return null;
+            }
+            samplePatientInfo = sampleInfoForResult;
+            return lstSample;
         }
     }
 }

@@ -11,6 +11,7 @@ using DevExpress.XtraEditors;
 using BioA.Common;
 using BioA.Common.IO;
 using System.Threading;
+using BioA.Service;
 
 namespace BioA.UI
 {
@@ -47,11 +48,15 @@ namespace BioA.UI
                 sampleInfo = value; 
                 if (sampleInfos.Count > 0)
                 {
-                    SampleInfoForResult selectSampleInfo = sampleInfos.Find((obj) => { return obj.SampleNum == SampleInfo.SampleNum && obj.CreateTime == sampleInfo.CreateTime; });
-                    sampleInfo = selectSampleInfo;
+                    sampleInfo = sampleInfos.Find((obj) => { return obj.SampleNum == SampleInfo.SampleNum && obj.CreateTime == sampleInfo.CreateTime; });
+                    
                 }
             }
         }
+        /// <summary>
+        /// gridView点击选中的行号
+        /// </summary>
+        public int CurrentClickLineNumber;
 
         private List<SampleResultInfo> lstSampleResInfo = new List<SampleResultInfo>();
 
@@ -80,7 +85,7 @@ namespace BioA.UI
                                     break;
                             }
 
-                            dtCheckResult.Rows.Add(new object[] { s.ProjectName, s.ConcResult, s.UnitAndRange, s.SampleCreateTime.ToString(), taskState, s.IsResurvey ? "是" : "否" });
+                            dtCheckResult.Rows.Add(new object[] { s.ProjectName, s.ConcResult, s.UnitAndRange, s.SampleCompletionTime.ToString(),s.TCNO, taskState, s.IsResurvey ? "是" : "否" });
                         }
                     }));
             }
@@ -129,15 +134,22 @@ namespace BioA.UI
         {
             InitializeComponent();
             this.ControlBox = false;
-            dtCheckResult.Columns.Add("项目名称");
+            dtCheckResult.Columns.Add("检测项目");
             dtCheckResult.Columns.Add("检测结果");
-            dtCheckResult.Columns.Add("单位(参考范围)");
-            dtCheckResult.Columns.Add("申请时间");
+            dtCheckResult.Columns.Add("单位");
+            dtCheckResult.Columns.Add("测试时间");
+            dtCheckResult.Columns.Add("进程编号");
             dtCheckResult.Columns.Add("任务状态");
             dtCheckResult.Columns.Add("复查");
             grcCheckResult.DataSource = dtCheckResult;
 
-            
+            gridView1.Columns[0].OptionsColumn.AllowEdit = false;
+            gridView1.Columns[1].OptionsColumn.AllowEdit = false;
+            gridView1.Columns[2].OptionsColumn.AllowEdit = false;
+            gridView1.Columns[3].OptionsColumn.AllowEdit = false;
+            gridView1.Columns[4].OptionsColumn.AllowEdit = false;
+            gridView1.Columns[5].OptionsColumn.AllowEdit = false;
+            gridView1.Columns[6].OptionsColumn.AllowEdit = false;
         }
 
         private void TestAudit_Load(object sender, EventArgs e)
@@ -187,7 +199,7 @@ namespace BioA.UI
                 btnAudit.Enabled = false;
             }
 
-            if (sampleInfos.Find((obj) => { return obj.SampleNum < System.Convert.ToInt32(txtSampleNum.Text); }) == null)
+            if (this.CurrentClickLineNumber <= 1)
             {
                 btnPreviousSample.Enabled = false;
             }
@@ -196,7 +208,7 @@ namespace BioA.UI
                 btnPreviousSample.Enabled = true;
             }
 
-            if (sampleInfos.Find((obj) => { return obj.SampleNum > System.Convert.ToInt32(txtSampleNum.Text); }) == null)
+            if (this.CurrentClickLineNumber >= sampleInfos.Count)
             {
                 btnNextSample.Enabled = false;
             }
@@ -208,9 +220,31 @@ namespace BioA.UI
             string[] communicate = new string[] { txtSampleNum.Text, sampleInfo.CreateTime.ToString(), txtSampleType.Text };
             //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaDataCheck,
             //    XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryProjectResultForTestAudit", XmlUtility.Serializer(typeof(string[]), communicate))));
-            testAudtiDic.Clear();
-            testAudtiDic.Add("QueryProjectResultForTestAudit", new object[] { XmlUtility.Serializer(typeof(string[]), communicate) });
-            SendToServices(testAudtiDic);
+            //testAudtiDic.Clear();
+            //testAudtiDic.Add("QueryProjectResultForTestAudit", new object[] { XmlUtility.Serializer(typeof(string[]), communicate) });
+            //SendToServices(testAudtiDic);
+            lstSampleResInfo = new WorkingAreaDataCheck().QueryProjectResultBySampleNum("QueryProjectResultBySampleNum", communicate);
+            {
+                dtCheckResult.Clear();
+                foreach (SampleResultInfo s in lstSampleResInfo)
+                {
+                    string taskState = string.Empty;
+                    switch (s.SampleCompletionStatus)
+                    {
+                        case 0:
+                            taskState = "异常";
+                            break;
+                        case 1:
+                            taskState = "检测中";
+                            break;
+                        case 2:
+                            taskState = "已完成";
+                            break;
+                    }
+
+                    dtCheckResult.Rows.Add(new object[] { s.ProjectName, s.ConcResult, s.UnitAndRange, s.SampleCompletionTime.ToString(), s.TCNO, taskState, s.IsResurvey ? "是" : "否" });
+                }
+            }
         }
         
         private void SendToServices(Dictionary<string, object[]> param)
@@ -226,17 +260,21 @@ namespace BioA.UI
         {
             this.Close();
         }
-
+        /// <summary>
+        /// 反应监控
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnReactionCurve_Click(object sender, EventArgs e)
         {
-            if (grvCheckResult.SelectedRowsCount > 0)
+            if (gridView1.SelectedRowsCount > 0)
             {
                 reflectionMonitoring.LstSampleResInfo = lstSampleResInfo;
-                int selectNum = grvCheckResult.GetSelectedRows()[0];
+                int selectNum = gridView1.GetSelectedRows()[0];
                 SampleResultInfo sampleRes = new SampleResultInfo();
-                sampleRes.ProjectName = grvCheckResult.GetRowCellValue(selectNum, "项目名称") as string;
-                sampleRes.ConcResult = (float)System.Convert.ToDouble(grvCheckResult.GetRowCellValue(selectNum, "检测结果"));
-                sampleRes.SampleCreateTime = System.Convert.ToDateTime(grvCheckResult.GetRowCellValue(selectNum, "完成时间"));
+                sampleRes.ProjectName = gridView1.GetRowCellValue(selectNum, "检测项目") as string;
+                sampleRes.ConcResult = (float)System.Convert.ToDouble(gridView1.GetRowCellValue(selectNum, "检测结果"));
+                sampleRes.SampleCompletionTime = System.Convert.ToDateTime(gridView1.GetRowCellValue(selectNum, "测试时间"));
                 reflectionMonitoring.SampleResInfo = sampleRes;
                 reflectionMonitoring.SampleInfoForRes = sampleInfo;
 
@@ -244,99 +282,33 @@ namespace BioA.UI
                 reflectionMonitoring.ShowDialog();
             }
         }
-
+        /// <summary>
+        /// 上一个样本
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnPreviousSample_Click(object sender, EventArgs e)
         {
-            int CurrentSampleNum = System.Convert.ToInt32(txtSampleNum.Text);
-            bool bExist = true;
-            while (bExist)
+            this.CurrentClickLineNumber--;
+            if (this.CurrentClickLineNumber > 0)
             {
-                CurrentSampleNum--;
-                if (sampleInfos.Find((obj) => { return obj.SampleNum == CurrentSampleNum; }) == null)
-                {
-                    if (CurrentSampleNum <= 0)
-                    {
-                        bExist = false;
-                    }
-                }
-                else
-                {
-                    bExist = false;
-                }
-            }
-            if (CurrentSampleNum > 0)
-            {
-                sampleInfo = sampleInfos.Find((obj) => { return obj.SampleNum == CurrentSampleNum; });
-
+                sampleInfo = sampleInfos[this.CurrentClickLineNumber - 1];
                 loadTestAudit();
-            }
-
-
-
-            if (sampleInfos.Find((obj) => { return obj.SampleNum < System.Convert.ToInt32(txtSampleNum.Text); }) == null)
-            {
-                btnPreviousSample.Enabled = false;
-            }
-            else
-            {
-                btnPreviousSample.Enabled = true;
-            }
-
-            if (sampleInfos.Find((obj) => { return obj.SampleNum > System.Convert.ToInt32(txtSampleNum.Text); }) == null)
-            {
-                btnNextSample.Enabled = false;
-            }
-            else
-            {
-                btnNextSample.Enabled = true;
             }
         }
-
+        /// <summary>
+        /// 下一个样本
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnNextSample_Click(object sender, EventArgs e)
         {
-            int CurrentSampleNum = System.Convert.ToInt32(txtSampleNum.Text);
-            bool bExist = true;
-            while (bExist)
+            this.CurrentClickLineNumber++;
+            if (this.CurrentClickLineNumber <= this.sampleInfos.Count)
             {
-                CurrentSampleNum++;
-                if (sampleInfos.Find((obj) => { return obj.SampleNum == CurrentSampleNum; }) == null)
-                {
-                    if (sampleInfos.Find((obj) => { return obj.SampleNum > CurrentSampleNum; }) == null)
-                    {
-                        bExist = false;
-                    }
-                }
-                else
-                {
-                    bExist = false;
-                }
-            }
-            if (sampleInfos.Find((obj) => { return obj.SampleNum == CurrentSampleNum; }) != null)
-            {
-                sampleInfo = sampleInfos.Find((obj) => { return obj.SampleNum == CurrentSampleNum; });
-
+                sampleInfo = sampleInfos[CurrentClickLineNumber -1];
                 //TestAudit_Load(null, null);
                 loadTestAudit();
-            }
-
-
-
-            if (sampleInfos.Find((obj) => { return obj.SampleNum < System.Convert.ToInt32(txtSampleNum.Text); }) == null)
-            {
-                btnPreviousSample.Enabled = false;
-            }
-            else
-            {
-                btnPreviousSample.Enabled = true;
-            }
-
-            if (sampleInfos.Find((obj) => { return obj.SampleNum > System.Convert.ToInt32(txtSampleNum.Text); }) == null)
-            {
-                btnNextSample.Enabled = false;
-            }
-            else
-            {
-                btnNextSample.Enabled = true;
             }
         }
 

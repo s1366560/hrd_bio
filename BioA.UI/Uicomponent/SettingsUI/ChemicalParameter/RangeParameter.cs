@@ -86,6 +86,9 @@ namespace BioA.UI
             }
         }
         AssayProjectRangeParamInfo rangeParamInfo = new AssayProjectRangeParamInfo();
+        /// <summary>
+        /// 项目范围参数信息显示
+        /// </summary>
         public AssayProjectRangeParamInfo RangeParamInfo
         {
             get { return rangeParamInfo; }
@@ -525,27 +528,17 @@ namespace BioA.UI
 
         private void RangeParameter_Load(object sender, EventArgs e)
         {
-            BeginInvoke(new Action(loadRangeParameter));
-            
-        }
-        private void loadRangeParameter()
-        {
-            this.LstAssayProInfos = this.ListAssayprojectInfos;
-
-            //if (AssayProInfoForRangeParamEvent != null)
-            //{
-            //    AssayProInfoForRangeParamEvent(new CommunicationEntity("QueryAssayProAllInfoForRangeParam", null));
-            //}
-        }
-        /// <summary>
-        /// 切换页面加载数据
-        /// </summary>
-        public void GetDataInfo()
-        {
-            if (AssayProInfoForRangeParamEvent != null)
+            BeginInvoke(new Action(() => 
             {
-                //AssayProInfoForRangeParamEvent(new CommunicationEntity("QueryAssayProAllInfoForRangeParam", null));
-            }
+                if (ListAssayprojectInfos.Count == 0)
+                {
+                    //获取所有生化项目
+                    rangeParamDic.Add("QueryAssayProAllInfo", new object[] { ""});
+                }
+                else
+                    this.LstAssayProInfos = this.listAssayProjectInfos;
+            }));
+            
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

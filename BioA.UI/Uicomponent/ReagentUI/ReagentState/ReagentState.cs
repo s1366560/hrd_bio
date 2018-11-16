@@ -7,7 +7,7 @@ using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DevExpress.XtraEditors;
+using BioA.UI.ServiceReference1;
 using BioA.Common;
 using BioA.Common.IO;
 using BioA.Common.Machine;
@@ -28,7 +28,9 @@ namespace BioA.UI
         /// 保存试剂信息
         /// </summary>
         DataTable dt = new DataTable();
-
+        /// <summary>
+        /// 探测试剂余量事件
+        /// </summary>
         public event SendNetworkCommandDelegate SendNetworkCommandEvent;
 
         public ReagentState()
@@ -53,10 +55,12 @@ namespace BioA.UI
 
         private void ReagentStateSend(Dictionary<string, object[]> sender)
         {
-            BeginInvoke(new Action(() =>
+            var threadReagentState = new Thread(() =>
             {
                 CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.ReagentState, sender);
-            }));
+            });
+            threadReagentState.IsBackground = true;
+            threadReagentState.Start();
         }
         private void ReagentState_Load(object sender, EventArgs e)
         {

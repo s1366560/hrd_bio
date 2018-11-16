@@ -38,20 +38,16 @@ namespace BioA.UI
 
                 timer1.Stop();
                 lstReceiveInfo = value;
-                //int MaxNum = System.Convert.ToInt32(receiveInfo.Substring(0, receiveInfo.IndexOf(",")));
-                //string str = receiveInfo.Substring(receiveInfo.IndexOf(",") + 1);
-                foreach (string strResult in lstReceiveInfo)
+                this.Invoke(new EventHandler(delegate
                 {
-                    this.Invoke(new EventHandler(delegate
+                    foreach (string strResult in lstReceiveInfo)
                     {
+                    
                         rtxtInfo.Text += Environment.NewLine + string.Format(strResult);
-                        //rtxtInfo.Text += Environment.NewLine + string.Format("{0}号样本{1}", MaxNum, str);
-                        //string st = string.Format("{0}号样本{1}", MaxNum, str);
-                        //rtx.Add(st);
-                    }));
-                }
-                MessageBox.Show("批量录入执行完成！");
-                this.Close();
+                    }
+                    MessageBox.Show("批量录入执行完成！");
+                    this.Close();
+                }));
             }
         }
         /// <summary>

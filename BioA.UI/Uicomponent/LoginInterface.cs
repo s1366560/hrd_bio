@@ -30,6 +30,10 @@ namespace BioA.UI
         public LoginInterface()
         {
             InitializeComponent();
+            this.txtUserName.Text = "用户名/账号";
+            this.txtUserName.ForeColor = Color.Gray;
+            this.txtPassword.Text = "  密码";
+            this.txtPassword.ForeColor = Color.Gray;
             //progBarLogin.Visible = false;
             Type type= CommunicationUI.ServiceClient.State.GetType();
             
@@ -37,16 +41,22 @@ namespace BioA.UI
 
         private void BtnLogin_Click(object sender, EventArgs e)
         {
-            if (txtUserName.Text == "")
+            if (txtBoxUserName == false)
             {
-                MessageBoxDraw.ShowMsg("用户名输入不能为空", "警告", MsgType.Warning);
-                return;
+                if(txtUserName.Text == "用户名/账号" || (txtUserName.Text == "" && txtUserName.Text == string.Empty))
+                {
+                    MessageBoxDraw.ShowMsg("用户名输入不能为空", "警告", MsgType.Warning);
+                    return;
+                }
             }
 
-            if (txtPassword.Text == "")
+            if (txtBoxPassword == false)
             {
-                MessageBoxDraw.ShowMsg("密码输入不能为空", "警告", MsgType.Warning);
-                return;
+                if (txtPassword.Text == "  密码" || (txtPassword.Text == "" && txtPassword.Text == string.Empty))
+                {
+                    MessageBoxDraw.ShowMsg("密码输入不能为空", "警告", MsgType.Warning);
+                    return;
+                }
             }
             string password = EncryptionText.EncryptDES(txtPassword.Text, KeyManager.PWDKey);
             txtUserName.ReadOnly = true;
@@ -194,6 +204,64 @@ namespace BioA.UI
                 {
                     Console.WriteLine(ex.Message);
                 }
+            }
+        }
+        //判断账户和密码输入框是否有文本
+        Boolean txtBoxUserName = false;
+        Boolean txtBoxPassword = false;
+
+        /// <summary>
+        /// 失去焦点
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtUserNameOrPassword_Leave(object sender, EventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if(textBox.Name == "txtUserName")
+            {
+                if (textBox.Text.Trim() == "")
+                {
+                    textBox.Text = "用户名/账号";
+                    textBox.ForeColor = Color.Gray;
+                    txtBoxUserName = false;
+                }
+                else
+                    txtBoxUserName = true;
+            }
+            else if (textBox.Name == "txtPassword")
+            {
+                if (textBox.Text.Trim() == "")
+                {
+                    textBox.Text = "  密码";
+                    textBox.ForeColor = Color.Gray;
+                    txtBoxPassword = false;
+                }
+                else
+                    txtBoxPassword = true;
+            }
+            
+        }
+        /// <summary>
+        /// 获取焦点
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtUserNameOrPassword_Enter(object sender, EventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            
+            if (textBox.Name == "txtUserName")
+            {
+                if (txtBoxUserName == false)
+                    textBox.Text = "";
+                textBox.ForeColor = Color.Black;
+            }
+            else if (textBox.Name == "txtPassword")
+            {
+                if (txtBoxPassword == false)
+                    textBox.Text = "";
+                textBox.ForeColor = Color.Black;
             }
         }
     }

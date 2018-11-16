@@ -7,6 +7,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 using BioA.Service.MainTains;
+using System.Threading;
 
 namespace BioA.Service
 {
@@ -186,13 +187,22 @@ namespace BioA.Service
                     case "AddTaskForBatch":
                         //批量录入返回结果集合
                         List<string> lstReslut = new List<string>();
-                        for (int i = 0; i < kvp.Value.Length; i++)
+                        //for (int i = 0; i < kvp.Value.Length; i++)
+                        //{
+                        //    List<object> lstObj = XmlUtility.Deserialize(typeof(List<object>), kvp.Value[i].ToString()) as List<object>;
+                        //    SampleInfo sampleForBatch = XmlUtility.Deserialize(typeof(SampleInfo), lstObj[0].ToString()) as SampleInfo;
+                        //    lstTask = XmlUtility.Deserialize(typeof(List<TaskInfo>), lstObj[1].ToString()) as List<TaskInfo>;
+                        //    strResult = workAreaApplyTask.AddTask(kvp.Key, sampleForBatch, lstTask);
+                        //    lstReslut.Add(sampleForBatch.SampleNum.ToString() + "," + strResult);
+                        //}
+                        object[] lstObj = XmlUtility.Deserialize(typeof(object[]), kvp.Value[0].ToString()) as object[];
+                        for (int i = 0; i < lstObj.Length; i++)
                         {
-                            List<object> lstObj = XmlUtility.Deserialize(typeof(List<object>), kvp.Value[i].ToString()) as List<object>;
-                            SampleInfo sampleForBatch = XmlUtility.Deserialize(typeof(SampleInfo), lstObj[0].ToString()) as SampleInfo;
-                            lstTask = XmlUtility.Deserialize(typeof(List<TaskInfo>), lstObj[1].ToString()) as List<TaskInfo>;
+                            object[] obj = lstObj[i] as object[];
+                            SampleInfo sampleForBatch = XmlUtility.Deserialize(typeof(SampleInfo), obj[0].ToString()) as SampleInfo;
+                            lstTask = XmlUtility.Deserialize(typeof(List<TaskInfo>), obj[1].ToString()) as List<TaskInfo>;
                             strResult = workAreaApplyTask.AddTask(kvp.Key, sampleForBatch, lstTask);
-                            lstReslut.Add(sampleForBatch.SampleNum.ToString() + "," + strResult);
+                            lstReslut.Add("盘号：" +sampleForBatch.PanelNum + "样本号："+sampleForBatch.SampleNum+"~ 位置："+ sampleForBatch.SamplePos+ "      "+ strResult);
                         }
                         strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<string>),lstReslut));
                         break;
@@ -278,7 +288,7 @@ namespace BioA.Service
                             break;
                         case "QueryProjectResultForTestAudit":
                             string[] QueryCommuForTest = (string[])XmlUtility.Deserialize(typeof(string[]), kvp.Value[0].ToString());
-                            lstSampleResultInfo = workAreaDataCheck.QueryProjectResultBySampleNum(kvp.Key, QueryCommuForTest);
+                            lstSampleResultInfo = workAreaDataCheck.QueryProjectResultBySampleNum("QueryProjectResultBySampleNum", QueryCommuForTest);
                             strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<SampleResultInfo>), lstSampleResultInfo));
                             break;
                         case "DeleteCommonSampleBySampleNum":
@@ -582,9 +592,11 @@ namespace BioA.Service
                         strMethodParam.Add(kvp.Key, DeteleCount);
                         break;
                     case "EditCalibratorinfo":
-                        Calibratorinfo Editcalibratorinfo = XmlUtility.Deserialize(typeof(Calibratorinfo), kvp.Value[0].ToString()) as Calibratorinfo;
-                        List<CalibratorProjectinfo> lisEditCalibratorProjectinfo = XmlUtility.Deserialize(typeof(List<CalibratorProjectinfo>), kvp.Value[2].ToString()) as List<CalibratorProjectinfo>;
-                        string ModifyCalibAndProInfo = calibrator.EditCalibratorinfo(kvp.Key, Editcalibratorinfo, kvp.Value[1].ToString(), lisEditCalibratorProjectinfo);;
+                        Calibratorinfo newCalibratorinfo = XmlUtility.Deserialize(typeof(Calibratorinfo), kvp.Value[0].ToString()) as Calibratorinfo;
+                        Calibratorinfo oldCalibratorinfo = XmlUtility.Deserialize(typeof(Calibratorinfo), kvp.Value[1].ToString()) as Calibratorinfo;
+                        List<CalibratorProjectinfo> lisNewCalibratorProjectinfo = XmlUtility.Deserialize(typeof(List<CalibratorProjectinfo>), kvp.Value[2].ToString()) as List<CalibratorProjectinfo>;
+                        List<CalibratorProjectinfo> lisOldCalibratorProjectinfo = XmlUtility.Deserialize(typeof(List<CalibratorProjectinfo>), kvp.Value[3].ToString()) as List<CalibratorProjectinfo>;
+                        string ModifyCalibAndProInfo = calibrator.EditCalibratorinfo(kvp.Key, newCalibratorinfo, oldCalibratorinfo, lisNewCalibratorProjectinfo, lisOldCalibratorProjectinfo);
                         strMethodParam.Add(kvp.Key, ModifyCalibAndProInfo);
                         break;
                     default:
@@ -841,6 +853,10 @@ namespace BioA.Service
                             strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<QualityControlInfo>), lstQCInfos));
                             LogInfo.WriteProcessLog(lstQCInfos.Count.ToString(), Module.WindowsService);
                             break;
+                        case "GetsQCRelationProInfo":
+                            List<QCRelationProjectInfo> lstQCRelationProjects = qcGraphics.GetQCRelationProjectInfo(kvp.Key);
+                            strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<QCRelationProjectInfo>), lstQCRelationProjects));
+                            break;
                         case "QueryQCResultForQCGraphics":
                             QCResultForUIInfo qCResForUIInfo = (QCResultForUIInfo)XmlUtility.Deserialize(typeof(QCResultForUIInfo), kvp.Value[0].ToString());
                             List<QCResultForUIInfo> results = qcGraphics.QueryQCResultForQCGraphics(kvp.Key, qCResForUIInfo);
@@ -879,9 +895,8 @@ namespace BioA.Service
                             break;
                         case "AssayProjectAdd":
                             assProInfo = XmlUtility.Deserialize(typeof(AssayProjectInfo), kvp.Value[0].ToString()) as AssayProjectInfo;
-                            string[] strInfo = settingsChemicalParam.AddAssayProject(kvp.Key, assProInfo);
-                            strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(string[]), strInfo));
-                            LogInfo.WriteProcessLog(strInfo[4], Module.WindowsService);
+                            AssayProjectParamInfo assayProjectParamInfo = settingsChemicalParam.AddAssayProject(kvp.Key, assProInfo);
+                            strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(AssayProjectParamInfo), assayProjectParamInfo));
                             break;
                         case "QueryAssayProjectParamInfoAll":
                             List<AssayProjectParamInfo> assayProParamInfo = settingsChemicalParam.QueryAssayProjectParamInfoAll(kvp.Key);
@@ -946,7 +961,7 @@ namespace BioA.Service
                             LogInfo.WriteProcessLog(lstAssayProInfosForRangeparam.Count.ToString(), Module.WindowsService);
                             break;
                         case "QueryCalibratorProinfo":
-                            List<CalibratorProjectinfo> lisCalibratorProjectinfo = settingsChemicalParam.QueryCalibratorProjectinfo(kvp.Key, kvp.Value[0].ToString());
+                            List<CalibratorProjectinfo> lisCalibratorProjectinfo = settingsChemicalParam.QueryCalibratorProjectinfo(kvp.Key, kvp.Value[0].ToString(),kvp.Value[1].ToString());
                             strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<CalibratorProjectinfo>), lisCalibratorProjectinfo));
                             break;
                         case "QueryCalib":
@@ -1516,7 +1531,7 @@ namespace BioA.Service
                         break;
                     case ModuleInfo.WorkingAreaApplyTask:
                         Console.WriteLine("WorkingAreaApplyTask begin " + DateTime.Now.Ticks);
-                        HandleWorkingAreaApplyTasks(ModuleInfo.WorkingAreaApplyTask, client, param);
+                        new Thread(() => { HandleWorkingAreaApplyTasks(ModuleInfo.WorkingAreaApplyTask, client, param); }) { IsBackground = true }.Start();
                         Console.WriteLine("WorkingAreaApplyTask End   " + DateTime.Now.Ticks);
                         break;
                     case ModuleInfo.WorkingAreaDataCheck:
@@ -1629,6 +1644,6 @@ namespace BioA.Service
         {
             return ClientInfoCache.Instance.Clients.Select(x => x.ClientName).ToList();
         }
-        
+
     }
 }

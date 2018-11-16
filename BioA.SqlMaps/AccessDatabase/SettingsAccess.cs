@@ -101,21 +101,34 @@ namespace BioA.SqlMaps
         /// <param name="strAccessDBMethod">访问数据库方法名</param>
         /// <param name="assayProject">添加项目信息</param>
         /// <returns></returns>
-        public void AddAssayProject(string strAccessDBMethod, AssayProjectInfo assayProject)
+        public AssayProjectParamInfo AddAssayProject(string strAccessDBMethod, AssayProjectInfo assayProject)
         {
+            int resultCount = 0;
+            AssayProjectParamInfo assayProjectParamInfo = null;
+            Hashtable hashtable = new Hashtable();
+            hashtable.Add("proName", assayProject.ProjectName);
+            hashtable.Add("samType", assayProject.SampleType);
+            hashtable.Add("projectFullName", assayProject.ProFullName);
+            hashtable.Add("NCHAN", assayProject.ChannelNum);
             try
             {
-                ism_SqlMap.Insert("AssayProjectInfo." + strAccessDBMethod, assayProject);
-                ism_SqlMap.Insert("AssayProjectInfo.AddAssayProjectparamInfo", assayProject);
-                ism_SqlMap.Insert("AssayProjectInfo.AddCalibrationParam", assayProject);
-                ism_SqlMap.Insert("AssayProjectInfo.AddRangeParam", assayProject);
-                ism_SqlMap.Insert("AssayProjectInfo.AddProRunSequenceTb",assayProject);
+                resultCount = (int)ism_SqlMap.QueryForObject("AssayProjectInfo.SaveAssayProjectInfoAll" , hashtable);
+                if (resultCount == 0)
+                {
+                    assayProjectParamInfo = ism_SqlMap.QueryForObject("AssayProjectInfo.GetAssayProjectParamInfoByNameAndType", assayProject) as AssayProjectParamInfo;
+                }
+                else
+                    return null;
+                //ism_SqlMap.Insert("AssayProjectInfo.AddAssayProjectparamInfo", assayProject);
+                //ism_SqlMap.Insert("AssayProjectInfo.AddCalibrationParam", assayProject);
+                //ism_SqlMap.Insert("AssayProjectInfo.AddRangeParam", assayProject);
+                //ism_SqlMap.Insert("AssayProjectInfo.AddProRunSequenceTb",assayProject);
             }
             catch(Exception e)
             {
-                LogInfo.WriteProcessLog("Insert生化项目" + assayProject.ProjectName, Module.DAO);
+                LogInfo.WriteErrorLog("AssayProjectParamInfo AddAssayProject(string strAccessDBMethod, AssayProjectInfo assayProject) ==" + e.Message.ToString(), Module.DAO);
             }
-
+            return assayProjectParamInfo;
         }
         /// <summary>
         /// 获取生化项目信息
@@ -174,7 +187,7 @@ namespace BioA.SqlMaps
         {
             AssayProjectParamInfo assayProParam = new AssayProjectParamInfo();
             
-            List<ReagentStateInfo> proReagentState = new List<ReagentStateInfo>();
+            List<ReagentStateInfoR1R2> proReagentState = new List<ReagentStateInfoR1R2>();
             try
             {
                 Hashtable hash = new Hashtable();
@@ -199,16 +212,16 @@ namespace BioA.SqlMaps
                     assayProParam.Reagent2ValidDate = reagentSettings2.ValidDate;
                 }
                 
-                proReagentState = (List<ReagentStateInfo>)ism_SqlMap.QueryForList<ReagentStateInfo>("ReagentInfo.GetReagentStateInfo", assayProInfo.ProjectName);
-                foreach (ReagentStateInfo reaState in proReagentState)
+                proReagentState = (List<ReagentStateInfoR1R2>)ism_SqlMap.QueryForList<ReagentStateInfoR1R2>("ReagentInfo.GetReagentStateInfo", assayProInfo.ProjectName);
+                foreach (ReagentStateInfoR1R2 reaState in proReagentState)
                 {
                     if (reaState.ReagentName == assayProParam.Reagent1Name)
                     {
-                        assayProParam.Reagent1Vol = reaState.ReagentSurplusVol;
+                        assayProParam.Reagent1Vol = reaState.ReagentResidualVol;
                     }
-                    if (reaState.ReagentName == assayProParam.Reagent2Name)
+                    if (reaState.ReagentName2 == assayProParam.Reagent2Name)
                     {
-                        assayProParam.Reagent2Vol = reaState.ReagentSurplusVol;
+                        assayProParam.Reagent2Vol = reaState.ReagentResidualVol2;
                     }
                 }
             }

@@ -75,9 +75,10 @@ namespace BioA.UI
         public QualityControlGraphs()
         {
             InitializeComponent();
-            checkedListBox1.SetItemChecked(0,true);
-            checkedListBox1.SetItemChecked(1, true);
-            checkedListBox1.SetItemChecked(2, true);
+            
+            //checkedListBox1.SetItemChecked(0,true);
+            //checkedListBox1.SetItemChecked(1, true);
+            //checkedListBox1.SetItemChecked(2, true);
             this.chartControl1.Legend.Visibility = DevExpress.Utils.DefaultBoolean.False;
         }
         /// <summary>
@@ -123,25 +124,25 @@ namespace BioA.UI
         /// <returns></returns>
         private Series CreateSeries(string caption, ViewType viewType, DataTable dt, int index)
         {
-            Series series = new Series(caption, viewType);
+            //Series series = new Series(caption, viewType);
             //for (int i = 1; i < dt.Columns.Count; i++)
             //{
                 string argument = dt.Columns[index].ColumnName;//参数名称
                 string value = (string)dt.Rows[0][index];//参数值
                 if (value != string.Empty)
                 {
-                    series.Points.Add(new SeriesPoint(argument, value));
+                    AccumulationTimeSeries.Points.Add(new SeriesPoint(argument, value));
                 }
             //}
 
             //必须设置ArgumentScaleType的类型，否则显示会转换为日期格式，导致不是希望的格式显示
-            //也就是说，显示字符串的参数，必须设置类型为ScaleType.Qualitative
-            series.ArgumentScaleType = ScaleType.Qualitative;
-            series.LabelsVisibility = DevExpress.Utils.DefaultBoolean.True;//显示标注标签
-            
-            return series;
+            ////也就是说，显示字符串的参数，必须设置类型为ScaleType.Qualitative
+            //AccumulationTimeSeries.ArgumentScaleType = ScaleType.Qualitative;
+            //AccumulationTimeSeries.LabelsVisibility = DevExpress.Utils.DefaultBoolean.True;//显示标注标签
+
+            return AccumulationTimeSeries;
         }
-        private void CreateChart(DataTable dt, string lorizonLevel)
+        private void CreateChart(DataTable dt)
         {
             #region Series
             //创建几个图形的对象
@@ -150,18 +151,9 @@ namespace BioA.UI
             Series series2;
             Series series3;
             Series series4;
-            //Series series2 = CreateSeries("1SD：正常！", ViewType.Line, dt, 1);
-            //Series series3 = CreateSeries("2SD：警告！", ViewType.Line, dt, 2);
-            //Series series4 = CreateSeries("3SD：错误！", ViewType.Line, dt, 3);
-            //Series series5 = CreateSeries("XSD", ViewType.Point, dt, 4);
-            //Series series6 = CreateSeries("XSD", ViewType.Point, dt, 5);
             List<Series> list = new List<Series>();
-            if (lorizonLevel == "高" || lorizonLevel == "中" || lorizonLevel == "低")
-            {
                 for (int i = 0; i < results.Count; i++)
                 {
-                    //for (int j1 = 0; j1 < series1.Points.Count; j1++)
-                    //{
                     float str = float.Parse(dt.Rows[0][i + 1].ToString());
                     if ((str < (results[i].TargetMean + results[i].TargetSD) && str >= results[i].TargetMean) ||
                         (str > (results[i].TargetMean - results[i].TargetSD) && str <= results[i].TargetMean))
@@ -202,19 +194,18 @@ namespace BioA.UI
                         series3.View = lineSeriesView3;
                         list.Add(series3);
                     }
-                    if (str > (results[i].TargetMean + results[i].TargetSD * 3) ||
-                        str < (results[i].TargetMean - results[i].TargetSD * 3))
-                    {
-                        series4 = CreateSeries("3SD：错误！", ViewType.Line, dt, i + 1);
-                        LineSeriesView lineSeriesView4 = new LineSeriesView();
-                        lineSeriesView4.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-                        lineSeriesView4.LineMarkerOptions.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-                        lineSeriesView4.LineMarkerOptions.Kind = DevExpress.XtraCharts.MarkerKind.Diamond;
-                        lineSeriesView4.LineMarkerOptions.Size = 10;
-                        lineSeriesView4.MarkerVisibility = DevExpress.Utils.DefaultBoolean.True;
-                        series4.View = lineSeriesView4;
-                        list.Add(series4);
-                    }
+                if (str > (results[i].TargetMean + results[i].TargetSD * 3) ||
+                    str < (results[i].TargetMean - results[i].TargetSD * 3))
+                {
+                    series4 = CreateSeries("3SD：错误！", ViewType.Line, dt, i + 1);
+                    LineSeriesView lineSeriesView4 = new LineSeriesView();
+                    lineSeriesView4.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+                    lineSeriesView4.LineMarkerOptions.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+                    lineSeriesView4.LineMarkerOptions.Kind = DevExpress.XtraCharts.MarkerKind.Diamond;
+                    lineSeriesView4.LineMarkerOptions.Size = 10;
+                    lineSeriesView4.MarkerVisibility = DevExpress.Utils.DefaultBoolean.True;
+                    series4.View = lineSeriesView4;
+                    list.Add(series4);
                 }
             }
             
@@ -227,28 +218,49 @@ namespace BioA.UI
           
         private void MyPrintDocument_PrintPage(object sender, PrintPageEventArgs e)
         {
-            e.Graphics.DrawString("XXX医院质控报告模版", new Font(new FontFamily("黑体"), 11), System.Drawing.Brushes.Black, 500, 10);
+            e.Graphics.DrawString("XXX医院质控报告模版", new Font(new FontFamily("黑体"), 18), System.Drawing.Brushes.Black, 500, 10);
 
+            e.Graphics.DrawString(string.Format("报告日期：" + DateTime.Now.ToShortDateString()), new Font(new FontFamily("新宋体"), 10), System.Drawing.Brushes.Black, 960, 50);
             //信息的名称
-            e.Graphics.DrawLine(Pens.Black, 8, 30, 1161, 30);
-            e.Graphics.DrawString("项目：", new Font(new FontFamily("黑体"), 8), System.Drawing.Brushes.Black, 10, 35);
-            e.Graphics.DrawString("总蛋白", new Font(new FontFamily("黑体"), 8), System.Drawing.Brushes.Black, 40, 35);
-            e.Graphics.DrawString("水平：", new Font(new FontFamily("黑体"), 8), System.Drawing.Brushes.Black, 95, 35);
-            e.Graphics.DrawString("二", new Font(new FontFamily("黑体"), 8), System.Drawing.Brushes.Black, 125, 35);
+            e.Graphics.DrawLine(Pens.Black, 8, 70, 1161, 70);
+            e.Graphics.DrawString("项目：" + cboProjectName.Text, new Font(new FontFamily("新宋体"), 10), System.Drawing.Brushes.Black, 15, 80);
+            e.Graphics.DrawString("水平：" + txtHorizontalValue.Text, new Font(new FontFamily("新宋体"), 10), System.Drawing.Brushes.Black, 145, 80);
 
-            e.Graphics.DrawString("报告日期：", new Font(new FontFamily("黑体"), 8), System.Drawing.Brushes.Black, 280, 35);
-            e.Graphics.DrawString("2017/10/23", new Font(new FontFamily("黑体"), 8), System.Drawing.Brushes.Black, 335, 35);
-            e.Graphics.DrawString("-", new Font(new FontFamily("黑体"), 8), System.Drawing.Brushes.Black, 397, 35);
-            e.Graphics.DrawString("2017/10/24", new Font(new FontFamily("黑体"), 8), System.Drawing.Brushes.Black, 405, 35);
-            //e.Graphics.DrawString("总金额", new Font(new FontFamily("黑体"), 8), System.Drawing.Brushes.Black, 400, 35);
-            e.Graphics.DrawLine(Pens.Black, 8, 50, 1161, 50);
-
-            //信息
-            Image image = Image.FromFile(@"D:\屏幕截图\" + fileName);
-            e.Graphics.DrawImage(image, new RectangleF(30, 60, 1350, 700));
-            e.Graphics.DrawLine(Pens.Black, 8, 790, 1161, 790);
-            e.Graphics.DrawString("MEAN：1.232", new Font(new FontFamily("黑体"), 8), System.Drawing.Brushes.Black, 10, 798);
-            e.Graphics.DrawString("SD：1.663", new Font(new FontFamily("黑体"), 8), System.Drawing.Brushes.Black, 95, 798);
+            e.Graphics.DrawString("质控日期：" + dtpStartTime.Value.ToShortDateString() + "--" + dtpEndTime.Value.ToShortDateString(), 
+                new Font(new FontFamily("新宋体"), 10), System.Drawing.Brushes.Black, 280, 80);
+                
+            e.Graphics.DrawString("质控品：" + cboQCName.Text , new Font(new FontFamily("新宋体"), 10), System.Drawing.Brushes.Black, 15, 105);
+            e.Graphics.DrawString(string.Format("靶值：{0}", this.txtTargetValue.Text), new Font(new FontFamily("新宋体"), 10), System.Drawing.Brushes.Black, 205,105);
+            e.Graphics.DrawString(string.Format("标准差：{0}", this.txtStandardDeviationValue.Text), new Font(new FontFamily("新宋体"), 10), System.Drawing.Brushes.Black, 305, 105);
+            //e.Graphics.DrawLine(Pens.Black, 8, 105, 1161, 105);
+            try
+            {
+                //信息
+                Image image = Image.FromFile(@"D:\屏幕截图\" + fileName);
+                e.Graphics.DrawImage(image, new RectangleF(30, 130, 1350, 700));
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteProcessLog("MyPrintDocument_PrintPage(object sender, PrintPageEventArgs e) == " + ex.ToString(), Module.QualityControl);
+            }
+            List<float> lstFloat = new List<float>();
+            foreach (var item in results)
+            {
+                lstFloat.Add(item.ConcResult);
+            }
+            StatValue sd = StatDatas.GetStateValue(lstFloat);
+            e.Graphics.DrawString(string.Format("统计量："+ sd.N.ToString()+ "      " +
+                "平均值："+sd.MEAN.ToString("#0.00")+ "      " +
+                "标准差："+ sd.SD.ToString("#0.00") + "      " +
+                "CV%：" + sd.CV.ToString("#0.00%") + "      " +
+                "极差："+ sd.R.ToString("#0.00")), 
+                new Font(new FontFamily("黑体"), 10), System.Drawing.Brushes.Black, 30, 660);
+            //e.Graphics.DrawString(string.Format("靶值：{0}", this.txtTargetValue.Text), new Font(new FontFamily("黑体"), 10), System.Drawing.Brushes.Black, 30, 600);
+            //e.Graphics.DrawString(string.Format("标准差：{0}", this.txtStandardDeviationValue.Text), new Font(new FontFamily("黑体"), 10), System.Drawing.Brushes.Black, 135, 600);
+            e.Graphics.DrawLine(Pens.Black, 8, 700, 1161, 700);
+            e.Graphics.DrawString(string.Format("制作人：{0}", Program.userInfo == null ? "" : Program.userInfo.UserName), new Font(new FontFamily("黑体"), 12), System.Drawing.Brushes.Black, 900, 710);
+            //e.Graphics.DrawString(mean, new Font(new FontFamily("黑体"), 8), System.Drawing.Brushes.Black, 10, 798);
+            //e.Graphics.DrawString(sd, new Font(new FontFamily("黑体"), 8), System.Drawing.Brushes.Black, 95, 798);
 
             int tableWith = 0;
             string ColumnText;
@@ -391,7 +403,7 @@ namespace BioA.UI
             //    e.HasMorePages = true;
             //}
         }
-    
+
         /// <summary>
         /// 查询
         /// </summary>
@@ -399,43 +411,32 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            BeginInvoke(new Action(SelectAllQCResultByQCInfo));
-            
-        }
-        /// <summary>
-        /// 根据质控信息获取浓度结果信息
-        /// </summary>
-        private void SelectAllQCResultByQCInfo()
-        {
             chartControl1.Series.Clear();
             QCResultForUIInfo qcResForUIInfo = new QCResultForUIInfo();
             if (cboProjectName.Text != "")
-            {
                 qcResForUIInfo.ProjectName = cboProjectName.SelectedItem.ToString();
+            else
+            {
+                MessageBox.Show("项目名称不能为空！");
+                return;
             }
+
             if (cboQCName.Text != "")
-            {
                 qcResForUIInfo.QCName = cboQCName.SelectedItem.ToString();
-            }
-            if (cboLot.Text != "")
+            else
             {
-                qcResForUIInfo.LotNum = cboLot.SelectedItem.ToString();
-            }
-            if (cboManufacturer.Text != "")
-            {
-                qcResForUIInfo.Manufacturer = cboManufacturer.SelectedItem.ToString();
+                MessageBox.Show("请选择质控品名！");
+                return;
             }
             qcResForUIInfo.QCTimeStartTS = System.Convert.ToDateTime((dtpStartTime.Value).ToShortDateString());
             qcResForUIInfo.QCTimeEndTS = System.Convert.ToDateTime((dtpEndTime.Value).AddDays(1).ToShortDateString());
 
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCGraphic, XmlUtility.Serializer(typeof(CommunicationEntity),
-            //                                                                                                 new CommunicationEntity("QueryQCResultForQCGraphics",
-            //                                                                                                                         XmlUtility.Serializer(typeof(QCResultForUIInfo),qcResForUIInfo))));
             qcGraphsDic.Clear();
             qcGraphsDic.Add("QueryQCResultForQCGraphics", new object[] { XmlUtility.Serializer(typeof(QCResultForUIInfo), qcResForUIInfo) });
-            CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.QCGraphic,qcGraphsDic);
-            // this.chartControl1.Visible = false;
+            ClientSendInfoToServices(qcGraphsDic);
+
         }
+
         /// <summary>
         /// 打印报告
         /// </summary>
@@ -443,7 +444,7 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void simpleButton2_Click_1(object sender, EventArgs e)
         {
-           
+            
             if (Directory.Exists(" d:\\屏幕截图"))  //判断目录是否存在,不存在就创建
             { }
             else
@@ -471,96 +472,18 @@ namespace BioA.UI
             paperSize.PaperName = "Custum";
 
 
-            this.printDocument1.DefaultPageSettings.PaperSize = new PaperSize("Custum", 827,1169);
+            this.printDocument1.DefaultPageSettings.PaperSize = new PaperSize("Custum", 827, 1169);
             printDocument1.DefaultPageSettings.Landscape = true;    //横向打印
 
-            //List<QCResultForUIInfo> QCResultHigh = new List<QCResultForUIInfo>();
-            //List<QCResultForUIInfo> QCResultMin = new List<QCResultForUIInfo>();
-            //List<QCResultForUIInfo> QCResultLow = new List<QCResultForUIInfo>();
-            //for (int i = 0; i < results.Count; i++)
-            //{
-            //    if (results[i].HorizonLevel == "高")
-            //    {
-            //        QCResultHigh.Add(results[i]);
-            //    }
-            //    if (results[i].HorizonLevel == "中")
-            //    {
-            //        QCResultMin.Add(results[i]);
-            //    }
-            //    if (results[i].HorizonLevel == "低")
-            //    {
-            //        QCResultLow.Add(results[i]);
-            //    }
-
-            //}
-      
-
-            //DataTable dt = new DataTable();
-            //DataColumn[] dtc = new DataColumn[results.Count + 1];
-            //dtc[0] = new DataColumn("日期");
-
-
-            //for (int i = 0; i < results.Count; i++)
-            //{
-            //    dtc[i + 1] = new DataColumn(results[i].SampleCreateTime.ToString(), typeof(string));
-            //}
-
-
-            //dt.Columns.AddRange(dtc);
-            //object[] obj = new object[results.Count + 1];
-            //object[] obj1 = new object[results.Count + 1];
-            //object[] obj2 = new object[results.Count + 1];
-           
-            //obj[0] = "高浓度值";
-            //obj1[0] = "中浓度值";
-            //obj2[0] = "低浓度值";
-
-            //if (QCResultHigh.Count > 0 && checkedListBox1.GetItemChecked(0))
-            //{
-            //    for (int i = 0; i < QCResultHigh.Count; i++)
-            //    {
-            //        obj[i + 1] = QCResultHigh[i].ConcResult;
-            //    }
-            //}
-            //if (QCResultMin.Count > 0 && checkedListBox1.GetItemChecked(1))
-            //{
-            //    for (int i = 0; i < QCResultMin.Count; i++)
-            //    {
-            //        obj1[i + 1] = QCResultMin[i].ConcResult;
-            //    }
-            //}
-            //if (QCResultLow.Count > 0 && checkedListBox1.GetItemChecked(2))
-            //{
-            //    for (int i = 0; i < QCResultLow.Count; i++)
-            //    {
-            //        obj2[i + 1] = QCResultLow[i].ConcResult;
-            //    }
-            //}
-
-            ////for (int i = 0; i < results.Count; i++)
-            ////{
-            ////    obj[i + 1] = results[i].ConcResult ;
-            ////}
-
-          
-
-            //dt.Rows.Add(obj);
-            //dt.Rows.Add(obj1);
-            //dt.Rows.Add(obj2);
-            
-            //DataTablePrint = dt;
-           // HeadText = Title;
-
-          
             //DataTablePrinter = new PrintDocument();
 
             PageSetupDialog PageSetup = new PageSetupDialog();
             PageSetup.Document = printDocument1;
             printDocument1.DefaultPageSettings = PageSetup.PageSettings;
             printDocument1.DefaultPageSettings.Landscape = true;//设置打印横向还是纵向
-            //PLeft = 30; //DataTablePrinter.DefaultPageSettings.Margins.Left;
+                                                                //PLeft = 30; //DataTablePrinter.DefaultPageSettings.Margins.Left;
             PTop = 520; //DataTablePrinter.DefaultPageSettings.Margins.Top;
-            //PRight = DataTablePrinter.DefaultPageSettings.Margins.Right;
+                        //PRight = DataTablePrinter.DefaultPageSettings.Margins.Right;
             PBottom = printDocument1.DefaultPageSettings.Margins.Bottom;
             PWidth = printDocument1.DefaultPageSettings.Bounds.Width;
             PHeigh = printDocument1.DefaultPageSettings.Bounds.Height;
@@ -583,7 +506,7 @@ namespace BioA.UI
             //{
             //    TotalPage = 1;
             //}
-            
+
             this.printDocument1.PrintPage += new PrintPageEventHandler(this.MyPrintDocument_PrintPage);
             //将写好的格式给打印预览控件以便预览
             printPreviewDialog1.Document = printDocument1;
@@ -599,14 +522,32 @@ namespace BioA.UI
         }
         private void loadQCGraphsInfoLoad()
         {
-            //// 1.获取项目名称
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCGraphic, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryProjectName", null)));
-            //// 2.获取质控信息
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCGraphic, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryQCAllInfo", null)));
+            //获取项目名称
             qcGraphsDic.Add("QueryProjectName",null);
+            //获取质控信息
             qcGraphsDic.Add("QueryQCAllInfo",null);
-            CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.QCGraphic,qcGraphsDic);
+            //获取控制项目信息
+            qcGraphsDic.Add("GetsQCRelationProInfo", null);
+            ClientSendInfoToServices(qcGraphsDic);
         }
+
+        private void ClientSendInfoToServices(Dictionary<string, object[]> sender)
+        {
+            var sendToServicesInfoThread = new Thread(() =>
+                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.QCGraphic, sender)
+            )
+            { IsBackground = true };
+            sendToServicesInfoThread.Start();
+        }
+
+        /// <summary>
+        /// 所有质控项目信息
+        /// </summary>
+        List<QCRelationProjectInfo> lstQCRelationProjects = null;
+        /// <summary>
+        /// 所有质控信息
+        /// </summary>
+        List<QualityControlInfo> lstQCInfo = null;
         /// <summary>
         /// 接收数据库数据传输
         /// </summary>
@@ -622,198 +563,241 @@ namespace BioA.UI
                     
                     break;
                 case "QueryQCAllInfo":
-                    List<QualityControlInfo> lstQCInfo = (List<QualityControlInfo>)XmlUtility.Deserialize(typeof(List<QualityControlInfo>), sender as string);
-                    this.Invoke(new EventHandler(delegate { 
-                        foreach (QualityControlInfo QCInfo in lstQCInfo)
-                        {
-                            if (!cboQCName.Properties.Items.Contains(QCInfo.QCName))
-                                cboQCName.Properties.Items.Add(QCInfo.QCName);
-
-                            if (!cboLot.Properties.Items.Contains(QCInfo.LotNum))
-                                cboLot.Properties.Items.Add(QCInfo.LotNum);
-
-                            if (!cboManufacturer.Properties.Items.Contains(QCInfo.Manufacturer))
-                                cboManufacturer.Properties.Items.Add(QCInfo.Manufacturer);
-                        }
-                    }));
+                    lstQCInfo = (List<QualityControlInfo>)XmlUtility.Deserialize(typeof(List<QualityControlInfo>), sender as string);
+                    break;
+                case "GetsQCRelationProInfo":
+                     lstQCRelationProjects = (List<QCRelationProjectInfo>)XmlUtility.Deserialize(typeof(List<QCRelationProjectInfo>), sender as string);
                     break;
                 case "QueryQCResultForQCGraphics":
                     // 包含信息有水平浓度、质控时间、质控结果浓度
                     results = (List<QCResultForUIInfo>)XmlUtility.Deserialize(typeof(List<QCResultForUIInfo>), sender as string);
-                    BeginInvoke(new Action(QualityControlPicture));
+                    QualityControlPicture(results);
                     break;
                 default:
                     break;
             }
         }
 
-        private void QualityControlPicture()
+        private void QualityControlPicture(List<QCResultForUIInfo> lstQCResultForUIs)
         {
-            List<QCResultForUIInfo> QCResultHigh = new List<QCResultForUIInfo>();
-            List<QCResultForUIInfo> QCResultMin = new List<QCResultForUIInfo>();
-            List<QCResultForUIInfo> QCResultLow = new List<QCResultForUIInfo>();
-
-            for (int i = 0; i < results.Count; i++)
+            if (lstQCResultForUIs.Count > 0)
             {
-                if (results[i].HorizonLevel == "高")
+                var seriesThread = new Thread(() =>
                 {
-                    QCResultHigh.Add(results[i]);
-                }
-                if (results[i].HorizonLevel == "中")
-                {
-                    QCResultMin.Add(results[i]);
-                }
-                if (results[i].HorizonLevel == "低")
-                {
-                    QCResultLow.Add(results[i]);
-                }
-
+                    DataTable dtHigh = CreateData(lstQCResultForUIs);
+                    CreateChart(dtHigh);
+                })
+                { IsBackground = true };
+                seriesThread.Start();
             }
-            var qcDlienThread = new Thread(() =>
+            else
             {
-                if (QCResultHigh.Count > 0 && checkedListBox1.GetItemChecked(0))
+                if(this._TemporaryQCProjectInfo != null)
                 {
-                    DataTable dtHigh = CreateData(QCResultHigh);
-                    CreateChart(dtHigh, "高");
+                    Dline(_TemporaryQCProjectInfo);
                 }
-                if (QCResultMin.Count > 0 && checkedListBox1.GetItemChecked(1))
-                {
-                    DataTable dtMin = CreateData(QCResultMin);
-                    CreateChart(dtMin, "中");
-                }
-                if (QCResultLow.Count > 0 && checkedListBox1.GetItemChecked(2))
-                {
-                    DataTable dtLow = CreateData(QCResultLow);
-                    CreateChart(dtLow, "低");
-                }
-            });
-            qcDlienThread.IsBackground = true;
-            qcDlienThread.Start();
-            Thread.Sleep(200);
-            Dline(results);
-            
-        }
+                string str = string.Format("该质控项目在[{0} ~ {1}]时间段中没有数据", dtpStartTime.Value.ToShortDateString(), dtpEndTime.Value.AddDays(1).ToShortDateString());
+                MessageBox.Show(str);
+            }
 
-        private void Dline(List<QCResultForUIInfo> results)
+        }
+        private QCRelationProjectInfo _TemporaryQCProjectInfo;
+        //初始化视图
+        private Series AccumulationTimeSeries;
+        /// <summary>
+        /// 画SD图形
+        /// </summary>
+        /// <param name="results"></param>
+        private void Dline(QCRelationProjectInfo results)
         {
             try
             {
-                if (results.Count > 0)
+                if (results != null)
                 {
-                    XYDiagram diagram = chartControl1.Diagram as XYDiagram;
-                    //diagram.AxisY.ConstantLines.Clear();
-                    chartControl1.Titles.Clear();
-                    ChartTitle SD1title = new ChartTitle();
-                    SD1title.Text = "● Mean/±1SD — 正常！" + "     ● ±2SD警告！" + "     ● ±3SD错误！";
-                    SD1title.TextColor = Color.OrangeRed;
-                    SD1title.Font = new System.Drawing.Font("Tahoma", (float)10);
-                    chartControl1.Titles.Add(SD1title);
+                    if(AccumulationTimeSeries == null)
+                    {
+                        AccumulationTimeSeries = new Series("1SD", ViewType.Line);
+                        AccumulationTimeSeries.ArgumentScaleType = ScaleType.Qualitative;
+                        AccumulationTimeSeries.LabelsVisibility = DevExpress.Utils.DefaultBoolean.True;//是否显示
+                        chartControl1.Series.Add(AccumulationTimeSeries);
+                    }
+                    else
+                    {
+                        chartControl1.Series.Clear();
+                        AccumulationTimeSeries = null;
+                        AccumulationTimeSeries = new Series("1SD", ViewType.Line);
+                        AccumulationTimeSeries.ArgumentScaleType = ScaleType.Qualitative;
+                        AccumulationTimeSeries.LabelsVisibility = DevExpress.Utils.DefaultBoolean.True;//是否显示
+                        chartControl1.Series.Add(AccumulationTimeSeries);
+                    }
+                    this._TemporaryQCProjectInfo = results;
+                    XYDiagram diagram = (XYDiagram)chartControl1.Diagram;
+                    if (diagram != null)
+                    {
+                        diagram.AxisY.ConstantLines.Clear();
+                        chartControl1.Titles.Clear();
+                        ChartTitle SD1title = new ChartTitle();
+                        SD1title.Text = "● Mean/±1SD — 正常！" + "     ● ±2SD警告！" + "     ● ±3SD错误！";
+                        SD1title.TextColor = Color.OrangeRed;
+                        SD1title.Font = new System.Drawing.Font("Tahoma", (float)10);
+                        chartControl1.Titles.Add(SD1title);
+                        
+                        double StandardDeviation1 = Math.Round((double)(results.TargetMean + results.TargetSD), 1, MidpointRounding.AwayFromZero);
+                        ConstantLine constantLine1 = new ConstantLine("1SD", StandardDeviation1);
+                        diagram.AxisY.ConstantLines.Add(constantLine1);
+                        constantLine1.Color = Color.Blue; //直线颜色
+                        constantLine1.Title.TextColor = Color.Blue;   //直线文本字体颜色
+                        constantLine1.LineStyle.Thickness = 2;
+                        double StandardDeviation2 = Math.Round((double)(results.TargetMean + results.TargetSD * 2), 1, MidpointRounding.AwayFromZero);
+                        ConstantLine constantLine4 = new ConstantLine("2SD", StandardDeviation2);
+                        diagram.AxisY.ConstantLines.Add(constantLine4);
+                        constantLine4.Color = Color.Orange; //直线颜色
+                        constantLine4.Title.TextColor = Color.Orange;   //直线文本字体颜色
+                        constantLine4.LineStyle.Thickness = 2;
+                        double StandardDeviation3 = Math.Round((double)(results.TargetMean + results.TargetSD * 3), 1, MidpointRounding.AwayFromZero);
+                        ConstantLine constantLine5 = new ConstantLine("3SD", StandardDeviation3);
+                        diagram.AxisY.ConstantLines.Add(constantLine5);
+                        constantLine5.Color = Color.Red; //直线颜色  
+                        constantLine5.Title.TextColor = Color.Red;   //直线文本字体颜色
+                        constantLine5.LineStyle.Thickness = 2;
+                        double Mean = Math.Round(results.TargetMean, 1, MidpointRounding.AwayFromZero);
+                        ConstantLine constantLine2 = new ConstantLine("MEAN", Mean);
+                        diagram.AxisY.ConstantLines.Add(constantLine2);
+                        constantLine2.Color = Color.Green;
+                        constantLine2.Title.TextColor = Color.Green;
+                        constantLine2.LineStyle.Thickness = 2;
+                        double Negative1SD = Math.Round((double)(results.TargetMean - results.TargetSD), 1, MidpointRounding.AwayFromZero);
+                        ConstantLine constantLine3 = new ConstantLine("-1SD", Negative1SD);
+                        diagram.AxisY.ConstantLines.Add(constantLine3);
+                        constantLine3.Color = Color.Blue;
+                        constantLine3.Title.TextColor = Color.Blue;
+                        constantLine3.LineStyle.Thickness = 2;
+                        constantLine3.Title.ShowBelowLine = true;
+                        double Negative2SD = Math.Round((double)(results.TargetMean - results.TargetSD * 2), 1, MidpointRounding.AwayFromZero);
+                        ConstantLine constantLine6 = new ConstantLine("-2SD", Negative2SD);
+                        diagram.AxisY.ConstantLines.Add(constantLine6);
+                        constantLine6.Color = Color.Orange;
+                        constantLine6.Title.TextColor = Color.Orange;
+                        constantLine6.LineStyle.Thickness = 2;
+                        constantLine6.Title.ShowBelowLine = true;
+                        double Negative3SD = Math.Round((double)(results.TargetMean - results.TargetSD * 3), 1, MidpointRounding.AwayFromZero);
+                        ConstantLine constantLine7 = new ConstantLine("-3SD", Negative3SD);
+                        diagram.AxisY.ConstantLines.Add(constantLine7);
+                        constantLine7.Color = Color.Red;
+                        constantLine7.Title.TextColor = Color.Red;
+                        constantLine7.LineStyle.Thickness = 2;
+                        constantLine7.Title.ShowBelowLine = true;
+                        //设置Y轴的图像显示最大值和最小值
+                        double VRMin = Math.Round((double)(results.TargetMean - 3 * results.TargetSD - 20), 1, MidpointRounding.AwayFromZero);
+                        double VRMax = Math.Round((double)(results.TargetMean + 3 * results.TargetSD + 20), 1, MidpointRounding.AwayFromZero);
+                        diagram.AxisY.VisualRange.SetMinMaxValues(VRMin, VRMax);
+                        //设置Y轴的最大值和最小值
+                        double WRMin = Math.Round((double)(results.TargetMean - 3 * results.TargetSD - 20), 1, MidpointRounding.AwayFromZero);
+                        double WRMax = Math.Round((double)(results.TargetMean + 3 * results.TargetSD + 20), 1, MidpointRounding.AwayFromZero);
+                        diagram.AxisY.WholeRange.SetMinMaxValues(WRMin, WRMax);
 
-                    //diagram.AxisY.NumericScaleOptions.GridOffset = 0;
-                    double StandardDeviation1 = Math.Round((double)(results[0].TargetMean + results[0].TargetSD), 1, MidpointRounding.AwayFromZero);
-                    ConstantLine constantLine1 = new ConstantLine("1SD", StandardDeviation1);
-                    constantLine1.Color = Color.Blue; //直线颜色
-                    constantLine1.Title.TextColor = Color.Blue;   //直线文本字体颜色
-                    constantLine1.LineStyle.Thickness = 2;
-                    diagram.AxisY.ConstantLines.Add(constantLine1);
-                    double StandardDeviation2 = Math.Round((double)(results[0].TargetMean + results[0].TargetSD * 2), 1, MidpointRounding.AwayFromZero);
-                    ConstantLine constantLine4 = new ConstantLine("2SD", StandardDeviation2);
-                    constantLine4.Color = Color.Orange; //直线颜色
-                    constantLine4.Title.TextColor = Color.Orange;   //直线文本字体颜色
-                    constantLine4.LineStyle.Thickness = 2;
-                    diagram.AxisY.ConstantLines.Add(constantLine4);
-                    double StandardDeviation3 = Math.Round((double)(results[0].TargetMean + results[0].TargetSD * 3), 1, MidpointRounding.AwayFromZero);
-                    ConstantLine constantLine5 = new ConstantLine("3SD", StandardDeviation3);
-                    constantLine5.Color = Color.Red; //直线颜色  
-                    constantLine5.Title.TextColor = Color.Red;   //直线文本字体颜色
-                    constantLine5.LineStyle.Thickness = 2;
-                    diagram.AxisY.ConstantLines.Add(constantLine5);
-                    double Mean = Math.Round(results[0].TargetMean, 1, MidpointRounding.AwayFromZero);
-                    ConstantLine constantLine2 = new ConstantLine("MEAN", Mean);
-                    constantLine2.Color = Color.Green;
-                    constantLine2.Title.TextColor = Color.Green;
-                    constantLine2.LineStyle.Thickness = 2;
-                    diagram.AxisY.ConstantLines.Add(constantLine2);
-                    double Negative1SD = Math.Round((double)(results[0].TargetMean - results[0].TargetSD), 1, MidpointRounding.AwayFromZero);
-                    ConstantLine constantLine3 = new ConstantLine("-1SD", Negative1SD);
-                    constantLine3.Color = Color.Blue;
-                    constantLine3.Title.TextColor = Color.Blue;
-                    constantLine3.LineStyle.Thickness = 2;
-                    constantLine3.Title.ShowBelowLine = true;
-                    diagram.AxisY.ConstantLines.Add(constantLine3);
-                    double Negative2SD = Math.Round((double)(results[0].TargetMean - results[0].TargetSD * 2), 1, MidpointRounding.AwayFromZero);
-                    ConstantLine constantLine6 = new ConstantLine("-2SD", Negative2SD);
-                    constantLine6.Color = Color.Orange;
-                    constantLine6.Title.TextColor = Color.Orange;
-                    constantLine6.LineStyle.Thickness = 2;
-                    constantLine6.Title.ShowBelowLine = true;
-                    diagram.AxisY.ConstantLines.Add(constantLine6);
-                    double Negative3SD = Math.Round((double)(results[0].TargetMean - results[0].TargetSD * 3), 1, MidpointRounding.AwayFromZero);
-                    ConstantLine constantLine7 = new ConstantLine("-3SD", Negative3SD);
-                    constantLine7.Color = Color.Red;
-                    constantLine7.Title.TextColor = Color.Red;
-                    constantLine7.LineStyle.Thickness = 2;
-                    constantLine7.Title.ShowBelowLine = true;
-                    diagram.AxisY.ConstantLines.Add(constantLine7);
-                    //设置Y轴的图像显示最大值和最小值
-                    double VRMin = Math.Round((double)(results[0].TargetMean - 3 * results[0].TargetSD - 20), 1, MidpointRounding.AwayFromZero);
-                    double VRMax = Math.Round((double)(results[0].TargetMean + 3 * results[0].TargetSD + 20), 1, MidpointRounding.AwayFromZero);
-                    diagram.AxisY.VisualRange.SetMinMaxValues(VRMin, VRMax);
-                    //设置Y轴的最大值和最小值
-                    double WRMin = Math.Round((double)(results[0].TargetMean - 3 * results[0].TargetSD - 20), 1, MidpointRounding.AwayFromZero);
-                    double WRMax = Math.Round((double)(results[0].TargetMean + 3 * results[0].TargetSD + 20), 1, MidpointRounding.AwayFromZero);
-                    diagram.AxisY.WholeRange.SetMinMaxValues(WRMin, WRMax);
+                        diagram.AxisX.VisualRange.SetMinMaxValues(0, 10);
+                        diagram.AxisX.WholeRange.SetMinMaxValues(0, 10);
 
-                    //Legend legend = chartControl1.Legend;
-                    //legend.AlignmentHorizontal = LegendAlignmentHorizontal.Center;
-                    //legend.AlignmentVertical = LegendAlignmentVertical.TopOutside;
-                    //legend.Direction = LegendDirection.LeftToRight;
-                    //legend.TextVisible = true;
+                        //设置Y轴
+                        diagram.AxisY.Title.Text = "质控品浓度结果".ToString();
+                        diagram.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                        diagram.AxisY.NumericScaleOptions.GridSpacing = 1;
+                        diagram.AxisY.NumericScaleOptions.AutoGrid = false;
+                        diagram.AxisY.VisualRange.Auto = false;
+                        diagram.AxisY.VisualRange.AutoSideMargins = false;
+                        diagram.AxisY.WholeRange.Auto = false;
+                        diagram.AxisY.WholeRange.AutoSideMargins = false;
+                        diagram.AxisY.MinorCount = 9;
+                        //是否允许沿其Y轴滚动窗格
+                        diagram.EnableAxisYScrolling = true;
+                        diagram.EnableAxisYZooming = true;
 
-                    diagram.AxisX.VisualRange.SetMinMaxValues(0, 10);
-                    diagram.AxisX.WholeRange.SetMinMaxValues(0, results.Count + 10);
+                        //设置X轴
+                        diagram.AxisX.Title.Text = "质控时间".ToString();
+                        diagram.AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                        diagram.AxisX.NumericScaleOptions.GridSpacing = 1;
+                        diagram.AxisX.NumericScaleOptions.AutoGrid = false;
+                        diagram.AxisX.VisualRange.Auto = false;
+                        diagram.AxisX.VisualRange.AutoSideMargins = false;
+                        //diagram.AxisX.WholeRange.Auto = false;
+                        //diagram.AxisX.WholeRange.AutoSideMargins = false;
+                        diagram.AxisX.MinorCount = 9;
+                        //是否允许沿其X轴滚动窗格
+                        diagram.EnableAxisXScrolling = true;
+                        diagram.EnableAxisXZooming = true;
 
-                    //设置Y轴
-                    diagram.AxisY.Title.Text = "质控品浓度结果".ToString();
-                    diagram.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
-                    diagram.AxisY.NumericScaleOptions.GridSpacing = 1;
-                    diagram.AxisY.NumericScaleOptions.AutoGrid = false;
-                    diagram.AxisY.VisualRange.Auto = false;
-                    diagram.AxisY.VisualRange.AutoSideMargins = false;
-                    diagram.AxisY.WholeRange.Auto = false;
-                    diagram.AxisY.WholeRange.AutoSideMargins = false;
-                    diagram.AxisY.MinorCount = 9;
-                    //是否允许沿其Y轴滚动窗格
-                    diagram.EnableAxisYScrolling = true;
-                    diagram.EnableAxisYZooming = true;
-
-                    //设置X轴
-                    diagram.AxisX.Title.Text = "质控时间".ToString();
-                    diagram.AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
-                    diagram.AxisX.NumericScaleOptions.GridSpacing = 1;
-                    diagram.AxisX.NumericScaleOptions.AutoGrid = false;
-                    diagram.AxisX.VisualRange.Auto = false;
-                    diagram.AxisX.VisualRange.AutoSideMargins = false;
-                    //diagram.AxisX.WholeRange.Auto = false;
-                    //diagram.AxisX.WholeRange.AutoSideMargins = false;
-                    diagram.AxisX.MinorCount = 9;
-                    //是否允许沿其X轴滚动窗格
-                    diagram.EnableAxisXScrolling = true;
-                    diagram.EnableAxisXZooming = true;
-
-                    // 启用X轴缩放
-                    //diagram.EnableAxisXZooming = true;
-                    //diagram.Panes[0].EnableAxisXZooming = DevExpress.Utils.DefaultBoolean.False;
-                    //// 指定键盘和鼠标进行放大缩小
-                    diagram.ZoomingOptions.UseKeyboard = false;
-                    diagram.ZoomingOptions.UseKeyboardWithMouse = true;
-                    diagram.ZoomingOptions.UseMouseWheel = true;
-
+                        // 启用X轴缩放
+                        //diagram.EnableAxisXZooming = true;
+                        //diagram.Panes[0].EnableAxisXZooming = DevExpress.Utils.DefaultBoolean.False;
+                        //// 指定键盘和鼠标进行放大缩小
+                        diagram.ZoomingOptions.UseKeyboard = false;
+                        diagram.ZoomingOptions.UseKeyboardWithMouse = true;
+                        diagram.ZoomingOptions.UseMouseWheel = true;
+                    }
                 }
             }
             catch (Exception e)
             {
-
+                LogInfo.WriteErrorLog("质控图异常："+ e.ToString(),Module.QualityControl);
+            }
+        }
+        /// <summary>
+        /// 项目名称下拉框：值改变事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cboProjectName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            List<int> lstStr = new List<int>();
+            foreach (var item in lstQCRelationProjects)
+            {
+                if (item.ProjectName == cboProjectName.Text)
+                {
+                    lstStr.Add(item.QCID);
+                }
+            }
+            if (lstStr.Count > 0)
+            {
+                foreach (var item in lstStr)
+                {
+                    cboQCName.Properties.Items.Clear();
+                    foreach (var qcInfo in lstQCInfo)
+                    {
+                        if (item == qcInfo.QCID)
+                        {
+                            cboQCName.Properties.Items.Add(qcInfo.QCName);
+                        }
+                    }
+                }
+                cboQCName.SelectedIndex = 0;
+            }
+            else
+            {
+                cboQCName.Properties.Items.Clear();
+                cboQCName.Text = "";
+                txtHorizontalValue.Text = "";
+                txtStandardDeviationValue.Text = "";
+                txtTargetValue.Text = "";
+            }
+            
+        }
+        /// <summary>
+        /// 质控品名称下拉框改变事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cboQCName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var qualityControls = lstQCInfo.Find(x => x.QCName == cboQCName.Text);
+            QCRelationProjectInfo qcRelationProject = lstQCRelationProjects.Find(x => x.QCID == qualityControls.QCID && x.ProjectName == cboProjectName.Text);
+            if (qcRelationProject != null)
+            {
+                txtTargetValue.Text = Convert.ToString(qcRelationProject.TargetMean);
+                txtStandardDeviationValue.Text = Convert.ToString(qcRelationProject.TargetSD);
+                txtHorizontalValue.Text = qualityControls.HorizonLevel;
+                var qcFigureThread = new Thread(() => this.Dline(qcRelationProject)) { IsBackground = true };
+                qcFigureThread.Start();
             }
         }
     }

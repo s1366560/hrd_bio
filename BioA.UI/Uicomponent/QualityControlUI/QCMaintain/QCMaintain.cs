@@ -28,7 +28,7 @@ namespace BioA.UI
         // 质控品信息
         private List<QualityControlInfo> lstQualityControlInfo = new List<QualityControlInfo>();
         /// <summary>
-        /// 保存质控检查项目的平均值信息
+        /// 保存质控项目的平均值信息
         /// </summary>
         private DataTable dataTableProject = new DataTable();
         /// <summary>
@@ -180,6 +180,7 @@ namespace BioA.UI
                 qualityControlAddAndEdit.QCRelateProInfo = qcRelationProForEdit;
                 qualityControlAddAndEdit.Text = "编辑质控品";
                 qualityControlAddAndEdit.LstAssayProInfos = lstAssayProInfo;
+                qualityControlAddAndEdit.ListQualityControlInfo = lstQualityControlInfo;
                 qualityControlAddAndEdit.StartPosition = FormStartPosition.CenterScreen;
                 qualityControlAddAndEdit.ShowDialog();
             }
@@ -196,8 +197,10 @@ namespace BioA.UI
             qualityControlAddAndEdit.StartPosition = FormStartPosition.CenterScreen;
 
             qualityControlAddAndEdit.LstAssayProInfos = lstAssayProInfo;
+            qualityControlAddAndEdit.ListQualityControlInfo = lstQualityControlInfo;
             qualityControlAddAndEdit.ShowDialog();
         }
+
         /// <summary>
         /// 接收数据库数据传输
         /// </summary>

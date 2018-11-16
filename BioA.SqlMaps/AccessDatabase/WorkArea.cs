@@ -486,31 +486,31 @@ namespace BioA.SqlMaps
         /// <returns></returns>
         public TimeCourseInfo QueryCommonTaskReaction(string strMethodName, SampleResultInfo sampleResInfo)
         {
-            string sampleResultTCNO = "";
-            TimeCourseInfo sampleReacInto = new TimeCourseInfo();
+            //string sampleResultTCNO = "";
+            TimeCourseInfo timeCourseInfoResult = new TimeCourseInfo();
             try
             {
                 Hashtable ht = new Hashtable();
-                ht.Add("ProjectName", sampleResInfo.ProjectName);
-                ht.Add("SampleNum", sampleResInfo.SampleNum);
-                ht.Add("SampleType", sampleResInfo.SampleType);
-                ht.Add("SampleCompletionTime", sampleResInfo.SampleCompletionTime);
-                sampleResultTCNO = (string)ism_SqlMap.QueryForObject("PLCDataInfo.QuerySampleResultTCNO", ht);
-                if (sampleResultTCNO != null && sampleResultTCNO != string.Empty)
-                {
-                    ht.Clear();
-                    ht.Add("TimeCourseNO", sampleResultTCNO);
-                    ht.Add("BeginTime", sampleResInfo.SampleCreateTime.ToShortDateString());
-                    ht.Add("EndTime", sampleResInfo.SampleCreateTime.AddDays(1).ToShortDateString());
-                    sampleReacInto = ism_SqlMap.QueryForObject("PLCDataInfo." + strMethodName, ht) as TimeCourseInfo;
-                }
+                //ht.Add("ProjectName", sampleResInfo.ProjectName);
+                //ht.Add("SampleNum", sampleResInfo.SampleNum);
+                //ht.Add("SampleType", sampleResInfo.SampleType);
+                //ht.Add("SampleCompletionTime", sampleResInfo.SampleCompletionTime);
+                // sampleResultTCNO = (string)ism_SqlMap.QueryForObject("PLCDataInfo.QuerySampleResultTCNO", ht);
+                //if (sampleResultTCNO != null && sampleResultTCNO != string.Empty)
+                //{
+                    //ht.Clear();
+                ht.Add("TimeCourseNO", sampleResInfo.TCNO);
+                ht.Add("BeginTime", sampleResInfo.SampleCreateTime.ToShortDateString());
+                ht.Add("EndTime", sampleResInfo.SampleCreateTime.AddDays(1).ToShortDateString());
+                timeCourseInfoResult = ism_SqlMap.QueryForObject("PLCDataInfo." + strMethodName, ht) as TimeCourseInfo;
+                //}
             }
             catch (Exception e)
             {
                 LogInfo.WriteErrorLog("QueryCommonTaskReaction(string strMethodName, SampleResultInfo sampleResInfo)==" + e.ToString(), Module.DAO);
             }
 
-            return sampleReacInto;
+            return timeCourseInfoResult;
         }
 
         public string BatchAuditSampleTest(string strMethodName, List<string[]> lstBatchAuditParam)
@@ -735,6 +735,33 @@ namespace BioA.SqlMaps
             {
                 LogInfo.WriteErrorLog("UpdateNORResultRunLog(SampleResultInfo samResInfo)==" + e.ToString(), Module.DAO);
             }
+        }
+
+        /// <summary>
+        /// 删除选中的样本结果信息
+        /// </summary>
+        /// <param name="sampleResultInfo"></param>
+        /// <returns></returns>
+        public int DeleteSampleResult(List<SampleResultInfo> sampleResultInfo)
+        {
+            int result = 0;
+            Hashtable hashtable = new Hashtable();
+            try
+            {
+                foreach (var item in sampleResultInfo)
+                {
+                    hashtable.Add("ProjectName", item.ProjectName);
+                    hashtable.Add("TCNO", item.TCNO);
+                    hashtable.Add("SampleCompletionTime", item.SampleCompletionTime);
+                    result += ism_SqlMap.Delete("WorkAreaApplyTask.DeleteSampleResultInfo", hashtable);
+                    hashtable.Clear();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("DeleteSampleResult(List<SampleResultInfo> sampleResultInfo) ==" + ex.ToString(), Module.PLCData);
+            }
+            return result;
         }
     }
 }

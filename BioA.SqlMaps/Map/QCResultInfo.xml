@@ -98,11 +98,11 @@
     <statement id="QueryQCResultForQCGraphics" parameterClass="QCResultForUIInfo" resultClass="QCResultForUIInfo">
       select t2.HorizonLevel,t1.SampleCreateTime,t1.ConcResult,t3.TargetMean,t3.TargetSD from QualityControlResultTb t1 left join QualityControlTb t2 on t1.QCID = t2.QCID
       left join QCRelationProjectTb t3 on t1.QCID = t3.QCID and t1.ProjectName = t3.ProjectName and t1.SampleType = t3.SampleType
-      where t2.QCName=#QCName# and t3.ProjectName=#ProjectName# and t2.LotNum=#LotNum# and t1.IsLogicalDelete=0 and t1.IsLogicalEdit=0 and t1.AbsValue!='' and t1.ConcResult!='' and t1.SampleCreateTime between #QCTimeStartTS# and #QCTimeEndTS#
+      where t2.QCName=#QCName# and t3.ProjectName=#ProjectName# and t1.ProjectName=#ProjectName# and t1.IsLogicalDelete=0 and t1.IsLogicalEdit=0 and t1.AbsValue!='' and t1.ConcResult!='' and t1.SampleCreateTime between #QCTimeStartTS# and #QCTimeEndTS#
       union
       select t2.HorizonLevel,t1.SampleCreateTime,t1.ConcResult,t3.TargetMean,t3.TargetSD from QualityControlResultForUserTb t1 left join QualityControlTb t2 on t1.QCID = t2.QCID
       left join QCRelationProjectTb t3 on t1.QCID = t3.QCID and t1.ProjectName = t3.ProjectName and t1.SampleType = t3.SampleType
-      where t2.QCName=#QCName# and t3.ProjectName=#ProjectName# and t2.LotNum=#LotNum# and t1.IsLogicalDelete=0 and t1.IsLogicalEdit=0 and t1.SampleCreateTime between #QCTimeStartTS# and #QCTimeEndTS#
+      where t2.QCName=#QCName# and t3.ProjectName=#ProjectName# and t1.ProjectName=#ProjectName# and t1.IsLogicalDelete=0 and t1.IsLogicalEdit=0 and t1.SampleCreateTime between #QCTimeStartTS# and #QCTimeEndTS#
     </statement>
     <statement id="QueryQCResult" parameterClass="System.Collections.IDictionary" resultClass="QualityControlResultInfo">
       select * from QualityControlResultTb where TCNO=#TCNO# and SampleCreateTime between #StartTime# and #EndTime#

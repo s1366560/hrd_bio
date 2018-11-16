@@ -147,6 +147,13 @@
       <parameter property="proOldType" column="proOldType" />
       <parameter property="n" column="n" direction="Output"/>
     </parameterMap>
+    <parameterMap id="SaveAssayProjectInfo" class="HashTable">
+      <parameter property="proName" column="proName" />
+      <parameter property="samType" column="samType" />
+      <parameter property="projectFullName" column="projectFullName" />
+      <parameter property="NCHAN" column="NCHAN" />
+      <parameter property="n" column="n" direction="Output"/>
+    </parameterMap>
   </parameterMaps>
   <statements>
     <procedure id="DeleteAssayProject" parameterMap="ProjectInfo">
@@ -156,6 +163,11 @@
     <procedure id="UpdateAssayProject" parameterMap="UpdateAssayProInfo">
       UpdateAssayProject
     </procedure>
+    <!-- 保存项目信息对应的其他信息 -->
+    <procedure id="SaveAssayProjectInfoAll" parameterMap="SaveAssayProjectInfo">
+      SaveAssayProjectInfoAll
+    </procedure>
+    
     <update id="EditAssayProject" parameterClass="System.Collections.IDictionary" resultClass="int">
       update AssayProjectInfoTb set ProFullName=#proFullName#, ChannelNum=#channelNum# where ProjectName=#proModifyName# and SampleType=#proModifyType#
     </update>
@@ -182,6 +194,35 @@
         </isNotEmpty>
       </dynamic>
     </select>
+    <!-- 修改校准品参数信息 -->
+    <update id="UpdateCalibParamInfo" parameterClass="System.Collections.IDictionary" resultClass="int" >
+      update calibrationparaminfotb
+      <dynamic prepend="set">
+        <isNotNull prepend="," property="CalibName0">
+          CalibName0=#CalibName0#,CalibPos0=#CalibPos0#,CalibConcentration0=#CalibConcentration0#
+        </isNotNull>
+        <isNotNull prepend="," property="CalibName1">
+          CalibName1=#CalibName1#,CalibPos1=#CalibPos1#,CalibConcentration1=#CalibConcentration1#
+        </isNotNull>
+        <isNotNull prepend="," property="CalibName2">
+          CalibName2=#CalibName2#,CalibPos2=#CalibPos2#,CalibConcentration2=#CalibConcentration2#
+        </isNotNull>
+        <isNotNull prepend="," property="CalibName3">
+          CalibName3=#CalibName3#,CalibPos3=#CalibPos3#,CalibConcentration3=#CalibConcentration3#
+        </isNotNull>
+        <isNotNull prepend="," property="CalibName4">
+          CalibName4=#CalibName4#,CalibPos4=#CalibPos4#,CalibConcentration4=#CalibConcentration4#
+        </isNotNull>
+        <isNotNull prepend="," property="CalibName5">
+          CalibName5=#CalibName5#,CalibPos5=#CalibPos5#,CalibConcentration5=#CalibConcentration5#
+        </isNotNull>
+        <isNotNull prepend="," property="CalibName6">
+          CalibName6=#CalibName6#,CalibPos6=#CalibPos6#,CalibConcentration6=#CalibConcentration6#
+        </isNotNull>
+      </dynamic>
+      where ProjectName=#ProjectName# and SampleType=#SampleType#
+    </update>
+    
     <select id="ProjectPageinfoForCalc" parameterClass="string" resultClass="string" >
       select ProjectName from AssayProjectInfoTb where SampleType=#value#
     </select>
@@ -198,6 +239,7 @@
     <delete id="AssayProjectparamInfoDelete" resultClass="int" parameterClass="System.Collections.IDictionary" >
       delete from AssayProjectParamInfoTb where ProjectName=#ProjectName# and SampleType=#SampleType#
     </delete>
+    <!-- 根据项目名称和样本类型获取项目参数信息 -->
     <select id="GetAssayProjectParamInfoByNameAndType" parameterClass="AssayProjectInfo" resultClass="AssayProjectParamInfo">
       select * from AssayProjectParamInfoTb where ProjectName=#ProjectName# and SampleType=#SampleType#
     </select>
@@ -205,7 +247,16 @@
     <select id="QueryAssayProjectParamInfoAll" resultClass="AssayProjectParamInfo">
       select * from AssayProjectParamInfoTb
     </select>
-
+    
+    <!-- 根据项目信息获取项目信息中的中文名称 -->
+    <select id="GetProjectFullName" resultClass="string" parameterClass="System.Collections.IDictionary" >
+      select AssayProjectInfoTb.ProFullName from AssayProjectInfoTb where ProjectName=#ProjectName# and SampleType=#SampleType#
+    </select>
+    <!-- 根据项目信息获取项目参数信息中的单位 -->
+    <select id="GetProjectUnitInfo" resultClass="string" parameterClass="System.Collections.IDictionary" >
+      select AssayProjectParamInfoTb.ResultUnit from AssayProjectParamInfoTb where ProjectName=#ProjectName# and SampleType=#SampleType#
+    </select>
+    
     <!--<update id="UpdateProjectNameForParam" parameterClass="System.Collections.IDictionary" resultClass="int">
       update AssayProjectParamInfoTb
       set ProjectName = #ProShortName2# , SampleType = #SampleType2#

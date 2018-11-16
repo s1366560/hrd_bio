@@ -48,41 +48,9 @@ namespace BioA.Service
         /// </summary>
         /// <param name="strDBMethod">方法名</param>
         /// <param name="assayProInfo">生化项目参数</param>
-        public string[] AddAssayProject(string strDBMethod, AssayProjectInfo assayProInfo)
+        public AssayProjectParamInfo AddAssayProject(string strDBMethod, AssayProjectInfo assayProInfo)
         {
-            string[]  strInfo = new string[5];
-            try
-            {
-
-                int count = myBatis.SelectAssayProCountByNameAndType("SelectAssayProCountByPrimarykey", assayProInfo);
-                // 当count>0代表已存在此项目
-                if (count == 0)
-                {
-                    myBatis.AddAssayProject(strDBMethod, assayProInfo);
-                    count = myBatis.SelectAssayProCountByNameAndType("SelectAssayProCountByPrimarykey", assayProInfo);
-                    if (count > 0)
-                    {
-                        strInfo[0] = assayProInfo.ProjectName;
-                        strInfo[1] = assayProInfo.SampleType;
-                        strInfo[2] = assayProInfo.ProFullName;
-                        strInfo[3] = assayProInfo.ChannelNum;
-                        strInfo[4] = "项目创建成功！";
-                    }
-                    else
-                    {
-                        strInfo[4] = "项目创建失败，请联系管理员！";
-                    }
-                }
-                else
-                {
-                    strInfo[4] = "该项目已存在，请重新录入。";
-                }
-            }
-            catch (Exception e)
-            {
-                LogInfo.WriteErrorLog("AssayProDataTrans.cs_AddAssayProject(string strDBMethod, AssayProjectInfo assayProInfo)==" + e.ToString(), Module.WindowsService);
-            }
-            return strInfo;
+            return myBatis.AddAssayProject(strDBMethod, assayProInfo);
         }
 
         /// <summary>
@@ -211,19 +179,10 @@ namespace BioA.Service
             return myBatis.UpdateLISCommunicateSerialInfo(strDBMethod, serialCommunicationInfo);
         }
 
-        public List<CalibratorProjectinfo> QueryCalibratorProjectinfo(string strDBMethod, string p2)
+        public List<CalibratorProjectinfo> QueryCalibratorProjectinfo(string strDBMethod, string ProjectName, string SampleType)
         {
-            List<CalibratorProjectinfo> lstCalibratorProjectinfo = new List<CalibratorProjectinfo>();
-            try
-            {
-                lstCalibratorProjectinfo = myBatis.QueryCalibratorProinfo(strDBMethod, p2);
-
-            }
-            catch (Exception e)
-            {
-                LogInfo.WriteErrorLog(e.ToString(), Module.WindowsService);
-            }
-            return lstCalibratorProjectinfo;
+           
+            return myBatis.QueryCalibratorProinfo(strDBMethod, ProjectName ,SampleType);
         }
 
         public List<Calibratorinfo> QueryCalib(string strDBMethod, string p2)

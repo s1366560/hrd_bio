@@ -553,6 +553,24 @@ namespace BioA.SqlMaps
 
             return qCTimeCourse;
         }
+        /// <summary>
+        /// 获取质控项目信息
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <returns></returns>
+        public List<QCRelationProjectInfo> GetQCRelationProjectInfo(string strDBMethod)
+        {
+            List<QCRelationProjectInfo> lstQCRelationProjects = null;
+            try
+            {
+                lstQCRelationProjects = (List<QCRelationProjectInfo>)ism_SqlMap.QueryForList<QCRelationProjectInfo>("QCMaintainInfo." + strDBMethod, null);
+            }
+            catch(Exception ex)
+            {
+                LogInfo.WriteErrorLog("GetQCRelationProjectInfo(string strDBMethod) == " + ex.ToString(), Module.QualityControl);
+            }
+            return lstQCRelationProjects;
+        }
 
         public List<QCResultForUIInfo>  QueryQCResultForQCGraphics(string strDBMethod, QCResultForUIInfo qcResForUIInfo)
         {
@@ -1163,59 +1181,167 @@ namespace BioA.SqlMaps
         /// <param name="lisEditCalibratorProjectinfo">访问数据库项目信息参数</param>
         /// <returns>返回成功或者失败</returns>
         
-        public string EditCalibratorinfo(string strDBMethod, Calibratorinfo Editcalibratorinfo, string p2, List<CalibratorProjectinfo> lisEditCalibratorProjectinfo)
+        public string EditCalibratorinfo(string strDBMethod, Calibratorinfo newCalibinfo, Calibratorinfo oldCalibinfo, List<CalibratorProjectinfo> lisNewCalibratorProjectinfo, List<CalibratorProjectinfo> lisOldCalibratorProjectinfo)
         {
-            string updateCalibResult= "校准品和项目信息修改成功！";
-            List<CalibratorProjectinfo> lstCalibratorProjectinfo1 = new List<CalibratorProjectinfo>();
+            string updateCalibResult = "校准品和项目信息修改成功！";
+            ///修改过的项目浓度信息
+            List<CalibratorProjectinfo> lstEditCalibProinfo = new List<CalibratorProjectinfo>();
+            //新的项目浓度信息
+            List<CalibratorProjectinfo> lstNewCalibProinfo = new List<CalibratorProjectinfo>();
             Hashtable hashtable = new Hashtable();
             try
             {
-                int paramResult = 0;
-                foreach(CalibratorProjectinfo calibPro in lisEditCalibratorProjectinfo)
+                int i = 0;
+                int count = 0;
+                bool IsUpdateCalibName = false;
+                foreach (var item in lisNewCalibratorProjectinfo)
                 {
-                    hashtable.Clear();
-                    hashtable.Add("ProjectName", calibPro.ProjectName);
-                    hashtable.Add("SampleType", calibPro.SampleType);
-                    paramResult += (int)ism_SqlMap.QueryForObject("Calibrator.QueryCalibParamProInfoCout", hashtable);
+                    if (lisOldCalibratorProjectinfo.Exists(x => x.ProjectName == item.ProjectName && x.SampleType == item.SampleType && x.CalibConcentration == item.CalibConcentration))
+                        i++;
+                    else if (lisOldCalibratorProjectinfo.Exists(x => x.ProjectName == item.ProjectName && x.SampleType == item.SampleType))
+                        lstEditCalibProinfo.Add(item);
+                    else
+                        lstNewCalibProinfo.Add(item);
                 }
-                if (paramResult == 0)
+                if (newCalibinfo.CalibName == oldCalibinfo.CalibName && newCalibinfo.Pos == oldCalibinfo.Pos &&
+                    newCalibinfo.InvalidDate == oldCalibinfo.InvalidDate && newCalibinfo.LotNum == oldCalibinfo.LotNum &&
+                    newCalibinfo.Manufacturer == oldCalibinfo.Manufacturer && i == lisOldCalibratorProjectinfo.Count)
                 {
-                    //删除校准品对应的项目信息
-                    ism_SqlMap.Delete("Calibrator.DeleteCalibratorProject", p2);
-
-                    hashtable.Clear();
-                    hashtable.Add("CalibName", Editcalibratorinfo.CalibName);
-                    lstCalibratorProjectinfo1 = (List<CalibratorProjectinfo>)ism_SqlMap.QueryForList<CalibratorProjectinfo>("Calibrator.QueryCalibratorProjectinfoByCalibName", hashtable);
-                    if (lstCalibratorProjectinfo1.Count == 0)
+                    foreach (var item in lstNewCalibProinfo)
                     {
                         hashtable.Clear();
-                        hashtable.Add("Pos", Editcalibratorinfo.Pos);
-                        hashtable.Add("Manufacturer", Editcalibratorinfo.Manufacturer);
-                        hashtable.Add("LotNum", Editcalibratorinfo.LotNum);
-                        hashtable.Add("InvalidDate", Editcalibratorinfo.InvalidDate);
-                        hashtable.Add("CalibName", Editcalibratorinfo.CalibName);
-                        hashtable.Add("CalibNameOld", p2);
-                        //更新校准品信息
-                        ism_SqlMap.Update("Calibrator." + strDBMethod, hashtable);
-
-                        for (int i = 0; i < lisEditCalibratorProjectinfo.Count; i++)
-                        {
-                            hashtable.Clear();
-                            hashtable.Add("CalibConcentration", lisEditCalibratorProjectinfo[i].CalibConcentration);
-                            hashtable.Add("SampleType", lisEditCalibratorProjectinfo[i].SampleType);
-                            hashtable.Add("CalibName", lisEditCalibratorProjectinfo[i].CalibName);
-                            hashtable.Add("ProjectName", lisEditCalibratorProjectinfo[i].ProjectName);
-                            //插入校准品对应的项目信息
-                            ism_SqlMap.Insert("Calibrator.AddCalibratorProjectinfo", hashtable);
-                        }
+                        hashtable.Add("ProjectName", item.ProjectName);
+                        hashtable.Add("SampleType", item.SampleType);
+                        hashtable.Add("CalibName", newCalibinfo.CalibName);
+                        hashtable.Add("CalibConcentration", item.CalibConcentration);
+                        ism_SqlMap.Insert("Calibrator.AddCalibratorProjectinfo", hashtable);
+                    }
+                    return updateCalibResult;
+                }
+                else
+                {
+                    hashtable.Clear();
+                    hashtable.Add("CalibName", oldCalibinfo.CalibName);
+                    count += (int)ism_SqlMap.QueryForObject("Calibrator.GetCalibTaskCountByCondition", hashtable);
+                    if (count > 0)
+                    {
+                        return "该校准品或项目已在任务列表中，不能对其进行修改！";
                     }
                     else
                     {
-                        updateCalibResult = "您修改的校准品名称已经存在！";
+                        if (newCalibinfo.CalibName == oldCalibinfo.CalibName && newCalibinfo.Pos == oldCalibinfo.Pos ||
+                                    newCalibinfo.LotNum != oldCalibinfo.LotNum || newCalibinfo.InvalidDate != oldCalibinfo.InvalidDate || newCalibinfo.Manufacturer != oldCalibinfo.Manufacturer)
+                        {
+                            hashtable.Clear();
+                            hashtable.Add("CalibName", oldCalibinfo.CalibName);
+                            hashtable.Add("NewCalibName", oldCalibinfo.CalibName);
+                            hashtable.Add("Pos", oldCalibinfo.Pos);
+                            hashtable.Add("InvalidDate", newCalibinfo.InvalidDate);
+                            hashtable.Add("LotNum", newCalibinfo.LotNum);
+                            hashtable.Add("Manufacturer", newCalibinfo.Manufacturer);
+                            //修改校准品信息
+                            ism_SqlMap.Update("Calibrator.UpdateCalibrationInfo", hashtable);
+                        }
+                        else if (newCalibinfo.CalibName != oldCalibinfo.CalibName || newCalibinfo.Pos != oldCalibinfo.Pos)
+                        {
+                            IsUpdateCalibName = true;
+                            hashtable.Clear();
+                            hashtable.Add("CalibName", oldCalibinfo.CalibName);
+                            hashtable.Add("NewCalibName", newCalibinfo.CalibName);
+                            hashtable.Add("Pos", newCalibinfo.Pos);
+                            hashtable.Add("InvalidDate", newCalibinfo.InvalidDate);
+                            hashtable.Add("LotNum", newCalibinfo.LotNum);
+                            hashtable.Add("Manufacturer", newCalibinfo.Manufacturer);
+                            int Number = ism_SqlMap.Update("Calibrator.UpdateCalibrationInfo", hashtable);
+                            if (Number > 0)
+                            {
+                                hashtable.Clear();
+                                hashtable.Add("CalibName", oldCalibinfo.CalibName);
+                                hashtable.Add("NewCalibName", newCalibinfo.CalibName);
+                                //修改校准品项目信息对应的校准品名
+                                int updateResult = ism_SqlMap.Update("Calibrator.UpdateCalibNameAll", hashtable);
+                                if (updateResult > 0)
+                                {
+                                    UpdateCalibractionParamInfo(lisOldCalibratorProjectinfo, oldCalibinfo);
+                                }
+                            }
+                        }
+                        if (lstEditCalibProinfo.Count > 0)
+                        {
+                            if (IsUpdateCalibName == false)
+                            {
+                                UpdateCalibractionParamInfo(lstEditCalibProinfo, oldCalibinfo);
+                            }
+                            foreach (var item in lstEditCalibProinfo)
+                            {
+                                hashtable.Clear();
+                                hashtable.Add("ProjectName", item.ProjectName);
+                                hashtable.Add("CalibName", newCalibinfo.CalibName);
+                                hashtable.Add("CalibConcentration", item.CalibConcentration);
+                                //修改校准品项目信息对应的校准品浓度
+                                ism_SqlMap.Update("Calibrator.UpdateCalibProjectInfo", hashtable);
+                            }
+                        }
+                        if (lstNewCalibProinfo.Count > 0)
+                        {
+
+                            foreach (var item in lstNewCalibProinfo)
+                            {
+                                hashtable.Clear();
+                                hashtable.Add("ProjectName", item.ProjectName);
+                                hashtable.Add("SampleType", item.SampleType);
+                                hashtable.Add("CalibName", newCalibinfo.CalibName);
+                                hashtable.Add("CalibConcentration", item.CalibConcentration);
+                                ism_SqlMap.Insert("Calibrator.AddCalibratorProjectinfo", hashtable);
+                            }
+                        }
                     }
                 }
-                else
-                    updateCalibResult = "改校准品已被使用！";
+                //foreach(CalibratorProjectinfo calibPro in lisEditCalibratorProjectinfo)
+                //{
+                //    hashtable.Clear();
+                //    hashtable.Add("ProjectName", calibPro.ProjectName);
+                //    hashtable.Add("SampleType", calibPro.SampleType);
+                //    paramResult += (int)ism_SqlMap.QueryForObject("Calibrator.QueryCalibParamProInfoCout", hashtable);
+                //}
+                //if (paramResult == 0)
+                //{
+                //    //删除校准品对应的项目信息
+                //    ism_SqlMap.Delete("Calibrator.DeleteCalibratorProject", p2);
+
+                //    hashtable.Clear();
+                //    hashtable.Add("CalibName", Editcalibratorinfo.CalibName);
+                //    lstCalibratorProjectinfo1 = (List<CalibratorProjectinfo>)ism_SqlMap.QueryForList<CalibratorProjectinfo>("Calibrator.QueryCalibratorProjectinfoByCalibName", hashtable);
+                //    if (lstCalibratorProjectinfo1.Count == 0)
+                //    {
+                //        hashtable.Clear();
+                //        hashtable.Add("Pos", Editcalibratorinfo.Pos);
+                //        hashtable.Add("Manufacturer", Editcalibratorinfo.Manufacturer);
+                //        hashtable.Add("LotNum", Editcalibratorinfo.LotNum);
+                //        hashtable.Add("InvalidDate", Editcalibratorinfo.InvalidDate);
+                //        hashtable.Add("CalibName", Editcalibratorinfo.CalibName);
+                //        hashtable.Add("CalibNameOld", p2);
+                //        //更新校准品信息
+                //        ism_SqlMap.Update("Calibrator." + strDBMethod, hashtable);
+
+                //        for (int i = 0; i < lisEditCalibratorProjectinfo.Count; i++)
+                //        {
+                //            hashtable.Clear();
+                //            hashtable.Add("CalibConcentration", lisEditCalibratorProjectinfo[i].CalibConcentration);
+                //            hashtable.Add("SampleType", lisEditCalibratorProjectinfo[i].SampleType);
+                //            hashtable.Add("CalibName", lisEditCalibratorProjectinfo[i].CalibName);
+                //            hashtable.Add("ProjectName", lisEditCalibratorProjectinfo[i].ProjectName);
+                //            //插入校准品对应的项目信息
+                //            ism_SqlMap.Insert("Calibrator.AddCalibratorProjectinfo", hashtable);
+                //        }
+                //    }
+                //    else
+                //    {
+                //        updateCalibResult = "您修改的校准品名称已经存在！";
+                //    }
+                //}
+                //else
+                //    updateCalibResult = "改校准品已被使用！";
             }
             catch (Exception e)
             {
@@ -1224,7 +1350,118 @@ namespace BioA.SqlMaps
             }
             return updateCalibResult;
         }
-
+        /// <summary>
+        /// 修改校准品项目参数信息
+        /// </summary>
+        /// <param name="lstCalibProInfo"></param>
+        /// <param name="oldCalibinfo"></param>
+        private void UpdateCalibractionParamInfo(List<CalibratorProjectinfo> lstCalibProInfo, Calibratorinfo oldCalibinfo)
+        {
+            Hashtable hashtable = new Hashtable();
+            try
+            {
+                foreach (var item in lstCalibProInfo)
+                {
+                    hashtable.Clear();
+                    hashtable.Add("ProjectName", item.ProjectName);
+                    hashtable.Add("SampleType", item.SampleType);
+                    AssayProjectCalibrationParamInfo calibrationParamInfo = ism_SqlMap.QueryForObject("Calibrator.GetCalibParamProInfo", hashtable) as AssayProjectCalibrationParamInfo;
+                    if (calibrationParamInfo != null && calibrationParamInfo.CalibrationMethod != null && calibrationParamInfo.CalibrationMethod != "")
+                    {
+                        hashtable.Clear();
+                        hashtable.Add("ProjectName", item.ProjectName);
+                        hashtable.Add("SampleType", item.SampleType);
+                        if (calibrationParamInfo.CalibrationMethod == "K系数法")
+                        {
+                            if (calibrationParamInfo.CalibName0 == oldCalibinfo.CalibName)
+                            {
+                                hashtable.Add("CalibName0", "");
+                                hashtable.Add("CalibPos0", "");
+                                hashtable.Add("CalibConcentration0", 0);
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                        else if (calibrationParamInfo.CalibrationMethod == "2点线性法")
+                        {
+                            if (calibrationParamInfo.CalibName0 == oldCalibinfo.CalibName)
+                            {
+                                hashtable.Add("CalibName0", "");
+                                hashtable.Add("CalibPos0", "");
+                                hashtable.Add("CalibConcentration0", 0);
+                            }
+                            else if (calibrationParamInfo.CalibName1 == oldCalibinfo.CalibName)
+                            {
+                                hashtable.Add("CalibName1", "");
+                                hashtable.Add("CalibPos1", "");
+                                hashtable.Add("CalibConcentration1", 0);
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                        else
+                        {
+                            if (calibrationParamInfo.CalibName0 == oldCalibinfo.CalibName)
+                            {
+                                hashtable.Add("CalibName0", "");
+                                hashtable.Add("CalibPos0", "");
+                                hashtable.Add("CalibConcentration0", 0);
+                            }
+                            else if (calibrationParamInfo.CalibName1 == oldCalibinfo.CalibName)
+                            {
+                                hashtable.Add("CalibName1", "");
+                                hashtable.Add("CalibPos1", "");
+                                hashtable.Add("CalibConcentration1", 0);
+                            }
+                            else if (calibrationParamInfo.CalibName2 == oldCalibinfo.CalibName)
+                            {
+                                hashtable.Add("CalibName2", "");
+                                hashtable.Add("CalibPos2", "");
+                                hashtable.Add("CalibConcentration2", 0);
+                            }
+                            else if (calibrationParamInfo.CalibName3 == oldCalibinfo.CalibName)
+                            {
+                                hashtable.Add("CalibName3", "");
+                                hashtable.Add("CalibPos3", "");
+                                hashtable.Add("CalibConcentration3", 0);
+                            }
+                            else if (calibrationParamInfo.CalibName4 == oldCalibinfo.CalibName)
+                            {
+                                hashtable.Add("CalibName4", "");
+                                hashtable.Add("CalibPos4", "");
+                                hashtable.Add("CalibConcentration4", 0);
+                            }
+                            else if (calibrationParamInfo.CalibName5 == oldCalibinfo.CalibName)
+                            {
+                                hashtable.Add("CalibName5", "");
+                                hashtable.Add("CalibPos5", "");
+                                hashtable.Add("CalibConcentration5", 0);
+                            }
+                            else if (calibrationParamInfo.CalibName6 == oldCalibinfo.CalibName)
+                            {
+                                hashtable.Add("CalibName6", "");
+                                hashtable.Add("CalibPos6", "");
+                                hashtable.Add("CalibConcentration6", 0);
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                        int resultCount = ism_SqlMap.Update("AssayProjectInfo.UpdateCalibParamInfo", hashtable);
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                LogInfo.WriteErrorLog("UpdateCalibractionParamInfo(List<CalibratorProjectinfo> lstCalibProInfo, Calibratorinfo oldCalibinfo)==" + ex.ToString(), Module.QualityControl);
+            }
+        }
+        
         //public int EditCalibratorProjectinfo (string strDBMethod, List<CalibratorProjectinfo> lisEditCalibratorProjectinfo, string p2)
         //{
         //    int intUpdate = 0;
@@ -1271,19 +1508,26 @@ namespace BioA.SqlMaps
             }
             return lstCalibrationResultinfo;
         }
-
-        public List<CalibratorProjectinfo> QueryCalibratorProinfo(string strDBMethod, string p2)
+        /// <summary>
+        /// 获取校准品对应的项目信息
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <param name="ProjectName"></param>
+        /// <param name="SampleType"></param>
+        /// <returns></returns>
+        public List<CalibratorProjectinfo> QueryCalibratorProinfo(string strDBMethod, string ProjectName, string SampleType)
         {
             List<CalibratorProjectinfo> lstCalibratorProjectinfo = new List<CalibratorProjectinfo>();
             try
             {
                 Hashtable hashTable = new Hashtable();
-                hashTable.Add("ProjectName", p2);
+                hashTable.Add("ProjectName", ProjectName);
+                hashTable.Add("SampleType", SampleType);
                 lstCalibratorProjectinfo = (List<CalibratorProjectinfo>)ism_SqlMap.QueryForList<CalibratorProjectinfo>("Calibrator." + strDBMethod, hashTable);
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryCalibratorinfo(string strDBMethod)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryCalibratorProinfo(string strDBMethod, string ProjectName, string SampleType)==" + e.ToString(), Module.DAO);
             }
             return lstCalibratorProjectinfo;
         }

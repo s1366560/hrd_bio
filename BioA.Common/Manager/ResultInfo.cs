@@ -17,7 +17,7 @@ namespace BioA.Common
             sampleType = string.Empty;
             tCNO = 0;
             remarks = string.Empty;
-            sampleCreateTime = DateTime.Now;
+            //sampleCreateTime = DateTime.Now;
         }
 
         //private int sampleNum;

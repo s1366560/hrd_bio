@@ -44,6 +44,11 @@
     <statement id="QueryQCInfoByPos" parameterClass="System.Collections.IDictionary" resultClass="QualityControlInfo">
       select * from QualityControlTb where Pos=#Pos# and IsLocked=0
     </statement>
+    <!-- 获取质控项目信息 -->
+    <statement id="GetsQCRelationProInfo" resultClass="QCRelationProjectInfo">
+      select * from qcrelationprojecttb
+    </statement>
+    
     <statement id="AddQualityControl" parameterClass="QualityControlInfo">
       insert into QualityControlTb (QCName, LotNum, Pos, InvalidDate, HorizonLevel, Manufacturer, IsLocked)
       values (#QCName#, #LotNum#, #Pos#, #InvalidDate#, #HorizonLevel#, #Manufacturer#, 1)

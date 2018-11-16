@@ -445,8 +445,8 @@
     </statement>
     -->
     <statement id="AddSampleResultInfo" parameterClass="System.Collections.IDictionary">
-      insert into SampleResultTb (SampleNum, SampleCreateTime, ProjectName, SampleType, TCNO, SampleCompletionStatus)
-      values(#SampleNum#, #SampleCreateTime#, #ProjectName#, #SampleType#, #TCNO#, #SampleCompletionStatus#)
+      insert into SampleResultTb (SampleNum, SampleCreateTime, ProjectName, SampleType, TCNO, SampleCompletionTime, SampleCompletionStatus)
+      values(#SampleNum#, #SampleCreateTime#, #ProjectName#, #SampleType#, #TCNO#, #SampleCompletionTime#, #SampleCompletionStatus#)
     </statement>
     <statement id="UpdateQualityControlResultTCNO" parameterClass="System.Collections.IDictionary">
       update QualityControlResultTb set TCNO=#TCNO# where SampleNum=#SampleNum# and ProjectName=#ProjectName# and SampleType=#SampleType# and SampleCreateTime=#SampleCreateTime#

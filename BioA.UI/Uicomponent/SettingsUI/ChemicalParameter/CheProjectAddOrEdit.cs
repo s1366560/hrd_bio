@@ -24,18 +24,14 @@ namespace BioA.UI
         //BioAServiceClient service = new BioAServiceClient();
         public delegate void DataHandle(Dictionary<string, object[]> sender);
         public event DataHandle DataHandleEvent;
+        
 
         AssayProjectInfo assayProInfoOld = new AssayProjectInfo();
         public CheProjectAddOrEdit()
         {
             InitializeComponent();
             this.ControlBox = false;
-
-            foreach (string str in RunConfigureUtility.SampleTypes)
-            {
-                cboSampleType.Properties.Items.Add(str);
-            }
-
+            cboSampleType.Properties.Items.AddRange(RunConfigureUtility.SampleTypes);
             cboSampleType.SelectedIndex = 1;
         }
         public void FormAdd(AssayProjectInfo assayProInfo)
@@ -61,6 +57,22 @@ namespace BioA.UI
             this.Close();
         }
 
+        
+        private List<AssayProjectInfo> _LstAssayProjectInfo = new List<AssayProjectInfo>();
+        /// <summary>
+        /// 存储所有生化项目信息
+        /// </summary>
+        public List<AssayProjectInfo> LstAssayProjectInfo
+        {
+            get { return _LstAssayProjectInfo; }
+            set { _LstAssayProjectInfo = value; }
+        }
+
+        /// <summary>
+        /// 确定保存按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnConfirm_Click(object sender, EventArgs e)
         {
 
@@ -83,14 +95,21 @@ namespace BioA.UI
                     assayProInfo.ProFullName = txtProLongName.Text.Trim();
                 if (txtChannelNumber.Text.Trim() != null)
                     assayProInfo.ChannelNum = txtChannelNumber.Text.Trim();
-
                 if (this.Text == "新建项目")
                 {
-                    if (DataHandleEvent != null)
+                    if (!_LstAssayProjectInfo.Exists(x => x.ProjectName == assayProInfo.ProjectName && x.SampleType == assayProInfo.SampleType))
                     {
-                        cheProAddOrEditDic.Clear();
-                        cheProAddOrEditDic.Add("AssayProjectAdd", new object[] { XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfo) });
-                        DataHandleEvent(cheProAddOrEditDic);
+                        if (DataHandleEvent != null)
+                        {
+                            cheProAddOrEditDic.Clear();
+                            cheProAddOrEditDic.Add("AssayProjectAdd", new object[] { XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfo) });
+                            DataHandleEvent(cheProAddOrEditDic);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("该项目已存在，请重新输入！");
+                        txtProShortName.Focus();
                     }
 
                 }

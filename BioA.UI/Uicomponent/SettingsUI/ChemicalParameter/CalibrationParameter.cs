@@ -32,15 +32,10 @@ namespace BioA.UI
             cboCalibMethod.Text = "请选择";
             label4.Visible = false;
             textEdit1.Visible = false;
-            foreach (string calibMethod in RunConfigureUtility.CalibrationMethods)
-            {
-                cboCalibMethod.Properties.Items.Add(calibMethod);
-            }
+            cboCalibMethod.Properties.Items.AddRange(RunConfigureUtility.CalibrationMethods);
 
-            foreach (string calibTime in RunConfigureUtility.CalibrationTimes)
-            {
-                cboCalibTimes.Properties.Items.Add(calibTime);
-            }
+            cboCalibTimes.Properties.Items.AddRange(RunConfigureUtility.CalibrationTimes);
+            
         }
 
         /// <summary>
@@ -129,6 +124,7 @@ namespace BioA.UI
                     else
                     {
                         ClearCalibName();
+                        this.BeginInvoke(new Action(AddCalibratorProjectinfo));
                         cboCalibMethod.Text = calibParamInfo.CalibrationMethod;
                         this.nullinfo();
                         txtCalibPoint.Text = calibParamInfo.Point.ToString();
@@ -720,22 +716,13 @@ namespace BioA.UI
         
             }
         }
-        /// <summary>
-        /// 切换页面加载数据
-        /// </summary>
-        public void GetDataInfo()
-        {
-        //    CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SettingsChemicalParameter, XmlUtility.Serializer(typeof(CommunicationEntity),
-        //new CommunicationEntity("QueryAssayProAllInfoForCalibParam", null)));
-
-        }
 
         private void CalibrationParameter_Load(object sender, EventArgs e)
         {
             //启动异步线程调用方法
             BeginInvoke(new Action(InitialControl));
         }
-        private void InitialControl()
+        public void InitialControl()
         {
             cboCalibLotCheck.Properties.Items.Add("是");
             cboCalibLotCheck.Properties.Items.Add("否");
@@ -759,11 +746,17 @@ namespace BioA.UI
 
             //CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.SettingsChemicalParameter, new Dictionary<string, List<object>>() { { "QueryCalibParamInfoAll", null } });
             calibParamDic.Clear();
+            if (listAssayProjectInfos.Count != 0)
+            {
+                this.LstAssayProInfos = this.ListAssayprojectInfos;
+            }
+            else
+            {
+                //获取所有生化项目
+                calibParamDic.Add("QueryAssayProAllInfo", new object[] { ""});
+            }
             calibParamDic.Add("QueryCalibParamInfoAll", null);
             ClientSendMsgToServices(calibParamDic);
-            this.LstAssayProInfos = this.ListAssayprojectInfos;
-           // CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SettingsChemicalParameter, XmlUtility.Serializer(typeof(CommunicationEntity),
-           //new CommunicationEntity("QueryAssayProAllInfoForCalibParam", null)));
 
         }
 
@@ -807,13 +800,16 @@ namespace BioA.UI
                 selectedHandle = this.gridView1.GetSelectedRows()[0];
                 assayProInfo.ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "项目名称").ToString();
                 assayProInfo.SampleType = this.gridView1.GetRowCellValue(selectedHandle, "类型").ToString();
-                foreach (AssayProjectCalibrationParamInfo assayProParamInfo in lstCalibParamInfo)
-                {
-                    if (assayProParamInfo.ProjectName == assayProInfo.ProjectName && assayProParamInfo.SampleType == assayProInfo.SampleType)
-                    {
-                        this.CalibParamInfo = assayProParamInfo;
-                    }
-                }
+                AssayProjectCalibrationParamInfo assayProParamInfo = lstCalibParamInfo.Find(x => x.ProjectName == assayProInfo.ProjectName && x.SampleType == assayProInfo.SampleType);
+                if(assayProParamInfo != null) 
+                    this.CalibParamInfo = assayProParamInfo;
+                //foreach (AssayProjectCalibrationParamInfo assayProParamInfo in lstCalibParamInfo)
+                //{
+                //    if (assayProParamInfo.ProjectName == assayProInfo.ProjectName && assayProParamInfo.SampleType == assayProInfo.SampleType)
+                //    {
+                //        this.CalibParamInfo = assayProParamInfo;
+                //    }
+                //}
             }
         }
         /// <summary>
@@ -856,16 +852,17 @@ namespace BioA.UI
         }
         private void AddCalibratorProjectinfo()
         {
-            CalibratorProjectinfo calibrationResultinfo = new CalibratorProjectinfo();
             int selectedHandle;
             if (this.gridView1.SelectedRowsCount > 0)
             {
                 selectedHandle = this.gridView1.GetSelectedRows()[0];
-                calibrationResultinfo.ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "项目名称").ToString();
+                string ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "项目名称").ToString();
+                string SampleType = this.gridView1.GetRowCellValue(selectedHandle, "类型").ToString();
+
+                calibParamDic.Clear();
+                calibParamDic.Add("QueryCalibratorProinfo", new object[] { ProjectName, SampleType });
+                ClientSendMsgToServices(calibParamDic);
             }
-            calibParamDic.Clear();
-            calibParamDic.Add("QueryCalibratorProinfo", new object[] { calibrationResultinfo.ProjectName });
-            ClientSendMsgToServices(calibParamDic);
             
         }
         /// <summary>

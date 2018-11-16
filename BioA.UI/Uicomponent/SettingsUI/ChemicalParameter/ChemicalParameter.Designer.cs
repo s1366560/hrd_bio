@@ -56,7 +56,6 @@
             this.xtraTabPage1.Size = new System.Drawing.Size(1705, 838);
             this.xtraTabPage1.TabPageWidth = 80;
             this.xtraTabPage1.Text = "项目参数";
-            this.xtraTabPage1.Paint += new System.Windows.Forms.PaintEventHandler(this.xtraTabPage1_Paint);
             // 
             // xtraTabPage2
             // 

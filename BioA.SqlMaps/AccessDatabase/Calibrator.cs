@@ -398,6 +398,80 @@ namespace BioA.SqlMaps
             }
             return calibTaskCount;
         }
+        /// <summary>
+        /// 获取校准项目参数中校准方法中是否有校准品为空
+        /// </summary>
+        /// <param name="projectName"></param>
+        /// <param name="samplType"></param>
+        /// <returns></returns>
+        public string CalibProParamInfo_CalibNameIsEmpty(string projectName, string samplType)
+        {
+            string strResult = "";
+            Hashtable hashtable = new Hashtable();
+            hashtable.Add("ProjectName", projectName);
+            hashtable.Add("SampleType", samplType);
+            try
+            {
+                AssayProjectCalibrationParamInfo calibrationParamInfo = ism_SqlMap.QueryForObject("Calibrator.GetCalibParamProInfo", hashtable) as AssayProjectCalibrationParamInfo;
+                if (calibrationParamInfo != null && calibrationParamInfo.CalibrationMethod != null && calibrationParamInfo.CalibrationMethod != "")
+                {
+                    if (calibrationParamInfo.CalibrationMethod == "K系数法")
+                    {
+                        if (calibrationParamInfo.CalibName0 == "" )
+                        {
+                            strResult = "校准项目参数设置中：K系数法中有校准品名为空！";
+                        }
+                    }
+                    else if (calibrationParamInfo.CalibrationMethod == "2点线性法")
+                    {
+                        if (calibrationParamInfo.CalibName0 == "")
+                        {
+                            strResult = "校准项目参数设置中：2点线性法中有校准品名为空！";
+                        }
+                        else if (calibrationParamInfo.CalibName1 == "")
+                        {
+                            strResult = "校准项目参数设置中：2点线性法中有校准品名为空！";
+                        }
+                    }
+                    else
+                    {
+                        if (calibrationParamInfo.CalibName0 == "")
+                        {
+                            strResult = "校准项目参数设置中：(多点线性法、折线法、对数法.....)中有校准品名为空！";
+                        }
+                        else if (calibrationParamInfo.CalibName1 == "")
+                        {
+                            strResult = "校准项目参数设置中：(多点线性法、折线法、对数法.....)中有校准品名为空！";
+                        }
+                        else if (calibrationParamInfo.CalibName2 == "")
+                        {
+                            strResult = "校准项目参数设置中：(多点线性法、折线法、对数法.....)中有校准品名为空！";
+                        }
+                        else if (calibrationParamInfo.CalibName3 == "")
+                        {
+                            strResult = "校准项目参数设置中：(多点线性法、折线法、对数法.....)中有校准品名为空！";
+                        }
+                        else if (calibrationParamInfo.CalibName4 == "")
+                        {
+                            strResult = "校准项目参数设置中：(多点线性法、折线法、对数法.....)中有校准品名为空！";
+                        }
+                        else if (calibrationParamInfo.CalibName5 == "")
+                        {
+                            strResult = "校准项目参数设置中：(多点线性法、折线法、对数法.....)中有校准品名为空！";
+                        }
+                        else if (calibrationParamInfo.CalibName6 == "")
+                        {
+                            strResult = "校准项目参数设置中：(多点线性法、折线法、对数法.....)中有校准品名为空！";
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("CalibProParamInfo_CalibNameIsEmpty(string projectName, string samplType) ==" + ex.ToString(), Module.Calibration);
+            }
+            return strResult;
+        }
 
 
         public void UpdateCalibTaskState(string ProjectName, string sampleType)

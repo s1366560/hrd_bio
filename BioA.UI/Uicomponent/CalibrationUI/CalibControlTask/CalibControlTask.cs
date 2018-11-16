@@ -16,12 +16,14 @@ namespace BioA.UI
 {
     public partial class CalibControlTask : DevExpress.XtraEditors.XtraUserControl
     {
-        CalibProjectPage1 projectPage1;
-        CalibProjectPage2 projectPage2;
-        CalibProjectPage3 projectPage3;
-        CalibProjectPage4 projectPage4;
-        CalibProCombPage2 calibProCombPage2;
-        CalibProCombPage1 calibProCombPage1;
+        //校准项目第一页~~四页窗体
+        private CalibProjectPage1 projectPage1 = new CalibProjectPage1();
+        private CalibProjectPage2 projectPage2 = new CalibProjectPage2();
+        private CalibProjectPage3 projectPage3 = new CalibProjectPage3();
+        private CalibProjectPage4 projectPage4 = new CalibProjectPage4();
+        //校准组合项目第一二页窗体
+        private CalibProCombPage2 calibProCombPage2 = new CalibProCombPage2();
+        private CalibProCombPage1 calibProCombPage1 = new CalibProCombPage1();
         private List<string> lstAssayProInfos = new List<string>();
         private List<string[]> lstQCRelateProject = new List<string[]>();
         //private List<string[]> lstQCRelateProject1 = new List<string[]>();
@@ -54,12 +56,12 @@ namespace BioA.UI
         }
         private void CalibControlTaskInit()
         {
-            projectPage1 = new CalibProjectPage1();
-            projectPage2 = new CalibProjectPage2();
-            projectPage3 = new CalibProjectPage3();
-            projectPage4 = new CalibProjectPage4();
-            calibProCombPage1 = new CalibProCombPage1();
-            calibProCombPage2 = new CalibProCombPage2();
+            //projectPage1 = new CalibProjectPage1();
+            //projectPage2 = new CalibProjectPage2();
+            //projectPage3 = new CalibProjectPage3();
+            //projectPage4 = new CalibProjectPage4();
+            //calibProCombPage1 = new CalibProCombPage1();
+            //calibProCombPage2 = new CalibProCombPage2();
             calibProCombPage1.clickCombProNameEvent += HandleClickCombProNameEvent;
             calibProCombPage2.clickCombProNamePage2Event += HandleClickCombProNameEvent;
             xtraTabPage1.Controls.Add(projectPage1);
@@ -75,19 +77,37 @@ namespace BioA.UI
             //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibControlTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryCalibratorinfoTask", null)));
             ////获取所有组合项目信息
             //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibControlTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryCombProjectNameAllInfo", null)));
+            //获取所有任务信息
+            calibDictionary.Add("QueryCalibratorinfoTask", new object[] { "" });
+            //获取所有组合项目信息
+            calibDictionary.Add("QueryCombProjectNameAllInfo", new object[] { "" });
+            //获取所有组合项目名和项目名
+            calibDictionary.Add("QueryProjectAndCombProName", null);
+            ClientSendDataToServices(calibDictionary);
+        }
+        /// <summary>
+        /// 发送数据给服务器
+        /// </summary>
+        /// <param name="pairs"></param>
+        private void ClientSendDataToServices(Dictionary<string, object[]> pairs)
+        {
             var calibThread = new Thread(() =>
             {
-                //获取所有任务信息
-                calibDictionary.Add("QueryCalibratorinfoTask", new object[] { "" });
-                //获取所有组合项目信息
-                calibDictionary.Add("QueryCombProjectNameAllInfo", new object[] { "" });
-                //获取所有组合项目名和项目名
-                calibDictionary.Add("QueryProjectAndCombProName", null);
-                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.CalibControlTask, calibDictionary);
+                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.CalibControlTask, pairs);
             });
             calibThread.IsBackground = true;
             calibThread.Start();
         }
+        /// <summary>
+        /// 任务执行中获取任务执行状态
+        /// </summary>
+        public void QueryTasksStatus()
+        {
+            calibDictionary.Clear();
+            calibDictionary.Add("QueryCalibratorinfoTask", new object[] { "" });
+            ClientSendDataToServices(calibDictionary);
+        }
+
         /// <summary>
         /// 处理组合页面委托事件传递过来的数据
         /// </summary>
@@ -223,8 +243,13 @@ namespace BioA.UI
                             max = str;
                         }
                     }
-                    this.Invoke(new EventHandler(delegate { txtSumpleNum.Text = "S" + (max + 1).ToString(); }));
-                   
+                    this.Invoke(new EventHandler(delegate { txtSumpleNum.Text = "S" + (max + 1).ToString();
+                        if (this.btnSave.Enabled == true) ;
+
+                        else
+                            this.btnSave.Enabled = true;
+                    }));
+                    
                     GridAdd(lstCalibrationCurveInfo);
                     //保存任务之后加载校准品编号
                     
@@ -302,18 +327,20 @@ namespace BioA.UI
         private void btnSave_Click(object sender, EventArgs e)
         {
             //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibControlTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryCalibrationCurveInfo", "血清")));
-            
+            this.btnSave.Enabled = false;
             if (projectPage1.GetSelectedProjects().Count == 0 && 
                 projectPage2.GetSelectedProjects().Count == 0 &&
                 projectPage3.GetSelectedProjects().Count == 0 &&
                 projectPage4.GetSelectedProjects().Count == 0)
             {
                 MessageBox.Show("请选择校准项目！");
+                this.btnSave.Enabled = true;
                 return;            
             }
             if (intPos >= System.Convert.ToInt32(txtSumpleNum.Text.Substring(1)))
             {
                 MessageBox.Show("此任务已经存在！");
+                this.btnSave.Enabled = true;
                 return;
             }
             
@@ -355,10 +382,17 @@ namespace BioA.UI
                 qcTaskInfo.SampleNum = txtSumpleNum.Text;
                 lstCalibratorinfoTask.Add(qcTaskInfo);
             }
-
+            sampleBlank = null;
+            sampleSerum = null;
+            sampleUrine = null;
+            lstBlankProject = null;
+            lstUrinePeoject = null;
+            lstSerumProject = null;
+            calibDictionary.Clear();
             //保存任务信息
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibControlTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryCalibratorinfoTask", XmlUtility.Serializer(typeof(List<CalibratorinfoTask>),lstCalibratorinfoTask))));
-            CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.CalibControlTask, new Dictionary<string, object[]>() { { "QueryCalibratorinfoTask", new object[] { XmlUtility.Serializer(typeof(List<CalibratorinfoTask>), lstCalibratorinfoTask) } } });
+            calibDictionary.Add("QueryCalibratorinfoTask", new object[] { XmlUtility.Serializer(typeof(List<CalibratorinfoTask>), lstCalibratorinfoTask) });
+            combSampleType_SelectedIndexChanged(null, null);
+            ClientSendDataToServices(calibDictionary);
         }
 
         /// <summary>
@@ -409,7 +443,7 @@ namespace BioA.UI
             {
                 if (control.GetType() == typeof(System.Windows.Forms.Button))
                 {
-                    if (control.Tag == "1")
+                    if (control.Tag.ToString() == "1")
                     {
                         control.Tag = "0";
                         this.Invoke(new EventHandler(delegate
@@ -449,8 +483,6 @@ namespace BioA.UI
                 {
                     sampleSerum = combSampleType.SelectedItem.ToString();
                     //获取所有的项目信息
-                    //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibControlTask, XmlUtility.Serializer(typeof(CommunicationEntity),
-                    //    new CommunicationEntity("QueryProjectNameInfoByCalib", combSampleType.SelectedItem.ToString())));
                     calibDictionary.Add("QueryProjectNameInfoByCalib", new object[] { sampleSerum });
                 }
                 else
@@ -468,9 +500,6 @@ namespace BioA.UI
                 if (combSampleType.SelectedItem.ToString() == "尿液" && sampleUrine == null)
                 {
                     sampleUrine = combSampleType.SelectedItem.ToString();
-                    //获取所有的项目信息
-                    //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibControlTask, XmlUtility.Serializer(typeof(CommunicationEntity),
-                    //    new CommunicationEntity("QueryProjectNameInfoByCalib", combSampleType.SelectedItem.ToString())));
                     CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.CalibControlTask, new Dictionary<string, object[]>() { { "QueryProjectNameInfoByCalib", new object[] { sampleUrine } } });
                 }
                 else
@@ -487,9 +516,6 @@ namespace BioA.UI
                 if ((combSampleType.SelectedItem.ToString()).Trim() == "" && sampleBlank == null)
                 {
                     sampleBlank = (combSampleType.SelectedItem.ToString()).Trim();
-                    //获取所有的项目信息
-                    //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibControlTask, XmlUtility.Serializer(typeof(CommunicationEntity),
-                    //    new CommunicationEntity("QueryProjectNameInfoByCalib", combSampleType.SelectedItem.ToString())));
                     CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.CalibControlTask, new Dictionary<string, object[]>() { { "QueryProjectNameInfoByCalib", new object[] { sampleBlank } } });
                 }
                 else
@@ -503,9 +529,6 @@ namespace BioA.UI
                         projectPage4.LstAssayProInfos = lstBlankProject;
                     }
                 }
-                //获取所有的项目信息
-                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibControlTask, XmlUtility.Serializer(typeof(CommunicationEntity),
-                //    new CommunicationEntity("QueryProjectNameInfoByCalib", combSampleType.SelectedItem.ToString())));
             }
         }
     }

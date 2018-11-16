@@ -137,7 +137,7 @@
       insert into CalibratorTb(CalibName,LotNum,Pos,InvalidDate,Manufacturer) values (#CalibName#,#LotNum#,#Pos#,#InvalidDate#,#Manufacturer#)
     </statement>
     <statement id="AddCalibratorProjectinfo" parameterClass="System.Collections.IDictionary">
-      insert into CalibratorProjectTb(CalibName,ProjectName,CalibConcentration,SampleType) values (#CalibName#,#ProjectName#,#CalibConcentration#,#SampleType#)
+      insert into calibratorprojecttb values (#ProjectName#,#SampleType#,#CalibName#,#CalibConcentration#)
     </statement>
     <statement id="DeleteCalibrationMaintain" parameterClass="System.Collections.IDictionary" ResultClass="int">
       delete from CalibratorTb where CalibName=#CalibName#
@@ -171,7 +171,7 @@
       select CalibName from CalibratorProjectTb where ProjectName=#ProjectName# and SampleType=#SampleType#
     </statement>
     <statement id="QueryCalibratorProinfo" ResultClass="CalibratorProjectinfo" parameterClass="System.Collections.IDictionary" >
-      select cpro.*, c1.Pos from calibratorprojecttb cpro left join calibratortb c1 on cpro.CalibName = c1.CalibName where ProjectName=#ProjectName#
+      select cpro.*, c1.Pos from calibratorprojecttb cpro left join calibratortb c1 on cpro.CalibName = c1.CalibName where ProjectName=#ProjectName# and SampleType=#SampleType#
     </statement>
     <statement id="QueryCalib" ResultClass="Calibratorinfo" parameterClass="System.Collections.IDictionary" >
       select * from CalibratorTb where CalibName=#CalibName#
@@ -183,11 +183,18 @@
     <statement id="QueryCalibParamProInfoCout" parameterClass="System.Collections.IDictionary" ResultClass="int">
       select count(*) from calibrationparaminfotb where ProjectName=#ProjectName# and SampleType=#SampleType# and CalibrationMethod is not null
     </statement>
+    <!-- 根据条件 查询校准品项目参数信息 -->
+    <statement id="GetCalibParamProInfo" parameterClass="System.Collections.IDictionary" ResultClass="AssayProjectCalibrationParamInfo">
+      select * from calibrationparaminfotb where ProjectName=#ProjectName# and SampleType=#SampleType# and CalibrationMethod is not null
+    </statement>
     <!-- 根据条件查询校准品任务表中的总行数 -->
     <statement id="QueryCalibTaskCountByProName" ResultClass="int" parameterClass="System.Collections.IDictionary" >
       select count(*) from CalibratorinfoTaskTb where ProjectName=#ProjectName# and SampleType=#SampleType# and TaskState!=2
     </statement>
-    
+    <!-- 根据条件查询校准品任务表中是否存已下任务-->
+    <statement id="GetCalibTaskCountByCondition" ResultClass="int" parameterClass="System.Collections.IDictionary" >
+      select count(*) from CalibratorinfoTaskTb where CalibName=#CalibName# and TaskState!=2
+    </statement>
     <statement id="DeleteCalibrationCurveInfo" parameterClass="System.Collections.IDictionary" ResultClass="int">
       delete from CalibrationCurveTb where ProjectName=#ProjectName# and CalibType=#CalibType# and SampleType=#SampleType#
     </statement>
@@ -201,6 +208,22 @@
       insert into CalibrationCurveTb(CalibName,Pos,CalibConcentration,SampleType,ProjectName,CalibTime,CalibType,Factor)
       values (#CalibName#,#Pos#,#CalibConcentration#,#SampleType#,#ProjectName#,#CalibTime#,#CalibType#,#Factor#)
     </statement>
+
+    <!-- 修改校准品信息-->
+    <statement id="UpdateCalibrationInfo" parameterClass="System.Collections.IDictionary">
+      update calibratortb set CalibName=#NewCalibName#, Pos=#Pos#, InvalidDate=#InvalidDate#, LotNum=#LotNum#, Manufacturer=#Manufacturer# where CalibName=#CalibName#
+    </statement>
+
+    <!-- 修改校准品对应项目信息中的浓度 -->
+    <statement id="UpdateCalibProjectInfo" parameterClass="System.Collections.IDictionary">
+      update calibratorprojecttb set CalibConcentration=#CalibConcentration# where ProjectName=#ProjectName# and CalibName=#CalibName#
+    </statement>
+    
+    <!-- 修改校准品项目信息表中的校准品名 -->
+    <statement id="UpdateCalibNameAll" parameterClass="System.Collections.IDictionary" resultClass="int">
+      update calibratorprojecttb set CalibName=#NewCalibName# where CalibName=#CalibName#
+    </statement>
+
     <statement id="QueryCalibrationCurveInfo" resultMap="SDTTableItemResult" parameterClass="System.Collections.IDictionary" >
       select * from SDTTableItemTb where ProjectName=#ProjectName# and SampleType=#SampleType# and CalibMethod=#CalibType# and CalibState=#SUCC#
     </statement>

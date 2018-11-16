@@ -23,9 +23,9 @@ namespace BioA.UI
         /// </summary>
         private Dictionary<string, object[]> chemicalParamDic = new Dictionary<string, object[]>();
 
-        ProjectParameter projectParameter;
-        RangeParameter rangeParameter;
-        CalibrationParameter calibrationParameter;
+        private ProjectParameter projectParameter;
+        private RangeParameter rangeParameter;
+        private CalibrationParameter calibrationParameter;
       
         public ChemicalParameter()
         {
@@ -44,12 +44,16 @@ namespace BioA.UI
         private void AssayProInfo_Event(Dictionary<string, object[]> sender)
         {
             //string a = XmlUtility.Serializer(typeof(CommunicationEntity), sender as CommunicationEntity);
-            var chemParamThread = new Thread(() =>
+            if (sender != null)
             {
-                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.SettingsChemicalParameter, sender);
-            });
-            chemParamThread.IsBackground = true;
-            chemParamThread.Start();
+                var chemParamThread = new Thread(() =>
+                {
+                    CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.SettingsChemicalParameter, sender);
+                });
+                chemParamThread.IsBackground = true;
+                chemParamThread.Start();
+                
+            }
         }
 
         /// <summary>
@@ -76,11 +80,17 @@ namespace BioA.UI
                     break;
                 case "QueryAssayProAllInfo":
                     lstAssayProInfos = (List<AssayProjectInfo>)XmlUtility.Deserialize(typeof(List<AssayProjectInfo>), sender as string);
-                    projectParameter.LstAssayProInfos = lstAssayProInfos;
+                    if (xtraTabControl1.SelectedTabPageIndex == 0)
+                        projectParameter.LstAssayProInfos = lstAssayProInfos;
+                    else if (xtraTabControl1.SelectedTabPageIndex == 1)
+                        calibrationParameter.LstAssayProInfos = lstAssayProInfos;
+                    else
+                        rangeParameter.LstAssayProInfos = lstAssayProInfos;
+
                     break;
                 case "AssayProjectAdd":
-                    string[] str = (string[])XmlUtility.Deserialize(typeof(string[]), sender as string);
-                    projectParameter.ItemsIsCreateSuccess = str;
+                    AssayProjectParamInfo assayProjectParamInfo = (AssayProjectParamInfo)XmlUtility.Deserialize(typeof(AssayProjectParamInfo), sender as string);
+                    projectParameter.AssayProjectParamInfos = assayProjectParamInfo;
                     break;
                 case "AssayProjectEdit":
                     projectParameter.EnditOrDeleteProInfoHandle = (int)sender;
@@ -166,34 +176,41 @@ namespace BioA.UI
 
         private void xtraTabControl1_Click(object sender, EventArgs e)
         {
-            if (xtraTabControl1.SelectedTabPageIndex == 0 && xtraTabPage1.Controls.Contains(projectParameter)==false)
+            if (xtraTabControl1.SelectedTabPageIndex == 0)
             {
                 xtraTabPage1.Controls.Clear();
                 projectParameter = new ProjectParameter();
+                //if(lstAssayProInfos.Count != 0 && _data.Rows.Count >0)
+                //{
+                //    projectParameter.ListAssayprojectInfos = lstAssayProInfos;
+                //}
+                //projectParameter.DataParamEvent += DataParamInfo_Event;
                 projectParameter.AssayProInfoEvent += AssayProInfo_Event;
                 xtraTabPage1.Controls.Add(projectParameter);
+                
             }
-            else if (xtraTabControl1.SelectedTabPageIndex == 1 && xtraTabPage1.Controls.Contains(calibrationParameter) == false)
+            else if (xtraTabControl1.SelectedTabPageIndex == 1)
             {
                 xtraTabPage2.Controls.Clear();
                 calibrationParameter = new CalibrationParameter();
-                calibrationParameter.ListAssayprojectInfos = lstAssayProInfos;
+                if (lstAssayProInfos.Count != 0)
+                {
+                    calibrationParameter.ListAssayprojectInfos = lstAssayProInfos;
+                }
                 calibrationParameter.AssayProInfoForCalibParamEvent += AssayProInfo_Event;
                 xtraTabPage2.Controls.Add(calibrationParameter);
             }
-            else if (xtraTabControl1.SelectedTabPageIndex == 2 && xtraTabPage1.Controls.Contains(rangeParameter) == false)
+            else if (xtraTabControl1.SelectedTabPageIndex == 2)
             {
                 xtraTabPage3.Controls.Clear();
                 rangeParameter = new RangeParameter();
-                rangeParameter.ListAssayprojectInfos = lstAssayProInfos;
+                if (lstAssayProInfos.Count != 0)
+                {
+                    rangeParameter.ListAssayprojectInfos = lstAssayProInfos;
+                }
                 rangeParameter.AssayProInfoForRangeParamEvent += AssayProInfo_Event;
                 xtraTabPage3.Controls.Add(rangeParameter);
             }
-        }
-
-        private void xtraTabPage1_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void ChemicalParameter_Load(object sender, EventArgs e)
@@ -201,9 +218,16 @@ namespace BioA.UI
             BeginInvoke(new Action(() =>
             {
                 projectParameter = new ProjectParameter();
+                //projectParameter.DataParamEvent += DataParamInfo_Event;
                 projectParameter.AssayProInfoEvent += AssayProInfo_Event;
                 xtraTabPage1.Controls.Add(projectParameter);
             }));
+        }
+        private DataTable _data = new DataTable();
+
+        private void DataParamInfo_Event(DataTable dataTable)
+        {
+            this._data = dataTable;
         }
     }
 }

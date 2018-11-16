@@ -334,11 +334,13 @@ namespace BioA.SqlMaps
                 if (ht.Count > 0)
                 {
                     ReagentStateInfoR1R2 reaState = ism_SqlMap.QueryForObject("ReagentInfo.GetValidPercent", ht) as ReagentStateInfoR1R2;
-
-                    if (disk == 1)
-                        percent = reaState.ValidPercent;
-                    if (disk == 2)
-                        percent = reaState.ValidPercent2;
+                    if (reaState != null)
+                    {
+                        if (disk == 1)
+                            percent = reaState.ValidPercent;
+                        if (disk == 2)
+                            percent = reaState.ValidPercent2;
+                    }
                 }
             }
             catch (Exception e)

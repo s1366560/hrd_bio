@@ -105,6 +105,28 @@ namespace BioA.UI
             }
         }
 
+        private List<QualityControlInfo> _ListQualityControlInfo = null;
+        /// <summary>
+        /// 所有的质控品信息
+        /// </summary>
+        public List<QualityControlInfo> ListQualityControlInfo
+        {
+            get { return _ListQualityControlInfo; }
+            set
+            {
+                _ListQualityControlInfo = value;
+                cboPosition.Properties.Items.Clear();
+                foreach (var item in RunConfigureUtility.QCPosition)
+                {
+                    if(!_ListQualityControlInfo.Exists(x => x.Pos == item))
+                    {
+                        cboPosition.Properties.Items.Add(item);
+                    }
+                }
+            }
+        }
+
+
         private List<QCRelationProjectInfo> qCRelateProInfo = new List<QCRelationProjectInfo>();
         /// <summary>
         /// 质控品关联项目信息
@@ -224,12 +246,10 @@ namespace BioA.UI
             this.gridView1.Columns[3].Width = 100;
             this.gridView1.Columns[4].Width = 100;
             //获取配置文件中质控品水平浓度
-            foreach (string levelConc in RunConfigureUtility.QCLevelConc)
-            {
-                combLevelConc.Properties.Items.Add(levelConc);
-            }
+            combLevelConc.Properties.Items.AddRange(RunConfigureUtility.QCLevelConc);
+            
             //获取质控品位置
-            cboPosition.Properties.Items.AddRange(RunConfigureUtility.QCPosition);
+            //cboPosition.Properties.Items.AddRange(RunConfigureUtility.QCPosition);
 
             
         }
@@ -301,7 +321,12 @@ namespace BioA.UI
 
             //QualityControlInfo qcInfo = new QualityControlInfo();
             //List<QCRelationProjectInfo> lstQCRelationProInfo = new List<QCRelationProjectInfo>();
-
+            if (_ListQualityControlInfo.Exists(x => x.QCName == txtQCName.Text))
+            {
+                MessageBox.Show("该质控品名称已存在，请重新录入！");
+                txtQCName.Focus();
+                return;
+            }
             qcInfo.QCName = txtQCName.Text.Trim();
             qcInfo.Pos = cboPosition.SelectedItem.ToString();
             qcInfo.LotNum = txtLotNum.Text.Trim();

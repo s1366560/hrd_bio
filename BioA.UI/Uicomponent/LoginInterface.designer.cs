@@ -136,6 +136,8 @@
             this.txtPassword.Size = new System.Drawing.Size(189, 26);
             this.txtPassword.TabIndex = 4;
             this.txtPassword.UseSystemPasswordChar = true;
+            this.txtPassword.Enter += new System.EventHandler(this.txtUserNameOrPassword_Enter);
+            this.txtPassword.Leave += new System.EventHandler(this.txtUserNameOrPassword_Leave);
             // 
             // label2
             // 
@@ -157,8 +159,10 @@
             this.txtUserName.Name = "txtUserName";
             this.txtUserName.Size = new System.Drawing.Size(189, 29);
             this.txtUserName.TabIndex = 3;
+            this.txtUserName.Enter += new System.EventHandler(this.txtUserNameOrPassword_Enter);
+            this.txtUserName.Leave += new System.EventHandler(this.txtUserNameOrPassword_Leave);
             // 
-            // Login
+            // LoginInterface
             // 
             this.AcceptButton = this.btnLogin;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -168,7 +172,7 @@
             this.Controls.Add(this.simpleButton1);
             this.Controls.Add(this.LoginInput);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Login";
+            this.Name = "LoginInterface";
             this.Text = "Form1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Login_Load);

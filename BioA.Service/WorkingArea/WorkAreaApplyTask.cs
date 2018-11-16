@@ -125,7 +125,13 @@ namespace BioA.Service
         {
             return myBatis.QueryApplyTaskLsvt(StrmethodName);
         }
-
+        /// <summary>
+        /// 保存定标任务/普通任务、急诊任务
+        /// </summary>
+        /// <param name="strMethodName"></param>
+        /// <param name="sampleInfo"></param>
+        /// <param name="lstSampleInfo"></param>
+        /// <returns></returns>
         public string AddTask(string strMethodName, SampleInfo sampleInfo, List<TaskInfo> lstSampleInfo)
         {
             return myBatis.AddTask(strMethodName, sampleInfo, lstSampleInfo);
@@ -216,6 +222,15 @@ namespace BioA.Service
         public void UpdateRunningTaskWorDisk(string strMethodName, string panelNum)
         {
             myBatis.UpdateRunningTaskWorDisk(strMethodName, panelNum);
+        }
+        /// <summary>
+        /// 删除选中的样本结果
+        /// </summary>
+        /// <param name="sampleResultInfo"></param>
+        /// <returns></returns>
+        public int DeleteSampleResult(List<SampleResultInfo> sampleResultInfo)
+        {
+            return myBatis.DeleteSampleResult(sampleResultInfo);
         }
     }
 }

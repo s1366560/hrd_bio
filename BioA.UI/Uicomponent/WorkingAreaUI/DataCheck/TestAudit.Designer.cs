@@ -34,6 +34,7 @@
             this.lblSampleStatus = new System.Windows.Forms.Label();
             this.lblSampletype = new System.Windows.Forms.Label();
             this.grcCheckResult = new DevExpress.XtraGrid.GridControl();
+            this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.grvCheckResult = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.btnReactionCurve = new DevExpress.XtraEditors.SimpleButton();
             this.btnAudit = new DevExpress.XtraEditors.SimpleButton();
@@ -47,6 +48,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dtpApplyTime = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.grcCheckResult)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvCheckResult)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSampleNum.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSampleState.Properties)).BeginInit();
@@ -97,12 +99,21 @@
             // grcCheckResult
             // 
             this.grcCheckResult.Location = new System.Drawing.Point(69, 81);
-            this.grcCheckResult.MainView = this.grvCheckResult;
+            this.grcCheckResult.MainView = this.gridView1;
             this.grcCheckResult.Name = "grcCheckResult";
             this.grcCheckResult.Size = new System.Drawing.Size(842, 460);
             this.grcCheckResult.TabIndex = 8;
             this.grcCheckResult.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridView1,
             this.grvCheckResult});
+            // 
+            // gridView1
+            // 
+            this.gridView1.GridControl = this.grcCheckResult;
+            this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsSelection.MultiSelect = true;
+            this.gridView1.OptionsSelection.ResetSelectionClickOutsideCheckboxSelector = true;
+            this.gridView1.OptionsView.ShowGroupPanel = false;
             // 
             // grvCheckResult
             // 
@@ -249,6 +260,7 @@
             this.Text = "测试审核";
             this.Load += new System.EventHandler(this.TestAudit_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grcCheckResult)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvCheckResult)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSampleNum.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSampleState.Properties)).EndInit();
@@ -278,5 +290,6 @@
         private DevExpress.XtraEditors.TextEdit txtSampleType;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker dtpApplyTime;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
     }
 }

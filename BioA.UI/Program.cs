@@ -24,7 +24,7 @@ namespace BioA.UI
             DevExpress.LookAndFeel.UserLookAndFeel.Default.SetSkinStyle("Coffee");
             try
             {
-                //    //显示登录窗体
+                //显示登录窗体
                 //LoginInterface login = new LoginInterface();
                 ////login.LoginEvent += login_LoginEvent;
                 //CommunicationUI.notifyCallBack.LoginDataTransferEvent += login.DataTransfer_Event;

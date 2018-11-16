@@ -171,42 +171,50 @@ namespace BioA.UI
             }
         }
 
+        /// <summary>
+        /// 获取被选中的项目名称
+        /// </summary>
+        /// <returns></returns>
         public List<string> GetSelectedProjects()
         {
             List<string> lstProInfos = new List<string>();
 
             foreach (Control control in this.Controls)
             {
-                if (control.GetType() == typeof(System.Windows.Forms.Button))
+                if (control.Text != "" && control.Text != string.Empty)
                 {
-                    if (control.Tag == "1")
+                    if (control.GetType() == typeof(System.Windows.Forms.Button))
                     {
-                        if (control.Text != string.Empty)
+                        if (control.Tag.ToString() == "1")
                         {
                             lstProInfos.Add(control.Text);
                         }
                     }
                 }
             }
-
-
             return lstProInfos;
         }
-
+        /// <summary>
+        /// 清除控制容器中项目信息
+        /// </summary>
         public void ResetControlState()
         {
             foreach (Control control in this.Controls)
             {
-                if (control.GetType() == typeof(System.Windows.Forms.Button))
+                if (control.Text != "" && control.Text != string.Empty)
                 {
-                    if (control.Tag == "1" || control.Tag == "2")
+                    if (control.GetType() == typeof(System.Windows.Forms.Button))
                     {
-                        control.Tag = "0";
-                        this.Invoke(new EventHandler(delegate {
-                            control.ForeColor = Color.Black;
-                            control.Enabled = false;
-                        }));
-                        
+                        if (control.Tag.ToString() == "1" || control.Tag.ToString() == "2")
+                        {
+                            control.Tag = "0";
+                            this.Invoke(new EventHandler(delegate
+                            {
+                                control.ForeColor = Color.Black;
+                                control.Enabled = false;
+                            }));
+
+                        }
                     }
                 }
             }

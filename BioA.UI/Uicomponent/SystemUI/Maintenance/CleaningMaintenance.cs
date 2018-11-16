@@ -60,7 +60,7 @@ namespace BioA.UI
         {
             rtxtCleanSampleNeedle.ReadOnly = true;
             rtxtCleanSampleNeedle.AppendText(
-            "步骤：\r\n\r\n    1、在样本盘的ISE2位置放入清洗液。\r\n\r\n    2、单击[开始清洗]按钮分析仪将开始执行清洗操作。");
+            "步骤：\r\n\r\n    1、在样本盘的S28位置放入清洗液。\r\n\r\n    2、单击[开始清洗]按钮分析仪将开始执行清洗操作。");
 
 
 

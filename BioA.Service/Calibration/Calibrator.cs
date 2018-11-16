@@ -62,10 +62,10 @@ namespace BioA.Service
             return myBatis.DeleteCalibrationMaintain(strDBMethod, lstCalibProjectInfo);
         }
 
-        public string EditCalibratorinfo(string strDBMethod, Calibratorinfo Editcalibratorinfo, string p2,List<CalibratorProjectinfo> lisEditCalibratorProjectinfo)
+        public string EditCalibratorinfo(string strDBMethod, Calibratorinfo newCalibratorinfo, Calibratorinfo oldCalibratorinfo, List<CalibratorProjectinfo> lisNewCalibratorProjectinfo, List<CalibratorProjectinfo> lisOldCalibratorProjectinfo)
         {
             //myBatis.DeleteCalibratorProjectinfo("DeleteCalibratorProjectinfo", p2);
-            return myBatis.EditCalibratorinfo(strDBMethod, Editcalibratorinfo, p2, lisEditCalibratorProjectinfo);
+            return myBatis.EditCalibratorinfo(strDBMethod, newCalibratorinfo, oldCalibratorinfo, lisNewCalibratorProjectinfo, lisOldCalibratorProjectinfo);
         }
 
         /// <summary>
@@ -130,6 +130,8 @@ namespace BioA.Service
                 string calibMethod = myBatis.CalibParamInfoByProNameAndType("CalibParamInfoByProNameAndType", new string[] { project, sampleType });
                 //5.判断该项目下的任务是否已完成
                 int calibTaskCout = myBatis.QueryCalibTaskByProjectAndSamType("QueryCalibTaskByProjectAndSamType", new CalibratorinfoTask() { ProjectName = project, SampleType = sampleType });
+                //5. 判断该项校准方法中是否有校准品为空
+                string strResult = myBatis.CalibProParamInfo_CalibNameIsEmpty(project, sampleType);
                 if (calib.Count == 0)
                 {
                     projectInfo[2] = "此项目没有对应的校准品！";
@@ -152,11 +154,11 @@ namespace BioA.Service
                         {
                             projectInfo[3] = "此项目对应试剂被锁定，无法使用！";
                         }
-                        else if (reagentState.ReagentName != "" && reagentState.ValidPercent < 5)
+                        else if (reagentState.ReagentName != null && reagentState.ReagentName != "" && reagentState.ValidPercent < 5)
                         {
                             projectInfo[3] = "此项目对应的试剂1余量不足！";
                         }
-                        else if (reagentState.ReagentName2 != "" && reagentState.ValidPercent < 5)
+                        else if (reagentState.ReagentName2 != null && reagentState.ReagentName2 != "" && reagentState.ValidPercent2 < 5)
                         {
                             projectInfo[3] = "此项目对应的试剂2余量不足！";
                         }
@@ -167,6 +169,10 @@ namespace BioA.Service
                         if (calibTaskCout != 0)
                         {
                             projectInfo[5] = "此项目已下任务,请做完此项目任务后才能继续下该项目任务！";
+                        }
+                        else if (strResult != "")
+                        {
+                            projectInfo[5] = strResult;
                         }
 
                         if (projectInfo[2] == null && projectInfo[3] == null && projectInfo[4] == null && projectInfo[5] == null)

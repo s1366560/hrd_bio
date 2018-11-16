@@ -18,6 +18,7 @@ using BioA.UI.Uicomponent.Analog;
 using System.IO;
 using System.Diagnostics;
 using DevExpress.XtraBars;
+using BioA.UI.ServiceReference1;
 
 namespace BioA.UI
 {
@@ -60,13 +61,17 @@ namespace BioA.UI
         private MyBatis myBatis = new MyBatis();
 
         public float temp;
+        //获取当前运行程序的项目路径
+        private static string _FileName = (Directory.GetCurrentDirectory()).Substring(0, Directory.GetCurrentDirectory().IndexOf("b"));
+
         //加载该项目下的图片
-        Image images = System.Drawing.Image.FromFile("E:\\HRD_BioA\\BioA.UI\\Resources\\Image\\CheckFlag.png");
+        private Image images = System.Drawing.Image.FromFile(_FileName + "Resources\\Image\\zhixiang.png");
         /// <summary>
         /// 初始化一个子控件元素集合
         /// </summary>
         private List<DevExpress.XtraBars.Navigation.AccordionControlElement> _Elements = new List<DevExpress.XtraBars.Navigation.AccordionControlElement>();
-
+        
+        BioAServiceClient serviceClient = CommunicationUI.ServiceClient;
         // 与下位机网口通信
         CLIENT CLClient;
         // 判断系统启动状态，完成读取温度置为false，代表启动完成
@@ -80,7 +85,6 @@ namespace BioA.UI
             this.CloseBox = false;                      //关闭按钮
             this.MaximizeBox = false;                   //最大化按钮
             this.MinimizeBox = false;                   //最小化按钮
-
         }
 
         public void Init()
@@ -109,9 +113,9 @@ namespace BioA.UI
             //CommunicationUI.notifyCallBack.LoginDataTransferEvent += login.DataTransfer_Event;
             //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("InitMachineUpdateQCTaskState",null)));
             CommunicationUI.notifyCallBack.StartTestTaskDataTransferEvent += DataTransfer_Event;
-            var loginThread = new Thread(StartLogin);
-            loginThread.IsBackground = true;
-            loginThread.Start();
+            //var loginThread = new Thread(StartLogin);
+            //loginThread.IsBackground = true;
+            //loginThread.Start();
 
             var analyzerDataQueueServiceThread = new Thread(AnalyzerDataQueueService);
             analyzerDataQueueServiceThread.IsBackground = true;
@@ -183,6 +187,8 @@ namespace BioA.UI
 
         private void OnConnectSuccessEvent(object sender)
         {
+            Thread.Sleep(300);
+            SendCommand("CheckCommunication");
             //this.Invoke(new EventHandler(delegate
             //    {
             //        txtInfoPrompt.Text = "连接成功！";
@@ -272,17 +278,25 @@ namespace BioA.UI
                             {
                                 if (machineState.Temp != null)
                                 {
-                                    label2.Width = 95;
-                                    try
+                                    if (machineState.State == "超时")
                                     {
-                                        temp = float.Parse(machineState.Temp);
+                                        label2.Width = 95;
+                                        label2.BackColor = Color.Red;
                                     }
-                                    catch (Exception e)
+                                    else
                                     {
+                                        label2.Width = 95;
+                                        try
+                                        {
+                                            temp = float.Parse(machineState.Temp);
+                                        }
+                                        catch (Exception e)
+                                        {
 
+                                        }
+                                        label2.Width = label2.Width + Convert.ToInt32(temp * 3.4);
+                                        label2.BackColor = Color.Red;
                                     }
-                                    label2.Width = label2.Width + Convert.ToInt32(temp * 3.4);
-                                    label2.BackColor = Color.Red;
                                 }
 
                                 txtInfoPrompt.Text = machineState.State;
@@ -323,6 +337,11 @@ namespace BioA.UI
                                     break;
                                 case AnalyzeEvent.MACHINE_RESET://生化部件复位
                                     this.OPID = 0;
+                                    if (this.barButtonItem13.Caption != "启动操作")
+                                    {
+                                        this.barButtonItem13.LargeGlyph = Firing;
+                                        this.barButtonItem13.Caption = "启动操作";
+                                    }
                                     //this.CommandNameList.Clear();
                                     //OnMachineCompletedResetEvent(null);
                                     break;
@@ -362,19 +381,19 @@ namespace BioA.UI
                                 //case AnalyzeEvent.ACTIVEDCODE_INVALID:
                                 //    OnDisplayInValidAKeyDlgEvent(null);
                                 //    break;
-                                //case AnalyzeEvent.COMPLETED_READ_SN://读取SN码
-                                //    OnReadSNCompletedEvent(machineState.StateValue);
-                                //    if (this.IsStarting == true)
-                                //    {
-                                //        SendCommand("ReadActivityCode");
-                                //    }
-                                //    break;
-                                //case AnalyzeEvent.WORKSTATION_MATCHING://工作站有效
-                                //    if (this.IsStarting == true)
-                                //    {
-                                //        SendCommand("ReadSN");
-                                //    }
-                                //    break;
+                                case AnalyzeEvent.COMPLETED_READ_SN://读取SN码
+                                    //OnReadSNCompletedEvent(machineState.StateValue);
+                                    if (this.IsStarting == true)
+                                    {
+                                        SendCommand("ReadActivityCode");
+                                    }
+                                    break;
+                                case AnalyzeEvent.WORKSTATION_MATCHING://工作站有效
+                                    if (this.IsStarting == true)
+                                    {
+                                        SendCommand("ReadSN");
+                                    }
+                                    break;
                                 //case AnalyzeEvent.WORKSTATION_NOMATCHING://工作站失效!
                                 //    OnInvalidUserEvent(null);
                                 //    break;
@@ -388,17 +407,24 @@ namespace BioA.UI
                                     //this.CMDManager.OPMgr.OPCMDStr = null;
                                     //this.CMDManager.OPMgr.OPBTReset();
                                     this.OPID = 0;
+                                    this.barButtonItem13.LargeGlyph = Firing;
+                                    this.barButtonItem13.Caption = "启动操作";
+
                                     break;
-                                //case AnalyzeEvent.MACHINE_WILL_FINIFSHSCHEDULE://工作队列即将结束
-                                //    this.IsWillFinishSchedule = true;
-                                //    break;
-                                //case AnalyzeEvent.COMPLETED_SCAN_HWVersion://获取版本号
-                                //    this.HardwareVersion = machineState.StateValue;
-                                //    if (this.IsStarting == true)
-                                //    {
-                                //        SendCommand("ReadLicense");
-                                //    }
-                                //    break;
+                                case AnalyzeEvent.MACHINE_WILL_FINIFSHSCHEDULE://工作队列即将结束
+                                    if (this.OPID == 1)
+                                    {
+                                        var tasksStatusThread = new Thread(this.TaskStatusDeletection) { IsBackground = true };
+                                        tasksStatusThread.Start();
+                                    }
+                                    break;
+                                case AnalyzeEvent.COMPLETED_SCAN_HWVersion://获取版本号
+                                    //this.HardwareVersion = machineState.StateValue;
+                                    if (this.IsStarting == true)
+                                    {
+                                        SendCommand("ReadLicense");
+                                    }
+                                    break;
                                 //case AnalyzeEvent.COMPLETED_SCAN_MSTATE:
                                 //    OnScanMacheStateEvent(machineState.StateValue);
                                 //    break;
@@ -407,6 +433,13 @@ namespace BioA.UI
                                 //    break;
                                 case AnalyzeEvent.HAS_SCHEDULE_WARNNING:
                                     OnHasSchedulesWarn(machineState.StateValue);
+                                    break;
+                                case AnalyzeEvent.TASK_STATUS_DETECTION:
+                                    if (this.OPID == 1)
+                                    {
+                                        var tasksStatusThread = new Thread(this.TaskStatusDeletection) { IsBackground = true };
+                                        tasksStatusThread.Start();
+                                    }
                                     break;
                             }
                         }
@@ -419,6 +452,28 @@ namespace BioA.UI
             }
         }
         #endregion
+        /// <summary>
+        /// 获取任务状态
+        /// </summary>
+        private void TaskStatusDeletection()
+        {
+            try
+            {
+                if (this.txtPrompt.Text == "您当前的操作：质控——质控任务")
+                    BeginInvoke(new Action(applyQCTask.QueryTasksStatus));
+
+                else if (this.txtPrompt.Text == "您当前的操作：校准——校准任务")
+                    BeginInvoke(new Action(calibControlTask.QueryTasksStatus));
+
+                else if (this.txtPrompt.Text == "您当前的操作：工作区——申请审核")
+                    BeginInvoke(new Action(applyTask.QueryTasksStatus));
+            }
+            catch(Exception ex)
+            {
+                LogInfo.WriteErrorLog("TaskStatusDeletection() == "+ ex.ToString(), Module.FramUI);
+            }
+            
+        }
 
         // 任务状态，0——无任务；1——开始；2——暂停；3——紧急停止
         private int OPID = 0;
@@ -437,6 +492,8 @@ namespace BioA.UI
                     break;
                 case "StartSchedule":
                     this.OPID = 1;
+                    this.barButtonItem13.LargeGlyph = Suspend;
+                    this.barButtonItem13.Caption = "暂停操作";
                     break;
                 case "PauseSchedule":
                     this.OPID = 2;
@@ -467,6 +524,9 @@ namespace BioA.UI
             else
             {
                 this.SendCommand("AbortDorun");
+                this.OPID = 0;
+                this.barButtonItem13.LargeGlyph = Firing;
+                this.barButtonItem13.Caption = "启动操作";
             }
         }
 
@@ -498,7 +558,7 @@ namespace BioA.UI
                 this.Invoke(new Action(() => { this.pictureBox2.Image = this.pictureBox2.ErrorImage; }));
                 Thread.Sleep(450);
 
-                this.Invoke(new Action(() => { this.pictureBox2.Image = System.Drawing.Image.FromFile("E:\\HRD_BioA\\BioA.UI\\Resources\\Image\\WarnUn.png"); }));
+                this.Invoke(new Action(() => { this.pictureBox2.Image = System.Drawing.Image.FromFile( _FileName +"Resources\\Image\\WarnUn.png"); }));
                 Thread.Sleep(450);
                 //if(this.IsWarningInfoUIActivity == true)
                 //{
@@ -540,7 +600,7 @@ namespace BioA.UI
             // BeginInvoke(new Action(Init));
             //userInfo = Program.userInfo;
             //this.labUserName.Text = userInfo.UserName;
-            
+
             var displayThread = new Thread(DisplayHavingError);
             displayThread.IsBackground = true;
             displayThread.Start();
@@ -1213,32 +1273,44 @@ namespace BioA.UI
 
         private void barButtonItem13_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            if (this.OPID == 3)
-            {
-                MessageBoxDraw.ShowMsg("设备正在清洗紧急停止中占用的比色杯...", MsgType.Warning);
-                return;
-            }
-            BeginInvoke(new Action(() =>
-            {
-                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.MainTain, new Dictionary<string, object[]> { { "GetAllTasksCount", null } });
-            }));
-
-        }
-        /// <summary>
-        /// 暂停按钮
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void barButtonItem14_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {
             if (this.OPID == 1)
             {
                 if (MessageBoxDraw.ShowMsg("确认暂停任务吗？", MsgType.Question) == System.Windows.Forms.DialogResult.OK)
                 {
                     SendCommand("PauseSchedule");
+                    this.barButtonItem13.LargeGlyph = Firing;
+                    this.barButtonItem13.Caption = "启动操作";
                 }
             }
+            else if (this.OPID == 2)
+            {
+                if (MessageBoxDraw.ShowMsg("确定恢复样本测试吗？", MsgType.Question) == System.Windows.Forms.DialogResult.OK)
+                {
+                    SendCommand("StartSchedule");
+                    this.barButtonItem13.LargeGlyph = Suspend;
+                    this.barButtonItem13.Caption = "暂停操作";
+                }
+            }
+            else if (this.OPID == 3)
+            {
+                MessageBoxDraw.ShowMsg("设备正在清洗紧急停止中占用的比色杯...", MsgType.Warning);
+                return;
+            }
+            else
+            {
+                BeginInvoke(new Action(() =>
+                {
+                    CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.MainTain, new Dictionary<string, object[]> { { "GetAllTasksCount", null } });
+                }));
+            }
+
         }
+
+        //暂停
+        private Image Suspend = System.Drawing.Image.FromFile(_FileName + "Resources\\Image\\Tempstoping.png");
+        //启动
+        private Image Firing = System.Drawing.Image.FromFile(_FileName +"Resources\\Image\\Execing.png");
+
         /// <summary>
         /// 启动按钮
         /// </summary>
@@ -1257,15 +1329,6 @@ namespace BioA.UI
                         if (this.OPID == 0)
                         {
                             if (MessageBoxDraw.ShowMsg("确定开始样本测试吗？", MsgType.Question) == System.Windows.Forms.DialogResult.OK)
-                            {
-
-                                SendCommand("StartSchedule");
-
-                            }
-                        }
-                        else if (this.OPID == 2)
-                        {
-                            if (MessageBoxDraw.ShowMsg("确定恢复样本测试吗？", MsgType.Question) == System.Windows.Forms.DialogResult.OK)
                             {
                                 SendCommand("StartSchedule");
                             }
@@ -1359,7 +1422,7 @@ namespace BioA.UI
                 }
             }
         }
-        //是否在故障界信息面
+        //是否在故障界面信息上
         private bool IsWarningInfoUIActivity = false;
         private void ChangeiconEvent(object sender, MouseEventArgs e)
         {

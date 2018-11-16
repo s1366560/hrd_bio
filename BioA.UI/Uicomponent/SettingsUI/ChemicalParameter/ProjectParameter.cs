@@ -12,6 +12,7 @@ using BioA.Common;
 using DevExpress.XtraGrid.Columns;
 using BioA.Common.IO;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace BioA.UI
 {
@@ -24,7 +25,10 @@ namespace BioA.UI
         /// <param name="sender">参数对象</param>
         public delegate void AssayProInfoDelegate(Dictionary<string, object[]> sender);
         public event AssayProInfoDelegate AssayProInfoEvent;
-        
+
+
+        public delegate void DataParamDelegate(DataTable dataTable);
+        public event DataParamDelegate DataParamEvent;
         /// <summary>
         /// 存储所有生化项目信息
         /// </summary>
@@ -50,15 +54,14 @@ namespace BioA.UI
                 strReceiveInfo = value;
                 if (strReceiveInfo == "保存失败！")
                 {
-                    MessageBoxDraw.ShowMsg(strReceiveInfo, MsgType.Warning);
+                    
                 }
                 else
                 {
                     lstAssayProParamInfoAll.RemoveAll(x => x.ProjectName == saveProParamInfo.ProjectName && x.SampleType == saveProParamInfo.SampleType);
                     lstAssayProParamInfoAll.Add(saveProParamInfo);
-                    MessageBoxDraw.ShowMsg(strReceiveInfo, MsgType.OK);
                 }
-                this.Invoke(new EventHandler(delegate { cheProjectAddOrEdit.Close(); }));
+                MessageBoxDraw.ShowMsg(strReceiveInfo, MsgType.OK);
             }
         }
         /// <summary>
@@ -93,20 +96,32 @@ namespace BioA.UI
 
         private void cheProjectAddOrEdit_DataHandleEvent(Dictionary<string, object[]> sender)
         {
-           
-            if (AssayProInfoEvent != null)
+
+            if (AssayProInfoEvent != null && sender != null)
+            {
                 AssayProInfoEvent(sender);
+                foreach (KeyValuePair<string, object[]> item in sender)
+                {
+                    if(item.Key == "AssayProjectAdd")
+                    {
+                        if (_AssayProjectInfo == null)
+                            _AssayProjectInfo = XmlUtility.Deserialize(typeof(AssayProjectInfo), item.Value[0].ToString()) as AssayProjectInfo;
+                        else
+                        {
+                            _AssayProjectInfo = null;
+                            _AssayProjectInfo = XmlUtility.Deserialize(typeof(AssayProjectInfo), item.Value[0].ToString()) as AssayProjectInfo;
+                        }
+                    }
+                }
+            }
         }
 
         private void ProjectParameter_Load(object sender, EventArgs e)
         {
             //"QueryAssayProAllInfo", null
             BeginInvoke(new Action(InitialControl));
-            dt.Columns.Add("序号");
-            dt.Columns.Add("项目名称");
-            dt.Columns.Add("类型");
-            dt.Columns.Add("项目全称");
-            dt.Columns.Add("通道号");
+            if(DataParamEvent !=null)
+                DataParamEvent(dt);
         }
 
         private void InitialControl()
@@ -174,8 +189,15 @@ namespace BioA.UI
             proParamDic.Add("QueryProjectResultUnits", null);
             //获取所有生化项目对应的参数信息
             proParamDic.Add("QueryAssayProjectParamInfoAll", null);
-            //获取所有生化项目
-            proParamDic.Add("QueryAssayProAllInfo", new object[]{""});
+            if (listAssayProjectInfos.Count != 0)
+            {
+                this.LstAssayProInfos = listAssayProjectInfos;
+            }
+            else
+            {
+                //获取所有生化项目
+                proParamDic.Add("QueryAssayProAllInfo", new object[] { ""});
+            }
             
             if (AssayProInfoEvent != null)
                 AssayProInfoEvent(proParamDic);
@@ -228,13 +250,15 @@ namespace BioA.UI
             }
         }
 
-
+        /// <summary>
+        /// 新增和编辑界面
+        /// </summary>
         CheProjectAddOrEdit cheProjectAddOrEdit = new CheProjectAddOrEdit();
-            
 
         private void btnAddProject_Click(object sender, EventArgs e)
         {
             cheProjectAddOrEdit.Text = "新建项目";
+            cheProjectAddOrEdit.LstAssayProjectInfo = lstAssayProInfos;
             cheProjectAddOrEdit.StartPosition = FormStartPosition.CenterScreen;
             cheProjectAddOrEdit.ShowDialog();
         }
@@ -268,7 +292,7 @@ namespace BioA.UI
             set { lstAssayProParamInfoAll = value; }
         }
 
-        AssayProjectParamInfo proParamInfo = new AssayProjectParamInfo();
+        private AssayProjectParamInfo proParamInfo = new AssayProjectParamInfo();
         /// <summary>
         /// 显示生化项目对应的生化项目参数信息
         /// </summary>
@@ -415,32 +439,30 @@ namespace BioA.UI
                 }));
             }
         }
+        //生化项目信息
+        private AssayProjectInfo _AssayProjectInfo = new AssayProjectInfo();
 
-        private string[] itemsIsCreateSuccess;
+        //生化项目参数信息
+        private AssayProjectParamInfo _AssayProjectParamInfo= new AssayProjectParamInfo();
         /// <summary>
         /// 处理生化项目保存是否成功
         /// </summary>
-        public string[] ItemsIsCreateSuccess
+        public AssayProjectParamInfo AssayProjectParamInfos
         {
-            get { return itemsIsCreateSuccess; }
+            get { return _AssayProjectParamInfo; }
             set
             {
-                itemsIsCreateSuccess = new string[value.Length];
-                itemsIsCreateSuccess = value;
-                if (itemsIsCreateSuccess[4] == "项目创建成功！")
-                {
-                    AssayProjectInfo assyInfo = new AssayProjectInfo();
-                    assyInfo.ProjectName = itemsIsCreateSuccess[0];
-                    assyInfo.SampleType = itemsIsCreateSuccess[1];
-                    assyInfo.ProFullName = itemsIsCreateSuccess[2];
-                    assyInfo.ChannelNum = itemsIsCreateSuccess[3];
-                    lstAssayProInfos.Add(assyInfo);
+                _AssayProjectParamInfo = value;
+                if (_AssayProjectParamInfo != null)
+                { 
+                    this.lstAssayProParamInfoAll.Add(_AssayProjectParamInfo);
+                    this.lstAssayProInfos.Add(_AssayProjectInfo);
                     this.LstAssayProInfos = lstAssayProInfos;
-                    MessageBox.Show(itemsIsCreateSuccess[4]);
+                    MessageBox.Show("项目保存成功！");
                 }
                 else
                 {
-                    MessageBox.Show(itemsIsCreateSuccess[4]);
+                    MessageBox.Show("项目保存失败！");
                 }
                 this.Invoke(new EventHandler(delegate 
                 { 
@@ -449,6 +471,15 @@ namespace BioA.UI
             }
         }
 
+        private List<AssayProjectInfo> listAssayProjectInfos = new List<AssayProjectInfo>();
+        /// <summary>
+        /// 存储所有项目信息
+        /// </summary>
+        public List<AssayProjectInfo> ListAssayprojectInfos
+        {
+            get { return listAssayProjectInfos; }
+            set { listAssayProjectInfos = value; }
+        }
 
         private List<AssayProjectInfo> lstAssayProInfos = new List<AssayProjectInfo>();
         /// <summary>
@@ -462,9 +493,16 @@ namespace BioA.UI
                 this.Invoke(new EventHandler(delegate
                 {
                     lstAssayProInfos = value;
+                    if(dt.Columns.Count == 0)
+                    {
+                        dt.Columns.Add("序号");
+                        dt.Columns.Add("项目名称");
+                        dt.Columns.Add("类型");
+                        dt.Columns.Add("项目全称");
+                        dt.Columns.Add("通道号");
+                    }
                     lstvProject.RefreshDataSource();
                     int i = 1;
-
                     dt.Rows.Clear();
                     if (lstAssayProInfos.Count != 0)
                     {
@@ -509,14 +547,13 @@ namespace BioA.UI
                 }
             }
         }
-
-       
+        private bool _Bool = true;
+        /// <summary>
+        /// 生化项目信息列表点击事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void lstvProject_Click(object sender, EventArgs e)
-        {
-            BeginInvoke(new Action(SelectAllProjectPara));
-        }
-
-        private void SelectAllProjectPara()
         {
             AssayProjectInfo assayProInfo = new AssayProjectInfo();
             int selectedHandle;
@@ -533,17 +570,8 @@ namespace BioA.UI
                         this.AssProParamInfoList = assayProParam;
                     }
                 }
-                //if (AssayProInfoEvent != null)
-                //{
-                //    //communicationEntity.StrmethodName = "GetAssayProjectParamInfoByNameAndType";
-                //    //communicationEntity.ObjParam = XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfo);
-                //    proParamDic.Clear();
-                //    proParamDic.Add("GetAssayProjectParamInfoByNameAndType", new object[] { XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfo) });
-                //    AssayProInfoEvent(proParamDic);
-                //}
             }
         }
-        
         /// <summary>
         /// 存储（保存生化项目参数信息）
         /// </summary>
@@ -905,23 +933,6 @@ namespace BioA.UI
                 MessageBox.Show("样本体积设定数据输入格式有误，请重新输入！");
                 return;
             }
-            //if ((float)System.Convert.ToDouble(txtComStosteVol.Text) > 30 ||
-            //    (float)System.Convert.ToDouble(txtComSamVol.Text) > 30 ||
-            //    (float)System.Convert.ToDouble(txtComDilutionVol.Text) > 30 ||
-            //    (float)System.Convert.ToDouble(txtDecStosteVol.Text) > 30 ||
-            //    (float)System.Convert.ToDouble(txtDecSamVol.Text) > 30 ||
-            //    (float)System.Convert.ToDouble(txtDecDilutionVol.Text) > 30 ||
-            //    (float)System.Convert.ToDouble(txtIncStosteVol.Text) > 30 ||
-            //    (float)System.Convert.ToDouble(txtIncSamVol.Text) > 30 ||
-            //    (float)System.Convert.ToDouble(txtIncDilutionVol.Text) > 30)
-            //    (float)System.Convert.ToDouble(txtCalibStosteVol.Text)
-            //    (float)System.Convert.ToDouble(txtCalibSamVol.Text) 
-            //    (float)System.Convert.ToDouble(txtCalibDilutionVol.Text)
-            //{
-            //    MessageBox.Show("样本体积设定不能大于30vl，请重新输入！");
-            //    return;
-            //}
-
             saveProParamInfo.ComStosteVol = (float)System.Convert.ToDouble(txtComStosteVol.Text);
             saveProParamInfo.ComSamVol = (float)System.Convert.ToDouble(txtComSamVol.Text);
             saveProParamInfo.ComDilutionVol = (float)System.Convert.ToDouble(txtComDilutionVol.Text);

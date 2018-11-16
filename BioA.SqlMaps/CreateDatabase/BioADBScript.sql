@@ -36,6 +36,7 @@ BEGIN
 			delete from CalibrationParamInfoTb where ProjectName=proName and SampleType=proType;
 			delete from RangeParamInfoTb where ProjectName=proName and SampleType=proType;
 			delete from assayprojectinfotb where ProjectName=proName and SampleType=proType;
+			delete from projectrunsequencetb where ProjectName=proName and SampleType=proType;
 		end;
     end if;
 	select n;
@@ -132,6 +133,54 @@ BEGIN
 END$$
 
 DELIMITER ;
+
+-- 保存项目信息、项目参数信息、校准项目参数信息、范围参数信息、项目运行顺序信息
+USE `bioadb`;
+DROP procedure IF EXISTS `SaveAssayProjectInfoAll`;
+
+DELIMITER $$
+USE `bioadb`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SaveAssayProjectInfoAll`(in proName varchar(50), in samType varchar(50), in projectFullName varchar(100), in NCHAN varchar(10), OUT n int)
+BEGIN
+	declare counts int default 0;
+	set n = 0;
+    select count(*) into counts from AssayProjectInfoTb where ProjectName=proName and SampleType=samType;
+    set n = counts;
+    select count(*) into counts from AssayProjectParamInfoTb where ProjectName=proName and SampleType=samType;
+    set n = n + counts;
+    select count(*) into counts from CalibrationParamInfoTb where ProjectName=proName and SampleType=samType;
+    set n = n +counts;
+    select count(*) into counts from RangeParamInfoTb where ProjectName=proName and SampleType=samType;
+    set n = n +counts;
+    select count(*) into counts from ProjectRunSequenceTb where ProjectName=proName and SampleType=samType;
+    set n = n +counts;
+    if n = 0 then
+		begin
+			insert into AssayProjectInfoTb (ProjectName, SampleType, ProFullName, ChannelNum)
+				values (proName, samType, projectFullName, NCHAN);
+                
+			insert into AssayProjectParamInfoTb (ProjectName, SampleType) values (proName, samType);
+            
+            insert into CalibrationParamInfoTb (ProjectName, SampleType) values(proName, samType);
+            
+			insert into RangeParamInfoTb
+			  (ProjectName, SampleType, AgeLow1, AgeHigh1, ManConsLow1, ManConsHigh1, WomanConsLow1, WomanConsHigh1,
+			  AgeLow2, AgeHigh2, ManConsLow2, ManConsHigh2, WomanConsLow2, WomanConsHigh2,
+			  AgeLow3, AgeHigh3, ManConsLow3, ManConsHigh3, WomanConsLow3, WomanConsHigh3,
+			  AgeLow4, AgeHigh4, ManConsLow4, ManConsHigh4, WomanConsLow4, WomanConsHigh4)
+			  values(proName, samType, -100000000, 100000000, -100000000, 100000000, -100000000, 100000000,
+			  -100000000, 100000000, -100000000, 100000000, -100000000, 100000000,
+			  -100000000, 100000000, -100000000, 100000000, -100000000, 100000000,
+			  -100000000, 100000000, -100000000, 100000000, -100000000, 100000000);
+              
+			insert into ProjectRunSequenceTb values(proName, samType,-1);
+		end;
+    end if;
+    select n; 
+END$$
+
+DELIMITER ;
+
 
 
 
