@@ -140,20 +140,20 @@ namespace BioA.UI
             dt.Columns.Add("检测项目");
             dt.Columns.Add("样本类型");
             dt.Columns.Add("检测方法");
-            dt.Columns.Add("空白吸光度");
-            dt.Columns.Add("K斜率");
-            dt.Columns.Add("A因数");
-            dt.Columns.Add("B因数");
-            dt.Columns.Add("C因数");
+            //dt.Columns.Add("空白吸光度");
+            //dt.Columns.Add("K斜率");
+            //dt.Columns.Add("A因数");
+            //dt.Columns.Add("B因数");
+            //dt.Columns.Add("C因数");
             gridControl1.DataSource = dt;
             this.gridView1.Columns[0].OptionsColumn.AllowEdit = false;
             this.gridView1.Columns[1].OptionsColumn.AllowEdit = false;
             this.gridView1.Columns[2].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[3].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[4].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[5].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[6].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[7].OptionsColumn.AllowEdit = false; 
+            //this.gridView1.Columns[3].OptionsColumn.AllowEdit = false;
+            //this.gridView1.Columns[4].OptionsColumn.AllowEdit = false;
+            //this.gridView1.Columns[5].OptionsColumn.AllowEdit = false;
+            //this.gridView1.Columns[6].OptionsColumn.AllowEdit = false;
+            //this.gridView1.Columns[7].OptionsColumn.AllowEdit = false; 
         }
 
         void AddCalibrationState(List<CalibrationResultinfo> calibratorinfo)
@@ -163,9 +163,10 @@ namespace BioA.UI
                 // dt.Columns.Add("状态");
                 foreach (CalibrationResultinfo calibrationResultinfo in calibratorinfo)
                 {
-                    dt.Rows.Add(new object[] { calibrationResultinfo.ProjectName,calibrationResultinfo.SampleType, calibrationResultinfo .CalibMethod,
-                    calibrationResultinfo.BlankAbs,calibrationResultinfo.KFactor,calibrationResultinfo.AFactor,calibrationResultinfo.BFactor,
-                    calibrationResultinfo.CFactor});
+                    //dt.Rows.Add(new object[] { calibrationResultinfo.ProjectName,calibrationResultinfo.SampleType, calibrationResultinfo .CalibMethod,
+                    //calibrationResultinfo.BlankAbs,calibrationResultinfo.KFactor,calibrationResultinfo.AFactor,calibrationResultinfo.BFactor,
+                    //calibrationResultinfo.CFactor});
+                    dt.Rows.Add(new object[] { calibrationResultinfo.ProjectName,calibrationResultinfo.SampleType, calibrationResultinfo .CalibMethod});
                 }
             }));
         }

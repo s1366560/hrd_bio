@@ -291,10 +291,10 @@ namespace BioA.UI
             string projectName = textEditProjectName.Text;
             string CalibMethod = textEditCalibMethod.Text;
             string sampleType = textEditSampleType.Text;
-            DateTime DrawDate = Convert.ToDateTime(comBoxEditCalibTime.Text);
+            string time = comBoxEditCalibTime.Text;
             foreach (SDTTableItem sdt in lisCalibrationCurve)
             {
-                if (sdt.ProjectName == projectName && sdt.SampleType == sampleType && sdt.CalibMethod == CalibMethod && sdt.DrawDate == DrawDate)
+                if (sdt.ProjectName == projectName && sdt.SampleType == sampleType && sdt.CalibMethod == CalibMethod && sdt.DrawDate.ToString() == time)
                 {
                     calibrationCurve = sdt;
                 }

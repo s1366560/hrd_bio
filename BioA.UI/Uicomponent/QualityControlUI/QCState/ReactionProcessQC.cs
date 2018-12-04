@@ -33,6 +33,13 @@ namespace BioA.UI
             }
         }
 
+        private string strDateTime;
+        public string StrDateTime
+        {
+            get { return strDateTime; }
+            set { strDateTime = value; }
+        }
+
         private TimeCourseInfo qCReactionInfo = new TimeCourseInfo();
 
         public TimeCourseInfo QCReactionInfo
@@ -46,7 +53,7 @@ namespace BioA.UI
                 if (qCReactionInfo != null)
                 {
                     Series series = new Series("ReactionLine", ViewType.Line);
-                    series.LabelsVisibility = DevExpress.Utils.DefaultBoolean.True;//显示标注标签
+                    //series.LabelsVisibility = DevExpress.Utils.DefaultBoolean.True;//显示标注标签
                     series.Points.Add(new SeriesPoint(1, (qCReactionInfo.Cuv1Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv1Ws - qCReactionInfo.CuvBlkWs)));
                     series.Points.Add(new SeriesPoint(2, (qCReactionInfo.Cuv2Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv2Ws - qCReactionInfo.CuvBlkWs)));
                     series.Points.Add(new SeriesPoint(3, (qCReactionInfo.Cuv3Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv3Ws - qCReactionInfo.CuvBlkWs)));
@@ -119,7 +126,7 @@ namespace BioA.UI
             //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCResult, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryTimeCourseByQCInfo", XmlUtility.Serializer(typeof(QCResultForUIInfo), qCResInfo))));
             var reactionQCThread = new Thread(() =>
             {
-                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.QCResult, new Dictionary<string, object[]>() { { "QueryTimeCourseByQCInfo", new object[] { XmlUtility.Serializer(typeof(QCResultForUIInfo), qCResInfo) } } });
+                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.QCResult, new Dictionary<string, object[]>() { { "QueryTimeCourseByQCInfo", new object[] { XmlUtility.Serializer(typeof(QCResultForUIInfo), qCResInfo),strDateTime } } });
             });
             reactionQCThread.IsBackground = true;
             reactionQCThread.Start();

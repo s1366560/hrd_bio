@@ -256,7 +256,7 @@ namespace BioA.UI
 
             foreach (Control control in this.Controls)
             {
-                if (control.Text != "" && control.Text != string.Empty)
+                if (control.Tag != null)
                 {
                     if (control.GetType() == typeof(System.Windows.Forms.Button))
                     {
@@ -277,7 +277,7 @@ namespace BioA.UI
         {
             foreach (Control control in this.Controls)
             {
-                if (control.Text != "" && control.Text != string.Empty)
+                if (control.Tag != null)
                 {
                     if (control.GetType() == typeof(System.Windows.Forms.Button))
                     {

@@ -180,12 +180,17 @@ namespace BioA.UI
            }
             return str;
         }
+        /// <summary>
+        /// 显示用户信息
+        /// </summary>
+        /// <param name="lstuserInfo"></param>
         private void UserInfoAdd(List<UserInfo> lstuserInfo)
         {
             this.Invoke(new EventHandler(delegate
             {
                 gridControl1.RefreshDataSource();
-               
+
+                dt.Rows.Clear();
                 
                 if (lstuserInfo.Count != 0)
                 {

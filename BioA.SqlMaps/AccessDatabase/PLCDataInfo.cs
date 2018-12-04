@@ -168,21 +168,11 @@ namespace BioA.SqlMaps
         {
             try
             {
-                // 1.更新实时比色杯数据中比色杯编号
+                // 1.更新实时比色杯数据中比色杯编号和进程比色杯编号
                 Hashtable ht = new Hashtable();
-                ht.Add("WORKNO", wn);
-                ht.Add("CUVNO", cuvno);
-                ism_SqlMap.Update("PLCDataInfo.UpdateCuvNumber", ht);
-                // 2.更新进程比色杯编号
-                RealTimeCUVDataInfo realTImeData = ism_SqlMap.QueryForObject("PLCDataInfo.QueryRealTimeCUVDataTC", wn) as RealTimeCUVDataInfo;
-                if (realTImeData != null)
-                {
-                    ht.Clear();
-                    ht.Add("CUVNO", cuvno);
-                    ht.Add("TimeCourseNO", realTImeData.TC);
-                    ism_SqlMap.Update("PLCDataInfo.UpdateTimeCourseCuvNum", ht);
-                }
-                
+                ht.Add("workN", wn);
+                ht.Add("cuvN", cuvno);
+                ism_SqlMap.QueryForObject("PLCDataInfo.UpdateCuvNOAndTimeCourseNO", ht);
             }
             catch (Exception e)
             {
@@ -254,19 +244,26 @@ namespace BioA.SqlMaps
                 LogInfo.WriteErrorLog("UpdateBlkABSData(long t, float pw, float sw)==" + e.ToString(), Module.DAO);
             }
         }
-
+        /// <summary>
+        /// 修改吸光度的每一个点的值
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="p"></param>
+        /// <param name="pw"></param>
+        /// <param name="sw"></param>
         public void UpdateABSData(long t, int p, float pw, float sw)
         {
             try
             {
-                Hashtable ht = new Hashtable();
-                string strWm = string.Format("Cuv{0}Wm", p.ToString());
-                string strWs = string.Format("Cuv{0}Ws", p.ToString());
-                ht.Add(strWm, pw);
-                ht.Add(strWs, sw);
-                ht.Add("TimeCourseNO", t);
-
-                ism_SqlMap.Update("PLCDataInfo.UpdateABSData", ht);
+                //Hashtable ht = new Hashtable();
+                ////string strWm = string.Format("Cuv{0}Wm", p.ToString());
+                ////string strWs = string.Format("Cuv{0}Ws", p.ToString());
+                ////ht.Add(strWm, pw);
+                ////ht.Add(strWs, sw);
+                ////ht.Add("TimeCourseNO", t);
+                //ht.Add("strSql", string.Format("update timecoursetb set {0} = {1},{2}={3} where TimeCourseNO = {4}", string.Format("Cuv{0}Wm", p.ToString()), pw, string.Format("Cuv{0}Ws", p.ToString()), sw, t));
+                string strSql = string.Format("update timecoursetb set {0} = {1},{2}={3} where TimeCourseNO = {4}", string.Format("Cuv{0}Wm", p.ToString()), pw, string.Format("Cuv{0}Ws", p.ToString()), sw, t);
+                ism_SqlMap.Update("PLCDataInfo.UpdateABSData", strSql);
             }
             catch (Exception e)
             {
@@ -279,16 +276,16 @@ namespace BioA.SqlMaps
         /// <param name="smp"></param>
         /// <param name="assay"></param>
         /// <param name="count"></param>
-        public void UpdateSMPScheduleFinishCount(string smp, string assay, int count)
+        public void UpdateSMPScheduleFinishCount(string smp, string assay)
         {
             try
             {
                 Hashtable ht = new Hashtable();
-                ht.Add("FinishTimes", count);
-                ht.Add("ProjectName", assay);
-                ht.Add("SampleNum", smp);
-                ht.Add("StartTime", DateTime.Now.ToShortDateString());
-                ht.Add("EndTime", DateTime.Now.AddDays(1).ToShortDateString());
+                //ht.Add("FinishTimes", count);
+                ht.Add("protName", assay);
+                ht.Add("sampNum", smp);
+                ht.Add("startTime", DateTime.Now.ToShortDateString());
+                ht.Add("endTime", DateTime.Now.AddDays(1).ToShortDateString());
                 ism_SqlMap.Update("PLCDataInfo.UpdateSMPScheduleFinishCount", ht);
             }
             catch (Exception e)
@@ -957,6 +954,28 @@ namespace BioA.SqlMaps
             }
         }
 
+        /// <summary>
+        /// 修改样本，任务完成状态
+        /// </summary>
+        /// <param name="task"></param>
+        /// <param name="taskState"></param>
+        public void UpdateSampleInfoAndTaskInfo(TaskInfo task, int taskState)
+        {
+            Hashtable ht = new Hashtable();
+            ht.Add("sampNum", task.SampleNum);
+            ht.Add("proName", task.ProjectName);
+            ht.Add("createTime", task.CreateDate);
+            ht.Add("taskStatus", taskState);
+            try
+            {
+                ism_SqlMap.QueryForObject("PLCDataInfo.UpdateSampleInfoAndTaskInfo", ht);
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("UpdateSampleInfoAndTaskInfo(TaskInfo task, int taskState) ==" + ex.ToString(), Module.PLCData);
+            }
+        }
+
         public void UpdateSampleStatePerform(TaskInfo task, int taskState)
         {
             try
@@ -1197,29 +1216,20 @@ namespace BioA.SqlMaps
                 LogInfo.WriteErrorLog("SaveRealTimeCUVData(RealTimeCUVDataInfo realTimeInfo)==" + e.ToString(), Module.DAO);
             }
         }
-
-        public void DeleteTimeCourseByTCNO(int TCNO)
-        {
-            try
-            {
-                ism_SqlMap.Delete("PLCDataInfo.DeleteTimeCourseByTCNO", TCNO);
-            }
-            catch (Exception e)
-            {
-                LogInfo.WriteErrorLog("DeleteTimeCourseByTCNO(int TCNO)==" + e.ToString(), Module.DAO);
-            }
-        }
-
+        
+       /// <summary>
+       /// 删除和保存时间曲线表（timeCourse）
+       /// </summary>
+       /// <param name="tcInfo"></param>
         public void SaveTimeCourseByTCNO(TimeCourseInfo tcInfo)
         {
             try
             {
-                //(#TimeCourseNO#,#DrawDate#,#CUVNO#)
                 Hashtable ht = new Hashtable();
-                ht.Add("TimeCourseNO", tcInfo.TimeCourseNo);
-                ht.Add("DrawDate", tcInfo.DrawDate);
-                ht.Add("CUVNO", tcInfo.CUVNO);
-                ism_SqlMap.Insert("PLCDataInfo.SaveTimeCourseByTCNO", ht);
+                ht.Add("timeCourseN", tcInfo.TimeCourseNo);
+                ht.Add("drawDateTime", tcInfo.DrawDate);
+                ht.Add("cuvN", tcInfo.CUVNO);
+                ism_SqlMap.QueryForObject("PLCDataInfo.SaveAndDeleteTimeCourse", ht);
             }
             catch (Exception e)
             {
@@ -1594,60 +1604,6 @@ namespace BioA.SqlMaps
                 return true;
             else
                 return false;
-        }
-        /// <summary>
-        /// 获取病人信息、样本信息、样本结果信息
-        /// </summary>
-        /// <param name="samp"></param>
-        /// <param name="dateTime"></param>
-        /// <param name="samplePatientInfo"></param>
-        /// <returns></returns>
-        public List<SampleResultInfo> GetSmpPrintValues(string samp, DateTime dateTime, out SampleInfoForResult samplePatientInfo)
-        {
-            List<SampleResultInfo> lstSample = null;
-            SampleInfoForResult sampleInfoForResult = null;
-            Hashtable hashtable = new Hashtable();
-            hashtable.Add("SampleNum",samp);
-            hashtable.Add("CreateTime",dateTime);
-            try
-            {
-                //获取样本信息和病人信息
-                sampleInfoForResult = (SampleInfoForResult)ism_SqlMap.QueryForObject("CommonDataCheck.GetSamplePatientInfo", hashtable);
-                //获取样本结果信息
-                lstSample = (List<SampleResultInfo>)ism_SqlMap.QueryForList<SampleResultInfo>("CommonDataCheck.GetSampleResultInfo", hashtable);
-                //根据项目名称和样本类型移除该集合中相同的元素
-                if (lstSample != null)
-                {
-                    List<SampleResultInfo> resultInfos = lstSample.Where((x, i) => lstSample.FindIndex(y => y.ProjectName == x.ProjectName && y.SampleType == x.SampleType) == i).ToList();
-                    foreach (var item in resultInfos)
-                    {
-                        hashtable.Clear();
-                        hashtable.Add("ProjectName", item.ProjectName);
-                        hashtable.Add("SampleType", item.SampleType);
-                        //获取项目的中文名称
-                        string chineseName = ism_SqlMap.QueryForObject("AssayProjectInfo.GetProjectFullName", hashtable) as string;
-                        //获取单位信息
-                        string unit = ism_SqlMap.QueryForObject("AssayProjectInfo.GetProjectUnitInfo", hashtable) as string;
-                        foreach (var s in lstSample)
-                        {
-                            if (s.ProjectName == item.ProjectName && s.SampleType == item.SampleType && s.SampleCreateTime == item.SampleCreateTime)
-                            {
-                                s.ChineseName = chineseName;
-                                s.UnitAndRange = unit;
-                            }
-                        }
-                    }
-                }
-
-            }
-            catch(Exception ex)
-            {
-                LogInfo.WriteErrorLog("GetSmpPrintValues(string samp, DateTime dateTime, out SampleInfoForResult samplePatientInfo) ==" + ex.ToString(), Module.PLCData);
-                samplePatientInfo = null;
-                return null;
-            }
-            samplePatientInfo = sampleInfoForResult;
-            return lstSample;
         }
     }
 }

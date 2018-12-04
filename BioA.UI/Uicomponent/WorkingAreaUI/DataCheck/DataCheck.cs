@@ -30,8 +30,6 @@ namespace BioA.UI
 {
     public partial class DataCheck : DevExpress.XtraEditors.XtraUserControl
     {
-        MyBatis myBatis = new MyBatis();
-
         /// <summary>
         /// 存储客户端发送信息给服务器的参数集合
         /// </summary>
@@ -379,7 +377,7 @@ namespace BioA.UI
                                 age = s.Age.ToString();
                             }
 
-                            dt.Rows.Add(new object[] { s.SampleNum, s.SampleID, s.SampleType, s.PatientName, s.Sex, age, s.CreateTime, sampleState, s.IsAudit == false ? "未审核" : "已审核", s.PrintState == "" ? "未打印" : s.PrintState, s.IsOperateDilution ? "是" : "否" });
+                            dt.Rows.Add(new object[] { s.SampleNum, s.SampleID, s.SampleType, s.PatientName, s.Sex, age, s.CreateTime.ToString("yyyy-MM-dd HH:mm:ss.fff"), sampleState, s.IsAudit == false ? "未审核" : "已审核", s.PrintState == "" ? "未打印" : s.PrintState, s.IsOperateDilution ? "是" : "否" });
                         }
                         if (dt.Rows.Count > 0)
                         {
@@ -523,7 +521,7 @@ namespace BioA.UI
                 sampleNum = null;
             //返回值
             sampleNum = gridView1.GetFocusedRowCellValue("样本编号").ToString();
-            DateTime dt = System.Convert.ToDateTime(gridView1.GetFocusedRowCellValue("申请时间"));
+            string dt = gridView1.GetFocusedRowCellValue("申请时间").ToString();
             string sampleType = gridView1.GetFocusedRowCellValue("样本类型").ToString();
             string[] lstTaskResult = new string[] { sampleNum, dt.ToString(), sampleType };
             //dataCheckDic.Clear();
@@ -1072,7 +1070,7 @@ namespace BioA.UI
         /// <param name="dateTime"></param>
         private void PatientResultInfo(string samp, DateTime dateTime)
         {
-            lstSampleReuslt = myBatis.GetSmpPrintValues(samp, dateTime, out sampleInfoForResult);
-        }
+            lstSampleReuslt = new WorkingAreaDataCheck().GetSmpPrintValues(samp, dateTime, out sampleInfoForResult);
+       }
     }
 }

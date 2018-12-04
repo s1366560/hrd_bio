@@ -441,16 +441,19 @@ namespace BioA.UI
         {
             foreach (Control control in controls)
             {
-                if (control.GetType() == typeof(System.Windows.Forms.Button))
+                if (control.Tag != null)
                 {
-                    if (control.Tag.ToString() == "1")
+                    if (control.GetType() == typeof(System.Windows.Forms.Button))
                     {
-                        control.Tag = "0";
-                        this.Invoke(new EventHandler(delegate
+                        if (control.Tag.ToString() == "1")
                         {
-                            control.ForeColor = Color.Black;
-                            control.Enabled = true;
-                        }));
+                            control.Tag = "0";
+                            this.Invoke(new EventHandler(delegate
+                            {
+                                control.ForeColor = Color.Black;
+                                control.Enabled = true;
+                            }));
+                        }
                     }
                 }
             }

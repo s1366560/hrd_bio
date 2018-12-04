@@ -6,19 +6,31 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace BioA.PLCController.Interface
 {
+
+
     //NT-1000数据包解码器
     public class Parse083 : IParse
     {
         MyBatis myBatis = new MyBatis();
         ResultService resultService = new ResultService();
+
+        Queue<RealTimeCUVDataInfo> strQueue = new Queue<RealTimeCUVDataInfo>();
+        ManualResetEvent AnalysisDataSignal = new ManualResetEvent(false);
+        public Parse083()
+        {
+            Thread ParseServicesThread = new Thread(TakeOutTheDataQueue);
+            ParseServicesThread.Priority = ThreadPriority.BelowNormal;
+            ParseServicesThread.Start();
+        }
         public string Parse(List<byte> Data)
         {
             //LogService.Log("开始解析测试数据包--------------", LogType.Trace,"log083.lg");
             string machinestate = null;
-
 
             //int Pt1stWn = 0;
             //int Pt3ndWn = 0;
@@ -36,17 +48,18 @@ namespace BioA.PLCController.Interface
                 }
             }
             //比色表编号
-            int BlkCUVNO = MachineControlProtocol.HexConverToDec(Data[blki+1], Data[blki + 2], Data[blki + 3]);
+            int BlkCUVNO = MachineControlProtocol.HexConverToDec(Data[blki + 1], Data[blki + 2], Data[blki + 3]);
+            //测试编号
             int BlkWN = MachineControlProtocol.HexConverToDec(Data[2], Data[3], Data[4]);
             myBatis.SaveCuvNumber(BlkWN, BlkCUVNO);
             //LogService.Log(string.Format("比色杯:{0}空白值:{1}", BlkCUVNO, BlkWN), LogType.Debug);
             //生化数据包
-            int i = 2; 
+            int i = 2;
             int count = 1;
             int PressErrorWn = 0;
-            while (count<=44)
+            while (count <= 44)
             {
-                //工作盘号
+                //测试编号
                 int WN = MachineControlProtocol.HexConverToDec(Data[i], Data[i + 1], Data[i + 2]);
                 //比色杯测光点
                 int PT = MachineControlProtocol.HexConverToDec(Data[i + 3], Data[i + 4]);
@@ -54,7 +67,7 @@ namespace BioA.PLCController.Interface
                 float PWL = MachineControlProtocol.HexConverToFloat(Data[i + 5], Data[i + 6], Data[i + 7], Data[i + 8], Data[i + 9], Data[i + 10]);
                 //次波长比色杯值
                 float SWL = MachineControlProtocol.HexConverToFloat(Data[i + 11], Data[i + 12], Data[i + 13], Data[i + 14], Data[i + 15], Data[i + 16]);
-
+               
                 if (PWL > -0.000001 && PWL < 0.000001)
                 {
                     PWL = 3.5f;
@@ -120,7 +133,7 @@ namespace BioA.PLCController.Interface
             {
                 RunningErrors(PressErrorWn, "PE");
                 RealTimeCUVDataInfo rt = new RealTimeCUVDataInfo();
-                bool bExistRes = resultService.GetResultBeExistFromRealTimeWorkNum(PressErrorWn, out rt);
+                bool bExistRes = new ResultService().GetResultBeExistFromRealTimeWorkNum(PressErrorWn, out rt);
                 if (bExistRes)
                 {
                     TroubleLog trouble = new TroubleLog();
@@ -150,14 +163,14 @@ namespace BioA.PLCController.Interface
                     break;
                 }
             }
-            int R1P = MachineControlProtocol.HexConverToDec(Data[i+1], Data[i+2]);
-            int R1V = MachineControlProtocol.HexConverToDec(Data[i+3], Data[i+4]);
-            R1P = R1P > 45 ? (R1P - 45) : R1P;
+            int R1P = MachineControlProtocol.HexConverToDec(Data[i + 1], Data[i + 2]);
+            int R1V = MachineControlProtocol.HexConverToDec(Data[i + 3], Data[i + 4]);
+            //R1P = R1P > 45 ? (R1P - 45) : R1P;
             UpdateLatestRgtVol(1, R1P, R1V);
             RgtWarning(1, R1P);
             //LogService.Log(string.Format("R1位置:{0} R1体积:{1}", R1P, R1V), LogType.Trace, "log083.lg");
-            int R2P = MachineControlProtocol.HexConverToDec(Data[i+5], Data[i+6]);
-            int R2V = MachineControlProtocol.HexConverToDec(Data[i+7], Data[i+8]);
+            int R2P = MachineControlProtocol.HexConverToDec(Data[i + 5], Data[i + 6]);
+            int R2V = MachineControlProtocol.HexConverToDec(Data[i + 7], Data[i + 8]);
             UpdateLatestRgtVol(2, R2P, R2V);
             RgtWarning(2, R2P);
             //LogService.Log(string.Format("R2位置:{0} R2体积:{1}", R2P, R2V), LogType.Trace, "log083.lg");
@@ -189,7 +202,7 @@ namespace BioA.PLCController.Interface
                     myBatis.TroubleLogSave("TroubleLogSave", t);
 
                     RealTimeCUVDataInfo rt = new RealTimeCUVDataInfo();
-                    bool bExistRes = resultService.GetResultBeExistFromRealTimeWorkNum(PressErrorWn, out rt);
+                    bool bExistRes = new ResultService().GetResultBeExistFromRealTimeWorkNum(PressErrorWn, out rt);
                     string cmdname = string.Format("{0}{1}", (char)Data[index + 3], (char)Data[index + 4]);
                     if (cmdname == "77" && Data[index + 5] == 0x30)//R1
                     {
@@ -236,7 +249,6 @@ namespace BioA.PLCController.Interface
                     }
                 }
             }
-
             return machinestate;
         }
 
@@ -307,13 +319,14 @@ namespace BioA.PLCController.Interface
 
             if (rgp != null)
             {
-                AssayProjectParamInfo arp = myBatis.GetAssayProjectParamInfoByNameAndType("GetAssayProjectParamInfoByNameAndType", new AssayProjectInfo() { ProjectName = rsi.ProjectName, SampleType = rsi.ReagentType });
+                AssayProjectParamInfo arp = myBatis.GetAssProParamInfo("GetAssayProjectParamInfoByNameAndType", rsi.ProjectName, rsi.ReagentType);
                 int c = 0;
-                int v = System.Convert.ToInt32(rsi.ReagentContainer.Substring(0, rsi.ReagentContainer.IndexOf("ml"))) * rgp.ValidPercent / 100 * 1000;
+
 
                 switch (d)
                 {
                     case 1:
+                        int v = System.Convert.ToInt32(rsi.ReagentContainer.Substring(0, rsi.ReagentContainer.IndexOf("ml"))) * rgp.ValidPercent / 100 * 1000;
                         c = arp.Reagent1VolSettings == 0 ? 0 : v / arp.Reagent1VolSettings;
                         if (c < rgtleastcount)
                         {
@@ -358,8 +371,8 @@ namespace BioA.PLCController.Interface
                             //}
                             //else
                             //{
-                                //if (RunSer.IsLockRgtEnable() == true)
-                                //{
+                            //if (RunSer.IsLockRgtEnable() == true)
+                            //{
                             rsi.Locked = true;
                             myBatis.UpdateLockState("R1", rsi);
 
@@ -369,16 +382,16 @@ namespace BioA.PLCController.Interface
                             trouble.TroubleUnit = "试剂";
                             trouble.TroubleInfo = "试剂位" + p + "项目" + rgp.ProjectName + "余量不足将锁定其对应的工作表";//string.Format("试剂位{0}项目{1}试剂1由于余量不足将锁定其对应的工作表. ", p, rgp.Assay);
                             myBatis.TroubleLogSave("TroubleLogSave", trouble);
-                                //}
-                                //else
-                                //{
-                                //    TroubleLog trouble = new TroubleLog();
-                                //    trouble.TroubleCode = @"0000773";
-                                //    trouble.TroubleType = TROUBLETYPE.ERR;
-                                //    trouble.TroubleUnit = "试剂";
-                                //    trouble.TroubleInfo = MyResources.Instance.FindResource("Parse0839").ToString() + p + MyResources.Instance.FindResource("Parse0832").ToString() + rgp.Assay + MyResources.Instance.FindResource("Parse08315").ToString();// string.Format("试剂位{0}项目{1}试剂1由于余量不足. ", p, rgp.Assay);
-                                //    TroubleLogSer.Save(trouble);
-                                //}
+                            //}
+                            //else
+                            //{
+                            //    TroubleLog trouble = new TroubleLog();
+                            //    trouble.TroubleCode = @"0000773";
+                            //    trouble.TroubleType = TROUBLETYPE.ERR;
+                            //    trouble.TroubleUnit = "试剂";
+                            //    trouble.TroubleInfo = MyResources.Instance.FindResource("Parse0839").ToString() + p + MyResources.Instance.FindResource("Parse0832").ToString() + rgp.Assay + MyResources.Instance.FindResource("Parse08315").ToString();// string.Format("试剂位{0}项目{1}试剂1由于余量不足. ", p, rgp.Assay);
+                            //    TroubleLogSer.Save(trouble);
+                            //}
                             //}
                         }
 
@@ -394,7 +407,8 @@ namespace BioA.PLCController.Interface
                         }
                         break;
                     case 2:
-                        c = arp.Reagent2VolSettings == 0 ? 0 : v / arp.Reagent2VolSettings;
+                        int v2 = System.Convert.ToInt32(rsi.ReagentContainer.Substring(0, rsi.ReagentContainer.IndexOf("ml"))) * rgp.ValidPercent2 / 100 * 1000;
+                        c = arp.Reagent2VolSettings == 0 ? 0 : v2 / arp.Reagent2VolSettings;
                         if (c < rgtleastcount)
                         {
                             //if (RunSer.IsMutiRgtEnable() == true)//多试剂位开关标志
@@ -438,8 +452,8 @@ namespace BioA.PLCController.Interface
                             //}
                             //else
                             //{
-                                //if (RunSer.IsLockRgtEnable() == true)
-                                //{
+                            //if (RunSer.IsLockRgtEnable() == true)
+                            //{
                             rsi.Locked = true;
                             myBatis.UpdateLockState("R2", rsi);
 
@@ -449,16 +463,16 @@ namespace BioA.PLCController.Interface
                             trouble.TroubleUnit = "试剂";
                             trouble.TroubleInfo = "试剂位" + p + "项目" + rgp.ProjectName + "试剂2余量不足将锁定其对应的工作表";//string.Format("试剂位{0}项目{1}试剂2余量不足将锁定其对应的工作表. ", p, rgp.Assay);
                             myBatis.TroubleLogSave("TroubleLogSave", trouble);
-                                //}
-                                //else
-                                //{
-                                //    TroubleLog trouble = new TroubleLog();
-                                //    trouble.TroubleCode = @"0000773";
-                                //    trouble.TroubleType = TROUBLETYPE.ERR;
-                                //    trouble.TroubleUnit = "试剂";
-                                //    trouble.TroubleInfo = MyResources.Instance.FindResource("Parse0839").ToString() + p + MyResources.Instance.FindResource("Parse0832").ToString() + rgp.Assay + MyResources.Instance.FindResource("Parse08321").ToString();// string.Format("试剂位{0}项目{1}试剂2余量不足. ", p, rgp.Assay);
-                                //    TroubleLogSer.Save(trouble);
-                                //}
+                            //}
+                            //else
+                            //{
+                            //    TroubleLog trouble = new TroubleLog();
+                            //    trouble.TroubleCode = @"0000773";
+                            //    trouble.TroubleType = TROUBLETYPE.ERR;
+                            //    trouble.TroubleUnit = "试剂";
+                            //    trouble.TroubleInfo = MyResources.Instance.FindResource("Parse0839").ToString() + p + MyResources.Instance.FindResource("Parse0832").ToString() + rgp.Assay + MyResources.Instance.FindResource("Parse08321").ToString();// string.Format("试剂位{0}项目{1}试剂2余量不足. ", p, rgp.Assay);
+                            //    TroubleLogSer.Save(trouble);
+                            //}
                             //}
                         }
                         if (c < rgtwarncount && c > rgtleastcount)
@@ -484,7 +498,7 @@ namespace BioA.PLCController.Interface
                 return;
             }
 
-            
+
             switch (rt.WorkType)
             {
                 case WORKTYPE.N:
@@ -507,9 +521,9 @@ namespace BioA.PLCController.Interface
             }
         }
 
-
         private void SaveABS(int WN, int PT, float PW, float SW)
         {
+            //TimeCourseService timeCoursService = new TimeCourseService();
             myBatis.UpdateRealTimeState(WN, PT);
             RealTimeCUVDataInfo realTimeData = myBatis.QueryRealTimeCUVDataTC(WN);
             if (realTimeData == null)
@@ -519,72 +533,101 @@ namespace BioA.PLCController.Interface
 
             if (PT == RunConfigureUtility.BlankPoint)
             {
+                //timeCoursService.UpdateBlkABSData(realTimeData.TC, PW, SW);
                 myBatis.UpdateBlkABSData(realTimeData.TC, PW, SW);
             }
             else
             {
+                //timeCoursService.UpdateABSData(realTimeData.TC, PT, PW, SW);
                 myBatis.UpdateABSData(realTimeData.TC, PT, PW, SW);
+                //SaveDataQueue(new string[] { realTimeData.TC.ToString(), PT.ToString(), PW.ToString(), SW.ToString() });
+                //ProcessingQueueEvent(new string[] { realTimeData.TC.ToString(), PT.ToString(), PW.ToString(), SW.ToString() });
             }
 
             if (PT == RunConfigureUtility.LastPoint)
             {
+                TaskInfo t = null;
                 switch (realTimeData.WorkType)
                 {
                     case WORKTYPE.N:
                     case WORKTYPE.E:
-                        myBatis.UpdateSMPScheduleFinishCount(realTimeData.SmpNo, realTimeData.Assay, myBatis.GetSMPScheduleFinishCount(realTimeData.SmpNo, realTimeData.Assay) + 1);
+                        //2018、11、15 改成存储过程
+                        //myBatis.UpdateSMPScheduleFinishCount(realTimeData.SmpNo, realTimeData.Assay, myBatis.GetSMPScheduleFinishCount(realTimeData.SmpNo, realTimeData.Assay) + 1);
+                        myBatis.UpdateSMPScheduleFinishCount(realTimeData.SmpNo, realTimeData.Assay);
+                        t = myBatis.GetSMPSchedule(realTimeData.SmpNo, realTimeData.Assay);
+                        if (t != null && t.FinishTimes == t.InspectTimes)
+                        {
+                            //2018、11、15 改成使用存储过程
+                            //myBatis.UpdateSampleStatePerform(t, TaskState.SUCC);
+                            ////2018 9/4
+                            ////myBatis.UpdteTaskState(t.SampleNum.ToString(), t.ProjectName);
+                            //myBatis.UpdateTaskStatePerform(t, TaskState.SUCC);
+                            myBatis.UpdateSampleInfoAndTaskInfo(t, TaskState.SUCC);
+                        }
                         break;
                     case WORKTYPE.B:
                     case WORKTYPE.S:
                         CalibrationResultinfo calibResult = myBatis.QueryCalibResultInfo(realTimeData.Assay, realTimeData.SmpNo, realTimeData.TC);
                         myBatis.UpdateSDTScheduleFinishCount(calibResult.SampleNum, calibResult.ProjectName, calibResult.CalibratorName, calibResult.CalibrationDT,
                                 myBatis.GetSDTScheduleFinishCount(calibResult.SampleNum, calibResult.ProjectName, calibResult.CalibratorName, calibResult.CalibrationDT) + 1);
-                        break;
-                    case WORKTYPE.C:
-                        myBatis.UpdateQCScheduleFinishCount(realTimeData.SmpNo, realTimeData.Assay, myBatis.GetQCScheduleFinishCount(realTimeData.SmpNo, realTimeData.Assay) + 1);
-                        break;
-                }
-
-                myBatis.DeleteRealTimeCUVData(WN);
-                RealTimeCalculate(realTimeData);
-
-                switch (realTimeData.WorkType)
-                {
-                    case WORKTYPE.N:
-                    case WORKTYPE.E:
-                        TaskInfo t = new TaskInfo();
-                        t = myBatis.GetSMPSchedule(realTimeData.SmpNo, realTimeData.Assay);
-                        if (t != null && t.FinishTimes == t.InspectTimes)
-                        {
-                            myBatis.UpdateSampleStatePerform(t, TaskState.SUCC);
-                            //2018 9/4
-                            //myBatis.UpdteTaskState(t.SampleNum.ToString(), t.ProjectName);
-                            myBatis.UpdateTaskStatePerform(t, TaskState.SUCC);
-                        }
-                        break;
-                    case WORKTYPE.B:
-                    case WORKTYPE.S:
-                        CalibrationResultinfo calibResult = myBatis.QueryCalibResultInfo(realTimeData.Assay, realTimeData.SmpNo, realTimeData.TC);
-                        CalibratorinfoTask s = myBatis.GetSDTSchedule(calibResult.ProjectName, calibResult.SampleNum, calibResult.CalibratorName,calibResult.CalibrationDT);
+                        CalibratorinfoTask s = myBatis.GetSDTSchedule(calibResult.ProjectName, calibResult.SampleNum, calibResult.CalibratorName, calibResult.CalibrationDT);
                         if (s != null && s.SendTimes == s.InspectTimes && s.SendTimes == s.FinishTimes)
                         {
                             //myBatis.ClearSDTSchedules(s.SampleNum, s.ProjectName);
-                            
+
                             myBatis.UpdateSDTResultState(s, TaskState.SUCC);
                         }
                         break;
                     case WORKTYPE.C:
+                        myBatis.UpdateQCScheduleFinishCount(realTimeData.SmpNo, realTimeData.Assay, myBatis.GetQCScheduleFinishCount(realTimeData.SmpNo, realTimeData.Assay) + 1);
                         QCTaskInfo c = myBatis.GetQCSchedule(realTimeData.SmpNo, realTimeData.Assay) as QCTaskInfo;
-                        //if (c != null && c.FinishTimes >= c.InspectTimes)
-                        //{
-                        //myBatis.ClearQCSchedules(c.SampleNum, c.ProjectName);
-                        //}
                         if (c != null && c.InspectTimes == c.SendTimes && c.SendTimes == c.FinishTimes)
                         {
                             myBatis.UpdateQCTaksState(c.SampleNum, c.ProjectName);
                         }
                         break;
                 }
+
+                myBatis.DeleteRealTimeCUVData(WN);
+                //RealTimeCalculate(realTimeData);
+                SaveDataQueue(realTimeData);
+                //switch (realTimeData.WorkType)
+                //{
+                //    case WORKTYPE.N:
+                //    case WORKTYPE.E:
+                //        TaskInfo t = new TaskInfo();
+                //        t = myBatis.GetSMPSchedule(realTimeData.SmpNo, realTimeData.Assay);
+                //        if (t != null && t.FinishTimes == t.InspectTimes)
+                //        {
+                //            myBatis.UpdateSampleStatePerform(t, TaskState.SUCC);
+                //            //2018 9/4
+                //            //myBatis.UpdteTaskState(t.SampleNum.ToString(), t.ProjectName);
+                //            myBatis.UpdateTaskStatePerform(t, TaskState.SUCC);
+                //        }
+                //        break;
+                //    case WORKTYPE.B:
+                //    case WORKTYPE.S:
+                //        CalibrationResultinfo calibResult = myBatis.QueryCalibResultInfo(realTimeData.Assay, realTimeData.SmpNo, realTimeData.TC);
+                //        CalibratorinfoTask s = myBatis.GetSDTSchedule(calibResult.ProjectName, calibResult.SampleNum, calibResult.CalibratorName, calibResult.CalibrationDT);
+                //        if (s != null && s.SendTimes == s.InspectTimes && s.SendTimes == s.FinishTimes)
+                //        {
+                //            //myBatis.ClearSDTSchedules(s.SampleNum, s.ProjectName);
+
+                //            myBatis.UpdateSDTResultState(s, TaskState.SUCC);
+                //        }
+                //        break;
+                //    case WORKTYPE.C:
+                //        QCTaskInfo c = myBatis.GetQCSchedule(realTimeData.SmpNo, realTimeData.Assay) as QCTaskInfo;
+                //        //if (c != null && c.FinishTimes >= c.InspectTimes)
+                //        //{
+                //        //myBatis.ClearQCSchedules(c.SampleNum, c.ProjectName);
+                //        //}
+                //        if (c != null && c.InspectTimes == c.SendTimes && c.SendTimes == c.FinishTimes)
+                //        {
+                //            myBatis.UpdateQCTaksState(c.SampleNum, c.ProjectName);
+                //        }
+                //        break;
+                //}
             }
         }
 
@@ -611,7 +654,7 @@ namespace BioA.PLCController.Interface
                         }
                         //时时结果处理
                         myBatis.UpdateCurrentNORResult(norResult);
-                       // resultService.ProcessCurrentNormalResultCalValue(norResult); 针对计算项目，在前台计算
+                        // resultService.ProcessCurrentNormalResultCalValue(norResult); 针对计算项目，在前台计算
 
                         resultService.AnalyzeResult(norResult);
 
@@ -639,11 +682,11 @@ namespace BioA.PLCController.Interface
                         else
                         {
                             calibResInfo.CalibAbs = -1;
-                           // R.RConcValue = "NA";
+                            // R.RConcValue = "NA";
                         }
                         calibResInfo.TCNO = realTimeData.TC;
                         myBatis.UpdateSDTTaskState(calibResInfo.SampleNum, calibResInfo.ProjectName, calibResInfo.CalibratorName, calibResInfo.CalibrationDT, TaskState.SUCC);
-                        
+
                         resultService.OnSDTCalibrateCurve(calibResInfo);
                         //resultService.SetSDTResultCalculated(true, R);
                     }
@@ -765,7 +808,7 @@ namespace BioA.PLCController.Interface
             }
         }
 
-        private void UpdateLatestRgtVol(int d,int p,int v)
+        private void UpdateLatestRgtVol(int d, int p, int v)
         {
             int v2 = myBatis.GetValidPercent(d, p);
 
@@ -783,5 +826,50 @@ namespace BioA.PLCController.Interface
                 }
             }
         }
+
+        /// <summary>
+        /// 把数据存入队列
+        /// </summary>
+        /// <param name="sender"></param>
+        void SaveDataQueue(RealTimeCUVDataInfo sender)
+        {
+
+            if (sender != null)
+            {
+                lock (strQueue)
+                {
+                    strQueue.Enqueue(sender);
+                }
+            }
+            if (strQueue.Count > 0)
+            {
+                AnalysisDataSignal.Set();
+            }
+        }
+        /// <summary>
+        /// 取队列中的数据
+        /// </summary>
+        void TakeOutTheDataQueue()
+        {
+            while (true)
+            {
+                AnalysisDataSignal.WaitOne();
+                if (strQueue.Count > 0)
+                {
+                    RealTimeCUVDataInfo data = null;
+                    lock (strQueue)
+                    {
+                        data = strQueue.Dequeue();
+                    }
+                    //myBatis.UpdateABSData(data);
+                    RealTimeCalculate(data);
+                }
+                if (strQueue.Count == 0)
+                {
+                    AnalysisDataSignal.Reset();
+                }
+            }
+        }
+
     }
 }

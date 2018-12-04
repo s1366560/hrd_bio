@@ -1002,12 +1002,12 @@ namespace BioA.PLCController
         #region 处理下位机数据信息
         void OnParseSerialPortData(List<byte> data)
         {
-            string a = "";
-            foreach (byte b in data)
-            {
-                a += b.ToString() + " ";
-            }
-            LogInfo.WriteProcessLog(a, Common.Module.QualityControl);
+            //string a = "";
+            //foreach (byte b in data)
+            //{
+            //    a += b.ToString() + " ";
+            //}
+            //LogInfo.WriteProcessLog(a, Common.Module.QualityControl);
 
 
             byte Key = data[1];
@@ -1357,11 +1357,6 @@ namespace BioA.PLCController
                                     switch (this.MachineState.Command.Name)
                                     {
                                         case "StartSchedule": this.MachineState.State = "等待测试任务...";
-                                            this._TasksNumber++;
-                                            if (this._TasksNumber == 1)
-                                                this.MachineState.Fired = AnalyzeEvent.TASK_STATUS_DETECTION;
-                                            else if (this._TasksNumber == 2)
-                                                this.MachineState.Fired = null;
                                             break;
                                         case "WashByDetergent": this.MachineState.State = "系统清洗即将完成"; break;
                                     }
@@ -2934,7 +2929,7 @@ namespace BioA.PLCController
                 TC.TimeCourseNo = rtd.TC;
                 TC.DrawDate = rtd.DrawDate;
                 TC.CUVNO = 0;
-                myBatis.DeleteTimeCourseByTCNO(TC.TimeCourseNo);
+                //myBatis.DeleteTimeCourseByTCNO(TC.TimeCourseNo);
                 myBatis.SaveTimeCourseByTCNO(TC);
 
                 myBatis.UpdateLatestTC(TC.TimeCourseNo);

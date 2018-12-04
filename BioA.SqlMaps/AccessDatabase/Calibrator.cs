@@ -132,7 +132,7 @@ namespace BioA.SqlMaps
                 ht.Add("ProjectName", calibResInfo.ProjectName);
                 ht.Add("SampleType", calibResInfo.SampleType);
                 ht.Add("CalibMethod", calibResInfo.CalibMethod);
-                ht.Add("DrawDate", calibResInfo.CalibrationDT);
+                ht.Add("DrawDate", calibResInfo.CalibrationDT.ToString("yyyy-MM-dd HH:mm:ss.fff"));
                 SDTTableItem sdtItem = ism_SqlMap.QueryForObject("Calibrator.QuerySDTTableItemByCalibrating", ht) as SDTTableItem;
 
                 // 2.更新对应校准品校准测得的吸光度

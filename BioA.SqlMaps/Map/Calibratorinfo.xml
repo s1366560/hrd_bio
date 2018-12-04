@@ -162,7 +162,10 @@
       where CalibName = #CalibNameOld#
     </statement>
     <statement id="QueryCalibrationState" ResultClass="CalibrationResultinfo">
-      select * from CalibrationResultTb group by ProjectName, CalibMethod, SampleType
+      <!--select * from CalibrationResultTb group by ProjectName, CalibMethod, SampleType-->
+      select top 1 a.* from CalibrationResultTb a,
+      (select ProjectName,CalibMethod,max(CalibrationDT) time from CalibrationResultTb where CalibrationState = '2' group by ProjectName,CalibMethod) b
+      where a.ProjectName=b.ProjectName and a.CalibrationDT=b.time
     </statement>
     <statement id="QueryCalibrationResultinfo" ResultClass="CalibrationResultinfo" >
       select * from calibrationresulttb where ProjectName=#ProjectName# and CalibMethod=#CalibMethod# and SampleType=#SampleType#
@@ -239,7 +242,7 @@
     <statement id="QueryCalibrationResultInfoAndTimeCUVNO" ResultClass="CalibrationResultinfo" parameterClass="System.Collections.IDictionary" >
       select calib.*,t.CUVNO from calibrationresulttb calib left join sdttableitemtb sdt on calib.ProjectName = sdt.ProjectName and calib.SampleType=sdt.SampleType and calib.CalibMethod=sdt.CalibMethod 
         and calib.CalibrationDT=sdt.DrawDate left join timecoursetb t on calib.TCNO=t.TimeCourseNO
-          where sdt.ProjectName=#ProjectName# and sdt.SampleType=#SampleType# and sdt.CalibMethod=#CalibMethod# and sdt.CalibState='SUCCESSFUL' and sdt.IsUsed = true
+          where sdt.ProjectName=#ProjectName# and sdt.SampleType=#SampleType# and sdt.CalibMethod=#CalibMethod# and sdt.CalibState='SUCCESSFUL' and sdt.IsUsed = 1
     </statement>
     <statement id="QueryKMethodCalibResultInfoOrTimeCUVNO" ResultClass="CalibrationResultinfo" parameterClass="System.Collections.IDictionary" >
       select calib.*,t.CUVNO from calibrationresulttb calib left join timecoursetb t on calib.TCNO=t.TimeCourseNO
@@ -338,7 +341,7 @@
       where SampleType=#SampleType# and ProjectName=#ProjectName# and CalibMethod=#CalibMethod# and DrawDate=#DrawDate# and CalibState in('CALIBRATING', 'SUCCESSFUL')
     </statement>
     <statement id="QuerySDTTableItemByCalibrating" ResultClass="SDTTableItem" parameterClass="System.Collections.IDictionary" >
-      select * from sdttableitemtb where ProjectName=#ProjectName# and SampleType=#SampleType# and CalibMethod=#CalibMethod# and CalibState=('CALIBRATING' or 'SUCCESSFUL') and DrawDate=#DrawDate#
+      select * from sdttableitemtb where ProjectName=#ProjectName# and SampleType=#SampleType# and CalibMethod=#CalibMethod# and CalibState in('CALIBRATING', 'SUCCESSFUL') and DrawDate=#DrawDate#
     </statement>
     <statement id="QueryCalibTaskCountByProject" parameterClass="System.Collections.IDictionary" resultClass="int">
       select TaskState from CalibratorinfoTaskTb where ProjectName=#ProjectName# and SampleType=#SampleType# and SampleNum=#SampleNum# and CalibName=#CalibratorName# and CreateDate=#DrawDate#

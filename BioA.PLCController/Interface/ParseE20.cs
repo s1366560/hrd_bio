@@ -52,10 +52,10 @@ namespace BioA.PLCController.Interface
                     offgain.WaveLength = WaveIndex;
                     offgain.OffSet = OffSet;
                     offgain.Gain = Gain;
-                    offgain.InspectTime = DateTime.Now.ToString();
+                    offgain.InspectTime = DateTime.Now;
                     if (WaveIndex == 795)
                     {
-                        offgain.InspectTime = DateTime.Now.ToString();
+                        offgain.InspectTime = DateTime.Now;
                     }
                     myBatis.AddLatestOffSetGain(offgain);
                 }
@@ -78,7 +78,7 @@ namespace BioA.PLCController.Interface
                     offgain.Gain = Gain;
                     if (WaveIndex == 795)
                     {
-                        offgain.InspectTime = DateTime.Now.ToString();
+                        offgain.InspectTime = DateTime.Now;
                     }
                     myBatis.DeleteNewOffSetGain(WaveIndex);
                     myBatis.AddLatestOffSetGain(offgain);

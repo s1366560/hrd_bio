@@ -662,7 +662,7 @@ namespace BioA.Service
                             break;
                         case "QueryTimeCourseByQCInfo":
                             qCResForUI = (QCResultForUIInfo)XmlUtility.Deserialize(typeof(QCResultForUIInfo), kvp.Value[0].ToString());
-                            TimeCourseInfo qCTimeCourseInfo = qcResult.QueryTimeCourseByQCInfo(kvp.Key, qCResForUI);
+                            TimeCourseInfo qCTimeCourseInfo = qcResult.QueryTimeCourseByQCInfo(kvp.Key, qCResForUI,kvp.Value[1].ToString());
                             strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(TimeCourseInfo), qCTimeCourseInfo));
                             break;
                         default:
@@ -1521,8 +1521,12 @@ namespace BioA.Service
         {
             lock (lockObj)
             {
-                //LogInfo.WriteProcessLog(kvp.ToString(), Module.WindowsService);
                 ClientRegisterInfo client = ClientInfoCache.Instance.Clients.Find(x => x.ClientName == "BioA.UI");
+                if (client == null)
+                {
+                    this.RegisterClient("BioA.UI");
+                }
+                //LogInfo.WriteProcessLog(kvp.ToString(), Module.WindowsService);
                 int i = ClientInfoCache.Instance.Clients.Count;
                 switch (sendClientName)
                 {

@@ -75,5 +75,16 @@ namespace BioA.Service
         {
             return myBatis.ConfirmCommonTask(strMethodName, lstConfirmInfo);
         }
+        /// <summary>
+        /// 获取病人样本结果信息
+        /// </summary>
+        /// <param name="samp"></param>
+        /// <param name="dateTime"></param>
+        /// <param name="samplePatientInfo"></param>
+        /// <returns></returns>
+        public List<SampleResultInfo> GetSmpPrintValues(string samp, DateTime dateTime, out SampleInfoForResult samplePatientInfo)
+        {
+            return myBatis.GetSmpPrintValues(samp, dateTime, out samplePatientInfo);
+        }
     }
 }

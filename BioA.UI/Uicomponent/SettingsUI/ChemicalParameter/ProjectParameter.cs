@@ -826,7 +826,7 @@ namespace BioA.UI
                     return;
                 }
                 //样本血清增量体积
-                if (((float)System.Convert.ToDouble(txtDecStosteVol.Text) >= 1.5 && (float)System.Convert.ToDouble(txtDecStosteVol.Text) <= 30 &&
+                if (((float)System.Convert.ToDouble(txtIncStosteVol.Text) >= 1.5 && (float)System.Convert.ToDouble(txtIncStosteVol.Text) <= 30 &&
                     (float)System.Convert.ToDouble(txtIncSamVol.Text) == 0 && (float)System.Convert.ToDouble(txtIncDilutionVol.Text) == 0 ) ||
                     ((float)System.Convert.ToDouble(txtIncSamVol.Text) != 0 && (float)System.Convert.ToDouble(txtIncDilutionVol.Text) != 0 &&
                     (float)System.Convert.ToDouble(txtIncSamVol.Text) >= 2 && (float)System.Convert.ToDouble(txtIncSamVol.Text) <= 20 &&
@@ -877,7 +877,7 @@ namespace BioA.UI
                     return;
                 }
                 //样本血清定标体积
-                if (((float)System.Convert.ToDouble(txtDecStosteVol.Text) >= 1.5 && (float)System.Convert.ToDouble(txtDecStosteVol.Text) <= 30 &&
+                if (((float)System.Convert.ToDouble(txtCalibStosteVol .Text) >= 1.5 && (float)System.Convert.ToDouble(txtCalibStosteVol.Text) <= 30 &&
                     (float)System.Convert.ToDouble(txtCalibSamVol.Text) == 0 && (float)System.Convert.ToDouble(txtCalibDilutionVol.Text) == 0 ) ||
                     ((float)System.Convert.ToDouble(txtCalibSamVol.Text) != 0 && (float)System.Convert.ToDouble(txtCalibDilutionVol.Text) != 0 &&
                     (float)System.Convert.ToDouble(txtCalibSamVol.Text) >= 2 && (float)System.Convert.ToDouble(txtCalibSamVol.Text) <= 20 &&

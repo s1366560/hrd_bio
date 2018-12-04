@@ -175,7 +175,31 @@ namespace BioA.SqlMaps
             }
             LogInfo.WriteProcessLog(lstAssayProInfos.Count.ToString(), Module.DAO);
             return lstAssayProInfos;
-        }   
+        }
+
+        /// <summary>
+        /// 获取生化项目参数信息
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <param name="assayProInfo"></param>
+        /// <returns></returns>
+        public AssayProjectParamInfo GetAssProParamInfo(string strDBMethod, string projectName, string sampleType)
+        {
+            AssayProjectParamInfo assayProParam = null;
+            try
+            {
+                Hashtable hash = new Hashtable();
+                hash.Add("ProjectName", projectName);
+                hash.Add("SampleType", sampleType);
+
+                assayProParam = (AssayProjectParamInfo)ism_SqlMap.QueryForObject("AssayProjectInfo." + strDBMethod, hash);
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("GetAssProParamInfo(string strDBMethod, AssayProjectInfo assayProInfo) == " + ex.ToString(), Module.Setting);
+            }
+            return assayProParam;
+        }
 
         /// <summary>
         /// 获取生化项目参数

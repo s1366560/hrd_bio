@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <sqlMap namespace="QCResultInfo" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
   <alias>
+    <typeAlias alias="ResultInfo" type="BioA.Common.ResultInfo, BioA.Common" />
     <typeAlias alias="QCResultForUIInfo" type="BioA.Common.QCResultForUIInfo, BioA.Common" />
     <typeAlias alias="QualityControlResultInfo" type="BioA.Common.QualityControlResultInfo, BioA.Common" /> 
   </alias>
@@ -114,7 +115,7 @@
     <statement id="UpdateQCResultRunLog" parameterClass="System.Collections.IDictionary">
       update QualityControlResultTb set Remarks=#Remarks# where SampleNum=#SampleNum# and ProjectName=#ProjectName# and TCNO=#TCNO# and SampleCreateTime=#SampleCreateTime#
     </statement>
-    <statement id="QueryQualityControlResultTCNO" parameterClass="System.Collections.IDictionary" resultClass="string">
+    <statement id="QueryQualityControlResultTCNO" parameterClass="System.Collections.IDictionary" resultClass="int">
       select TCNO from QualityControlResultTb where ProjectName=#ProjectName# and SampleType=#SampleType# and SampleCreateTime=#SampleCreateTime#
     </statement>
   </statements>

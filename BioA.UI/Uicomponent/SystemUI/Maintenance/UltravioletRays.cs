@@ -34,7 +34,7 @@ namespace BioA.UI
                 lstNewPhotoGain = value;
                 try
                 {
-                    if (lstNewPhotoGain != null)
+                    if (lstNewPhotoGain.Count > 0)
                     {
                         this.Invoke(new EventHandler(delegate {
                             txtNewGain340.Text = lstNewPhotoGain.Find(x => x.WaveLength == System.Convert.ToInt32(RunConfigureUtility.WaveLengthList[0])).Gain.ToString();

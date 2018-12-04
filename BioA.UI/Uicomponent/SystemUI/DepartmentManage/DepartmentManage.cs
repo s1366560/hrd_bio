@@ -591,7 +591,7 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void simpleButton12_Click(object sender, EventArgs e)
         {
-            if (comboBoxEdit2.SelectedIndex > 0)
+            if (comboBoxEdit2.SelectedIndex >= 0)
             {
                 //CommunicationEntity DataConfig = new CommunicationEntity();
                 //DataConfig.StrmethodName = "AddAuditPhysician";
@@ -599,7 +599,8 @@ namespace BioA.UI
                 dePartManageDic.Clear();
                 dePartManageDic.Add("AddAuditPhysician", new object[] { comboBoxEdit2.Text });
                 DepartmentManageSend(dePartManageDic);
-                comboBoxEdit2.Text = string.Empty;
+                comboBoxEdit2.SelectedIndex = -1;
+                comboBoxEdit2.Text = "请选择";
             }
             else
             {

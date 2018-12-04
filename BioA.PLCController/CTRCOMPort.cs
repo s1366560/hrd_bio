@@ -198,12 +198,12 @@ namespace BioA.PLCController
                     GetData[i] = readBuffer[i];
                 }
 
-                string a = "";
-                foreach (byte b in GetData)
-                {
-                    a += " " + b.ToString(); 
-                }
-                Console.WriteLine("receive:" + a + Environment.NewLine);
+                //string a = "";
+                //foreach (byte b in GetData)
+                //{
+                //    a += " " + b.ToString(); 
+                //}
+                //Console.WriteLine("receive:" + a + Environment.NewLine);
 
                 if (GetData.Length > 0)
                 {
@@ -279,12 +279,12 @@ namespace BioA.PLCController
                 this.SP.DiscardOutBuffer();
                 this.SP.Write(bytes, 0, bytes.Length);
 
-                string a = "";
-                foreach (byte b in bytes)
-                {
-                    a += " " + b.ToString();
-                }
-                Console.WriteLine("send:" + a + Environment.NewLine);
+                //string a = "";
+                //foreach (byte b in bytes)
+                //{
+                //    a += " " + b.ToString();
+                //}
+                //Console.WriteLine("send:" + a + Environment.NewLine);
             }
             catch (Exception ex)
             {

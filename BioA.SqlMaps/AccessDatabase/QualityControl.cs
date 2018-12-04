@@ -521,7 +521,7 @@ namespace BioA.SqlMaps
             return strResult;
         }
 
-        public TimeCourseInfo QueryTimeCourseByQCInfo(string strDBMethod, QCResultForUIInfo qcResInfo)
+        public TimeCourseInfo QueryTimeCourseByQCInfo(string strDBMethod, QCResultForUIInfo qcResInfo, string dateTime)
         {
             TimeCourseInfo qCTimeCourse = new TimeCourseInfo();
             try
@@ -529,12 +529,13 @@ namespace BioA.SqlMaps
                 Hashtable ht = new Hashtable();
                 ht.Add("ProjectName", qcResInfo.ProjectName);
                 ht.Add("SampleType", qcResInfo.SampleType);
-                ht.Add("SampleCreateTime", qcResInfo.SampleCreateTime);
-                string TCNO = (string)ism_SqlMap.QueryForObject("QCResultInfo.QueryQualityControlResultTCNO", ht);
-                if (TCNO != null)
+                ht.Add("SampleCreateTime", dateTime);
+                int TCNO = 0;
+                TCNO = (int)ism_SqlMap.QueryForObject("QCResultInfo.QueryQualityControlResultTCNO", ht);
+                if (TCNO > 0)
                 {
                     ht.Clear();
-                    ht.Add("TimeCourseNO", Convert.ToInt32(TCNO));
+                    ht.Add("TimeCourseNO", TCNO);
                     ht.Add("BengTime", qcResInfo.QCTimeStartTS);
                     ht.Add("EndTime", qcResInfo.QCTimeEndTS);
 

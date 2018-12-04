@@ -109,7 +109,7 @@ namespace BioA.UI
                 cboReagentPos.Properties.Items.Clear();
                 cboReagentPos.Properties.Items.AddRange(lstCanUsePos);
                 cboReagentPos.SelectedIndex = 0;
-
+                lstCanUsePos = null;
 
 
                 cboReagentType.Properties.Items.Clear();
@@ -127,7 +127,7 @@ namespace BioA.UI
                 cboReagentPos.Properties.Items.Clear();
                 cboReagentPos.Properties.Items.AddRange(lstCanUsePos);
                 cboReagentPos.SelectedIndex = 0;
-
+                lstCanUsePos = null;
                 cboReagentType.Properties.Items.Clear();
                 cboReagentType.Properties.Items.AddRange(new object[] { "", "血清", "尿液", "清洗剂" });
                 cboReagentType.SelectedIndex = 1;

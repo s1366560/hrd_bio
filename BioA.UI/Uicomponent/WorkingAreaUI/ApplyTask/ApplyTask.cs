@@ -919,7 +919,7 @@ namespace BioA.UI
         {
             foreach (Control control in controls)
             {
-                if (control.Text != "" && control.Text != string.Empty)
+                if (control.Tag != null)
                 {
                     if (control.GetType() == typeof(System.Windows.Forms.Button))
                     {

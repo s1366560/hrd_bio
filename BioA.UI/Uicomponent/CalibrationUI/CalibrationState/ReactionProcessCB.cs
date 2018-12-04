@@ -40,38 +40,42 @@ namespace BioA.UI
             List<CalibrationResultinfo> lstCalibReuslt = new List<CalibrationResultinfo>();
             CalibrationResultinfo c = null;
             List<string> lstCalibrationName = new List<string>();
-            this.Invoke(new EventHandler(delegate { 
-                foreach (CalibrationResultinfo calibrationResultInfo in calibrationResultInfoAndTimeCUVNO)
+            if (calibrationResultInfoAndTimeCUVNO.Count > 0)
+            {
+                this.Invoke(new EventHandler(delegate
                 {
-                    lstCalibrationResultInfo.Add(calibrationResultInfo);
-                    lstCalibrationName.Add(calibrationResultInfo.CalibratorName);
-                    if (c == null || c.CalibrationDT == null || c.CalibrationDT != calibrationResultInfo.CalibrationDT)
+                    foreach (CalibrationResultinfo calibrationResultInfo in calibrationResultInfoAndTimeCUVNO)
                     {
-                        c = new CalibrationResultinfo();
-                        textEditProName.Text = c.ProjectName = calibrationResultInfo.ProjectName;
-                        textEditSamType.Text = c.SampleType = calibrationResultInfo.SampleType;
-                        c.CalibMethod = calibrationResultInfo.CalibMethod;
-                        c.CalibrationDT = calibrationResultInfo.CalibrationDT;
-                        lstCalibReuslt.Add(c);
-                    }                              
-                }
-                comBoxEditCalibName.Properties.Items.AddRange(lstCalibrationName.Distinct().ToList());
-                if (lstCalibReuslt.Count > 1)
-                {
-                    int i;
-                    for (i = 0; i < lstCalibReuslt.Count; i++)
-                    {
-                        comboBoxCalibTime.Properties.Items.Add(lstCalibReuslt[i].CalibrationDT);
+                        lstCalibrationResultInfo.Add(calibrationResultInfo);
+                        lstCalibrationName.Add(calibrationResultInfo.CalibratorName);
+                        if (c == null || c.CalibrationDT == null || c.CalibrationDT != calibrationResultInfo.CalibrationDT)
+                        {
+                            c = new CalibrationResultinfo();
+                            textEditProName.Text = c.ProjectName = calibrationResultInfo.ProjectName;
+                            textEditSamType.Text = c.SampleType = calibrationResultInfo.SampleType;
+                            c.CalibMethod = calibrationResultInfo.CalibMethod;
+                            c.CalibrationDT = calibrationResultInfo.CalibrationDT;
+                            lstCalibReuslt.Add(c);
+                        }
                     }
-                    comboBoxCalibTime.Text = lstCalibReuslt[i-1].CalibrationDT.ToString();
-                }
-                else
-                {
-                    comboBoxCalibTime.Properties.Items.Add(lstCalibReuslt[0].CalibrationDT);
-                    comboBoxCalibTime.Text = lstCalibReuslt[0].CalibrationDT.ToString();
-                }
-                comBoxEditCalibName.SelectedIndex = 0;
-            }));
+                    comBoxEditCalibName.Properties.Items.AddRange(lstCalibrationName.Distinct().ToList());
+                    if (lstCalibReuslt.Count > 1)
+                    {
+                        int i;
+                        for (i = 0; i < lstCalibReuslt.Count; i++)
+                        {
+                            comboBoxCalibTime.Properties.Items.Add(lstCalibReuslt[i].CalibrationDT);
+                        }
+                        comboBoxCalibTime.Text = lstCalibReuslt[i - 1].CalibrationDT.ToString();
+                    }
+                    else
+                    {
+                        comboBoxCalibTime.Properties.Items.Add(lstCalibReuslt[0].CalibrationDT);
+                        comboBoxCalibTime.Text = lstCalibReuslt[0].CalibrationDT.ToString();
+                    }
+                    comBoxEditCalibName.SelectedIndex = 0;
+                }));
+            }
         }
 
         private TimeCourseInfo sampleReactionInfo = new TimeCourseInfo();

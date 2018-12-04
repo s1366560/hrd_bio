@@ -16,7 +16,7 @@ namespace BioA.Service
             try
             {
                 lstReagentSettingsInfo = myBatis.QueryReagentSettingsInfo(strDBMethod, null);
-                LogInfo.WriteProcessLog(strDBMethod + "zhuszihe33" + lstReagentSettingsInfo, Module.WindowsService);
+                //LogInfo.WriteProcessLog(strDBMethod + "zhuszihe33" + lstReagentSettingsInfo, Module.WindowsService);
             }
             catch (Exception e)
             {
@@ -30,7 +30,7 @@ namespace BioA.Service
             try
             {
                 lstReagentSettingsInfo = myBatis.QueryReagentSettingsInfo2(strDBMethod, null);
-                LogInfo.WriteProcessLog(strDBMethod + "zhuszihe33" + lstReagentSettingsInfo, Module.WindowsService);
+                //LogInfo.WriteProcessLog(strDBMethod + "zhuszihe33" + lstReagentSettingsInfo, Module.WindowsService);
             }
             catch (Exception e)
             {

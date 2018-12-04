@@ -131,7 +131,7 @@ namespace BioA.PLCController.Service
             //c = CalculateConc.GetConc(table, samResultInfo.AbsValue);
 
             //修正定标体积和样本体积差异
-            AssayProjectParamInfo assayProParam = myBatis.GetAssayProjectParamInfoByNameAndType("GetAssayProjectParamInfoByNameAndType", new AssayProjectInfo() { ProjectName = samResultInfo.ProjectName, SampleType = samResultInfo.SampleType });
+            AssayProjectParamInfo assayProParam = myBatis.GetAssProParamInfo("GetAssayProjectParamInfoByNameAndType", samResultInfo.ProjectName, samResultInfo.SampleType);
             if (assayProParam == null)
             {
                 return 0;

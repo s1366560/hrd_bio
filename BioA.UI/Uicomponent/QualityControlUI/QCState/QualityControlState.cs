@@ -49,12 +49,13 @@ namespace BioA.UI
                 qcResInfoFirst.TargetMean = (float)(System.Convert.ToDouble(dr.ItemArray[6]));
                 qcResInfoFirst.TargetSD = (float)(System.Convert.ToDouble(dr.ItemArray[7]));
                 qcResInfoFirst.ConcResult = (float)(System.Convert.ToDouble(dr.ItemArray[8]));
-                qcResInfoFirst.SampleCreateTime = (DateTime)(System.Convert.ToDateTime(dr.ItemArray[9]));
+                string datetime = dr.ItemArray[9].ToString();
                 qcResInfoFirst.Manufacturer = (string)dr.ItemArray[10];
 
                 qcResInfoFirst.QCTimeStartTS = System.Convert.ToDateTime(dtpQCStartTime.Text);
                 qcResInfoFirst.QCTimeEndTS = System.Convert.ToDateTime(dtpQCEndTime.Text).AddDays(1);
                 reactionProcessQC.QCResInfo = qcResInfoFirst;
+                reactionProcessQC.StrDateTime = datetime;
 
                 reactionProcessQC.StartPosition = FormStartPosition.CenterScreen;
                 reactionProcessQC.ShowDialog();
@@ -255,11 +256,11 @@ namespace BioA.UI
         {
             this.Invoke(new EventHandler(delegate {
                 this.lstQCResult.RefreshDataSource();
-
+                dt.Rows.Clear();
                 foreach (QCResultForUIInfo qCResInfo in lstQCResultInfos)
                 {
                     dt.Rows.Add(new object[] { qCResInfo.QCName, qCResInfo.ProjectName, qCResInfo.SampleType, qCResInfo.LotNum, qCResInfo.Pos, qCResInfo.HorizonLevel,
-                                               qCResInfo.TargetMean, qCResInfo.TargetSD, qCResInfo.ConcResult, qCResInfo.SampleCreateTime, qCResInfo.Manufacturer });
+                                               qCResInfo.TargetMean, qCResInfo.TargetSD, qCResInfo.ConcResult, qCResInfo.SampleCreateTime.ToString("yyyy-MM-dd HH:mm:ss.fff"), qCResInfo.Manufacturer });
                 }
             }));
         }

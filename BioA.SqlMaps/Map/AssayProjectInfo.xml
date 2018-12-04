@@ -454,12 +454,16 @@
       select * from AssayProjectInfoTb where ProjectName=#ProjectName#
     </select>
     <statement id="GetCalibParamBySDTTask" resultClass="AssayProjectCalibrationParamInfo">
-      select CalibrationParamInfoTb.* from CalibrationParamInfoTb,ReagentStateinfor1r2Tb,ReagentSettingsTb,ReagentSettingstbr2,ProjectRunSequenceTb,SDTTableItemTb
+      <!--select CalibrationParamInfoTb.* from CalibrationParamInfoTb,ReagentStateinfor1r2Tb,ReagentSettingsTb,ReagentSettingstbr2,ProjectRunSequenceTb,SDTTableItemTb
       where SDTTableItemTb.ProjectName=CalibrationParamInfoTb.ProjectName and SDTTableItemTb.SampleType=CalibrationParamInfoTb.SampleType and SDTTableItemTb.CalibState='WAITING' and
       reagentstateinfor1r2tb.ProjectName=CalibrationParamInfoTb.ProjectName and (ReagentStateinfor1r2Tb.ReagentType=CalibrationParamInfoTb.SampleType or ReagentStateinfor1r2Tb.ReagentType2=CalibrationParamInfoTb.SampleType) and ReagentStateinfor1r2Tb.Locked='false'
       and ((ReagentSettingsTb.ProjectName=CalibrationParamInfoTb.ProjectName and ReagentSettingsTb.ReagentType=CalibrationParamInfoTb.SampleType) or
       (ReagentSettingstbr2.ProjectName=CalibrationParamInfoTb.ProjectName and ReagentSettingstbr2.ReagentType=CalibrationParamInfoTb.SampleType))
-      group by ProjectRunSequenceTb.RunSequence
+      group by ProjectRunSequenceTb.RunSequence-->
+      select top 1 c.* from CalibrationParamInfoTb as c,ReagentStateinfor1r2Tb as r1r2,ReagentSettingsTb as r1,ReagentSettingstbr2 as r2,ProjectRunSequenceTb as run,SDTTableItemTb as s
+      where s.ProjectName=c.ProjectName and s.SampleType=c.SampleType and s.CalibState='WAITING' and
+      r1r2.ProjectName=c.ProjectName and (r1r2.ReagentType=c.SampleType or r1r2.ReagentType2=c.SampleType) and r1r2.Locked='false'
+      and ((r1.ProjectName=c.ProjectName and r1.ReagentType=c.SampleType) or (r2.ProjectName=c.ProjectName and r2.ReagentType=c.SampleType))
     </statement>
 
     <statement id ="GetAssayProjectCalParamInfo" parameterClass ="System.Collections.IDictionary" resultClass ="AssayProjectCalibrationParamInfo">

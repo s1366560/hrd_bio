@@ -46,9 +46,9 @@ namespace BioA.Service
             return myBatis.DeleteQCResult(strDBMethod, qcResInfo);
         }
 
-        public TimeCourseInfo QueryTimeCourseByQCInfo(string strDBMethod, QCResultForUIInfo qcResInfo)
+        public TimeCourseInfo QueryTimeCourseByQCInfo(string strDBMethod, QCResultForUIInfo qcResInfo,string dateTime)
         {
-            return myBatis.QueryTimeCourseByQCInfo(strDBMethod, qcResInfo);
+            return myBatis.QueryTimeCourseByQCInfo(strDBMethod, qcResInfo,dateTime);
         }
     }
 }

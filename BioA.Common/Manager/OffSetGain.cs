@@ -26,8 +26,8 @@ namespace BioA.Common
             get { return _OffSet; }
             set { _OffSet = value; }
         }
-        string _InspectTime;
-        public string InspectTime
+        DateTime _InspectTime;
+        public DateTime InspectTime
         {
             get { return _InspectTime; }
             set { _InspectTime = value; }

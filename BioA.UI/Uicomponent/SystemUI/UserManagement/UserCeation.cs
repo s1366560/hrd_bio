@@ -26,13 +26,22 @@ namespace BioA.UI
         {
             this.Close();
         }
+        /// <summary>
+        /// 创建用户清空上次缓存
+        /// </summary>
         public void lblNotesLoad1()
         {
             lblNotes.Text = "* 输入不能为空！";
             labelControl1.Text = "* 输入不能为空！";
             labelControl2.Text = "* 输入不能为空！";
             labelControl3.Text = "* 输入不能为空！";
+            this.textEdit1.Enabled = true;
+            textEdit1.Text = "";
+            textEdit2.Text = "";
         }
+        /// <summary>
+        /// 编辑用户
+        /// </summary>
         public void lblNotesLoad2()
         {
             lblNotes.Text = "* 不可修改！";
@@ -43,7 +52,10 @@ namespace BioA.UI
         }
         //UserInfo userInfo = new UserInfo();
 
-
+        /// <summary>
+        /// 编辑用户（显示账号信息和权限）
+        /// </summary>
+        /// <param name="userInfo"></param>
         public void AddUserCeation(UserInfo userInfo)
         {
             this.Invoke(new EventHandler(delegate
@@ -237,6 +249,10 @@ namespace BioA.UI
                 }
             }));
         }
+        /// <summary>
+        /// 获取用户新增、修改信息和权限
+        /// </summary>
+        /// <returns></returns>
         private UserInfo Add()
         {
             UserInfo userInfo = new UserInfo();
@@ -436,7 +452,11 @@ namespace BioA.UI
             }
             return userInfo;
         }
-
+        /// <summary>
+        /// 保存按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (textEdit3.Text!=textEdit4.Text)

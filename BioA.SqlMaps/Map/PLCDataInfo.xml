@@ -132,9 +132,58 @@
       <result property="TroubleUnit" column="TroubleUnit"/>
       <result property="IsConfirm" column="IsConfirm"/>
     </resultMap>
-    
   </resultMaps>
+  <parameterMaps>
+    <parameterMap id="SampleInfoAndTaskInfo" class="Hashtable">
+      <parameter property="sampNum" column="sampNum"/>
+      <parameter property="proName" column="proName"/>
+      <parameter property="createTime" column="createTime"/>
+      <parameter property="taskStatus" column="taskStatus"/>
+    </parameterMap>
+    <parameterMap id="SMPScheduleFinishCount" class="Hashtable">
+      <parameter property="protName" column="protName"/>
+      <parameter property="sampNum" column="sampNum"/>
+      <parameter property="startTime" column="startTime"/>
+      <parameter property="endTime" column="endTime"/>
+    </parameterMap>
+    <parameterMap id="TimeCourseCUV" class="Hashtable">
+      <parameter property="strSql" column="strSql"/>
+    </parameterMap>
+    <parameterMap id="CuvNOAndTimeCourseNO" class="Hashtable">
+      <parameter property="workN" column="workN"/>
+      <parameter property="cuvN" column="cuvN"/>
+    </parameterMap>
+    <parameterMap id="SAndDTimeCourse" class="Hashtable">
+      <parameter property="timeCourseN" column="timeCourseN"/>
+      <parameter property="drawDateTime" column="drawDateTime"/>
+      <parameter property="cuvN" column="cuvN"/>
+    </parameterMap>
+  </parameterMaps>
   <statements>
+
+    <procedure id="UpdateSampleInfoAndTaskInfo" parameterMap="SampleInfoAndTaskInfo">
+      UpdateSampleInfoAndTaskInfo
+    </procedure>
+
+    <procedure id="UpdateSMPScheduleFinishCount" parameterMap="SMPScheduleFinishCount">
+      UpdateSMPScheduleFinishCount
+    </procedure>
+    <!--<procedure id="UpdateABSData" parameterMap="TimeCourseCUV">
+      UpdateTimeCourseCUV
+    </procedure>-->
+    <!-- 更新实时比色杯数据中比色杯编号和进程编号 -->
+    <procedure id="UpdateCuvNOAndTimeCourseNO" parameterMap="CuvNOAndTimeCourseNO">
+      UpdateCuvNOAndTimeCourseNO
+    </procedure>
+    <!-- 删除和保存timeCourse表 -->
+    <procedure id="SaveAndDeleteTimeCourse" parameterMap="SAndDTimeCourse">
+      SaveAndDeleteTimeCourse
+    </procedure>
+    
+    <statement id="UpdateABSData" parameterClass="string">
+      $value$
+    </statement>
+
     <statement id="GetWorkingDisk" resultClass="int">
       select WorkDisk from RunningStateTb
     </statement>
@@ -160,135 +209,26 @@
     <statement id="GetTempOffset" resultClass="float">
       select TempOffset from RunningStateTb
     </statement>
-    <statement id="UpdateCuvNumber" parameterClass="System.Collections.IDictionary">
-      update RealTimeCUVDataTb set CUVNO=#CUVNO# where WORKNO=#WORKNO#
-    </statement>
+    
     <statement id="QueryRealTimeCUVDataTC" parameterClass="int" resultClass="RealTimeCUVDataInfo">
       select * from RealTimeCUVDataTb where WORKNO=#value#
-    </statement>
-    <statement id="UpdateTimeCourseCuvNum" parameterClass="System.Collections.IDictionary">
-      update TimeCourseTb set CUVNO=#CUVNO# where TimeCourseNO=#TimeCourseNO#
     </statement>
     <statement id="UpdateBlkABSData" parameterClass="System.Collections.IDictionary">
       update TimeCourseTb set CuvBlkWm=#CuvBlkWm#,CuvBlkWs=#CuvBlkWs# where TimeCourseNO=#TimeCourseNO#
     </statement>
-    <statement id="UpdateABSData" parameterClass="System.Collections.IDictionary">
-      update TimeCourseTb
-      <dynamic prepend="set">
-        <isPropertyAvailable prepend="," property="Cuv1Wm">Cuv1Wm = #Cuv1Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv1Ws">Cuv1Ws = #Cuv1Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv2Wm">Cuv2Wm = #Cuv2Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv2Ws">Cuv2Ws = #Cuv2Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv3Wm">Cuv3Wm = #Cuv3Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv3Ws">Cuv3Ws = #Cuv3Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv4Wm">Cuv4Wm = #Cuv4Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv4Ws">Cuv4Ws = #Cuv4Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv5Wm">Cuv5Wm = #Cuv5Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv5Ws">Cuv5Ws = #Cuv5Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv6Wm">Cuv6Wm = #Cuv6Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv6Ws">Cuv6Ws = #Cuv6Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv7Wm">Cuv7Wm = #Cuv7Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv7Ws">Cuv7Ws = #Cuv7Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv8Wm">Cuv8Wm = #Cuv8Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv8Ws">Cuv8Ws = #Cuv8Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv9Wm">Cuv9Wm = #Cuv9Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv9Ws">Cuv9Ws = #Cuv9Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv10Wm">Cuv10Wm = #Cuv10Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv10Ws">Cuv10Ws = #Cuv10Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv11Wm">Cuv11Wm = #Cuv11Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv11Ws">Cuv11Ws = #Cuv11Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv12Wm">Cuv12Wm = #Cuv12Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv12Ws">Cuv12Ws = #Cuv12Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv13Wm">Cuv13Wm = #Cuv13Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv13Ws">Cuv13Ws = #Cuv13Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv14Wm">Cuv14Wm = #Cuv14Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv14Ws">Cuv14Ws = #Cuv14Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv15Wm">Cuv15Wm = #Cuv15Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv15Ws">Cuv15Ws = #Cuv15Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv16Wm">Cuv16Wm = #Cuv16Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv16Ws">Cuv16Ws = #Cuv16Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv17Wm">Cuv17Wm = #Cuv17Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv17Ws">Cuv17Ws = #Cuv17Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv18Wm">Cuv18Wm = #Cuv18Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv18Ws">Cuv18Ws = #Cuv18Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv19Wm">Cuv19Wm = #Cuv19Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv19Ws">Cuv19Ws = #Cuv19Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv20Wm">Cuv20Wm = #Cuv20Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv20Ws">Cuv20Ws = #Cuv20Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv21Wm">Cuv21Wm = #Cuv21Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv21Ws">Cuv21Ws = #Cuv21Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv22Wm">Cuv22Wm = #Cuv22Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv22Ws">Cuv22Ws = #Cuv22Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv23Wm">Cuv23Wm = #Cuv23Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv23Ws">Cuv23Ws = #Cuv23Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv24Wm">Cuv24Wm = #Cuv24Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv24Ws">Cuv24Ws = #Cuv24Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv25Wm">Cuv25Wm = #Cuv25Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv25Ws">Cuv25Ws = #Cuv25Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv26Wm">Cuv26Wm = #Cuv26Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv26Ws">Cuv26Ws = #Cuv26Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv27Wm">Cuv27Wm = #Cuv27Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv27Ws">Cuv27Ws = #Cuv27Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv28Wm">Cuv28Wm = #Cuv28Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv28Ws">Cuv28Ws = #Cuv28Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv29Wm">Cuv29Wm = #Cuv29Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv29Ws">Cuv29Ws = #Cuv29Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv30Wm">Cuv30Wm = #Cuv30Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv30Ws">Cuv30Ws = #Cuv30Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv31Wm">Cuv31Wm = #Cuv31Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv31Ws">Cuv31Ws = #Cuv31Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv32Wm">Cuv32Wm = #Cuv32Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv32Ws">Cuv32Ws = #Cuv32Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv33Wm">Cuv33Wm = #Cuv33Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv33Ws">Cuv33Ws = #Cuv33Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv34Wm">Cuv34Wm = #Cuv34Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv34Ws">Cuv34Ws = #Cuv34Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv35Wm">Cuv35Wm = #Cuv35Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv35Ws">Cuv35Ws = #Cuv35Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv36Wm">Cuv36Wm = #Cuv36Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv36Ws">Cuv36Ws = #Cuv36Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv37Wm">Cuv37Wm = #Cuv37Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv37Ws">Cuv37Ws = #Cuv37Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv38Wm">Cuv38Wm = #Cuv38Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv38Ws">Cuv38Ws = #Cuv38Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv39Wm">Cuv39Wm = #Cuv39Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv39Ws">Cuv39Ws = #Cuv39Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv40Wm">Cuv40Wm = #Cuv40Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv40Ws">Cuv40Ws = #Cuv40Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv41Wm">Cuv41Wm = #Cuv41Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv41Ws">Cuv41Ws = #Cuv41Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv42Wm">Cuv42Wm = #Cuv42Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv42Ws">Cuv42Ws = #Cuv42Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv43Wm">Cuv43Wm = #Cuv43Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv43Ws">Cuv43Ws = #Cuv43Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv44Wm">Cuv44Wm = #Cuv44Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv44Ws">Cuv44Ws = #Cuv44Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv45Wm">Cuv45Wm = #Cuv45Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv45Ws">Cuv45Ws = #Cuv45Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv46Wm">Cuv46Wm = #Cuv46Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv46Ws">Cuv46Ws = #Cuv46Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv47Wm">Cuv47Wm = #Cuv47Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv47Ws">Cuv47Ws = #Cuv47Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv48Wm">Cuv48Wm = #Cuv48Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv48Ws">Cuv48Ws = #Cuv48Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv49Wm">Cuv49Wm = #Cuv49Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv49Ws">Cuv49Ws = #Cuv49Ws#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv50Wm">Cuv50Wm = #Cuv50Wm#</isPropertyAvailable>
-        <isPropertyAvailable prepend="," property="Cuv50Ws">Cuv50Ws = #Cuv50Ws#</isPropertyAvailable>
-      </dynamic>
-      where TimeCourseNO=#TimeCourseNO#
-    </statement>
-    <statement id="UpdateSMPScheduleFinishCount" parameterClass="System.Collections.IDictionary">
+    
+    <!--2018/11/15 用存储过程代替了<statement id="UpdateSMPScheduleFinishCount" parameterClass="System.Collections.IDictionary">
       update TaskTb set FinishTimes = #FinishTimes# where ProjectName=#ProjectName# and SampleNum=#SampleNum# and CreateDate between #StartTime# and #EndTime#
-    </statement>
+    </statement>-->
     <statement id="UpdateTaskState" parameterClass="System.Collections.IDictionary">
       update TaskTb set SendTimes=#SendTimes#, FinishTimes=#FinishTimes#, TaskState=#TaskState# where TaskState !=2
     </statement>
-    
-    <statement id="GetSMPScheduleFinishCount" parameterClass="System.Collections.IDictionary" resultClass="int">
+
+    <!--2018/11/15 用存储过程代替了<statement id="GetSMPScheduleFinishCount" parameterClass="System.Collections.IDictionary" resultClass="int">
       select FinishTimes from TaskTb  where ProjectName=#ProjectName# and SampleNum=#SampleNum# and CreateDate between #StartTime# and #EndTime#
-    </statement>
-    
+    </statement>-->
+
+
     <!--2018 9/4
     <statement id="UpdteTaskState" parameterClass="System.Collections.IDictionary">
       update TaskTb set TaskState = 2 where ProjectName=#ProjectName# and SampleNum=#SampleNum# and InspectTimes=TaskState and CreateDate between #StartTime# and #EndTime#
@@ -400,12 +340,7 @@
     <statement id="SaveRealTimeCUVData" parameterClass="RealTimeCUVDataInfo">
       insert into RealTimeCUVDataTb values(#WorkNo#,#CuvNo#,#SmpNo#,#Assay#,#TC#,#CUVPoint#,#WorkType#,#DrawDate#)
     </statement>
-    <statement id="DeleteTimeCourseByTCNO" parameterClass="int">
-      delete from TimeCourseTb where TimeCourseNO=#value#
-    </statement>
-    <statement id="SaveTimeCourseByTCNO" parameterClass="System.Collections.IDictionary">
-      insert into TimeCourseTb(TimeCourseNO,DrawDate,CUVNO) values (#TimeCourseNO#,#DrawDate#,#CUVNO#)
-    </statement>
+    
     <statement id="UpdateLatestTC" parameterClass="int">
       update RunningStateTb set LastestTC=#value#
     </statement>

@@ -38,8 +38,8 @@
       select * from QCTaskTb where ProjectName=#ProjectName# and SampleNum=#SampleNum# and CreateDate between #StartTime# and #EndTime#
     </statement>
     <statement id="GetQCParamByQCTask" parameterClass="System.Collections.IDictionary" resultClass="QCTaskInfo">
-      select qct1.* from QCTaskTb qct1 left join AssayProjectParamInfoTb t2 on qct1.ProjectName=t2.ProjectName and qct1.SampleType=t2.SampleType
-      where qct1.TaskState=0 and qct1.CreateDate between #CreateDateBegin# and #CreateDateEnd# order by qct1.ID Limit #count#
+      select top $count$ qct1.* from QCTaskTb qct1 left join AssayProjectParamInfoTb t2 on qct1.ProjectName=t2.ProjectName and qct1.SampleType=t2.SampleType
+      where qct1.TaskState=0 and qct1.CreateDate between #CreateDateBegin# and #CreateDateEnd# order by qct1.ID
     </statement>
     <statement id="InitMachineUpdateQCTaskState" parameterClass="System.Collections.IDictionary">
       update QCTaskTb set SendTimes=#SendTimes#, FinishTimes=#FinishTimes#, TaskState=#TaskState# where TaskState!=2
