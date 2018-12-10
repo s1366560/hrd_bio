@@ -8,7 +8,7 @@
   <resultMaps>
     <resultMap id="QualityControlInfoResult" class="QualityControlInfo">
       <result property="QCID" column="QCID" />
-      <result property="QCName" column="QCName" />
+      <result property="QCName" column="QCName" /> 
       <result property="LotNum" column="LotNum" />
       <result property="Pos" column="Pos" />
       <result property="InvalidDate" column="InvalidDate" />
