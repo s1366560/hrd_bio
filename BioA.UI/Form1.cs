@@ -280,12 +280,10 @@ namespace BioA.UI
                                 {
                                     if (machineState.State == "超时")
                                     {
-                                        label2.Width = 95;
-                                        label2.BackColor = Color.Red;
+                                        lblSampleContainer.Text += temp;
                                     }
                                     else
                                     {
-                                        label2.Width = 95;
                                         try
                                         {
                                             temp = float.Parse(machineState.Temp);
@@ -294,8 +292,7 @@ namespace BioA.UI
                                         {
 
                                         }
-                                        label2.Width = label2.Width + Convert.ToInt32(temp * 3.4);
-                                        label2.BackColor = Color.Red;
+                                        lblSampleContainer.Text +=temp;
                                     }
                                 }
 

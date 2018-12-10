@@ -243,18 +243,21 @@ namespace BioA.UI
             {
                 LogInfo.WriteProcessLog("MyPrintDocument_PrintPage(object sender, PrintPageEventArgs e) == " + ex.ToString(), Module.QualityControl);
             }
-            List<float> lstFloat = new List<float>();
-            foreach (var item in results)
+            if (results != null)
             {
-                lstFloat.Add(item.ConcResult);
+                List<float> lstFloat = new List<float>();
+                foreach (var item in results)
+                {
+                    lstFloat.Add(item.ConcResult);
+                }
+                StatValue sd = StatDatas.GetStateValue(lstFloat);
+                e.Graphics.DrawString(string.Format("统计量：" + sd.N.ToString() + "      " +
+                    "平均值：" + sd.MEAN.ToString("#0.00") + "      " +
+                    "标准差：" + sd.SD.ToString("#0.00") + "      " +
+                    "CV%：" + sd.CV.ToString("#0.00%") + "      " +
+                    "极差：" + sd.R.ToString("#0.00")),
+                    new Font(new FontFamily("黑体"), 10), System.Drawing.Brushes.Black, 30, 660);
             }
-            StatValue sd = StatDatas.GetStateValue(lstFloat);
-            e.Graphics.DrawString(string.Format("统计量："+ sd.N.ToString()+ "      " +
-                "平均值："+sd.MEAN.ToString("#0.00")+ "      " +
-                "标准差："+ sd.SD.ToString("#0.00") + "      " +
-                "CV%：" + sd.CV.ToString("#0.00%") + "      " +
-                "极差："+ sd.R.ToString("#0.00")), 
-                new Font(new FontFamily("黑体"), 10), System.Drawing.Brushes.Black, 30, 660);
             //e.Graphics.DrawString(string.Format("靶值：{0}", this.txtTargetValue.Text), new Font(new FontFamily("黑体"), 10), System.Drawing.Brushes.Black, 30, 600);
             //e.Graphics.DrawString(string.Format("标准差：{0}", this.txtStandardDeviationValue.Text), new Font(new FontFamily("黑体"), 10), System.Drawing.Brushes.Black, 135, 600);
             e.Graphics.DrawLine(Pens.Black, 8, 700, 1161, 700);
@@ -749,25 +752,23 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void cboProjectName_SelectedIndexChanged(object sender, EventArgs e)
         {
-            List<int> lstStr = new List<int>();
+            int qcId = 0;
             foreach (var item in lstQCRelationProjects)
             {
                 if (item.ProjectName == cboProjectName.Text)
                 {
-                    lstStr.Add(item.QCID);
+                    qcId = item.QCID;
                 }
             }
-            if (lstStr.Count > 0)
+            if (qcId > 0)
             {
-                foreach (var item in lstStr)
+                cboQCName.Properties.Items.Clear();
+                cboQCName.SelectedIndex = -1;
+                foreach (var qcInfo in lstQCInfo)
                 {
-                    cboQCName.Properties.Items.Clear();
-                    foreach (var qcInfo in lstQCInfo)
+                    if (qcId == qcInfo.QCID)
                     {
-                        if (item == qcInfo.QCID)
-                        {
-                            cboQCName.Properties.Items.Add(qcInfo.QCName);
-                        }
+                        cboQCName.Properties.Items.Add(qcInfo.QCName);
                     }
                 }
                 cboQCName.SelectedIndex = 0;

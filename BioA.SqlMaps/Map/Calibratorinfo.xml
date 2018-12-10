@@ -163,9 +163,10 @@
     </statement>
     <statement id="QueryCalibrationState" ResultClass="CalibrationResultinfo">
       <!--select * from CalibrationResultTb group by ProjectName, CalibMethod, SampleType-->
-      select top 1 a.* from CalibrationResultTb a,
+      <!--select top 1 a.* from CalibrationResultTb a,
       (select ProjectName,CalibMethod,max(CalibrationDT) time from CalibrationResultTb where CalibrationState = '2' group by ProjectName,CalibMethod) b
-      where a.ProjectName=b.ProjectName and a.CalibrationDT=b.time
+      where a.ProjectName=b.ProjectName and a.CalibrationDT=b.time-->
+      select ProjectName,CalibMethod, SampleType,max(CalibrationDT) time from CalibrationResultTb where CalibrationState = '2' group by ProjectName,CalibMethod,SampleType
     </statement>
     <statement id="QueryCalibrationResultinfo" ResultClass="CalibrationResultinfo" >
       select * from calibrationresulttb where ProjectName=#ProjectName# and CalibMethod=#CalibMethod# and SampleType=#SampleType#

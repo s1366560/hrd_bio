@@ -51,9 +51,9 @@ namespace BioA.SqlMaps
                             ism_SqlMap.Insert("QCMaintainInfo.AddQCRelationProject", qcRelationProInfo);
                         }
 
-                        strResult = "已成功添加质控品信息！";
+                        strResult = "已成功添加质控品信息！" + getQCInfo.QCID;
                     }
-                    
+
                 }
             }
             catch (Exception e)
@@ -71,60 +71,119 @@ namespace BioA.SqlMaps
         /// <param name="newQCInfo"></param>
         /// <param name="lstQCRelationProInfo"></param>
         /// <returns></returns>
-        public string EditQualityControl(string strDBMethod, QualityControlInfo oldQCInfo, QualityControlInfo newQCInfo, List<QCRelationProjectInfo> lstQCRelationProInfo)
+        public string EditQualityControl(string strDBMethod, QualityControlInfo oldQCInfo, QualityControlInfo newQCInfo, List<QCRelationProjectInfo> lisNewQCProjectinfo, List<QCRelationProjectInfo> lisOldQCProjectinfo)
         {
-            string strResult = string.Empty;
+            string strResult = "质控品和项目信息修改成功！";
+            ///修改过的项目靶值、SD信息
+            List<QCRelationProjectInfo> lstEditCalibProinfo = new List<QCRelationProjectInfo>();
+            //新的项目靶值、SD信息
+            List<QCRelationProjectInfo> lstNewCalibProinfo = new List<QCRelationProjectInfo>();
+            Hashtable hashtable = new Hashtable();
             try
             {
-                int intQCID = (int)ism_SqlMap.QueryForObject("QCMaintainInfo.QueryQualityControlQCID", oldQCInfo);
-
-                Hashtable ht = new Hashtable();
-                ht.Add("OldQCID", intQCID);
-                ht.Add("QCName", newQCInfo.QCName);
-                ht.Add("Pos", newQCInfo.Pos);
-                ht.Add("Manufacturer", newQCInfo.Manufacturer);
-                ht.Add("LotNum", newQCInfo.LotNum);
-                ht.Add("InvalidDate", newQCInfo.InvalidDate);
-                ht.Add("HorizonLevel", newQCInfo.HorizonLevel);
-
-
-                int count = (int)ism_SqlMap.QueryForObject("QCMaintainInfo.QueryQCCountByUnique", ht);
-
+                int intQCID = newQCInfo.QCID;
+                int i = 0;
+                int count = 0;
+                foreach (var item in lisNewQCProjectinfo)
+                {
+                    if (lisOldQCProjectinfo.Exists(x => x.ProjectName == item.ProjectName && x.SampleType == item.SampleType && x.TargetMean == item.TargetMean && x.TargetSD == item.TargetSD))
+                        i++;
+                    else if (lisOldQCProjectinfo.Exists(x => x.ProjectName == item.ProjectName && x.SampleType == item.SampleType))
+                        lstEditCalibProinfo.Add(item);//编辑的靶值和SD
+                    else
+                        lstNewCalibProinfo.Add(item);//新增的靶值和SD
+                }
+                count += (int)ism_SqlMap.QueryForObject("QCMaintainInfo.GetQCTaskCountByCondition", intQCID);
                 if (count > 0)
                 {
-                    return strResult = "该质控品已存在，无法完成编辑！";
+                    return "该质控品或项目已在任务列表中，不能对其进行修改！";
                 }
 
-                int intUpdate = ism_SqlMap.Update("QCMaintainInfo." + strDBMethod, ht);
-
-                if (intUpdate == 0)
+                if (newQCInfo.QCName == oldQCInfo.QCName && newQCInfo.HorizonLevel == oldQCInfo.HorizonLevel &&
+                    newQCInfo.LotNum == oldQCInfo.LotNum && newQCInfo.Pos == oldQCInfo.Pos &&
+                    newQCInfo.Manufacturer == oldQCInfo.Manufacturer && newQCInfo.InvalidDate == oldQCInfo.InvalidDate && i == lisOldQCProjectinfo.Count)//只修改了靶值和SD
                 {
-                    return strResult = "编辑失败！";
-                }
-                try
-                {
-                    // 1.删除之前的数据（质控对应的生化项目）
-                    ism_SqlMap.Delete("QCMaintainInfo.DeleteQCRelateProInfoByQCID", intQCID);
-                    // 2.新增新的数据
-                    foreach (QCRelationProjectInfo qcProInfo in lstQCRelationProInfo)
+                    foreach (var item in lstNewCalibProinfo)
                     {
-                        qcProInfo.QCID = intQCID;
-                        ism_SqlMap.Insert("QCMaintainInfo.AddQCRelationProject", qcProInfo);
+                        // values (#ProjectName#, #SampleType#, #QCID#, #TargetMean#, #TargetSD#, #Target2SD#, #Target3SD#)
+                        item.QCID = intQCID;
+                        ism_SqlMap.Insert("QCMaintainInfo.AddQCRelationProject", item);
+                    }
+                    return strResult;
+                }
+                else
+                {
+                    if (newQCInfo.QCName == oldQCInfo.QCName)
+                    {
+
+                        hashtable.Clear();
+                        hashtable.Add("QCName", newQCInfo.QCName);
+                        hashtable.Add("Pos", newQCInfo.Pos);
+                        hashtable.Add("Manufacturer", newQCInfo.Manufacturer);
+                        hashtable.Add("LotNum", newQCInfo.LotNum);
+                        hashtable.Add("InvalidDate", newQCInfo.InvalidDate);
+                        hashtable.Add("HorizonLevel", newQCInfo.HorizonLevel);
+                        hashtable.Add("OldQCID", intQCID);
+                        //修改质控品信息
+                        ism_SqlMap.Update("QCMaintainInfo.EditQualityControl", hashtable);
+                    }
+                    else
+                    {
+                        int rows = (int)ism_SqlMap.QueryForObject("QCMaintainInfo.GetQCByCondition", newQCInfo.QCName);
+                        if (rows > 0)
+                        {
+                            return strResult = "质控品名称已存在！";
+                        }
+                        else
+                        {
+                            hashtable.Clear();
+                            hashtable.Add("QCName", newQCInfo.QCName);
+                            hashtable.Add("Pos", newQCInfo.Pos);
+                            hashtable.Add("Manufacturer", newQCInfo.Manufacturer);
+                            hashtable.Add("LotNum", newQCInfo.LotNum);
+                            hashtable.Add("InvalidDate", newQCInfo.InvalidDate);
+                            hashtable.Add("HorizonLevel", newQCInfo.HorizonLevel);
+                            hashtable.Add("OldQCID", intQCID);
+                            //修改质控品信息
+                            ism_SqlMap.Update("QCMaintainInfo.EditQualityControl", hashtable);
+                        }
+                    }
+
+                    if (lstEditCalibProinfo.Count > 0)
+                    {
+
+                        foreach (var item in lstEditCalibProinfo)
+                        {
+                            hashtable.Clear();
+                            hashtable.Add("TargetMean", item.TargetMean);
+                            hashtable.Add("TargetSD", item.TargetSD);
+                            hashtable.Add("Target2SD", item.Target2SD);
+                            hashtable.Add("Target3SD", item.Target3SD);
+                            hashtable.Add("ProjectName", item.ProjectName);
+                            hashtable.Add("QCID", intQCID);
+                            //修改校准品项目信息对应的校准品浓度
+                            ism_SqlMap.Update("QCMaintainInfo.UpdateQCProjectInfo", hashtable);
+                        }
+                    }
+                    if (lstNewCalibProinfo.Count > 0)
+                    {
+                        foreach (var item in lstNewCalibProinfo)
+                        {
+
+                            item.QCID = intQCID;
+                            ism_SqlMap.Insert("QCMaintainInfo.AddQCRelationProject", item);
+                        }
                     }
                 }
-                catch (Exception ex)
-                {
-                    LogInfo.WriteErrorLog("EditQualityControl(string strDBMethod, QualityControlInfo oldQCInfo, QualityControlInfo newQCInfo, List<QCRelationProjectInfo> lstQCRelationProInfo) ==" + ex.ToString(),Module.DAO);
-                    return "更新失败！";
-                }
-                strResult = "更新成功！";
             }
             catch (Exception e)
             {
                 LogInfo.WriteErrorLog("EditQualityControl(string strDBMethod, QualityControlInfo oldQCInfo, QualityControlInfo newQCInfo, List<QCRelationProjectInfo> lstQCRelationProInfo)==" + e.ToString(), Module.DAO);
+                return strResult = "质控品和项目信息修改失败！";
             }
-
             return strResult;
+
+
         }
 
         /// <summary>
@@ -157,7 +216,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryQCAllInfo(string strDBMethod)==" + e.ToString(), Module.DAO );
+                LogInfo.WriteErrorLog("QueryQCAllInfo(string strDBMethod)==" + e.ToString(), Module.DAO);
             }
             return lstQCInfos;
         }
@@ -179,7 +238,7 @@ namespace BioA.SqlMaps
                 //ht.Add("Manufacturer", qcInfo.Manufacturer);
                 //QualityControlInfo getQCInfo = ism_SqlMap.QueryForObject("QCMaintainInfo.QueryQCInfoByUnique", ht) as QualityControlInfo;
                 //if (getQCInfo != null)
-                qCRelatePros = (List<QCRelationProjectInfo>)ism_SqlMap.QueryForList<QCRelationProjectInfo>("QCMaintainInfo." + strDBMethod,qcInfo);
+                qCRelatePros = (List<QCRelationProjectInfo>)ism_SqlMap.QueryForList<QCRelationProjectInfo>("QCMaintainInfo." + strDBMethod, qcInfo);
             }
             catch (Exception e)
             {
@@ -188,7 +247,7 @@ namespace BioA.SqlMaps
             return qCRelatePros;
         }
 
-        
+
 
         public int EditQCRelateProInfo(string strDBMethod, QualityControlInfo QCInfo, List<QCRelationProjectInfo> lstQCRelationProInfo)
         {
@@ -424,13 +483,13 @@ namespace BioA.SqlMaps
                     qcInfo.HorizonLevel = qcResNewInfo.HorizonLevel;
                     qcInfo.Manufacturer = qcResNewInfo.Manufacturer;
                     int qCID = (int)ism_SqlMap.QueryForObject("QCMaintainInfo.QueryQualityControlQCID", qcInfo);
-                    
+
                     ht.Clear();
                     ht.Add("QCID", qCID);
                     ht.Add("ProjectName", qcResNewInfo.ProjectName);
                     ht.Add("SampleType", qcResNewInfo.SampleType);
                     int projectCount = (int)ism_SqlMap.QueryForObject("QCMaintainInfo.JudgeQCIsContainProject", ht);//JudgeQCResultForUserIsExist
-                    
+
                     if (projectCount <= 0)
                     {
                         strResult = "此质控品不包含对应的项目，请使用质控品包含的项目！";
@@ -463,9 +522,9 @@ namespace BioA.SqlMaps
                             strResult = "添加成功！";
                         }
                     }
-                    
+
                 }
-                
+
             }
             catch (Exception e)
             {
@@ -566,21 +625,21 @@ namespace BioA.SqlMaps
             {
                 lstQCRelationProjects = (List<QCRelationProjectInfo>)ism_SqlMap.QueryForList<QCRelationProjectInfo>("QCMaintainInfo." + strDBMethod, null);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogInfo.WriteErrorLog("GetQCRelationProjectInfo(string strDBMethod) == " + ex.ToString(), Module.QualityControl);
             }
             return lstQCRelationProjects;
         }
 
-        public List<QCResultForUIInfo>  QueryQCResultForQCGraphics(string strDBMethod, QCResultForUIInfo qcResForUIInfo)
+        public List<QCResultForUIInfo> QueryQCResultForQCGraphics(string strDBMethod, QCResultForUIInfo qcResForUIInfo)
         {
             List<QCResultForUIInfo> lstQCResForUIInfo = new List<QCResultForUIInfo>();
 
             try
             {
                 lstQCResForUIInfo = (List<QCResultForUIInfo>)ism_SqlMap.QueryForList<QCResultForUIInfo>("QCResultInfo." + strDBMethod, qcResForUIInfo);
-                }
+            }
             catch (Exception e)
             {
                 LogInfo.WriteErrorLog("Dictionary<string, List<float>> QueryQCResultForQCGraphics(string strDBMethod, QCResultForUIInfo qcResForUIInfo)==" + e.ToString(), Module.DAO);
@@ -676,7 +735,7 @@ namespace BioA.SqlMaps
                         ht.Add("SampleNum", qcTaskInfo.SampleNum);
                         ht.Add("ProjectName", qcTaskInfo.ProjectName);
                         ht.Add("SampleType", qcTaskInfo.SampleType);
-                        ht.Add("QCID",qcTaskInfo.QCID);
+                        ht.Add("QCID", qcTaskInfo.QCID);
                         ht.Add("SampleCreateTime", qcTaskInfo.CreateDate);
                         ism_SqlMap.Insert("QCResultInfo.AddQualityControlResult", ht);
                     }
@@ -817,7 +876,7 @@ namespace BioA.SqlMaps
                     intSampleNum = lstNums[lstNums.Count - 1];
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 LogInfo.WriteProcessLog("QueryBigestCalibCTaskInfoForToday(string strDBMethod)==" + e.ToString(), Module.DAO);
             }
@@ -879,7 +938,7 @@ namespace BioA.SqlMaps
         /// <param name="DeletereagentSettingsInfo"></param>
         public void DeletereagentStateInfoR1R2(string strDBMethod, ReagentSettingsInfo DeletereagentSettingsInfo)
         {
-            
+
             try
             {
                 Hashtable hashTable = new Hashtable();
@@ -892,7 +951,7 @@ namespace BioA.SqlMaps
             {
                 LogInfo.WriteErrorLog("DeleteDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.DAO);
             }
-           
+
         }
         /// <summary>
         /// 根据项目名称修改试剂R1R2表中试剂2对应的数据
@@ -931,7 +990,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                
+
             }
             return reagentR1AndR2;
         }
@@ -944,7 +1003,7 @@ namespace BioA.SqlMaps
 
                 hashTable.Add("ReagentName", DeletereagentSettingsInfo.ReagentName);
 
-                int count= ism_SqlMap.Delete("ReagentInfo." + strDBMethod, hashTable);
+                int count = ism_SqlMap.Delete("ReagentInfo." + strDBMethod, hashTable);
             }
             catch (Exception e)
             {
@@ -1065,7 +1124,7 @@ namespace BioA.SqlMaps
                     ht.Add("Manufacturer", dataConfig.Manufacturer);
                     ht.Add("Pos", dataConfig.Pos);
                     ism_SqlMap.Insert("Calibrator." + strDBMethod, ht);
-                   
+
                     for (int i = 0; i < dataConfig1.Count; i++)
                     {
                         ht.Clear();
@@ -1078,7 +1137,7 @@ namespace BioA.SqlMaps
                 }
                 else
                 {
-                   
+
                     strResult = "你添加的校准品名称已存在！";
                 }
             }
@@ -1087,7 +1146,7 @@ namespace BioA.SqlMaps
                 LogInfo.WriteErrorLog("AddCalibratorinfo(string strDBMethod, Calibratorinfo dataConfig, List<CalibratorProjectinfo> dataConfig1)==" + e.ToString(), Module.DAO);
                 strResult = "添加校准品失败！";
             }
-            
+
             return strResult;
         }
 
@@ -1138,7 +1197,7 @@ namespace BioA.SqlMaps
             try
             {
                 Hashtable has = new Hashtable();
-                foreach(CalibratorProjectinfo calibPro in lstCalibProjectInfo)
+                foreach (CalibratorProjectinfo calibPro in lstCalibProjectInfo)
                 {
                     has.Clear();
                     has.Add("ProjectName", calibPro.ProjectName);
@@ -1157,7 +1216,7 @@ namespace BioA.SqlMaps
                         has.Add("samType", lstCalibProjectInfo[i].SampleType);
                         strResult += (int)ism_SqlMap.QueryForObject("Calibrator.DeleteCalibratorProjectRI", has);
                     }
-                    if(strResult > 0)
+                    if (strResult > 0)
                         strReturn = "删除成功！";
                     else
                         strReturn = "删除失败！";
@@ -1181,7 +1240,7 @@ namespace BioA.SqlMaps
         /// <param name="p2">校准品名称</param>
         /// <param name="lisEditCalibratorProjectinfo">访问数据库项目信息参数</param>
         /// <returns>返回成功或者失败</returns>
-        
+
         public string EditCalibratorinfo(string strDBMethod, Calibratorinfo newCalibinfo, Calibratorinfo oldCalibinfo, List<CalibratorProjectinfo> lisNewCalibratorProjectinfo, List<CalibratorProjectinfo> lisOldCalibratorProjectinfo)
         {
             string updateCalibResult = "校准品和项目信息修改成功！";
@@ -1200,13 +1259,13 @@ namespace BioA.SqlMaps
                     if (lisOldCalibratorProjectinfo.Exists(x => x.ProjectName == item.ProjectName && x.SampleType == item.SampleType && x.CalibConcentration == item.CalibConcentration))
                         i++;
                     else if (lisOldCalibratorProjectinfo.Exists(x => x.ProjectName == item.ProjectName && x.SampleType == item.SampleType))
-                        lstEditCalibProinfo.Add(item);
+                        lstEditCalibProinfo.Add(item);//编辑的浓度
                     else
-                        lstNewCalibProinfo.Add(item);
+                        lstNewCalibProinfo.Add(item);//新增的浓度
                 }
                 if (newCalibinfo.CalibName == oldCalibinfo.CalibName && newCalibinfo.Pos == oldCalibinfo.Pos &&
                     newCalibinfo.InvalidDate == oldCalibinfo.InvalidDate && newCalibinfo.LotNum == oldCalibinfo.LotNum &&
-                    newCalibinfo.Manufacturer == oldCalibinfo.Manufacturer && i == lisOldCalibratorProjectinfo.Count)
+                    newCalibinfo.Manufacturer == oldCalibinfo.Manufacturer && i == lisOldCalibratorProjectinfo.Count)//只修改了浓度
                 {
                     foreach (var item in lstNewCalibProinfo)
                     {
@@ -1230,8 +1289,8 @@ namespace BioA.SqlMaps
                     }
                     else
                     {
-                        if (newCalibinfo.CalibName == oldCalibinfo.CalibName && newCalibinfo.Pos == oldCalibinfo.Pos ||
-                                    newCalibinfo.LotNum != oldCalibinfo.LotNum || newCalibinfo.InvalidDate != oldCalibinfo.InvalidDate || newCalibinfo.Manufacturer != oldCalibinfo.Manufacturer)
+                        if (newCalibinfo.CalibName == oldCalibinfo.CalibName && newCalibinfo.Pos == oldCalibinfo.Pos &&
+                            (newCalibinfo.LotNum != oldCalibinfo.LotNum || newCalibinfo.InvalidDate != oldCalibinfo.InvalidDate || newCalibinfo.Manufacturer != oldCalibinfo.Manufacturer))
                         {
                             hashtable.Clear();
                             hashtable.Add("CalibName", oldCalibinfo.CalibName);
@@ -1245,6 +1304,14 @@ namespace BioA.SqlMaps
                         }
                         else if (newCalibinfo.CalibName != oldCalibinfo.CalibName || newCalibinfo.Pos != oldCalibinfo.Pos)
                         {
+                            if (newCalibinfo.CalibName != oldCalibinfo.CalibName)
+                            {
+                                int rows = (int)ism_SqlMap.QueryForObject("Calibrator.GetCalibCountByCondition", newCalibinfo.CalibName);
+                                if (rows > 0)
+                                {
+                                    return updateCalibResult = "校准品名称已存在！";
+                                }
+                            }
                             IsUpdateCalibName = true;
                             hashtable.Clear();
                             hashtable.Add("CalibName", oldCalibinfo.CalibName);
@@ -1298,51 +1365,7 @@ namespace BioA.SqlMaps
                         }
                     }
                 }
-                //foreach(CalibratorProjectinfo calibPro in lisEditCalibratorProjectinfo)
-                //{
-                //    hashtable.Clear();
-                //    hashtable.Add("ProjectName", calibPro.ProjectName);
-                //    hashtable.Add("SampleType", calibPro.SampleType);
-                //    paramResult += (int)ism_SqlMap.QueryForObject("Calibrator.QueryCalibParamProInfoCout", hashtable);
-                //}
-                //if (paramResult == 0)
-                //{
-                //    //删除校准品对应的项目信息
-                //    ism_SqlMap.Delete("Calibrator.DeleteCalibratorProject", p2);
 
-                //    hashtable.Clear();
-                //    hashtable.Add("CalibName", Editcalibratorinfo.CalibName);
-                //    lstCalibratorProjectinfo1 = (List<CalibratorProjectinfo>)ism_SqlMap.QueryForList<CalibratorProjectinfo>("Calibrator.QueryCalibratorProjectinfoByCalibName", hashtable);
-                //    if (lstCalibratorProjectinfo1.Count == 0)
-                //    {
-                //        hashtable.Clear();
-                //        hashtable.Add("Pos", Editcalibratorinfo.Pos);
-                //        hashtable.Add("Manufacturer", Editcalibratorinfo.Manufacturer);
-                //        hashtable.Add("LotNum", Editcalibratorinfo.LotNum);
-                //        hashtable.Add("InvalidDate", Editcalibratorinfo.InvalidDate);
-                //        hashtable.Add("CalibName", Editcalibratorinfo.CalibName);
-                //        hashtable.Add("CalibNameOld", p2);
-                //        //更新校准品信息
-                //        ism_SqlMap.Update("Calibrator." + strDBMethod, hashtable);
-
-                //        for (int i = 0; i < lisEditCalibratorProjectinfo.Count; i++)
-                //        {
-                //            hashtable.Clear();
-                //            hashtable.Add("CalibConcentration", lisEditCalibratorProjectinfo[i].CalibConcentration);
-                //            hashtable.Add("SampleType", lisEditCalibratorProjectinfo[i].SampleType);
-                //            hashtable.Add("CalibName", lisEditCalibratorProjectinfo[i].CalibName);
-                //            hashtable.Add("ProjectName", lisEditCalibratorProjectinfo[i].ProjectName);
-                //            //插入校准品对应的项目信息
-                //            ism_SqlMap.Insert("Calibrator.AddCalibratorProjectinfo", hashtable);
-                //        }
-                //    }
-                //    else
-                //    {
-                //        updateCalibResult = "您修改的校准品名称已经存在！";
-                //    }
-                //}
-                //else
-                //    updateCalibResult = "改校准品已被使用！";
             }
             catch (Exception e)
             {
@@ -1457,12 +1480,12 @@ namespace BioA.SqlMaps
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogInfo.WriteErrorLog("UpdateCalibractionParamInfo(List<CalibratorProjectinfo> lstCalibProInfo, Calibratorinfo oldCalibinfo)==" + ex.ToString(), Module.QualityControl);
             }
         }
-        
+
         //public int EditCalibratorProjectinfo (string strDBMethod, List<CalibratorProjectinfo> lisEditCalibratorProjectinfo, string p2)
         //{
         //    int intUpdate = 0;
@@ -1501,7 +1524,7 @@ namespace BioA.SqlMaps
                 //ism_SqlMap.QueryForList<CalibrationResultinfo>("Calibrator." + strDBMethod, null);
                 lstCalibrationResultinfo = (List<CalibrationResultinfo>)ism_SqlMap.QueryForList<CalibrationResultinfo>("Calibrator." + strDBMethod, null);
 
-                
+
             }
             catch (Exception e)
             {
@@ -1571,14 +1594,14 @@ namespace BioA.SqlMaps
             {
                 LogInfo.WriteErrorLog("DeleteDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.DAO);
             }
-           if (count>0)
-           {
-               return "删除成功！";
-           }
-            else 
-           {
+            if (count > 0)
+            {
+                return "删除成功！";
+            }
+            else
+            {
                 return "删除失败！";
-           }
+            }
 
         }
         /// <summary>
@@ -1679,8 +1702,8 @@ namespace BioA.SqlMaps
                     {
                         Hashtable hashTable = new Hashtable();
                         hashTable.Add("ProjectName", calibratorinfoTask[i].ProjectName);
-                        hashTable.Add("SampleType",calibratorinfoTask[i].SampleType);
-                        AssayProjectCalibrationParamInfo lstCalibrationParamInfo =ism_SqlMap.QueryForObject("Calibrator.SelectCalibrationParamInfo", hashTable) as AssayProjectCalibrationParamInfo;
+                        hashTable.Add("SampleType", calibratorinfoTask[i].SampleType);
+                        AssayProjectCalibrationParamInfo lstCalibrationParamInfo = ism_SqlMap.QueryForObject("Calibrator.SelectCalibrationParamInfo", hashTable) as AssayProjectCalibrationParamInfo;
                         lstCalibrationParamInfos.Add(lstCalibrationParamInfo);
                     }
                 }
@@ -1703,7 +1726,7 @@ namespace BioA.SqlMaps
                         assyCalibInfo.CalibrationTimes = lstCalibrationParamInfos[i].CalibrationTimes;
                         //根据校准名称存储校准任务和校准结果信息
                         CalibrationResultinfo calibResultInfo;
-                    
+
                         //插入校准任务中
                         Hashtable ht = new Hashtable();
                         ht.Add("ProjectName", lstCalibrationParamInfos[i].ProjectName);
@@ -1720,8 +1743,8 @@ namespace BioA.SqlMaps
                         //{
 
                         //}
-                    
-                   
+
+
                         foreach (CalibrationCurveInfo c in calibPorInfo)
                         {
                             if (lstCalibrationParamInfos[i].CalibName0 == c.CalibName)
@@ -1737,7 +1760,7 @@ namespace BioA.SqlMaps
                                 //保存校准任务和结果方法
                                 CreateTaskInfo(assyCalibInfo, calibResultInfo);
                                 calibResultInfo = null;
-                            
+
                             }
                             else if (lstCalibrationParamInfos[i].CalibName1 == c.CalibName)
                             {
@@ -1812,7 +1835,7 @@ namespace BioA.SqlMaps
                                 calibResultInfo = null;
                             }
                         }
-                    
+
 
                         //添加到校准拟合表
                         if (lstCalibrationParamInfos[i].CalibrationMethod != "K系数法")
@@ -1840,13 +1863,13 @@ namespace BioA.SqlMaps
                             ht2.Add("CalibState", CalibRemarks.NEW);
                             ism_SqlMap.Insert("Calibrator.AddSDTTableItem", ht2);
                         }
-                    }   
+                    }
 
                 }
                 catch (Exception e)
                 {
                     LogInfo.WriteErrorLog("AddCalibratorinfoTask" + e.ToString(), Module.DAO);
-               
+
                 }
             }
             //获取校准任务信息
@@ -1857,7 +1880,7 @@ namespace BioA.SqlMaps
                 ht.Add("CreateDate", DateTime.Now.Date.ToString());
                 ht.Add("SystemTime", DateTime.Now.Date.AddDays(1).ToString());
                 listcalibratorinfoTask = (List<CalibratorinfoTask>)ism_SqlMap.QueryForList<CalibratorinfoTask>("Calibrator." + strDBMethod, ht);
-                  
+
 
             }
             catch (Exception e)
@@ -1896,7 +1919,7 @@ namespace BioA.SqlMaps
                 //ht1.Add("CalibrationDT", calibResultInfo.CalibrationDT);
                 //ht1.Add("CalibConcentration", calibResultInfo.CalibConcentration);
                 //ism_SqlMap.Insert("Calibrator.AddCalibrationResultInfo", ht1);
-                
+
 
             }
             catch (Exception e)
@@ -1915,7 +1938,7 @@ namespace BioA.SqlMaps
                 ht.Add("SampleType", lstCalibProinfo.SampleType);
                 lstResults = (List<CalibratorProjectinfo>)ism_SqlMap.QueryForList<CalibratorProjectinfo>("Calibrator." + strDBMethod, ht);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 LogInfo.WriteErrorLog("QueryCalibProjectInfo(string strDBMethod, string lstCalibProinfo, string strSampleType)==" + e.ToString(), Module.DAO);
             }
@@ -1935,7 +1958,7 @@ namespace BioA.SqlMaps
             try
             {
                 Hashtable ht = new Hashtable();
-                
+
                 ht.Add("CreateDate", p2);
                 ht.Add("SystemTime", systime);
                 listcalibratorinfoTask = (List<CalibratorinfoTask>)ism_SqlMap.QueryForList<CalibratorinfoTask>("Calibrator." + strDBMethod, ht);
@@ -1966,9 +1989,9 @@ namespace BioA.SqlMaps
                 ht.Add("SampleType", dataConfig.SampleType);
                 ht.Add("CalibMethod", dataConfig.CalibMethod);
                 ht.Add("DrawDate", dataConfig.DrawDate);
-                ht.Add("IsUsed",dataConfig.IsUsed);
+                ht.Add("IsUsed", dataConfig.IsUsed);
                 int updateResult = ism_SqlMap.Update("Calibrator.SaveSDTTableItem", ht);
-                if(updateResult > 0)
+                if (updateResult > 0)
                 {
                     ism_SqlMap.Update("Calibrator.BeforeUpdateSDTTableItemIsUsedState", ht);
                 }

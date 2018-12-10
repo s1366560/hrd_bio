@@ -147,11 +147,11 @@ namespace BioA.UI
                 {
                     foreach (var keyValues in keyValuePairs)
                     {
-                        lstQualityControlInfo.RemoveAll(r => r.QCName == keyValues.Key.QCName && r.QCID == keyValues.Key.QCID);
+                        lstQualityControlInfo.RemoveAll(r => r.QCID == keyValues.Key.QCID);
                         lstQualityControlInfo.Add(keyValues.Key);
                         foreach (var value in keyValues.Value)
                         {
-                            lstQCRelationProjectInfo.RemoveAll( p => p.QCID == value.QCID && p.QCName == value.QCName);
+                            lstQCRelationProjectInfo.RemoveAll( p => p.QCID == value.QCID && p.ProjectName == value.ProjectName);
                             lstQCRelationProjectInfo.Add(value);
                         }
                     }
@@ -285,7 +285,12 @@ namespace BioA.UI
                     else
                     {
                         qcMaintainDic.Clear();
+                        //获取质控品信息对应的所有项目信息
+                        qcMaintainDic.Add("QueryRelativelyProjectByQCInfo", null);
+                        //获取所有质控信息
                         qcMaintainDic.Add("QueryQCAllInfo", null);
+                        //获取所有项目信息
+                        qcMaintainDic.Add("QueryAssayProAllInfo", new object[] { "" });
                         SendToServices(qcMaintainDic);
                         MessageBox.Show("删除成功！");
                     }

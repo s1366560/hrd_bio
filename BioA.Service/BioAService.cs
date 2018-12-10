@@ -800,7 +800,11 @@ namespace BioA.Service
                         //    LogInfo.WriteProcessLog(iEditQCProResult.ToString(), Module.WindowsService);
                         //    break;
                         case "EditQualityControl":
-                            string strQCRes = qcMaintian.EditQualityControl(kvp.Key, (QualityControlInfo)XmlUtility.Deserialize(typeof(QualityControlInfo), kvp.Value[0].ToString()), (QualityControlInfo)XmlUtility.Deserialize(typeof(QualityControlInfo), kvp.Value[1].ToString()), (List<QCRelationProjectInfo>)XmlUtility.Deserialize(typeof(List<QCRelationProjectInfo>), kvp.Value[2].ToString()));
+                            string strQCRes = qcMaintian.EditQualityControl(kvp.Key,
+                                (QualityControlInfo)XmlUtility.Deserialize(typeof(QualityControlInfo), kvp.Value[0].ToString()),
+                                (QualityControlInfo)XmlUtility.Deserialize(typeof(QualityControlInfo), kvp.Value[1].ToString()),
+                                (List<QCRelationProjectInfo>)XmlUtility.Deserialize(typeof(List<QCRelationProjectInfo>), kvp.Value[2].ToString()),
+                                (List<QCRelationProjectInfo>)XmlUtility.Deserialize(typeof(List<QCRelationProjectInfo>), kvp.Value[3].ToString()));
                             strMethodParam.Add(kvp.Key, strQCRes);
                             LogInfo.WriteProcessLog(strQCRes.ToString(), Module.WindowsService);
                             break;
@@ -1521,10 +1525,12 @@ namespace BioA.Service
         {
             lock (lockObj)
             {
-                ClientRegisterInfo client = ClientInfoCache.Instance.Clients.Find(x => x.ClientName == "BioA.UI");
+                ClientRegisterInfo client = null;
+                client = ClientInfoCache.Instance.Clients.Find(x => x.ClientName == "BioA.UI");
                 if (client == null)
                 {
                     this.RegisterClient("BioA.UI");
+                    client = ClientInfoCache.Instance.Clients.Find(x => x.ClientName == "BioA.UI");
                 }
                 //LogInfo.WriteProcessLog(kvp.ToString(), Module.WindowsService);
                 int i = ClientInfoCache.Instance.Clients.Count;

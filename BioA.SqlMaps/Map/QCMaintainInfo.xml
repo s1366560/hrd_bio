@@ -114,5 +114,17 @@
     <statement id="QueryQCAllInfoForUnLocked" resultClass="QualityControlInfo">
       select * from QualityControlTb where IsLocked = 0
     </statement>
+    <!-- 根据条件查询质控品任务表中是否存已下任务-->
+    <statement id="GetQCTaskCountByCondition" ResultClass="int" parameterClass="string" >
+      select count(*) from qctasktb where QCID=#value# and TaskState!=2
+    </statement>
+    <!-- 根据条件查询质控品名是否存在-->
+    <statement id="GetQCByCondition" ResultClass="int" parameterClass="string" >
+      select count(*) from qualitycontroltb where QCName=#value#
+    </statement>
+    <!-- 修改校准品对应项目信息中的浓度 -->
+    <statement id="UpdateQCProjectInfo" parameterClass="System.Collections.IDictionary">
+      update qcrelationprojecttb set TargetMean=#TargetMean#,TargetSD=#TargetSD#,Target2SD=#Target2SD#,Target3SD=#Target3SD# where ProjectName=#ProjectName# and QCID=#QCID#
+    </statement>
   </statements>
 </sqlMap>

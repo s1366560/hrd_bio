@@ -570,21 +570,20 @@ namespace BioA.UI
             {
                 if (MessageBox.Show(string.Format("确实要删除样本结果吗？"), "删除样本数据", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
-                    SampleResultInfo sampResultInfo = new SampleResultInfo();
                     foreach (int i in this.gridView2.GetSelectedRows())
                     {
+                        SampleResultInfo sampResultInfo = new SampleResultInfo();
                         sampResultInfo.ProjectName = this.gridView2.GetRowCellValue(i, "检测项目") as string;
-                        sampResultInfo.TCNO =Convert.ToInt32(this.gridView2.GetRowCellValue(i, "进程编号"));
-                        sampResultInfo.SampleCompletionTime = Convert.ToDateTime(this.gridView2.GetRowCellValue(i,"测试时间"));
+                        sampResultInfo.TCNO = Convert.ToInt32(this.gridView2.GetRowCellValue(i, "进程编号"));
                         lstResultInfo.Add(sampResultInfo);
-                        sampResultInfo = null;
+
                     }
                     int result = new WorkAreaApplyTask().DeleteSampleResult(lstResultInfo);
                     if (result > 0)
                     {
                         foreach (var item in lstResultInfo)
                         {
-                            lstSamResultInfo.RemoveAll(x => x.ProjectName == item.ProjectName && x.TCNO == item.TCNO && x.SampleCompletionTime == item.SampleCompletionTime);
+                            lstSamResultInfo.RemoveAll(x => x.ProjectName == item.ProjectName && x.TCNO == item.TCNO);
                         }
                         CheckResultDT.Rows.Clear();
                         foreach (SampleResultInfo s in lstSamResultInfo)
@@ -828,34 +827,32 @@ namespace BioA.UI
         {
             if (this.gridView2.GetSelectedRows().Count() > 0)
             {
-                if (MessageBox.Show("仅会对已完成的样本进行离散统计，确定统计吗？", "离散统计", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                List<float> resultValues = new List<float>();
+                foreach (int i in this.gridView2.GetSelectedRows())
                 {
-                    List<float> resultValues = new List<float>();
-                    foreach (int i in this.gridView2.GetSelectedRows())
+                    // 2018/9/2
+                    //string sampleState = this.gridView2.GetRowCellValue(i, "样本状态") as string;
+                    //if (sampleState == "已完成")
+                    //{
+                    float result = 0;
+                    string resultQuery = this.gridView2.GetRowCellValue(i, "检测结果") as string;
+                    try
                     {
-                        // 2018/9/2
-                        //string sampleState = this.gridView2.GetRowCellValue(i, "样本状态") as string;
-                        //if (sampleState == "已完成")
-                        //{
-                        float result = 0;
-                        string resultQuery = this.gridView2.GetRowCellValue(i, "检测结果") as string;
-                        try
-                        {
-                            result = float.Parse(resultQuery);
-                        }
-                        catch
-                        {
-                            result = 0;
-                        }
-
-                        resultValues.Add(result);
-                        //}
+                        result = float.Parse(resultQuery);
                     }
-                    DiscreteStatisticalInfo discreteStatisticalInfo = new DiscreteStatisticalInfo(sampleNum, resultValues);
-                    DiscreteStatisticsVM discreteStatisticsVM = new DiscreteStatisticsVM(discreteStatisticalInfo);
-                    discreteStatisticsVM.ShowDialog();
+                    catch
+                    {
+                        result = 0;
+                    }
+
+                    resultValues.Add(result);
+                    //}
                 }
+                DiscreteStatisticalInfo discreteStatisticalInfo = new DiscreteStatisticalInfo(sampleNum, resultValues);
+                DiscreteStatisticsVM discreteStatisticsVM = new DiscreteStatisticsVM(discreteStatisticalInfo);
+                discreteStatisticsVM.ShowDialog();
             }
+            
         }
 
         PrintType printType = null;

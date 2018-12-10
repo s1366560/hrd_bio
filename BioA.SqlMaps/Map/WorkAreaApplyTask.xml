@@ -179,9 +179,10 @@
       update RunningStateTb set WorkDisk = #value#
     </statement>
     <!-- 根据传入的条件删除样本结果信息 -->
-    <statement id="DeleteSampleResultInfo" parameterClass="System.Collections.IDictionary" resultClass="int">
-      delete from sampleresulttb where ProjectName=#ProjectName# and TCNO=#TCNO# and SampleCompletionTime=#SampleCompletionTime#
-    </statement>
+    <delete id="DeleteSampleResultInfo" parameterClass="string" resultClass="int">
+      <!--delete from sampleresulttb where ProjectName=#ProjectName# and TCNO=#TCNO#-->
+      $value$
+    </delete>
     
   </statements>
 </sqlMap>

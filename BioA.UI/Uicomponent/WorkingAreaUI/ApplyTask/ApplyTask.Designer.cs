@@ -88,7 +88,7 @@
             this.chkManuallyDilute.Name = "chkManuallyDilute";
             this.chkManuallyDilute.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkManuallyDilute.Properties.Appearance.Options.UseFont = true;
-            this.chkManuallyDilute.Properties.Caption = "是否手动稀释";
+            this.chkManuallyDilute.Properties.Caption = " 手动稀释";
             this.chkManuallyDilute.Size = new System.Drawing.Size(127, 21);
             this.chkManuallyDilute.TabIndex = 1;
             // 
@@ -98,7 +98,7 @@
             this.chkEmergency.Name = "chkEmergency";
             this.chkEmergency.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkEmergency.Properties.Appearance.Options.UseFont = true;
-            this.chkEmergency.Properties.Caption = "是否急诊";
+            this.chkEmergency.Properties.Caption = " 急 诊";
             this.chkEmergency.Size = new System.Drawing.Size(113, 21);
             this.chkEmergency.TabIndex = 2;
             // 

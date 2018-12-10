@@ -118,17 +118,14 @@ namespace BioA.UI
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pcThirdArea = new DevExpress.XtraEditors.PanelControl();
             this.pictureEdit3 = new DevExpress.XtraEditors.PictureEdit();
-            this.pictureEdit2 = new DevExpress.XtraEditors.PictureEdit();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.schedulerStorage1 = new DevExpress.XtraScheduler.SchedulerStorage(this.components);
             this.textEdit2 = new DevExpress.XtraEditors.TextEdit();
-            this.pictureEdit1 = new DevExpress.XtraEditors.PictureEdit();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.labUserName = new System.Windows.Forms.Label();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.label2 = new System.Windows.Forms.Label();
             this.lblSampleContainer = new DevExpress.XtraEditors.LabelControl();
+            this.pictureEdit2 = new DevExpress.XtraEditors.PictureEdit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.galleryDropDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.accordionControl1)).BeginInit();
@@ -137,11 +134,10 @@ namespace BioA.UI
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcThirdArea)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureEdit3.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.schedulerStorage1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit2.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // ribbonControl1
@@ -359,6 +355,7 @@ namespace BioA.UI
             // barButtonItem12
             // 
             this.barButtonItem12.ActAsDropDown = true;
+            this.barButtonItem12.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
             this.barButtonItem12.AllowDrawArrow = false;
             this.barButtonItem12.Caption = "安全管理";
             this.barButtonItem12.Id = 28;
@@ -369,6 +366,7 @@ namespace BioA.UI
             // barButtonItem13
             // 
             this.barButtonItem13.ActAsDropDown = true;
+            this.barButtonItem13.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
             this.barButtonItem13.AllowDrawArrow = false;
             this.barButtonItem13.Caption = "启动操作";
             this.barButtonItem13.Id = 29;
@@ -379,6 +377,7 @@ namespace BioA.UI
             // barButtonItem15
             // 
             this.barButtonItem15.ActAsDropDown = true;
+            this.barButtonItem15.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
             this.barButtonItem15.AllowDrawArrow = false;
             this.barButtonItem15.Caption = "停止操作";
             this.barButtonItem15.Id = 31;
@@ -389,6 +388,7 @@ namespace BioA.UI
             // barButtonItem16
             // 
             this.barButtonItem16.ActAsDropDown = true;
+            this.barButtonItem16.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
             this.barButtonItem16.AllowDrawArrow = false;
             this.barButtonItem16.Caption = "反应盘状态";
             this.barButtonItem16.Id = 32;
@@ -413,6 +413,7 @@ namespace BioA.UI
             // barButtonItem18
             // 
             this.barButtonItem18.ActAsDropDown = true;
+            this.barButtonItem18.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
             this.barButtonItem18.AllowDrawArrow = false;
             this.barButtonItem18.Caption = "LIS设置";
             this.barButtonItem18.Id = 34;
@@ -854,9 +855,8 @@ namespace BioA.UI
             // 
             // txtInfoPrompt
             // 
-            this.txtInfoPrompt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtInfoPrompt.EditValue = "机器正常启动";
-            this.txtInfoPrompt.Location = new System.Drawing.Point(841, 32);
+            this.txtInfoPrompt.Location = new System.Drawing.Point(317, 32);
             this.txtInfoPrompt.MenuManager = this.ribbonControl1;
             this.txtInfoPrompt.Name = "txtInfoPrompt";
             this.txtInfoPrompt.Properties.Appearance.BackColor = System.Drawing.SystemColors.Info;
@@ -865,16 +865,15 @@ namespace BioA.UI
             this.txtInfoPrompt.Properties.Appearance.Options.UseFont = true;
             this.txtInfoPrompt.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat;
             this.txtInfoPrompt.Properties.ReadOnly = true;
-            this.txtInfoPrompt.Size = new System.Drawing.Size(433, 40);
+            this.txtInfoPrompt.Size = new System.Drawing.Size(356, 40);
             this.txtInfoPrompt.TabIndex = 7;
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox2.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureBox2.ErrorImage")));
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
             this.pictureBox2.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox2.InitialImage")));
-            this.pictureBox2.Location = new System.Drawing.Point(796, 32);
+            this.pictureBox2.Location = new System.Drawing.Point(269, 33);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(42, 39);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -893,9 +892,10 @@ namespace BioA.UI
             // 
             // pictureEdit3
             // 
+            this.pictureEdit3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pictureEdit3.Cursor = System.Windows.Forms.Cursors.Default;
             this.pictureEdit3.EditValue = global::BioA.UI.Properties.Resources.未标题3_1;
-            this.pictureEdit3.Location = new System.Drawing.Point(293, 34);
+            this.pictureEdit3.Location = new System.Drawing.Point(896, 34);
             this.pictureEdit3.MenuManager = this.ribbonControl1;
             this.pictureEdit3.Name = "pictureEdit3";
             this.pictureEdit3.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
@@ -905,20 +905,6 @@ namespace BioA.UI
             this.pictureEdit3.Properties.ZoomAccelerationFactor = 1D;
             this.pictureEdit3.Size = new System.Drawing.Size(21, 38);
             this.pictureEdit3.TabIndex = 28;
-            // 
-            // pictureEdit2
-            // 
-            this.pictureEdit2.Cursor = System.Windows.Forms.Cursors.Default;
-            this.pictureEdit2.EditValue = global::BioA.UI.Properties.Resources.aaa;
-            this.pictureEdit2.Location = new System.Drawing.Point(1548, 33);
-            this.pictureEdit2.MenuManager = this.ribbonControl1;
-            this.pictureEdit2.Name = "pictureEdit2";
-            this.pictureEdit2.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.pictureEdit2.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
-            this.pictureEdit2.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Stretch;
-            this.pictureEdit2.Properties.ZoomAccelerationFactor = 1D;
-            this.pictureEdit2.Size = new System.Drawing.Size(37, 35);
-            this.pictureEdit2.TabIndex = 0;
             // 
             // pictureBox3
             // 
@@ -951,32 +937,12 @@ namespace BioA.UI
             this.textEdit2.Size = new System.Drawing.Size(191, 28);
             this.textEdit2.TabIndex = 20;
             // 
-            // pictureEdit1
-            // 
-            this.pictureEdit1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.pictureEdit1.EditValue = global::BioA.UI.Properties.Resources.微信图片_20170819143641;
-            this.pictureEdit1.Location = new System.Drawing.Point(266, 34);
-            this.pictureEdit1.MenuManager = this.ribbonControl1;
-            this.pictureEdit1.Name = "pictureEdit1";
-            this.pictureEdit1.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.pictureEdit1.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
-            this.pictureEdit1.Properties.ZoomAccelerationFactor = 1D;
-            this.pictureEdit1.Size = new System.Drawing.Size(531, 38);
-            this.pictureEdit1.TabIndex = 22;
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(236)))), ((int)(((byte)(239)))));
-            this.progressBar1.Location = new System.Drawing.Point(301, 50);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(458, 6);
-            this.progressBar1.TabIndex = 26;
-            // 
             // labUserName
             // 
+            this.labUserName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labUserName.AutoSize = true;
             this.labUserName.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labUserName.Location = new System.Drawing.Point(1592, 41);
+            this.labUserName.Location = new System.Drawing.Point(1384, 43);
             this.labUserName.Name = "labUserName";
             this.labUserName.Size = new System.Drawing.Size(64, 17);
             this.labUserName.TabIndex = 30;
@@ -992,29 +958,37 @@ namespace BioA.UI
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.Timer1_Timer);
             // 
-            // label2
-            // 
-            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label2.Location = new System.Drawing.Point(301, 53);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(95, 2);
-            this.label2.TabIndex = 32;
-            this.label2.Tag = "0";
-            // 
             // lblSampleContainer
             // 
-            this.lblSampleContainer.Appearance.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSampleContainer.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lblSampleContainer.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSampleContainer.Appearance.ForeColor = System.Drawing.Color.Gray;
             this.lblSampleContainer.Appearance.Options.UseFont = true;
+            this.lblSampleContainer.Appearance.Options.UseForeColor = true;
             this.lblSampleContainer.Appearance.Options.UseTextOptions = true;
             this.lblSampleContainer.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.lblSampleContainer.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
             this.lblSampleContainer.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.lblSampleContainer.Location = new System.Drawing.Point(213, 34);
+            this.lblSampleContainer.Location = new System.Drawing.Point(905, 34);
             this.lblSampleContainer.Name = "lblSampleContainer";
-            this.lblSampleContainer.Size = new System.Drawing.Size(82, 38);
+            this.lblSampleContainer.Size = new System.Drawing.Size(209, 38);
             this.lblSampleContainer.TabIndex = 34;
             this.lblSampleContainer.Text = "反应盘恒温水槽温度：";
+            // 
+            // pictureEdit2
+            // 
+            this.pictureEdit2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureEdit2.Cursor = System.Windows.Forms.Cursors.Default;
+            this.pictureEdit2.EditValue = global::BioA.UI.Properties.Resources.aaa;
+            this.pictureEdit2.Location = new System.Drawing.Point(1341, 36);
+            this.pictureEdit2.MenuManager = this.ribbonControl1;
+            this.pictureEdit2.Name = "pictureEdit2";
+            this.pictureEdit2.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.pictureEdit2.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
+            this.pictureEdit2.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Stretch;
+            this.pictureEdit2.Properties.ZoomAccelerationFactor = 1D;
+            this.pictureEdit2.Size = new System.Drawing.Size(37, 35);
+            this.pictureEdit2.TabIndex = 0;
             // 
             // Form1
             // 
@@ -1024,11 +998,8 @@ namespace BioA.UI
             this.ClientSize = new System.Drawing.Size(1701, 906);
             this.Controls.Add(this.pictureEdit3);
             this.Controls.Add(this.lblSampleContainer);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.labUserName);
             this.Controls.Add(this.pictureEdit2);
-            this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.pictureEdit1);
             this.Controls.Add(this.textEdit2);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pcThirdArea);
@@ -1054,11 +1025,10 @@ namespace BioA.UI
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcThirdArea)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureEdit3.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.schedulerStorage1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit2.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1150,19 +1120,16 @@ namespace BioA.UI
         private DevExpress.XtraScheduler.SchedulerStorage schedulerStorage1;
         private DevExpress.XtraBars.BarButtonItem barButtonItem18;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup12;
-        private DevExpress.XtraEditors.PictureEdit pictureEdit1;
-        private System.Windows.Forms.ProgressBar progressBar1;
-        private DevExpress.XtraEditors.PictureEdit pictureEdit2;
         private DevExpress.XtraEditors.PictureEdit pictureEdit3;
         private System.Windows.Forms.Label labUserName;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private DevExpress.XtraBars.BarButtonItem barButtonItem3;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Label label2;
         private DevExpress.XtraEditors.LabelControl lblSampleContainer;
         private System.Windows.Forms.PictureBox pictureBox2;
         private DevExpress.XtraBars.Ribbon.GalleryDropDown galleryDropDown1;
         private DevExpress.XtraBars.Navigation.AccordionControlElement ReagentStateElement4;
+        private DevExpress.XtraEditors.PictureEdit pictureEdit2;
     }
 }
 

@@ -745,17 +745,25 @@ namespace BioA.SqlMaps
         public int DeleteSampleResult(List<SampleResultInfo> sampleResultInfo)
         {
             int result = 0;
-            Hashtable hashtable = new Hashtable();
+            //Hashtable hashtable = new Hashtable();
+            string str = "";
+            for (int i = 1; i <= sampleResultInfo.Count; i++)
+            {
+                if (i == sampleResultInfo.Count)
+                {
+                    str += sampleResultInfo[i - 1].TCNO;
+                }
+                else
+                {
+
+                    str += (sampleResultInfo[i - 1].TCNO + ",");
+                }
+            }
             try
             {
-                foreach (var item in sampleResultInfo)
-                {
-                    hashtable.Add("ProjectName", item.ProjectName);
-                    hashtable.Add("TCNO", item.TCNO);
-                    hashtable.Add("SampleCompletionTime", item.SampleCompletionTime);
-                    result += ism_SqlMap.Delete("WorkAreaApplyTask.DeleteSampleResultInfo", hashtable);
-                    hashtable.Clear();
-                }
+                string strSql = string.Format("delete from sampleresulttb where ProjectName='{0}' and TCNO in ({1})", sampleResultInfo[0].ProjectName, str);
+                //hashtable.Add("TCNO", item.TCNO);
+                result = ism_SqlMap.Delete("WorkAreaApplyTask.DeleteSampleResultInfo", strSql);
             }
             catch (Exception ex)
             {
