@@ -11,6 +11,7 @@ using DevExpress.XtraEditors;
 using BioA.Common;
 using BioA.Common.IO;
 using DevExpress.XtraCharts;
+using BioA.Service;
 
 namespace BioA.UI
 {
@@ -212,11 +213,13 @@ namespace BioA.UI
             txtProjectState.Text = taskState;
             if (bAudit)
             {
-                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaDataCheck, new Dictionary<string, object[]>() { { "QueryCommonTaskReactionForAudit", new object[] { XmlUtility.Serializer(typeof(SampleResultInfo), sampleResInfo) } } });
+                TimeCourseInfo timeCourseInfoResult = new WorkingAreaDataCheck().QueryCommonTaskReaction("QueryCommonTaskReactionForAudit", sampleResInfo);
+                this.SampleReactionInfo = timeCourseInfoResult;
             }
             else
             {
-                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaDataCheck, new Dictionary<string, object[]>() { { "QueryTimeCourse", new object[] { XmlUtility.Serializer(typeof(SampleResultInfo), sampleResInfo) } } });
+                TimeCourseInfo timeCourseInfoResult = new WorkingAreaDataCheck().QueryCommonTaskReaction("QueryTimeCourse", sampleResInfo);
+                this.SampleReactionInfo = timeCourseInfoResult;
             }
         }
 

@@ -1056,7 +1056,9 @@ namespace BioA.SqlMaps
                 LogInfo.WriteErrorLog("UpdateWorkingDisk(int curDisk)==" + e.ToString(), Module.DAO);
             }
         }
-
+        /// <summary>
+        /// 清空昨天的所有项目任务
+        /// </summary>
         public void ClearNotTodaySchedule()
         {
             try
@@ -1073,7 +1075,9 @@ namespace BioA.SqlMaps
                 LogInfo.WriteErrorLog("ClearNotTodaySchedule()==" + e.ToString(), Module.DAO);
             }
         }
-
+        /// <summary>
+        /// 修改所有项目任务没有测试完成的状态和次数
+        /// </summary>
         public void SetUnfinishedScheduleContinue()
         {
             try
@@ -1123,7 +1127,9 @@ namespace BioA.SqlMaps
 
             return dateTime;
         }
-
+        /// <summary>
+        /// 修改机器运行状态表中的样本编号、进程编号
+        /// </summary>
         public void InitRunningState()
         {
             try
@@ -1140,7 +1146,9 @@ namespace BioA.SqlMaps
             }
 
         }
-
+        /// <summary>
+        /// 清空实时数据
+        /// </summary>
         public void ClearRTData()
         {
             try
@@ -1152,7 +1160,10 @@ namespace BioA.SqlMaps
                 LogInfo.WriteErrorLog("ClearRTData()==" + e.ToString(), Module.DAO);
             }
         }
-
+        /// <summary>
+        /// 修改机器运行状态
+        /// </summary>
+        /// <param name="bRunning"></param>
         public void UpdateIsRunning(bool bRunning)
         {
             try
@@ -1164,7 +1175,9 @@ namespace BioA.SqlMaps
                 LogInfo.WriteErrorLog("UpdateIsRunning(bool bRunning)==" + e.ToString(), Module.DAO);
             }
         }
-
+        /// <summary>
+        /// 删除样本任务
+        /// </summary>
         public void InitSMPCalItems()
         {
             try

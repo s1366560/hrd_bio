@@ -2105,27 +2105,29 @@ namespace BioA.SqlMaps
         /// <param name="strDBMethod"></param>
         /// <param name="calibrationReactionProcess"></param>
         /// <returns></returns>
-        public TimeCourseInfo QueryCalibrationReactionProcess(string strDBMethod, TimeCourseInfo timeCourse)
+        public TimeCourseInfo QueryCalibrationReactionProcess(string strDBMethod, int tcno, string calibrationDT)
         {
-            TimeCourseInfo lstCalibrationReactionProcess = new TimeCourseInfo();
+            TimeCourseInfo timeCourseInfoResult = null;
             try
             {
-                Hashtable ht = new Hashtable();
-                //ht.Add("ProjectName", calibrationReactionProcess.ProjectName);
-                //ht.Add("SampleType", calibrationReactionProcess.SampleType);
-                //ht.Add("CalibMethod", calibrationReactionProcess.CalibMethod);
-                //listString = (List<string>)ism_SqlMap.QueryForList<string>("PLCDataInfo.GetCalibrationResultInfo", ht);
-                ht.Add("TimeCourseNO", timeCourse.TimeCourseNo);
-                ht.Add("CUVNO", timeCourse.CUVNO);
-                lstCalibrationReactionProcess = (TimeCourseInfo)ism_SqlMap.QueryForObject("PLCDataInfo." + strDBMethod, ht);
+                string str = string.Format("select * from timecoursetb where TimeCourseNO = '{0}' and CONVERT(varchar(50),DrawDate, 120) like '%{1}%'", tcno, calibrationDT);
+                timeCourseInfoResult = (TimeCourseInfo)ism_SqlMap.QueryForObject("PLCDataInfo." + strDBMethod,
+                    str);
+                if (timeCourseInfoResult != null)
+                {
+                    return timeCourseInfoResult;
+                }
+                timeCourseInfoResult = (TimeCourseInfo)ism_SqlMap.QueryForObject("PLCDataInfo.QueryTimeCourseBackUpInfo",
+                    string.Format("select * from timecourseBackUptb where TimeCourseNO = '{0}' and CONVERT(varchar(50),DrawDate, 120) like '%{1}%'", tcno, calibrationDT));
             }
             catch (Exception e)
             {
                 LogInfo.WriteErrorLog("QueryCalibratorinfo(string strDBMethod)==" + e.ToString(), Module.DAO);
             }
 
-            return lstCalibrationReactionProcess;
+            return timeCourseInfoResult;
         }
+
         /// <summary>
         /// 获取校准结果信息和比色杯编号
         /// </summary>

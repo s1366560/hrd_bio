@@ -530,8 +530,8 @@ namespace BioA.PLCController
 
                 //if (SampleSer.GetSampleCount() == 0)
                 //{
-                    //SMPPOSMgr.ClearAllSMPPositions();
-                    myBatis.InitRunningState();
+                //SMPPOSMgr.ClearAllSMPPositions();
+                myBatis.InitRunningState();
                 //}
             }
 
@@ -570,7 +570,9 @@ namespace BioA.PLCController
 
             Console.WriteLine(@"Finish initializing data!");
         }
-
+        /// <summary>
+        /// 检查定标曲线有效期
+        /// </summary>
         public void CheckSDTTableItemValidDay()
         {
             ProcessInvalid(myBatis.QuerySDTTableItemTb());
@@ -599,7 +601,9 @@ namespace BioA.PLCController
                 }
             }
         }
-
+        /// <summary>
+        /// 检查药物（试剂1、试剂2、清洗液、校准品、质控品）有效期
+        /// </summary>
         private void CheckDrugValidDay()
         {
             // 1.试剂过期检查
@@ -672,7 +676,9 @@ namespace BioA.PLCController
                 }
             }
         }
-
+        /// <summary>
+        /// 删除校准任务
+        /// </summary>
         void InitSDTSchedule()
         {
             Console.WriteLine(@"initializing the sdt schedule......");

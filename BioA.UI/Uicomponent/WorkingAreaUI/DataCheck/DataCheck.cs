@@ -469,14 +469,14 @@ namespace BioA.UI
                         MessageBox.Show(sender as string);
                     }
                     break;
-                case "QueryTimeCourse":
-                    TimeCourseInfo sampleReactionInfo = (TimeCourseInfo)XmlUtility.Deserialize(typeof(TimeCourseInfo), sender as string);
-                    reflectionMonitoring.SampleReactionInfo = sampleReactionInfo;
-                    break;
-                case "QueryCommonTaskReactionForAudit":
-                    TimeCourseInfo sampleReacInfoForAudit = (TimeCourseInfo)XmlUtility.Deserialize(typeof(TimeCourseInfo), sender as string);
-                    testAudit.SampleReactionInfo = sampleReacInfoForAudit;
-                    break;
+                //case "QueryTimeCourse":
+                //    TimeCourseInfo sampleReactionInfo = (TimeCourseInfo)XmlUtility.Deserialize(typeof(TimeCourseInfo), sender as string);
+                //    reflectionMonitoring.SampleReactionInfo = sampleReactionInfo;
+                //    break;
+                //case "QueryCommonTaskReactionForAudit":
+                //    TimeCourseInfo sampleReacInfoForAudit = (TimeCourseInfo)XmlUtility.Deserialize(typeof(TimeCourseInfo), sender as string);
+                //    testAudit.SampleReactionInfo = sampleReacInfoForAudit;
+                //    break;
                 case "BatchAuditSampleTest":
                     if ((sender as string) == "审核成功！")
                     {

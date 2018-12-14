@@ -241,12 +241,12 @@
       select count(*) from CalibratorinfoTaskTb where ProjectName=#ProjectName# and SampleType=#SampleType# and TaskState!=2
     </statement>
     <statement id="QueryCalibrationResultInfoAndTimeCUVNO" ResultClass="CalibrationResultinfo" parameterClass="System.Collections.IDictionary" >
-      select calib.*,t.CUVNO from calibrationresulttb calib left join sdttableitemtb sdt on calib.ProjectName = sdt.ProjectName and calib.SampleType=sdt.SampleType and calib.CalibMethod=sdt.CalibMethod 
-        and calib.CalibrationDT=sdt.DrawDate left join timecoursetb t on calib.TCNO=t.TimeCourseNO
+      select calib.* from calibrationresulttb calib left join sdttableitemtb sdt on calib.ProjectName = sdt.ProjectName and calib.SampleType=sdt.SampleType and calib.CalibMethod=sdt.CalibMethod 
+        and calib.CalibrationDT=sdt.DrawDate
           where sdt.ProjectName=#ProjectName# and sdt.SampleType=#SampleType# and sdt.CalibMethod=#CalibMethod# and sdt.CalibState='SUCCESSFUL' and sdt.IsUsed = 1
     </statement>
     <statement id="QueryKMethodCalibResultInfoOrTimeCUVNO" ResultClass="CalibrationResultinfo" parameterClass="System.Collections.IDictionary" >
-      select calib.*,t.CUVNO from calibrationresulttb calib left join timecoursetb t on calib.TCNO=t.TimeCourseNO
+      select calib.* from calibrationresulttb calib
       where calib.ProjectName=#ProjectName# and calib.SampleType=#SampleType# and calib.CalibMethod=#CalibMethod# and calib.CalibrationState='2';
     </statement>
     

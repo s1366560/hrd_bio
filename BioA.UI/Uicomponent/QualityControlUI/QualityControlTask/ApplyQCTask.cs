@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using BioA.Common;
 using BioA.Common.IO;
 using System.Threading;
+using BioA.Service;
 
 namespace BioA.UI
 {
@@ -147,41 +148,9 @@ namespace BioA.UI
             {
                 //显示质控编号和质控任务
                 case "QueryBigestQCTaskInfoForToday":
-                    this.BeginInvoke(new Action (() => 
-                        {
-                            List<QCTaskInfo> lstQCTask = (List<QCTaskInfo>)XmlUtility.Deserialize(typeof(List<QCTaskInfo>), sender as string);
-                            DataTable dt = new DataTable();
-                            dt.Columns.Add("顺序号");
-                            dt.Columns.Add("质控品位置");
-                            dt.Columns.Add("任务状态");
-                            foreach (QCTaskInfo qcTask in lstQCTask)
-                            {
-                                int sampNum =Convert.ToInt32(qcTask.SampleNum.Substring(1, 1));
-                                if (sampNum > intMaxSamNum)
-                                {
-                                    intMaxSamNum = sampNum;
-                                }
-                                string strState = "";
-                                switch (qcTask.TaskState)
-                                {
-                                    case 0:
-                                        strState = "待测";
-                                        break;
-                                    case 1:
-                                        strState = "执行中";
-                                        break;
-                                    case 2:
-                                        strState = "已完成";
-                                        break;
-                                    case 3:
-                                        strState = "被终止";
-                                        break;
-                                }
-                                dt.Rows.Add(new object[] { qcTask.SampleNum, qcTask.Position, strState });
-                            }
-                            this.lstvQCTask.DataSource = dt;
-                            txtSumpleNum.Text = "C" + (intMaxSamNum + 1).ToString();
-                        }));
+                    List<QCTaskInfo> lstQCTask = (List<QCTaskInfo>)XmlUtility.Deserialize(typeof(List<QCTaskInfo>), sender as string);
+                    this.DisplayTaskInfo(lstQCTask);    
+                    txtSumpleNum.Text = "C" + (intMaxSamNum + 1).ToString();
                     break;
                     //显示所有项目信息
                 case "QueryAssayProNameAllInfo":
@@ -239,24 +208,12 @@ namespace BioA.UI
                         //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryBigestQCTaskInfoForToday", null)));
 
                         //intMaxSamNum = intMaxSamNum + 1;
-                        this.Invoke(new EventHandler(delegate
-                        {
-                            //txtSumpleNum.Text = "C" + (intMaxSamNum + 1).ToString();
-                            flag = true;
-                            combSampleType.SelectedIndex = 1;
-                            combPosition.Text = "请选择";
-                            txtQCName.Text = "";
-                            txtLotNum.Text = "";
-                            txtQCConc.Text = "";
-                            txtManufacturer.Text = "";
-                            projectPage1.ResetControlState();
-                            projectPage2.ResetControlState();
-                            projectPage3.ResetControlState();
-                            lstQCRelateProject.Clear();
-                        })); 
+                        List<QCTaskInfo> lstQCTaskInfo = new QCTask().QueryBigestQCTaskInfoForToday("QueryBigestQCTaskInfoForToday");
+                        this.DisplayTaskInfo(lstQCTaskInfo);
+                        this.btnApply_Click(null,null);
                     }
                     break;
-                    //获取质控任务
+                    //获取质控任务。UI端已注释
                 case "QueryQCTaskForLstv":
                         BeginInvoke(new Action(() =>
                         {
@@ -338,6 +295,44 @@ namespace BioA.UI
                     break;
             }
         }
+        /// <summary>
+        /// 显示质控任务信息
+        /// </summary>
+        /// <param name="lstQCTask"></param>
+        private void DisplayTaskInfo(List<QCTaskInfo> lstQCTask)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("顺序号");
+            dt.Columns.Add("质控品位置");
+            dt.Columns.Add("任务状态");
+            foreach (QCTaskInfo qcTask in lstQCTask)
+            {
+                int sampNum = Convert.ToInt32(qcTask.SampleNum.Substring(1, 1));
+                if (sampNum > intMaxSamNum)
+                {
+                    intMaxSamNum = sampNum;
+                }
+                string strState = "";
+                switch (qcTask.TaskState)
+                {
+                    case 0:
+                        strState = "待测";
+                        break;
+                    case 1:
+                        strState = "执行中";
+                        break;
+                    case 2:
+                        strState = "已完成";
+                        break;
+                    case 3:
+                        strState = "被终止";
+                        break;
+                }
+                dt.Rows.Add(new object[] { qcTask.SampleNum, qcTask.Position, strState });
+            }
+            this.lstvQCTask.DataSource = dt;
+        }
+
         /// <summary>
         /// 保存任务
         /// </summary>
@@ -548,7 +543,11 @@ namespace BioA.UI
                 }
             }
         }
-
+        /// <summary>
+        /// 任务列表
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void lstvQCTask_Click(object sender, EventArgs e)
         {
             CommunicationEntity communicationEntity = new CommunicationEntity();

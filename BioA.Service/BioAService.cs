@@ -306,16 +306,16 @@ namespace BioA.Service
                             string strAuditRes = workAreaDataCheck.AuditSampleTest(kvp.Key, auditParam);
                             strMethodParam.Add(kvp.Key, strAuditRes);
                             break;
-                        case "QueryTimeCourse":
-                            SampleResultInfo sampleResInfo = XmlUtility.Deserialize(typeof(SampleResultInfo), kvp.Value[0].ToString()) as SampleResultInfo;
-                            TimeCourseInfo sampleReactionInfo = workAreaDataCheck.QueryCommonTaskReaction(kvp.Key, sampleResInfo);
-                            strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(TimeCourseInfo), sampleReactionInfo));
-                            break;
-                        case "QueryCommonTaskReactionForAudit":
-                            SampleResultInfo sampleResInfoForAudit = XmlUtility.Deserialize(typeof(SampleResultInfo), kvp.Value[0].ToString()) as SampleResultInfo;
-                            TimeCourseInfo sampleReacInfoForAudit = workAreaDataCheck.QueryCommonTaskReaction("QueryTimeCourse", sampleResInfoForAudit);
-                            strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(TimeCourseInfo), sampleReacInfoForAudit));
-                            break;
+                        //case "QueryTimeCourse":
+                        //    SampleResultInfo sampleResInfo = XmlUtility.Deserialize(typeof(SampleResultInfo), kvp.Value[0].ToString()) as SampleResultInfo;
+                        //    TimeCourseInfo sampleReactionInfo = workAreaDataCheck.QueryCommonTaskReaction(kvp.Key, sampleResInfo);
+                        //    strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(TimeCourseInfo), sampleReactionInfo));
+                        //    break;
+                        //case "QueryCommonTaskReactionForAudit":
+                        //    SampleResultInfo sampleResInfoForAudit = XmlUtility.Deserialize(typeof(SampleResultInfo), kvp.Value[0].ToString()) as SampleResultInfo;
+                        //    TimeCourseInfo sampleReacInfoForAudit = workAreaDataCheck.QueryCommonTaskReaction("QueryTimeCourse", sampleResInfoForAudit);
+                        //    strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(TimeCourseInfo), sampleReacInfoForAudit));
+                        //    break;
                         case "BatchAuditSampleTest":
                             List<string[]> lstBatchAuditParam = XmlUtility.Deserialize(typeof(List<string[]>), kvp.Value[0].ToString()) as List<string[]>;
                             string strBatchResult = workAreaDataCheck.BatchAuditSampleTest(kvp.Key, lstBatchAuditParam);
@@ -514,11 +514,11 @@ namespace BioA.Service
                         List<CalibrationResultinfo> Resultinfo = calibrator.QueryCalibrationResultinfo(kvp.Key, calibrationResultinfo);
                         strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<CalibrationResultinfo>), Resultinfo));
                         break;
-                    case "QueryCalibrationReactionProcess":
-                        TimeCourseInfo calibrationResultinfoProcess = XmlUtility.Deserialize(typeof(TimeCourseInfo), kvp.Value[0].ToString()) as TimeCourseInfo;
-                        TimeCourseInfo calibrationReactionProcessResult = calibrator.QueryCalibrationReactionProcess(kvp.Key, calibrationResultinfoProcess);
-                        strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(TimeCourseInfo), calibrationReactionProcessResult));
-                        break;
+                    //case "QueryCalibrationReactionProcess":
+                    //    TimeCourseInfo calibrationResultinfoProcess = XmlUtility.Deserialize(typeof(TimeCourseInfo), kvp.Value[0].ToString()) as TimeCourseInfo;
+                    //    TimeCourseInfo calibrationReactionProcessResult = calibrator.QueryCalibrationReactionProcess(kvp.Key, calibrationResultinfoProcess);
+                    //    strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(TimeCourseInfo), calibrationReactionProcessResult));
+                    //    break;
                     case "QueryCalibrationResultInfoAndTimeCUVNO":
                         CalibrationResultinfo calibrationResultinfoAndTimeCUVNO = XmlUtility.Deserialize(typeof(CalibrationResultinfo), kvp.Value[0].ToString()) as CalibrationResultinfo;
                         List<CalibrationResultinfo> calibrationResultsAndTimeCUVNO = calibrator.QueryCalibrationResultInfoAndTimeCUVNO(kvp.Key, calibrationResultinfoAndTimeCUVNO);

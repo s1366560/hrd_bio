@@ -235,12 +235,15 @@ namespace BioA.Service
 
             return lstCalibrationResultinfo = myBatis.QueryCalibrationResultinfo(strDBMethod, calibrationResultinfo);
         }
-
-        public TimeCourseInfo QueryCalibrationReactionProcess(string strDBMethod, TimeCourseInfo timeCourse)
+        /// <summary>
+        /// 获取校准结果的反应进程
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <param name="timeCourse"></param>
+        /// <returns></returns>
+        public TimeCourseInfo QueryCalibrationReactionProcess(string strDBMethod, int tcno, string calibrationDT)
         {
-            TimeCourseInfo lstCalibrationReactionProcess = new TimeCourseInfo();
-
-            return lstCalibrationReactionProcess = myBatis.QueryCalibrationReactionProcess(strDBMethod, timeCourse);
+            return myBatis.QueryCalibrationReactionProcess(strDBMethod, tcno, calibrationDT);
                
         }
         /// <summary>

@@ -200,7 +200,7 @@
     </update>
     <!-- 获取当天的故障信息总行数 -->
     <select id="GetTroubleInfoCount" parameterClass="string" resultClass="int">
-      select count(*) from troublelogtb where IsConfirm='0' and DateDiff(DrawDate,#value#)=0
+      select count(*) from troublelogtb where IsConfirm='0' and DateDiff(day,DrawDate,#value#)=0
     </select>
     
     <statement id="UpdateLatestCUVPanelTemperature" parameterClass="float">
@@ -305,19 +305,19 @@
       update RunningStateTb set WorkDisk=#value#
     </statement>
     <statement id="DeleteNotTodayTask" parameterClass="System.Collections.IDictionary">
-      delete from tasktb where DATEDIFF(#TargetDate#,tasktb.CreateDate)!=0
+      delete from tasktb where DATEDIFF(day,#TargetDate#,tasktb.CreateDate)!=0
     </statement>
     <statement id="DeleteNotTodayQCTask" parameterClass="System.Collections.IDictionary">
-      delete from QCTaskTb where DATEDIFF(#TargetDate#,CreateDate)!=0
+      delete from QCTaskTb where DATEDIFF(day,#TargetDate#,CreateDate)!=0
     </statement>
     <statement id="DeleteNotTodayCalibTask" parameterClass="System.Collections.IDictionary">
-      delete from CalibratorinfoTaskTb where DATEDIFF(#TargetDate#,CreateDate)!=0
+      delete from CalibratorinfoTaskTb where DATEDIFF(day,#TargetDate#,CreateDate)!=0
     </statement>
     <statement id="GetRunningDate" resultClass="string">
       select DrawDate from RunningStateTb
     </statement>
     <statement id="InitRunningState" parameterClass="System.Collections.IDictionary">
-      update RunningStateTb set WorkDisk='1',LastestSMPNO=#LastestSMPNO#,LastestTC='0',DrawDate=#DrawDate# where DATEDIFF(#TargetDate#,DrawDate)!=0
+      update RunningStateTb set WorkDisk='1',LastestSMPNO=#LastestSMPNO#,LastestTC='0',DrawDate=#DrawDate# where DATEDIFF(day,#TargetDate#,DrawDate)!=0
     </statement>
     <statement id="ClearRTData">
       delete from RealTimeCUVDataTb
@@ -326,7 +326,7 @@
       update RunningStateTb set MachineIsRunning=#value#
     </statement>
     <statement id="InitSMPCalItems" parameterClass="System.Collections.IDictionary">
-      delete from CalcTaskTb where DATEDIFF(#TargetDate#,CreateDate)!=0
+      delete from CalcTaskTb where DATEDIFF(day,#TargetDate#,CreateDate)!=0
     </statement>
     <statement id="GetLastestTC">
       select LastestTC from RunningStateTb
@@ -393,8 +393,11 @@
       select TCNO from SampleResultTb where SampleNum=#SampleNum# and ProjectName=#ProjectName# and SampleType=#SampleType# and SampleCompletionTime =#SampleCompletionTime#
     </statement>
     <statement id="QueryCalibrationReactionProcess" ResultClass="TimeCourseInfo" parameterClass="System.Collections.IDictionary" >
-      <!--select * from calibrationreactionprocesstb where ProjectName=#ProjectName# and CalibName=#CalibName# and SampleType=#SampleType#-->
-      select * from timecoursetb where TimeCourseNO=#TimeCourseNO# and CUVNO=#CUVNO#
+      <!--select * from timecoursetb where TimeCourseNO=#TimeCourseNO# and CUVNO=#CUVNO#-->
+      select * from timecoursetb where TimeCourseNO = #TimeCourseNO# and CONVERT(varchar(50),DrawDate, 120) like '%$DrawDate$%'
+    </statement>
+    <statement id="QueryTimeCourseBackUpInfo" ResultClass="TimeCourseInfo" parameterClass="System.Collections.IDictionary" >
+      select * from timecourseBackUptb where TimeCourseNO = #TimeCourseNO# and CONVERT(varchar(50),DrawDate, 120) like '%$DrawDate$%'
     </statement>
     <statement id="GetCalibrationResultInfo" ResultClass="string" parameterClass="System.Collections.IDictionary" >
       select TCNO from CalibrationResultTb where ProjectName=#ProjectName# and CalibMethod=#CalibMethod# and SampleType=#SampleType#

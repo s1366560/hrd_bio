@@ -217,7 +217,7 @@ namespace BioA.UI
                 btnNextSample.Enabled = true;
             }
 
-            string[] communicate = new string[] { txtSampleNum.Text, sampleInfo.CreateTime.ToString(), txtSampleType.Text };
+            string[] communicate = new string[] { txtSampleNum.Text, sampleInfo.CreateTime.ToString("yyyy-MM-dd HH:mm:ss.fff"), txtSampleType.Text };
             //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaDataCheck,
             //    XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryProjectResultForTestAudit", XmlUtility.Serializer(typeof(string[]), communicate))));
             //testAudtiDic.Clear();

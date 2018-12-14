@@ -487,30 +487,30 @@ namespace BioA.SqlMaps
         public TimeCourseInfo QueryCommonTaskReaction(string strMethodName, SampleResultInfo sampleResInfo)
         {
             //string sampleResultTCNO = "";
-            TimeCourseInfo timeCourseInfoResult = new TimeCourseInfo();
+            TimeCourseInfo timeCourseInfoResult = null;
             try
             {
-                Hashtable ht = new Hashtable();
-                //ht.Add("ProjectName", sampleResInfo.ProjectName);
-                //ht.Add("SampleNum", sampleResInfo.SampleNum);
-                //ht.Add("SampleType", sampleResInfo.SampleType);
-                //ht.Add("SampleCompletionTime", sampleResInfo.SampleCompletionTime);
-                // sampleResultTCNO = (string)ism_SqlMap.QueryForObject("PLCDataInfo.QuerySampleResultTCNO", ht);
-                //if (sampleResultTCNO != null && sampleResultTCNO != string.Empty)
-                //{
-                    //ht.Clear();
-                ht.Add("TimeCourseNO", sampleResInfo.TCNO);
-                ht.Add("BeginTime", sampleResInfo.SampleCreateTime.ToShortDateString());
-                ht.Add("EndTime", sampleResInfo.SampleCreateTime.AddDays(1).ToShortDateString());
-                timeCourseInfoResult = ism_SqlMap.QueryForObject("PLCDataInfo." + strMethodName, ht) as TimeCourseInfo;
-                //}
+                //获取 TimeCourseTb 43个点进程数据
+                timeCourseInfoResult = ism_SqlMap.QueryForObject("PLCDataInfo." + strMethodName,
+                    string.Format("select * from TimeCourseTb where TimeCourseNO='{}' and CONVERT(varchar(50),DrawDate, 120) like '%{1}%'", sampleResInfo.TCNO, sampleResInfo.SampleCreateTime.ToString("yyyy-MM-dd"))) as TimeCourseInfo;
+                if (timeCourseInfoResult != null)
+                {
+                    return timeCourseInfoResult;
+                }
+                //如果上面没有获取到数据就去 timecourseBackUptb 获取43个点进程数据
+                timeCourseInfoResult = ism_SqlMap.QueryForObject("PLCDataInfo." + strMethodName,
+                    string.Format("select * from timecourseBackUptb where TimeCourseNO='{}' and CONVERT(varchar(50),DrawDate, 120) like '%{1}%'", sampleResInfo.TCNO, sampleResInfo.SampleCreateTime.ToString("yyyy-MM-dd"))) as TimeCourseInfo;
+                if (timeCourseInfoResult != null)
+                {
+                    return timeCourseInfoResult;
+                }
             }
             catch (Exception e)
             {
                 LogInfo.WriteErrorLog("QueryCommonTaskReaction(string strMethodName, SampleResultInfo sampleResInfo)==" + e.ToString(), Module.DAO);
             }
 
-            return timeCourseInfoResult;
+            return null;
         }
 
         public string BatchAuditSampleTest(string strMethodName, List<string[]> lstBatchAuditParam)

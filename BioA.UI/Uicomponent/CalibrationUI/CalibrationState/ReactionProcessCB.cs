@@ -11,6 +11,7 @@ using DevExpress.XtraEditors;
 using DevExpress.XtraCharts;
 using BioA.Common;
 using BioA.Common.IO;
+using BioA.Service;
 
 namespace BioA.UI
 {
@@ -88,6 +89,7 @@ namespace BioA.UI
                 chartControl1.Series.Clear();
                 if (sampleReactionInfo != null)
                 {
+                    txtCuveNumValue.Text = sampleReactionInfo.CUVNO.ToString();
                     Series series = new Series("ReactionLine", ViewType.Line);
                     //series.LabelsVisibility = DevExpress.Utils.DefaultBoolean.True;//显示标注标签
                     if (sampleReactionInfo.Cuv1Wm != 0)
@@ -196,7 +198,7 @@ namespace BioA.UI
                 {
                     this.comBoxEditCalibName.Enabled = true;
                     this.comboBoxCalibTime.Enabled = true;
-                    this.comboBoxEditCuveNum.Enabled = true;
+                    this.comBoxProcessNumValue.Enabled = true;
                 }));
             }
         }
@@ -208,16 +210,16 @@ namespace BioA.UI
         private void comboBoxCalibTime_SelectedIndexChanged(object sender, EventArgs e)
         {
             //根据下拉选择的时间更新对应的比色杯编号
-            comboBoxEditCuveNum.Properties.Items.Clear();
-            comboBoxEditCuveNum.SelectedIndex = -1;
+            comBoxProcessNumValue.Properties.Items.Clear();
+            comBoxProcessNumValue.SelectedIndex = -1;
             foreach (CalibrationResultinfo cuvno in lstCalibrationResultInfo)
             {
                 if (comboBoxCalibTime.Text == cuvno.CalibrationDT.ToString())
                 {
-                    comboBoxEditCuveNum.Properties.Items.Add(cuvno.CUVNO);
+                    comBoxProcessNumValue.Properties.Items.Add(cuvno.TCNO);
                 }
             }
-            comboBoxEditCuveNum.SelectedIndex = 0;
+            comBoxProcessNumValue.SelectedIndex = 0;
             
 
         }
@@ -229,7 +231,9 @@ namespace BioA.UI
         private void comboBoxEditCuveNum_SelectedIndexChanged(object sender, EventArgs e)
         {
             //根据下拉框选择的比色表编号更新对应的校准信息
-            TimeCourseInfo timecuvno = new TimeCourseInfo();
+            //TimeCourseInfo timecuvno = new TimeCourseInfo();
+            int tcno = 0;
+            string strCalibrationDT = "";
             int TestNum = 0;
             foreach (CalibrationResultinfo calib in lstCalibrationResultInfo)
             {
@@ -237,20 +241,23 @@ namespace BioA.UI
                 {
                     TestNum++;
                 }
-                if(comBoxEditCalibName.Text == calib.CalibratorName && Convert.ToInt32(comboBoxEditCuveNum.Text) == calib.CUVNO)
+                if (comBoxEditCalibName.Text == calib.CalibratorName && Convert.ToInt32(comBoxProcessNumValue.Text) == calib.TCNO && comboBoxCalibTime.Text == calib.CalibrationDT.ToString())
                 {
-                    timecuvno.TimeCourseNo = calib.TCNO;
-                    timecuvno.CUVNO = calib.CUVNO;
+                    tcno = calib.TCNO;
+                    strCalibrationDT = calib.CalibrationDT.ToString("yyyy-MM-dd");
+
                 }
             }
             comboBoxNum.Text = TestNum.ToString();
-            this.comBoxEditCalibName.Enabled= false;
+            this.comBoxEditCalibName.Enabled = false;
             this.comboBoxCalibTime.Enabled = false;
-            this.comboBoxEditCuveNum.Enabled = false;
-            if (CalibrationTimeCoursetEvent != null)
-            {
-                CalibrationTimeCoursetEvent(new Dictionary<string, object[]>() { { "QueryCalibrationReactionProcess", new object[] { XmlUtility.Serializer(typeof(TimeCourseInfo), timecuvno) } } });
-            }
+            this.comBoxProcessNumValue.Enabled = false;
+            //if (CalibrationTimeCoursetEvent != null)
+            //{
+            //    CalibrationTimeCoursetEvent(new Dictionary<string, object[]>() { { "QueryCalibrationReactionProcess", new object[] { XmlUtility.Serializer(typeof(TimeCourseInfo), timecuvno) } } });
+            //}
+            TimeCourseInfo timeCourseInfoResult = new Calibrator().QueryCalibrationReactionProcess("QueryCalibrationReactionProcess", tcno, strCalibrationDT);
+            this.SampleReactionInfo = timeCourseInfoResult;
         }
         /// <summary>
         /// 校准品名称（下拉列表）改变事件
@@ -259,15 +266,15 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void comBoxEditCalibName_SelectedIndexChanged(object sender, EventArgs e)
         {
-            comboBoxEditCuveNum.Properties.Items.Clear();
+            comBoxProcessNumValue.Properties.Items.Clear();
             for (int i = 0; i < lstCalibrationResultInfo.Count; i++)
             {
                 if (comboBoxCalibTime.Text == lstCalibrationResultInfo[i].CalibrationDT.ToString() && comBoxEditCalibName.Text == lstCalibrationResultInfo[i].CalibratorName)
                 {
-                    comboBoxEditCuveNum.Properties.Items.Add(lstCalibrationResultInfo[i].CUVNO);
+                    comBoxProcessNumValue.Properties.Items.Add(lstCalibrationResultInfo[i].TCNO);
                 }
             }
-            comboBoxEditCuveNum.SelectedIndex = 0;
+            comBoxProcessNumValue.SelectedIndex = 0;
         }
     }
 }
