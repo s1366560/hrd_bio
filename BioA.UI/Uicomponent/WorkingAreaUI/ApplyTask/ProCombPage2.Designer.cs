@@ -56,8 +56,7 @@
             this.simpleButton10.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.simpleButton10.Name = "simpleButton10";
             this.simpleButton10.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton10.TabIndex = 85;
-            this.simpleButton10.Click += new System.EventHandler(this.simpleButton_Click);
+            this.simpleButton10.TabIndex = 101;
             // 
             // simpleButton9
             // 
@@ -68,8 +67,7 @@
             this.simpleButton9.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.simpleButton9.Name = "simpleButton9";
             this.simpleButton9.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton9.TabIndex = 83;
-            this.simpleButton9.Click += new System.EventHandler(this.simpleButton_Click);
+            this.simpleButton9.TabIndex = 100;
             // 
             // simpleButton8
             // 
@@ -80,8 +78,7 @@
             this.simpleButton8.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.simpleButton8.Name = "simpleButton8";
             this.simpleButton8.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton8.TabIndex = 81;
-            this.simpleButton8.Click += new System.EventHandler(this.simpleButton_Click);
+            this.simpleButton8.TabIndex = 99;
             // 
             // simpleButton7
             // 
@@ -92,8 +89,7 @@
             this.simpleButton7.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.simpleButton7.Name = "simpleButton7";
             this.simpleButton7.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton7.TabIndex = 79;
-            this.simpleButton7.Click += new System.EventHandler(this.simpleButton_Click);
+            this.simpleButton7.TabIndex = 98;
             // 
             // simpleButton16
             // 
@@ -104,8 +100,7 @@
             this.simpleButton16.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.simpleButton16.Name = "simpleButton16";
             this.simpleButton16.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton16.TabIndex = 78;
-            this.simpleButton16.Click += new System.EventHandler(this.simpleButton_Click);
+            this.simpleButton16.TabIndex = 97;
             // 
             // simpleButton6
             // 
@@ -116,8 +111,7 @@
             this.simpleButton6.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.simpleButton6.Name = "simpleButton6";
             this.simpleButton6.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton6.TabIndex = 77;
-            this.simpleButton6.Click += new System.EventHandler(this.simpleButton_Click);
+            this.simpleButton6.TabIndex = 96;
             // 
             // simpleButton15
             // 
@@ -128,8 +122,7 @@
             this.simpleButton15.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.simpleButton15.Name = "simpleButton15";
             this.simpleButton15.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton15.TabIndex = 76;
-            this.simpleButton15.Click += new System.EventHandler(this.simpleButton_Click);
+            this.simpleButton15.TabIndex = 95;
             // 
             // simpleButton5
             // 
@@ -140,8 +133,7 @@
             this.simpleButton5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.simpleButton5.Name = "simpleButton5";
             this.simpleButton5.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton5.TabIndex = 75;
-            this.simpleButton5.Click += new System.EventHandler(this.simpleButton_Click);
+            this.simpleButton5.TabIndex = 94;
             // 
             // simpleButton14
             // 
@@ -152,8 +144,7 @@
             this.simpleButton14.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.simpleButton14.Name = "simpleButton14";
             this.simpleButton14.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton14.TabIndex = 74;
-            this.simpleButton14.Click += new System.EventHandler(this.simpleButton_Click);
+            this.simpleButton14.TabIndex = 93;
             // 
             // simpleButton4
             // 
@@ -164,8 +155,7 @@
             this.simpleButton4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.simpleButton4.Name = "simpleButton4";
             this.simpleButton4.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton4.TabIndex = 73;
-            this.simpleButton4.Click += new System.EventHandler(this.simpleButton_Click);
+            this.simpleButton4.TabIndex = 92;
             // 
             // simpleButton13
             // 
@@ -176,8 +166,7 @@
             this.simpleButton13.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.simpleButton13.Name = "simpleButton13";
             this.simpleButton13.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton13.TabIndex = 72;
-            this.simpleButton13.Click += new System.EventHandler(this.simpleButton_Click);
+            this.simpleButton13.TabIndex = 91;
             // 
             // simpleButton3
             // 
@@ -188,8 +177,7 @@
             this.simpleButton3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.simpleButton3.Name = "simpleButton3";
             this.simpleButton3.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton3.TabIndex = 71;
-            this.simpleButton3.Click += new System.EventHandler(this.simpleButton_Click);
+            this.simpleButton3.TabIndex = 90;
             // 
             // simpleButton12
             // 
@@ -200,8 +188,7 @@
             this.simpleButton12.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.simpleButton12.Name = "simpleButton12";
             this.simpleButton12.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton12.TabIndex = 70;
-            this.simpleButton12.Click += new System.EventHandler(this.simpleButton_Click);
+            this.simpleButton12.TabIndex = 89;
             // 
             // simpleButton2
             // 
@@ -212,8 +199,7 @@
             this.simpleButton2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.simpleButton2.Name = "simpleButton2";
             this.simpleButton2.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton2.TabIndex = 69;
-            this.simpleButton2.Click += new System.EventHandler(this.simpleButton_Click);
+            this.simpleButton2.TabIndex = 88;
             // 
             // simpleButton11
             // 
@@ -224,8 +210,7 @@
             this.simpleButton11.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.simpleButton11.Name = "simpleButton11";
             this.simpleButton11.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton11.TabIndex = 68;
-            this.simpleButton11.Click += new System.EventHandler(this.simpleButton_Click);
+            this.simpleButton11.TabIndex = 87;
             // 
             // simpleButton1
             // 
@@ -236,12 +221,11 @@
             this.simpleButton1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.simpleButton1.Name = "simpleButton1";
             this.simpleButton1.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton1.TabIndex = 67;
-            this.simpleButton1.Click += new System.EventHandler(this.simpleButton_Click);
+            this.simpleButton1.TabIndex = 86;
             // 
-            // ProCombPage2
+            // UserControl1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.simpleButton10);
             this.Controls.Add(this.simpleButton9);
@@ -259,8 +243,8 @@
             this.Controls.Add(this.simpleButton2);
             this.Controls.Add(this.simpleButton11);
             this.Controls.Add(this.simpleButton1);
-            this.Name = "ProCombPage2";
-            this.Size = new System.Drawing.Size(1335, 214);
+            this.Name = "UserControl1";
+            this.Size = new System.Drawing.Size(1336, 213);
             this.ResumeLayout(false);
 
         }

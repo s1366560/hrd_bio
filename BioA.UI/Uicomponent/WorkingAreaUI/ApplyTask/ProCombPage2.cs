@@ -7,12 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DevExpress.XtraEditors;
-using System.Threading;
 
 namespace BioA.UI
 {
-    public partial class ProCombPage2 : UserControl
+    public partial class ProCombPage2 : DevExpress.XtraEditors.XtraUserControl
     {
         //声明一个委托
         public delegate void ClickProCombNamePage2(string sender);

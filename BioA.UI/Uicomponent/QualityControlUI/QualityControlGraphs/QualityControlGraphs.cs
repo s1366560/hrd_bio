@@ -797,8 +797,8 @@ namespace BioA.UI
                 txtTargetValue.Text = Convert.ToString(qcRelationProject.TargetMean);
                 txtStandardDeviationValue.Text = Convert.ToString(qcRelationProject.TargetSD);
                 txtHorizontalValue.Text = qualityControls.HorizonLevel;
-                var qcFigureThread = new Thread(() => this.Dline(qcRelationProject)) { IsBackground = true };
-                qcFigureThread.Start();
+                this.Dline(qcRelationProject);
+                
             }
         }
     }

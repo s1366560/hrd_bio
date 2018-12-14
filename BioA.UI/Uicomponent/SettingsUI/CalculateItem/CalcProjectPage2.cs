@@ -166,13 +166,16 @@ namespace BioA.UI
 
             foreach (Control control in this.Controls)
             {
-                if (control.GetType() == typeof(System.Windows.Forms.Button))
+                if (control.Tag != null)//ly 2018年12月13日
                 {
-                    if (control.Tag.ToString() == "1")
+                    if (control.GetType() == typeof(System.Windows.Forms.Button))
                     {
-                        if (control.Text != string.Empty)
+                        if (control.Tag.ToString() == "1")
                         {
-                            lstProInfos.Add(control.Text);
+                            if (control.Text != string.Empty)
+                            {
+                                lstProInfos.Add(control.Text);
+                            }
                         }
                     }
                 }
@@ -186,16 +189,19 @@ namespace BioA.UI
         {
             foreach (Control control in this.Controls)
             {
-                if (control.GetType() == typeof(System.Windows.Forms.Button))
+                if (control.Tag != null)
                 {
-                    if (control.Tag.ToString() == "1")
+                    if (control.GetType() == typeof(System.Windows.Forms.Button))
                     {
-                        control.Tag = "0";
-                        this.Invoke(new EventHandler(delegate
+                        if (control.Tag.ToString() == "1")
                         {
-                            control.ForeColor = Color.Black;
-                        }));
+                            control.Tag = "0";
+                            this.Invoke(new EventHandler(delegate
+                            {
+                                control.ForeColor = Color.Black;
+                            }));
 
+                        }
                     }
                 }
             }

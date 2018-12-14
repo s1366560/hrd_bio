@@ -320,11 +320,19 @@ namespace BioA.UI
         {
             if (txtCombProjectName.Text.Trim() != string.Empty)
             {
-                if (txtCombProjectName.Text == this.gridView1.GetRowCellValue(this.gridView1.GetSelectedRows()[0], "项目名称").ToString())
+               int rows = this.gridView1.RowCount;
+               if (rows > 0)
                 {
-                    MessageBox.Show("新增的组合项目名已经存在！");
-                    return;
+                    for (int i = 0; i < rows; i++)
+                    {
+                        if (txtCombProjectName.Text.Trim() == this.gridView1.GetRowCellValue(i, "项目名称").ToString())
+                        {
+                            MessageBox.Show("新增的组合项目名已经存在！");
+                            return;
+                        }
+                    }                        
                 }
+
                 CombProjectInfo combProInfo = new CombProjectInfo();
                 combProInfo.CombProjectName = txtCombProjectName.Text.Trim();
                 List<string> lstProInfos = new List<string>();  // 被选中项目集合

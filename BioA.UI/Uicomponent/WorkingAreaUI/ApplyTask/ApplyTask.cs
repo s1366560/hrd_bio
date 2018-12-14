@@ -341,7 +341,7 @@ namespace BioA.UI
             }
             else if (grpCombProject.SelectedTabPageIndex == 1)
             {
-                xtraTabPage6.Controls.Add(proCombPage1);
+                xtraTabPage6.Controls.Add(proCombPage2);
             }
         }
 
