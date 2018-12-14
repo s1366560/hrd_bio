@@ -1,24 +1,17 @@
-﻿using BioA.SqlMaps;
+﻿using BioA.Common;
+using BioA.Common.Communication;
+using BioA.Common.IO;
+using BioA.Common.Machine;
+using BioA.SqlMaps;
+using BioA.UI.ServiceReference1;
 using BioA.UI.Uicomponent;
-using BioA.UI;
+using BioA.UI.Uicomponent.Analog;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using System.Threading;
-using BioA.Common;
-using BioA.Common.Communication;
-using BioA.Common.Machine;
-using BioA.Common.IO;
-using BioA.UI.Uicomponent.Analog;
 using System.IO;
-using System.Diagnostics;
-using DevExpress.XtraBars;
-using BioA.UI.ServiceReference1;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace BioA.UI
 {

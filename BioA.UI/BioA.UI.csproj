@@ -661,12 +661,6 @@
     <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\ProCombPage1.Designer.cs">
       <DependentUpon>ProCombPage1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\ProCombPage2.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\ProCombPage2.Designer.cs">
-      <DependentUpon>ProCombPage2.cs</DependentUpon>
-    </Compile>
     <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\ProjectPage1.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -696,6 +690,12 @@
     </Compile>
     <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\frmDiluteSetting.Designer.cs">
       <DependentUpon>frmDiluteSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\ProCombPage2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\ProCombPage2.Designer.cs">
+      <DependentUpon>ProCombPage2.cs</DependentUpon>
     </Compile>
     <Compile Include="Uicomponent\WorkingAreaUI\CalibDataCheck\CalibDataCheck.cs">
       <SubType>UserControl</SubType>
@@ -1009,9 +1009,6 @@
     <EmbeddedResource Include="Uicomponent\WorkingAreaUI\ApplyTask\ProCombPage1.resx">
       <DependentUpon>ProCombPage1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Uicomponent\WorkingAreaUI\ApplyTask\ProCombPage2.resx">
-      <DependentUpon>ProCombPage2.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\WorkingAreaUI\ApplyTask\ProjectPage1.resx">
       <DependentUpon>ProjectPage1.cs</DependentUpon>
     </EmbeddedResource>
@@ -1023,6 +1020,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\WorkingAreaUI\ApplyTask\ProjectPage4.resx">
       <DependentUpon>ProjectPage4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\WorkingAreaUI\ApplyTask\ProCombPage2.resx">
+      <DependentUpon>ProCombPage2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\WorkingAreaUI\CalibDataCheck\CalibDataCheck.resx">
     </EmbeddedResource>
