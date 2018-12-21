@@ -273,7 +273,7 @@ namespace BioA.UI
                                 {
                                     if (machineState.State == "超时")
                                     {
-                                        lblSampleContainer.Text += temp;
+                                        lblSampleContainer.Text = "水域温度"+temp;
                                     }
                                     else
                                     {
@@ -285,7 +285,7 @@ namespace BioA.UI
                                         {
 
                                         }
-                                        lblSampleContainer.Text +=temp;
+                                        lblSampleContainer.Text = "水域温度" +temp;
                                     }
                                 }
 
