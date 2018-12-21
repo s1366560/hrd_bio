@@ -213,7 +213,7 @@ namespace BioA.UI
             txtProjectState.Text = taskState;
             if (bAudit)
             {
-                TimeCourseInfo timeCourseInfoResult = new WorkingAreaDataCheck().QueryCommonTaskReaction("QueryCommonTaskReactionForAudit", sampleResInfo);
+                TimeCourseInfo timeCourseInfoResult = new WorkingAreaDataCheck().QueryCommonTaskReaction("QueryTimeCourse", sampleResInfo);
                 this.SampleReactionInfo = timeCourseInfoResult;
             }
             else
