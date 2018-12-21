@@ -392,12 +392,14 @@
     <statement id ="QuerySampleResultTCNO" parameterClass ="System.Collections.IDictionary" ResultClass ="string">
       select TCNO from SampleResultTb where SampleNum=#SampleNum# and ProjectName=#ProjectName# and SampleType=#SampleType# and SampleCompletionTime =#SampleCompletionTime#
     </statement>
-    <statement id="QueryCalibrationReactionProcess" ResultClass="TimeCourseInfo" parameterClass="System.Collections.IDictionary" >
+    <statement id="QueryCalibrationReactionProcess" ResultClass="TimeCourseInfo" parameterClass="string" >
       <!--select * from timecoursetb where TimeCourseNO=#TimeCourseNO# and CUVNO=#CUVNO#-->
-      select * from timecoursetb where TimeCourseNO = #TimeCourseNO# and CONVERT(varchar(50),DrawDate, 120) like '%$DrawDate$%'
+      <!--select * from timecoursetb where TimeCourseNO = #TimeCourseNO# and CONVERT(varchar(50),DrawDate, 120) like '%$DrawDate$%'-->
+      $value$
     </statement>
-    <statement id="QueryTimeCourseBackUpInfo" ResultClass="TimeCourseInfo" parameterClass="System.Collections.IDictionary" >
-      select * from timecourseBackUptb where TimeCourseNO = #TimeCourseNO# and CONVERT(varchar(50),DrawDate, 120) like '%$DrawDate$%'
+    <statement id="QueryTimeCourseBackUpInfo" ResultClass="TimeCourseInfo" parameterClass="string" >
+      <!--select * from timecourseBackUptb where TimeCourseNO = #TimeCourseNO# and CONVERT(varchar(50),DrawDate, 120) like '%$DrawDate$%'-->
+      $value$
     </statement>
     <statement id="GetCalibrationResultInfo" ResultClass="string" parameterClass="System.Collections.IDictionary" >
       select TCNO from CalibrationResultTb where ProjectName=#ProjectName# and CalibMethod=#CalibMethod# and SampleType=#SampleType#
@@ -412,8 +414,10 @@
     <statement id ="GetHasSmpWorkDisk" parameterClass ="System.Collections.IDictionary" ResultClass ="int">
       select SampleTb.PanelNum from SampleTb  where PanelNum != #PanelNum# and CreateTime between #BeginTime# and #EndTime#
     </statement>
-    <statement id="QueryTimeCourse" parameterClass="System.Collections.IDictionary" ResultClass="TimeCourseInfo">
-      select * from TimeCourseTb where TimeCourseNO=#TimeCourseNO# and DrawDate between #BeginTime# and #EndTime#
+    <statement id="QueryTimeCourse" parameterClass="string" ResultClass="TimeCourseInfo">
+      <!--select * from TimeCourseTb where TimeCourseNO=#TimeCourseNO# and DrawDate between #BeginTime# and #EndTime#-->
+      <!-- 2018/12/21 -->
+      $value$
     </statement>
     <statement id="QueryTimeCourseByQCInfo" parameterClass="System.Collections.IDictionary" resultClass="TimeCourseInfo">
       select * from TimeCourseTb where  TimeCourseNO=#TimeCourseNO# and DrawDate between #BengTime# and #EndTime#

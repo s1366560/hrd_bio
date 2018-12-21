@@ -492,14 +492,14 @@ namespace BioA.SqlMaps
             {
                 //获取 TimeCourseTb 43个点进程数据
                 timeCourseInfoResult = ism_SqlMap.QueryForObject("PLCDataInfo." + strMethodName,
-                    string.Format("select * from TimeCourseTb where TimeCourseNO='{}' and CONVERT(varchar(50),DrawDate, 120) like '%{1}%'", sampleResInfo.TCNO, sampleResInfo.SampleCreateTime.ToString("yyyy-MM-dd"))) as TimeCourseInfo;
+                    string.Format("select * from TimeCourseTb where TimeCourseNO='{0}' and CONVERT(varchar(50),DrawDate, 120) like '%{1}%'", sampleResInfo.TCNO, sampleResInfo.SampleCreateTime.ToString("yyyy-MM-dd"))) as TimeCourseInfo;
                 if (timeCourseInfoResult != null)
                 {
                     return timeCourseInfoResult;
                 }
                 //如果上面没有获取到数据就去 timecourseBackUptb 获取43个点进程数据
                 timeCourseInfoResult = ism_SqlMap.QueryForObject("PLCDataInfo." + strMethodName,
-                    string.Format("select * from timecourseBackUptb where TimeCourseNO='{}' and CONVERT(varchar(50),DrawDate, 120) like '%{1}%'", sampleResInfo.TCNO, sampleResInfo.SampleCreateTime.ToString("yyyy-MM-dd"))) as TimeCourseInfo;
+                    string.Format("select * from timecourseBackUptb where TimeCourseNO='{0}' and CONVERT(varchar(50),DrawDate, 120) like '%{1}%'", sampleResInfo.TCNO, sampleResInfo.SampleCreateTime.ToString("yyyy-MM-dd"))) as TimeCourseInfo;
                 if (timeCourseInfoResult != null)
                 {
                     return timeCourseInfoResult;

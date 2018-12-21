@@ -886,6 +886,7 @@ namespace BioA.UI
             // 
             // pcThirdArea
             // 
+            this.pcThirdArea.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
             this.pcThirdArea.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pcThirdArea.Location = new System.Drawing.Point(200, 165);
             this.pcThirdArea.Name = "pcThirdArea";
@@ -964,8 +965,10 @@ namespace BioA.UI
             // lblSampleContainer
             // 
             this.lblSampleContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblSampleContainer.Appearance.BackColor = System.Drawing.Color.FloralWhite;
             this.lblSampleContainer.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSampleContainer.Appearance.ForeColor = System.Drawing.Color.Gray;
+            this.lblSampleContainer.Appearance.Options.UseBackColor = true;
             this.lblSampleContainer.Appearance.Options.UseFont = true;
             this.lblSampleContainer.Appearance.Options.UseForeColor = true;
             this.lblSampleContainer.Appearance.Options.UseTextOptions = true;
@@ -1145,12 +1148,12 @@ namespace BioA.UI
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private DevExpress.XtraBars.BarButtonItem barButtonItem3;
         private System.Windows.Forms.Timer timer1;
-        private DevExpress.XtraEditors.LabelControl lblSampleContainer;
         private System.Windows.Forms.PictureBox pictureBox2;
         private DevExpress.XtraBars.Ribbon.GalleryDropDown galleryDropDown1;
         private DevExpress.XtraBars.Navigation.AccordionControlElement ReagentStateElement4;
         private DevExpress.XtraEditors.PictureEdit pictureEdit2;
         private DevExpress.XtraEditors.LabelControl labelControl1;
+        private DevExpress.XtraEditors.LabelControl lblSampleContainer;
     }
 }
 
