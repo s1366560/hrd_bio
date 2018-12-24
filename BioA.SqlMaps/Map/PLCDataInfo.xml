@@ -426,5 +426,17 @@
     <statement id="UpdateSampleResultState" parameterClass="string">
       update sampleresulttb set Remarks=#value#  where SampleCompletionStatus='1'
     </statement>
+    <!-- 获取所有的反应进程表的数据 -->
+    <statement id="QueryAllYesterdayTimeCourseData" parameterClass="string" ResultClass="TimeCourseInfo">
+      select * from TimeCourseTb where DATEDIFF(day,#value#,DrawDate)!=0
+    </statement>
+    <!-- 把TimeCourseTb表中的数据存储到 TimeCourseBackUpTb-->
+    <statement id="SaveHistoryTimeCourse" parameterClass="string">
+      $value$
+    </statement>
+    <!-- 删除昨天TimeCourseTb表中所有数据  -->
+    <statement id="DeleteAllYesterdayTimeCourseData" parameterClass="string">
+      $value$
+    </statement>
   </statements>
 </sqlMap>

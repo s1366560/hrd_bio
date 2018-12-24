@@ -522,8 +522,8 @@ namespace BioA.PLCController
                 //ResultSer.BackUpYesterdayNorResults();
                 //ResultSer.ClearYesterdayNorResults();
 
-                //TimeCourseSer.BackUpYesterdayTimeCourses();
-                //TimeCourseSer.ClearYesterdayTimeCourses();
+                myBatis.BackUpYesterdayTimeCourses();
+                myBatis.ClearYesterdayTimeCourses();
 
                 //ISETimecourseService.BackUpYesterdayTimeCourses();
                 //ISETimecourseService.ClearYesterdayTimeCourses();

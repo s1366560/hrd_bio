@@ -1618,5 +1618,73 @@ namespace BioA.SqlMaps
             else
                 return false;
         }
+        /// <summary>
+        /// 获取TimeCoursestb 表中的所有数据
+        /// </summary>
+        public void BackUpYesterdayTimeCourses()
+        {
+            List<TimeCourseInfo> lstTimCourseInfo = ism_SqlMap.QueryForList<TimeCourseInfo>("PLCDataInfo.QueryAllYesterdayTimeCourseData", DateTime.Now.ToShortDateString()) as List<TimeCourseInfo>;
+            this.SaveBackUpYesterdayTimeCourses(lstTimCourseInfo);
+
+
+        }
+        /// <summary>
+        /// 遍历获取到的所有数据
+        /// </summary>
+        /// <param name="lstTimeCourseInfo"></param>
+        private void SaveBackUpYesterdayTimeCourses(List<TimeCourseInfo> lstTimeCourseInfo)
+        {
+            foreach (TimeCourseInfo timeCourseInfo in lstTimeCourseInfo)
+            {
+                if (timeCourseInfo != null)
+                {
+                    if (timeCourseInfo.DrawDate.Date == DateTime.Now.Date)
+                    {
+
+                    }
+                    else
+                    {
+                        SaveHistoryTimeCourse(timeCourseInfo);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 保存到TimeCoursesBackUptb表中
+        /// </summary>
+        /// <param name="timeCourseInfo"></param>
+        private void SaveHistoryTimeCourse(TimeCourseInfo t)
+        {
+            string SQL1 = string.Format("insert TimeCourseBackUpTb(TimeCourseNO,DrawDate,CUVNO,CuvBlkWm,CuvBlkWs,");
+
+            for (int i = 0; i < 43; i++)
+            {
+                string str1 = string.Format("Cuv{0}Wm,Cuv{1}Ws,", i + 1, i + 1);
+                SQL1 += str1;
+            }
+            SQL1 = SQL1.TrimEnd(',');
+            
+            string SQL2 = string.Format(@"'{0}','{1}','{2}','{3}','{4}',", t.TimeCourseNo, t.DrawDate, t.CUVNO, t.CuvBlkWm, t.CuvBlkWs);
+            string str2 = string.Format(@"'{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}','{17}','{18}','{19}','{20}','{21}','{22}','{23}','{24}','{25}','{26}','{27}','{28}','{9}','{30}','{31}','{32}','{33}','{34}','{35}','{36}','{37}','{38}','{39}','{40}','{41}','{42}','{43}','{44}','{45}','{46}','{47}','{48}','{49}','{50}','{51}','{52}','{53}','{54}','{55}','{56}','{57}','{58}','{59}','{60}','{61}','{62}','{63}','{64}','{65}','{66}','{67}','{68}','{69}','{70}','{71}','{72}','{73}','{74}','{75}','{76}','{77}','{78}','{79}','{80}','{81}','{82}','{83}','{84}','{85}',", t.Cuv1Wm,t.Cuv1Ws,t.Cuv2Wm,t.Cuv2Ws,t.Cuv3Wm,t.Cuv3Ws,t.Cuv4Wm,t.Cuv4Ws,t.Cuv5Wm,t.Cuv5Ws,t.Cuv6Wm,t.Cuv6Ws,t.Cuv7Wm,t.Cuv7Ws,t.Cuv8Wm,t.Cuv8Ws,t.Cuv9Wm,t.Cuv9Ws,t.Cuv10Wm,
+             t.Cuv10Ws,t.Cuv11Wm, t.Cuv11Ws,t.Cuv12Wm,t.Cuv12Ws,t.Cuv13Wm,t.Cuv13Ws,t.Cuv14Wm,t.Cuv14Ws,t.Cuv15Wm,t.Cuv15Ws,t.Cuv16Wm,t.Cuv16Ws,t.Cuv17Wm,t.Cuv17Ws,t.Cuv18Wm,t.Cuv18Ws,
+             t.Cuv19Wm, t.Cuv19Ws,t.Cuv20Wm,t.Cuv20Ws,t.Cuv21Wm,t.Cuv21Ws,t.Cuv22Wm,t.Cuv22Ws,t.Cuv23Wm,t.Cuv23Ws,t.Cuv24Wm,t.Cuv24Ws,t.Cuv25Wm,t.Cuv25Ws,t.Cuv26Wm,t.Cuv26Ws,t.Cuv27Wm,
+             t.Cuv27Ws,t.Cuv28Wm,t.Cuv28Ws,t.Cuv29Wm,t.Cuv29Ws,t.Cuv30Wm,t.Cuv30Ws,t.Cuv31Wm,t.Cuv31Ws,t.Cuv32Wm,t.Cuv32Ws,t.Cuv33Wm,t.Cuv33Ws,t.Cuv34Wm,t.Cuv34Ws,t.Cuv35Wm,t.Cuv35Ws,
+             t.Cuv36Wm,t.Cuv36Ws,t.Cuv37Wm,t.Cuv37Ws,t.Cuv38Wm,t.Cuv38Ws,t.Cuv39Wm,t.Cuv39Ws,t.Cuv40Wm,t.Cuv40Ws,t.Cuv41Wm,t.Cuv41Ws,t.Cuv42Wm,t.Cuv42Ws,t.Cuv43Wm,t.Cuv43Ws);
+            SQL2 += str2;
+            SQL2 = SQL2.TrimEnd(',');
+
+            string SQL = SQL1 + ") values (" + SQL2 + ")";
+
+            ism_SqlMap.Insert("PLCDataInfo.SaveHistoryTimeCourse", SQL);
+        }
+
+        /// <summary>
+        /// 删除TimeCourses 表中昨天的所有数据
+        /// </summary>
+        public void ClearYesterdayTimeCourses()
+        {
+            ism_SqlMap.Delete("PLCDataInfo.DeleteAllYesterdayTimeCourseData", DateTime.Now.ToShortDateString());
+        }
     }
 }
