@@ -94,19 +94,16 @@ namespace BioA.UI
             else if (xtraTabControl1.SelectedTabPageIndex == 1)
             {
                 xtraTabPage3.Controls.Clear();
-                Maintenancealertlog = new Alertlog();
+                Maintenancealertlog = new Alertlog(false);
                 Maintenancealertlog.LogEvent += alertlog_LogEvent;
                 xtraTabPage3.Controls.Add(Maintenancealertlog);
             }
             else if (xtraTabControl1.SelectedTabPageIndex == 2)
             {
                 xtraTabPage4.Controls.Clear();
-                OperationLogInfo = new Alertlog();
-                logDictionary.Clear();
-                //获取操作日志信息
-                logDictionary.Add("QueryOperationLogInfo", null);
-                alertlog_LogEvent(logDictionary);
-                Maintenancealertlog.LogEvent += alertlog_LogEvent;
+                OperationLogInfo = new Alertlog(true);
+                //logDictionary.Clear();
+                OperationLogInfo.LogEvent += alertlog_LogEvent;
                 xtraTabPage4.Controls.Add(OperationLogInfo);
             }
            

@@ -149,8 +149,7 @@ namespace BioA.UI
                 //显示质控编号和质控任务
                 case "QueryBigestQCTaskInfoForToday":
                     List<QCTaskInfo> lstQCTask = (List<QCTaskInfo>)XmlUtility.Deserialize(typeof(List<QCTaskInfo>), sender as string);
-                    this.DisplayTaskInfo(lstQCTask);    
-                    txtSumpleNum.Text = "C" + (intMaxSamNum + 1).ToString();
+                    this.DisplayTaskInfo(lstQCTask);
                     break;
                     //显示所有项目信息
                 case "QueryAssayProNameAllInfo":
@@ -301,36 +300,39 @@ namespace BioA.UI
         /// <param name="lstQCTask"></param>
         private void DisplayTaskInfo(List<QCTaskInfo> lstQCTask)
         {
-            DataTable dt = new DataTable();
-            dt.Columns.Add("顺序号");
-            dt.Columns.Add("质控品位置");
-            dt.Columns.Add("任务状态");
-            foreach (QCTaskInfo qcTask in lstQCTask)
-            {
-                int sampNum = Convert.ToInt32(qcTask.SampleNum.Substring(1, 1));
-                if (sampNum > intMaxSamNum)
+            this.Invoke(new EventHandler(delegate { 
+                DataTable dt = new DataTable();
+                dt.Columns.Add("顺序号");
+                dt.Columns.Add("质控品位置");
+                dt.Columns.Add("任务状态");
+                foreach (QCTaskInfo qcTask in lstQCTask)
                 {
-                    intMaxSamNum = sampNum;
+                    int sampNum = Convert.ToInt32(qcTask.SampleNum.Substring(1, 1));
+                    if (sampNum > intMaxSamNum)
+                    {
+                        intMaxSamNum = sampNum;
+                    }
+                    string strState = "";
+                    switch (qcTask.TaskState)
+                    {
+                        case 0:
+                            strState = "待测";
+                            break;
+                        case 1:
+                            strState = "执行中";
+                            break;
+                        case 2:
+                            strState = "已完成";
+                            break;
+                        case 3:
+                            strState = "被终止";
+                            break;
+                    }
+                    dt.Rows.Add(new object[] { qcTask.SampleNum, qcTask.Position, strState });
                 }
-                string strState = "";
-                switch (qcTask.TaskState)
-                {
-                    case 0:
-                        strState = "待测";
-                        break;
-                    case 1:
-                        strState = "执行中";
-                        break;
-                    case 2:
-                        strState = "已完成";
-                        break;
-                    case 3:
-                        strState = "被终止";
-                        break;
-                }
-                dt.Rows.Add(new object[] { qcTask.SampleNum, qcTask.Position, strState });
-            }
-            this.lstvQCTask.DataSource = dt;
+                this.lstvQCTask.DataSource = dt;
+                txtSumpleNum.Text = "C" + (intMaxSamNum + 1).ToString();
+            }));
         }
 
         /// <summary>

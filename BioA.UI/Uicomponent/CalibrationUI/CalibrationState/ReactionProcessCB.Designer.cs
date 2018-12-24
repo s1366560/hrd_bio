@@ -263,15 +263,15 @@
             // 
             this.lblCupNumber.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCupNumber.Appearance.Options.UseFont = true;
-            this.lblCupNumber.Location = new System.Drawing.Point(1078, 23);
+            this.lblCupNumber.Location = new System.Drawing.Point(1070, 23);
             this.lblCupNumber.Name = "lblCupNumber";
-            this.lblCupNumber.Size = new System.Drawing.Size(70, 17);
+            this.lblCupNumber.Size = new System.Drawing.Size(84, 17);
             this.lblCupNumber.TabIndex = 29;
-            this.lblCupNumber.Text = "进程编号：";
+            this.lblCupNumber.Text = "比色杯编号：";
             // 
             // txtCuveNumValue
             // 
-            this.txtCuveNumValue.Location = new System.Drawing.Point(1147, 20);
+            this.txtCuveNumValue.Location = new System.Drawing.Point(1156, 20);
             this.txtCuveNumValue.Name = "txtCuveNumValue";
             this.txtCuveNumValue.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCuveNumValue.Properties.Appearance.Options.UseFont = true;

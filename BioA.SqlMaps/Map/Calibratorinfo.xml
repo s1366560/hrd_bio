@@ -427,5 +427,9 @@
       values(#ProjectName#,#SampleType#,#CalibMethod#,#CalibConcentration0#,#CalibConcentration1#,#CalibConcentration2#,#CalibConcentration3#,#CalibConcentration4#,#CalibConcentration5#,#CalibConcentration6#,
       #CalibName0#,#CalibName1#,#CalibName2#,#CalibName3#,#CalibName4#,#CalibName5#,#CalibName6#,#AbsoluteFactor#,1)
     </statement>-->
+    <!-- 根据条件查询校准品名是否存在-->
+    <statement id="GetCalibCountByCondition" ResultClass="int" parameterClass="string" >
+      select count(*) from calibratortb where CalibName=#value#
+    </statement>
   </statements>
 </sqlMap>

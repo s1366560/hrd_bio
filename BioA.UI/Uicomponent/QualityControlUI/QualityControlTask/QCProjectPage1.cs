@@ -130,6 +130,8 @@ namespace BioA.UI
                                             this.toolTip1.SetToolTip(control, str[3]);
                                         else if (str[4] != null)
                                             this.toolTip1.SetToolTip(control, str[4]);
+                                        else if (str[5] != null)
+                                            this.toolTip1.SetToolTip(control, str[5]);
 
                                     }
                                 }));

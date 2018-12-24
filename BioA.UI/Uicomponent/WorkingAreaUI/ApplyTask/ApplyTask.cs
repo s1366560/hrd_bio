@@ -685,12 +685,12 @@ namespace BioA.UI
                 MessageBox.Show("检测项目不能为空，请选择待检测项目，进行批量输入！");
                 return;
             }
-            if (txtBoxDetectionNum.Text != "1")
-            {
-                MessageBox.Show("批量录入项目的检测次数只能是1次！");
-                txtBoxDetectionNum.Text = "1";
-                return;
-            }
+            //if (txtBoxDetectionNum.Text != "1")
+           // {
+           //     MessageBox.Show("批量录入项目的检测次数只能是1次！");
+           //     txtBoxDetectionNum.Text = "1";
+          //      return;
+           // }
 
             batchInput.clera();
 

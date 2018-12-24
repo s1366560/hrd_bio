@@ -12,7 +12,7 @@ namespace BioA.Common
         {
             userName=string.Empty;
             logDetails=string.Empty;
-            logDateTime = string.Empty;
+            logDateTime = DateTime.Now;
         }
 
         string userName;
@@ -29,9 +29,9 @@ namespace BioA.Common
             get { return logDetails; }
             set { logDetails = value; }
         }
-        string logDateTime;
+        DateTime logDateTime;
 
-        public string LogDateTime
+        public DateTime LogDateTime
         {
             get { return logDateTime; }
             set { logDateTime = value; }
