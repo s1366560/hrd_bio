@@ -23,12 +23,16 @@ namespace BioA.UI
         /// 存储客户端发送信息给服务器的参数集合
         /// </summary>
         private Dictionary<string, object[]> alertLogDic = new Dictionary<string, object[]>();
-        public Alertlog()
+
+        bool bol = false;
+
+        public Alertlog(bool b)
         {
             InitializeComponent();
             Font font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             gridView1.Appearance.HeaderPanel.Font = font;
             gridView1.Appearance.Row.Font = font;
+            this.bol = b;
         }
         public void MaintenanceLogInfoAdd(List<MaintenanceLogInfo> lstmaintenanceLogInfo)
         {
@@ -70,10 +74,19 @@ namespace BioA.UI
         private void loadAlertlog()
         {
             alertLogDic.Clear();
-            //获取保养日志信息
-            alertLogDic.Add("QueryMaintenanceLogInfo", null);
-            if (LogEvent != null)
+            if (bol == false)
+            {
+                //获取保养日志信息
+                alertLogDic.Add("QueryMaintenanceLogInfo", null);
+                if (LogEvent != null)
+                    LogEvent(alertLogDic);
+            }
+            else
+            {
+                //获取操作日志信息
+                alertLogDic.Add("QueryOperationLogInfo", null);
                 LogEvent(alertLogDic);
+            }
         }
         /// <summary>
         /// 显示序列号

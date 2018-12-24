@@ -185,7 +185,25 @@ namespace BioA.SqlMaps
 
 
         }
-
+        /// <summary>
+        /// 根据项目名称和样本类型获取质控任务
+        /// </summary>
+        /// <param name="strMethodName"></param>
+        /// <param name="QCTask"></param>
+        /// <returns></returns>
+        public int QueryQCTaskByProjectAndSamType(string strMethodName, QCTaskInfo QCTask)
+        {
+            int QCTaskCount = 0;
+            try
+            {
+                QCTaskCount = (int)ism_SqlMap.QueryForObject("QCTaskInfo." + strMethodName, QCTask);
+            }
+            catch (Exception e)
+            {
+                LogInfo.WriteErrorLog("QueryQCTaskByProjectAndSamType(string strMethodName, QCinfoTask QCTask)==" + e.ToString(), Module.DAO);
+            }
+            return QCTaskCount;
+        }
         /// <summary>
         /// 获取所有质控品项目信息
         /// </summary>

@@ -44,5 +44,9 @@
     <statement id="InitMachineUpdateQCTaskState" parameterClass="System.Collections.IDictionary">
       update QCTaskTb set SendTimes=#SendTimes#, FinishTimes=#FinishTimes#, TaskState=#TaskState# where TaskState!=2
     </statement>
+    <!--根据项目名称和样本类型查询质控任务数量-->
+    <statement id="QueryQCTaskByProjectAndSamType" ResultClass="int" parameterClass="QCTaskInfo" >
+      select count(*) from QCTaskTb where ProjectName=#ProjectName# and SampleType=#SampleType# and TaskState!=2
+    </statement>
   </statements>
 </sqlMap>

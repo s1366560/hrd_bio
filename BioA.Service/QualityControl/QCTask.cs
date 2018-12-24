@@ -27,12 +27,14 @@ namespace BioA.Service
 
             foreach (string project in lstProjectByQC)
             {
-                string[] projectInfo = new string[5];
+                string[] projectInfo = new string[6];
                 projectInfo[0] = project;
                 AssayProjectParamInfo assayProParam = myBatis.GetAssayProjectParamInfoByNameAndType("GetAssayProjectParamInfoByNameAndType", new AssayProjectInfo() { ProjectName = project, SampleType = strSampleType });
                 ReagentStateInfoR1R2 reagentState = myBatis.QueryReagentStateInfoByProjectName("QueryReagentStateInfoByProjectName", new ReagentSettingsInfo() { ProjectName = project, ReagentType = strSampleType });
                 // 3.判断校准曲线是否可用 
                 bool bExist = myBatis.CalibCurveBeExistByProNameAndType("CalibCurveBeExistByProNameAndType", new string[] { project, strSampleType });
+                //判断该项目下的任务是否已完成
+                int QCcount = myBatis.QueryQCTaskByProjectAndSamType("QueryQCTaskByProjectAndSamType", new QCTaskInfo() { ProjectName = project, SampleType = strSampleType });
                 if (assayProParam != null)
                 {
                     if (assayProParam.AnalysisMethod == "" || assayProParam.AnalysisMethod == null)
@@ -53,8 +55,11 @@ namespace BioA.Service
                     {
                         projectInfo[4] = "该项目没有对应的较准曲线";
                     }
-
-                    if (projectInfo[2] == null && projectInfo[3] == null && projectInfo[4] == null)
+                    if (QCcount != 0)
+                    {
+                        projectInfo[5] = "此项目已下任务,请做完此项目任务后才能继续下该项目任务！";
+                    }
+                    if (projectInfo[2] == null && projectInfo[3] == null && projectInfo[4] == null && projectInfo[5]== null)
                     {
                         projectInfo[1] = "true";
                     }

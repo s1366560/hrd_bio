@@ -121,7 +121,7 @@ namespace BioA.UI
             MaintenanceLogInfo maintenanceLogInfo = new MaintenanceLogInfo();
             maintenanceLogInfo.UserName = _userName;
             maintenanceLogInfo.LogDetails = maintenanceName;
-            maintenanceLogInfo.LogDateTime = DateTime.Now.ToString();
+            maintenanceLogInfo.LogDateTime = DateTime.Now;
             var MaintenanceLogInfoThread = new Thread(() => 
             { 
                 CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.Login, new Dictionary<string, object[]>() { { "SaveMintenanceLog", new object[] { XmlUtility.Serializer(typeof(MaintenanceLogInfo), maintenanceLogInfo) } } });

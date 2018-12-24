@@ -13,18 +13,12 @@ namespace BioA.Service
 
         public List<MaintenanceLogInfo> QueryMaintenanceLogInfo(string strDBMethod)
         {
-            List<MaintenanceLogInfo> lstQueryMaintenanceLogInfo = new List<MaintenanceLogInfo>();
-            
-            lstQueryMaintenanceLogInfo = myBatis.QueryMaintenanceLogInfo(strDBMethod);
-            
-            return lstQueryMaintenanceLogInfo;
+            return myBatis.QueryMaintenanceLogInfo(strDBMethod);
         }
 
         public List<MaintenanceLogInfo> QueryOperationLogInfo(string strDBMethod)
-        {
-            List<MaintenanceLogInfo> lstQueryMaintenanceLogInfo = new List<MaintenanceLogInfo>();
-            lstQueryMaintenanceLogInfo = myBatis.QueryOperationLogInfo(strDBMethod);
-            return lstQueryMaintenanceLogInfo;
+        { 
+            return myBatis.QueryOperationLogInfo(strDBMethod);
         }
 
         public List<AlarmLogInfo> QueryAlarmLogInfo(string strDBMethod)
