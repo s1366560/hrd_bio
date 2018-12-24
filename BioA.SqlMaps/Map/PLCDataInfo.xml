@@ -436,7 +436,7 @@
     </statement>
     <!-- 删除昨天TimeCourseTb表中所有数据  -->
     <statement id="DeleteAllYesterdayTimeCourseData" parameterClass="string">
-      $value$
+      delete from TimeCourseTb where DATEDIFF(day,#value#,DrawDate)!=0
     </statement>
   </statements>
 </sqlMap>
