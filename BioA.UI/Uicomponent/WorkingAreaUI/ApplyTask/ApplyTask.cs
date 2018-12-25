@@ -855,7 +855,6 @@ namespace BioA.UI
             //添加批量录入的任务信息
             dic.Add("AddTaskForBatch", new object[] { XmlUtility.Serializer(typeof(object[]), inputDictionary) });
             ClientSendToServices(dic);
-
         }
         AnologSamplePanel anologSamplePanel;
         private void BtnSampleDishState_Click(object sender, EventArgs e)
