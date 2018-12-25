@@ -85,6 +85,7 @@ namespace BioA.UI
                 waterBlankCheck.SendMaintenanceNameEvent += SendMaintenanceName_Event;
                 xtraTabPage1.Controls.Add(blankInterface);
                 xtraTabPage1.Controls.Add(waterBlankCheck);
+                this.Invoke(new EventHandler(delegate { xtraTabPage1.Controls.Remove(blankInterface); }));
             }
             else if (xtraTabControl1.SelectedTabPageIndex == 1)
             {
@@ -140,6 +141,7 @@ namespace BioA.UI
                 waterBlankCheck.SendMaintenanceNameEvent += SendMaintenanceName_Event;
                 xtraTabPage1.Controls.Add(blankInterface);
                 xtraTabPage1.Controls.Add(waterBlankCheck);
+                xtraTabPage1.Controls.Remove(blankInterface);
             }));
         }
     }

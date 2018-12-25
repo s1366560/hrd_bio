@@ -583,21 +583,15 @@ namespace BioA.SqlMaps
             return manu;
         }
 
-        public List<CuvetteBlankInfo> QueryWaterBlankValueByWave(string strMethodName)
+        public List<CuvetteBlankInfo> QueryWaterBlankValueByWave(string strMethodName, string waveLength)
         {
             List<CuvetteBlankInfo> lstCuvBlk = new List<CuvetteBlankInfo>();
             try
             {
-                List<CuvetteBlankInfo> cuvBlkNew = ism_SqlMap.QueryForList<CuvetteBlankInfo>("EquipmentManage.QueryWaterNewBlankValueByWave", null) as List<CuvetteBlankInfo>;
-                List<CuvetteBlankInfo> cuvBlkOld = ism_SqlMap.QueryForList<CuvetteBlankInfo>("EquipmentManage.QueryWaterOldBlankValueByWave", null) as List<CuvetteBlankInfo>;
-                foreach (CuvetteBlankInfo cuvNew in cuvBlkNew)
-                {
-                    lstCuvBlk.Add(cuvNew);
-                }
-                foreach (CuvetteBlankInfo cuvOld in cuvBlkOld)
-                {
-                    lstCuvBlk.Add(cuvOld);
-                }
+                CuvetteBlankInfo cuvBlkNew = ism_SqlMap.QueryForObject("EquipmentManage.QueryWaterNewBlankValueByWave", waveLength) as CuvetteBlankInfo;
+                CuvetteBlankInfo cuvBlkOld = ism_SqlMap.QueryForObject("EquipmentManage.QueryWaterOldBlankValueByWave", waveLength) as CuvetteBlankInfo;
+                lstCuvBlk.Add(cuvBlkNew);
+                lstCuvBlk.Add(cuvBlkOld);
             }
             catch (Exception e)
             {

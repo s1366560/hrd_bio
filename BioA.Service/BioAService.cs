@@ -1278,12 +1278,12 @@ namespace BioA.Service
                     switch (kvp.Key)
                     {
                         case "QueryWaterBlankValueByWave":
-                            List<CuvetteBlankInfo> lstCuvBlk = systemMaintenance.QueryWaterBlankValueByWave(kvp.Key);
-                            strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<CuvetteBlankInfo>), lstCuvBlk));
+                            //List<CuvetteBlankInfo> lstCuvBlk = systemMaintenance.QueryWaterBlankValueByWave(kvp.Key);
+                            //strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<CuvetteBlankInfo>), lstCuvBlk));
                             break;
                         case "QueryNewPhotemetricValue":
-                            List<List<OffSetGain>> lstNewPhotoGain = systemMaintenance.QueryNewPhotemetricValue(kvp.Key);
-                            strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<List<OffSetGain>>), lstNewPhotoGain));
+                            //List<List<OffSetGain>> lstNewPhotoGain = systemMaintenance.QueryNewPhotemetricValue(kvp.Key);
+                            //strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<List<OffSetGain>>), lstNewPhotoGain));
                             break;
                         //case "QueryOldPhotemetricValue":
                         //    List<OffSetGain> lstOldPhotoGain = systemMaintenance.QueryOldPhotemetricValue(param.StrmethodName);

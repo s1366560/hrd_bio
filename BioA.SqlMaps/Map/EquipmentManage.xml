@@ -372,11 +372,11 @@
       </dynamic>
       where WaveLength=#WaveLength#
     </statement>
-    <statement id="QueryWaterOldBlankValueByWave" resultClass="CuvetteBlankInfo">
-      select * from CuvetteBlankOldTb
+    <statement id="QueryWaterOldBlankValueByWave" resultClass="CuvetteBlankInfo" parameterClass="string">
+      select * from CuvetteBlankOldTb where WaveLength = #value#
     </statement>
-    <statement id="QueryWaterNewBlankValueByWave" resultClass="CuvetteBlankInfo">
-      select * from CuvetteBlankNewTb
+    <statement id="QueryWaterNewBlankValueByWave" resultClass="CuvetteBlankInfo" parameterClass="string">
+      select * from CuvetteBlankNewTb where WaveLength = #value#
     </statement>
     <statement id="QueryNewPhotemetricValue" resultClass="OffSetGain">
       select * from PhotometricGainNewTb

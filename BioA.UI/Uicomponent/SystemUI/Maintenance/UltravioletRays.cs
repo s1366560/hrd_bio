@@ -11,6 +11,7 @@ using DevExpress.XtraEditors;
 using BioA.Common.Machine;
 using BioA.Common;
 using BioA.Common.IO;
+using BioA.Service;
 
 namespace BioA.UI
 {
@@ -127,7 +128,15 @@ namespace BioA.UI
                 }
             }
 
-            CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.SystemMaintenance, new Dictionary<string, object[]>(){{"QueryNewPhotemetricValue",null}});
+            //CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.SystemMaintenance, new Dictionary<string, object[]>(){{"QueryNewPhotemetricValue",null}});
+
+
+            List<List<OffSetGain>> LstNewAndOldPhotoGain = new SystemMaintenance().QueryNewPhotemetricValue("QueryOldPhotemetricValue");
+            if (LstNewAndOldPhotoGain.Count > 0)
+            {
+                this.LstNewPhotoGain = LstNewAndOldPhotoGain[0];
+                this.LstOldPhotoGain = LstNewAndOldPhotoGain[1];
+            }
             //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SystemMaintenance, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryOldPhotemetricValue")));
         }
     }
