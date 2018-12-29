@@ -54,7 +54,7 @@ namespace BioA.Service
                     {
                         projectInfo[3] = "此项目对应的试剂1余量不足！";
                     }
-                    else if (reagentState.ReagentName2 != "" && reagentState.ValidPercent < 5)
+                    else if (reagentState.ReagentName2 != "" && reagentState.ValidPercent2 < 5)
                     {
                         projectInfo[3] = "此项目对应的试剂2余量不足！";
                     }
@@ -92,7 +92,7 @@ namespace BioA.Service
                     {
                         projectInfo[3] = "此项目对应的试剂1余量不足！";
                     }
-                    else if (reagentState.ReagentName2 != "" && reagentState.ValidPercent < 5)
+                    else if (reagentState.ReagentName2 != "" && reagentState.ValidPercent2 < 5)
                     {
                         projectInfo[3] = "此项目对应的试剂2余量不足！";
                     }

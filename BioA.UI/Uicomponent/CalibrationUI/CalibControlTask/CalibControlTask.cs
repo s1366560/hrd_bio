@@ -132,6 +132,96 @@ namespace BioA.UI
         }
 
         /// <summary>
+        /// 处理组合项目名点击事件
+        /// </summary>
+        /// <param name="sender"></param>
+        private bool HandleClickCombProNameEvent(string sender, string tag)
+        {
+            //存储项目名称
+            lstProjects.Clear();
+            foreach (CombProjectInfo combProInfo in lstCombProInfo)
+            {
+                if (combProInfo.CombProjectName == sender)
+                {
+                    lstProjects.Add(combProInfo.ProjectName);
+                }
+            }
+            if (lstProjects.Count > 0)
+            {
+                bool ret1 = setprojectpage(lstProjects, projectPage1.Controls, tag);
+                if (ret1 == false)
+                    return ret1;
+                bool ret2 = setprojectpage(lstProjects, projectPage2.Controls, tag);
+                if (ret2 == false)
+                    return ret2;
+                bool ret3 = setprojectpage(lstProjects, projectPage3.Controls, tag);
+                if (ret3 == false)
+                    return ret3;
+                bool ret4 = setprojectpage(lstProjects, projectPage4.Controls, tag);
+                if (ret4 == false)
+                {
+                    return ret4;
+                }
+                else
+                {
+                    return true;
+                }
+                //projectPage1.SelectedProjects = lstProNames;
+                // projectPage2.SelectedProjects = lstProNames;
+                // projectPage3.SelectedProjects = lstProNames;
+                // projectPage4.SelectedProjects = lstProNames;
+            }
+            return false;
+        }
+        private bool setprojectpage(List<string> selectedProjects, ControlCollection Controls, string tag)
+        {
+            bool flag = true;
+            foreach (Control control in Controls)
+            {
+                if (control.GetType() == typeof(System.Windows.Forms.Button))
+                {
+                    foreach (string str in selectedProjects)
+                    {
+                        if (control.Text == str)
+                        {
+                            if (control.ForeColor == Color.Black && tag == "0")
+                            {
+                                control.Tag = "1";
+
+                                this.Invoke(new EventHandler(delegate
+                                {
+                                    control.ForeColor = Color.Red;
+                                }));
+                                flag = true;
+                            }
+                            else if (control.ForeColor == Color.Red && tag == "1")
+                            {
+                                control.Tag = "0";
+
+                                this.Invoke(new EventHandler(delegate
+                                {
+                                    control.ForeColor = Color.Black;
+                                }));
+                                flag = true;
+                            }
+                            else if (control.ForeColor == Color.Orange && tag == "0")
+                            {
+                                MessageBox.Show("项目:" + control.Text + "参数存在问题，不可下任务！");
+                                flag = false;
+                            }
+                        }
+                    }
+
+
+                }
+            }
+            return flag;
+        }
+
+
+
+
+        /// <summary>
         /// xtratabcontrol控件的标签页点击事件
         /// </summary>
         /// <param name="sender"></param>

@@ -16,7 +16,7 @@ namespace BioA.UI
     public partial class CalibProCombPage1 : DevExpress.XtraEditors.XtraUserControl
     {
         //声明一个委托
-        public delegate void ClickCombProName(string sender);
+        public delegate bool ClickCombProName(string sender,string tag);
         public event ClickCombProName clickCombProNameEvent;
 
         public CalibProCombPage1()
@@ -150,18 +150,28 @@ namespace BioA.UI
             {
                 if (simpleButton.Tag as string == "1")
                 {
-                    simpleButton.Tag = "0";
-                    simpleButton.ForeColor = Color.Black;
+                    if (clickCombProNameEvent != null)
+                    {
+                        bool ret = clickCombProNameEvent(simpleButton.Text.ToString(), "1");
+                        if (ret)
+                        {
+                            simpleButton.Tag = "0";
+                            simpleButton.ForeColor = Color.Black;
+                        }
+                    }
                     //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibControlTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryProjectByCombProName", simpleButton.Text.ToString())));
                 }
                 else if (simpleButton.Tag as string == "0" || simpleButton.Tag == null)
                 {
-                    simpleButton.Tag = "1";
-                    simpleButton.ForeColor = Color.Red;
                     //CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.CalibControlTask, new Dictionary<string, object[]> { { "QueryProjectByCombProName", new object[] { simpleButton.Text.ToString() } } });
                     if (clickCombProNameEvent != null)
                     {
-                        clickCombProNameEvent(simpleButton.Text.ToString());
+                        bool ret =clickCombProNameEvent(simpleButton.Text.ToString(),"0");
+                        if(ret)
+                        {
+                            simpleButton.Tag = "1";
+                            simpleButton.ForeColor = Color.Red;
+                        }
                     }
                 }
             }

@@ -17,7 +17,7 @@ namespace BioA.UI
     public partial class ProCombPage1 : DevExpress.XtraEditors.XtraUserControl
     {
         //声明一个委托
-        public delegate void ClickProCombNamePage(string sender);
+        public delegate bool ClickProCombNamePage(string sender,string tag);
         public event ClickProCombNamePage clickProCombNamePageEvent;
 
         public ProCombPage1()
@@ -154,18 +154,29 @@ namespace BioA.UI
             {
                 if (simpleButton.Tag as string == "1")
                 {
-                    simpleButton.Tag = "0";
 
-                    simpleButton.ForeColor = Color.Black;
+                    if (clickProCombNamePageEvent != null)
+                    {
+                        bool ret = clickProCombNamePageEvent(simpleButton.Text.ToString(),"1");
+                        if (ret)
+                        {
+                            simpleButton.Tag = "0";
+                            simpleButton.ForeColor = Color.Black;
+                        }
+                    }
                 }
                 else if (simpleButton.Tag as string == "0" || simpleButton.Tag == null)
                 {
-                    simpleButton.Tag = "1";
-                    simpleButton.ForeColor = Color.Red;
+
                     //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryProjectByCombProName", simpleButton.Text)));
                     if (clickProCombNamePageEvent != null)
                     {
-                        clickProCombNamePageEvent(simpleButton.Text.ToString());
+                        bool ret = clickProCombNamePageEvent(simpleButton.Text.ToString(),"0");
+                        if(ret)
+                        {
+                            simpleButton.Tag = "1";
+                            simpleButton.ForeColor = Color.Red;
+                        }
                     }
                 }
             }

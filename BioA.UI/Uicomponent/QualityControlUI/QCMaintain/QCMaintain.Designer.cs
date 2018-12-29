@@ -80,6 +80,7 @@
             this.lstvQCInfo.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
             this.lstvQCInfo.Click += new System.EventHandler(this.lstvQCInfo_Click);
+            this.lstvQCInfo.DoubleClick += new System.EventHandler(this.btnEdit_Click);
             // 
             // gridView1
             // 

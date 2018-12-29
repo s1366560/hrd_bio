@@ -841,12 +841,18 @@ namespace BioA.SqlMaps
             List<string> lstProName = new List<string>();
             List<int> lstInt = new List<int>();
             List<string> lstProjectNames = new List<string>();
+            List<string> lstNotSortProjectName = new List<string>();
             try
             {
                 lstProName = (List<string>)ism_SqlMap.QueryForList<string>("AssayProjectInfo.ProjectPageinfoBySampleType", sampleType);
                 foreach (string projectName in lstProName)
                 {
                     int s = projectName.IndexOf('.');
+                    if (s < 0)
+                    {
+                        lstNotSortProjectName.Add(projectName);
+                        continue;
+                    }
                     lstInt.Add(Convert.ToInt32(projectName.Substring(0, s)));
                 }
                 lstInt.Sort();
@@ -855,12 +861,17 @@ namespace BioA.SqlMaps
                     foreach (string proName in lstProName)
                     {
                         int s = proName.IndexOf('.');
+                        if (s < 0)
+                        {
+                            continue;
+                        }
                         if (i == Convert.ToInt32(proName.Substring(0, s)))
                         {
                             lstProjectNames.Add(proName);
                         }
                     }
                 }
+                lstProjectNames.AddRange(lstNotSortProjectName);
             }
             catch (Exception e)
             {
@@ -881,12 +892,18 @@ namespace BioA.SqlMaps
             List<string> lstProName = new List<string>();
             List<int> lstInt = new List<int>();
             List<string> lstProjectNames = new List<string>();
+            List<string> lstNotSortProjectName = new List<string>();
             try
             {
                 lstProName = (List<string>)ism_SqlMap.QueryForList<string>("AssayProjectInfo.ProjectPageinfoBySampleType", sampleType);
                 foreach (string projectName in lstProName)
                 {
                     int s = projectName.IndexOf('.');
+                    if (s < 0)
+                    {
+                        lstNotSortProjectName.Add(projectName);
+                        continue;
+                    }
                     lstInt.Add(Convert.ToInt32(projectName.Substring(0, s)));
                 }
                 lstInt.Sort();
@@ -895,12 +912,17 @@ namespace BioA.SqlMaps
                     foreach (string proName in lstProName)
                     {
                         int s = proName.IndexOf('.');
+                        if (s < 0)
+                        {
+                            continue;
+                        }
                         if (i == Convert.ToInt32(proName.Substring(0, s)))
                         {
                             lstProjectNames.Add(proName);
                         }
                     }
                 }
+                lstProjectNames.AddRange(lstNotSortProjectName);
             }
             catch (Exception e)
             {

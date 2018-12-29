@@ -138,6 +138,7 @@ namespace BioA.UI
             txtLotNum.Text = qCResInfo.LotNum;
             txtManufacturer.Text = qCResInfo.Manufacturer;
             txtLevelConc.Text = qCResInfo.HorizonLevel;
+            cboMeasurePoint.Properties.Items.Clear();
             cboMeasurePoint.Properties.Items.AddRange(RunConfigureUtility.ReactionPoints);
 
         }

@@ -141,6 +141,7 @@ namespace BioA.SqlMaps
             List<AssayProjectInfo> lstAssayProInfos = new List<AssayProjectInfo>();
             List<int> lstInt = new List<int>();
             List<AssayProjectInfo> lstProjectInfo= new List<AssayProjectInfo>();
+            List<AssayProjectInfo> lstNotSortProjectName = new List<AssayProjectInfo>();
             try
             {
                 if (assayProInfo == null)
@@ -172,6 +173,11 @@ namespace BioA.SqlMaps
                 foreach (AssayProjectInfo assayProjectInfo in lstAssayProInfos)
                 {
                     int s = assayProjectInfo.ProjectName.IndexOf('.');
+                    if (s < 0)
+                    {
+                        lstNotSortProjectName.Add(assayProjectInfo);
+                        continue;
+                    }
                     lstInt.Add(Convert.ToInt32(assayProjectInfo.ProjectName.Substring(0,s)));
                 }
                 lstInt.Sort();
@@ -180,12 +186,17 @@ namespace BioA.SqlMaps
                     foreach (AssayProjectInfo assayProjectInfo in lstAssayProInfos)
                     {
                         int s = assayProjectInfo.ProjectName.IndexOf('.');
+                        if (s < 0)
+                        {
+                            continue;
+                        }
                         if (i == Convert.ToInt32(assayProjectInfo.ProjectName.Substring(0, s)))
                         {
                             lstProjectInfo.Add(assayProjectInfo);
                         }
                     }
                 }
+                lstProjectInfo.AddRange(lstNotSortProjectName);
             }
             catch (Exception e)
             {

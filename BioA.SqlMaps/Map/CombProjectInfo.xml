@@ -25,7 +25,7 @@
       delete from CombProjectNameInfoTb where CombProjectName=#value#
     </statement>
     <statement id="DeleteCombProject" parameterClass="string" ResultClass="int">
-      delete from CombProjectInfoTb where CombProjectName=#value#
+      delete from CombProjectInfoTb where cast(CombProjectName as nvarchar)=#value#
     </statement>
     <statement id="UpdateCombProjectName" parameterClass="System.Collections.IDictionary" ResultClass="int">
       update CombProjectNameInfoTb set

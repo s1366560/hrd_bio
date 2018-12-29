@@ -56,7 +56,7 @@
       BePollutedPro=#BePollutedPro# and BePollutedProType=#BePollutedProType#
     </delete>
     <select id="QueryWashingLiquid" resultClass="string">
-      select ReagentName from reagentsettingstb where ReagentType='清洗液'
+      select ReagentName from reagentsettingstb where ReagentType='清洗剂'
     </select>
   </statements>
 </sqlMap>

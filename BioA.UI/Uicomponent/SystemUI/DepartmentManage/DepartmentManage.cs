@@ -58,7 +58,7 @@ namespace BioA.UI
                     ComboBoxAdd(lstQueryDepartmentInfo);
                     break;
                 case "AddDepartmentInfo":
-                    string strAdd = (string)XmlUtility.Deserialize(typeof(string), sender as string);
+                    string strAdd =  sender as string;
                     if (strAdd == "科室创建成功！")
                     {
                         QueryDepartmentInfo();
@@ -78,7 +78,7 @@ namespace BioA.UI
 
                     break;
                 case "DeleteDepartment":
-                    string str = (string)XmlUtility.Deserialize(typeof(string), sender as string);
+                    string str =  sender as string;
                     int count = Convert.ToInt32(str);
                     if (count>0)
                     {

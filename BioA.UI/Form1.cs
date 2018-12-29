@@ -273,7 +273,7 @@ namespace BioA.UI
                                 {
                                     if (machineState.State == "超时")
                                     {
-                                        lblSampleContainer.Text = "水域温度"+temp;
+                                        lblSampleContainer.Text = "水域温度"+temp+"°C";
                                     }
                                     else
                                     {
@@ -285,7 +285,7 @@ namespace BioA.UI
                                         {
 
                                         }
-                                        lblSampleContainer.Text = "水域温度" +temp;
+                                        lblSampleContainer.Text = "水域温度" + temp + "°C";
                                     }
                                 }
 
@@ -588,8 +588,8 @@ namespace BioA.UI
         private void Form1_Load(object sender, EventArgs e)
         {
             // BeginInvoke(new Action(Init));
-            userInfo = Program.userInfo;
-            this.labUserName.Text = userInfo.UserName;
+            //userInfo = Program.userInfo;
+            //this.labUserName.Text = userInfo.UserName;
 
             var displayThread = new Thread(DisplayHavingError);
             displayThread.IsBackground = true;

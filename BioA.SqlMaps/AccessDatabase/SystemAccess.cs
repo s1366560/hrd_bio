@@ -612,8 +612,8 @@ namespace BioA.SqlMaps
             List<OffSetGain> lstOldPhotoGain = new List<OffSetGain>();
             try
             {
-                lstNewPhotoGain = ism_SqlMap.QueryForList<OffSetGain>("EquipmentManage." + strMethodName, null) as List<OffSetGain>;
-                lstOldPhotoGain = ism_SqlMap.QueryForList<OffSetGain>("EquipmentManage.QueryOldPhotemetricValue", null) as List<OffSetGain>;
+                lstNewPhotoGain = ism_SqlMap.QueryForList<OffSetGain>("EquipmentManage.QueryNewPhotemetricValue", null) as List<OffSetGain>; 
+                lstOldPhotoGain = ism_SqlMap.QueryForList<OffSetGain>("EquipmentManage." + strMethodName, null) as List<OffSetGain>;
                 if (lstNewPhotoGain.Count > 0 || lstOldPhotoGain.Count > 0)
                 {
                     lstNewAndOldPhotoGain.Add(lstNewPhotoGain);

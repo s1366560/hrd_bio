@@ -394,6 +394,7 @@
             this.combPanelNum.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.combPanelNum.Size = new System.Drawing.Size(100, 24);
             this.combPanelNum.TabIndex = 31;
+            this.combPanelNum.SelectedIndexChanged += new System.EventHandler(this.combPanelNum_SelectedIndexChanged);
             // 
             // combPosNum
             // 

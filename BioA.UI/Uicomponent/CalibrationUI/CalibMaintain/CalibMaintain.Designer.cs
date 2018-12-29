@@ -64,6 +64,7 @@
             this.lstvCalibInfo.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
             this.lstvCalibInfo.Click += new System.EventHandler(this.gridControl1_Click);
+            this.lstvCalibInfo.DoubleClick += new System.EventHandler(this.btnEdit_Click);
             // 
             // gridView1
             // 

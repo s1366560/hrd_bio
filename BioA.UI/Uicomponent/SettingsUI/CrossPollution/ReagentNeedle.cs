@@ -446,6 +446,10 @@ namespace BioA.UI
         {
            
             int selectedHandle;
+            if (this.gridView1.GetSelectedRows() == null)
+            {
+                return;
+            }
             selectedHandle = this.gridView1.GetSelectedRows()[0];
             reagentNeedleAntifoulingStrategyInfoOld.ReagentNeedle = this.gridView1.GetRowCellValue(selectedHandle, "试剂针").ToString();
             reagentNeedleAntifoulingStrategyInfoOld.PolluteProName = this.gridView1.GetRowCellValue(selectedHandle, "污染项目名称").ToString();

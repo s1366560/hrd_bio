@@ -858,7 +858,7 @@ namespace BioA.UI
             // 
             this.txtInfoPrompt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtInfoPrompt.EditValue = "机器正常启动";
-            this.txtInfoPrompt.Location = new System.Drawing.Point(1093, 82);
+            this.txtInfoPrompt.Location = new System.Drawing.Point(1222, 84);
             this.txtInfoPrompt.MenuManager = this.ribbonControl1;
             this.txtInfoPrompt.Name = "txtInfoPrompt";
             this.txtInfoPrompt.Properties.Appearance.BackColor = System.Drawing.SystemColors.Info;
@@ -877,7 +877,7 @@ namespace BioA.UI
             this.pictureBox2.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureBox2.ErrorImage")));
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
             this.pictureBox2.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox2.InitialImage")));
-            this.pictureBox2.Location = new System.Drawing.Point(1022, 82);
+            this.pictureBox2.Location = new System.Drawing.Point(1138, 84);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(65, 63);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -900,7 +900,7 @@ namespace BioA.UI
             this.pictureEdit3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureEdit3.Cursor = System.Windows.Forms.Cursors.Default;
             this.pictureEdit3.EditValue = global::BioA.UI.Properties.Resources.未标题3_1;
-            this.pictureEdit3.Location = new System.Drawing.Point(1401, 82);
+            this.pictureEdit3.Location = new System.Drawing.Point(1505, 84);
             this.pictureEdit3.MenuManager = this.ribbonControl1;
             this.pictureEdit3.Name = "pictureEdit3";
             this.pictureEdit3.Properties.Appearance.BackColor = System.Drawing.Color.FloralWhite;
@@ -978,7 +978,7 @@ namespace BioA.UI
             this.lblSampleContainer.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.lblSampleContainer.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
             this.lblSampleContainer.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.lblSampleContainer.Location = new System.Drawing.Point(1445, 84);
+            this.lblSampleContainer.Location = new System.Drawing.Point(1558, 84);
             this.lblSampleContainer.Name = "lblSampleContainer";
             this.lblSampleContainer.Size = new System.Drawing.Size(131, 61);
             this.lblSampleContainer.TabIndex = 34;

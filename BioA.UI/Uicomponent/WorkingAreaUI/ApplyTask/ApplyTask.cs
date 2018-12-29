@@ -16,6 +16,7 @@ using BioA.Common.IO;
 using System.Threading;
 using System.Diagnostics;
 using BioA.Service;
+using BioA.SqlMaps;
 
 namespace BioA.UI
 {
@@ -48,6 +49,7 @@ namespace BioA.UI
         frmBatchInput batchInput = new frmBatchInput();
         //病人信息窗体
         PatientInfoFrm patientInfofrm = new PatientInfoFrm();
+        private MyBatis myBatis = new MyBatis();
         public ApplyTask()
         {
             InitializeComponent();
@@ -124,7 +126,7 @@ namespace BioA.UI
         /// 处理组合项目名点击事件
         /// </summary>
         /// <param name="sender"></param>
-        private void HenderClickProCombNamePageEvent(string sender)
+        private bool HenderClickProCombNamePageEvent(string sender,string tag)
         {
             //存储项目名称
             List<string> lstProNames = new List<string>();
@@ -137,12 +139,76 @@ namespace BioA.UI
             }
             if (lstProNames.Count > 0)
             {
-                projectPage1.SelectedProjects = lstProNames;
-                projectPage2.SelectedProjects = lstProNames;
-                projectPage3.SelectedProjects = lstProNames;
-                projectPage4.SelectedProjects = lstProNames;
+                bool ret1 = setprojectpage(lstProNames, projectPage1.Controls,tag);
+                if (ret1 == false)
+                    return ret1;
+                bool ret2 = setprojectpage(lstProNames, projectPage2.Controls, tag);
+                if (ret2 == false)
+                    return ret2;
+                bool ret3 = setprojectpage(lstProNames, projectPage3.Controls, tag);
+                if (ret3 == false)
+                    return ret3;
+                bool ret4 = setprojectpage(lstProNames, projectPage4.Controls, tag);
+                if (ret4 == false)
+                {
+                    return ret4;
+                }
+                else
+                {
+                    return true;
+                }
+                //projectPage1.SelectedProjects = lstProNames;
+               // projectPage2.SelectedProjects = lstProNames;
+               // projectPage3.SelectedProjects = lstProNames;
+               // projectPage4.SelectedProjects = lstProNames;
             }
+            return false;
         }
+        private bool setprojectpage(List<string> selectedProjects, ControlCollection Controls,string tag)
+        {
+            bool flag = true; 
+            foreach (Control control in Controls)
+            {
+                if (control.GetType() == typeof(System.Windows.Forms.Button))
+                {
+                    foreach (string str in selectedProjects)
+                    {
+                        if (control.Text == str)
+                        {
+                            if (control.ForeColor == Color.Black && tag == "0")
+                            {
+                                control.Tag = "1";
+
+                                this.Invoke(new EventHandler(delegate
+                                {
+                                    control.ForeColor = Color.Red;
+                                }));
+                                flag = true;
+                            }
+                            else if(control.ForeColor == Color.Red && tag == "1")
+                            {
+                                control.Tag = "0";
+
+                                this.Invoke(new EventHandler(delegate
+                                {
+                                    control.ForeColor = Color.Black;
+                                }));
+                                flag = true;
+                            }
+                            else if(control.ForeColor == Color.Orange && tag == "0")
+                            {
+                                MessageBox.Show("项目:" + control.Text + "参数存在问题，不可下任务！");
+                                flag = false;
+                            }
+                        }
+                    }
+
+
+                }
+            }
+            return flag;
+        }
+
 
         /// <summary>
         /// 把客户端信息发送给服务器
@@ -970,6 +1036,18 @@ namespace BioA.UI
                 combPanelNum.SelectedItem = (iPanel + 1).ToString();
                 combPosNum.SelectedItem = "1";
             }
+        }
+        /// <summary>
+        /// 更新盘号
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void combPanelNum_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //if (this.combPanelNum.SelectedItem != null)
+            //{
+            //    myBatis.UpdateRunningTaskWorDisk("UpdateRunningTaskWorDisk", this.combPanelNum.SelectedItem.ToString());
+            //}
         }
     }
 }

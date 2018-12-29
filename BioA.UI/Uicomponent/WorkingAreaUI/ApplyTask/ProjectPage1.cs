@@ -231,13 +231,29 @@ namespace BioA.UI
                         {
                             if (control.Text == str)
                             {
-                                control.Tag = "1";
-
-                                this.Invoke(new EventHandler(delegate
+                                if (control.ForeColor == Color.Black)
                                 {
-                                    control.ForeColor = Color.Red;
-                                }));
+                                    control.Tag = "1";
 
+                                    this.Invoke(new EventHandler(delegate
+                                    {
+                                        control.ForeColor = Color.Red;
+                                    }));
+                                }
+                                else if(control.ForeColor == Color.Red)
+                                {
+                                    control.Tag = "0";
+
+                                    this.Invoke(new EventHandler(delegate
+                                    {
+                                        control.ForeColor = Color.Black;
+                                    }));
+                                }
+                                else if(control.ForeColor == Color.Orange)
+                                {
+                                    MessageBox.Show("项目:" + control.Text + "参数存在问题，不可下任务！");
+                                    return;
+                                }
                             }
                         }
 
