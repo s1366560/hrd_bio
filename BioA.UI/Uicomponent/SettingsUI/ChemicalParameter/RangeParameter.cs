@@ -11,6 +11,7 @@ using DevExpress.XtraEditors;
 using BioA.Common;
 using BioA.Common.IO;
 using System.Text.RegularExpressions;
+using BioA.Service;
 
 namespace BioA.UI
 {
@@ -530,13 +531,10 @@ namespace BioA.UI
         {
             BeginInvoke(new Action(() => 
             {
-                if (ListAssayprojectInfos.Count == 0)
-                {
-                    //获取所有生化项目
-                    rangeParamDic.Add("QueryAssayProAllInfo", new object[] { ""});
-                }
-                else
-                    this.LstAssayProInfos = this.listAssayProjectInfos;
+                //获取所有生化项目
+                List<AssayProjectInfo> lstProjectInfos = new SettingsChemicalParameter().QueryAssayProAllInfo("QueryAssayProAllInfo", null);
+                this.LstAssayProInfos = lstProjectInfos;
+                
             }));
             
         }

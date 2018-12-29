@@ -223,11 +223,5 @@ namespace BioA.UI
                 xtraTabPage1.Controls.Add(projectParameter);
             }));
         }
-        private DataTable _data = new DataTable();
-
-        private void DataParamInfo_Event(DataTable dataTable)
-        {
-            this._data = dataTable;
-        }
     }
 }

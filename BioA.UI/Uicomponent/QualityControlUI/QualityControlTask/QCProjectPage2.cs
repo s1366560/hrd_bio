@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
-using System.Linq;
 using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
 
 namespace BioA.UI
 {
-    public partial class QCProjectPage2 : UserControl
+    public partial class QCProjectPage2 : DevExpress.XtraEditors.XtraUserControl
     {
-                public delegate void ProjectCallbackInfoDelegate(string strProName);
+        public delegate void ProjectCallbackInfoDelegate(string strProName);
         public event ProjectCallbackInfoDelegate ProjectCallbackInfoEvent;
         public QCProjectPage2()
         {
@@ -29,7 +29,8 @@ namespace BioA.UI
             set
             {
                 lstAssayProInfos = value;
-                this.Invoke(new EventHandler(delegate{
+                this.Invoke(new EventHandler(delegate
+                {
                     simpleButton1.Text = lstAssayProInfos.Count >= 49 ? lstAssayProInfos[48] : "";
                     simpleButton2.Text = lstAssayProInfos.Count >= 50 ? lstAssayProInfos[49] : "";
                     simpleButton3.Text = lstAssayProInfos.Count >= 51 ? lstAssayProInfos[50] : "";
@@ -80,7 +81,7 @@ namespace BioA.UI
                     simpleButton48.Text = lstAssayProInfos.Count >= 96 ? lstAssayProInfos[95] : "";
                 }));
             }
-                
+
         }
 
         private List<string[]> selectedProjects = new List<string[]>();
@@ -222,12 +223,6 @@ namespace BioA.UI
                     }
                 }
             }
-        }
-
-
-        private void simpleButton_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

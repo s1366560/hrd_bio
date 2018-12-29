@@ -40,16 +40,35 @@ namespace BioA.SqlMaps
         public List<string> QueryProNameForApplyTask(string StrmethodName, string sampleType)
         {
             List<string> lstProName = new List<string>();
+            List<int> lstInt = new List<int>();
+            List<string> lstProjectNames = new List<string>();
             try
             {
                 lstProName = (List<string>)ism_SqlMap.QueryForList<string>("AssayProjectInfo.ProjectPageinfoBySampleType", sampleType);
+                foreach (string projectName in lstProName)
+                {
+                    int s = projectName.IndexOf('.');
+                    lstInt.Add(Convert.ToInt32(projectName.Substring(0, s)));
+                }
+                lstInt.Sort();
+                foreach (int i in lstInt)
+                {
+                    foreach (string proName in lstProName)
+                    {
+                        int s = proName.IndexOf('.');
+                        if (i == Convert.ToInt32(proName.Substring(0, s)))
+                        {
+                            lstProjectNames.Add(proName);
+                        }
+                    }
+                }
             }
             catch (Exception e)
             {
                 LogInfo.WriteErrorLog("QueryProNameForApplyTask(string StrmethodName, string sampleType)==" + e.ToString(), Module.DAO);
             }
 
-            return lstProName;
+            return lstProjectNames;
         }
         /// <summary>
         /// 获取常规样本任务信息

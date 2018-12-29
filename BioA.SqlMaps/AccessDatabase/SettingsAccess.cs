@@ -139,7 +139,8 @@ namespace BioA.SqlMaps
         public List<AssayProjectInfo> QueryAssayProAllInfo(string strDBMethod, AssayProjectInfo assayProInfo)
         {
             List<AssayProjectInfo> lstAssayProInfos = new List<AssayProjectInfo>();
-
+            List<int> lstInt = new List<int>();
+            List<AssayProjectInfo> lstProjectInfo= new List<AssayProjectInfo>();
             try
             {
                 if (assayProInfo == null)
@@ -168,13 +169,30 @@ namespace BioA.SqlMaps
 
                     lstAssayProInfos = (List<AssayProjectInfo>)ism_SqlMap.QueryForList<AssayProjectInfo>("AssayProjectInfo." + strDBMethod, hash);
                 }
+                foreach (AssayProjectInfo assayProjectInfo in lstAssayProInfos)
+                {
+                    int s = assayProjectInfo.ProjectName.IndexOf('.');
+                    lstInt.Add(Convert.ToInt32(assayProjectInfo.ProjectName.Substring(0,s)));
+                }
+                lstInt.Sort();
+                foreach (int i in lstInt)
+                {
+                    foreach (AssayProjectInfo assayProjectInfo in lstAssayProInfos)
+                    {
+                        int s = assayProjectInfo.ProjectName.IndexOf('.');
+                        if (i == Convert.ToInt32(assayProjectInfo.ProjectName.Substring(0, s)))
+                        {
+                            lstProjectInfo.Add(assayProjectInfo);
+                        }
+                    }
+                }
             }
             catch (Exception e)
             {
                 LogInfo.WriteErrorLog("SettingsAccess.cs_QueryAssayProAllInfo(string strDBMethod, AssayProjectInfo assayProInfo)==" + e.ToString(), Module.DAO);
             }
             LogInfo.WriteProcessLog(lstAssayProInfos.Count.ToString(), Module.DAO);
-            return lstAssayProInfos;
+            return lstProjectInfo;
         }
 
         /// <summary>

@@ -21,7 +21,6 @@ namespace BioA.Service
         public List<AssayProjectInfo> QueryAssayProAllInfo(string strDBMethod, AssayProjectInfo assayProInfo)
         {
             List<AssayProjectInfo> lstAssayProInfos = myBatis.QueryAssayProAllInfo(strDBMethod, assayProInfo);
-            LogInfo.WriteProcessLog(lstAssayProInfos.Count.ToString(), Module.WindowsService);
 
             return lstAssayProInfos;
         }
@@ -30,7 +29,6 @@ namespace BioA.Service
         public List<LISCommunicateNetworkInfo> QueryLISCommunicateInfo(string strDBMethod)
         {
             List<LISCommunicateNetworkInfo> lstLISCommunicateInfo = myBatis.QueryLISCommunicateInfo(strDBMethod);
-            LogInfo.WriteProcessLog(lstLISCommunicateInfo.Count.ToString(), Module.WindowsService);
 
             return lstLISCommunicateInfo;
         }
@@ -38,7 +36,6 @@ namespace BioA.Service
         public List<SerialCommunicationInfo> QuerySerialCommunicationInfo(string strDBMethod)
         {
             List<SerialCommunicationInfo> serialCommunicationInfo = myBatis.QuerySerialCommunicationInfo(strDBMethod);
-            LogInfo.WriteProcessLog(serialCommunicationInfo.Count.ToString(), Module.WindowsService);
 
             return serialCommunicationInfo;
         }

@@ -838,40 +838,76 @@ namespace BioA.SqlMaps
 
         public List<string> QueryAssayProNameAllInfo(string strDBMethod, string sampleType)
         {
-            List<string> lstProjectName = new List<string>();
+            List<string> lstProName = new List<string>();
+            List<int> lstInt = new List<int>();
+            List<string> lstProjectNames = new List<string>();
             try
             {
-                lstProjectName = (List<string>)ism_SqlMap.QueryForList<string>("AssayProjectInfo.ProjectPageinfoBySampleType", sampleType);
-
+                lstProName = (List<string>)ism_SqlMap.QueryForList<string>("AssayProjectInfo.ProjectPageinfoBySampleType", sampleType);
+                foreach (string projectName in lstProName)
+                {
+                    int s = projectName.IndexOf('.');
+                    lstInt.Add(Convert.ToInt32(projectName.Substring(0, s)));
+                }
+                lstInt.Sort();
+                foreach (int i in lstInt)
+                {
+                    foreach (string proName in lstProName)
+                    {
+                        int s = proName.IndexOf('.');
+                        if (i == Convert.ToInt32(proName.Substring(0, s)))
+                        {
+                            lstProjectNames.Add(proName);
+                        }
+                    }
+                }
             }
             catch (Exception e)
             {
                 LogInfo.WriteErrorLog("QueryAssayProNameAllInfo(string strDBMethod)==" + e.ToString(), Module.DAO);
             }
 
-            return lstProjectName;
+            return lstProjectNames;
         }
 
         /// <summary>
-        /// 根据样本类型获取所有的校准品
+        /// 根据样本类型获取所有的校准品项目名称
         /// </summary>
         /// <param name="strDBMethod"></param>
         /// <param name="sampleType"></param>
         /// <returns></returns>
         public List<string> QueryProjectNameInfoByCalib(string strDBMethod, string sampleType)
         {
-            List<string> lstProjectName = new List<string>();
+            List<string> lstProName = new List<string>();
+            List<int> lstInt = new List<int>();
+            List<string> lstProjectNames = new List<string>();
             try
             {
-                lstProjectName = (List<string>)ism_SqlMap.QueryForList<string>("AssayProjectInfo.ProjectPageinfoBySampleType", sampleType);
-
+                lstProName = (List<string>)ism_SqlMap.QueryForList<string>("AssayProjectInfo.ProjectPageinfoBySampleType", sampleType);
+                foreach (string projectName in lstProName)
+                {
+                    int s = projectName.IndexOf('.');
+                    lstInt.Add(Convert.ToInt32(projectName.Substring(0, s)));
+                }
+                lstInt.Sort();
+                foreach (int i in lstInt)
+                {
+                    foreach (string proName in lstProName)
+                    {
+                        int s = proName.IndexOf('.');
+                        if (i == Convert.ToInt32(proName.Substring(0, s)))
+                        {
+                            lstProjectNames.Add(proName);
+                        }
+                    }
+                }
             }
             catch (Exception e)
             {
                 LogInfo.WriteErrorLog("QueryAssayProNameAllInfo(string strDBMethod)==" + e.ToString(), Module.DAO);
             }
 
-            return lstProjectName;
+            return lstProjectNames;
         }
 
         public int QueryBigestCalibCTaskInfoForToday(string strDBMethod)

@@ -588,8 +588,8 @@ namespace BioA.UI
         private void Form1_Load(object sender, EventArgs e)
         {
             // BeginInvoke(new Action(Init));
-            //userInfo = Program.userInfo;
-            //this.labUserName.Text = userInfo.UserName;
+            userInfo = Program.userInfo;
+            this.labUserName.Text = userInfo.UserName;
 
             var displayThread = new Thread(DisplayHavingError);
             displayThread.IsBackground = true;

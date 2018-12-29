@@ -88,10 +88,10 @@
             this.simpleButton28.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton28.Enabled = false;
             this.simpleButton28.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton28.Location = new System.Drawing.Point(495, 309);
+            this.simpleButton28.Location = new System.Drawing.Point(507, 339);
             this.simpleButton28.Name = "simpleButton28";
-            this.simpleButton28.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton28.TabIndex = 135;
+            this.simpleButton28.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton28.TabIndex = 231;
             this.simpleButton28.UseVisualStyleBackColor = false;
             // 
             // simpleButton48
@@ -101,10 +101,10 @@
             this.simpleButton48.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton48.Enabled = false;
             this.simpleButton48.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton48.Location = new System.Drawing.Point(1159, 511);
+            this.simpleButton48.Location = new System.Drawing.Point(1176, 560);
             this.simpleButton48.Name = "simpleButton48";
-            this.simpleButton48.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton48.TabIndex = 134;
+            this.simpleButton48.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton48.TabIndex = 230;
             this.simpleButton48.UseVisualStyleBackColor = false;
             // 
             // simpleButton40
@@ -114,10 +114,10 @@
             this.simpleButton40.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton40.Enabled = false;
             this.simpleButton40.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton40.Location = new System.Drawing.Point(1159, 410);
+            this.simpleButton40.Location = new System.Drawing.Point(1176, 449);
             this.simpleButton40.Name = "simpleButton40";
-            this.simpleButton40.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton40.TabIndex = 133;
+            this.simpleButton40.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton40.TabIndex = 229;
             this.simpleButton40.UseVisualStyleBackColor = false;
             // 
             // simpleButton47
@@ -127,10 +127,10 @@
             this.simpleButton47.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton47.Enabled = false;
             this.simpleButton47.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton47.Location = new System.Drawing.Point(993, 511);
+            this.simpleButton47.Location = new System.Drawing.Point(1007, 560);
             this.simpleButton47.Name = "simpleButton47";
-            this.simpleButton47.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton47.TabIndex = 132;
+            this.simpleButton47.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton47.TabIndex = 228;
             this.simpleButton47.UseVisualStyleBackColor = false;
             // 
             // simpleButton39
@@ -140,10 +140,10 @@
             this.simpleButton39.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton39.Enabled = false;
             this.simpleButton39.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton39.Location = new System.Drawing.Point(993, 410);
+            this.simpleButton39.Location = new System.Drawing.Point(1007, 449);
             this.simpleButton39.Name = "simpleButton39";
-            this.simpleButton39.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton39.TabIndex = 131;
+            this.simpleButton39.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton39.TabIndex = 227;
             this.simpleButton39.UseVisualStyleBackColor = false;
             // 
             // simpleButton46
@@ -153,10 +153,10 @@
             this.simpleButton46.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton46.Enabled = false;
             this.simpleButton46.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton46.Location = new System.Drawing.Point(827, 511);
+            this.simpleButton46.Location = new System.Drawing.Point(840, 560);
             this.simpleButton46.Name = "simpleButton46";
-            this.simpleButton46.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton46.TabIndex = 130;
+            this.simpleButton46.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton46.TabIndex = 226;
             this.simpleButton46.UseVisualStyleBackColor = false;
             // 
             // simpleButton38
@@ -166,10 +166,10 @@
             this.simpleButton38.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton38.Enabled = false;
             this.simpleButton38.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton38.Location = new System.Drawing.Point(827, 410);
+            this.simpleButton38.Location = new System.Drawing.Point(840, 449);
             this.simpleButton38.Name = "simpleButton38";
-            this.simpleButton38.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton38.TabIndex = 129;
+            this.simpleButton38.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton38.TabIndex = 225;
             this.simpleButton38.UseVisualStyleBackColor = false;
             // 
             // simpleButton45
@@ -179,10 +179,10 @@
             this.simpleButton45.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton45.Enabled = false;
             this.simpleButton45.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton45.Location = new System.Drawing.Point(661, 511);
+            this.simpleButton45.Location = new System.Drawing.Point(673, 560);
             this.simpleButton45.Name = "simpleButton45";
-            this.simpleButton45.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton45.TabIndex = 128;
+            this.simpleButton45.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton45.TabIndex = 224;
             this.simpleButton45.UseVisualStyleBackColor = false;
             // 
             // simpleButton37
@@ -192,10 +192,10 @@
             this.simpleButton37.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton37.Enabled = false;
             this.simpleButton37.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton37.Location = new System.Drawing.Point(661, 410);
+            this.simpleButton37.Location = new System.Drawing.Point(673, 449);
             this.simpleButton37.Name = "simpleButton37";
-            this.simpleButton37.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton37.TabIndex = 127;
+            this.simpleButton37.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton37.TabIndex = 223;
             this.simpleButton37.UseVisualStyleBackColor = false;
             // 
             // simpleButton44
@@ -205,10 +205,10 @@
             this.simpleButton44.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton44.Enabled = false;
             this.simpleButton44.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton44.Location = new System.Drawing.Point(495, 511);
+            this.simpleButton44.Location = new System.Drawing.Point(507, 560);
             this.simpleButton44.Name = "simpleButton44";
-            this.simpleButton44.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton44.TabIndex = 126;
+            this.simpleButton44.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton44.TabIndex = 222;
             this.simpleButton44.UseVisualStyleBackColor = false;
             // 
             // simpleButton36
@@ -218,10 +218,10 @@
             this.simpleButton36.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton36.Enabled = false;
             this.simpleButton36.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton36.Location = new System.Drawing.Point(495, 410);
+            this.simpleButton36.Location = new System.Drawing.Point(507, 449);
             this.simpleButton36.Name = "simpleButton36";
-            this.simpleButton36.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton36.TabIndex = 125;
+            this.simpleButton36.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton36.TabIndex = 221;
             this.simpleButton36.UseVisualStyleBackColor = false;
             // 
             // simpleButton43
@@ -231,10 +231,10 @@
             this.simpleButton43.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton43.Enabled = false;
             this.simpleButton43.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton43.Location = new System.Drawing.Point(332, 510);
+            this.simpleButton43.Location = new System.Drawing.Point(340, 559);
             this.simpleButton43.Name = "simpleButton43";
-            this.simpleButton43.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton43.TabIndex = 124;
+            this.simpleButton43.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton43.TabIndex = 220;
             this.simpleButton43.UseVisualStyleBackColor = false;
             // 
             // simpleButton35
@@ -244,10 +244,10 @@
             this.simpleButton35.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton35.Enabled = false;
             this.simpleButton35.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton35.Location = new System.Drawing.Point(329, 408);
+            this.simpleButton35.Location = new System.Drawing.Point(337, 447);
             this.simpleButton35.Name = "simpleButton35";
-            this.simpleButton35.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton35.TabIndex = 123;
+            this.simpleButton35.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton35.TabIndex = 219;
             this.simpleButton35.UseVisualStyleBackColor = false;
             // 
             // simpleButton42
@@ -257,10 +257,10 @@
             this.simpleButton42.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton42.Enabled = false;
             this.simpleButton42.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton42.Location = new System.Drawing.Point(166, 510);
+            this.simpleButton42.Location = new System.Drawing.Point(172, 559);
             this.simpleButton42.Name = "simpleButton42";
-            this.simpleButton42.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton42.TabIndex = 122;
+            this.simpleButton42.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton42.TabIndex = 218;
             this.simpleButton42.UseVisualStyleBackColor = false;
             // 
             // simpleButton34
@@ -270,10 +270,10 @@
             this.simpleButton34.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton34.Enabled = false;
             this.simpleButton34.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton34.Location = new System.Drawing.Point(166, 409);
+            this.simpleButton34.Location = new System.Drawing.Point(172, 448);
             this.simpleButton34.Name = "simpleButton34";
-            this.simpleButton34.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton34.TabIndex = 121;
+            this.simpleButton34.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton34.TabIndex = 217;
             this.simpleButton34.UseVisualStyleBackColor = false;
             // 
             // simpleButton41
@@ -283,10 +283,10 @@
             this.simpleButton41.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton41.Enabled = false;
             this.simpleButton41.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton41.Location = new System.Drawing.Point(3, 510);
+            this.simpleButton41.Location = new System.Drawing.Point(6, 559);
             this.simpleButton41.Name = "simpleButton41";
-            this.simpleButton41.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton41.TabIndex = 120;
+            this.simpleButton41.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton41.TabIndex = 216;
             this.simpleButton41.UseVisualStyleBackColor = false;
             // 
             // simpleButton33
@@ -296,10 +296,10 @@
             this.simpleButton33.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton33.Enabled = false;
             this.simpleButton33.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton33.Location = new System.Drawing.Point(3, 409);
+            this.simpleButton33.Location = new System.Drawing.Point(6, 448);
             this.simpleButton33.Name = "simpleButton33";
-            this.simpleButton33.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton33.TabIndex = 119;
+            this.simpleButton33.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton33.TabIndex = 215;
             this.simpleButton33.UseVisualStyleBackColor = false;
             // 
             // simpleButton32
@@ -309,10 +309,10 @@
             this.simpleButton32.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton32.Enabled = false;
             this.simpleButton32.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton32.Location = new System.Drawing.Point(1159, 308);
+            this.simpleButton32.Location = new System.Drawing.Point(1176, 338);
             this.simpleButton32.Name = "simpleButton32";
-            this.simpleButton32.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton32.TabIndex = 118;
+            this.simpleButton32.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton32.TabIndex = 214;
             this.simpleButton32.UseVisualStyleBackColor = false;
             // 
             // simpleButton24
@@ -322,10 +322,10 @@
             this.simpleButton24.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton24.Enabled = false;
             this.simpleButton24.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton24.Location = new System.Drawing.Point(1159, 208);
+            this.simpleButton24.Location = new System.Drawing.Point(1176, 230);
             this.simpleButton24.Name = "simpleButton24";
-            this.simpleButton24.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton24.TabIndex = 117;
+            this.simpleButton24.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton24.TabIndex = 213;
             this.simpleButton24.UseVisualStyleBackColor = false;
             // 
             // simpleButton16
@@ -335,10 +335,10 @@
             this.simpleButton16.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton16.Enabled = false;
             this.simpleButton16.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton16.Location = new System.Drawing.Point(1159, 107);
+            this.simpleButton16.Location = new System.Drawing.Point(1176, 121);
             this.simpleButton16.Name = "simpleButton16";
-            this.simpleButton16.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton16.TabIndex = 116;
+            this.simpleButton16.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton16.TabIndex = 212;
             this.simpleButton16.UseVisualStyleBackColor = false;
             // 
             // simpleButton8
@@ -349,10 +349,10 @@
             this.simpleButton8.Enabled = false;
             this.simpleButton8.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.simpleButton8.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.simpleButton8.Location = new System.Drawing.Point(1159, 6);
+            this.simpleButton8.Location = new System.Drawing.Point(1176, 11);
             this.simpleButton8.Name = "simpleButton8";
-            this.simpleButton8.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton8.TabIndex = 115;
+            this.simpleButton8.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton8.TabIndex = 211;
             this.simpleButton8.UseVisualStyleBackColor = false;
             // 
             // simpleButton31
@@ -362,10 +362,10 @@
             this.simpleButton31.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton31.Enabled = false;
             this.simpleButton31.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton31.Location = new System.Drawing.Point(993, 309);
+            this.simpleButton31.Location = new System.Drawing.Point(1007, 339);
             this.simpleButton31.Name = "simpleButton31";
-            this.simpleButton31.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton31.TabIndex = 114;
+            this.simpleButton31.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton31.TabIndex = 210;
             this.simpleButton31.UseVisualStyleBackColor = false;
             // 
             // simpleButton23
@@ -375,10 +375,10 @@
             this.simpleButton23.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton23.Enabled = false;
             this.simpleButton23.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton23.Location = new System.Drawing.Point(993, 208);
+            this.simpleButton23.Location = new System.Drawing.Point(1007, 230);
             this.simpleButton23.Name = "simpleButton23";
-            this.simpleButton23.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton23.TabIndex = 113;
+            this.simpleButton23.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton23.TabIndex = 209;
             this.simpleButton23.UseVisualStyleBackColor = false;
             // 
             // simpleButton15
@@ -388,10 +388,10 @@
             this.simpleButton15.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton15.Enabled = false;
             this.simpleButton15.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton15.Location = new System.Drawing.Point(993, 108);
+            this.simpleButton15.Location = new System.Drawing.Point(1007, 122);
             this.simpleButton15.Name = "simpleButton15";
-            this.simpleButton15.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton15.TabIndex = 112;
+            this.simpleButton15.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton15.TabIndex = 208;
             this.simpleButton15.UseVisualStyleBackColor = false;
             // 
             // simpleButton7
@@ -401,10 +401,10 @@
             this.simpleButton7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton7.Enabled = false;
             this.simpleButton7.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton7.Location = new System.Drawing.Point(993, 6);
+            this.simpleButton7.Location = new System.Drawing.Point(1007, 11);
             this.simpleButton7.Name = "simpleButton7";
-            this.simpleButton7.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton7.TabIndex = 111;
+            this.simpleButton7.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton7.TabIndex = 207;
             this.simpleButton7.UseVisualStyleBackColor = false;
             // 
             // simpleButton30
@@ -414,10 +414,10 @@
             this.simpleButton30.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton30.Enabled = false;
             this.simpleButton30.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton30.Location = new System.Drawing.Point(827, 309);
+            this.simpleButton30.Location = new System.Drawing.Point(840, 339);
             this.simpleButton30.Name = "simpleButton30";
-            this.simpleButton30.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton30.TabIndex = 110;
+            this.simpleButton30.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton30.TabIndex = 206;
             this.simpleButton30.UseVisualStyleBackColor = false;
             // 
             // simpleButton22
@@ -427,10 +427,10 @@
             this.simpleButton22.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton22.Enabled = false;
             this.simpleButton22.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton22.Location = new System.Drawing.Point(827, 208);
+            this.simpleButton22.Location = new System.Drawing.Point(840, 230);
             this.simpleButton22.Name = "simpleButton22";
-            this.simpleButton22.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton22.TabIndex = 109;
+            this.simpleButton22.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton22.TabIndex = 205;
             this.simpleButton22.UseVisualStyleBackColor = false;
             // 
             // simpleButton14
@@ -440,10 +440,10 @@
             this.simpleButton14.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton14.Enabled = false;
             this.simpleButton14.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton14.Location = new System.Drawing.Point(827, 106);
+            this.simpleButton14.Location = new System.Drawing.Point(840, 120);
             this.simpleButton14.Name = "simpleButton14";
-            this.simpleButton14.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton14.TabIndex = 108;
+            this.simpleButton14.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton14.TabIndex = 204;
             this.simpleButton14.UseVisualStyleBackColor = false;
             // 
             // simpleButton6
@@ -453,10 +453,10 @@
             this.simpleButton6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton6.Enabled = false;
             this.simpleButton6.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton6.Location = new System.Drawing.Point(827, 6);
+            this.simpleButton6.Location = new System.Drawing.Point(840, 11);
             this.simpleButton6.Name = "simpleButton6";
-            this.simpleButton6.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton6.TabIndex = 107;
+            this.simpleButton6.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton6.TabIndex = 203;
             this.simpleButton6.UseVisualStyleBackColor = false;
             // 
             // simpleButton29
@@ -466,10 +466,10 @@
             this.simpleButton29.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton29.Enabled = false;
             this.simpleButton29.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton29.Location = new System.Drawing.Point(661, 309);
+            this.simpleButton29.Location = new System.Drawing.Point(673, 339);
             this.simpleButton29.Name = "simpleButton29";
-            this.simpleButton29.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton29.TabIndex = 106;
+            this.simpleButton29.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton29.TabIndex = 202;
             this.simpleButton29.UseVisualStyleBackColor = false;
             // 
             // simpleButton21
@@ -479,10 +479,10 @@
             this.simpleButton21.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton21.Enabled = false;
             this.simpleButton21.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton21.Location = new System.Drawing.Point(661, 208);
+            this.simpleButton21.Location = new System.Drawing.Point(673, 230);
             this.simpleButton21.Name = "simpleButton21";
-            this.simpleButton21.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton21.TabIndex = 105;
+            this.simpleButton21.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton21.TabIndex = 201;
             this.simpleButton21.UseVisualStyleBackColor = false;
             // 
             // simpleButton13
@@ -492,10 +492,10 @@
             this.simpleButton13.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton13.Enabled = false;
             this.simpleButton13.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton13.Location = new System.Drawing.Point(661, 107);
+            this.simpleButton13.Location = new System.Drawing.Point(673, 121);
             this.simpleButton13.Name = "simpleButton13";
-            this.simpleButton13.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton13.TabIndex = 104;
+            this.simpleButton13.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton13.TabIndex = 200;
             this.simpleButton13.UseVisualStyleBackColor = false;
             // 
             // simpleButton5
@@ -505,10 +505,10 @@
             this.simpleButton5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton5.Enabled = false;
             this.simpleButton5.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton5.Location = new System.Drawing.Point(661, 6);
+            this.simpleButton5.Location = new System.Drawing.Point(673, 11);
             this.simpleButton5.Name = "simpleButton5";
-            this.simpleButton5.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton5.TabIndex = 103;
+            this.simpleButton5.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton5.TabIndex = 199;
             this.simpleButton5.UseVisualStyleBackColor = false;
             // 
             // simpleButton20
@@ -518,10 +518,10 @@
             this.simpleButton20.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton20.Enabled = false;
             this.simpleButton20.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton20.Location = new System.Drawing.Point(495, 209);
+            this.simpleButton20.Location = new System.Drawing.Point(507, 231);
             this.simpleButton20.Name = "simpleButton20";
-            this.simpleButton20.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton20.TabIndex = 102;
+            this.simpleButton20.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton20.TabIndex = 198;
             this.simpleButton20.UseVisualStyleBackColor = false;
             // 
             // simpleButton12
@@ -531,10 +531,10 @@
             this.simpleButton12.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton12.Enabled = false;
             this.simpleButton12.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton12.Location = new System.Drawing.Point(495, 107);
+            this.simpleButton12.Location = new System.Drawing.Point(507, 121);
             this.simpleButton12.Name = "simpleButton12";
-            this.simpleButton12.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton12.TabIndex = 101;
+            this.simpleButton12.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton12.TabIndex = 197;
             this.simpleButton12.UseVisualStyleBackColor = false;
             // 
             // simpleButton4
@@ -544,10 +544,10 @@
             this.simpleButton4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton4.Enabled = false;
             this.simpleButton4.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton4.Location = new System.Drawing.Point(495, 6);
+            this.simpleButton4.Location = new System.Drawing.Point(507, 11);
             this.simpleButton4.Name = "simpleButton4";
-            this.simpleButton4.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton4.TabIndex = 100;
+            this.simpleButton4.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton4.TabIndex = 196;
             this.simpleButton4.UseVisualStyleBackColor = false;
             // 
             // simpleButton27
@@ -557,10 +557,10 @@
             this.simpleButton27.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton27.Enabled = false;
             this.simpleButton27.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton27.Location = new System.Drawing.Point(332, 308);
+            this.simpleButton27.Location = new System.Drawing.Point(340, 338);
             this.simpleButton27.Name = "simpleButton27";
-            this.simpleButton27.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton27.TabIndex = 99;
+            this.simpleButton27.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton27.TabIndex = 195;
             this.simpleButton27.UseVisualStyleBackColor = false;
             // 
             // simpleButton19
@@ -570,10 +570,10 @@
             this.simpleButton19.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton19.Enabled = false;
             this.simpleButton19.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton19.Location = new System.Drawing.Point(332, 207);
+            this.simpleButton19.Location = new System.Drawing.Point(340, 229);
             this.simpleButton19.Name = "simpleButton19";
-            this.simpleButton19.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton19.TabIndex = 98;
+            this.simpleButton19.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton19.TabIndex = 194;
             this.simpleButton19.UseVisualStyleBackColor = false;
             // 
             // simpleButton11
@@ -583,10 +583,10 @@
             this.simpleButton11.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton11.Enabled = false;
             this.simpleButton11.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton11.Location = new System.Drawing.Point(332, 107);
+            this.simpleButton11.Location = new System.Drawing.Point(340, 121);
             this.simpleButton11.Name = "simpleButton11";
-            this.simpleButton11.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton11.TabIndex = 97;
+            this.simpleButton11.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton11.TabIndex = 193;
             this.simpleButton11.UseVisualStyleBackColor = false;
             // 
             // simpleButton3
@@ -596,10 +596,10 @@
             this.simpleButton3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton3.Enabled = false;
             this.simpleButton3.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton3.Location = new System.Drawing.Point(332, 6);
+            this.simpleButton3.Location = new System.Drawing.Point(340, 11);
             this.simpleButton3.Name = "simpleButton3";
-            this.simpleButton3.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton3.TabIndex = 96;
+            this.simpleButton3.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton3.TabIndex = 192;
             this.simpleButton3.UseVisualStyleBackColor = false;
             // 
             // simpleButton26
@@ -609,10 +609,10 @@
             this.simpleButton26.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton26.Enabled = false;
             this.simpleButton26.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton26.Location = new System.Drawing.Point(166, 308);
+            this.simpleButton26.Location = new System.Drawing.Point(172, 338);
             this.simpleButton26.Name = "simpleButton26";
-            this.simpleButton26.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton26.TabIndex = 95;
+            this.simpleButton26.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton26.TabIndex = 191;
             this.simpleButton26.UseVisualStyleBackColor = false;
             // 
             // simpleButton18
@@ -622,10 +622,10 @@
             this.simpleButton18.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton18.Enabled = false;
             this.simpleButton18.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton18.Location = new System.Drawing.Point(166, 207);
+            this.simpleButton18.Location = new System.Drawing.Point(172, 229);
             this.simpleButton18.Name = "simpleButton18";
-            this.simpleButton18.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton18.TabIndex = 94;
+            this.simpleButton18.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton18.TabIndex = 190;
             this.simpleButton18.UseVisualStyleBackColor = false;
             // 
             // simpleButton10
@@ -635,10 +635,10 @@
             this.simpleButton10.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton10.Enabled = false;
             this.simpleButton10.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton10.Location = new System.Drawing.Point(166, 107);
+            this.simpleButton10.Location = new System.Drawing.Point(172, 121);
             this.simpleButton10.Name = "simpleButton10";
-            this.simpleButton10.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton10.TabIndex = 93;
+            this.simpleButton10.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton10.TabIndex = 189;
             this.simpleButton10.UseVisualStyleBackColor = false;
             // 
             // simpleButton2
@@ -648,10 +648,10 @@
             this.simpleButton2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton2.Enabled = false;
             this.simpleButton2.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton2.Location = new System.Drawing.Point(166, 6);
+            this.simpleButton2.Location = new System.Drawing.Point(172, 11);
             this.simpleButton2.Name = "simpleButton2";
-            this.simpleButton2.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton2.TabIndex = 92;
+            this.simpleButton2.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton2.TabIndex = 188;
             this.simpleButton2.UseVisualStyleBackColor = false;
             // 
             // simpleButton25
@@ -661,10 +661,10 @@
             this.simpleButton25.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton25.Enabled = false;
             this.simpleButton25.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton25.Location = new System.Drawing.Point(3, 308);
+            this.simpleButton25.Location = new System.Drawing.Point(6, 338);
             this.simpleButton25.Name = "simpleButton25";
-            this.simpleButton25.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton25.TabIndex = 91;
+            this.simpleButton25.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton25.TabIndex = 187;
             this.simpleButton25.UseVisualStyleBackColor = false;
             // 
             // simpleButton17
@@ -674,10 +674,10 @@
             this.simpleButton17.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton17.Enabled = false;
             this.simpleButton17.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton17.Location = new System.Drawing.Point(3, 207);
+            this.simpleButton17.Location = new System.Drawing.Point(6, 229);
             this.simpleButton17.Name = "simpleButton17";
-            this.simpleButton17.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton17.TabIndex = 90;
+            this.simpleButton17.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton17.TabIndex = 186;
             this.simpleButton17.UseVisualStyleBackColor = false;
             // 
             // simpleButton9
@@ -687,10 +687,10 @@
             this.simpleButton9.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton9.Enabled = false;
             this.simpleButton9.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton9.Location = new System.Drawing.Point(3, 106);
+            this.simpleButton9.Location = new System.Drawing.Point(6, 120);
             this.simpleButton9.Name = "simpleButton9";
-            this.simpleButton9.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton9.TabIndex = 89;
+            this.simpleButton9.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton9.TabIndex = 185;
             this.simpleButton9.UseVisualStyleBackColor = false;
             // 
             // simpleButton1
@@ -700,15 +700,15 @@
             this.simpleButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.simpleButton1.Enabled = false;
             this.simpleButton1.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton1.Location = new System.Drawing.Point(3, 6);
+            this.simpleButton1.Location = new System.Drawing.Point(6, 11);
             this.simpleButton1.Name = "simpleButton1";
-            this.simpleButton1.Size = new System.Drawing.Size(157, 98);
-            this.simpleButton1.TabIndex = 88;
+            this.simpleButton1.Size = new System.Drawing.Size(157, 104);
+            this.simpleButton1.TabIndex = 184;
             this.simpleButton1.UseVisualStyleBackColor = false;
             // 
             // QCProjectPage2
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.simpleButton28);
             this.Controls.Add(this.simpleButton48);
@@ -759,14 +759,13 @@
             this.Controls.Add(this.simpleButton9);
             this.Controls.Add(this.simpleButton1);
             this.Name = "QCProjectPage2";
-            this.Size = new System.Drawing.Size(1324, 612);
+            this.Size = new System.Drawing.Size(1343, 663);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button simpleButton28;
         private System.Windows.Forms.Button simpleButton48;
         private System.Windows.Forms.Button simpleButton40;
@@ -815,6 +814,6 @@
         private System.Windows.Forms.Button simpleButton17;
         private System.Windows.Forms.Button simpleButton9;
         private System.Windows.Forms.Button simpleButton1;
-
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

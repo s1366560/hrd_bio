@@ -3,23 +3,22 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
-using System.Linq;
 using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
 
 namespace BioA.UI
 {
-    public partial class QCProjectPage1 : UserControl
+    public partial class QCProjectPage1 : DevExpress.XtraEditors.XtraUserControl
     {
-        public delegate void ProjectCallbackInfoDelegate(string strProName);
-        public event ProjectCallbackInfoDelegate ProjectCallbackInfoEvent;
         public QCProjectPage1()
         {
             InitializeComponent();
         }
-
+        public delegate void ProjectCallbackInfoDelegate(string strProName);
+        public event ProjectCallbackInfoDelegate ProjectCallbackInfoEvent;
 
         private List<string> lstAssayProInfos = new List<string>();
 
@@ -245,6 +244,5 @@ namespace BioA.UI
                 simpleButton.ForeColor = Color.Red;
             }
         }
-
     }
 }

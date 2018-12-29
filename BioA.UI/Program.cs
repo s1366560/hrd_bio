@@ -25,19 +25,19 @@ namespace BioA.UI
             try
             {
                 //显示登录窗体
-                //LoginInterface login = new LoginInterface();
-                ////login.LoginEvent += login_LoginEvent;
-                //CommunicationUI.notifyCallBack.LoginDataTransferEvent += login.DataTransfer_Event;
-                //DialogResult result = login.ShowDialog();
+                LoginInterface login = new LoginInterface();
+                //login.LoginEvent += login_LoginEvent;
+                CommunicationUI.notifyCallBack.LoginDataTransferEvent += login.DataTransfer_Event;
+                DialogResult result = login.ShowDialog();
 
-                ////同过窗体返回值，确定是否显示主窗体
-                //if (result == DialogResult.OK)
-                //{
+                //同过窗体返回值，确定是否显示主窗体
+                if (result == DialogResult.OK)
+                {
 
                     Application.Run(new Form1());
-                //}
-                //else
-                //    Application.Exit();
+                }
+                else
+                    Application.Exit();
             }
             catch(Exception ex)
             {

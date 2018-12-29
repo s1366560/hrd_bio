@@ -12,6 +12,8 @@ using BioA.Common;
 using BioA.Common.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
+using BioA.Service;
+
 namespace BioA.UI
 {
     public partial class CalibrationParameter : DevExpress.XtraEditors.XtraUserControl
@@ -746,15 +748,10 @@ namespace BioA.UI
 
             //CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.SettingsChemicalParameter, new Dictionary<string, List<object>>() { { "QueryCalibParamInfoAll", null } });
             calibParamDic.Clear();
-            if (listAssayProjectInfos.Count != 0)
-            {
-                this.LstAssayProInfos = this.ListAssayprojectInfos;
-            }
-            else
-            {
-                //获取所有生化项目
-                calibParamDic.Add("QueryAssayProAllInfo", new object[] { ""});
-            }
+            //获取所有生化项目
+            List<AssayProjectInfo> lstProjectInfos = new SettingsChemicalParameter().QueryAssayProAllInfo("QueryAssayProAllInfo", null);
+            this.LstAssayProInfos = lstProjectInfos;
+            
             calibParamDic.Add("QueryCalibParamInfoAll", null);
             ClientSendMsgToServices(calibParamDic);
 

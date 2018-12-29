@@ -95,10 +95,10 @@
             // 
             // tabcProject
             // 
-            this.tabcProject.Location = new System.Drawing.Point(24, 90);
+            this.tabcProject.Location = new System.Drawing.Point(24, 108);
             this.tabcProject.Name = "tabcProject";
             this.tabcProject.SelectedTabPage = this.xtraTabPage1;
-            this.tabcProject.Size = new System.Drawing.Size(1155, 633);
+            this.tabcProject.Size = new System.Drawing.Size(1155, 599);
             this.tabcProject.TabIndex = 48;
             this.tabcProject.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.xtraTabPage1,
@@ -109,7 +109,7 @@
             // xtraTabPage1
             // 
             this.xtraTabPage1.Name = "xtraTabPage1";
-            this.xtraTabPage1.Size = new System.Drawing.Size(1149, 604);
+            this.xtraTabPage1.Size = new System.Drawing.Size(1149, 570);
             this.xtraTabPage1.TabPageWidth = 80;
             this.xtraTabPage1.Text = "第一页";
             // 
@@ -142,7 +142,7 @@
             this.btnSave.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.Appearance.Options.UseFont = true;
             this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
-            this.btnSave.Location = new System.Drawing.Point(200, 729);
+            this.btnSave.Location = new System.Drawing.Point(255, 721);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(103, 43);
             this.btnSave.TabIndex = 59;
@@ -164,7 +164,7 @@
             this.btnApply.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnApply.Appearance.Options.UseFont = true;
             this.btnApply.Image = ((System.Drawing.Image)(resources.GetObject("btnApply.Image")));
-            this.btnApply.Location = new System.Drawing.Point(46, 729);
+            this.btnApply.Location = new System.Drawing.Point(112, 721);
             this.btnApply.Name = "btnApply";
             this.btnApply.Size = new System.Drawing.Size(103, 43);
             this.btnApply.TabIndex = 65;

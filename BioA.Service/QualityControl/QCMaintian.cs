@@ -17,7 +17,6 @@ namespace BioA.Service
         public List<AssayProjectInfo> QueryAssayProAllInfo(string strDBMethod, AssayProjectInfo assayProInfo)
         {
             List<AssayProjectInfo> lstAssayProInfos = myBatis.QueryAssayProAllInfo(strDBMethod, assayProInfo);
-            LogInfo.WriteProcessLog(lstAssayProInfos.Count.ToString(), Module.WindowsService);
 
             return lstAssayProInfos;
         }

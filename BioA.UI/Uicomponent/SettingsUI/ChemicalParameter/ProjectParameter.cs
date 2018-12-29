@@ -13,6 +13,7 @@ using DevExpress.XtraGrid.Columns;
 using BioA.Common.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
+using BioA.Service;
 
 namespace BioA.UI
 {
@@ -189,16 +190,11 @@ namespace BioA.UI
             proParamDic.Add("QueryProjectResultUnits", null);
             //获取所有生化项目对应的参数信息
             proParamDic.Add("QueryAssayProjectParamInfoAll", null);
-            if (listAssayProjectInfos.Count != 0)
-            {
-                this.LstAssayProInfos = listAssayProjectInfos;
-            }
-            else
-            {
-                //获取所有生化项目
-                proParamDic.Add("QueryAssayProAllInfo", new object[] { ""});
-            }
-            
+            ////获取所有生化项目
+            //proParamDic.Add("QueryAssayProAllInfo", new object[] { ""});
+            //获取所有生化项目
+            List<AssayProjectInfo> lstProjectInfos = new SettingsChemicalParameter().QueryAssayProAllInfo("QueryAssayProAllInfo", null);
+            this.LstAssayProInfos = lstProjectInfos;
             if (AssayProInfoEvent != null)
                 AssayProInfoEvent(proParamDic);
             
@@ -289,7 +285,7 @@ namespace BioA.UI
         public List<AssayProjectParamInfo> LstAssayProParamInfoAll
         {
             get { return lstAssayProParamInfoAll; }
-            set { lstAssayProParamInfoAll = value; }
+            set { lstAssayProParamInfoAll = value; lstvProject_Click(null, null); }
         }
 
         private AssayProjectParamInfo proParamInfo = new AssayProjectParamInfo();
@@ -454,10 +450,12 @@ namespace BioA.UI
             {
                 _AssayProjectParamInfo = value;
                 if (_AssayProjectParamInfo != null)
-                { 
+                {
                     this.lstAssayProParamInfoAll.Add(_AssayProjectParamInfo);
-                    this.lstAssayProInfos.Add(_AssayProjectInfo);
-                    this.LstAssayProInfos = lstAssayProInfos;
+                    //this.lstAssayProInfos.Add(_AssayProjectInfo);
+                    //this.LstAssayProInfos = lstAssayProInfos;
+                    List<AssayProjectInfo> lstProjectInfos = new SettingsChemicalParameter().QueryAssayProAllInfo("QueryAssayProAllInfo", null);
+                    this.LstAssayProInfos = lstProjectInfos;
                     MessageBox.Show("项目保存成功！");
                 }
                 else
@@ -465,7 +463,8 @@ namespace BioA.UI
                     MessageBox.Show("项目保存失败！");
                 }
                 this.Invoke(new EventHandler(delegate 
-                { 
+                {
+                    cheProjectAddOrEdit.BeforeClearingTheData();
                     cheProjectAddOrEdit.Close();
                 }));
             }
@@ -518,7 +517,7 @@ namespace BioA.UI
                     if (this.gridView2.RowCount > 0)
                     {
                         this.gridView1.SelectRow(0);//FocusedRowHandle = 0;
-                        lstvProject_Click(null, null);
+                        //lstvProject_Click(null, null);
                     }
                 }));
             }
