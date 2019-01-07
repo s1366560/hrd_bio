@@ -461,6 +461,12 @@
     <Compile Include="Uicomponent\SettingsUI\CrossPollution\ReagentNeedle.Designer.cs">
       <DependentUpon>ReagentNeedle.cs</DependentUpon>
     </Compile>
+    <Compile Include="Uicomponent\SettingsUI\CrossPollution\XtraProjectSequence.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\CrossPollution\XtraProjectSequence.Designer.cs">
+      <DependentUpon>XtraProjectSequence.cs</DependentUpon>
+    </Compile>
     <Compile Include="Uicomponent\SettingsUI\DataConfig\DataConfigNotifyCallBack.cs" />
     <Compile Include="Uicomponent\SettingsUI\DataConfig\DataConfig.cs">
       <SubType>UserControl</SubType>
@@ -912,6 +918,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\SettingsUI\CrossPollution\ReagentNeedle.resx">
       <DependentUpon>ReagentNeedle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SettingsUI\CrossPollution\XtraProjectSequence.resx">
+      <DependentUpon>XtraProjectSequence.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\SettingsUI\DataConfig\DataConfig.resx">
       <DependentUpon>DataConfig.cs</DependentUpon>
