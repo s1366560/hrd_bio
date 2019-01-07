@@ -438,5 +438,16 @@
     <statement id="DeleteAllYesterdayTimeCourseData" parameterClass="string">
       delete from TimeCourseTb where DATEDIFF(day,#value#,DrawDate)!=0
     </statement>
+    <!-- 获取项目测试顺序表中所有数据 -->
+    <statement id="QueryAllProjectRunSequenceInfo" resultClass="ProjectRunSequenceInfo">
+      select * from projectrunsequencetb ORDER BY RunSequence
+    </statement>
+    <!-- 删除项目测试顺序表中所有数据 -->
+    <delete id="DeleteAllProjectRunSequenceInfo">
+      delete from projectrunsequencetb
+    </delete>
+    <insert id="SaveProjectRunSequenceInfo" parameterClass="System.Collections.IDictionary">
+      insert into projectrunsequencetb(ProjectName,SampleType,RunSequence) values(#projectName#,#sampleType#,#runSequence#)
+    </insert>
   </statements>
 </sqlMap>

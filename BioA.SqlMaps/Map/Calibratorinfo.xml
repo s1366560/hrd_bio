@@ -393,7 +393,8 @@
     </statement>
     <statement id="GetCalibInfoTaskByCalibTaskState" parameterClass="System.Collections.IDictionary" resultMap="CalibratorinfoTaskResult">
       select t1.* from CalibratorinfoTaskTb t1 left join CalibrationParamInfoTb t2 on t2.ProjectName = t1.ProjectName and t2.SampleType = t1.SampleType
-      where t1.CreateDate between #BeginTime# and #EndTime# and TaskState='0'
+      left join ProjectRunSequenceTb run on t1.ProjectName = run.ProjectName
+      where t1.CreateDate between #BeginTime# and #EndTime# and TaskState='0' order by run.RunSequence
     </statement>
     <statement id="GetAssayUsingTable" parameterClass="System.Collections.IDictionary" resultClass="SDTTableItem">
       select * from sdttableitemtb where ProjectName=#ProjectName# and SampleType=#SampleType# and IsUsed=1
