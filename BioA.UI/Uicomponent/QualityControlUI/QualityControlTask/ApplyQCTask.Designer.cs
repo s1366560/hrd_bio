@@ -104,7 +104,7 @@
             this.xtraTabPage1,
             this.xtraTabPage2,
             this.xtraTabPage3});
-            this.tabcProject.Click += new System.EventHandler(this.tabcProject_Click);
+            this.tabcProject.SelectedPageChanged += new DevExpress.XtraTab.TabPageChangedEventHandler(this.tabcProject_SelectedPageChanged);
             // 
             // xtraTabPage1
             // 
@@ -116,14 +116,14 @@
             // xtraTabPage2
             // 
             this.xtraTabPage2.Name = "xtraTabPage2";
-            this.xtraTabPage2.Size = new System.Drawing.Size(1149, 604);
+            this.xtraTabPage2.Size = new System.Drawing.Size(1149, 570);
             this.xtraTabPage2.TabPageWidth = 80;
             this.xtraTabPage2.Text = "第二页";
             // 
             // xtraTabPage3
             // 
             this.xtraTabPage3.Name = "xtraTabPage3";
-            this.xtraTabPage3.Size = new System.Drawing.Size(1149, 604);
+            this.xtraTabPage3.Size = new System.Drawing.Size(1149, 570);
             this.xtraTabPage3.TabPageWidth = 80;
             this.xtraTabPage3.Text = "第三页";
             // 

@@ -778,8 +778,14 @@ namespace BioA.UI
                 this.LstCalibParamInfo = lstCalibParamInfo;
                 this.Invoke(new EventHandler(delegate { MessageBox.Show("校准项目参数保存成功！"); }));
             }
+            else if(sender == -1)
+            {
+                MessageBox.Show("保存失败，此项目已下校准任务");
+            }
             else
+            {
                 MessageBox.Show("校准项目参数保存失败！");
+            }
         }
 
 

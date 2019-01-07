@@ -200,7 +200,7 @@
       select count(*) from CalibratorinfoTaskTb where CalibName=#CalibName# and TaskState!=2
     </statement>
     <statement id="DeleteCalibrationCurveInfo" parameterClass="System.Collections.IDictionary" ResultClass="int">
-      delete from CalibrationCurveTb where ProjectName=#ProjectName# and CalibType=#CalibType# and SampleType=#SampleType#
+      delete from CalibrationCurveTb where ProjectName=#ProjectName#  and SampleType=#SampleType#
     </statement>
     <!-- 添加校准方法不为K系数法的校准信息 -->
     <statement id="AddCalibrationCurveInfo" parameterClass="System.Collections.IDictionary">
@@ -393,8 +393,7 @@
     </statement>
     <statement id="GetCalibInfoTaskByCalibTaskState" parameterClass="System.Collections.IDictionary" resultMap="CalibratorinfoTaskResult">
       select t1.* from CalibratorinfoTaskTb t1 left join CalibrationParamInfoTb t2 on t2.ProjectName = t1.ProjectName and t2.SampleType = t1.SampleType
-      left join ProjectRunSequenceTb run on t1.ProjectName = run.ProjectName
-      where t1.CreateDate between #BeginTime# and #EndTime# and TaskState='0' order by run.RunSequence
+      where t1.CreateDate between #BeginTime# and #EndTime# and TaskState='0'
     </statement>
     <statement id="GetAssayUsingTable" parameterClass="System.Collections.IDictionary" resultClass="SDTTableItem">
       select * from sdttableitemtb where ProjectName=#ProjectName# and SampleType=#SampleType# and IsUsed=1
@@ -431,6 +430,10 @@
     <!-- 根据条件查询校准品名是否存在-->
     <statement id="GetCalibCountByCondition" ResultClass="int" parameterClass="string" >
       select count(*) from calibratortb where CalibName=#value#
+    </statement>
+    <!--根据项目名称查询校准任务数量-->
+    <statement id="GetCalibTaskByCondition" ResultClass="int" parameterClass="string" >
+      select COUNT(*) from calibratorinfotasktb where ProjectName = #value# and TaskState != 2
     </statement>
   </statements>
 </sqlMap>

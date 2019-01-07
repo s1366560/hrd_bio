@@ -38,7 +38,7 @@ namespace BioA.UI
                 if (manuOffsetGainInfo != null)
                 {
                     this.BeginInvoke(new EventHandler(delegate {
-                        cboWaveLength.SelectedItem = manuOffsetGainInfo.WaveLength.ToString();
+                        cboWaveLength.Text = manuOffsetGainInfo.WaveLength.ToString();
                         txtOffset.Text = manuOffsetGainInfo.OffSet.ToString();
                         txtGain.Text = manuOffsetGainInfo.Gain.ToString();
                         txtVoltage.Text = manuOffsetGainInfo.Voltage.ToString();
@@ -69,7 +69,7 @@ namespace BioA.UI
                             txtMinVoltage.Text = "0";
                         }
                         lightSystenDic.Clear();
-                        lightSystenDic.Add("GetLatestOffSetGain", new object[] { cboWaveLength.SelectedItem.ToString() });
+                        lightSystenDic.Add("GetLatestOffSetGain", new object[] { cboWaveLength.Text.ToString() });
                         CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.SystemEquipmentManage,lightSystenDic);
                     }));
                    
@@ -176,8 +176,7 @@ namespace BioA.UI
         private void LightSystem_Load(object sender, EventArgs e)
         {
             //异步方法调用要加载的数据
-            BeginInvoke(new Action(loadLightSystemInfo));
-            
+            BeginInvoke(new Action(loadLightSystemInfo));            
         }
 
         private void loadLightSystemInfo()

@@ -224,7 +224,11 @@ namespace BioA.UI
             }
         }
 
-
+        /// <summary>
+        /// 项目按钮点击事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void simpleButton_Click(object sender, EventArgs e)
         {
             Button simpleButton = sender as Button;

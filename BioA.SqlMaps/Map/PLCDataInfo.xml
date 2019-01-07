@@ -314,7 +314,7 @@
       delete from CalibratorinfoTaskTb where DATEDIFF(day,#TargetDate#,CreateDate)!=0
     </statement>
     <statement id="GetRunningDate" resultClass="string">
-      select DrawDate from RunningStateTb
+      select CONVERT(varchar(100), DrawDate, 21) DrawDate from RunningStateTb
     </statement>
     <statement id="InitRunningState" parameterClass="System.Collections.IDictionary">
       update RunningStateTb set WorkDisk='1',LastestSMPNO=#LastestSMPNO#,LastestTC='0',DrawDate=#DrawDate# where DATEDIFF(day,#TargetDate#,DrawDate)!=0
@@ -438,16 +438,5 @@
     <statement id="DeleteAllYesterdayTimeCourseData" parameterClass="string">
       delete from TimeCourseTb where DATEDIFF(day,#value#,DrawDate)!=0
     </statement>
-    <!-- 获取项目测试顺序表中所有数据 -->
-    <statement id="QueryAllProjectRunSequenceInfo" resultClass="ProjectRunSequenceInfo">
-      select * from projectrunsequencetb ORDER BY RunSequence
-    </statement>
-    <!-- 删除项目测试顺序表中所有数据 -->
-    <delete id="DeleteAllProjectRunSequenceInfo">
-      delete from projectrunsequencetb
-    </delete>
-    <insert id="SaveProjectRunSequenceInfo" parameterClass="System.Collections.IDictionary">
-      insert into projectrunsequencetb(ProjectName,SampleType,RunSequence) values(#projectName#,#sampleType#,#runSequence#)
-    </insert>
   </statements>
 </sqlMap>

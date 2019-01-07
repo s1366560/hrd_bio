@@ -428,8 +428,8 @@
             // 
             // ProjectPage1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.Controls.Add(this.simpleButton32);
             this.Controls.Add(this.simpleButton24);
             this.Controls.Add(this.simpleButton16);

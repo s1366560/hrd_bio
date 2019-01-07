@@ -93,6 +93,7 @@
             this.simpleButton28.Size = new System.Drawing.Size(157, 104);
             this.simpleButton28.TabIndex = 183;
             this.simpleButton28.UseVisualStyleBackColor = false;
+            this.simpleButton28.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton48
             // 
@@ -106,6 +107,7 @@
             this.simpleButton48.Size = new System.Drawing.Size(157, 104);
             this.simpleButton48.TabIndex = 182;
             this.simpleButton48.UseVisualStyleBackColor = false;
+            this.simpleButton48.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton40
             // 
@@ -119,6 +121,7 @@
             this.simpleButton40.Size = new System.Drawing.Size(157, 104);
             this.simpleButton40.TabIndex = 181;
             this.simpleButton40.UseVisualStyleBackColor = false;
+            this.simpleButton40.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton47
             // 
@@ -132,6 +135,7 @@
             this.simpleButton47.Size = new System.Drawing.Size(157, 104);
             this.simpleButton47.TabIndex = 180;
             this.simpleButton47.UseVisualStyleBackColor = false;
+            this.simpleButton47.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton39
             // 
@@ -145,6 +149,7 @@
             this.simpleButton39.Size = new System.Drawing.Size(157, 104);
             this.simpleButton39.TabIndex = 179;
             this.simpleButton39.UseVisualStyleBackColor = false;
+            this.simpleButton39.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton46
             // 
@@ -158,6 +163,7 @@
             this.simpleButton46.Size = new System.Drawing.Size(157, 104);
             this.simpleButton46.TabIndex = 178;
             this.simpleButton46.UseVisualStyleBackColor = false;
+            this.simpleButton46.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton38
             // 
@@ -171,6 +177,7 @@
             this.simpleButton38.Size = new System.Drawing.Size(157, 104);
             this.simpleButton38.TabIndex = 177;
             this.simpleButton38.UseVisualStyleBackColor = false;
+            this.simpleButton38.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton45
             // 
@@ -184,6 +191,7 @@
             this.simpleButton45.Size = new System.Drawing.Size(157, 104);
             this.simpleButton45.TabIndex = 176;
             this.simpleButton45.UseVisualStyleBackColor = false;
+            this.simpleButton45.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton37
             // 
@@ -197,6 +205,7 @@
             this.simpleButton37.Size = new System.Drawing.Size(157, 104);
             this.simpleButton37.TabIndex = 175;
             this.simpleButton37.UseVisualStyleBackColor = false;
+            this.simpleButton37.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton44
             // 
@@ -210,6 +219,7 @@
             this.simpleButton44.Size = new System.Drawing.Size(157, 104);
             this.simpleButton44.TabIndex = 174;
             this.simpleButton44.UseVisualStyleBackColor = false;
+            this.simpleButton44.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton36
             // 
@@ -223,6 +233,7 @@
             this.simpleButton36.Size = new System.Drawing.Size(157, 104);
             this.simpleButton36.TabIndex = 173;
             this.simpleButton36.UseVisualStyleBackColor = false;
+            this.simpleButton36.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton43
             // 
@@ -236,6 +247,7 @@
             this.simpleButton43.Size = new System.Drawing.Size(157, 104);
             this.simpleButton43.TabIndex = 172;
             this.simpleButton43.UseVisualStyleBackColor = false;
+            this.simpleButton43.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton35
             // 
@@ -249,6 +261,7 @@
             this.simpleButton35.Size = new System.Drawing.Size(157, 104);
             this.simpleButton35.TabIndex = 171;
             this.simpleButton35.UseVisualStyleBackColor = false;
+            this.simpleButton35.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton42
             // 
@@ -262,6 +275,7 @@
             this.simpleButton42.Size = new System.Drawing.Size(157, 104);
             this.simpleButton42.TabIndex = 170;
             this.simpleButton42.UseVisualStyleBackColor = false;
+            this.simpleButton42.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton34
             // 
@@ -275,6 +289,7 @@
             this.simpleButton34.Size = new System.Drawing.Size(157, 104);
             this.simpleButton34.TabIndex = 169;
             this.simpleButton34.UseVisualStyleBackColor = false;
+            this.simpleButton34.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton41
             // 
@@ -288,6 +303,7 @@
             this.simpleButton41.Size = new System.Drawing.Size(157, 104);
             this.simpleButton41.TabIndex = 168;
             this.simpleButton41.UseVisualStyleBackColor = false;
+            this.simpleButton41.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton33
             // 
@@ -301,6 +317,7 @@
             this.simpleButton33.Size = new System.Drawing.Size(157, 104);
             this.simpleButton33.TabIndex = 167;
             this.simpleButton33.UseVisualStyleBackColor = false;
+            this.simpleButton33.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton32
             // 
@@ -314,6 +331,7 @@
             this.simpleButton32.Size = new System.Drawing.Size(157, 104);
             this.simpleButton32.TabIndex = 166;
             this.simpleButton32.UseVisualStyleBackColor = false;
+            this.simpleButton32.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton24
             // 
@@ -327,6 +345,7 @@
             this.simpleButton24.Size = new System.Drawing.Size(157, 104);
             this.simpleButton24.TabIndex = 165;
             this.simpleButton24.UseVisualStyleBackColor = false;
+            this.simpleButton24.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton16
             // 
@@ -340,6 +359,7 @@
             this.simpleButton16.Size = new System.Drawing.Size(157, 104);
             this.simpleButton16.TabIndex = 164;
             this.simpleButton16.UseVisualStyleBackColor = false;
+            this.simpleButton16.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton8
             // 
@@ -354,6 +374,7 @@
             this.simpleButton8.Size = new System.Drawing.Size(157, 104);
             this.simpleButton8.TabIndex = 163;
             this.simpleButton8.UseVisualStyleBackColor = false;
+            this.simpleButton8.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton31
             // 
@@ -367,6 +388,7 @@
             this.simpleButton31.Size = new System.Drawing.Size(157, 104);
             this.simpleButton31.TabIndex = 162;
             this.simpleButton31.UseVisualStyleBackColor = false;
+            this.simpleButton31.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton23
             // 
@@ -380,6 +402,7 @@
             this.simpleButton23.Size = new System.Drawing.Size(157, 104);
             this.simpleButton23.TabIndex = 161;
             this.simpleButton23.UseVisualStyleBackColor = false;
+            this.simpleButton23.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton15
             // 
@@ -393,6 +416,7 @@
             this.simpleButton15.Size = new System.Drawing.Size(157, 104);
             this.simpleButton15.TabIndex = 160;
             this.simpleButton15.UseVisualStyleBackColor = false;
+            this.simpleButton15.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton7
             // 
@@ -406,6 +430,7 @@
             this.simpleButton7.Size = new System.Drawing.Size(157, 104);
             this.simpleButton7.TabIndex = 159;
             this.simpleButton7.UseVisualStyleBackColor = false;
+            this.simpleButton7.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton30
             // 
@@ -419,6 +444,7 @@
             this.simpleButton30.Size = new System.Drawing.Size(157, 104);
             this.simpleButton30.TabIndex = 158;
             this.simpleButton30.UseVisualStyleBackColor = false;
+            this.simpleButton30.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton22
             // 
@@ -432,6 +458,7 @@
             this.simpleButton22.Size = new System.Drawing.Size(157, 104);
             this.simpleButton22.TabIndex = 157;
             this.simpleButton22.UseVisualStyleBackColor = false;
+            this.simpleButton22.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton14
             // 
@@ -445,6 +472,7 @@
             this.simpleButton14.Size = new System.Drawing.Size(157, 104);
             this.simpleButton14.TabIndex = 156;
             this.simpleButton14.UseVisualStyleBackColor = false;
+            this.simpleButton14.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton6
             // 
@@ -458,6 +486,7 @@
             this.simpleButton6.Size = new System.Drawing.Size(157, 104);
             this.simpleButton6.TabIndex = 155;
             this.simpleButton6.UseVisualStyleBackColor = false;
+            this.simpleButton6.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton29
             // 
@@ -471,6 +500,7 @@
             this.simpleButton29.Size = new System.Drawing.Size(157, 104);
             this.simpleButton29.TabIndex = 154;
             this.simpleButton29.UseVisualStyleBackColor = false;
+            this.simpleButton29.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton21
             // 
@@ -484,6 +514,7 @@
             this.simpleButton21.Size = new System.Drawing.Size(157, 104);
             this.simpleButton21.TabIndex = 153;
             this.simpleButton21.UseVisualStyleBackColor = false;
+            this.simpleButton21.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton13
             // 
@@ -497,6 +528,7 @@
             this.simpleButton13.Size = new System.Drawing.Size(157, 104);
             this.simpleButton13.TabIndex = 152;
             this.simpleButton13.UseVisualStyleBackColor = false;
+            this.simpleButton13.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton5
             // 
@@ -510,6 +542,7 @@
             this.simpleButton5.Size = new System.Drawing.Size(157, 104);
             this.simpleButton5.TabIndex = 151;
             this.simpleButton5.UseVisualStyleBackColor = false;
+            this.simpleButton5.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton20
             // 
@@ -523,6 +556,7 @@
             this.simpleButton20.Size = new System.Drawing.Size(157, 104);
             this.simpleButton20.TabIndex = 150;
             this.simpleButton20.UseVisualStyleBackColor = false;
+            this.simpleButton20.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton12
             // 
@@ -536,6 +570,7 @@
             this.simpleButton12.Size = new System.Drawing.Size(157, 104);
             this.simpleButton12.TabIndex = 149;
             this.simpleButton12.UseVisualStyleBackColor = false;
+            this.simpleButton12.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton4
             // 
@@ -549,6 +584,7 @@
             this.simpleButton4.Size = new System.Drawing.Size(157, 104);
             this.simpleButton4.TabIndex = 148;
             this.simpleButton4.UseVisualStyleBackColor = false;
+            this.simpleButton4.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton27
             // 
@@ -562,6 +598,7 @@
             this.simpleButton27.Size = new System.Drawing.Size(157, 104);
             this.simpleButton27.TabIndex = 147;
             this.simpleButton27.UseVisualStyleBackColor = false;
+            this.simpleButton27.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton19
             // 
@@ -575,6 +612,7 @@
             this.simpleButton19.Size = new System.Drawing.Size(157, 104);
             this.simpleButton19.TabIndex = 146;
             this.simpleButton19.UseVisualStyleBackColor = false;
+            this.simpleButton19.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton11
             // 
@@ -588,6 +626,7 @@
             this.simpleButton11.Size = new System.Drawing.Size(157, 104);
             this.simpleButton11.TabIndex = 145;
             this.simpleButton11.UseVisualStyleBackColor = false;
+            this.simpleButton11.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton3
             // 
@@ -601,6 +640,7 @@
             this.simpleButton3.Size = new System.Drawing.Size(157, 104);
             this.simpleButton3.TabIndex = 144;
             this.simpleButton3.UseVisualStyleBackColor = false;
+            this.simpleButton3.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton26
             // 
@@ -614,6 +654,7 @@
             this.simpleButton26.Size = new System.Drawing.Size(157, 104);
             this.simpleButton26.TabIndex = 143;
             this.simpleButton26.UseVisualStyleBackColor = false;
+            this.simpleButton26.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton18
             // 
@@ -627,6 +668,7 @@
             this.simpleButton18.Size = new System.Drawing.Size(157, 104);
             this.simpleButton18.TabIndex = 142;
             this.simpleButton18.UseVisualStyleBackColor = false;
+            this.simpleButton18.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton10
             // 
@@ -640,6 +682,7 @@
             this.simpleButton10.Size = new System.Drawing.Size(157, 104);
             this.simpleButton10.TabIndex = 141;
             this.simpleButton10.UseVisualStyleBackColor = false;
+            this.simpleButton10.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton2
             // 
@@ -653,6 +696,7 @@
             this.simpleButton2.Size = new System.Drawing.Size(157, 104);
             this.simpleButton2.TabIndex = 140;
             this.simpleButton2.UseVisualStyleBackColor = false;
+            this.simpleButton2.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton25
             // 
@@ -666,6 +710,7 @@
             this.simpleButton25.Size = new System.Drawing.Size(157, 104);
             this.simpleButton25.TabIndex = 139;
             this.simpleButton25.UseVisualStyleBackColor = false;
+            this.simpleButton25.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton17
             // 
@@ -679,6 +724,7 @@
             this.simpleButton17.Size = new System.Drawing.Size(157, 104);
             this.simpleButton17.TabIndex = 138;
             this.simpleButton17.UseVisualStyleBackColor = false;
+            this.simpleButton17.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton9
             // 
@@ -692,6 +738,7 @@
             this.simpleButton9.Size = new System.Drawing.Size(157, 104);
             this.simpleButton9.TabIndex = 137;
             this.simpleButton9.UseVisualStyleBackColor = false;
+            this.simpleButton9.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // simpleButton1
             // 
@@ -705,6 +752,7 @@
             this.simpleButton1.Size = new System.Drawing.Size(157, 104);
             this.simpleButton1.TabIndex = 136;
             this.simpleButton1.UseVisualStyleBackColor = false;
+            this.simpleButton1.Click += new System.EventHandler(this.simpleButton_Click);
             // 
             // QCProjectPage1
             // 

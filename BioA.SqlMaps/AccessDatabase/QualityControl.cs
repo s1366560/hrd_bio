@@ -191,12 +191,12 @@ namespace BioA.SqlMaps
         /// <param name="strMethodName"></param>
         /// <param name="QCTask"></param>
         /// <returns></returns>
-        public int QueryQCTaskByProjectAndSamType(string strMethodName, int qcId)
+        public int QueryQCTaskByProjectAndSamType(string strMethodName, QCTaskInfo QCTask)
         {
             int QCTaskCount = 0;
             try
             {
-                QCTaskCount = (int)ism_SqlMap.QueryForObject("QCTaskInfo." + strMethodName, qcId);
+                QCTaskCount = (int)ism_SqlMap.QueryForObject("QCTaskInfo." + strMethodName, QCTask);
             }
             catch (Exception e)
             {
@@ -692,10 +692,9 @@ namespace BioA.SqlMaps
             return lstQCTaskInfo;
         }
 
-        public List<string> QueryProjectNameInfoByQC(string strDBMethod, QualityControlInfo qcInfo, string strSampleType, out int qcId)
+        public List<string> QueryProjectNameInfoByQC(string strDBMethod, QualityControlInfo qcInfo, string strSampleType)
         {
             List<string> lstResults = new List<string>();
-            QualityControlInfo quanlityControlInfo = new QualityControlInfo();
             try
             {
                 Hashtable ht = new Hashtable();
@@ -703,10 +702,10 @@ namespace BioA.SqlMaps
                 ht.Add("LotNum", qcInfo.LotNum);
                 ht.Add("HorizonLevel", qcInfo.HorizonLevel);
                 ht.Add("Manufacturer", qcInfo.Manufacturer);
-                quanlityControlInfo = ism_SqlMap.QueryForObject("QCMaintainInfo.QueryQCInfoByUnique", ht) as QualityControlInfo;
+                QualityControlInfo getQCInfo = ism_SqlMap.QueryForObject("QCMaintainInfo.QueryQCInfoByUnique", ht) as QualityControlInfo;
 
                 ht.Clear();
-                ht.Add("QCID", quanlityControlInfo.QCID);
+                ht.Add("QCID", getQCInfo.QCID);
                 ht.Add("SampleType", strSampleType);
 
                 lstResults = (List<string>)ism_SqlMap.QueryForList<string>("QCMaintainInfo." + strDBMethod, ht);
@@ -715,7 +714,7 @@ namespace BioA.SqlMaps
             {
                 LogInfo.WriteErrorLog("QueryProjectNameInfoByQC(string strDBMethod, QualityControlInfo qcInfo)==" + e.ToString(), Module.DAO);
             }
-            qcId = quanlityControlInfo.QCID;
+
             return lstResults;
         }
 
@@ -1022,6 +1021,7 @@ namespace BioA.SqlMaps
 
                 hashTable.Add("ProjectName", DeletereagentSettingsInfo.ProjectName);
                 ism_SqlMap.Delete("ReagentInfo." + strDBMethod, hashTable);
+                LogInfo.WriteProcessLog("DeletereagentStateInfoR1R2" + "zhuszihe3" + DeletereagentSettingsInfo.ProjectName, Module.WindowsService);
             }
             catch (Exception e)
             {
@@ -1661,7 +1661,7 @@ namespace BioA.SqlMaps
             {
                 Hashtable hashTable = new Hashtable();
                 hashTable.Add("ProjectName", calibrationCurveInfo[0].ProjectName);
-                hashTable.Add("CalibType", calibrationCurveInfo[0].CalibType);
+                //hashTable.Add("CalibType", calibrationCurveInfo[0].CalibType);
                 hashTable.Add("SampleType", calibrationCurveInfo[0].SampleType);
                 count = ism_SqlMap.Delete("Calibrator." + strDBMethod, hashTable);
 
@@ -2315,6 +2315,15 @@ namespace BioA.SqlMaps
             {
                 LogInfo.WriteErrorLog("UpdateQCResultRunLog(QualityControlResultInfo QCResInfo)==" + e.ToString(), Module.DAO);
             }
+        }
+        /// <summary>
+        /// 根据项目名称判断是否已下校准任务
+        /// </summary>
+        /// <param name="ProjectName"></param>
+        /// <returns></returns>
+        public int IsExsitCalibrationTask(string ProjectName)
+        {
+            return (int)ism_SqlMap.QueryForObject("Calibrator.GetCalibTaskByCondition", ProjectName);
         }
     }
 }

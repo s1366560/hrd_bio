@@ -191,10 +191,14 @@ namespace BioA.Service
 
         public string AddCalibrationCurveInfo(string strDBMethod, List<CalibrationCurveInfo> calibrationCurveInfo)
         {
+            int count = myBatis.IsExsitCalibrationTask(calibrationCurveInfo[0].ProjectName);
+            if (count > 0)
+            {
+                return "-1";
+            }
             string str = myBatis.DeleteCalibrationCurveInfo("DeleteCalibrationCurveInfo", calibrationCurveInfo);
            
               return  myBatis.AddCalibrationCurveInfo(strDBMethod, calibrationCurveInfo);
-
             
         }
 

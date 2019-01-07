@@ -48,39 +48,7 @@ namespace BioA.UI
             InitializeComponent();
             
         }
-
-        private void tabcProject_Click(object sender, EventArgs e)
-        {
-            if (tabcProject.SelectedTabPageIndex == 0)
-            {
-                if (!xtraTabPage1.Controls.Contains(projectPage1))
-                {
-                    xtraTabPage1.Controls.Add(projectPage1);
-                    projectPage1.LstAssayProInfos = lstAssayProInfos;
-                }
-
-
-                projectPage1.SelectedProjects = lstQCRelateProject;
-            }
-            else if (tabcProject.SelectedTabPageIndex == 1)
-            {
-                if (!xtraTabPage2.Controls.Contains(projectPage2))
-                {
-                    xtraTabPage2.Controls.Add(projectPage2);
-                    projectPage2.LstAssayProInfos = lstAssayProInfos;
-                }
-                projectPage2.SelectedProjects = lstQCRelateProject;
-            }
-            else if (tabcProject.SelectedTabPageIndex == 2)
-            {
-                if (!xtraTabPage3.Controls.Contains(projectPage3))
-                {
-                    xtraTabPage3.Controls.Add(projectPage3);
-                    projectPage3.LstAssayProInfos = lstAssayProInfos;
-                }
-                projectPage3.SelectedProjects = lstQCRelateProject;
-            }
-        }
+    
         /// <summary>
         /// 加载
         /// </summary>
@@ -565,6 +533,39 @@ namespace BioA.UI
                 qcTaskDictionary.Clear();
                 qcTaskDictionary.Add("QueryQCTaskBySampleNum", new object[] { strTaskNum });
                 ClientSendToServices(qcTaskDictionary);
+            }
+        }
+
+        private void tabcProject_SelectedPageChanged(object sender, DevExpress.XtraTab.TabPageChangedEventArgs e)
+        {
+            if (tabcProject.SelectedTabPageIndex == 0)
+            {
+                if (!xtraTabPage1.Controls.Contains(projectPage1))
+                {
+                    xtraTabPage1.Controls.Add(projectPage1);
+                    projectPage1.LstAssayProInfos = lstAssayProInfos;
+                }
+
+
+                projectPage1.SelectedProjects = lstQCRelateProject;
+            }
+            else if (tabcProject.SelectedTabPageIndex == 1)
+            {
+                if (!xtraTabPage2.Controls.Contains(projectPage2))
+                {
+                    xtraTabPage2.Controls.Add(projectPage2);
+                    projectPage2.LstAssayProInfos = lstAssayProInfos;
+                }
+                projectPage2.SelectedProjects = lstQCRelateProject;
+            }
+            else if (tabcProject.SelectedTabPageIndex == 2)
+            {
+                if (!xtraTabPage3.Controls.Contains(projectPage3))
+                {
+                    xtraTabPage3.Controls.Add(projectPage3);
+                    projectPage3.LstAssayProInfos = lstAssayProInfos;
+                }
+                projectPage3.SelectedProjects = lstQCRelateProject;
             }
         }
     }
