@@ -323,6 +323,7 @@ namespace BioA.UI
 
                 reagentSettingsInfo.ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "检测项目").ToString();
                 reagentSettingsInfo.ReagentName = this.gridView1.GetRowCellValue(selectedHandle, "试剂名称").ToString();
+                reagentSettingsInfo.ReagentType = this.gridView1.GetRowCellValue(selectedHandle, "试剂类型").ToString();
                 if (reagentSettingsInfo.ReagentName != null)
                 {
                     //DataConfig.StrmethodName = "DeleteReagentSettingsR1";
@@ -358,6 +359,7 @@ namespace BioA.UI
                 selectedHandle = this.gridView2.GetSelectedRows()[0];
                 reagentSettingsInfo.ProjectName = this.gridView2.GetRowCellValue(selectedHandle, "检测项目").ToString();
                 reagentSettingsInfo.ReagentName = this.gridView2.GetRowCellValue(selectedHandle, "试剂名称").ToString();
+                reagentSettingsInfo.ReagentType = this.gridView2.GetRowCellValue(selectedHandle, "试剂类型").ToString();
                 if (reagentSettingsInfo.ReagentName != null)
                 {
                     reagentDictionary.Clear();

@@ -1622,6 +1622,60 @@ namespace BioA.SqlMaps
 
             return fRgtLeastCount;
         }
+        /// <summary>
+        /// 获取项目测试顺序表中的所有数据
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <returns></returns>
+        public List<ProjectRunSequenceInfo> QueryAllProjectRunSequenceInfo(string strDBMethod)
+        {
+            List<ProjectRunSequenceInfo> lstProjectName = new List<ProjectRunSequenceInfo>();
+            try
+            {
+                lstProjectName = (List<ProjectRunSequenceInfo>)ism_SqlMap.QueryForList<ProjectRunSequenceInfo>("PLCDataInfo." + strDBMethod, null);
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("List<ProjectRunSequenceInfo> QueryAllProjectRunSequenceInfo(string strDBMethod) == " + ex.ToString(), Module.Setting);
+            }
+            return lstProjectName;
+        }
+        /// <summary>
+        /// 删除项目测试顺序表所有数据
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        public void DeleteAllProjectRunSequenceInfo(string strDBMethod)
+        {
+            try
+            {
+                ism_SqlMap.Delete("PLCDataInfo." + strDBMethod, null);
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("void DeleteAllProjectRunSequenceInfo(string strDBMethod) == " + ex.ToString(), Module.Setting);
+            }
+        }
+        /// <summary>
+        /// 保存项目测试顺序信息
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <param name="lstProSunSequence"></param>
+        public void SaveProjectRunSequenceInfo(string strDBMethod, ProjectRunSequenceInfo ProSunSequence)
+        {
+            Hashtable ht = new Hashtable();
+            ht.Add("projectName", ProSunSequence.ProjectName);
+            ht.Add("sampleType", ProSunSequence.SampleType);
+            ht.Add("runSequence", ProSunSequence.RunSequence);
+            try
+            {
+                ism_SqlMap.Insert("PLCDataInfo." + strDBMethod, ht);
+                
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("SaveProjectRunSequenceInfo(string strDBMethod, List<ProjectRunSequenceInfo> lstProSunSequence)", Module.Setting);
+            }
+        }
     }
      
 }

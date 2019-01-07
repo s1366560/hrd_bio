@@ -99,6 +99,34 @@ namespace BioA.SqlMaps
             }
         }
 
+        /// <summary>
+        /// 删除清洗剂
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <param name="DeletereagentSettingsInfo"></param>
+        /// <returns></returns>
+        public int DeletereagentSettingsInfoAndStateInfo(string reagentNum, ReagentSettingsInfo DeletereagentSettingsInfo)
+        {
+            int result = 0;
+            try
+            {
+                if (reagentNum == "R1")
+                {
+                    ism_SqlMap.QueryForObject("ReagentInfo.deleteReagentStatInfo", string.Format("delete from ReagentStateInfoR1R2Tb where ReagentName = '{0}'", DeletereagentSettingsInfo.ReagentName));
+                    result =(int)ism_SqlMap.Delete("ReagentInfo.deleteReagentSettingInfo", string.Format("delete from ReagentSettingsTb where ReagentName = '{0}'", DeletereagentSettingsInfo.ReagentName));
+                }
+                else
+                {
+                    ism_SqlMap.QueryForObject("ReagentInfo.deleteReagentStatInfo", string.Format("delete from ReagentStateInfoR1R2Tb where ReagentName2 = '{0}'", DeletereagentSettingsInfo.ReagentName));
+                    result = (int)ism_SqlMap.Delete("ReagentInfo.deleteReagentSettingInfo", string.Format("delete from ReagentSettingsTbR2 where ReagentName = '{0}'", DeletereagentSettingsInfo.ReagentName));
+                }
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("DeletereagentSettingsInfoAndStateInfo(string strDBMethod, ReagentSettingsInfo DeletereagentSettingsInfo) ==" + ex.ToString(), Module.Reagent);
+            }
+            return result;
+        }
 
         /// <summary>
         /// 根据项目名称删除试剂1表中对应的数据 
@@ -118,7 +146,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("DeleteDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("DeletereagentSettingsInfo(string strDBMethod, ReagentSettingsInfo DeletereagentSettingsInfo)==" + e.ToString(), Module.DAO);
             }
             return intResult;
         }

@@ -537,6 +537,17 @@ namespace BioA.UI
                     cboPollutedSource.Properties.Items.Add(assayProject.ProjectName);
                 }
             }
+        }
+        /// <summary>
+        /// 项目测试排序按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void simpleButton2_Click(object sender, EventArgs e)
+        {
+            XtraProjectSequence projectSequence = new XtraProjectSequence();
+            projectSequence.StartPosition = FormStartPosition.CenterScreen;
+            projectSequence.ShowDialog();
         }        
     }
 }

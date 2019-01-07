@@ -163,6 +163,7 @@
       from ReagentStateInfoR1R2Tb t1
       left join ReagentSettingsTb t2 on t1.projectName = t2.projectName
       left join ReagentSettingsTbR2  t3 on t1.projectName = t3.projectName
+      WHERE t1.ProjectName NOT IN('')
       union
       select t1.projectName,t1.Locked,t1.ReagentResidualVol,t1.ReagentResidualVol2,t1.ResidualQuantity,t1.ResidualQuantity2,t1.ValidPercent,t1.ValidPercent2,
       t2.Pos,t2.ReagentName,t2.ReagentType,t3.Pos Pos2,t3.ReagentName ReagentName2,t3.ReagentType ReagentType2
@@ -237,6 +238,14 @@
       ValidPercent2 = 0
       where ProjectName=#ProjectName#
     </update>
+    <!-- 删除试剂状态中清洗剂信息 -->
+    <statement id="deleteReagentStatInfo" parameterClass="string">
+      $value$
+    </statement>
+    <!-- 删除试剂设置中清洗剂信息 -->
+    <statement id="deleteReagentSettingInfo" parameterClass="string" resultClass="int">
+      $value$
+    </statement>
     <update id="LockReagentState" parameterClass="System.Collections.IDictionary" resultClass="int">
       update ReagentStateInfoR1R2Tb
       set Locked = 1

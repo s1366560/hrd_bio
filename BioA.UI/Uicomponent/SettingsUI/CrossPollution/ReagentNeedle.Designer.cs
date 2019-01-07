@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReagentNeedle));
             this.lstvCrossPollution = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -56,6 +57,7 @@
             this.lblByPollution = new DevExpress.XtraEditors.LabelControl();
             this.lblContaminatedProject = new DevExpress.XtraEditors.LabelControl();
             this.lblReagentNeedle = new DevExpress.XtraEditors.LabelControl();
+            this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.lstvCrossPollution)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
@@ -73,10 +75,13 @@
             // 
             // lstvCrossPollution
             // 
-            this.lstvCrossPollution.Location = new System.Drawing.Point(522, 50);
+            gridLevelNode1.RelationName = "Level1";
+            this.lstvCrossPollution.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
+            gridLevelNode1});
+            this.lstvCrossPollution.Location = new System.Drawing.Point(486, 50);
             this.lstvCrossPollution.MainView = this.gridView1;
             this.lstvCrossPollution.Name = "lstvCrossPollution";
-            this.lstvCrossPollution.Size = new System.Drawing.Size(1146, 789);
+            this.lstvCrossPollution.Size = new System.Drawing.Size(1182, 789);
             this.lstvCrossPollution.TabIndex = 22;
             this.lstvCrossPollution.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -94,9 +99,9 @@
             this.btnDelete.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDelete.Appearance.Options.UseFont = true;
             this.btnDelete.Image = ((System.Drawing.Image)(resources.GetObject("btnDelete.Image")));
-            this.btnDelete.Location = new System.Drawing.Point(175, 845);
+            this.btnDelete.Location = new System.Drawing.Point(393, 787);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(99, 52);
+            this.btnDelete.Size = new System.Drawing.Size(87, 52);
             this.btnDelete.TabIndex = 21;
             this.btnDelete.Text = "删除";
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
@@ -106,9 +111,9 @@
             this.btnSave.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.Appearance.Options.UseFont = true;
             this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
-            this.btnSave.Location = new System.Drawing.Point(298, 845);
+            this.btnSave.Location = new System.Drawing.Point(172, 787);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(99, 52);
+            this.btnSave.Size = new System.Drawing.Size(87, 52);
             this.btnSave.TabIndex = 20;
             this.btnSave.Text = "保存";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -118,9 +123,9 @@
             this.btnCancel.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.Appearance.Options.UseFont = true;
             this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
-            this.btnCancel.Location = new System.Drawing.Point(417, 845);
+            this.btnCancel.Location = new System.Drawing.Point(284, 787);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(99, 52);
+            this.btnCancel.Size = new System.Drawing.Size(87, 52);
             this.btnCancel.TabIndex = 19;
             this.btnCancel.Text = "取消";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -130,9 +135,9 @@
             this.simpleButton1.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.simpleButton1.Appearance.Options.UseFont = true;
             this.simpleButton1.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton1.Image")));
-            this.simpleButton1.Location = new System.Drawing.Point(56, 845);
+            this.simpleButton1.Location = new System.Drawing.Point(60, 787);
             this.simpleButton1.Name = "simpleButton1";
-            this.simpleButton1.Size = new System.Drawing.Size(99, 52);
+            this.simpleButton1.Size = new System.Drawing.Size(87, 52);
             this.simpleButton1.TabIndex = 18;
             this.simpleButton1.Text = "新增";
             this.simpleButton1.Click += new System.EventHandler(this.simpleButton1_Click);
@@ -161,7 +166,7 @@
             this.groupControl1.Controls.Add(this.lblReagentNeedle);
             this.groupControl1.Location = new System.Drawing.Point(56, 50);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(460, 789);
+            this.groupControl1.Size = new System.Drawing.Size(424, 713);
             this.groupControl1.TabIndex = 17;
             this.groupControl1.Text = "试剂针防污策略";
             // 
@@ -248,7 +253,7 @@
             // cboPollutedSource
             // 
             this.cboPollutedSource.EditValue = "请选择";
-            this.cboPollutedSource.Location = new System.Drawing.Point(330, 332);
+            this.cboPollutedSource.Location = new System.Drawing.Point(316, 332);
             this.cboPollutedSource.Name = "cboPollutedSource";
             this.cboPollutedSource.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboPollutedSource.Properties.Appearance.Options.UseFont = true;
@@ -284,7 +289,7 @@
             // cboPollutionSource
             // 
             this.cboPollutionSource.EditValue = "请选择";
-            this.cboPollutionSource.Location = new System.Drawing.Point(330, 207);
+            this.cboPollutionSource.Location = new System.Drawing.Point(316, 207);
             this.cboPollutionSource.Name = "cboPollutionSource";
             this.cboPollutionSource.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboPollutionSource.Properties.Appearance.Options.UseFont = true;
@@ -348,7 +353,7 @@
             // 
             this.lblPollutionProject.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPollutionProject.Appearance.Options.UseFont = true;
-            this.lblPollutionProject.Location = new System.Drawing.Point(255, 208);
+            this.lblPollutionProject.Location = new System.Drawing.Point(241, 208);
             this.lblPollutionProject.Name = "lblPollutionProject";
             this.lblPollutionProject.Size = new System.Drawing.Size(70, 17);
             this.lblPollutionProject.TabIndex = 5;
@@ -368,7 +373,7 @@
             // 
             this.lblContaminatedProject.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblContaminatedProject.Appearance.Options.UseFont = true;
-            this.lblContaminatedProject.Location = new System.Drawing.Point(255, 333);
+            this.lblContaminatedProject.Location = new System.Drawing.Point(241, 333);
             this.lblContaminatedProject.Name = "lblContaminatedProject";
             this.lblContaminatedProject.Size = new System.Drawing.Size(70, 17);
             this.lblContaminatedProject.TabIndex = 3;
@@ -384,10 +389,22 @@
             this.lblReagentNeedle.TabIndex = 0;
             this.lblReagentNeedle.Text = "试剂针：";
             // 
+            // simpleButton2
+            // 
+            this.simpleButton2.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.simpleButton2.Appearance.Options.UseFont = true;
+            this.simpleButton2.Location = new System.Drawing.Point(193, 854);
+            this.simpleButton2.Name = "simpleButton2";
+            this.simpleButton2.Size = new System.Drawing.Size(161, 42);
+            this.simpleButton2.TabIndex = 23;
+            this.simpleButton2.Text = "项目测试顺序";
+            this.simpleButton2.Click += new System.EventHandler(this.simpleButton2_Click);
+            // 
             // ReagentNeedle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.simpleButton2);
             this.Controls.Add(this.lstvCrossPollution);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnSave);
@@ -444,5 +461,6 @@
         private DevExpress.XtraEditors.ComboBoxEdit cboPolSampleType;
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraEditors.LabelControl labelControl2;
+        private DevExpress.XtraEditors.SimpleButton simpleButton2;
     }
 }

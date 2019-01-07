@@ -18,10 +18,15 @@ namespace BioA.Service
         {
             return myBatis.QueryBigestQCTaskInfoForToday(strDBMethod);
         }
+        //质控品编号
+        int qcId = 0;
 
         public List<string[]> QueryProjectNameInfoByQC(string strDBMethod, QualityControlInfo qcInfo, string strSampleType)
         {
-            List<string> lstProjectByQC = myBatis.QueryProjectNameInfoByQC(strDBMethod, qcInfo, strSampleType);
+            List<string> lstProjectByQC = myBatis.QueryProjectNameInfoByQC(strDBMethod, qcInfo, strSampleType, out qcId);
+
+            //判断该项目下的任务是否已完成
+            int QCcount = myBatis.QueryQCTaskByProjectAndSamType("QueryQCTaskByProjectAndSamType", qcId);
 
             List<string[]> lstProjectInfo = new List<string[]>();
 
@@ -33,8 +38,7 @@ namespace BioA.Service
                 ReagentStateInfoR1R2 reagentState = myBatis.QueryReagentStateInfoByProjectName("QueryReagentStateInfoByProjectName", new ReagentSettingsInfo() { ProjectName = project, ReagentType = strSampleType });
                 // 3.判断校准曲线是否可用 
                 bool bExist = myBatis.CalibCurveBeExistByProNameAndType("CalibCurveBeExistByProNameAndType", new string[] { project, strSampleType });
-                //判断该项目下的任务是否已完成
-                int QCcount = myBatis.QueryQCTaskByProjectAndSamType("QueryQCTaskByProjectAndSamType", new QCTaskInfo() { ProjectName = project, SampleType = strSampleType });
+                
                 if (assayProParam != null)
                 {
                     if (assayProParam.AnalysisMethod == "" || assayProParam.AnalysisMethod == null)
@@ -45,6 +49,14 @@ namespace BioA.Service
                     if (reagentState == null)
                     {
                         projectInfo[3] = "该项目没有对应试剂！";
+                    }
+                    else if (reagentState.ReagentName == "" && reagentState.ReagentName == null && reagentState.ValidPercent < 5)
+                    {
+                        projectInfo[3] = "此项目对应的试剂1余量不足！";
+                    }
+                    else if (reagentState.ReagentName2 == "" && reagentState.ReagentName2 == null && reagentState.ValidPercent2 < 5)
+                    {
+                        projectInfo[3] = "此项目对应的试剂2余量不足！";
                     }
                     else if (reagentState.Locked == true)
                     {

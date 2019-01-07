@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BioA.Service
 {
-    class SettingsReagentNeedle : DataTransmit
+    public class SettingsReagentNeedle : DataTransmit
     {
 
         public string AddsettingsReagentNeedle(string strDBMethod, ReagentNeedleAntifoulingStrategyInfo reagentNeedleAntifoulingStrategyInfo)
@@ -71,6 +71,38 @@ namespace BioA.Service
         public List<string> QueryWashingLiquid(string strDBMethod)
         {
             return myBatis.QueryWashingLiquid(strDBMethod);
+        }
+        /// <summary>
+        /// 获取项目测试顺序表中的所有数据
+        /// </summary>
+        /// <returns></returns>
+        public List<ProjectRunSequenceInfo> QueryAllProjectRunSequenceInfo(string strDBMethod)
+        {
+            return myBatis.QueryAllProjectRunSequenceInfo(strDBMethod);
+        }
+        /// <summary>
+        /// 删除项目测试顺序表所有数据
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        public void DeleteAllProjectRunSequenceInfo(string strDBMethod)
+        {
+            myBatis.DeleteAllProjectRunSequenceInfo(strDBMethod);
+        }
+        /// <summary>
+        /// 保存项目测试顺序信息
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <param name="lstProSunSequence"></param>
+        public void SaveProjectRunSequenceInfo(string strDBMethod, List<ProjectRunSequenceInfo> lstProSunSequence)
+        {
+            ProjectRunSequenceInfo projectRunSequ = new ProjectRunSequenceInfo();
+            for (int i = 0; i < lstProSunSequence.Count; i++)
+            {
+                projectRunSequ.ProjectName = lstProSunSequence[i].ProjectName;
+                projectRunSequ.SampleType = lstProSunSequence[i].SampleType;
+                projectRunSequ.RunSequence = i + 1;
+                myBatis.SaveProjectRunSequenceInfo(strDBMethod, projectRunSequ);
+            }
         }
     }
 }

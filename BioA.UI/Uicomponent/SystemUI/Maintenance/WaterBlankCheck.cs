@@ -33,7 +33,7 @@ namespace BioA.UI
             { 
                 lstCuvBlk = value;
                 BeginInvoke(new Action(() => {
-                    if (lstCuvBlk.Count > 0)
+                    if (lstCuvBlk.Count > 0 && lstCuvBlk[0] != null)
                     {
                         if (textEdit2.Text == "" || textEdit1.Text == "")
                         {

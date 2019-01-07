@@ -132,7 +132,7 @@ namespace BioA.UI
 
 
             List<List<OffSetGain>> LstNewAndOldPhotoGain = new SystemMaintenance().QueryNewPhotemetricValue("QueryOldPhotemetricValue");
-            if (LstNewAndOldPhotoGain.Count > 0)
+            if (LstNewAndOldPhotoGain != null)
             {
                 this.LstNewPhotoGain = LstNewAndOldPhotoGain[0];
                 this.LstOldPhotoGain = LstNewAndOldPhotoGain[1];

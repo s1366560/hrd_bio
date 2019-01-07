@@ -39,14 +39,15 @@
     </statement>
     <statement id="GetQCParamByQCTask" parameterClass="System.Collections.IDictionary" resultClass="QCTaskInfo">
       select top $count$ qct1.* from QCTaskTb qct1 left join AssayProjectParamInfoTb t2 on qct1.ProjectName=t2.ProjectName and qct1.SampleType=t2.SampleType
-      where qct1.TaskState=0 and qct1.CreateDate between #CreateDateBegin# and #CreateDateEnd# order by qct1.ID
+      left join ProjectRunSequenceTb run on run.ProjectName = qct1.ProjectName
+      where qct1.TaskState=0 and qct1.CreateDate between #CreateDateBegin# and #CreateDateEnd# order by qct1.QCID,run.RunSequence
     </statement>
     <statement id="InitMachineUpdateQCTaskState" parameterClass="System.Collections.IDictionary">
       update QCTaskTb set SendTimes=#SendTimes#, FinishTimes=#FinishTimes#, TaskState=#TaskState# where TaskState!=2
     </statement>
     <!--根据项目名称和样本类型查询质控任务数量-->
-    <statement id="QueryQCTaskByProjectAndSamType" ResultClass="int" parameterClass="QCTaskInfo" >
-      select count(*) from QCTaskTb where ProjectName=#ProjectName# and SampleType=#SampleType# and TaskState!=2
+    <statement id="QueryQCTaskByProjectAndSamType" ResultClass="int" parameterClass="int" >
+      select count(*) from QCTaskTb where QCID = $value$ and TaskState!=2
     </statement>
   </statements>
 </sqlMap>

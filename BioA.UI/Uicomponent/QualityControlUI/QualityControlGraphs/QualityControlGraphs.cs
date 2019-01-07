@@ -752,21 +752,21 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void cboProjectName_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int qcId = 0;
+            List<int> qcId = new List<int>();
             foreach (var item in lstQCRelationProjects)
             {
                 if (item.ProjectName == cboProjectName.Text)
                 {
-                    qcId = item.QCID;
+                    qcId.Add(item.QCID);
                 }
             }
-            if (qcId > 0)
+            if (qcId != null && qcId.Count > 0)
             {
                 cboQCName.Properties.Items.Clear();
                 cboQCName.SelectedIndex = -1;
                 foreach (var qcInfo in lstQCInfo)
                 {
-                    if (qcId == qcInfo.QCID)
+                    if (qcId.Exists(x => x == qcInfo.QCID))
                     {
                         cboQCName.Properties.Items.Add(qcInfo.QCName);
                     }

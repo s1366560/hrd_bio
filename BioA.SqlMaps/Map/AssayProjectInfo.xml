@@ -460,10 +460,11 @@
       and ((ReagentSettingsTb.ProjectName=CalibrationParamInfoTb.ProjectName and ReagentSettingsTb.ReagentType=CalibrationParamInfoTb.SampleType) or
       (ReagentSettingstbr2.ProjectName=CalibrationParamInfoTb.ProjectName and ReagentSettingstbr2.ReagentType=CalibrationParamInfoTb.SampleType))
       group by ProjectRunSequenceTb.RunSequence-->
-      select top 1 c.* from CalibrationParamInfoTb as c,ReagentStateinfor1r2Tb as r1r2,ReagentSettingsTb as r1,ReagentSettingstbr2 as r2,ProjectRunSequenceTb as run,SDTTableItemTb as s
+      select TOP 1 c.* from CalibrationParamInfoTb as c,ReagentStateinfor1r2Tb as r1r2,ReagentSettingsTb as r1,ReagentSettingstbr2 as r2,ProjectRunSequenceTb as run,SDTTableItemTb as s
       where s.ProjectName=c.ProjectName and s.SampleType=c.SampleType and s.CalibState='WAITING' and
-      r1r2.ProjectName=c.ProjectName and (r1r2.ReagentType=c.SampleType or r1r2.ReagentType2=c.SampleType) and r1r2.Locked='false'
+      r1r2.ProjectName=c.ProjectName and (r1r2.ReagentType=c.SampleType or r1r2.ReagentType2=c.SampleType) and r1r2.Locked='false' and run.ProjectName = c.ProjectName
       and ((r1.ProjectName=c.ProjectName and r1.ReagentType=c.SampleType) or (r2.ProjectName=c.ProjectName and r2.ReagentType=c.SampleType))
+      ORDER BY run.RunSequence
     </statement>
 
     <statement id ="GetAssayProjectCalParamInfo" parameterClass ="System.Collections.IDictionary" resultClass ="AssayProjectCalibrationParamInfo">
