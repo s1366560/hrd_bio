@@ -16,6 +16,7 @@ using BioA.Common;
 using BioA.Common.IO;
 using System.Drawing.Imaging;
 using System.Threading;
+using BioA.Service;
 
 namespace BioA.UI
 {
@@ -211,6 +212,7 @@ namespace BioA.UI
             
             #endregion
             chartControl1.Series.AddRange(list.ToArray());
+            this.btnSearch.Enabled = true;
         }
 
       
@@ -431,13 +433,15 @@ namespace BioA.UI
                 MessageBox.Show("请选择质控品名！");
                 return;
             }
+            this.btnSearch.Enabled = false;
             qcResForUIInfo.QCTimeStartTS = System.Convert.ToDateTime((dtpStartTime.Value).ToShortDateString());
             qcResForUIInfo.QCTimeEndTS = System.Convert.ToDateTime((dtpEndTime.Value).AddDays(1).ToShortDateString());
 
-            qcGraphsDic.Clear();
-            qcGraphsDic.Add("QueryQCResultForQCGraphics", new object[] { XmlUtility.Serializer(typeof(QCResultForUIInfo), qcResForUIInfo) });
-            ClientSendInfoToServices(qcGraphsDic);
-
+            //qcGraphsDic.Clear();
+            //qcGraphsDic.Add("QueryQCResultForQCGraphics", new object[] { XmlUtility.Serializer(typeof(QCResultForUIInfo), qcResForUIInfo) });
+            //ClientSendInfoToServices(qcGraphsDic);
+            results = new QCGraphics().QueryQCResultForQCGraphics("QueryQCResultForQCGraphics", qcResForUIInfo);
+            QualityControlPicture(results);
         }
 
         /// <summary>
@@ -600,6 +604,7 @@ namespace BioA.UI
                     Dline(_TemporaryQCProjectInfo);
                 }
                 string str = string.Format("该质控项目在[{0} ~ {1}]时间段中没有数据", dtpStartTime.Value.ToShortDateString(), dtpEndTime.Value.AddDays(1).ToShortDateString());
+                this.btnSearch.Enabled = true;
                 MessageBox.Show(str);
             }
 

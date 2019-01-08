@@ -28,7 +28,12 @@ namespace BioA.Service
         {
             return myBatis.GetQCRelationProjectInfo(strDBMethod);
         }
-
+        /// <summary>
+        /// 获取质控图结果数据
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <param name="qcResForUIInfo"></param>
+        /// <returns></returns>
         public List<QCResultForUIInfo> QueryQCResultForQCGraphics(string strDBMethod, QCResultForUIInfo qcResForUIInfo)
         {
             return myBatis.QueryQCResultForQCGraphics(strDBMethod, qcResForUIInfo);
