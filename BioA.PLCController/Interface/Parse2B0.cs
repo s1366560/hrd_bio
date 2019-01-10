@@ -31,7 +31,7 @@ namespace BioA.PLCController.Interface
             for (int i = 3; i < data.Count - 3; i = i + 4)
             {
                 int p = MachineControlProtocol.HexConverToDec(data[i], data[i + 1]);
-                p = p > 90 ? (p - 45) : p;
+                p = p > 90 ? (p - 90) : p;
                 int v = MachineControlProtocol.HexConverToDec(data[i + 2], data[i + 3]);
                 if (p != 0)
                 {
