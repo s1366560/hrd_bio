@@ -49,5 +49,9 @@
     <statement id="QueryQCTaskByProjectAndSamType" ResultClass="int" parameterClass="int" >
       select count(*) from QCTaskTb where QCID = $value$ and TaskState!=2
     </statement>
+    <!--根据项目名称和质控品ID查询质控任务数量-->
+    <statement id="QueryTaskTbCount" ResultClass="int" parameterClass="string" >
+      $value$
+    </statement>
   </statements>
 </sqlMap>

@@ -436,17 +436,19 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void btnApply_Click(object sender, EventArgs e)
         {
-            txtSumpleNum.Text = "C" + (intMaxSamNum + 1).ToString();
-            combPosition.Text = "请选择";
-            combSampleType.SelectedIndex = 1;
-            txtQCName.Text = "";
-            txtLotNum.Text = "";
-            txtQCConc.Text = "";
-            txtManufacturer.Text = "";
-            projectPage1.ResetControlState();
-            projectPage2.ResetControlState();
-            projectPage3.ResetControlState();
-            lstQCRelateProject.Clear();
+            this.Invoke(new EventHandler(delegate { 
+                txtSumpleNum.Text = "C" + (intMaxSamNum + 1).ToString();
+                combPosition.Text = "请选择";
+                combSampleType.SelectedIndex = 1;
+                txtQCName.Text = "";
+                txtLotNum.Text = "";
+                txtQCConc.Text = "";
+                txtManufacturer.Text = "";
+                projectPage1.ResetControlState();
+                projectPage2.ResetControlState();
+                projectPage3.ResetControlState();
+                lstQCRelateProject.Clear();
+            }));
         }
         /// <summary>
         /// 样本类型下拉框改变按钮

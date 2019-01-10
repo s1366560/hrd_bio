@@ -126,5 +126,9 @@
     <statement id="UpdateQCProjectInfo" parameterClass="System.Collections.IDictionary">
       update qcrelationprojecttb set TargetMean=#TargetMean#,TargetSD=#TargetSD#,Target2SD=#Target2SD#,Target3SD=#Target3SD# where ProjectName=#ProjectName# and QCID=#QCID#
     </statement>
+    <!-- 根据项目名称和质控品ID删除对应的质控品对应的项目信息 -->
+    <delete id="DeleteQCProjectInfo" parameterClass="string" resultClass="int">
+      $value$
+    </delete>
   </statements>
 </sqlMap>

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
+            DevExpress.XtraGrid.GridLevelNode gridLevelNode2 = new DevExpress.XtraGrid.GridLevelNode();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QCMaintain));
             this.lblQCProducts = new DevExpress.XtraEditors.LabelControl();
             this.lblTestLtem = new DevExpress.XtraEditors.LabelControl();
@@ -41,6 +41,7 @@
             this.btnEdit = new DevExpress.XtraEditors.SimpleButton();
             this.btnDelete = new DevExpress.XtraEditors.SimpleButton();
             this.btnUnLock = new DevExpress.XtraEditors.SimpleButton();
+            this.SbutDeleteProject = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.lstvQCInfo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lstvQCRelativelyProject)).BeginInit();
@@ -69,9 +70,9 @@
             // 
             // lstvQCInfo
             // 
-            gridLevelNode1.RelationName = "Level1";
+            gridLevelNode2.RelationName = "Level1";
             this.lstvQCInfo.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
-            gridLevelNode1});
+            gridLevelNode2});
             this.lstvQCInfo.Location = new System.Drawing.Point(13, 70);
             this.lstvQCInfo.MainView = this.gridView1;
             this.lstvQCInfo.Name = "lstvQCInfo";
@@ -164,10 +165,23 @@
             this.btnUnLock.Text = "激活";
             this.btnUnLock.Click += new System.EventHandler(this.btnUnLock_Click);
             // 
+            // SbutDeleteProject
+            // 
+            this.SbutDeleteProject.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SbutDeleteProject.Appearance.Options.UseFont = true;
+            this.SbutDeleteProject.Image = ((System.Drawing.Image)(resources.GetObject("SbutDeleteProject.Image")));
+            this.SbutDeleteProject.Location = new System.Drawing.Point(866, 854);
+            this.SbutDeleteProject.Name = "SbutDeleteProject";
+            this.SbutDeleteProject.Size = new System.Drawing.Size(105, 49);
+            this.SbutDeleteProject.TabIndex = 12;
+            this.SbutDeleteProject.Text = "删除项目";
+            this.SbutDeleteProject.Click += new System.EventHandler(this.SbutDeleteProject_Click);
+            // 
             // QCMaintain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.SbutDeleteProject);
             this.Controls.Add(this.btnUnLock);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnAdd);
@@ -202,5 +216,6 @@
         private DevExpress.XtraEditors.SimpleButton btnEdit;
         private DevExpress.XtraEditors.SimpleButton btnDelete;
         private DevExpress.XtraEditors.SimpleButton btnUnLock;
+        private DevExpress.XtraEditors.SimpleButton SbutDeleteProject;
     }
 }

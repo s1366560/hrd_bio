@@ -175,16 +175,46 @@ namespace BioA.SqlMaps
         public List<ReagentStateInfoR1R2> QueryReagentStateInfo(string strDBMethod)
         {
             List<ReagentStateInfoR1R2> lstReagentStateInfo = new List<ReagentStateInfoR1R2>();
+            List<int> lstInt = new List<int>();
+            List<ReagentStateInfoR1R2> lstReagentR1R2StateInfo = new List<ReagentStateInfoR1R2>();
+            List<ReagentStateInfoR1R2> lstNotSortReagentProjectName = new List<ReagentStateInfoR1R2>();
             try
             {
                 lstReagentStateInfo = (List<ReagentStateInfoR1R2>)ism_SqlMap.QueryForList<ReagentStateInfoR1R2>("ReagentInfo." + strDBMethod, null);
+                foreach (ReagentStateInfoR1R2 reagentStateR1R2 in lstReagentStateInfo)
+                {
+                    int s = reagentStateR1R2.ProjectName.IndexOf('.');
+                    if (s < 0)
+                    {
+                        lstNotSortReagentProjectName.Add(reagentStateR1R2);
+                        continue;
+                    }
+                    lstInt.Add(Convert.ToInt32(reagentStateR1R2.ProjectName.Substring(0, s)));
+                }
+                lstInt.Sort();
+                foreach (int i in lstInt)
+                {
+                    foreach (ReagentStateInfoR1R2 reagentStateR1R2 in lstReagentStateInfo)
+                    {
+                        int s = reagentStateR1R2.ProjectName.IndexOf('.');
+                        if (s < 0)
+                        {
+                            continue;
+                        }
+                        if (i == Convert.ToInt32(reagentStateR1R2.ProjectName.Substring(0, s)))
+                        {
+                            lstReagentR1R2StateInfo.Add(reagentStateR1R2);
+                        }
+                    }
+                }
+                lstReagentR1R2StateInfo.AddRange(lstNotSortReagentProjectName);
             }                 
 
             catch (Exception e)
             {
                 LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.DAO);
             }
-            return lstReagentStateInfo;
+            return lstReagentR1R2StateInfo;
         }
 
         public string AddreagentStateInfoR1R2(string strDBMethod, ReagentStateInfoR1R2 reagentStateInfoR1R2)

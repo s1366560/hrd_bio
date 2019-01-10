@@ -16,8 +16,8 @@ namespace BioA.SqlMaps
             try
             {
                 Hashtable ht = new Hashtable();
-                ht.Add("starttime", DateTime.Now.ToShortDateString());
-                ht.Add("endtime", DateTime.Now.AddDays(1).ToShortDateString());
+                ht.Add("starttime", DateTime.Now.Date);
+                ht.Add("endtime", DateTime.Now.AddDays(1).Date);
                 object obj = ism_SqlMap.QueryForObject("WorkAreaApplyTask." + StrmethodName, ht);
                 if (obj != null)
                 {
@@ -92,8 +92,8 @@ namespace BioA.SqlMaps
             try
             {
                 Hashtable ht = new Hashtable();
-                ht.Add("starttime", DateTime.Now.ToShortDateString());
-                ht.Add("endtime", DateTime.Now.AddDays(1).ToShortDateString());
+                ht.Add("starttime", DateTime.Now.Date);
+                ht.Add("endtime", DateTime.Now.AddDays(1).Date);
 
                 lstSampleInfo = (List<SampleInfo>)ism_SqlMap.QueryForList<SampleInfo>("WorkAreaApplyTask." + StrmethodName, ht);
             }
@@ -362,8 +362,8 @@ namespace BioA.SqlMaps
                 ht.Add("SampleNum", sampleInfo.SampleNum);
                 ht.Add("PatientName", sampleInfo.PatientName);
                 ht.Add("SampleID", sampleInfo.SampleID);
-                ht.Add("StartTime", sampleInfo.StartTime.ToShortDateString());
-                ht.Add("EndTime", sampleInfo.EndTime.ToShortDateString());
+                ht.Add("StartTime", sampleInfo.StartTime.Date);
+                ht.Add("EndTime", sampleInfo.EndTime.Date);
                 string[] sampleTypes = sampleInfo.SampleType.Split(',');
                 Dictionary<string, bool> dctsampleTypes = new Dictionary<string,bool>();
                 foreach (string str in sampleTypes)

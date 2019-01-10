@@ -374,6 +374,33 @@ namespace BioA.SqlMaps
 
             return strResult;
         }
+        /// <summary>
+        /// 根据传递的条件输出质控品对应的项目信息
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <param name="qcProjectInfo"></param>
+        /// <returns></returns>
+        public int DeleteQCProjectInfo(string strDBMethod, QCRelationProjectInfo qcProjectInfo)
+        {
+            int count = 0;
+            try
+            {
+                count = (int)ism_SqlMap.QueryForObject("QCTaskInfo.QueryTaskTbCount" , string.Format("select count(*) from qctasktb where QCID= {0} and ProjectName = '{1}'", qcProjectInfo.QCID, qcProjectInfo.ProjectName));
+                if (count > 0)
+                {
+                    return 0;
+                }
+                else
+                {
+                    count = ism_SqlMap.Delete("QCMaintainInfo." + strDBMethod, string.Format("delete from qcrelationprojecttb where QCID= {0} and ProjectName = '{1}'", qcProjectInfo.QCID, qcProjectInfo.ProjectName));
+                }
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("DeleteQCProjectInfo(string strDBMethod, QCReactionProcessInfo qcProjectInfo) == " + ex.ToString(), Module.QualityControl);
+            }
+            return count;
+        }
 
         public List<QCResultForUIInfo> QueryQCResultInfo(string strDBMethod, QCResultForUIInfo qCResForUIInfo)
         {
@@ -414,17 +441,46 @@ namespace BioA.SqlMaps
         public List<string> QueryProjectName(string strDBMethod)
         {
             List<string> lstProName = new List<string>();
-
+            List<int> lstInt = new List<int>();
+            List<string> lstProjectNames = new List<string>();
+            List<string> lstNotSortProjectName = new List<string>();
             try
             {
                 lstProName = (List<string>)ism_SqlMap.QueryForList<string>("AssayProjectInfo.QueryAssayProAllInfoByDistinctProName", null);
+                foreach (string projectName in lstProName)
+                {
+                    int s = projectName.IndexOf('.');
+                    if (s < 0)
+                    {
+                        lstNotSortProjectName.Add(projectName);
+                        continue;
+                    }
+                    lstInt.Add(Convert.ToInt32(projectName.Substring(0, s)));
+                }
+                lstInt.Sort();
+                foreach (int i in lstInt)
+                {
+                    foreach (string proName in lstProName)
+                    {
+                        int s = proName.IndexOf('.');
+                        if (s < 0)
+                        {
+                            continue;
+                        }
+                        if (i == Convert.ToInt32(proName.Substring(0, s)))
+                        {
+                            lstProjectNames.Add(proName);
+                        }
+                    }
+                }
+                lstProjectNames.AddRange(lstNotSortProjectName);
             }
             catch (Exception e)
             {
                 LogInfo.WriteErrorLog("QueryProjectInfo(string strDBMethod)==" + e.ToString(), Module.DAO);
             }
 
-            return lstProName;
+            return lstProjectNames;
         }
 
         public string EditQCResultForManual(string strDBMethod, QCResultForUIInfo qcResOldInfo, QCResultForUIInfo qcResNewInfo)
@@ -1953,8 +2009,8 @@ namespace BioA.SqlMaps
             try
             {
                 Hashtable ht = new Hashtable();
-                ht.Add("CreateDate", DateTime.Now.Date.ToString());
-                ht.Add("SystemTime", DateTime.Now.Date.AddDays(1).ToString());
+                ht.Add("CreateDate", DateTime.Now.Date);
+                ht.Add("SystemTime", DateTime.Now.Date.AddDays(1));
                 listcalibratorinfoTask = (List<CalibratorinfoTask>)ism_SqlMap.QueryForList<CalibratorinfoTask>("Calibrator." + strDBMethod, ht);
 
 

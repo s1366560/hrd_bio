@@ -66,5 +66,13 @@ namespace BioA.Service
         {
             return myBatis.DeleteQualityControl(strDBMethod, QCInfo);
         }
+        /// <summary>
+        /// 根据传递的条件删除质控品对应的项目信息
+        /// </summary>
+        /// <returns></returns>
+        public int DeleteQCProjectInfo(string strDBMethod, QCRelationProjectInfo qcProjectInfo)
+        {
+            return myBatis.DeleteQCProjectInfo(strDBMethod, qcProjectInfo);
+        }
     }
 }

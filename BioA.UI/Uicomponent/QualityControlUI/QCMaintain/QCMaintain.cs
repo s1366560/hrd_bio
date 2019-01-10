@@ -11,6 +11,7 @@ using DevExpress.XtraEditors;
 using BioA.Common;
 using BioA.Common.IO;
 using System.Threading;
+using BioA.Service;
 
 namespace BioA.UI
 {
@@ -489,6 +490,43 @@ namespace BioA.UI
                 qcMaintainDic.Clear();
                 qcMaintainDic.Add("DeleteQualityControl", new object[] { XmlUtility.Serializer(typeof(QualityControlInfo), qcInfo) });
                 SendToServices(qcMaintainDic);
+            }
+        }
+        /// <summary>
+        /// 删除项目对应的信息
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SbutDeleteProject_Click(object sender, EventArgs e)
+        {
+            QCRelationProjectInfo qcProjectInfo = new QCRelationProjectInfo();
+            if (this.gridView1.GetSelectedRows().Count() > 0)
+            {
+                int selectedHandle;
+                selectedHandle = this.gridView1.GetSelectedRows()[0];
+                bool b = this.gridView1.GetRowCellValue(selectedHandle, "冻结").ToString() == "是" ? true : false;
+                qcProjectInfo.QCID = Convert.ToInt32(this.gridView1.GetRowCellValue(selectedHandle, "质控品ID").ToString());
+                if (b == false)
+                {
+                    MessageBoxDraw.ShowMsg("此质控品在激活情况下无法删除，请冻结后尝试删除！", MsgType.Warning);
+                    return;
+                }
+                if (this.gridView2.GetSelectedRows().Count() > 0)
+                {
+                    int selectGridview2Handle;
+                    selectGridview2Handle = this.gridView2.GetSelectedRows()[0];
+                    qcProjectInfo.ProjectName = this.gridView2.GetRowCellValue(selectGridview2Handle, "项目名称").ToString();
+                }
+                int count = new QCMaintian().DeleteQCProjectInfo("DeleteQCProjectInfo", qcProjectInfo);
+                if (count > 0)
+                {
+                    lstQCRelationProjectInfo.RemoveAll(x => x.QCID == qcProjectInfo.QCID && x.ProjectName == qcProjectInfo.ProjectName);
+                    lstvQCInfo_Click(null,null);
+                    MessageBoxDraw.ShowMsg("删除成功！", MsgType.OK);
+                }
+                else
+                    MessageBoxDraw.ShowMsg("该项目已下任务,不能删除",MsgType.Warning);
+
             }
         }
     }

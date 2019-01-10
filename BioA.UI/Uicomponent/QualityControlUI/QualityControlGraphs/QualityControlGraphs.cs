@@ -125,7 +125,7 @@ namespace BioA.UI
         /// <returns></returns>
         private Series CreateSeries(string caption, ViewType viewType, DataTable dt, int index)
         {
-            //Series series = new Series(caption, viewType);
+            //AccumulationTimeSeries = new Series(caption, viewType);
             //for (int i = 1; i < dt.Columns.Count; i++)
             //{
                 string argument = dt.Columns[index].ColumnName;//参数名称
@@ -147,7 +147,7 @@ namespace BioA.UI
         {
             #region Series
             //创建几个图形的对象
-
+            AccumulationTimeSeries.Points.Clear();
             Series series1;
             Series series2;
             Series series3;
@@ -169,7 +169,7 @@ namespace BioA.UI
                         series1.View = lineSeriesView1;
                         list.Add(series1);
                     }
-                    if ((str < (results[i].TargetMean + results[i].TargetSD * 2) && str >= results[i].TargetMean + results[i].TargetSD) ||
+                    else if ((str < (results[i].TargetMean + results[i].TargetSD * 2) && str >= results[i].TargetMean + results[i].TargetSD) ||
                         (str > (results[i].TargetMean - results[i].TargetSD * 2) && str <= results[i].TargetMean - results[i].TargetSD))
                     {
                         series2 = CreateSeries("1SD：正常！", ViewType.Line, dt, i + 1);
@@ -182,7 +182,7 @@ namespace BioA.UI
                         series2.View = lineSeriesView2;
                         list.Add(series2);
                     }
-                    if ((str < (results[i].TargetMean + results[i].TargetSD * 3) && str >= results[i].TargetMean + results[i].TargetSD * 2) ||
+                    else if ((str < (results[i].TargetMean + results[i].TargetSD * 3) && str >= results[i].TargetMean + results[i].TargetSD * 2) ||
                         (str > (results[i].TargetMean - results[i].TargetSD * 3) && str <= results[i].TargetMean - results[i].TargetSD * 2))
                     {
                         series3 = CreateSeries("2SD：警告！", ViewType.Line, dt, i + 1);
@@ -195,24 +195,26 @@ namespace BioA.UI
                         series3.View = lineSeriesView3;
                         list.Add(series3);
                     }
-                if (str > (results[i].TargetMean + results[i].TargetSD * 3) ||
-                    str < (results[i].TargetMean - results[i].TargetSD * 3))
-                {
-                    series4 = CreateSeries("3SD：错误！", ViewType.Line, dt, i + 1);
-                    LineSeriesView lineSeriesView4 = new LineSeriesView();
-                    lineSeriesView4.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-                    lineSeriesView4.LineMarkerOptions.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-                    lineSeriesView4.LineMarkerOptions.Kind = DevExpress.XtraCharts.MarkerKind.Diamond;
-                    lineSeriesView4.LineMarkerOptions.Size = 10;
-                    lineSeriesView4.MarkerVisibility = DevExpress.Utils.DefaultBoolean.True;
-                    series4.View = lineSeriesView4;
-                    list.Add(series4);
-                }
+                    else if (str > (results[i].TargetMean + results[i].TargetSD * 3) ||
+                        str < (results[i].TargetMean - results[i].TargetSD * 3))
+                    {
+                        series4 = CreateSeries("3SD：错误！", ViewType.Line, dt, i + 1);
+                        LineSeriesView lineSeriesView4 = new LineSeriesView();
+                        lineSeriesView4.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+                        lineSeriesView4.LineMarkerOptions.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+                        lineSeriesView4.LineMarkerOptions.Kind = DevExpress.XtraCharts.MarkerKind.Diamond;
+                        lineSeriesView4.LineMarkerOptions.Size = 10;
+                        lineSeriesView4.MarkerVisibility = DevExpress.Utils.DefaultBoolean.True;
+                        series4.View = lineSeriesView4;
+                        list.Add(series4);
+                    }
             }
             
             #endregion
             chartControl1.Series.AddRange(list.ToArray());
-            this.btnSearch.Enabled = true;
+            this.Invoke(new EventHandler(delegate { 
+                this.btnSearch.Enabled = true;
+            }));
         }
 
       
@@ -416,7 +418,8 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            chartControl1.Series.Clear();
+
+            this.Invoke(new EventHandler(delegate { chartControl1.Series.Clear(); }));
             QCResultForUIInfo qcResForUIInfo = new QCResultForUIInfo();
             if (cboProjectName.Text != "")
                 qcResForUIInfo.ProjectName = cboProjectName.SelectedItem.ToString();
@@ -433,10 +436,17 @@ namespace BioA.UI
                 MessageBox.Show("请选择质控品名！");
                 return;
             }
-            this.btnSearch.Enabled = false;
+            this.Invoke(new EventHandler(delegate
+            {
+                this.btnSearch.Enabled = false;
+            }));
+            
             qcResForUIInfo.QCTimeStartTS = System.Convert.ToDateTime((dtpStartTime.Value).ToShortDateString());
             qcResForUIInfo.QCTimeEndTS = System.Convert.ToDateTime((dtpEndTime.Value).AddDays(1).ToShortDateString());
-
+            if (results != null)
+            {
+                results = null;
+            }
             //qcGraphsDic.Clear();
             //qcGraphsDic.Add("QueryQCResultForQCGraphics", new object[] { XmlUtility.Serializer(typeof(QCResultForUIInfo), qcResForUIInfo) });
             //ClientSendInfoToServices(qcGraphsDic);
@@ -604,7 +614,10 @@ namespace BioA.UI
                     Dline(_TemporaryQCProjectInfo);
                 }
                 string str = string.Format("该质控项目在[{0} ~ {1}]时间段中没有数据", dtpStartTime.Value.ToShortDateString(), dtpEndTime.Value.AddDays(1).ToShortDateString());
-                this.btnSearch.Enabled = true;
+                this.Invoke(new EventHandler(delegate
+                {
+                    this.btnSearch.Enabled = true;
+                }));
                 MessageBox.Show(str);
             }
 
@@ -624,7 +637,7 @@ namespace BioA.UI
                 {
                     if(AccumulationTimeSeries == null)
                     {
-                        AccumulationTimeSeries = new Series("1SD", ViewType.Line);
+                        AccumulationTimeSeries = new Series("QCSD", ViewType.Line);
                         AccumulationTimeSeries.ArgumentScaleType = ScaleType.Qualitative;
                         AccumulationTimeSeries.LabelsVisibility = DevExpress.Utils.DefaultBoolean.True;//是否显示
                         chartControl1.Series.Add(AccumulationTimeSeries);
@@ -633,7 +646,7 @@ namespace BioA.UI
                     {
                         chartControl1.Series.Clear();
                         AccumulationTimeSeries = null;
-                        AccumulationTimeSeries = new Series("1SD", ViewType.Line);
+                        AccumulationTimeSeries = new Series("QCSD", ViewType.Line);
                         AccumulationTimeSeries.ArgumentScaleType = ScaleType.Qualitative;
                         AccumulationTimeSeries.LabelsVisibility = DevExpress.Utils.DefaultBoolean.True;//是否显示
                         chartControl1.Series.Add(AccumulationTimeSeries);
@@ -696,12 +709,57 @@ namespace BioA.UI
                         constantLine7.LineStyle.Thickness = 2;
                         constantLine7.Title.ShowBelowLine = true;
                         //设置Y轴的图像显示最大值和最小值
-                        double VRMin = Math.Round((double)(results.TargetMean - 3 * results.TargetSD - 20), 1, MidpointRounding.AwayFromZero);
-                        double VRMax = Math.Round((double)(results.TargetMean + 3 * results.TargetSD + 20), 1, MidpointRounding.AwayFromZero);
+                        double VRMin = 0;
+                        double VRMax = 0;
+                        if (results.TargetSD <= 0.1)
+                        {
+                            VRMin = Math.Round((double)(results.TargetMean - 3 * results.TargetSD - 0.5), 1, MidpointRounding.AwayFromZero);
+                            VRMax = Math.Round((double)(results.TargetMean + 3 * results.TargetSD + 0.5), 1, MidpointRounding.AwayFromZero);
+                        }
+                        else if (results.TargetSD <= 0.3)
+                        {
+                            VRMin = Math.Round((double)(results.TargetMean - 3 * results.TargetSD - 2), 1, MidpointRounding.AwayFromZero);
+                            VRMax = Math.Round((double)(results.TargetMean + 3 * results.TargetSD + 2), 1, MidpointRounding.AwayFromZero);
+                        }
+                        else if (results.TargetSD <= 0.5)
+                        {
+                            VRMin = Math.Round((double)(results.TargetMean - 3 * results.TargetSD - 3), 1, MidpointRounding.AwayFromZero);
+                            VRMax = Math.Round((double)(results.TargetMean + 3 * results.TargetSD + 3), 1, MidpointRounding.AwayFromZero);
+                        }
+                        else if (results.TargetSD <= 1)
+                        {
+                            VRMin = Math.Round((double)(results.TargetMean - 3 * results.TargetSD - 5), 1, MidpointRounding.AwayFromZero);
+                            VRMax = Math.Round((double)(results.TargetMean + 3 * results.TargetSD + 5), 1, MidpointRounding.AwayFromZero);
+                        }
+                        else if (results.TargetSD <= 5)
+                        {
+                            VRMin = Math.Round((double)(results.TargetMean - 3 * results.TargetSD - 15), 1, MidpointRounding.AwayFromZero);
+                            VRMax = Math.Round((double)(results.TargetMean + 3 * results.TargetSD + 15), 1, MidpointRounding.AwayFromZero);
+                        }
+                        else if (results.TargetSD <= 10)
+                        {
+                            VRMin = Math.Round((double)(results.TargetMean - 3 * results.TargetSD - 25), 1, MidpointRounding.AwayFromZero);
+                            VRMax = Math.Round((double)(results.TargetMean + 3 * results.TargetSD + 25), 1, MidpointRounding.AwayFromZero);
+                        }
+                        else if (results.TargetSD <= 20)
+                        {
+                            VRMin = Math.Round((double)(results.TargetMean - 3 * results.TargetSD - 40), 1, MidpointRounding.AwayFromZero);
+                            VRMax = Math.Round((double)(results.TargetMean + 3 * results.TargetSD + 40), 1, MidpointRounding.AwayFromZero);
+                        }
+                        else if (results.TargetSD <= 50)
+                        {
+                            VRMin = Math.Round((double)(results.TargetMean - 3 * results.TargetSD - 60), 1, MidpointRounding.AwayFromZero);
+                            VRMax = Math.Round((double)(results.TargetMean + 3 * results.TargetSD + 60), 1, MidpointRounding.AwayFromZero);
+                        }
+                        else if (results.TargetSD <= 100)
+                        {
+                            VRMin = Math.Round((double)(results.TargetMean - 3 * results.TargetSD - 75), 1, MidpointRounding.AwayFromZero);
+                            VRMax = Math.Round((double)(results.TargetMean + 3 * results.TargetSD + 75), 1, MidpointRounding.AwayFromZero);
+                        }
                         diagram.AxisY.VisualRange.SetMinMaxValues(VRMin, VRMax);
                         //设置Y轴的最大值和最小值
-                        double WRMin = Math.Round((double)(results.TargetMean - 3 * results.TargetSD - 20), 1, MidpointRounding.AwayFromZero);
-                        double WRMax = Math.Round((double)(results.TargetMean + 3 * results.TargetSD + 20), 1, MidpointRounding.AwayFromZero);
+                        double WRMin = Math.Round((double)(results.TargetMean - 3 * results.TargetSD - 100), 1, MidpointRounding.AwayFromZero);
+                        double WRMax = Math.Round((double)(results.TargetMean + 3 * results.TargetSD + 100), 1, MidpointRounding.AwayFromZero);
                         diagram.AxisY.WholeRange.SetMinMaxValues(WRMin, WRMax);
 
                         diagram.AxisX.VisualRange.SetMinMaxValues(0, 10);
