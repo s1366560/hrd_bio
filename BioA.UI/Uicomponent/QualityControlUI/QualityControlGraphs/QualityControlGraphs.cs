@@ -73,6 +73,10 @@ namespace BioA.UI
         /// 存储客户端发送信息给服务器的参数集合
         /// </summary>
         private Dictionary<string, object[]> qcGraphsDic = new Dictionary<string, object[]>();
+
+        //结果设置表信息
+        private List<ResultSetInfo> lstResultSetInfo;
+
         public QualityControlGraphs()
         {
             InitializeComponent();
@@ -109,8 +113,8 @@ namespace BioA.UI
             obj[0] = "浓度";
             for (int i = 0; i < results.Count; i++)
             {
-                
-                obj[i + 1] = Math.Round(results[i].ConcResult, 2, MidpointRounding.AwayFromZero);
+                ResultSetInfo ss = lstResultSetInfo.SingleOrDefault(v => v.ProjectName == results[i].ProjectName) as ResultSetInfo;
+                obj[i + 1] = Math.Round(results[i].ConcResult, ss != null ? ss.RadixPointNum : 4, MidpointRounding.AwayFromZero);
             }
             dt.Rows.Add(obj);
             return dt;
@@ -536,6 +540,7 @@ namespace BioA.UI
         private void QualityControlGraphs_Load(object sender, EventArgs e)
         {
             BeginInvoke(new Action(loadQCGraphsInfoLoad));
+            this.lstResultSetInfo = QueryResultSetTb.QueryResultSetInfo;
         }
         private void loadQCGraphsInfoLoad()
         {

@@ -5,6 +5,7 @@
     <typeAlias alias="AssayProjectParamInfo" type="BioA.Common.AssayProjectParamInfo, BioA.Common" />
     <typeAlias alias="AssayProjectCalibrationParamInfo" type="BioA.Common.AssayProjectCalibrationParamInfo, BioA.Common" />
     <typeAlias alias="AssayProjectRangeParamInfo" type="BioA.Common.AssayProjectRangeParamInfo, BioA.Common" />
+    <typeAlias alias="ResultSetInfo" type="BioA.Common.ResultSetInfo, BioA.Common" />
   </alias>
   <resultMaps>
     <resultMap id="AssayProjectInfoResult" class="AssayProjectInfo">
@@ -469,6 +470,14 @@
 
     <statement id ="GetAssayProjectCalParamInfo" parameterClass ="System.Collections.IDictionary" resultClass ="AssayProjectCalibrationParamInfo">
       select * from CalibrationParamInfoTb where ProjectName=#ProjectName# and SampleType=#SampleType#
+    </statement>
+    <!-- 获取结果设置表信息（resultSetTb） -->
+    <statement id ="QueryResultSetInfo" resultClass ="ResultSetInfo">
+      select * from resultSetTb
+    </statement>
+    <!-- 修改结果设置表的单位和小数点位 -->
+    <statement id ="UpdateResultSetInfo" resultClass ="int">
+      $value$
     </statement>
   </statements>
   

@@ -45,6 +45,9 @@ namespace BioA.UI
         //显示所有样本结果信息
         List<SampleResultInfo> lstSamResultInfo = new List<SampleResultInfo>();
         
+        //结果设置表信息
+        private List<ResultSetInfo> lstResultSetInfo;
+
         //反应监控曲线窗体
         ReflectionMonitoring reflectionMonitoring;
 
@@ -222,6 +225,7 @@ namespace BioA.UI
             //chkFilterOpen.Checked = 
             //异步方法调用
             BeginInvoke(new Action(loadDataCheck));
+            this.lstResultSetInfo = QueryResultSetTb.QueryResultSetInfo;
 
         }
         private void loadDataCheck()
@@ -534,6 +538,7 @@ namespace BioA.UI
                 CheckResultDT.Rows.Clear();
                 foreach (SampleResultInfo s in lstSamResultInfo)
                 {
+                    ResultSetInfo ss = lstResultSetInfo.SingleOrDefault(v => v.ProjectName == s.ProjectName) as ResultSetInfo;
                     string taskState = string.Empty;
                     switch (s.SampleCompletionStatus)
                     {
@@ -549,7 +554,7 @@ namespace BioA.UI
                         default:
                             break;
                     }
-                    CheckResultDT.Rows.Add(new object[] { s.ProjectName, Math.Round(s.ConcResult, 4), s.UnitAndRange, s.SampleCompletionTime.ToString(), s.TCNO, taskState, s.IsResurvey == true ? "是" : "否", s.Remarks, s.Confirm });
+                    CheckResultDT.Rows.Add(new object[] { s.ProjectName, Math.Round(s.ConcResult, ss != null ? ss.RadixPointNum: 4), s.UnitAndRange, s.SampleCompletionTime.ToString(), s.TCNO, taskState, s.IsResurvey == true ? "是" : "否", s.Remarks, s.Confirm });
                 }
                 if (lstSamResultInfo.Count > 0)
                 {

@@ -1834,5 +1834,16 @@
         Volume int Null,
         Code int Null
       )
-    </statement>  </statements>
+    </statement>
+    <!-- 项目结果设置 -->
+    <statement id="CreateresultSetTb">
+      create table resultSetTb
+      (
+      ProjectName varchar(50) Null,
+      SampleType varchar(10) Null,
+      Unit varchar(10) Null,
+      RadixPointNum int Null
+      )
+    </statement>
+  </statements>
 </sqlMap>

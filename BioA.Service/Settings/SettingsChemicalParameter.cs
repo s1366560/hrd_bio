@@ -55,9 +55,9 @@ namespace BioA.Service
         /// </summary>
         /// <param name="strDBMethod">方法名</param>
         /// <param name="assayProInfo">生化项目参数</param>
-        public List<AssayProjectParamInfo> QueryAssayProjectParamInfoAll(string strDBMethod)
+        public List<AssayProjectParamInfo> QueryAssayProjectParamInfoAll(string strDBMethod,List<ResultSetInfo> lstResultInfo)
         {
-            List<AssayProjectParamInfo> lstAssayProInfos = myBatis.QueryAssayProjectParamInfoAll(strDBMethod);
+            List<AssayProjectParamInfo> lstAssayProInfos = myBatis.QueryAssayProjectParamInfoAll(strDBMethod,lstResultInfo);
             //LogInfo.WriteProcessLog("获取" + lstAssayProInfos.ProjectName + "+" + lstAssayProInfos.SampleType + "项目参数成功", Module.WindowsService);
 
             return lstAssayProInfos;

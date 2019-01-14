@@ -40,6 +40,9 @@ namespace BioA.UI
         /// </summary>
         private Dictionary<string, object[]> proParamDic = new Dictionary<string, object[]>();
 
+        //实例化数据库对象
+        private SettingsChemicalParameter settingParameter = new SettingsChemicalParameter();
+
         private string strReceiveInfo = "";
         /// <summary>
         /// 显示项目参数保存成功或者失败
@@ -61,6 +64,8 @@ namespace BioA.UI
                 {
                     lstAssayProParamInfoAll.RemoveAll(x => x.ProjectName == saveProParamInfo.ProjectName && x.SampleType == saveProParamInfo.SampleType);
                     lstAssayProParamInfoAll.Add(saveProParamInfo);
+                    QueryResultSetTb queryRsult = new QueryResultSetTb(true);
+                    List<ResultSetInfo> lstqueryResult = QueryResultSetTb.QueryResultSetInfo;
                 }
                 MessageBoxDraw.ShowMsg(strReceiveInfo, MsgType.OK);
             }
@@ -187,16 +192,21 @@ namespace BioA.UI
             //}
             cboStirring2Intensity.SelectedIndex = 1;
             // 获取结果单位
-            proParamDic.Add("QueryProjectResultUnits", null);
-            //获取所有生化项目对应的参数信息
-            proParamDic.Add("QueryAssayProjectParamInfoAll", null);
+            //proParamDic.Add("QueryProjectResultUnits", null);
+            ////获取所有生化项目对应的参数信息
+            //proParamDic.Add("QueryAssayProjectParamInfoAll", null);
             ////获取所有生化项目
             //proParamDic.Add("QueryAssayProAllInfo", new object[] { ""});
             //获取所有生化项目
-            List<AssayProjectInfo> lstProjectInfos = new SettingsChemicalParameter().QueryAssayProAllInfo("QueryAssayProAllInfo", null);
+            List<AssayProjectInfo> lstProjectInfos = settingParameter.QueryAssayProAllInfo("QueryAssayProAllInfo", null);
             this.LstAssayProInfos = lstProjectInfos;
-            if (AssayProInfoEvent != null)
-                AssayProInfoEvent(proParamDic);
+            // 获取结果单位
+            LstUnits = settingParameter.QueryProjectResultUnits("QueryProjectResultUnits");
+            //获取所有生化项目对应的参数信息
+            LstAssayProParamInfoAll = settingParameter.QueryAssayProjectParamInfoAll("QueryAssayProjectParamInfoAll", QueryResultSetTb.QueryResultSetInfo);
+
+            //if (AssayProInfoEvent != null)
+            //    AssayProInfoEvent(proParamDic);
             
             //if (AssayProInfoEvent != null)
             //    AssayProInfoEvent(new CommunicationEntity("QueryAssayProAllInfo", null));
@@ -301,7 +311,7 @@ namespace BioA.UI
                 BeginInvoke(new Action(() =>
                 {
                     //检测方法
-                    if (proParamInfo.AnalysisMethod != string.Empty)
+                    if (proParamInfo.AnalysisMethod != string.Empty && proParamInfo.AnalysisMethod != null)
                         cboAnalizeMethod.SelectedIndex = cboAnalizeMethod.Properties.Items.IndexOf(proParamInfo.AnalysisMethod);
                     else
                         cboAnalizeMethod.Text = "请选择";
@@ -329,7 +339,7 @@ namespace BioA.UI
                     if (proParamInfo.ResultDecimal != 100000000)
                         cboDecimal.SelectedIndex = cboDecimal.Properties.Items.IndexOf(proParamInfo.ResultDecimal.ToString());
                     else
-                        cboDecimal.Text = "请选择";
+                        cboDecimal.SelectedIndex = 4;
                     //结果单位
                     if (proParamInfo.ResultUnit != string.Empty)
                         cboResultUnit.SelectedIndex = cboResultUnit.Properties.Items.IndexOf(proParamInfo.ResultUnit);

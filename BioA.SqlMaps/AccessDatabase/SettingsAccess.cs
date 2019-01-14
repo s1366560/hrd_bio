@@ -289,11 +289,11 @@ namespace BioA.SqlMaps
         /// </summary>
         /// <param name="strDBMethod"></param>
         /// <returns></returns>
-        public List<AssayProjectParamInfo> QueryAssayProjectParamInfoAll(string strDBMethod)
+        public List<AssayProjectParamInfo> QueryAssayProjectParamInfoAll(string strDBMethod,List<ResultSetInfo> lstResultInfo)
         {
             List<AssayProjectParamInfo> lstAssayProParamsResult = new List<AssayProjectParamInfo>();
 
-            List<ReagentStateInfo> proReagentState = new List<ReagentStateInfo>();
+            List<ReagentStateInfoR1R2> proReagentState = new List<ReagentStateInfoR1R2>();
             try
             {
                 //获取所有生化项目参数信息
@@ -302,41 +302,41 @@ namespace BioA.SqlMaps
                 List<ReagentSettingsInfo> lstReagentSettings = (List<ReagentSettingsInfo>)ism_SqlMap.QueryForList<ReagentSettingsInfo>("ReagentInfo.QueryReagentSetting1", null);
                 //获取所有试剂2信息
                 List<ReagentSettingsInfo> lstReagentSettings2 = (List<ReagentSettingsInfo>)ism_SqlMap.QueryForList<ReagentSettingsInfo>("ReagentInfo.QueryReagentSetting2", null);
+                //获取所有试剂1 OR 2信息
+                proReagentState = (List<ReagentStateInfoR1R2>)ism_SqlMap.QueryForList<ReagentStateInfoR1R2>("ReagentInfo.QueryReagentStateInfoAll", null);
                 foreach (AssayProjectParamInfo assayProParam in lstAssayProParam)
                 {
-                    foreach (ReagentSettingsInfo reagentSettings in lstReagentSettings)
+                    ReagentSettingsInfo reagent1 = lstReagentSettings.SingleOrDefault(r1 => r1.ProjectName == assayProParam.ProjectName);
+                    if (reagent1 != null)
                     {
-                        if (assayProParam.ProjectName == reagentSettings.ProjectName)
+                        assayProParam.Reagent1Name = reagent1.ReagentName;
+                        assayProParam.Reagent1Pos = reagent1.Pos;
+                        assayProParam.Reagent1ValidDate = reagent1.ValidDate;
+                    }
+                    ReagentSettingsInfo reagent2 = lstReagentSettings.SingleOrDefault(r2 => r2.ProjectName == assayProParam.ProjectName);
+                    if (reagent2 != null)
+                    {
+                        assayProParam.Reagent2Name = reagent2.ReagentName;
+                        assayProParam.Reagent2Pos = reagent2.Pos;
+                        assayProParam.Reagent2ValidDate = reagent2.ValidDate;
+                    }
+                    ReagentStateInfoR1R2 reagentr1r2 = proReagentState.SingleOrDefault(r1r2 => r1r2.ProjectName == assayProParam.ProjectName);
+                    if (reagentr1r2 != null)
+                    {
+                        if (reagentr1r2.ReagentName == assayProParam.Reagent1Name)
                         {
-                            assayProParam.Reagent1Name = reagentSettings.ReagentName;
-                            assayProParam.Reagent1Pos = reagentSettings.Pos;
-                            assayProParam.Reagent1ValidDate = reagentSettings.ValidDate;
+                            assayProParam.Reagent1Vol = reagentr1r2.ValidPercent;
+                        }
+                        if (reagentr1r2.ReagentName == assayProParam.Reagent2Name)
+                        {
+                            assayProParam.Reagent2Vol = reagentr1r2.ValidPercent2;
                         }
                     }
-                    foreach (ReagentSettingsInfo reagentSettings2 in lstReagentSettings2)
+                    ResultSetInfo resultSetInfo = lstResultInfo.SingleOrDefault(resultInfo => resultInfo.ProjectName == assayProParam.ProjectName);
+                    if (resultSetInfo != null)
                     {
-                        if (assayProParam.ProjectName == reagentSettings2.ProjectName)
-                        {
-                            assayProParam.Reagent2Name = reagentSettings2.ReagentName;
-                            assayProParam.Reagent2Pos = reagentSettings2.Pos;
-                            assayProParam.Reagent2ValidDate = reagentSettings2.ValidDate;
-                        }
-                    }
-                    //获取所有试剂1 OR 2信息
-                    proReagentState = (List<ReagentStateInfo>)ism_SqlMap.QueryForList<ReagentStateInfo>("ReagentInfo.QueryReagentStateInfoAll", null);
-                    foreach (ReagentStateInfo reaState in proReagentState)
-                    {
-                        if (assayProParam.ProjectName == reaState.ProjectName)
-                        {
-                            if (reaState.ReagentName == assayProParam.Reagent1Name)
-                            {
-                                assayProParam.Reagent1Vol = reaState.ReagentSurplusVol;
-                            }
-                            if (reaState.ReagentName == assayProParam.Reagent2Name)
-                            {
-                                assayProParam.Reagent2Vol = reaState.ReagentSurplusVol;
-                            }
-                        }
+                        assayProParam.ResultUnit = resultSetInfo.Unit;
+                        assayProParam.ResultDecimal = resultSetInfo.RadixPointNum;
                     }
                     lstAssayProParamsResult.Add(assayProParam);
                 }
@@ -377,6 +377,10 @@ namespace BioA.SqlMaps
             try
             {
                 i = ism_SqlMap.Update("AssayProjectInfo." + strDBMethod, assayProParamInfo);
+                if (i > 0)
+                {
+                    ism_SqlMap.Update("AssayProjectInfo.UpdateResultSetInfo", string.Format("update resultSetTb set Unit = '{0}', RadixPointNum = {1} where ProjectName = '{2}'", assayProParamInfo.ResultUnit, assayProParamInfo.ResultDecimal, assayProParamInfo.ProjectName));
+                }
             }
             catch (Exception e)
             {

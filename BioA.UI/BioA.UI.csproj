@@ -325,6 +325,7 @@
     <Compile Include="Uicomponent\QualityControlUI\QualityControlTask\QCProjectPage3.Designer.cs">
       <DependentUpon>QCProjectPage3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Uicomponent\QueryResultSetTb.cs" />
     <Compile Include="Uicomponent\ReagentUI\ReagentSetting\frmLoadingReagent.cs">
       <SubType>Form</SubType>
     </Compile>

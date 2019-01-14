@@ -23,6 +23,10 @@ namespace BioA.UI
         private Dictionary<string, object[]> testAudtiDic = new Dictionary<string, object[]>();
         // 赋值给检测项目表
         DataTable dtCheckResult = new DataTable();
+
+        //结果设置表信息
+        private List<ResultSetInfo> lstResultSetInfo;
+
         /// <summary>
         /// 存储父窗体样本信息结果
         /// </summary>
@@ -155,6 +159,7 @@ namespace BioA.UI
         private void TestAudit_Load(object sender, EventArgs e)
         {
             BeginInvoke(new Action(loadTestAudit));
+            this.lstResultSetInfo = QueryResultSetTb.QueryResultSetInfo;
         }
         /// <summary>
         /// 测试审核信息
@@ -228,6 +233,7 @@ namespace BioA.UI
                 dtCheckResult.Clear();
                 foreach (SampleResultInfo s in lstSampleResInfo)
                 {
+                    ResultSetInfo result = lstResultSetInfo.SingleOrDefault(v => v.ProjectName == s.ProjectName) as ResultSetInfo;
                     string taskState = string.Empty;
                     switch (s.SampleCompletionStatus)
                     {
@@ -242,7 +248,7 @@ namespace BioA.UI
                             break;
                     }
 
-                    dtCheckResult.Rows.Add(new object[] { s.ProjectName, s.ConcResult, s.UnitAndRange, s.SampleCompletionTime.ToString(), s.TCNO, taskState, s.IsResurvey ? "是" : "否" });
+                    dtCheckResult.Rows.Add(new object[] { s.ProjectName, Math.Round(s.ConcResult, result != null ? result.RadixPointNum : 4), s.UnitAndRange, s.SampleCompletionTime.ToString(), s.TCNO, taskState, s.IsResurvey ? "是" : "否" });
                 }
             }
         }

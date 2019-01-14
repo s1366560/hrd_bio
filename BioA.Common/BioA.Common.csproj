@@ -155,6 +155,7 @@
     <Compile Include="Manager\ProjectRunSequenceInfo.cs" />
     <Compile Include="Manager\RealTimeCUVDataInfo.cs" />
     <Compile Include="Manager\ResultInfo.cs" />
+    <Compile Include="Manager\ResultSetInfo.cs" />
     <Compile Include="Manager\RunningStateInfo.cs" />
     <Compile Include="Manager\Sample.cs" />
     <Compile Include="Manager\Schedule.cs" />

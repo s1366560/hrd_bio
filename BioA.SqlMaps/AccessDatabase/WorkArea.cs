@@ -856,5 +856,23 @@ namespace BioA.SqlMaps
             samplePatientInfo = sampleInfoForResult;
             return lstSample;
         }
+        /// <summary>
+        /// 获取结果设置表信息
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <returns></returns>
+        public List<ResultSetInfo> QueryResultSetInfos(string strDBMethod)
+        {
+            List<ResultSetInfo> lstResultSetInfo = new List<ResultSetInfo>();
+            try
+            {
+                lstResultSetInfo = (List<ResultSetInfo>)ism_SqlMap.QueryForList<ResultSetInfo>("AssayProjectInfo." + strDBMethod, null);
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("List<ResultSetInfo> QueryResultSetInfos(string strDBMethod) == "+ ex.ToString(), Module.WorkingArea);
+            }
+            return lstResultSetInfo;
+        }
     }
 }

@@ -232,5 +232,14 @@ namespace BioA.Service
         {
             return myBatis.DeleteSampleResult(sampleResultInfo);
         }
+        /// <summary>
+        /// 获取结果设置表信息
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <returns></returns>
+        public List<ResultSetInfo> QueryResultSetInfos(string strDBMethod)
+        {
+            return myBatis.QueryResultSetInfos(strDBMethod);
+        }
     }
 }

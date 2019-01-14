@@ -48,7 +48,7 @@
             this.xtraTabPage2,
             this.xtraTabPage3});
             this.xtraTabControl1.TabPageWidth = 80;
-            this.xtraTabControl1.Click += new System.EventHandler(this.xtraTabControl1_Click);
+            this.xtraTabControl1.SelectedPageChanged += new DevExpress.XtraTab.TabPageChangedEventHandler(this.xtraTabControl1_SelectedPageChanged);
             // 
             // xtraTabPage1
             // 

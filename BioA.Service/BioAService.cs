@@ -902,10 +902,10 @@ namespace BioA.Service
                             AssayProjectParamInfo assayProjectParamInfo = settingsChemicalParam.AddAssayProject(kvp.Key, assProInfo);
                             strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(AssayProjectParamInfo), assayProjectParamInfo));
                             break;
-                        case "QueryAssayProjectParamInfoAll":
-                            List<AssayProjectParamInfo> assayProParamInfo = settingsChemicalParam.QueryAssayProjectParamInfoAll(kvp.Key);
-                            strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<AssayProjectParamInfo>), assayProParamInfo));
-                            break;
+                        //case "QueryAssayProjectParamInfoAll":
+                        //    List<AssayProjectParamInfo> assayProParamInfo = settingsChemicalParam.QueryAssayProjectParamInfoAll(kvp.Key);
+                        //    strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<AssayProjectParamInfo>), assayProParamInfo));
+                        //    break;
                         case "QueryProjectResultUnits":
                             List<string> lstUnits = settingsChemicalParam.QueryProjectResultUnits(kvp.Key);
                             strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<string>), lstUnits));

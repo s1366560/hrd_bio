@@ -30,10 +30,6 @@ namespace BioA.UI
         public ChemicalParameter()
         {
             InitializeComponent();
-            //Thread.Sleep(1000);
-            //projectParameter = new ProjectParameter();
-            //projectParameter.AssayProInfoEvent += AssayProInfo_Event;
-            //xtraTabPage1.Controls.Add(projectParameter);
         }
         
         /// <summary>
@@ -99,6 +95,8 @@ namespace BioA.UI
                         chemicalParamDic.Clear();
                         chemicalParamDic.Add("QueryAssayProAllInfo", new object[]{ ""});
                         AssayProInfo_Event(chemicalParamDic);
+                        QueryResultSetTb queryRsult = new QueryResultSetTb(true);
+                        List<ResultSetInfo> lstqueryResult = QueryResultSetTb.QueryResultSetInfo;
                         MessageBoxDraw.ShowMsg("修改成功！", MsgType.OK);
                     }
                     else
@@ -113,6 +111,8 @@ namespace BioA.UI
                         chemicalParamDic.Clear();
                         chemicalParamDic.Add("QueryAssayProAllInfo", new object[] { "" });
                         AssayProInfo_Event(chemicalParamDic);
+                        QueryResultSetTb queryRsult = new QueryResultSetTb(true);
+                        List<ResultSetInfo> lstqueryResult = QueryResultSetTb.QueryResultSetInfo;
                         MessageBoxDraw.ShowMsg("删除成功！", MsgType.OK);
                     }
                     else
@@ -173,25 +173,36 @@ namespace BioA.UI
                     break;
             }
         }
-
-        private void xtraTabControl1_Click(object sender, EventArgs e)
+        /// <summary>
+        /// 界面初始化加载
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ChemicalParameter_Load(object sender, EventArgs e)
+        {
+            projectParameter = new ProjectParameter();
+            projectParameter.AssayProInfoEvent += AssayProInfo_Event;
+            xtraTabPage1.Controls.Add(projectParameter);
+        }
+        /// <summary>
+        /// 页面切换事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void xtraTabControl1_SelectedPageChanged(object sender, DevExpress.XtraTab.TabPageChangedEventArgs e)
         {
             if (xtraTabControl1.SelectedTabPageIndex == 0)
             {
-                xtraTabPage1.Controls.Clear();
+                xtraTabPage2.Controls.Clear();
+                xtraTabPage3.Controls.Clear();
                 projectParameter = new ProjectParameter();
-                //if(lstAssayProInfos.Count != 0 && _data.Rows.Count >0)
-                //{
-                //    projectParameter.ListAssayprojectInfos = lstAssayProInfos;
-                //}
-                //projectParameter.DataParamEvent += DataParamInfo_Event;
                 projectParameter.AssayProInfoEvent += AssayProInfo_Event;
                 xtraTabPage1.Controls.Add(projectParameter);
-                
             }
             else if (xtraTabControl1.SelectedTabPageIndex == 1)
             {
-                xtraTabPage2.Controls.Clear();
+                xtraTabPage1.Controls.Clear();
+                xtraTabPage3.Controls.Clear();
                 calibrationParameter = new CalibrationParameter();
                 if (lstAssayProInfos.Count != 0)
                 {
@@ -202,7 +213,8 @@ namespace BioA.UI
             }
             else if (xtraTabControl1.SelectedTabPageIndex == 2)
             {
-                xtraTabPage3.Controls.Clear();
+                xtraTabPage1.Controls.Clear();
+                xtraTabPage2.Controls.Clear();
                 rangeParameter = new RangeParameter();
                 if (lstAssayProInfos.Count != 0)
                 {
@@ -211,17 +223,6 @@ namespace BioA.UI
                 rangeParameter.AssayProInfoForRangeParamEvent += AssayProInfo_Event;
                 xtraTabPage3.Controls.Add(rangeParameter);
             }
-        }
-
-        private void ChemicalParameter_Load(object sender, EventArgs e)
-        {
-            BeginInvoke(new Action(() =>
-            {
-                projectParameter = new ProjectParameter();
-                //projectParameter.DataParamEvent += DataParamInfo_Event;
-                projectParameter.AssayProInfoEvent += AssayProInfo_Event;
-                xtraTabPage1.Controls.Add(projectParameter);
-            }));
         }
     }
 }
