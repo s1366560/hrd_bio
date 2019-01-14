@@ -171,7 +171,7 @@
       select top $count$ t1.* from TaskTb t1 left join SampleTb t2 on t1.SampleNum = t2.SampleNum
       left join AssayProjectParamInfoTb t3 on t1.ProjectName = t3.ProjectName and t1.SampleType = t3.SampleType
       left join ProjectRunSequenceTb run on run.ProjectName = t1.ProjectName
-      where t1.TaskState=0 and t2.PanelNum=#disk# and t2.IsEmergency='0' and t1.CreateDate between #CreateDateBegin# and #CreateDateEnd# order by t1.SampleNum
+      where t1.TaskState=0 and t2.PanelNum=#disk# and t2.IsEmergency='0' and t1.CreateDate between #CreateDateBegin# and #CreateDateEnd# order by run.RunSequence,t1.SampleNum
     </statement>
     <statement id="QuerySampleInfoByQCID" parameterClass="System.Collections.IDictionary" resultClass="SampleInfo">
       select * from SampleTb where SampleNum=#SampleNum# and CreateTime between #CreateTimeStart# and #CreateTimeEnd#
