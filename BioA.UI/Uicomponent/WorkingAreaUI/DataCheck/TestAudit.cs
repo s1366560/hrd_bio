@@ -248,7 +248,7 @@ namespace BioA.UI
                             break;
                     }
 
-                    dtCheckResult.Rows.Add(new object[] { s.ProjectName, Math.Round(s.ConcResult, result != null ? result.RadixPointNum : 4), s.UnitAndRange, s.SampleCompletionTime.ToString(), s.TCNO, taskState, s.IsResurvey ? "是" : "否" });
+                    dtCheckResult.Rows.Add(new object[] { s.ProjectName, Math.Round(s.ConcResult, result != null && result.RadixPointNum != 100000000 ? result.RadixPointNum : 4), s.UnitAndRange, s.SampleCompletionTime.ToString(), s.TCNO, taskState, s.IsResurvey ? "是" : "否" });
                 }
             }
         }

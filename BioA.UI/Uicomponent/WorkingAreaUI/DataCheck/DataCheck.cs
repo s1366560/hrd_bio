@@ -554,7 +554,7 @@ namespace BioA.UI
                         default:
                             break;
                     }
-                    CheckResultDT.Rows.Add(new object[] { s.ProjectName, Math.Round(s.ConcResult, ss != null ? ss.RadixPointNum: 4), s.UnitAndRange, s.SampleCompletionTime.ToString(), s.TCNO, taskState, s.IsResurvey == true ? "是" : "否", s.Remarks, s.Confirm });
+                    CheckResultDT.Rows.Add(new object[] { s.ProjectName, Math.Round(s.ConcResult, ss != null && ss.RadixPointNum != 100000000 ? ss.RadixPointNum : 4), s.UnitAndRange, s.SampleCompletionTime.ToString(), s.TCNO, taskState, s.IsResurvey == true ? "是" : "否", s.Remarks, s.Confirm });
                 }
                 if (lstSamResultInfo.Count > 0)
                 {

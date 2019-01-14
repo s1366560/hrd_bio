@@ -114,7 +114,7 @@ namespace BioA.UI
             for (int i = 0; i < results.Count; i++)
             {
                 ResultSetInfo ss = lstResultSetInfo.SingleOrDefault(v => v.ProjectName == results[i].ProjectName) as ResultSetInfo;
-                obj[i + 1] = Math.Round(results[i].ConcResult, ss != null ? ss.RadixPointNum : 4, MidpointRounding.AwayFromZero);
+                obj[i + 1] = Math.Round(results[i].ConcResult, ss != null && ss.RadixPointNum != 100000000 ? ss.RadixPointNum : 4, MidpointRounding.AwayFromZero);
             }
             dt.Rows.Add(obj);
             return dt;
