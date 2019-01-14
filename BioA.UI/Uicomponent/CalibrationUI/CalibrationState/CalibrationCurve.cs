@@ -331,7 +331,7 @@ namespace BioA.UI
             }
             else
             {
-                MessageBox.Show("改项目没有对应的校准曲线！不能保存！");
+                MessageBox.Show("该项目没有对应的校准曲线！不能保存！");
             }
 
         }

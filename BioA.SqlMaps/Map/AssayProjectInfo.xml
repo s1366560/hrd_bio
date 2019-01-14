@@ -386,7 +386,8 @@
       CalibName4=#CalibName4#,
       CalibName5=#CalibName5#,
       CalibName6=#CalibName6#,
-      Factor=#Factor#
+      Factor=#Factor#,
+      CalibCurveValidDay=#CalibCurveValidDay#
       where ProjectName = #ProjectName# and SampleType = #SampleType#
     </update>
     <insert id="AddRangeParam" parameterClass="AssayProjectInfo">

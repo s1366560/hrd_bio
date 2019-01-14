@@ -186,6 +186,14 @@ namespace BioA.UI
                             cboQCFailed.Text = "是";
                         else
                             cboQCFailed.Text = "否";
+                        if(calibParamInfo.CalibCurveValidDay ==  0)
+                        {
+                            textBox1.Text = "150";
+                        }
+                        else
+                        {
+                            textBox1.Text = calibParamInfo.CalibCurveValidDay.ToString();
+                        }
                     }
                 }));
 
@@ -711,6 +719,22 @@ namespace BioA.UI
                 {
                     parameter.CalibPos6 = txtPos7.Text;
                 }
+                if(!string.IsNullOrEmpty(textBox1.Text))
+                {
+                    try
+                    {
+                        parameter.CalibCurveValidDay = int.Parse(textBox1.Text);
+                    }
+                    catch(Exception )
+                    {
+                        MessageBox.Show("请输入正确的校准曲线有效期!");
+                        return;
+                    }                    
+                }
+                else
+                {
+                    parameter.CalibCurveValidDay = 0;
+                }
                 calibParamDic.Clear();
                 calibParamDic.Add("UpdateCalibParamByProNameAndType", new object[] { XmlUtility.Serializer(typeof(AssayProjectCalibrationParamInfo), parameter) });
                 //保存或更新校准方法对应的校准品信息
@@ -745,7 +769,7 @@ namespace BioA.UI
             cboReagentValidDateCheck.Properties.Items.Add("是");
             cboReagentValidDateCheck.Properties.Items.Add("否");
             cboReagentValidDateCheck.SelectedIndex = 0;
-
+ 
             //CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.SettingsChemicalParameter, new Dictionary<string, List<object>>() { { "QueryCalibParamInfoAll", null } });
             calibParamDic.Clear();
             //获取所有生化项目

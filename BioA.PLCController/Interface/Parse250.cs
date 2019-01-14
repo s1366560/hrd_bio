@@ -45,7 +45,7 @@ namespace BioA.PLCController.Interface
                 }
                 int R1P = MachineControlProtocol.HexConverToDec(Data[i + 1], Data[i + 2]);
                 int R1V = MachineControlProtocol.HexConverToDec(Data[i + 3], Data[i + 4]);
-                R1P = R1P > 45 ? (R1P - 45) : R1P;
+                R1P = R1P > 90 ? (R1P - 90) : R1P;
                 UpdateLatestRgtVol(1, R1P, R1V);
                 RgtWarning(1, R1P);
                 int R2P = MachineControlProtocol.HexConverToDec(Data[i + 5], Data[i + 6]);

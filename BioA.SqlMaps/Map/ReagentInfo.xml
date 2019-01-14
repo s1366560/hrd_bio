@@ -324,10 +324,10 @@
       select * from ReagentSettingstbr2 where Pos=#Pos#
     </select>
     <update id="UpdateReagent1LockState" parameterClass="ReagentSettingsInfo">
-      update ReagentStateinfor1r2 set Locked=#Locked# where Pos=#Pos#
+      update ReagentStateinfor1r2tb set Locked=#Locked# where Pos=#Pos#
     </update>
     <update id="UpdateReagent2LockState" parameterClass="ReagentSettingsInfo">
-      update ReagentStateinfor1r2 set Locked=#Locked# where Pos2=#Pos#
+      update ReagentStateinfor1r2tb set Locked=#Locked# where Pos2=#Pos#
     </update>
   </statements>
 </sqlMap>

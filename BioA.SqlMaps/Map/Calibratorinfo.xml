@@ -317,7 +317,7 @@
       select * from CalibrationResultTb where TCNO=#TCNO# and CalibrationDT between #BeginTime# and #EndTime#
     </statement>
     <statement id="QueryCalibCurveByProject" parameterClass="System.Collections.IDictionary" resultClass="int">
-      select count(*) from SDTTableItemTb where SampleType=#SampleType# and ProjectName=#ProjectName# and CalibMethod=#CalibMethod# and CalibState=('CALIBRATING' or 'SUCCESSFUL') and DrawDate=#DrawDate#
+      select count(*) from SDTTableItemTb where SampleType=#SampleType# and ProjectName=#ProjectName# and CalibMethod=#CalibMethod# and CalibState in ('CALIBRATING', 'SUCCESSFUL') and DrawDate=#DrawDate#
     </statement>
     <statement id="UpdateSDTResult" parameterClass="CalibrationResultinfo">
       update CalibrationResultTb set CalibAbs=#CalibAbs# where CalibrationDT=#CalibrationDT# and SampleNum=#SampleNum# and ProjectName=#ProjectName# and SampleType=#SampleType# and CalibratorName=#CalibratorName# and TCNO=#TCNO#

@@ -246,8 +246,8 @@
       and InspectTimes=SendTimes and SendTimes=FinishTimes and CreateDate=#CalibrationDT#
     </statement>
     
-    <statement id="GetQCScheduleFinishCount" parameterClass="System.Collections.IDictionary">
-      select * from QCTaskTb where ProjectName=#ProjectName# and SampleNum=#SampleNum# and CreateDate between #StartTime# and #EndTime#
+    <statement id="GetQCScheduleFinishCount" parameterClass="System.Collections.IDictionary" resultClass="int">
+      select count(*) from QCTaskTb where ProjectName=#ProjectName# and SampleNum=#SampleNum# and CreateDate between #StartTime# and #EndTime#
     </statement>
     <statement id="UpdateQCScheduleFinishCount" parameterClass="System.Collections.IDictionary">
       update QCTaskTb set FinishTimes = #FinishTimes# where ProjectName=#ProjectName# and SampleNum=#SampleNum# and CreateDate between #StartTime# and #EndTime#
