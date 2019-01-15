@@ -37,6 +37,7 @@ namespace BioA.UI
                 if (GetsReagentEvent != null)
                 {
                     GetsReagentEvent(dic);
+                    this.btnSave.Enabled = true;
                 }
                 
             }
@@ -219,6 +220,7 @@ namespace BioA.UI
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            this.btnSave.Enabled = false;
             reagentSettingsInfo = new ReagentSettingsInfo();
             reagentSettingsInfo.Barcode = txtBarcode.Text;
             reagentSettingsInfo.BatchNum = txtBatchNum.Text;
