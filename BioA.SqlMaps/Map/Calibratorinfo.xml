@@ -388,13 +388,18 @@
     <statement id="GetSDTSchedule" parameterClass="System.Collections.IDictionary" resultClass="CalibratorinfoTask">
       select * from CalibratorinfoTaskTb where ProjectName=#ProjectName# and SampleNum=#SampleNum# and CalibName=#CalibName# and CreateDate=#CreateDate#
     </statement>
+    <!-- 根据校准曲线中的项目名和类型获取任务信息 -->
     <statement id="GetCalibTasksByProject" parameterClass="System.Collections.IDictionary" resultClass="CalibratorinfoTask">
       select * from CalibratorinfoTaskTb where ProjectName=#ProjectName# and SampleType=#SampleType# and TaskState='0'
     </statement>
-    <statement id="GetCalibInfoTaskByCalibTaskState" parameterClass="System.Collections.IDictionary" resultMap="CalibratorinfoTaskResult">
-      select t1.* from CalibratorinfoTaskTb t1 left join CalibrationParamInfoTb t2 on t2.ProjectName = t1.ProjectName and t2.SampleType = t1.SampleType
+    <!-- 获取校准任务为K系数法的信息 -->
+    <statement id="GetCalibInfoTaskByCalibTaskState" resultMap="CalibratorinfoTaskResult">
+      <!--select t1.* from CalibratorinfoTaskTb t1 left join CalibrationParamInfoTb t2 on t2.ProjectName = t1.ProjectName and t2.SampleType = t1.SampleType
       left join ProjectRunSequenceTb run on t1.ProjectName = run.ProjectName
-      where t1.CreateDate between #BeginTime# and #EndTime# and TaskState='0' order by run.RunSequence
+      where t1.CreateDate between #BeginTime# and #EndTime# and TaskState='0' order by run.RunSequence-->
+      select ct.* from calibratorinfotasktb ct,calibrationparaminfotb cp, projectrunsequencetb run, reagentstateinfor1r2tb r
+      where ct.ProjectName = cp.ProjectName and ct.SampleType = cp.SampleType and ct.ProjectName = run.ProjectName
+      and (ct.ProjectName = r.ProjectName and r.Locked = 'false') and ct.TaskState = 0 order by ct.SampleNum, run.RunSequence;
     </statement>
     <statement id="GetAssayUsingTable" parameterClass="System.Collections.IDictionary" resultClass="SDTTableItem">
       select * from sdttableitemtb where ProjectName=#ProjectName# and SampleType=#SampleType# and IsUsed=1

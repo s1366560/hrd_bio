@@ -2724,6 +2724,11 @@ namespace BioA.PLCController
 
             return tasks;
         }
+        /// <summary>
+        /// 获取急症任务
+        /// </summary>
+        /// <param name="count"></param>
+        /// <returns></returns>
         List<TASK> LoadEMGTask(int count)
         {
             List<TASK> Tasks = new List<TASK>();

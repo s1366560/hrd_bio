@@ -319,7 +319,7 @@ namespace BioA.PLCController.Interface
 
             if (rgp != null)
             {
-                AssayProjectParamInfo arp = myBatis.GetAssProParamInfo("GetAssayProjectParamInfoByNameAndType", rsi.ProjectName, rsi.ReagentType);
+                int arp = myBatis.GetAssProParamReagentSetiingVol(d, rsi.ProjectName, rsi.ReagentType);
                 int c = 0;
 
 
@@ -327,7 +327,7 @@ namespace BioA.PLCController.Interface
                 {
                     case 1:
                         int v = System.Convert.ToInt32(rsi.ReagentContainer.Substring(0, rsi.ReagentContainer.IndexOf("ml"))) * rgp.ValidPercent / 100 * 1000;
-                        c = arp.Reagent1VolSettings == 0 ? 0 : v / arp.Reagent1VolSettings;
+                        c = arp == 0 ? 0 : v / arp;
                         if (c < rgtleastcount)
                         {
                             //if (RunSer.IsMutiRgtEnable() == true)//多试剂位开关标志
@@ -408,7 +408,7 @@ namespace BioA.PLCController.Interface
                         break;
                     case 2:
                         int v2 = System.Convert.ToInt32(rsi.ReagentContainer.Substring(0, rsi.ReagentContainer.IndexOf("ml"))) * rgp.ValidPercent2 / 100 * 1000;
-                        c = arp.Reagent2VolSettings == 0 ? 0 : v2 / arp.Reagent2VolSettings;
+                        c = arp == 0 ? 0 : v2 / arp;
                         if (c < rgtleastcount)
                         {
                             //if (RunSer.IsMutiRgtEnable() == true)//多试剂位开关标志
@@ -819,7 +819,7 @@ namespace BioA.PLCController.Interface
                 ReagentSettingsInfo reaSettingInfo = myBatis.GetReagentSettingsInfoByPos(d, p);
                 if (reaSettingInfo != null && v > 0 && v2 == 0)
                 {
-                    //myBatis.UpdateNorTaskState(reaSettingInfo.ProjectName, reaSettingInfo.ReagentType);
+                    myBatis.UpdateNorTaskState(reaSettingInfo.ProjectName, reaSettingInfo.ReagentType);
                     myBatis.UpdateQCTaskState(reaSettingInfo.ProjectName, reaSettingInfo.ReagentType);
                     myBatis.UpdateCalibTaskState(reaSettingInfo.ProjectName, reaSettingInfo.ReagentType);
                     myBatis.UpdateCalibCurveState(reaSettingInfo.ProjectName, reaSettingInfo.ReagentType);

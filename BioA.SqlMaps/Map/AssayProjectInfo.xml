@@ -480,6 +480,10 @@
     <statement id ="UpdateResultSetInfo" resultClass ="int">
       $value$
     </statement>
+    <!-- 获取项目参数设置的试剂体积 -->
+    <statement id ="GetAssProParamReagentSetiingVol" parameterClass ="string" resultClass ="float">
+      $value$
+    </statement>
   </statements>
   
 </sqlMap>

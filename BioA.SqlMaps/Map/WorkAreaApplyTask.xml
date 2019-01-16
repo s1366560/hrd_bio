@@ -161,17 +161,27 @@
     <statement id="GetSMPSchedule" parameterClass="System.Collections.IDictionary" resultClass="TaskInfo">
       select * from TaskTb where ProjectName=#ProjectName# and SampleNum=#SampleNum# and CreateDate between #StartTime# and #EndTime#
     </statement>
+    <!-- 获取急症任务 -->
     <statement id="GetSingleWorkingEmgAssayScheduleNoRgtLock" parameterClass="System.Collections.IDictionary" resultClass="TaskInfo">
-      select top $count$ t1.* from TaskTb t1 left join SampleTb t2 on t1.SampleNum = t2.SampleNum
+      <!--select top $count$ t1.* from TaskTb t1 left join SampleTb t2 on t1.SampleNum = t2.SampleNum
       left join AssayProjectParamInfoTb t3 on t1.ProjectName = t3.ProjectName and t1.SampleType = t3.SampleType
       left join ProjectRunSequenceTb run on run.ProjectName = t1.ProjectName
-      where t2.PanelNum=#disk# and t2.IsEmergency='1' and t1.CreateDate between #CreateDateBegin# and #CreateDateEnd# order by run.RunSequence
+      where t2.PanelNum=#disk# and t2.IsEmergency='1' and t1.CreateDate between #CreateDateBegin# and #CreateDateEnd# order by run.RunSequence-->
+      select top $count$ t1.* from TaskTb t1,SampleTb s,AssayProjectParamInfoTb a,projectrunsequencetb run,ReagentStateinfor1r2tb r1r2 where
+      t1.SampleNum = s.SampleNum and t1.ProjectName = a.ProjectName and t1.SampleType = a.SampleType
+      and s.IsEmergency = '1' and (t1.ProjectName = r1r2.ProjectName and r1r2.Locked = 'false') and t1.ProjectName = run.ProjectName
+      and t1.TaskState = 0 and s.PanelNum = #disk# order by t1.SampleNum, run.RunSequence
     </statement>
+    <!-- 获取定标/普通任务 -->
     <statement id="GetSingleWorkingNorAssayScheduleNoRgtLock" parameterClass="System.Collections.IDictionary" resultClass="TaskInfo">
-      select top $count$ t1.* from TaskTb t1 left join SampleTb t2 on t1.SampleNum = t2.SampleNum
+      <!--select top $count$ t1.* from TaskTb t1 left join SampleTb t2 on t1.SampleNum = t2.SampleNum
       left join AssayProjectParamInfoTb t3 on t1.ProjectName = t3.ProjectName and t1.SampleType = t3.SampleType
       left join ProjectRunSequenceTb run on run.ProjectName = t1.ProjectName
-      where t1.TaskState=0 and t2.PanelNum=#disk# and t2.IsEmergency='0' and t1.CreateDate between #CreateDateBegin# and #CreateDateEnd# order by run.RunSequence,t1.SampleNum
+      where t1.TaskState=0 and t2.PanelNum=#disk# and t2.IsEmergency='0' and t1.CreateDate between #CreateDateBegin# and #CreateDateEnd# order by run.RunSequence,t1.SampleNum-->
+      select top $count$ t1.* from TaskTb t1,SampleTb s,AssayProjectParamInfoTb a,projectrunsequencetb run,ReagentStateinfor1r2tb r1r2 where
+      t1.SampleNum = s.SampleNum and t1.ProjectName = a.ProjectName and t1.SampleType = a.SampleType
+      and s.IsEmergency = '0' and (t1.ProjectName = r1r2.ProjectName and r1r2.Locked = 'false') and t1.ProjectName = run.ProjectName
+      and t1.TaskState = 0 and s.PanelNum = #disk# order by t1.SampleNum, run.RunSequence
     </statement>
     <statement id="QuerySampleInfoByQCID" parameterClass="System.Collections.IDictionary" resultClass="SampleInfo">
       select * from SampleTb where SampleNum=#SampleNum# and CreateTime between #CreateTimeStart# and #CreateTimeEnd#

@@ -44,7 +44,12 @@ namespace BioA.SqlMaps
             }
             return disks;
         }
-
+        /// <summary>
+        /// 获取急症任务
+        /// </summary>
+        /// <param name="disk"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
         public List<TaskInfo> GetSingleWorkingEmgAssayScheduleNoRgtLock(int disk, int count)
         {
             List<TaskInfo> Schedules = new List<TaskInfo>();
@@ -66,7 +71,12 @@ namespace BioA.SqlMaps
 
             return Schedules;
         }
-
+        /// <summary>
+        /// 获取定标/普通任务
+        /// </summary>
+        /// <param name="disk"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
         public List<TaskInfo> GetSingleWorkingNorAssayScheduleNoRgtLock(int disk, int count)
         {
             List<TaskInfo> Schedules = new List<TaskInfo>();
@@ -77,8 +87,8 @@ namespace BioA.SqlMaps
                 ht.Add("disk", disk);
                 ht.Add("count", count);
                 ht.Add("taskstate", TaskState.NEW);
-                ht.Add("CreateDateBegin", DateTime.Now.ToShortDateString());
-                ht.Add("CreateDateEnd", DateTime.Now.AddDays(1).ToShortDateString());
+                //ht.Add("CreateDateBegin", DateTime.Now.ToShortDateString());
+                //ht.Add("CreateDateEnd", DateTime.Now.AddDays(1).ToShortDateString());
 
                 Schedules = ism_SqlMap.QueryForList<TaskInfo>("WorkAreaApplyTask.GetSingleWorkingNorAssayScheduleNoRgtLock", ht) as List<TaskInfo>;
             }
@@ -720,10 +730,10 @@ namespace BioA.SqlMaps
             List<CalibratorinfoTask> calibTasks = new List<CalibratorinfoTask>();
             try
             {
-                Hashtable ht = new Hashtable();
-                ht.Add("BeginTime", DateTime.Now.ToShortDateString());
-                ht.Add("EndTime", DateTime.Now.AddDays(1).ToShortDateString());
-                calibTasks = ism_SqlMap.QueryForList<CalibratorinfoTask>("Calibrator.GetCalibInfoTaskByCalibTaskState", ht) as List<CalibratorinfoTask>;
+                //Hashtable ht = new Hashtable();
+                //ht.Add("BeginTime", DateTime.Now.ToShortDateString());
+                //ht.Add("EndTime", DateTime.Now.AddDays(1).ToShortDateString());
+                calibTasks = ism_SqlMap.QueryForList<CalibratorinfoTask>("Calibrator.GetCalibInfoTaskByCalibTaskState", null) as List<CalibratorinfoTask>;
             }
             catch(Exception e)
             {
@@ -886,17 +896,21 @@ namespace BioA.SqlMaps
                 LogInfo.WriteErrorLog("SetCalibratingCurveState(string projectName, string sampleType)==" + e.ToString(), Module.DAO);
             }
         }
-
+        /// <summary>
+        /// 获取质控任务信息
+        /// </summary>
+        /// <param name="count"></param>
+        /// <returns></returns>
         public List<QCTaskInfo> GetQCParamByQCTask(int count)
         {
             List<QCTaskInfo> lstQCTaskInfo = new List<QCTaskInfo>();
             try
             {
-                Hashtable ht = new Hashtable();
-                ht.Add("count", count);
-                ht.Add("CreateDateBegin", DateTime.Now.ToShortDateString());
-                ht.Add("CreateDateEnd", DateTime.Now.AddDays(1).ToShortDateString());
-                lstQCTaskInfo = ism_SqlMap.QueryForList<QCTaskInfo>("QCTaskInfo.GetQCParamByQCTask", ht) as List<QCTaskInfo>;
+                //Hashtable ht = new Hashtable();
+                //ht.Add("count", count);
+                //ht.Add("CreateDateBegin", DateTime.Now.ToShortDateString());
+                //ht.Add("CreateDateEnd", DateTime.Now.AddDays(1).ToShortDateString());
+                lstQCTaskInfo = ism_SqlMap.QueryForList<QCTaskInfo>("QCTaskInfo.GetQCParamByQCTask", count) as List<QCTaskInfo>;
             }
             catch (Exception e)
             {

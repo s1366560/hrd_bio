@@ -1597,7 +1597,10 @@ namespace BioA.SqlMaps
                 LogInfo.WriteErrorLog("SaveLatestCuvBlkOfWaveAndCuvNO(int w, int cuv, float blk)==" + e.ToString(), Module.DAO);
             }
         }
-
+        /// <summary>
+        /// 获取试剂报警余量
+        /// </summary>
+        /// <returns></returns>
         public float GetRgtWarnCount()
         {
             float fRgtWarnCount = 0;
@@ -1611,7 +1614,10 @@ namespace BioA.SqlMaps
             }
 
             return fRgtWarnCount;        }
-
+        /// <summary>
+        /// 获取试剂最小余量
+        /// </summary>
+        /// <returns></returns>
         public float GetRgtLeastCount()
         {
             float fRgtLeastCount = 0;

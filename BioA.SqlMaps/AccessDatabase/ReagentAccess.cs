@@ -377,7 +377,12 @@ namespace BioA.SqlMaps
                 LogInfo.WriteErrorLog("UpdateDetergentUsingFinishingTime(DateTime time)==" + e.ToString(), Module.DAO);
             }
         }
-
+        /// <summary>
+        /// 获取试剂状态表中的试剂体积
+        /// </summary>
+        /// <param name="disk"></param>
+        /// <param name="pos"></param>
+        /// <returns></returns>
         public int GetValidPercent(int disk, int pos)
         {
             int percent = 0;
@@ -434,7 +439,12 @@ namespace BioA.SqlMaps
                 LogInfo.WriteErrorLog("UpdateValidPercent(int volume, int disk, int pos)==" + e.ToString(), Module.DAO);
             }
         }
-
+        /// <summary>
+        /// 获取试剂状态表中数据
+        /// </summary>
+        /// <param name="panel"></param>
+        /// <param name="pos"></param>
+        /// <returns></returns>
         public ReagentStateInfoR1R2 GetReagentStateInfoByPos(int panel, int pos)
         {
             ReagentStateInfoR1R2 reaStateInfo = new ReagentStateInfoR1R2();
@@ -452,7 +462,12 @@ namespace BioA.SqlMaps
 
             return reaStateInfo;
         }
-
+        /// <summary>
+        /// 获取试剂设置表（R1 or R2）信息
+        /// </summary>
+        /// <param name="panel"></param>
+        /// <param name="pos"></param>
+        /// <returns></returns>
         public ReagentSettingsInfo GetReagentSettingsInfoByPos(int panel, int pos)
         {
             ReagentSettingsInfo reaSettingInfo = new ReagentSettingsInfo();
@@ -479,7 +494,12 @@ namespace BioA.SqlMaps
 
             return reaSettingInfo;
         }
-
+        /// <summary>
+        /// 修改试剂状态表中的试剂体积和可测量数量
+        /// </summary>
+        /// <param name="vol"></param>
+        /// <param name="panel"></param>
+        /// <param name="position"></param>
         public void UpdateReagentValidPercent(int vol, int panel, int position)
         {
             try
@@ -487,6 +507,7 @@ namespace BioA.SqlMaps
                 Hashtable ht = new Hashtable();
                 ht.Add("ValidPercent", vol);
                 ht.Add("Pos", position);
+                ht.Add("ReagentResidualVol", this.ReagentVolumeNumber(vol, panel, position));
                 if (panel == 1)
                 {
                     ism_SqlMap.Update("ReagentInfo.UpdateValidPercent1", ht);
@@ -501,6 +522,59 @@ namespace BioA.SqlMaps
                 LogInfo.WriteErrorLog("UpdateReagentValidPercent(int vol, int panel, int position)==" + e.ToString(), Module.DAO);
             }
         }
+        /// <summary>
+        /// 计算试剂余量可测数量
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="panel"></param>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        private int ReagentVolumeNumber(int v, int panel, int position)
+        {
+            int number = 0;
+            if (v <= 0)
+            {
+                return number;
+            }
+            else
+            {
+                ReagentSettingsInfo reagentSetting =this.GetReagentSettingsInfoByPos(panel, position);
+                int reagentSettingVol = this.GetAssProParamReagentSetiingVol(panel, reagentSetting.ProjectName, reagentSetting.ReagentType);
+                int microlitre = System.Convert.ToInt32(reagentSetting.ReagentContainer.Substring(0, reagentSetting.ReagentContainer.IndexOf("ml"))) * (v - 3) * 1000 / 100;
+                number = reagentSettingVol == 0 ? 0 : microlitre / reagentSettingVol;
+            }
+            return number;
+        }
+        /// <summary>
+        /// 获取项目参数中设置的试剂体积
+        /// </summary>
+        /// <param name="projectName"></param>
+        /// <param name="sampleType"></param>
+        /// <returns></returns>
+        public int GetAssProParamReagentSetiingVol(int panel,string projectName, string sampleType)
+        {
+            float vol = 0;
+            try
+            {
+                Hashtable hash = new Hashtable();
+                hash.Add("ProjectName", projectName);
+                hash.Add("SampleType", sampleType);
+                if (panel == 1)
+                {
+                    vol = (float)ism_SqlMap.QueryForObject("AssayProjectInfo.GetAssProParamReagentSetiingVol", string.Format("select Reagent1VolSettings from assayprojectparaminfotb where ProjectName = '{0}' and SampleType = '{1}'",projectName, sampleType));
+                }
+                else if (panel == 2)
+                {
+                    vol = (float)ism_SqlMap.QueryForObject("AssayProjectInfo.GetAssProParamReagentSetiingVol", string.Format("select Reagent2VolSettings from assayprojectparaminfotb where ProjectName = '{0}' and SampleType = '{1}'", projectName, sampleType));
+                }
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("GetAssProParamReagentSetiingVol(string projectName, string sampleType) == " + ex.ToString(), Module.Reagent);
+            }
+            return System.Convert.ToInt32(vol) ;
+        }
+
 
         public ReagentSettingsInfo GetReagentSettingsInfo(string projectName, string sampleType)
         {
