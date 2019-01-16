@@ -187,23 +187,16 @@ namespace BioA.Service
                     case "AddTaskForBatch":
                         //批量录入返回结果集合
                         List<string> lstReslut = new List<string>();
-                        //for (int i = 0; i < kvp.Value.Length; i++)
-                        //{
-                        //    List<object> lstObj = XmlUtility.Deserialize(typeof(List<object>), kvp.Value[i].ToString()) as List<object>;
-                        //    SampleInfo sampleForBatch = XmlUtility.Deserialize(typeof(SampleInfo), lstObj[0].ToString()) as SampleInfo;
-                        //    lstTask = XmlUtility.Deserialize(typeof(List<TaskInfo>), lstObj[1].ToString()) as List<TaskInfo>;
-                        //    strResult = workAreaApplyTask.AddTask(kvp.Key, sampleForBatch, lstTask);
-                        //    lstReslut.Add(sampleForBatch.SampleNum.ToString() + "," + strResult);
-                        //}
                         object[] lstObj = XmlUtility.Deserialize(typeof(object[]), kvp.Value[0].ToString()) as object[];
-                        for (int i = 0; i < lstObj.Length; i++)
-                        {
-                            object[] obj = lstObj[i] as object[];
-                            SampleInfo sampleForBatch = XmlUtility.Deserialize(typeof(SampleInfo), obj[0].ToString()) as SampleInfo;
-                            lstTask = XmlUtility.Deserialize(typeof(List<TaskInfo>), obj[1].ToString()) as List<TaskInfo>;
-                            strResult = workAreaApplyTask.AddTask(kvp.Key, sampleForBatch, lstTask);
-                            lstReslut.Add("盘号：" +sampleForBatch.PanelNum + "样本号："+sampleForBatch.SampleNum+"~ 位置："+ sampleForBatch.SamplePos+ "      "+ strResult);
-                        }
+                       // for (int i = 0; i < lstObj.Length; i++)
+                       // {
+                       //     object[] obj = lstObj[i] as object[];
+                       //     SampleInfo sampleForBatch = XmlUtility.Deserialize(typeof(SampleInfo), obj[0].ToString()) as SampleInfo;
+                       //     lstTask = XmlUtility.Deserialize(typeof(List<TaskInfo>), obj[1].ToString()) as List<TaskInfo>;
+                       //     strResult = workAreaApplyTask.AddTask(kvp.Key, sampleForBatch, lstTask);
+                       //     lstReslut.Add("盘号：" +sampleForBatch.PanelNum + "样本号："+sampleForBatch.SampleNum+"~ 位置："+ sampleForBatch.SamplePos+ "      "+ strResult);
+                      //  }
+                        lstReslut = workAreaApplyTask.BatchAddTask(kvp.Key, lstObj);
                         strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<string>),lstReslut));
                         break;
                     case "QueryTaskInfoBySampleNum":

@@ -406,20 +406,57 @@ namespace BioA.SqlMaps
         {
             List<QCResultForUIInfo> lstQCResInfos = new List<QCResultForUIInfo>();
             List<QCResultForUIInfo> lstQCResInfosForManual = new List<QCResultForUIInfo>();
-
+            List<int> lstInt = new List<int>();
+            List<QCResultForUIInfo> lstQcStateInfo = new List<QCResultForUIInfo>();
+            List<QCResultForUIInfo> lstNotSortQcProjectName = new List<QCResultForUIInfo>();
             try
             {
                 lstQCResInfos = (List<QCResultForUIInfo>)ism_SqlMap.QueryForList<QCResultForUIInfo>("QCResultInfo." + strDBMethod, qCResForUIInfo);
 
                 lstQCResInfosForManual = (List<QCResultForUIInfo>)ism_SqlMap.QueryForList<QCResultForUIInfo>("QCResultInfo.QueryQCResultInfoForManual", qCResForUIInfo);
                 lstQCResInfos.AddRange(lstQCResInfosForManual);
+
+
+                foreach (QCResultForUIInfo qcState in lstQCResInfos)
+                {
+                    int s = qcState.ProjectName.IndexOf('.');
+                    if (s < 0)
+                    {
+                        lstNotSortQcProjectName.Add(qcState);
+                        continue;
+                    }
+                    int num = Convert.ToInt32(qcState.ProjectName.Substring(0, s));
+                    if (!lstInt.Contains(num))
+                    {
+                        lstInt.Add(num);
+                    }
+                }
+                lstInt.Sort();
+                foreach (int i in lstInt)
+                {
+                    foreach (QCResultForUIInfo qcState in lstQCResInfos)
+                    {
+                        int s = qcState.ProjectName.IndexOf('.');
+                        if (s < 0)
+                        {
+                            continue;
+                        }
+                        if (i == Convert.ToInt32(qcState.ProjectName.Substring(0, s)))
+                        {
+                            lstQcStateInfo.Add(qcState);
+                        }
+                    }
+                }
+                lstQcStateInfo.AddRange(lstNotSortQcProjectName);
+
+
             }
             catch (Exception e)
             {
                 LogInfo.WriteErrorLog("QueryQCResultInfo(string strDBMethod, QCResultForUIInfo qCResForUIInfo)==" + e.ToString(), Module.DAO);
             }
 
-            return lstQCResInfos;
+            return lstQcStateInfo;
         }
 
         public List<QualityControlInfo> QueryQCInfosForAddQCResult(string strDBMethod)
@@ -656,7 +693,7 @@ namespace BioA.SqlMaps
 
         public TimeCourseInfo QueryTimeCourseByQCInfo(string strDBMethod, QCResultForUIInfo qcResInfo, string dateTime)
         {
-            TimeCourseInfo qCTimeCourse = new TimeCourseInfo();
+            TimeCourseInfo qCTimeCourse =null;
             try
             {
                 Hashtable ht = new Hashtable();
@@ -667,12 +704,13 @@ namespace BioA.SqlMaps
                 TCNO = (int)ism_SqlMap.QueryForObject("QCResultInfo.QueryQualityControlResultTCNO", ht);
                 if (TCNO > 0)
                 {
-                    ht.Clear();
-                    ht.Add("TimeCourseNO", TCNO);
-                    ht.Add("BengTime", qcResInfo.QCTimeStartTS);
-                    ht.Add("EndTime", qcResInfo.QCTimeEndTS);
-
-                    qCTimeCourse = (TimeCourseInfo)ism_SqlMap.QueryForObject("PLCDataInfo." + strDBMethod, ht);
+                    qCTimeCourse = (TimeCourseInfo)ism_SqlMap.QueryForObject("PLCDataInfo." + strDBMethod,
+                       string.Format("select * from timecoursetb where  TimeCourseNO={0} and CONVERT(varchar(50),DrawDate, 120) like '%{1}%'", TCNO, dateTime.Substring(0, 10)));
+                    if (qCTimeCourse == null)
+                    { 
+                        qCTimeCourse = (TimeCourseInfo)ism_SqlMap.QueryForObject("PLCDataInfo." + strDBMethod,
+                        string.Format("select * from TimeCourseBackUpTb where  TimeCourseNO={0} and CONVERT(varchar(50),DrawDate, 120) like '%{1}%'", TCNO, dateTime.Substring(0,10)));
+                    }
                 }
                 else
                 {

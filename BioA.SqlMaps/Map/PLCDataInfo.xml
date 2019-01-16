@@ -419,8 +419,8 @@
       <!-- 2018/12/21 -->
       $value$
     </statement>
-    <statement id="QueryTimeCourseByQCInfo" parameterClass="System.Collections.IDictionary" resultClass="TimeCourseInfo">
-      select * from TimeCourseTb where  TimeCourseNO=#TimeCourseNO# and DrawDate between #BengTime# and #EndTime#
+    <statement id="QueryTimeCourseByQCInfo" parameterClass="string" resultClass="TimeCourseInfo">
+      $value$
     </statement>
     <!-- 2018/9/4 修改样本结果表中状态为1 Remarks（备注）字段 -->
     <statement id="UpdateSampleResultState" parameterClass="string">

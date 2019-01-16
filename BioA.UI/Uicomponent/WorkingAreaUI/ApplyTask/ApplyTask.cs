@@ -914,13 +914,13 @@ namespace BioA.UI
                         lstTaskInfo.Add(taskInfo);
                     }
                 }
-
-                inputDictionary[i] = (new object[] { XmlUtility.Serializer(typeof(SampleInfo), sampleInfo), XmlUtility.Serializer(typeof(List<TaskInfo>), lstTaskInfo) });
+                
+                inputDictionary[i] = (new object[] {sampleInfo,lstTaskInfo });
             }
             dic.Clear();
             //添加批量录入的任务信息
-            dic.Add("AddTaskForBatch", new object[] { XmlUtility.Serializer(typeof(object[]), inputDictionary) });
-            ClientSendToServices(dic);
+             WorkAreaApplyTask workAreaApplyTask = new WorkAreaApplyTask();
+            batchInput.LstReceiveInfo = workAreaApplyTask.BatchAddTask("AddTaskForBatch", inputDictionary);
         }
         AnologSamplePanel anologSamplePanel;
         private void BtnSampleDishState_Click(object sender, EventArgs e)

@@ -488,8 +488,8 @@ namespace BioA.SqlMaps
                 ht.Add("FinishTimes", count);
                 ht.Add("ProjectName", assay);
                 ht.Add("SampleNum", c);
-                ht.Add("StartTime", DateTime.Now.ToShortDateString());
-                ht.Add("EndTime", DateTime.Now.AddDays(1).ToShortDateString());
+                ht.Add("StartTime", DateTime.Now.Date);
+                ht.Add("EndTime", DateTime.Now.AddDays(1).Date);
                 ism_SqlMap.Update("PLCDataInfo.UpdateQCScheduleFinishCount", ht);
             }
             catch (Exception e)

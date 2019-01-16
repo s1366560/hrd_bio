@@ -48,11 +48,12 @@ namespace BioA.UI
             set
             {
                 qCReactionInfo = value;
-                chartQCReaction.Series.Clear();
+                //chartQCReaction.Series.Clear();
                 //chartQCReaction.Series.Add(new );
                 if (qCReactionInfo != null)
                 {
                     Series series = new Series("ReactionLine", ViewType.Line);
+                    series.ArgumentScaleType = ScaleType.Qualitative;
                     //series.LabelsVisibility = DevExpress.Utils.DefaultBoolean.True;//显示标注标签
                     series.Points.Add(new SeriesPoint(1, (qCReactionInfo.Cuv1Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv1Ws - qCReactionInfo.CuvBlkWs)));
                     series.Points.Add(new SeriesPoint(2, (qCReactionInfo.Cuv2Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv2Ws - qCReactionInfo.CuvBlkWs)));
@@ -100,13 +101,14 @@ namespace BioA.UI
 
                     series.View.Color = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(85)))), ((int)(((byte)(85)))));
                     this.Invoke(new EventHandler(delegate
-                        {
-                            chartQCReaction.Series.Add(series);
-                            txtReactionCupNum.Text = qCReactionInfo.CUVNO.ToString();
-                            cboMeasurePoint.Text = "1";
-                            txtAbsorb.Text = ((qCReactionInfo.Cuv1Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv1Ws - qCReactionInfo.CuvBlkWs)).ToString("#0.0000");
-                        }));
-
+                    { 
+                        chartQCReaction.Series.Add(series);
+                        txtReactionCupNum.Text = qCReactionInfo.CUVNO.ToString();
+                        cboMeasurePoint.Text = "1";
+                        txtAbsorb.Text = ((qCReactionInfo.Cuv1Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv1Ws - qCReactionInfo.CuvBlkWs)).ToString("#0.0000");
+                        chartQCReaction.Show();
+                        btnClose.Enabled = true;
+                    }));
                 }
             }
         }
@@ -123,14 +125,16 @@ namespace BioA.UI
 
         private void loadReactionProcessQC()
         {
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCResult, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryTimeCourseByQCInfo", XmlUtility.Serializer(typeof(QCResultForUIInfo), qCResInfo))));
             var reactionQCThread = new Thread(() =>
             {
-                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.QCResult, new Dictionary<string, object[]>() { { "QueryTimeCourseByQCInfo", new object[] { XmlUtility.Serializer(typeof(QCResultForUIInfo), qCResInfo),strDateTime } } });
+                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.QCResult, new Dictionary<string, object[]>()
+                    { { "QueryTimeCourseByQCInfo", new object[] { XmlUtility.Serializer(typeof(QCResultForUIInfo), qCResInfo),strDateTime } } });
             });
+            
             reactionQCThread.IsBackground = true;
             reactionQCThread.Start();
-
+            chartQCReaction.Series.Clear();
+            btnClose.Enabled = false;
             txtProjectName.Text = qCResInfo.ProjectName;
             txtSampleType.Text = qCResInfo.SampleType;
             txtConcResult.Text = qCResInfo.ConcResult.ToString();

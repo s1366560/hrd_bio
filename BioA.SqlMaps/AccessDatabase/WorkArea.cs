@@ -1,4 +1,5 @@
 ﻿using BioA.Common;
+using BioA.Common.IO;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -119,8 +120,8 @@ namespace BioA.SqlMaps
             {
                 Hashtable ht = new Hashtable();
                 ht.Add("SampleNum", sampleInfo.SampleNum);
-                ht.Add("starttime", DateTime.Now.ToShortDateString());
-                ht.Add("endtime", DateTime.Now.AddDays(1).ToShortDateString());
+                ht.Add("starttime", DateTime.Now.Date);
+                ht.Add("endtime", DateTime.Now.AddDays(1).Date);
 
                 int count = (int)ism_SqlMap.QueryForObject("WorkAreaApplyTask.QuerySampleCountByNumber", ht);
                 if (count > 0)
@@ -145,7 +146,6 @@ namespace BioA.SqlMaps
                         //ism_SqlMap.Insert("WorkAreaApplyTask.AddSampleResult", ht);
                         //ism_SqlMap.Insert("WorkAreaApplyTask.AddSampleReactionProcess", ht);
                     }
-
                     ht.Clear();
                     ht.Add("SampleNum", sampleInfo.SampleNum);
                     ht.Add("InputTime", sampleInfo.CreateTime);
@@ -160,6 +160,32 @@ namespace BioA.SqlMaps
             }
 
             return strResult;
+        }
+
+        public List<string> BatchAddTask(string strMethodName, object[] lstObj)
+        {
+            string strResult = string.Empty;
+            List<string> lstReslut = new List<string>();
+            List<TaskInfo> lstTask = new List<TaskInfo>();
+            for (int i = 0; i < lstObj.Length; i++)
+            {
+                object[] obj = lstObj[i] as object[];
+                SampleInfo sampleForBatch =  obj[0] as SampleInfo;
+                lstTask = obj[1] as List<TaskInfo>;
+                if (sampleForBatch.SampleNum > 120)
+                {
+                    sampleForBatch.PanelNum = sampleForBatch.PanelNum + 1;
+                    sampleForBatch.SampleNum = sampleForBatch.SampleNum - 120;
+                }
+                strResult = AddTask(strMethodName, sampleForBatch, lstTask);
+                if (strResult == "此样本任务已经存在，请重新录入！")
+                {
+                    continue;
+                }
+
+                lstReslut.Add("盘号：" + sampleForBatch.PanelNum + "样本号：" + sampleForBatch.SampleNum + "~ 位置：" + sampleForBatch.SamplePos + "      " + strResult);
+            }
+            return lstReslut;
         }
 
         public List<TaskInfo> QueryTaskInfoBySampleNum(string strMethodName, string SampleNum)

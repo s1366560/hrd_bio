@@ -179,7 +179,7 @@
             xyDiagram1.AxisX.WholeRange.AutoSideMargins = false;
             xyDiagram1.AxisX.WholeRange.MaxValueSerializable = "44";
             xyDiagram1.AxisX.WholeRange.MinValueSerializable = "0";
-            xyDiagram1.AxisX.WholeRange.SideMarginsValue = 0D;
+            xyDiagram1.AxisX.WholeRange.SideMarginsValue = 1D;
             xyDiagram1.AxisY.MinorCount = 9;
             xyDiagram1.AxisY.Title.Text = "吸光度";
             xyDiagram1.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
@@ -201,13 +201,13 @@
             this.chartQCReaction.Diagram = xyDiagram1;
             this.chartQCReaction.Legend.Name = "Default Legend";
             this.chartQCReaction.Legend.Visibility = DevExpress.Utils.DefaultBoolean.False;
-            this.chartQCReaction.Location = new System.Drawing.Point(22, 68);
+            this.chartQCReaction.Location = new System.Drawing.Point(18, 63);
             this.chartQCReaction.Name = "chartQCReaction";
             series1.Name = "Series 1";
             series1.View = lineSeriesView1;
             this.chartQCReaction.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
         series1};
-            this.chartQCReaction.Size = new System.Drawing.Size(1365, 656);
+            this.chartQCReaction.Size = new System.Drawing.Size(1351, 656);
             this.chartQCReaction.TabIndex = 13;
             chartTitle1.Text = "反应进程";
             this.chartQCReaction.Titles.AddRange(new DevExpress.XtraCharts.ChartTitle[] {

@@ -136,7 +136,17 @@ namespace BioA.Service
         {
             return myBatis.AddTask(strMethodName, sampleInfo, lstSampleInfo);
         }
-
+        /// <summary>
+        /// 批量添加普通任务、急诊任务
+        /// </summary>
+        /// <param name="strMethodName"></param>
+        /// <param name="obj"></param>
+        /// <param name="lstReslut"></param>
+        /// <returns></returns>
+        public List<string> BatchAddTask(string strMethodName, object[] obj)
+        {
+            return myBatis.BatchAddTask(strMethodName, obj);
+        }
         public List<TaskInfo> QueryTaskInfoBySampleNum(string strMethodName, string SampleNum)
         {
             return myBatis.QueryTaskInfoBySampleNum(strMethodName, SampleNum);
