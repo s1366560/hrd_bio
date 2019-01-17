@@ -425,26 +425,32 @@ namespace BioA.SqlMaps
                         lstNotSortQcProjectName.Add(qcState);
                         continue;
                     }
-                    int num = Convert.ToInt32(qcState.ProjectName.Substring(0, s));
-                    if (!lstInt.Contains(num))
-                    {
-                        lstInt.Add(num);
-                    }
+                    //int num = Convert.ToInt32(qcState.ProjectName.Substring(0, s));
+                    //if (!lstInt.Contains(num))
+                    //{
+                    //}
+                        lstInt.Add(Convert.ToInt32(qcState.ProjectName.Substring(0, s)));
                 }
                 lstInt.Sort();
-                foreach (int i in lstInt)
+                List<int> lstResult = lstInt.Union(lstInt).ToList<int>();
+                foreach (int i in lstResult)
                 {
-                    foreach (QCResultForUIInfo qcState in lstQCResInfos)
+                    List<QCResultForUIInfo> qcResult = lstQCResInfos.FindAll(x =>  Convert.ToInt32(x.ProjectName.Substring(0, x.ProjectName.IndexOf('.'))) == i);
+                    //foreach (QCResultForUIInfo qcState in lstQCResInfos)
+                    //{
+                    //    int s = qcState.ProjectName.IndexOf('.');
+                    //    if (s < 0)
+                    //    {
+                    //        continue;
+                    //    }
+                    //    if (i == Convert.ToInt32(qcState.ProjectName.Substring(0, s)))
+                    //    {
+                    //        lstQcStateInfo.Add(qcState);
+                    //    }
+                    //}
+                    if (qcResult != null)
                     {
-                        int s = qcState.ProjectName.IndexOf('.');
-                        if (s < 0)
-                        {
-                            continue;
-                        }
-                        if (i == Convert.ToInt32(qcState.ProjectName.Substring(0, s)))
-                        {
-                            lstQcStateInfo.Add(qcState);
-                        }
+                        lstQcStateInfo.AddRange(qcResult);
                     }
                 }
                 lstQcStateInfo.AddRange(lstNotSortQcProjectName);
