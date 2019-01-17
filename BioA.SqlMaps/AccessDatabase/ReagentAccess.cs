@@ -507,7 +507,7 @@ namespace BioA.SqlMaps
                 Hashtable ht = new Hashtable();
                 ht.Add("ValidPercent", vol);
                 ht.Add("Pos", position);
-                ht.Add("ReagentResidualVol", this.ReagentVolumeNumber(vol, panel, position));
+                ht.Add("ResidualQuantity", this.ReagentVolumeNumber(vol, panel, position));
                 if (panel == 1)
                 {
                     ism_SqlMap.Update("ReagentInfo.UpdateValidPercent1", ht);
@@ -543,7 +543,7 @@ namespace BioA.SqlMaps
                 int microlitre = System.Convert.ToInt32(reagentSetting.ReagentContainer.Substring(0, reagentSetting.ReagentContainer.IndexOf("ml"))) * (v - 3) * 1000 / 100;
                 number = reagentSettingVol == 0 ? 0 : microlitre / reagentSettingVol;
             }
-            return number;
+            return number <= 0 ? 0: number;
         }
         /// <summary>
         /// 获取项目参数中设置的试剂体积

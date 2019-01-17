@@ -44,7 +44,7 @@
       where qct1.TaskState=0 and qct1.CreateDate between #CreateDateBegin# and #CreateDateEnd# order by qct1.QCID,run.RunSequence-->
       select top $count$ qct.* from QCTaskTb qct,assayprojectparaminfotb a, projectrunsequencetb run,reagentstateinfor1r2tb r
       where qct.ProjectName = a.ProjectName and qct.SampleType = a.SampleType and qct.ProjectName = run.ProjectName
-      and (qct.ProjectName = r.ProjectName and r.Locked = 'false') and qct.TaskState = 2 order by qct.SampleNum,run.RunSequence;
+      and (qct.ProjectName = r.ProjectName and r.Locked = 'false') and qct.TaskState = 0 order by qct.SampleNum,run.RunSequence;
     </statement>
     <statement id="InitMachineUpdateQCTaskState" parameterClass="System.Collections.IDictionary">
       update QCTaskTb set SendTimes=#SendTimes#, FinishTimes=#FinishTimes#, TaskState=#TaskState# where TaskState!=2

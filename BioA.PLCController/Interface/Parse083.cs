@@ -326,7 +326,7 @@ namespace BioA.PLCController.Interface
                 switch (d)
                 {
                     case 1:
-                        int v = System.Convert.ToInt32(rsi.ReagentContainer.Substring(0, rsi.ReagentContainer.IndexOf("ml"))) * rgp.ValidPercent / 100 * 1000;
+                        int v = System.Convert.ToInt32(rsi.ReagentContainer.Substring(0, rsi.ReagentContainer.IndexOf("ml"))) * (rgp.ValidPercent - 2) / 100 * 1000;
                         c = arp == 0 ? 0 : v / arp;
                         if (c < rgtleastcount)
                         {

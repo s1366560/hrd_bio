@@ -306,10 +306,10 @@
       </dynamic> 
     </select>
     <update id="UpdateValidPercent1" parameterClass="System.Collections.IDictionary">
-      update ReagentStateinfor1r2Tb set ValidPercent=#ValidPercent# where Pos=#Pos#
+      update ReagentStateinfor1r2Tb set ValidPercent=#ValidPercent#,ResidualQuantity=#ResidualQuantity# where Pos=#Pos#
     </update>
     <update id="UpdateValidPercent2" parameterClass="System.Collections.IDictionary">
-      update ReagentStateinfor1r2Tb set ValidPercent2=#ValidPercent# where Pos2=#Pos#
+      update ReagentStateinfor1r2Tb set ValidPercent2=#ValidPercent#,ResidualQuantity2=#ResidualQuantity# where Pos2=#Pos#
     </update>
     <select id="GetReagent1StateInfoByPos" parameterClass="string" resultClass="ReagentStateInfoR1R2">
       select * from ReagentStateinfor1r2Tb where Pos=#value#

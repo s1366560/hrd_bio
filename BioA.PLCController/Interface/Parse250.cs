@@ -125,7 +125,7 @@ namespace BioA.PLCController.Interface
             {
                 AssayProjectParamInfo arp = myBatis.GetAssayProjectParamInfoByNameAndType("GetAssayProjectParamInfoByNameAndType", new AssayProjectInfo() { ProjectName = rsi.ProjectName, SampleType = rsi.ReagentType });
                 int c = 0;
-                int v = System.Convert.ToInt32(rsi.ReagentContainer.Substring(0, rsi.ReagentContainer.IndexOf("ml"))) * rgp.ValidPercent / 100 * 1000;
+                int v = System.Convert.ToInt32(rsi.ReagentContainer.Substring(0, rsi.ReagentContainer.IndexOf("ml"))) * (rgp.ValidPercent -2) / 100 * 1000;
                 
                 switch (d)
                 {

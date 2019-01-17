@@ -50,66 +50,67 @@ namespace BioA.UI
                 qCReactionInfo = value;
                 //chartQCReaction.Series.Clear();
                 //chartQCReaction.Series.Add(new );
-                if (qCReactionInfo != null)
-                {
-                    Series series = new Series("ReactionLine", ViewType.Line);
-                    series.ArgumentScaleType = ScaleType.Qualitative;
-                    //series.LabelsVisibility = DevExpress.Utils.DefaultBoolean.True;//显示标注标签
-                    series.Points.Add(new SeriesPoint(1, (qCReactionInfo.Cuv1Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv1Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(2, (qCReactionInfo.Cuv2Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv2Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(3, (qCReactionInfo.Cuv3Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv3Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(4, (qCReactionInfo.Cuv4Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv4Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(5, (qCReactionInfo.Cuv5Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv5Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(6, (qCReactionInfo.Cuv6Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv6Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(7, (qCReactionInfo.Cuv7Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv7Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(8, (qCReactionInfo.Cuv8Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv8Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(9, (qCReactionInfo.Cuv9Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv9Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(10, (qCReactionInfo.Cuv10Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv10Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(11, (qCReactionInfo.Cuv11Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv11Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(12, (qCReactionInfo.Cuv12Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv12Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(13, (qCReactionInfo.Cuv13Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv13Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(14, (qCReactionInfo.Cuv14Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv14Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(15, (qCReactionInfo.Cuv15Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv15Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(16, (qCReactionInfo.Cuv16Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv16Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(17, (qCReactionInfo.Cuv17Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv17Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(18, (qCReactionInfo.Cuv18Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv18Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(19, (qCReactionInfo.Cuv19Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv19Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(20, (qCReactionInfo.Cuv20Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv20Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(21, (qCReactionInfo.Cuv21Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv21Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(22, (qCReactionInfo.Cuv22Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv22Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(23, (qCReactionInfo.Cuv23Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv23Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(24, (qCReactionInfo.Cuv24Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv24Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(25, (qCReactionInfo.Cuv25Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv25Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(26, (qCReactionInfo.Cuv26Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv26Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(27, (qCReactionInfo.Cuv27Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv27Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(28, (qCReactionInfo.Cuv28Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv28Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(29, (qCReactionInfo.Cuv29Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv29Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(30, (qCReactionInfo.Cuv30Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv30Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(31, (qCReactionInfo.Cuv31Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv31Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(32, (qCReactionInfo.Cuv32Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv32Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(33, (qCReactionInfo.Cuv33Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv33Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(34, (qCReactionInfo.Cuv34Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv34Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(35, (qCReactionInfo.Cuv35Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv35Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(36, (qCReactionInfo.Cuv36Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv36Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(37, (qCReactionInfo.Cuv37Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv37Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(38, (qCReactionInfo.Cuv38Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv38Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(39, (qCReactionInfo.Cuv39Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv39Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(40, (qCReactionInfo.Cuv40Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv40Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(41, (qCReactionInfo.Cuv41Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv41Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(42, (qCReactionInfo.Cuv42Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv42Ws - qCReactionInfo.CuvBlkWs)));
-                    series.Points.Add(new SeriesPoint(43, (qCReactionInfo.Cuv43Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv43Ws - qCReactionInfo.CuvBlkWs)));
+                this.Invoke(new EventHandler(delegate
+                { 
+                    if (qCReactionInfo != null)
+                    {
+                        Series series = new Series("ReactionLine", ViewType.Line);
+                        series.ArgumentScaleType = ScaleType.Qualitative;
+                        //series.LabelsVisibility = DevExpress.Utils.DefaultBoolean.True;//显示标注标签
+                        series.Points.Add(new SeriesPoint(1, (qCReactionInfo.Cuv1Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv1Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(2, (qCReactionInfo.Cuv2Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv2Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(3, (qCReactionInfo.Cuv3Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv3Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(4, (qCReactionInfo.Cuv4Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv4Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(5, (qCReactionInfo.Cuv5Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv5Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(6, (qCReactionInfo.Cuv6Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv6Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(7, (qCReactionInfo.Cuv7Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv7Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(8, (qCReactionInfo.Cuv8Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv8Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(9, (qCReactionInfo.Cuv9Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv9Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(10, (qCReactionInfo.Cuv10Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv10Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(11, (qCReactionInfo.Cuv11Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv11Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(12, (qCReactionInfo.Cuv12Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv12Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(13, (qCReactionInfo.Cuv13Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv13Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(14, (qCReactionInfo.Cuv14Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv14Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(15, (qCReactionInfo.Cuv15Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv15Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(16, (qCReactionInfo.Cuv16Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv16Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(17, (qCReactionInfo.Cuv17Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv17Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(18, (qCReactionInfo.Cuv18Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv18Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(19, (qCReactionInfo.Cuv19Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv19Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(20, (qCReactionInfo.Cuv20Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv20Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(21, (qCReactionInfo.Cuv21Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv21Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(22, (qCReactionInfo.Cuv22Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv22Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(23, (qCReactionInfo.Cuv23Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv23Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(24, (qCReactionInfo.Cuv24Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv24Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(25, (qCReactionInfo.Cuv25Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv25Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(26, (qCReactionInfo.Cuv26Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv26Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(27, (qCReactionInfo.Cuv27Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv27Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(28, (qCReactionInfo.Cuv28Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv28Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(29, (qCReactionInfo.Cuv29Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv29Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(30, (qCReactionInfo.Cuv30Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv30Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(31, (qCReactionInfo.Cuv31Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv31Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(32, (qCReactionInfo.Cuv32Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv32Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(33, (qCReactionInfo.Cuv33Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv33Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(34, (qCReactionInfo.Cuv34Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv34Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(35, (qCReactionInfo.Cuv35Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv35Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(36, (qCReactionInfo.Cuv36Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv36Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(37, (qCReactionInfo.Cuv37Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv37Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(38, (qCReactionInfo.Cuv38Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv38Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(39, (qCReactionInfo.Cuv39Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv39Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(40, (qCReactionInfo.Cuv40Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv40Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(41, (qCReactionInfo.Cuv41Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv41Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(42, (qCReactionInfo.Cuv42Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv42Ws - qCReactionInfo.CuvBlkWs)));
+                        series.Points.Add(new SeriesPoint(43, (qCReactionInfo.Cuv43Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv43Ws - qCReactionInfo.CuvBlkWs)));
 
-                    series.View.Color = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(85)))), ((int)(((byte)(85)))));
-                    this.Invoke(new EventHandler(delegate
-                    { 
+                        series.View.Color = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(85)))), ((int)(((byte)(85)))));
                         chartQCReaction.Series.Add(series);
                         txtReactionCupNum.Text = qCReactionInfo.CUVNO.ToString();
                         cboMeasurePoint.Text = "1";
                         txtAbsorb.Text = ((qCReactionInfo.Cuv1Wm - qCReactionInfo.CuvBlkWm) - (qCReactionInfo.Cuv1Ws - qCReactionInfo.CuvBlkWs)).ToString("#0.0000");
                         chartQCReaction.Show();
-                        btnClose.Enabled = true;
-                    }));
-                }
+                    
+                    }
+                    btnClose.Enabled = true;
+                }));
             }
         }
 
