@@ -5,6 +5,7 @@
     <typeAlias alias="ProjectReagentStateInfo" type="BioA.Common.ProjectReagentStateInfo, BioA.Common" />
     <typeAlias alias="ReagentStateInfo" type="BioA.Common.ReagentStateInfo, BioA.Common" />
     <typeAlias alias="ReagentStateInfoR1R2" type="BioA.Common.ReagentStateInfoR1R2, BioA.Common" />
+    <typeAlias alias="Reagent2UsingCountInfo" type="BioA.Common.Reagent2UsingCountInfo, BioA.Common" />
   </alias>
   <resultMaps>
     <resultMap id="ReagentSettingsInfoResult" class="ReagentSettingsInfo">
@@ -329,5 +330,13 @@
     <update id="UpdateReagent2LockState" parameterClass="ReagentSettingsInfo">
       update ReagentStateinfor1r2tb set Locked=#Locked# where Pos2=#Pos#
     </update>
+    <!-- 根据项目名称和试剂盘号获取Reagent2UsingCount 表信息 -->
+    <statement id="GetReagent2UsingCountInfo" parameterClass="string" ResultClass="Reagent2UsingCountInfo">
+      $value$
+    </statement>
+    <!-- 试剂2使用次数表插入数据 -->
+    <statement id="InsertReagent2UsingCountInfo" parameterClass="string">
+      $value$
+    </statement>
   </statements>
 </sqlMap>

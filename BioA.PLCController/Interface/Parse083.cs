@@ -23,9 +23,9 @@ namespace BioA.PLCController.Interface
         ManualResetEvent AnalysisDataSignal = new ManualResetEvent(false);
         public Parse083()
         {
-            Thread ParseServicesThread = new Thread(TakeOutTheDataQueue);
-            ParseServicesThread.Priority = ThreadPriority.BelowNormal;
-            ParseServicesThread.Start();
+            //Thread ParseServicesThread = new Thread(TakeOutTheDataQueue);
+            //ParseServicesThread.Priority = ThreadPriority.BelowNormal;
+            //ParseServicesThread.Start();
         }
         public string Parse(List<byte> Data)
         {
@@ -166,12 +166,16 @@ namespace BioA.PLCController.Interface
             int R1P = MachineControlProtocol.HexConverToDec(Data[i + 1], Data[i + 2]);
             int R1V = MachineControlProtocol.HexConverToDec(Data[i + 3], Data[i + 4]);
             //R1P = R1P > 45 ? (R1P - 45) : R1P;
-            UpdateLatestRgtVol(1, R1P, R1V);
+            //UpdateLatestRgtVol(1, R1P, R1V);
+            //修改试剂1余量和可测数量
+            myBatis.UpdateReagentValidPercent(1, R1P, R1V);
             RgtWarning(1, R1P);
             //LogService.Log(string.Format("R1位置:{0} R1体积:{1}", R1P, R1V), LogType.Trace, "log083.lg");
             int R2P = MachineControlProtocol.HexConverToDec(Data[i + 5], Data[i + 6]);
             int R2V = MachineControlProtocol.HexConverToDec(Data[i + 7], Data[i + 8]);
-            UpdateLatestRgtVol(2, R2P, R2V);
+            //UpdateLatestRgtVol(2, R2P, R2V);
+            //修改试剂2余量和可测数量
+            myBatis.UpdateReagentValidPercent(2, R2P, R2V);
             RgtWarning(2, R2P);
             //LogService.Log(string.Format("R2位置:{0} R2体积:{1}", R2P, R2V), LogType.Trace, "log083.lg");
             //查找错误报头
@@ -589,8 +593,8 @@ namespace BioA.PLCController.Interface
                 }
 
                 myBatis.DeleteRealTimeCUVData(WN);
-                //RealTimeCalculate(realTimeData);
-                SaveDataQueue(realTimeData);
+                RealTimeCalculate(realTimeData);
+                //SaveDataQueue(realTimeData);
                 //switch (realTimeData.WorkType)
                 //{
                 //    case WORKTYPE.N:
@@ -808,68 +812,68 @@ namespace BioA.PLCController.Interface
             }
         }
 
-        private void UpdateLatestRgtVol(int d, int p, int v)
+        public void UpdateLatestRgtVol(int d, int p, int v)
         {
-            int v2 = myBatis.GetValidPercent(d, p);
+            //int v2 = myBatis.GetValidPercent(d, p);
 
             myBatis.UpdateReagentValidPercent(v, d, p);
 
-            if (p > 0)
-            {
-                ReagentSettingsInfo reaSettingInfo = myBatis.GetReagentSettingsInfoByPos(d, p);
-                if (reaSettingInfo != null && v > 0 && v2 == 0)
-                {
-                    myBatis.UpdateNorTaskState(reaSettingInfo.ProjectName, reaSettingInfo.ReagentType);
-                    myBatis.UpdateQCTaskState(reaSettingInfo.ProjectName, reaSettingInfo.ReagentType);
-                    myBatis.UpdateCalibTaskState(reaSettingInfo.ProjectName, reaSettingInfo.ReagentType);
-                    myBatis.UpdateCalibCurveState(reaSettingInfo.ProjectName, reaSettingInfo.ReagentType);
-                }
-            }
+            //if (p > 0)
+            //{
+            //    ReagentSettingsInfo reaSettingInfo = myBatis.GetReagentSettingsInfoByPos(d, p);
+            //    if (reaSettingInfo != null && v > 0 && v2 == 0)
+            //    {
+            //        myBatis.UpdateNorTaskState(reaSettingInfo.ProjectName, reaSettingInfo.ReagentType);
+            //        myBatis.UpdateQCTaskState(reaSettingInfo.ProjectName, reaSettingInfo.ReagentType);
+            //        myBatis.UpdateCalibTaskState(reaSettingInfo.ProjectName, reaSettingInfo.ReagentType);
+            //        myBatis.UpdateCalibCurveState(reaSettingInfo.ProjectName, reaSettingInfo.ReagentType);
+            //    }
+            //}
         }
 
-        /// <summary>
-        /// 把数据存入队列
-        /// </summary>
-        /// <param name="sender"></param>
-        void SaveDataQueue(RealTimeCUVDataInfo sender)
-        {
+        ///// <summary>
+        ///// 把数据存入队列
+        ///// </summary>
+        ///// <param name="sender"></param>
+        //void SaveDataQueue(RealTimeCUVDataInfo sender)
+        //{
 
-            if (sender != null)
-            {
-                lock (strQueue)
-                {
-                    strQueue.Enqueue(sender);
-                }
-            }
-            if (strQueue.Count > 0)
-            {
-                AnalysisDataSignal.Set();
-            }
-        }
-        /// <summary>
-        /// 取队列中的数据
-        /// </summary>
-        void TakeOutTheDataQueue()
-        {
-            while (true)
-            {
-                AnalysisDataSignal.WaitOne();
-                if (strQueue.Count > 0)
-                {
-                    RealTimeCUVDataInfo data = null;
-                    lock (strQueue)
-                    {
-                        data = strQueue.Dequeue();
-                    }
-                    //myBatis.UpdateABSData(data);
-                    RealTimeCalculate(data);
-                }
-                if (strQueue.Count == 0)
-                {
-                    AnalysisDataSignal.Reset();
-                }
-            }
-        }
+        //    if (sender != null)
+        //    {
+        //        lock (strQueue)
+        //        {
+        //            strQueue.Enqueue(sender);
+        //        }
+        //    }
+        //    if (strQueue.Count > 0)
+        //    {
+        //        AnalysisDataSignal.Set();
+        //    }
+        //}
+        ///// <summary>
+        ///// 取队列中的数据
+        ///// </summary>
+        //void TakeOutTheDataQueue()
+        //{
+        //    while (true)
+        //    {
+        //        AnalysisDataSignal.WaitOne();
+        //        if (strQueue.Count > 0)
+        //        {
+        //            RealTimeCUVDataInfo data = null;
+        //            lock (strQueue)
+        //            {
+        //                data = strQueue.Dequeue();
+        //            }
+        //            //myBatis.UpdateABSData(data);
+        //            RealTimeCalculate(data);
+        //        }
+        //        if (strQueue.Count == 0)
+        //        {
+        //            AnalysisDataSignal.Reset();
+        //        }
+        //    }
+        //}
 
     }
 }

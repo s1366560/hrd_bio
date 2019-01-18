@@ -153,6 +153,7 @@
     <Compile Include="Manager\OffSetGain.cs" />
     <Compile Include="Manager\PhotometricGainInfo.cs" />
     <Compile Include="Manager\ProjectRunSequenceInfo.cs" />
+    <Compile Include="Manager\Reagent2UsingCountInfo.cs" />
     <Compile Include="Manager\RealTimeCUVDataInfo.cs" />
     <Compile Include="Manager\ResultInfo.cs" />
     <Compile Include="Manager\ResultSetInfo.cs" />

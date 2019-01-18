@@ -504,10 +504,12 @@ namespace BioA.SqlMaps
         {
             try
             {
+                int v2 = GetValidPercent(panel, position);
+                int ResidualQuantity = this.ReagentVolumeNumber(vol, panel, position);
                 Hashtable ht = new Hashtable();
                 ht.Add("ValidPercent", vol);
                 ht.Add("Pos", position);
-                ht.Add("ResidualQuantity", this.ReagentVolumeNumber(vol, panel, position));
+                ht.Add("ResidualQuantity", ResidualQuantity);
                 if (panel == 1)
                 {
                     ism_SqlMap.Update("ReagentInfo.UpdateValidPercent1", ht);
@@ -515,6 +517,17 @@ namespace BioA.SqlMaps
                 else
                 {
                     ism_SqlMap.Update("ReagentInfo.UpdateValidPercent2", ht);
+                }
+                if (position > 0)
+                {
+                    ReagentSettingsInfo reaSettingInfo = GetReagentSettingsInfoByPos(panel, position);
+                    if (reaSettingInfo != null && vol > 0 && v2 == 0)
+                    {
+                        UpdateNorTaskState(reaSettingInfo.ProjectName, reaSettingInfo.ReagentType);
+                        UpdateQCTaskState(reaSettingInfo.ProjectName, reaSettingInfo.ReagentType);
+                        UpdateCalibTaskState(reaSettingInfo.ProjectName, reaSettingInfo.ReagentType);
+                        UpdateCalibCurveState(reaSettingInfo.ProjectName, reaSettingInfo.ReagentType);
+                    }
                 }
             }
             catch (Exception e)
@@ -574,7 +587,58 @@ namespace BioA.SqlMaps
             }
             return System.Convert.ToInt32(vol) ;
         }
-
+        /// <summary>
+        /// 获取试剂2使用次数表数据
+        /// </summary>
+        /// <param name="projectName"></param>
+        /// <param name="reagentTray"></param>
+        /// <returns></returns>
+        public Reagent2UsingCountInfo GetReagent2UsingCountInfo(string projectName, int reagentTray)
+        {
+            Reagent2UsingCountInfo reagent2UsingCount = null;
+            try
+            {
+                reagent2UsingCount = (Reagent2UsingCountInfo)ism_SqlMap.QueryForObject("ReagentInfo.GetReagent2UsingCountInfo", string.Format("select * from Reagent2UsingCounttb where ProjectName = '{0}' and ReagentTray = {1}", projectName, reagentTray));
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("Reagent2UsingCountInfo GetReagent2UsingCountInfo(string projectName, int reagentTray) ==" + ex.ToString(), Module.Reagent);
+            }
+            return reagent2UsingCount;
+        }
+        /// <summary>
+        /// 试剂2使用次数表插入数据
+        /// </summary>
+        /// <param name="projectName"></param>
+        /// <param name="reagentTray"></param>
+        /// <param name="count"></param>
+        public void Insert(string projectName, int reagentTray, int count)
+        {
+            try
+            {
+                ism_SqlMap.Insert("ReagentInfo.InsertReagent2UsingCountInfo", string.Format("insert Reagent2UsingCounttb(ProjectName,ReagentTray,Count) values('{0}',{1},{2})", projectName, reagentTray, count));
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("Insert(string projectName, int reagentTray, int count) ==" + ex.ToString(), Module.Reagent);
+            }
+        }
+        /// <summary>
+        /// 修改试剂2使用次数表中的次数
+        /// </summary>
+        /// <param name="count"></param>
+        /// <param name="projectName"></param>
+        public void UpdateReagent2UsingCount(int count, string projectName)
+        {
+            try
+            {
+                ism_SqlMap.Update("ReagentInfo.InsertReagent2UsingCountInfo", string.Format("update Reagent2UsingCounttb set Count = {0} where ProjectName = '{1}'", count, projectName));
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("UpdateReagent2UsingCount(int count, string projectName) ==" + ex.ToString(), Module.Reagent);
+            }
+        }
 
         public ReagentSettingsInfo GetReagentSettingsInfo(string projectName, string sampleType)
         {

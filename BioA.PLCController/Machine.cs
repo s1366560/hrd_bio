@@ -2091,7 +2091,7 @@ namespace BioA.PLCController
                             R2Flag = false;//试剂2
                         }
 
-                        if (c2 < 5 && c2 > 2)
+                        if (c2 < 5 && c2 > 3)
                         {
                             TroubleLog trouble = new TroubleLog();
                             trouble.TroubleCode = @"0000775";
@@ -2101,7 +2101,7 @@ namespace BioA.PLCController
                             myBatis.TroubleLogSave("TroubleLogSave", trouble);
                         }
                         //项目量小于最小量
-                        if (c2 < 2)
+                        if (c2 < 3)
                         {
                             R2Flag = false;//试剂2
 
@@ -2151,20 +2151,26 @@ namespace BioA.PLCController
                         }
 
                         //由于消耗提前,更新R2试剂余量
-                        //if (R2Flag == true)
-                        //{
-                        //    myBatis.UpdateAssayRgtUsingCount(item.Count + 1, T.ASSAY, "R2");
-                        //    double d1 = (double)(R2SettingInfo.Measuredquantity * assayProParam.Reagent2VolSettings);
-                        //    double d2 = (double)(System.Convert.ToInt32(R2SettingInfo.ReagentContainer.Substring(0, R2SettingInfo.ReagentContainer.IndexOf("ml"))) * 1000);
-                        //    double f1 = d1 / d2;
-                        //    int z = (int)(f1 * 100);
-                        //    if (z > 0)
-                        //    {
-                        //        //更新R2余量
-                        //        new RGTPOSManager().UpdateLatestRgtVol(2, T.R2POS, rgtp.ValidPercent - z);
-                        //        new AssayRgtUsingCountService().UpdateAssayRgtUsingCount(0, T.ASSAY, "R2");
-                        //    }
-                        //}
+                        Reagent2UsingCountInfo items = myBatis.GetReagent2UsingCountInfo(assayProParam.ProjectName, 2);
+                        if (items == null)
+                        {
+                            myBatis.Insert(assayProParam.ProjectName, 2, 1);
+                        }
+                        else
+                        {
+                            myBatis.UpdateReagent2UsingCount(items.Count + 1, assayProParam.ProjectName);
+                            double d1 = (double)(items.Count * assayProParam.Reagent2VolSettings);
+                            double d2 = (double)(System.Convert.ToInt32(R2SettingInfo.ReagentContainer.Substring(0, R2SettingInfo.ReagentContainer.IndexOf("ml"))) * 1000);
+                            double f1 = d1 / d2;
+                            int z = (int)(f1 * 100);
+                            if (z > 0)
+                            {
+                                //更新R2余量
+                                myBatis.UpdateReagentValidPercent(c2 - z, 2, T.R2POS);
+                                myBatis.UpdateReagent2UsingCount(0, assayProParam.ProjectName);
+                            }
+                            
+                        }
                     }
                     //校验任务队列试剂余量数据
                     if (R1Flag == false || R2Flag == false)
