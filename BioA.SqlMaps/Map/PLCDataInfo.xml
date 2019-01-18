@@ -245,10 +245,11 @@
       update CalibratorinfoTaskTb set TaskState=#TaskState# where ProjectName=#ProjectName# and SampleNum=#SampleNum# and CalibName=#CalibratorName#
       and InspectTimes=SendTimes and SendTimes=FinishTimes and CreateDate=#CalibrationDT#
     </statement>
-    
+    <!-- 获取质控任务完成次数 -->
     <statement id="GetQCScheduleFinishCount" parameterClass="System.Collections.IDictionary" resultClass="int">
-      select count(*) from QCTaskTb where ProjectName=#ProjectName# and SampleNum=#SampleNum# and CreateDate between #StartTime# and #EndTime#
+      select FinishTimes from QCTaskTb where ProjectName=#ProjectName# and SampleNum=#SampleNum# and CreateDate between #StartTime# and #EndTime#
     </statement>
+    <!-- 修改质控任务完成次数 -->
     <statement id="UpdateQCScheduleFinishCount" parameterClass="System.Collections.IDictionary">
       update QCTaskTb set FinishTimes = #FinishTimes# where ProjectName=#ProjectName# and SampleNum=#SampleNum# and CreateDate between #StartTime# and #EndTime#
     </statement>
