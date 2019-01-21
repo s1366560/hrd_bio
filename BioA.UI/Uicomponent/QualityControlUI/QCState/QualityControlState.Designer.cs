@@ -36,8 +36,6 @@
             this.lblQCTime = new DevExpress.XtraEditors.LabelControl();
             this.lblTo = new DevExpress.XtraEditors.LabelControl();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.txtProjectName = new DevExpress.XtraEditors.TextEdit();
-            this.txtQCName = new DevExpress.XtraEditors.TextEdit();
             this.txtLotNum = new DevExpress.XtraEditors.TextEdit();
             this.dtpQCStartTime = new System.Windows.Forms.DateTimePicker();
             this.dtpQCEndTime = new System.Windows.Forms.DateTimePicker();
@@ -47,18 +45,20 @@
             this.btnReactionProcess = new DevExpress.XtraEditors.SimpleButton();
             this.btnRepeat = new DevExpress.XtraEditors.SimpleButton();
             this.btnEdit = new DevExpress.XtraEditors.SimpleButton();
-            ((System.ComponentModel.ISupportInitialize)(this.txtProjectName.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtQCName.Properties)).BeginInit();
+            this.txtProjectName = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.txtQCName = new DevExpress.XtraEditors.ComboBoxEdit();
             ((System.ComponentModel.ISupportInitialize)(this.txtLotNum.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lstQCResult)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtProjectName.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtQCName.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // lblProName
             // 
             this.lblProName.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblProName.Appearance.Options.UseFont = true;
-            this.lblProName.Location = new System.Drawing.Point(200, 49);
+            this.lblProName.Location = new System.Drawing.Point(16, 49);
             this.lblProName.Name = "lblProName";
             this.lblProName.Size = new System.Drawing.Size(70, 17);
             this.lblProName.TabIndex = 0;
@@ -78,7 +78,7 @@
             // 
             this.lblQCProduct.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblQCProduct.Appearance.Options.UseFont = true;
-            this.lblQCProduct.Location = new System.Drawing.Point(23, 49);
+            this.lblQCProduct.Location = new System.Drawing.Point(209, 49);
             this.lblQCProduct.Name = "lblQCProduct";
             this.lblQCProduct.Size = new System.Drawing.Size(56, 17);
             this.lblQCProduct.TabIndex = 3;
@@ -108,24 +108,6 @@
             // 
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
-            // txtProjectName
-            // 
-            this.txtProjectName.Location = new System.Drawing.Point(276, 46);
-            this.txtProjectName.Name = "txtProjectName";
-            this.txtProjectName.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtProjectName.Properties.Appearance.Options.UseFont = true;
-            this.txtProjectName.Size = new System.Drawing.Size(100, 24);
-            this.txtProjectName.TabIndex = 7;
-            // 
-            // txtQCName
-            // 
-            this.txtQCName.Location = new System.Drawing.Point(85, 46);
-            this.txtQCName.Name = "txtQCName";
-            this.txtQCName.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtQCName.Properties.Appearance.Options.UseFont = true;
-            this.txtQCName.Size = new System.Drawing.Size(100, 24);
-            this.txtQCName.TabIndex = 8;
             // 
             // txtLotNum
             // 
@@ -227,10 +209,32 @@
             this.btnEdit.Text = "编辑";
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
+            // txtProjectName
+            // 
+            this.txtProjectName.Location = new System.Drawing.Point(92, 48);
+            this.txtProjectName.Name = "txtProjectName";
+            this.txtProjectName.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.txtProjectName.Size = new System.Drawing.Size(100, 20);
+            this.txtProjectName.TabIndex = 19;
+            this.txtProjectName.SelectedIndexChanged += new System.EventHandler(this.txtProjectName_SelectedIndexChanged);
+            // 
+            // txtQCName
+            // 
+            this.txtQCName.Location = new System.Drawing.Point(271, 48);
+            this.txtQCName.Name = "txtQCName";
+            this.txtQCName.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.txtQCName.Size = new System.Drawing.Size(100, 20);
+            this.txtQCName.TabIndex = 20;
+            this.txtQCName.SelectedIndexChanged += new System.EventHandler(this.txtQCName_SelectedIndexChanged);
+            // 
             // QualityControlState
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.txtQCName);
+            this.Controls.Add(this.txtProjectName);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnRepeat);
             this.Controls.Add(this.btnReactionProcess);
@@ -239,8 +243,6 @@
             this.Controls.Add(this.dtpQCEndTime);
             this.Controls.Add(this.dtpQCStartTime);
             this.Controls.Add(this.txtLotNum);
-            this.Controls.Add(this.txtQCName);
-            this.Controls.Add(this.txtProjectName);
             this.Controls.Add(this.lblTo);
             this.Controls.Add(this.lblQCTime);
             this.Controls.Add(this.lblQCProduct);
@@ -249,11 +251,11 @@
             this.Name = "QualityControlState";
             this.Size = new System.Drawing.Size(1721, 906);
             this.Load += new System.EventHandler(this.QualityControlState_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.txtProjectName.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtQCName.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtLotNum.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lstQCResult)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtProjectName.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtQCName.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -267,8 +269,6 @@
         private DevExpress.XtraEditors.LabelControl lblQCTime;
         private DevExpress.XtraEditors.LabelControl lblTo;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private DevExpress.XtraEditors.TextEdit txtProjectName;
-        private DevExpress.XtraEditors.TextEdit txtQCName;
         private DevExpress.XtraEditors.TextEdit txtLotNum;
         private System.Windows.Forms.DateTimePicker dtpQCStartTime;
         private System.Windows.Forms.DateTimePicker dtpQCEndTime;
@@ -278,5 +278,7 @@
         private DevExpress.XtraEditors.SimpleButton btnReactionProcess;
         private DevExpress.XtraEditors.SimpleButton btnRepeat;
         private DevExpress.XtraEditors.SimpleButton btnEdit;
+        private DevExpress.XtraEditors.ComboBoxEdit txtProjectName;
+        private DevExpress.XtraEditors.ComboBoxEdit txtQCName;
     }
 }

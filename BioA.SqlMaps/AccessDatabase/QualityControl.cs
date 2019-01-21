@@ -401,7 +401,12 @@ namespace BioA.SqlMaps
             }
             return count;
         }
-
+        /// <summary>
+        /// 获取质控结果状态信息
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <param name="qCResForUIInfo"></param>
+        /// <returns></returns>
         public List<QCResultForUIInfo> QueryQCResultInfo(string strDBMethod, QCResultForUIInfo qCResForUIInfo)
         {
             List<QCResultForUIInfo> lstQCResInfos = new List<QCResultForUIInfo>();
@@ -417,25 +422,28 @@ namespace BioA.SqlMaps
                 lstQCResInfos.AddRange(lstQCResInfosForManual);
 
 
-                foreach (QCResultForUIInfo qcState in lstQCResInfos)
-                {
-                    int s = qcState.ProjectName.IndexOf('.');
-                    if (s < 0)
-                    {
-                        lstNotSortQcProjectName.Add(qcState);
-                        continue;
-                    }
-                    //int num = Convert.ToInt32(qcState.ProjectName.Substring(0, s));
-                    //if (!lstInt.Contains(num))
-                    //{
-                    //}
-                        lstInt.Add(Convert.ToInt32(qcState.ProjectName.Substring(0, s)));
-                }
+                //foreach (QCResultForUIInfo qcState in lstQCResInfos)
+                //{
+                //    int s = qcState.ProjectName.IndexOf('.');
+                //    if (s < 0)
+                //    {
+                //        lstNotSortQcProjectName.Add(qcState);
+                //        continue;
+                //    }
+                //    //int num = Convert.ToInt32(qcState.ProjectName.Substring(0, s));
+                //    //if (!lstInt.Contains(num))
+                //    //{
+                //    //}
+                //        lstInt.Add(Convert.ToInt32(qcState.ProjectName.Substring(0, s)));
+                //}
+                lstInt.AddRange(lstQCResInfos.Select(r => Convert.ToInt32((r.ProjectName.Substring(0, r.ProjectName.IndexOf(".") < 0 ? 0 : r.ProjectName.IndexOf(".")))
+                     == "" ? "10000000" : r.ProjectName.Substring(0, r.ProjectName.IndexOf(".")) )).ToList());
                 lstInt.Sort();
                 List<int> lstResult = lstInt.Union(lstInt).ToList<int>();
                 foreach (int i in lstResult)
                 {
-                    List<QCResultForUIInfo> qcResult = lstQCResInfos.FindAll(x =>  Convert.ToInt32(x.ProjectName.Substring(0, x.ProjectName.IndexOf('.'))) == i);
+                    List<QCResultForUIInfo> qcResult = lstQCResInfos.FindAll(x => Convert.ToInt32(
+                        (x.ProjectName.Substring(0, x.ProjectName.IndexOf('.') < 0 ? 0 : x.ProjectName.IndexOf('.') ) ) == "" ? "10000000" : x.ProjectName.Substring(0, x.ProjectName.IndexOf('.'))  ) == i);
                     //foreach (QCResultForUIInfo qcState in lstQCResInfos)
                     //{
                     //    int s = qcState.ProjectName.IndexOf('.');

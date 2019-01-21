@@ -65,7 +65,7 @@
       select * from SampleTb where CreateTime between #starttime# and #endtime# ORDER BY SampleNum
     </statement>
     <statement id="QuerySampleCountByNumber" parameterClass="System.Collections.IDictionary" resultClass="int">
-      select count(*) from SampleTb where SampleNum=#SampleNum# and CreateTime between #starttime# and #endtime#
+      select count(*) from SampleTb where SampleNum=#SampleNum# and PanelNum = #PanelNum# and CreateTime between #starttime# and #endtime#
     </statement>
     <statement id="AddSample" parameterClass="SampleInfo">
       insert into SampleTb (SampleNum, CreateTime, SampleState, SamContainer, SampleType, Barcode, PanelNum, SamplePos, IsOperateDilution, IsEmergency, IsPrinted, IsSend)

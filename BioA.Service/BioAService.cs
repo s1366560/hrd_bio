@@ -634,6 +634,15 @@ namespace BioA.Service
                             strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<string>), lstProjectName));
                             LogInfo.WriteProcessLog(lstProjectName.Count.ToString(), Module.WindowsService);
                             break;
+                        case "GetsQCRelationProInfo":
+                            List<QCRelationProjectInfo> lstQCRelationProjects = qcGraphics.GetQCRelationProjectInfo(kvp.Key);
+                            strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<QCRelationProjectInfo>), lstQCRelationProjects));
+                            break;
+                        case "QueryQCAllInfo":
+                            List<QualityControlInfo> lstAllQCInfo = qcGraphics.QueryQCAllInfo(kvp.Key);
+                            strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<QualityControlInfo>), lstAllQCInfo));
+                            LogInfo.WriteProcessLog(lstAllQCInfo.Count.ToString(), Module.WindowsService);
+                            break;
                         case "EditQCResultForManual":
                             qCResForUI = (QCResultForUIInfo)XmlUtility.Deserialize(typeof(QCResultForUIInfo), kvp.Value[0].ToString());
                             QCResultForUIInfo editQCResForUI = (QCResultForUIInfo)XmlUtility.Deserialize(typeof(QCResultForUIInfo), kvp.Value[1].ToString());

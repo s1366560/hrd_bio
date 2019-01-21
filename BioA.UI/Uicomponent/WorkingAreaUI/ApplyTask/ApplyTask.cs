@@ -17,6 +17,7 @@ using System.Threading;
 using System.Diagnostics;
 using BioA.Service;
 using BioA.SqlMaps;
+using DevExpress.Office.Utils;
 
 namespace BioA.UI
 {
@@ -230,7 +231,10 @@ namespace BioA.UI
         List<int> lstPosition = new List<int>();
         //样本编号
         List<int> lstSamNum = new List<int>();
-
+        /// <summary>
+        /// 盘号和位置对应关系集合
+        /// </summary>
+        List<string> lstPanelPos = new List<string>();
         public void DataTransfer_Event(string strMethod, object sender)
         {
             switch (strMethod)
@@ -260,6 +264,7 @@ namespace BioA.UI
                     //项目任务数据存储
                     DataTable dt = new DataTable();
                     dt.Columns.Add("样本编号");
+                    dt.Columns.Add("盘号");
                     dt.Columns.Add("位置");
                     dt.Columns.Add("样本状态");
 
@@ -281,10 +286,11 @@ namespace BioA.UI
                             else if (s.SampleState == 3)
                                 strState = "任务被终止";
 
-                            dt.Rows.Add(new object[] { s.SampleNum.ToString(), s.SamplePos.ToString(), strState });
+                            dt.Rows.Add(new object[] { s.SampleNum.ToString(),s.PanelNum.ToString(), s.SamplePos.ToString(), strState });
                             lstPanel.Add(s.PanelNum);
                             lstPosition.Add(s.SamplePos);
                             lstSamNum.Add(s.SampleNum);
+                            lstPanelPos.Add(s.PanelNum+"|"+s.SamplePos);
                         }
                     }
                     this.Invoke(new EventHandler(delegate
@@ -698,13 +704,14 @@ namespace BioA.UI
             {
                 selectedHandle = this.gridView1.GetSelectedRows()[0];
                 int SampleNum = System.Convert.ToInt32(this.gridView1.GetRowCellValue(selectedHandle, "样本编号").ToString());
+                int PanelNum = System.Convert.ToInt32(this.gridView1.GetRowCellValue(selectedHandle, "盘号").ToString());
                 //dic.Clear();
                 //dic.Add("QueryTaskInfoBySampleNum", new object[] { SampleNum.ToString() });
                 //ClientSendToServices(dic);
 
                 foreach (SampleInfo sampleInfo in lstSampleInfo)
                 {
-                    if (sampleInfo.SampleNum == SampleNum)
+                    if (sampleInfo.SampleNum == SampleNum && sampleInfo.PanelNum == PanelNum)
                     {
                         txtSampleNum.Text = sampleInfo.SampleNum.ToString();
                         combPanelNum.SelectedItem = sampleInfo.PanelNum.ToString();
@@ -764,7 +771,7 @@ namespace BioA.UI
             foreach (SampleInfo s in lstSampleInfo)
             {
                 lstSampleNum.Add(s.SampleNum);
-            }
+            } 
             batchInput.LstSampleNum = lstSampleNum;
             batchInput.SampleNum = txtSampleNum.Text;
             batchInput.DataTransferEvent += batchInput_DataTransferEvent;
@@ -800,6 +807,9 @@ namespace BioA.UI
                 lstPos.Add(new int[] { s.PanelNum, s.SamplePos });
             }
 
+            // 样本盘号
+            int panel = 0;
+
             for (int i = 0; i < samAmount; i++)
             {
                 DateTime createTime = DateTime.Now;
@@ -813,9 +823,8 @@ namespace BioA.UI
                 }
                 sampleInfo.SampleNum = intStartSamNum + i + samNum;
                 lstSamNum.Add(intStartSamNum + i + samNum);
-
-                // 样本盘号和样本位置
-                int panel = 0, pos = 0;
+                //样本位置
+                int pos = 0;
 
                 bool b = true;
                 while (b)
@@ -831,7 +840,7 @@ namespace BioA.UI
 
                     if (exist)
                     {
-                        if (pos >= 120)
+                        if (System.Convert.ToInt32(combPosNum.SelectedItem.ToString()) + pos >= 120)
                         {
                             panel++;
                             combPosNum.SelectedItem = "1";
@@ -913,8 +922,7 @@ namespace BioA.UI
 
                         lstTaskInfo.Add(taskInfo);
                     }
-                }
-                
+                }                
                 inputDictionary[i] = (new object[] {sampleInfo,lstTaskInfo });
             }
             dic.Clear();
@@ -1008,6 +1016,8 @@ namespace BioA.UI
         private void SamplePanelAndPosNum()
         {
             int iPanel = lstPanel.Count > 0 ? lstPanel.Max() : 0;
+
+
             int iPosition = lstPosition.Count > 0 ? lstPosition.Max() : 0;
 
 
@@ -1031,10 +1041,33 @@ namespace BioA.UI
                 //combPosNum.SelectedIndex = 0;
                 combPosNum.SelectedItem = (iPosition + 1).ToString();
             }
-            else
+            else if (iPosition == 120)
             {
-                combPanelNum.SelectedItem = (iPanel + 1).ToString();
-                combPosNum.SelectedItem = "1";
+                int posmax = 1;//最大位置
+                List<int> pos = new List<int>();//最大盘号对应的所有位置的集合
+                foreach (string s in lstPanelPos)
+                {
+                    string[] ss = s.Split('|');
+                    if (ss[0] == iPanel.ToString())
+                    {
+                        pos.Add(Convert.ToInt32(ss[1]));
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+                if (pos.Count > 0)
+                {
+                    posmax = pos.Max();
+                    if (pos.Contains(120))
+                    {
+                        iPanel++;
+                        posmax = 0;
+                    }
+                }
+                combPanelNum.SelectedItem = iPanel.ToString();
+                combPosNum.SelectedItem = (posmax+1).ToString();    
             }
         }
         /// <summary>

@@ -93,7 +93,7 @@ namespace BioA.UI
                         var serialThread = new Thread(LoadProcess);
                         serialThread.IsBackground = true;
                         serialThread.Start();
-                        Thread.Sleep(4000);
+                        Thread.Sleep(5000);
                         this.Invoke(new EventHandler(delegate
                             {
                                 //lblStarting.Text = "登录成功！";

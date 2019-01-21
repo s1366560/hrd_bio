@@ -27,6 +27,15 @@ namespace BioA.UI
         /// 保存质控任务状态信息 
         /// </summary>
         DataTable dt = new DataTable();
+
+        /// <summary>
+        /// 所有质控项目信息
+        /// </summary>
+        List<QCRelationProjectInfo> lstQCRelationProjects = null;
+        /// <summary>
+        /// 所有质控信息
+        /// </summary>
+        List<QualityControlInfo> lstQCInfo = null;
         public QualityControlState()
         {
             InitializeComponent();
@@ -152,6 +161,9 @@ namespace BioA.UI
             //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCResult, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryQCResultInfo", XmlUtility.Serializer(typeof(QCResultForUIInfo), qcResultForUI))));
             qcStateDic.Clear();
             qcStateDic.Add("QueryQCResultInfo", new object[] { XmlUtility.Serializer(typeof(QCResultForUIInfo), qcResultForUI) });
+            qcStateDic.Add("QueryProjectName", null);//获取项目名称
+            qcStateDic.Add("GetsQCRelationProInfo", null);//获取项目、质控品关联信息
+            qcStateDic.Add("QueryQCAllInfo", null);//获取所有质控品信息
             ClientSendToServices(qcStateDic);
         }
 
@@ -185,7 +197,14 @@ namespace BioA.UI
                     frmEditQCRes.QCInfos = (List<QualityControlInfo>)XmlUtility.Deserialize(typeof(List<QualityControlInfo>), sender as string);
                     break;
                 case "QueryProjectName":
-                    frmEditQCRes.LstProjectName = (List<string>)XmlUtility.Deserialize(typeof(List<string>), sender as string);
+                    List<string> lstProjectNames = (List<string>)XmlUtility.Deserialize(typeof(List<string>), sender as string);
+                    this.Invoke(new EventHandler(delegate { txtProjectName.Properties.Items.AddRange(lstProjectNames); }));
+                    break;
+                case "GetsQCRelationProInfo":
+                    lstQCRelationProjects = (List<QCRelationProjectInfo>)XmlUtility.Deserialize(typeof(List<QCRelationProjectInfo>), sender as string);
+                    break;
+                case "QueryQCAllInfo":
+                    lstQCInfo = (List<QualityControlInfo>)XmlUtility.Deserialize(typeof(List<QualityControlInfo>), sender as string);
                     break;
                 case "EditQCResultForManual":
                     if ((sender as string) == "添加成功！")
@@ -267,9 +286,15 @@ namespace BioA.UI
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            QCResultForUIInfo qcResInfo = new QCResultForUIInfo();
-            qcResInfo.QCName = txtQCName.Text;
-            qcResInfo.ProjectName = txtProjectName.Text;
+            QCResultForUIInfo qcResInfo = new QCResultForUIInfo();           
+            if (txtQCName.Text != "")
+            {
+                qcResInfo.QCName = txtQCName.SelectedItem.ToString();
+            }
+            if (txtProjectName.Text != "")
+            {
+                qcResInfo.ProjectName = txtProjectName.SelectedItem.ToString();
+            }
             qcResInfo.LotNum = txtLotNum.Text;
             qcResInfo.QCTimeStartTS = System.Convert.ToDateTime(dtpQCStartTime.Text);
             qcResInfo.QCTimeEndTS = System.Convert.ToDateTime(dtpQCEndTime.Text).AddDays(1);
@@ -320,6 +345,55 @@ namespace BioA.UI
             if (e.Info.IsRowIndicator && e.RowHandle > -1)
             {
                 e.Info.DisplayText = (e.RowHandle + 1).ToString();
+            }
+        }
+        /// <summary>
+        /// 项目下拉框改变事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtProjectName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            List<int> qcId = new List<int>();
+            foreach (var item in lstQCRelationProjects)
+            {
+                if (item.ProjectName == txtProjectName.Text)
+                {
+                    qcId.Add(item.QCID);
+                }
+            }
+            if (qcId != null && qcId.Count > 0)
+            {
+                txtQCName.Properties.Items.Clear();
+                txtQCName.SelectedIndex = -1;
+                foreach (var qcInfo in lstQCInfo)
+                {
+                    if (qcId.Exists(x => x == qcInfo.QCID))
+                    {
+                        txtQCName.Properties.Items.Add(qcInfo.QCName);
+                    }
+                }
+                txtQCName.SelectedIndex = 0;
+            }
+            else
+            {
+                txtQCName.Properties.Items.Clear();
+                txtQCName.Text = "";
+                txtLotNum.Text = "";
+            }
+        }
+        /// <summary>
+        /// 质控品下拉框改变事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtQCName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var qualityControls = lstQCInfo.Find(x => x.QCName == txtQCName.Text);
+            QCRelationProjectInfo qcRelationProject = lstQCRelationProjects.Find(x => x.QCID == qualityControls.QCID && x.ProjectName == txtProjectName.Text);
+            if (qcRelationProject != null)
+            {
+                txtLotNum.Text = qualityControls.LotNum;
             }
         }
     }

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
+using System.Threading;
 
 namespace BioA.UI
 {
@@ -45,9 +46,10 @@ namespace BioA.UI
                     
                         rtxtInfo.Text += Environment.NewLine + string.Format(strResult);
                     }
-                    MessageBox.Show("批量录入执行完成！");
-                    this.Close();
+                    
                 }));
+                MessageBox.Show("批量录入执行完成！");
+                this.Close();
             }
         }
         /// <summary>
@@ -105,11 +107,16 @@ namespace BioA.UI
 
             if (DataTransferEvent != null)
             {
+                BeginInvoke( new Action( () => {
+                    if (timer1.Enabled)
+                    {
+                        timer1.Interval = 500;
+                        timer1.Start();
+                    }
+                }));
+                btnSave.Enabled = false;
                 //委托这个事件执行对应的方法
                 DataTransferEvent(System.Convert.ToInt32(txtStartSamNum.Text), System.Convert.ToInt32(txtSampleAmount.Text));
-                timer1.Interval = 500;
-                timer1.Start();
-                btnSave.Enabled = false;                
             }
         }
         string str = "任务申请中";

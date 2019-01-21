@@ -120,8 +120,9 @@ namespace BioA.SqlMaps
             {
                 Hashtable ht = new Hashtable();
                 ht.Add("SampleNum", sampleInfo.SampleNum);
+                ht.Add("PanelNum", sampleInfo.PanelNum);
                 ht.Add("starttime", DateTime.Now.Date);
-                ht.Add("endtime", DateTime.Now.AddDays(1).Date);
+                ht.Add("endtime", DateTime.Now.AddDays(1).Date);                
 
                 int count = (int)ism_SqlMap.QueryForObject("WorkAreaApplyTask.QuerySampleCountByNumber", ht);
                 if (count > 0)
@@ -161,28 +162,21 @@ namespace BioA.SqlMaps
 
             return strResult;
         }
-
+        /// <summary>
+        /// 批量录入普通/急诊任务信息
+        /// </summary>
+        /// <param name="strMethodName"></param>
+        /// <param name="lstObj"></param>
+        /// <returns></returns>
         public List<string> BatchAddTask(string strMethodName, object[] lstObj)
         {
             string strResult = string.Empty;
             List<string> lstReslut = new List<string>();
-            List<TaskInfo> lstTask = new List<TaskInfo>();
             for (int i = 0; i < lstObj.Length; i++)
             {
                 object[] obj = lstObj[i] as object[];
                 SampleInfo sampleForBatch =  obj[0] as SampleInfo;
-                lstTask = obj[1] as List<TaskInfo>;
-                if (sampleForBatch.SampleNum > 120)
-                {
-                    sampleForBatch.PanelNum = sampleForBatch.PanelNum + 1;
-                    sampleForBatch.SampleNum = sampleForBatch.SampleNum - 120;
-                }
-                strResult = AddTask(strMethodName, sampleForBatch, lstTask);
-                if (strResult == "此样本任务已经存在，请重新录入！")
-                {
-                    continue;
-                }
-
+                strResult = AddTask(strMethodName, sampleForBatch, obj[1] as List<TaskInfo>);
                 lstReslut.Add("盘号：" + sampleForBatch.PanelNum + "样本号：" + sampleForBatch.SampleNum + "~ 位置：" + sampleForBatch.SamplePos + "      " + strResult);
             }
             return lstReslut;
