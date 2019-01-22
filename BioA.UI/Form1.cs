@@ -143,7 +143,8 @@ namespace BioA.UI
 
                     if (CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent != null)
                         CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent -= applyTask.DataTransfer_Event;
-                    applyTask = new ApplyTask();
+                    applyTask = new ApplyTask();                    
+                    applyTask.getopid += getOPIDEvent;
                     CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent += applyTask.DataTransfer_Event;
                     txtPrompt.Text = "您当前的操作：工作区——申请审核";
                     //initializationLoad = new InitializationLoad();
@@ -665,6 +666,7 @@ namespace BioA.UI
                         CommunicationUI.notifyCallBack.CalibControlTaskDataTransferEvent -= calibControlTask.DataTransfer_Event;
 
                     calibControlTask = new CalibControlTask();
+                    calibControlTask.getopid += getOPIDEvent;
                     CommunicationUI.notifyCallBack.CalibControlTaskDataTransferEvent += calibControlTask.DataTransfer_Event;
                     txtPrompt.Text = "您当前的操作：校准——校准任务";
                     BeginInvoke(new Action(() =>
@@ -701,6 +703,7 @@ namespace BioA.UI
                     if (CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent != null)
                         CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent -= applyTask.DataTransfer_Event;
                     applyTask = new ApplyTask();
+                    applyTask.getopid += getOPIDEvent;
                     CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent += applyTask.DataTransfer_Event;
                     txtPrompt.Text = "您当前的操作：工作区——申请审核";
                     pcThirdArea.Controls.Add(txtPrompt);
@@ -818,6 +821,7 @@ namespace BioA.UI
                 if (CommunicationUI.notifyCallBack.CalibControlTaskDataTransferEvent != null)
                     CommunicationUI.notifyCallBack.CalibControlTaskDataTransferEvent -= calibControlTask.DataTransfer_Event;
                 calibControlTask = new CalibControlTask();
+                calibControlTask.getopid += getOPIDEvent;
                 CommunicationUI.notifyCallBack.CalibControlTaskDataTransferEvent += calibControlTask.DataTransfer_Event;
                 txtPrompt.Text = "您当前的操作：校准——校准任务";
                 pcThirdArea.Controls.Add(txtPrompt);
@@ -866,6 +870,7 @@ namespace BioA.UI
                     this.QCTaskElement25.Image = images;
                     pcThirdArea.Controls.Clear();
                     applyQCTask = new ApplyQCTask();
+                    applyQCTask.getopid += getOPIDEvent;                   
                     if (CommunicationUI.notifyCallBack.QCTaskDataTransferEvent != null)
                         CommunicationUI.notifyCallBack.QCTaskDataTransferEvent -= applyQCTask.DataTransfer_Event;
                     CommunicationUI.notifyCallBack.QCTaskDataTransferEvent += applyQCTask.DataTransfer_Event;
@@ -938,6 +943,7 @@ namespace BioA.UI
                 if (CommunicationUI.notifyCallBack.QCTaskDataTransferEvent != null)
                     CommunicationUI.notifyCallBack.QCTaskDataTransferEvent -= applyQCTask.DataTransfer_Event;
                 applyQCTask = new ApplyQCTask();
+                applyQCTask.getopid += getOPIDEvent;
                 CommunicationUI.notifyCallBack.QCTaskDataTransferEvent += applyQCTask.DataTransfer_Event;
                 txtPrompt.Text = "您当前的操作：质控——质控任务";
                 pcThirdArea.Controls.Add(txtPrompt);
@@ -1443,7 +1449,17 @@ namespace BioA.UI
                 accrodionElement.Image = null;
             }
         }
-
+        public bool getOPIDEvent()
+        {
+            if (OPID == 0 || OPID == 2)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         // private void ribbonControl1_Click(object sender, EventArgs e)
         // {
 

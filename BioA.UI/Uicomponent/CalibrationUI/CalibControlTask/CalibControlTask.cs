@@ -42,6 +42,13 @@ namespace BioA.UI
         /// 传递访问数据的方法名和参数个数的泛型集合
         /// </summary>
         Dictionary<string, object[]> calibDictionary = new Dictionary<string, object[]>();
+        /// <summary>
+        /// 判断是否可添加校准任务
+        /// </summary>
+        public bool isAddCalibTask = true;
+        //申明一个获取任务状态的委托
+        public delegate bool getOPID();
+        public event getOPID getopid;
         public CalibControlTask()
         {
             InitializeComponent();
@@ -416,6 +423,14 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (getopid != null)
+            {
+                if (!getopid())
+                {
+                    MessageBox.Show("当前任务正在测试，暂停后方可继续下任务!");
+                    return;
+                }
+            }
             //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibControlTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryCalibrationCurveInfo", "血清")));
             this.btnSave.Enabled = false;
             if (projectPage1.GetSelectedProjects().Count == 0 && 

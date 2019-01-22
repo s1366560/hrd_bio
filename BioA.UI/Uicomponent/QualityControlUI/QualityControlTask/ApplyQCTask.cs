@@ -43,6 +43,9 @@ namespace BioA.UI
         /// 存储质控任务列表是否被点击：点击tru，反之false
         /// </summary>
         private bool taskFlag = false;
+        //声明一个获取任务状态的委托
+        public delegate bool getOPID();
+        public event getOPID getopid;
         public ApplyQCTask()
         {
             InitializeComponent();
@@ -310,6 +313,14 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (getopid != null)
+            {
+                if (!getopid())
+                {
+                    MessageBox.Show("当前任务正在测试，暂停后方可继续下任务!");
+                    return;
+                }
+            }
             if (combPosition.SelectedItem.ToString() == "" || combPosition.SelectedItem.ToString() == "请选择" || combPosition.SelectedItem == null)
             {
                 MessageBox.Show("请选择质控品！");

@@ -51,6 +51,9 @@ namespace BioA.UI
         //病人信息窗体
         PatientInfoFrm patientInfofrm = new PatientInfoFrm();
         private MyBatis myBatis = new MyBatis();
+        //申明一个获取任务状态的委托
+        public delegate bool getOPID();
+        public event getOPID getopid;
         public ApplyTask()
         {
             InitializeComponent();
@@ -552,6 +555,14 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (getopid != null)
+            {
+                if (!getopid())
+                {
+                    MessageBox.Show("当前任务正在测试，暂停后方可继续下任务!");
+                    return;
+                }
+            }
             btnSave.Enabled = false;
             // 1.判断样本编号是否为空，判断样本编号是否已申请任务，判断样本编号是否大于2400
             if (txtSampleNum.Text == "" || txtSampleNum.Text == null)
@@ -750,6 +761,14 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void btnBatchInput_Click(object sender, EventArgs e)
         {
+            if (getopid != null)
+            {
+                if (!getopid())
+                {
+                    MessageBox.Show("当前任务正在测试，暂停后方可继续下任务!");
+                    return;
+                }
+            }
             if (projectPage1.GetSelectedProjects().Count == 0 &&
                 projectPage2.GetSelectedProjects().Count == 0 &&
                 projectPage3.GetSelectedProjects().Count == 0 &&

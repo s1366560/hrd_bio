@@ -26,6 +26,13 @@ namespace BioA.UI
 
         private void btnCommand_Click(object sender, EventArgs e)
         {
+             MessageBoxButtons messButton = MessageBoxButtons.OKCancel;
+             DialogResult dr = MessageBox.Show("确定进行孵育槽水交换吗?", "孵育槽水交换确认", messButton);
+             if (dr != DialogResult.OK)
+             {
+                 return;
+             }
+
             string strSender = "";
             Subsystem ConfigureInfo = MachineInfo.SubsystemList.Find(str => str.Name == "Common");
             switch (((SimpleButton)sender).Name)
