@@ -1101,24 +1101,8 @@ namespace BioA.SqlMaps
                 ht.Add("FinishTimes",0);
                 ht.Add("TaskState",0);
                 ism_SqlMap.Update("PLCDataInfo.UpdateTaskState",ht);
-                try
-                {
-                    Hashtable ht1 = new Hashtable();
-                    ht1.Add("SendTimes", 0);
-                    ht1.Add("FinishTimes", 0);
-                    ht1.Add("TaskState", 0);
-                    ism_SqlMap.Update("QCTaskInfo.InitMachineUpdateQCTaskState", ht1);
-
-                    ht1.Clear();
-                    ht1.Add("SendTimes", 0);
-                    ht1.Add("FinishTimes", 0);
-                    ht1.Add("TaskState", 0);
-                    ism_SqlMap.Update("Calibrator.UpdateCalibTaskState", ht1);
-                }
-                catch (Exception e)
-                {
-                    LogInfo.WriteErrorLog("SetUnfinishedScheduleContinue()==" + e.ToString(), Module.DAO);
-                }
+                ism_SqlMap.Update("QCTaskInfo.InitMachineUpdateQCTaskState", ht);
+                ism_SqlMap.Update("Calibrator.UpdateCalibTaskState", ht);
             }
             catch (Exception e)
             {

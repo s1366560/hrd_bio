@@ -112,6 +112,16 @@ namespace BioA.Common
             set { taskState = value; }
         }
 
+        private string _Barcode;
+        /// <summary>
+        /// 条码
+        /// </summary>
+        public string Barcode
+        {
+            get { return _Barcode; }
+            set { _Barcode = value; }
+        }
+
         private int iD;
         private int sampleNum;
         private DateTime createDate;

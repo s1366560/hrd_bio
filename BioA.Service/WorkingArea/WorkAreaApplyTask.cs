@@ -151,6 +151,26 @@ namespace BioA.Service
         {
             return myBatis.QueryTaskInfoBySampleNum(strMethodName, SampleNum);
         }
+        /// <summary>
+        /// 获取当天所有的普通任务
+        /// </summary>
+        /// <param name="strMethodName"></param>
+        /// <param name="panelNum"></param>
+        /// <returns></returns>
+        public List<TaskInfo> GetTaskInfo(string strMethodName, int panelNum)
+        {
+            return myBatis.GetTaskInfo(strMethodName, panelNum);
+        }
+        /// <summary>
+        /// 清除普通任务和样本信息
+        /// </summary>
+        /// <param name="strMethodName"></param>
+        /// <param name="lstTask"></param>
+        /// <returns></returns>
+        public string DeleteTaskAndSampleInfo(string strMethodName, List<TaskInfo> lstTask)
+        {
+            return myBatis.DeleteTaskAndSampleInfo(strMethodName, lstTask);
+        }
 
         public PatientInfo QueryPatientInfoBySampleNum(string strMethodName, int sampleNum)
         {

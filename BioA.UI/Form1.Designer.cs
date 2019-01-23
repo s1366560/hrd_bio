@@ -112,6 +112,7 @@ namespace BioA.UI
             this.CalibTaskElement26 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.WorkingAreaApplyTaskElement1 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.WorkingAreaDataCheckElement2 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.WorkingAreaMissionInspectionElement3 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.ribbonPageGroup7 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.txtInfoPrompt = new DevExpress.XtraEditors.MemoEdit();
@@ -502,8 +503,8 @@ namespace BioA.UI
             // 
             this.accordionControl1.Dock = System.Windows.Forms.DockStyle.Left;
             this.accordionControl1.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
-            this.ReagentStateElement4,
-            this.ReagentSettingElement5});
+            this.ReagentSettingElement5,
+            this.ReagentStateElement4});
             this.accordionControl1.Location = new System.Drawing.Point(0, 165);
             this.accordionControl1.Name = "accordionControl1";
             this.accordionControl1.Size = new System.Drawing.Size(200, 741);
@@ -837,6 +838,19 @@ namespace BioA.UI
             this.WorkingAreaDataCheckElement2.Text = "             数据审核       ";
             this.WorkingAreaDataCheckElement2.Click += new System.EventHandler(this.accordionControlElement2_Click);
             // 
+            // WorkingAreaMissionInspectionElement3
+            // 
+            this.WorkingAreaMissionInspectionElement3.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Text),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.ContextButtons)});
+            this.WorkingAreaMissionInspectionElement3.Height = 50;
+            this.WorkingAreaMissionInspectionElement3.Name = "WorkingAreaMissionInspectionElement3";
+            this.WorkingAreaMissionInspectionElement3.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.WorkingAreaMissionInspectionElement3.Text = "             任务考察       ";
+            this.WorkingAreaMissionInspectionElement3.Click += new System.EventHandler(this.accordionControlElement3_Click);
+            // 
             // ribbonPageGroup7
             // 
             this.ribbonPageGroup7.Name = "ribbonPageGroup7";
@@ -1080,6 +1094,7 @@ namespace BioA.UI
         //一下是第一个的三个
         private DevExpress.XtraBars.Navigation.AccordionControlElement WorkingAreaApplyTaskElement1;
         private DevExpress.XtraBars.Navigation.AccordionControlElement WorkingAreaDataCheckElement2;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement WorkingAreaMissionInspectionElement3;
         private DevExpress.XtraBars.Navigation.AccordionControlElement ReagentSettingElement5;
         //以下是第三个的两个
         private DevExpress.XtraBars.Navigation.AccordionControlElement CalibrationStateElement6;

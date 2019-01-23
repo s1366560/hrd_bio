@@ -221,6 +221,83 @@ namespace BioA.SqlMaps
 
             return patientInfo;
         }
+        /// <summary>
+        /// 获取普通任务
+        /// </summary>
+        /// <param name="strMethodName"></param>
+        /// <param name="panelNum"></param>
+        /// <returns></returns>
+        public List<TaskInfo> GetTaskInfo(string strMethodName, int panelNum)
+        {
+            List<TaskInfo> lstTaskInfos = new List<TaskInfo>();
+            try
+            {
+                List<TaskInfo> lstTaskInfo = (List<TaskInfo>)ism_SqlMap.QueryForList<TaskInfo>("WorkAreaApplyTask." + strMethodName, string.Format("select t.*,s.Barcode from tasktb t,sampletb s where t.SampleNum = s.SampleNum and t.CreateDate = s.CreateTime and s.PanelNum = {0} and t.CreateDate between '{1}' and '{2}'", panelNum, DateTime.Now.Date, DateTime.Now.Date.AddDays(1)));
+                foreach (TaskInfo task in lstTaskInfo)
+                {
+                    if (lstTaskInfos.Count > 0)
+                    {
+                        TaskInfo ta = lstTaskInfos.SingleOrDefault(x => x.SampleNum == task.SampleNum );
+                        if (ta != null)
+                        {
+                            lstTaskInfos.RemoveAll(s => s.SampleNum == ta.SampleNum);
+                            ta.ProjectName = ta.ProjectName+"," + task.ProjectName;
+                            lstTaskInfos.Add(ta);
+                        }
+                        else
+                            lstTaskInfos.Add(task);
+                    }
+                    else
+                        lstTaskInfos.Add(task);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("GetTaskInfo(string strMethodName, int panelNum) ==" + ex.ToString(), Module.WorkingArea);
+            }
+            return lstTaskInfos;
+        }
+        /// <summary>
+        /// 清除普通任务和样本信息
+        /// </summary>
+        /// <param name="strMethodName"></param>
+        /// <param name="lstTask"></param>
+        /// <returns></returns>
+        public string DeleteTaskAndSampleInfo(string strMethodName, List<TaskInfo> lstTask)
+        {
+            string result = null;
+            int selectResult = 0;
+            string success = null;
+            try
+            {
+                foreach (TaskInfo task in lstTask)
+                {
+                    selectResult = (int)ism_SqlMap.QueryForObject("WorkAreaApplyTask." + strMethodName, string.Format("select count(*) from tasktb where SampleNum = {0} and CONVERT(varchar(50),CreateDate, 120) like '%{1}%' and TaskState != 0", task.SampleNum, task.CreateDate.ToString("yyyy-MM-dd")));
+                    if (selectResult > 0)
+                    {
+                        result += task.SampleNum +",";
+                    }
+                    else
+                    {
+                        ism_SqlMap.Delete("WorkAreaApplyTask." + strMethodName, string.Format("delete s from sampletb s where s.SampleNum = {0} and CONVERT(varchar(50),s.CreateTime, 120) like '%{1}%'", task.SampleNum, task.CreateDate.ToString("yyyy-MM-dd")));
+                        ism_SqlMap.Delete("WorkAreaApplyTask." + strMethodName, string.Format("delete from tasktb where SampleNum = {0} and CONVERT(varchar(50),CreateDate, 120) like '%{1}%' and TaskState = 0", task.SampleNum, task.CreateDate.ToString("yyyy-MM-dd")));
+                        success += task.SampleNum +",";
+                        
+                    }
+                }
+                if (result == null)
+                    result = "1";
+                else if (success != null)
+                    result = "2"+success.Remove(success.LastIndexOf(","),1);
+                else
+                    result = result.Remove(result.LastIndexOf(","),1) + ":样本对应的的项目已完成或者正在测试中，不能清除！";
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("DeleteTaskAndSampleInfo(string strMethodName, List<TaskInfo> lstTask) ==" + ex.ToString(), Module.WorkingArea);
+            }
+            return result;
+        }
 
         public string UpdatePatientInfo(string strMethodName, PatientInfo patientInfo)
         {

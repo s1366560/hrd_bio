@@ -195,6 +195,14 @@
       <!--delete from sampleresulttb where ProjectName=#ProjectName# and TCNO=#TCNO#-->
       $value$
     </delete>
-    
+
+    <!-- 获取普通任务信息 -->
+    <statement id ="GetTaskInfo" parameterClass ="string" resultClass ="TaskInfo">
+      $value$
+    </statement>
+    <!--删除普通任务和样本信息 -->
+    <statement id ="DeleteTaskAndSampleInfo" parameterClass ="string" resultClass ="int">
+      $value$
+    </statement>
   </statements>
 </sqlMap>

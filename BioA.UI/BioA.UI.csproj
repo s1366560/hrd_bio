@@ -746,6 +746,18 @@
     <Compile Include="Uicomponent\WorkingAreaUI\DataCheck\ScreeningSample.Designer.cs">
       <DependentUpon>ScreeningSample.cs</DependentUpon>
     </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\MissionInspection\MissionInspection.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\MissionInspection\MissionInspection.Designer.cs">
+      <DependentUpon>MissionInspection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\MissionInspection\SampleDisk.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\MissionInspection\SampleDisk.Designer.cs">
+      <DependentUpon>SampleDisk.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -1059,6 +1071,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\WorkingAreaUI\DataCheck\ScreeningSample.resx">
       <DependentUpon>ScreeningSample.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\WorkingAreaUI\MissionInspection\MissionInspection.resx">
+      <DependentUpon>MissionInspection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\WorkingAreaUI\MissionInspection\SampleDisk.resx">
+      <DependentUpon>SampleDisk.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config">
       <SubType>Designer</SubType>

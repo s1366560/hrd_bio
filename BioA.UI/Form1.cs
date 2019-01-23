@@ -21,6 +21,7 @@ namespace BioA.UI
         DataCheck dadtCheck;
         CalibDataCheck calibDataCheck;
         ApplyTask applyTask;
+        MissionInspection missionInspection;
         ReagentState reagentState;
         ReagentSetting reagentSetting;
         CalibMaintain calibMaintain;
@@ -128,7 +129,7 @@ namespace BioA.UI
                 _Elements.Add(this.WorkingAreaApplyTaskElement1);
             if (userInfo.DataCheck)
                 _Elements.Add(this.WorkingAreaDataCheckElement2);
-           
+            _Elements.Add(this.WorkingAreaMissionInspectionElement3);
             BeginInvoke(new Action(()=> {
                  this.accordionControl1.Elements.AddRange(_Elements.ToArray());
             }));
@@ -689,6 +690,7 @@ namespace BioA.UI
                 _Elements.Add(this.WorkingAreaApplyTaskElement1);
             if (userInfo.DataCheck)
                 _Elements.Add(this.WorkingAreaDataCheckElement2);
+            _Elements.Add(this.WorkingAreaMissionInspectionElement3);
             this.accordionControl1.Elements.AddRange(_Elements.ToArray());
             if (userInfo.ApplyTask)
             {
@@ -741,6 +743,17 @@ namespace BioA.UI
                 pcThirdArea.Controls.Add(applyTask);
 
             }
+        }
+        private void accordionControlElement3_Click(object sender, EventArgs e)
+        {
+            this.FeatureListTagIcon(_Elements);
+            this.WorkingAreaMissionInspectionElement3.Image = this.images;
+            pcThirdArea.Controls.Clear();
+            missionInspection = new MissionInspection();
+            missionInspection.GetOpidEvent += this.getOPIDEvent;
+            txtPrompt.Text = "您当前的操作：工作区——任务考察";
+            pcThirdArea.Controls.Add(txtPrompt);
+            pcThirdArea.Controls.Add(missionInspection);
         }
         //private void accordionControlElement3_Click(object sender, EventArgs e)
         //{
@@ -1449,6 +1462,10 @@ namespace BioA.UI
                 accrodionElement.Image = null;
             }
         }
+        /// <summary>
+        /// 获取机器状态
+        /// </summary>
+        /// <returns></returns>
         public bool getOPIDEvent()
         {
             if (OPID == 0 || OPID == 2)
