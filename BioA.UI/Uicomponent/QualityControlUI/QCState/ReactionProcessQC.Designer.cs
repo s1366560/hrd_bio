@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReactionProcessQC));
-            DevExpress.XtraCharts.XYDiagram xyDiagram1 = new DevExpress.XtraCharts.XYDiagram();
-            DevExpress.XtraCharts.Series series1 = new DevExpress.XtraCharts.Series();
-            DevExpress.XtraCharts.LineSeriesView lineSeriesView1 = new DevExpress.XtraCharts.LineSeriesView();
-            DevExpress.XtraCharts.ChartTitle chartTitle1 = new DevExpress.XtraCharts.ChartTitle();
+            DevExpress.XtraCharts.XYDiagram xyDiagram4 = new DevExpress.XtraCharts.XYDiagram();
+            DevExpress.XtraCharts.Series series4 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.LineSeriesView lineSeriesView4 = new DevExpress.XtraCharts.LineSeriesView();
+            DevExpress.XtraCharts.ChartTitle chartTitle4 = new DevExpress.XtraCharts.ChartTitle();
             this.lblTestItem = new DevExpress.XtraEditors.LabelControl();
             this.lblCupNumber = new DevExpress.XtraEditors.LabelControl();
             this.lblConcentration = new DevExpress.XtraEditors.LabelControl();
@@ -59,9 +59,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtAbsorb.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtReactionCupNum.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartQCReaction)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(series1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(series4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtProjectName.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSampleType.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtQCName.Properties)).BeginInit();
@@ -164,54 +164,54 @@
             // chartQCReaction
             // 
             this.chartQCReaction.DataBindings = null;
-            xyDiagram1.AxisX.GridLines.Visible = true;
-            xyDiagram1.AxisX.MinorCount = 1;
-            xyDiagram1.AxisX.NumericScaleOptions.AutoGrid = false;
-            xyDiagram1.AxisX.Title.Text = "测光点";
-            xyDiagram1.AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
-            xyDiagram1.AxisX.VisibleInPanesSerializable = "-1";
-            xyDiagram1.AxisX.VisualRange.Auto = false;
-            xyDiagram1.AxisX.VisualRange.AutoSideMargins = false;
-            xyDiagram1.AxisX.VisualRange.MaxValueSerializable = "44";
-            xyDiagram1.AxisX.VisualRange.MinValueSerializable = "0";
-            xyDiagram1.AxisX.VisualRange.SideMarginsValue = 0D;
-            xyDiagram1.AxisX.WholeRange.Auto = false;
-            xyDiagram1.AxisX.WholeRange.AutoSideMargins = false;
-            xyDiagram1.AxisX.WholeRange.MaxValueSerializable = "44";
-            xyDiagram1.AxisX.WholeRange.MinValueSerializable = "0";
-            xyDiagram1.AxisX.WholeRange.SideMarginsValue = 1D;
-            xyDiagram1.AxisY.MinorCount = 9;
-            xyDiagram1.AxisY.Title.Text = "吸光度";
-            xyDiagram1.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
-            xyDiagram1.AxisY.VisibleInPanesSerializable = "-1";
-            xyDiagram1.AxisY.VisualRange.Auto = false;
-            xyDiagram1.AxisY.VisualRange.AutoSideMargins = false;
-            xyDiagram1.AxisY.VisualRange.MaxValueSerializable = "1.2";
-            xyDiagram1.AxisY.VisualRange.MinValueSerializable = "-0.4";
-            xyDiagram1.AxisY.VisualRange.SideMarginsValue = 0D;
-            xyDiagram1.AxisY.WholeRange.Auto = false;
-            xyDiagram1.AxisY.WholeRange.AutoSideMargins = false;
-            xyDiagram1.AxisY.WholeRange.MaxValueSerializable = "4";
-            xyDiagram1.AxisY.WholeRange.MinValueSerializable = "-4";
-            xyDiagram1.AxisY.WholeRange.SideMarginsValue = 0D;
-            xyDiagram1.EnableAxisXScrolling = true;
-            xyDiagram1.EnableAxisXZooming = true;
-            xyDiagram1.EnableAxisYScrolling = true;
-            xyDiagram1.EnableAxisYZooming = true;
-            this.chartQCReaction.Diagram = xyDiagram1;
+            xyDiagram4.AxisX.GridLines.Visible = true;
+            xyDiagram4.AxisX.MinorCount = 1;
+            xyDiagram4.AxisX.NumericScaleOptions.AutoGrid = false;
+            xyDiagram4.AxisX.Title.Text = "测光点";
+            xyDiagram4.AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+            xyDiagram4.AxisX.VisibleInPanesSerializable = "-1";
+            xyDiagram4.AxisX.VisualRange.Auto = false;
+            xyDiagram4.AxisX.VisualRange.AutoSideMargins = false;
+            xyDiagram4.AxisX.VisualRange.MaxValueSerializable = "44";
+            xyDiagram4.AxisX.VisualRange.MinValueSerializable = "0";
+            xyDiagram4.AxisX.VisualRange.SideMarginsValue = 0D;
+            xyDiagram4.AxisX.WholeRange.Auto = false;
+            xyDiagram4.AxisX.WholeRange.AutoSideMargins = false;
+            xyDiagram4.AxisX.WholeRange.MaxValueSerializable = "44";
+            xyDiagram4.AxisX.WholeRange.MinValueSerializable = "0";
+            xyDiagram4.AxisX.WholeRange.SideMarginsValue = 1D;
+            xyDiagram4.AxisY.MinorCount = 9;
+            xyDiagram4.AxisY.Title.Text = "吸光度";
+            xyDiagram4.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+            xyDiagram4.AxisY.VisibleInPanesSerializable = "-1";
+            xyDiagram4.AxisY.VisualRange.Auto = false;
+            xyDiagram4.AxisY.VisualRange.AutoSideMargins = false;
+            xyDiagram4.AxisY.VisualRange.MaxValueSerializable = "1.2";
+            xyDiagram4.AxisY.VisualRange.MinValueSerializable = "-0.4";
+            xyDiagram4.AxisY.VisualRange.SideMarginsValue = 0D;
+            xyDiagram4.AxisY.WholeRange.Auto = false;
+            xyDiagram4.AxisY.WholeRange.AutoSideMargins = false;
+            xyDiagram4.AxisY.WholeRange.MaxValueSerializable = "4";
+            xyDiagram4.AxisY.WholeRange.MinValueSerializable = "-4";
+            xyDiagram4.AxisY.WholeRange.SideMarginsValue = 0D;
+            xyDiagram4.EnableAxisXScrolling = true;
+            xyDiagram4.EnableAxisXZooming = true;
+            xyDiagram4.EnableAxisYScrolling = true;
+            xyDiagram4.EnableAxisYZooming = true;
+            this.chartQCReaction.Diagram = xyDiagram4;
             this.chartQCReaction.Legend.Name = "Default Legend";
             this.chartQCReaction.Legend.Visibility = DevExpress.Utils.DefaultBoolean.False;
             this.chartQCReaction.Location = new System.Drawing.Point(18, 63);
             this.chartQCReaction.Name = "chartQCReaction";
-            series1.Name = "Series 1";
-            series1.View = lineSeriesView1;
+            series4.Name = "Series 1";
+            series4.View = lineSeriesView4;
             this.chartQCReaction.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
-        series1};
+        series4};
             this.chartQCReaction.Size = new System.Drawing.Size(1351, 656);
             this.chartQCReaction.TabIndex = 13;
-            chartTitle1.Text = "反应进程";
+            chartTitle4.Text = "反应进程";
             this.chartQCReaction.Titles.AddRange(new DevExpress.XtraCharts.ChartTitle[] {
-            chartTitle1});
+            chartTitle4});
             // 
             // labelControl1
             // 
@@ -369,9 +369,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtConcResult.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAbsorb.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtReactionCupNum.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(series1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(series4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartQCReaction)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtProjectName.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSampleType.Properties)).EndInit();

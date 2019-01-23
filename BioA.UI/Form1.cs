@@ -142,8 +142,6 @@ namespace BioA.UI
                     if (CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent != null)
                         CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent -= applyTask.DataTransfer_Event;
 
-                    if (CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent != null)
-                        CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent -= applyTask.DataTransfer_Event;
                     applyTask = new ApplyTask();                    
                     applyTask.getopid += getOPIDEvent;
                     CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent += applyTask.DataTransfer_Event;
@@ -701,9 +699,6 @@ namespace BioA.UI
                     pcThirdArea.Controls.Clear();
                     if (CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent != null)
                         CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent -= applyTask.DataTransfer_Event;
-
-                    if (CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent != null)
-                        CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent -= applyTask.DataTransfer_Event;
                     applyTask = new ApplyTask();
                     applyTask.getopid += getOPIDEvent;
                     CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent += applyTask.DataTransfer_Event;
@@ -738,6 +733,11 @@ namespace BioA.UI
                 this.FeatureListTagIcon(_Elements);
                 this.WorkingAreaApplyTaskElement1.Image = this.images;
                 pcThirdArea.Controls.Clear();
+                if (CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent != null)
+                    CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent -= applyTask.DataTransfer_Event;
+                applyTask = new ApplyTask();
+                applyTask.getopid += getOPIDEvent;
+                CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent += applyTask.DataTransfer_Event;
                 txtPrompt.Text = "您当前的操作：工作区——申请审核";
                 pcThirdArea.Controls.Add(txtPrompt);
                 pcThirdArea.Controls.Add(applyTask);

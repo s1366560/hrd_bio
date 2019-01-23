@@ -257,14 +257,8 @@ namespace BioA.UI
                     break;
                 case "QueryTimeCourseByQCInfo":
                     TimeCourseInfo qcTimeCourse = (TimeCourseInfo)XmlUtility.Deserialize(typeof(TimeCourseInfo), sender as string);
-                    if (qcTimeCourse != null)
-                    {
-                        reactionProcessQC.QCReactionInfo = qcTimeCourse;
-                    }
-                    else
-                    {
-                        MessageBox.Show("该项目没有执行检测！");
-                    }
+                    reactionProcessQC.QCReactionInfo = qcTimeCourse;
+                    
                     break;
                 default:
                     break;
@@ -330,8 +324,8 @@ namespace BioA.UI
             }
             else
             {
-                frmEditQCRes.StartPosition = FormStartPosition.CenterParent;
-                frmEditQCRes.ShowDialog();
+                MessageBox.Show("请选择至少一条记录！");
+                return;
             }
         }
         /// <summary>
