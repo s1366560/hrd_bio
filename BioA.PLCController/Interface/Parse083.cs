@@ -168,14 +168,14 @@ namespace BioA.PLCController.Interface
             //R1P = R1P > 45 ? (R1P - 45) : R1P;
             //UpdateLatestRgtVol(1, R1P, R1V);
             //修改试剂1余量和可测数量
-            myBatis.UpdateReagentValidPercent(1, R1P, R1V);
+            myBatis.UpdateReagentValidPercent(R1V,1, R1P);
             RgtWarning(1, R1P);
             //LogService.Log(string.Format("R1位置:{0} R1体积:{1}", R1P, R1V), LogType.Trace, "log083.lg");
             int R2P = MachineControlProtocol.HexConverToDec(Data[i + 5], Data[i + 6]);
             int R2V = MachineControlProtocol.HexConverToDec(Data[i + 7], Data[i + 8]);
             //UpdateLatestRgtVol(2, R2P, R2V);
             //修改试剂2余量和可测数量
-            myBatis.UpdateReagentValidPercent(2, R2P, R2V);
+            myBatis.UpdateReagentValidPercent(R2V,2, R2P);
             RgtWarning(2, R2P);
             //LogService.Log(string.Format("R2位置:{0} R2体积:{1}", R2P, R2V), LogType.Trace, "log083.lg");
             //查找错误报头

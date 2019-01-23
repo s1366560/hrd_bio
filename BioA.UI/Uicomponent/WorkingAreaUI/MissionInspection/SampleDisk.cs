@@ -191,20 +191,24 @@ namespace BioA.UI
                         lstTaskInfo.Add(task);
                     }
                 }
-
-                string result = new WorkAreaApplyTask().DeleteTaskAndSampleInfo("DeleteTaskAndSampleInfo", lstTaskInfo);
-                if (result.Substring(0, 1) == "1")
+                if (lstTaskInfo.Count > 0)
                 {
-                    result = "选取样本信息清除成功!";
-                    ComSampleNum_SelectedIndexChanged(null, null);
-                }
-                else if (result.Substring(0, 1) == "2")
-                {
-                    result = result.Remove(0, 1) + ":样本信息清除成功！";
-                    ComSampleNum_SelectedIndexChanged(null, null);
-                }
+                    string result = new WorkAreaApplyTask().DeleteTaskAndSampleInfo("DeleteTaskAndSampleInfo", lstTaskInfo);
+                    if (result.Substring(0, 1) == "1")
+                    {
+                        result = "选取样本信息清除成功!";
+                        ComSampleNum_SelectedIndexChanged(null, null);
+                    }
+                    else if (result.Substring(0, 1) == "2")
+                    {
+                        result = result.Remove(0, 1) + ":样本信息清除成功！";
+                        ComSampleNum_SelectedIndexChanged(null, null);
+                    }
+                    else
+                        result = result.Remove(0, 1);
+                    MessageBoxDraw.ShowMsg(result, MsgType.OK);
 
-                MessageBoxDraw.ShowMsg(result, MsgType.OK);
+                }
             }
         }
 

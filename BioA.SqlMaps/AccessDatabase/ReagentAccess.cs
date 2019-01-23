@@ -504,29 +504,32 @@ namespace BioA.SqlMaps
         {
             try
             {
-                int v2 = GetValidPercent(panel, position);
-                int ResidualQuantity = this.ReagentVolumeNumber(vol, panel, position);
-                Hashtable ht = new Hashtable();
-                ht.Add("ValidPercent", vol);
-                ht.Add("Pos", position);
-                ht.Add("ResidualQuantity", ResidualQuantity);
-                if (panel == 1)
-                {
-                    ism_SqlMap.Update("ReagentInfo.UpdateValidPercent1", ht);
-                }
-                else
-                {
-                    ism_SqlMap.Update("ReagentInfo.UpdateValidPercent2", ht);
-                }
                 if (position > 0)
                 {
-                    ReagentSettingsInfo reaSettingInfo = GetReagentSettingsInfoByPos(panel, position);
-                    if (reaSettingInfo != null && vol > 0 && v2 == 0)
+                    int v2 = GetValidPercent(panel, position);
+                    int ResidualQuantity = this.ReagentVolumeNumber(vol, panel, position);
+                    Hashtable ht = new Hashtable();
+                    ht.Add("ValidPercent", vol);
+                    ht.Add("Pos", position);
+                    ht.Add("ResidualQuantity", ResidualQuantity);
+                    if (panel == 1)
                     {
-                        UpdateNorTaskState(reaSettingInfo.ProjectName, reaSettingInfo.ReagentType);
-                        UpdateQCTaskState(reaSettingInfo.ProjectName, reaSettingInfo.ReagentType);
-                        UpdateCalibTaskState(reaSettingInfo.ProjectName, reaSettingInfo.ReagentType);
-                        UpdateCalibCurveState(reaSettingInfo.ProjectName, reaSettingInfo.ReagentType);
+                        ism_SqlMap.Update("ReagentInfo.UpdateValidPercent1", ht);
+                    }
+                    else
+                    {
+                        ism_SqlMap.Update("ReagentInfo.UpdateValidPercent2", ht);
+                    }
+                    if (position > 0)
+                    {
+                        ReagentSettingsInfo reaSettingInfo = GetReagentSettingsInfoByPos(panel, position);
+                        if (reaSettingInfo != null && vol > 0 && v2 == 0)
+                        {
+                            UpdateNorTaskState(reaSettingInfo.ProjectName, reaSettingInfo.ReagentType);
+                            UpdateQCTaskState(reaSettingInfo.ProjectName, reaSettingInfo.ReagentType);
+                            UpdateCalibTaskState(reaSettingInfo.ProjectName, reaSettingInfo.ReagentType);
+                            UpdateCalibCurveState(reaSettingInfo.ProjectName, reaSettingInfo.ReagentType);
+                        }
                     }
                 }
             }

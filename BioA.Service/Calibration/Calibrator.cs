@@ -154,11 +154,11 @@ namespace BioA.Service
                         {
                             projectInfo[3] = "此项目对应试剂被锁定，无法使用！";
                         }
-                        else if (reagentState.ReagentName != null && reagentState.ReagentName != "" && reagentState.ValidPercent < 5)
+                        else if (reagentState.ReagentName != null && reagentState.ReagentName != "" && reagentState.ValidPercent < 3)
                         {
                             projectInfo[3] = "此项目对应的试剂1余量不足！";
                         }
-                        else if (reagentState.ReagentName2 != null && reagentState.ReagentName2 != "" && reagentState.ValidPercent2 < 5)
+                        else if (reagentState.ReagentName2 != null && reagentState.ReagentName2 != "" && reagentState.ValidPercent2 < 3)
                         {
                             projectInfo[3] = "此项目对应的试剂2余量不足！";
                         }
