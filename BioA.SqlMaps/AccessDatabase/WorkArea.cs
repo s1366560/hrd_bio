@@ -290,7 +290,7 @@ namespace BioA.SqlMaps
                 else if (success != null)
                     result = "2"+success.Remove(success.LastIndexOf(","),1);
                 else
-                    result = "3" +result.Remove(result.LastIndexOf(","),1) + ":样本对应的的项目已完成或者正在测试中，不能清除！";
+                    result = "3" + ":所选取的样本对应项目已完成或者正在测试中，不能清除！";
             }
             catch (Exception ex)
             {
