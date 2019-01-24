@@ -31,15 +31,21 @@ namespace BioA.UI
             set
             {
                 recieveInfo = value;
-                frmLoadingReagentDic.Clear();
-                Dictionary<string, ReagentSettingsInfo> dic = new Dictionary<string, ReagentSettingsInfo>();
-                dic.Add(recieveInfo, reagentSettingsInfo);
-                if (GetsReagentEvent != null)
+                if (this.IsHandleCreated)
                 {
-                    GetsReagentEvent(dic);
-                    this.btnSave.Enabled = true;
+                    BeginInvoke(new Action(() =>
+                    {
+                        frmLoadingReagentDic.Clear();
+                        Dictionary<string, ReagentSettingsInfo> dic = new Dictionary<string, ReagentSettingsInfo>();
+                        dic.Add(recieveInfo, reagentSettingsInfo);
+                        if (GetsReagentEvent != null)
+                        {
+                            GetsReagentEvent(dic);
+                            this.btnSave.Enabled = true;
+                            this.btnCancel.Enabled = true;
+                        }
+                    }));
                 }
-                
             }
         }
 
@@ -141,67 +147,70 @@ namespace BioA.UI
 
         public void comBoxAdd(List<AssayProjectInfo> lstAssayProInfos)
         {
-            this.Invoke(new EventHandler(delegate
+            if (this.IsHandleCreated)
             {
-                this.cboProjectCheck.Properties.Items.Clear();
-                List<string> listProName = new List<string>();
-                if (cboReagentType.Text == "血清")
+                this.Invoke(new EventHandler(delegate
                 {
-                    listProName.Clear();
-                    cboProjectCheck.Enabled = true;
-                    for (int i = 0; i < lstAssayProInfos.Count; i++)
+                    this.cboProjectCheck.Properties.Items.Clear();
+                    List<string> listProName = new List<string>();
+                    if (cboReagentType.Text == "血清")
                     {
-                        if (lstAssayProInfos[i].SampleType == "血清")
+                        listProName.Clear();
+                        cboProjectCheck.Enabled = true;
+                        for (int i = 0; i < lstAssayProInfos.Count; i++)
                         {
+                            if (lstAssayProInfos[i].SampleType == "血清")
+                            {
 
-                            listProName.Add(lstAssayProInfos[i].ProjectName);
+                                listProName.Add(lstAssayProInfos[i].ProjectName);
 
+                            }
                         }
+                        listProName.RemoveAll(i => lstProjectName.Contains(i));
+                        //this.cboProjectCheck.Properties.Items.AddRange(new object[] 
+                        //{ 
+                        //    lstAssayProInfos[i].ProjectName
+                        //});
+                        this.cboProjectCheck.Properties.Items.AddRange(listProName);
                     }
-                    listProName.RemoveAll(i => lstProjectName.Contains(i));
-                    //this.cboProjectCheck.Properties.Items.AddRange(new object[] 
-                    //{ 
-                    //    lstAssayProInfos[i].ProjectName
-                    //});
-                    this.cboProjectCheck.Properties.Items.AddRange(listProName);
-                }
-                if (cboReagentType.Text == "尿液")
-                {
-                    listProName.Clear();
-                    cboProjectCheck.Enabled = true;
-                    for (int i = 0; i < lstAssayProInfos.Count; i++)
+                    if (cboReagentType.Text == "尿液")
                     {
-                        if (lstAssayProInfos[i].SampleType == "尿液")
+                        listProName.Clear();
+                        cboProjectCheck.Enabled = true;
+                        for (int i = 0; i < lstAssayProInfos.Count; i++)
                         {
-                            listProName.Add(lstAssayProInfos[i].ProjectName);
+                            if (lstAssayProInfos[i].SampleType == "尿液")
+                            {
+                                listProName.Add(lstAssayProInfos[i].ProjectName);
+                            }
                         }
+                        listProName.RemoveAll(i => lstProjectName.Contains(i));
+                        this.cboProjectCheck.Properties.Items.AddRange(listProName);
+                        //this.cboProjectCheck.Properties.Items.AddRange(new object[] { lstAssayProInfos[i].ProjectName });
                     }
-                    listProName.RemoveAll(i => lstProjectName.Contains(i));
-                    this.cboProjectCheck.Properties.Items.AddRange(listProName);
-                    //this.cboProjectCheck.Properties.Items.AddRange(new object[] { lstAssayProInfos[i].ProjectName });
-                }
-                if (cboReagentType.Text == "清洗剂")
-                {
-
-                    cboProjectCheck.Enabled = false;
-
-                }
-                if (cboReagentType.Text == "")
-                {
-                    listProName.Clear();
-                    cboProjectCheck.Enabled = true;
-                    for (int i = 0; i < lstAssayProInfos.Count; i++)
+                    if (cboReagentType.Text == "清洗剂")
                     {
-                        if (lstAssayProInfos[i].SampleType == "")
-                        {
-                            listProName.Add(lstAssayProInfos[i].ProjectName);
-                        }
+
+                        cboProjectCheck.Enabled = false;
+
                     }
-                    listProName.RemoveAll(i => lstProjectName.Contains(i));
-                    this.cboProjectCheck.Properties.Items.AddRange(listProName);
-                    //this.cboProjectCheck.Properties.Items.AddRange(new object[] { lstAssayProInfos[i].ProjectName });
-                }
-            }));
+                    if (cboReagentType.Text == "")
+                    {
+                        listProName.Clear();
+                        cboProjectCheck.Enabled = true;
+                        for (int i = 0; i < lstAssayProInfos.Count; i++)
+                        {
+                            if (lstAssayProInfos[i].SampleType == "")
+                            {
+                                listProName.Add(lstAssayProInfos[i].ProjectName);
+                            }
+                        }
+                        listProName.RemoveAll(i => lstProjectName.Contains(i));
+                        this.cboProjectCheck.Properties.Items.AddRange(listProName);
+                        //this.cboProjectCheck.Properties.Items.AddRange(new object[] { lstAssayProInfos[i].ProjectName });
+                    }
+                }));
+            }
         }
         private void btnCancel_Click(object sender, EventArgs e)
         {
@@ -221,6 +230,7 @@ namespace BioA.UI
         private void btnSave_Click(object sender, EventArgs e)
         {
             this.btnSave.Enabled = false;
+            this.btnCancel.Enabled = false;
             reagentSettingsInfo = new ReagentSettingsInfo();
             reagentSettingsInfo.Barcode = txtBarcode.Text;
             reagentSettingsInfo.BatchNum = txtBatchNum.Text;

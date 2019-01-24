@@ -19,6 +19,7 @@ namespace BioA.UI
     {
         public delegate void CalibrationDelegate(Dictionary<string, object[]> sender);
         public event CalibrationDelegate CalibrationTimeCoursetEvent;
+        public CalibrationResultinfo calibrationResult = new CalibrationResultinfo();
         public ReactionProcessCB()
         {
             InitializeComponent();
@@ -275,6 +276,12 @@ namespace BioA.UI
                 }
             }
             comBoxProcessNumValue.SelectedIndex = 0;
+        }
+
+        private void ReactionProcessCB_Load(object sender, EventArgs e)
+        {
+            Calibrator calibrator = new Calibrator();
+            calibrationResultInfoAndTimeCUVNOAdd(calibrator.QueryCalibrationResultInfoAndTimeCUVNO("QueryCalibrationResultInfoAndTimeCUVNO", calibrationResult));
         }
     }
 }

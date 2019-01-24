@@ -49,7 +49,7 @@ namespace BioA.UI
                     {
                         CalibrationSaveOrEnditSuccessEvent("Add", _NewCalibratorinfo, liscalibratorProjectinfo);
                     }
-                    MessageBox.Show(strReturnInfo);
+                    MessageBoxDraw.ShowMsg(strReturnInfo,MsgType.OK);
                     this.Invoke(new EventHandler(delegate { this.Close(); }));
                 }
                 else if (strReturnInfo == "校准品和项目信息修改成功！")
@@ -58,12 +58,12 @@ namespace BioA.UI
                     {
                         CalibrationSaveOrEnditSuccessEvent("Update." + EditCalibratorName, _NewCalibratorinfo, liscalibratorProjectinfo);
                     }
-                    MessageBox.Show(strReturnInfo);
+                    MessageBoxDraw.ShowMsg(strReturnInfo, MsgType.OK);
                     this.Invoke(new EventHandler(delegate { this.Close(); }));
                 }
                 else
                 {
-                    MessageBox.Show(strReturnInfo);
+                    MessageBoxDraw.ShowMsg(strReturnInfo, MsgType.OK);
                     this.Invoke(new EventHandler(delegate { this.Close(); }));
                 }
             }

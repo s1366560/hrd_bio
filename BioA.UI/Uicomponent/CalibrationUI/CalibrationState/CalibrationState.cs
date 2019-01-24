@@ -11,6 +11,7 @@ using DevExpress.XtraEditors;
 using BioA.Common;
 using BioA.Common.IO;
 using System.Threading;
+using BioA.Service;
 
 namespace BioA.UI
 {
@@ -56,10 +57,12 @@ namespace BioA.UI
                 calibrationCurveInfo.SampleType = this.gridView1.GetRowCellValue(selectedHandle, "样本类型").ToString();
                 calibrationCurve.AddCalibrationCurve(calibrationCurveInfo);
                 calibStateDictionary.Clear();
-                calibStateDictionary.Add("QueryCalibrationCurveInfo", new object[] { XmlUtility.Serializer(typeof(CalibrationCurveInfo), calibrationCurveInfo) });
-                CalibrationStateSend(calibStateDictionary);
+                //calibStateDictionary.Add("QueryCalibrationCurveInfo", new object[] { XmlUtility.Serializer(typeof(CalibrationCurveInfo), calibrationCurveInfo) });
+               // CalibrationStateSend(calibStateDictionary);
                 calibrationCurve.StartPosition = FormStartPosition.CenterScreen;
                 calibrationCurve.ShowDialog();  
+                //Calibrator calibrator = new Calibrator();
+                //calibrationCurve.SelectedlistCalibrationCurve(calibrator.QueryCalibrationCurveInfo("QueryCalibrationCurveInfo", calibrationCurveInfo));
             }
         }
 
@@ -104,13 +107,14 @@ namespace BioA.UI
                 calibrationResultinfo.CalibMethod = this.gridView1.GetRowCellValue(selectedHandle, "检测方法").ToString();
                 calibrationResultinfo.ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "检测项目").ToString();
                 calibrationResultinfo.SampleType = this.gridView1.GetRowCellValue(selectedHandle, "样本类型").ToString();
-                calibStateDictionary.Clear();
-                calibStateDictionary.Add("QueryCalibrationResultInfoAndTimeCUVNO",new object[]{ XmlUtility.Serializer(typeof(CalibrationResultinfo), calibrationResultinfo) });
-                CalibrationStateSend(calibStateDictionary);
-                
+                //calibStateDictionary.Clear();
+                //calibStateDictionary.Add("QueryCalibrationResultInfoAndTimeCUVNO",new object[]{ XmlUtility.Serializer(typeof(CalibrationResultinfo), calibrationResultinfo) });
+                //CalibrationStateSend(calibStateDictionary);
+                reactionProcessCB.calibrationResult = calibrationResultinfo;
+                reactionProcessCB.StartPosition = FormStartPosition.CenterScreen;
+                reactionProcessCB.ShowDialog();
             }
-            reactionProcessCB.StartPosition = FormStartPosition.CenterScreen;
-            reactionProcessCB.ShowDialog();
+
         }
 
         private void CalibrationStateLoad()

@@ -121,11 +121,14 @@ namespace BioA.UI
         private void btnAdd_Click(object sender, EventArgs e)
         {
             calibAddAndEdit.clear();
-            calibAddAndEdit.LisassayProjectInfo = lisassayProjectInfo;
-            calibAddAndEdit.Text = "装载校准品";
-            this.BeginInvoke(new Action(AddOrEditCalibPos));
-            calibAddAndEdit.StartPosition = FormStartPosition.CenterScreen;
-            calibAddAndEdit.ShowDialog();                    
+            if (lisassayProjectInfo != null)
+            {
+                calibAddAndEdit.LisassayProjectInfo = lisassayProjectInfo;
+                calibAddAndEdit.Text = "装载校准品";
+                this.BeginInvoke(new Action(AddOrEditCalibPos));
+                calibAddAndEdit.StartPosition = FormStartPosition.CenterScreen;
+                calibAddAndEdit.ShowDialog();
+            }
         }
         /// <summary>
         /// 添加和编辑获取校准品列表中的所有校准位置

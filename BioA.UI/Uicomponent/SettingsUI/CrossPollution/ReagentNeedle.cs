@@ -446,7 +446,7 @@ namespace BioA.UI
         {
            
             int selectedHandle;
-            if (this.gridView1.GetSelectedRows() == null)
+            if (this.gridView1.GetSelectedRows().Count() <= 0)
             {
                 return;
             }

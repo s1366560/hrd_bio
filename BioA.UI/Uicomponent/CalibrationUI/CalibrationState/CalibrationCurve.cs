@@ -12,6 +12,7 @@ using BioA.Common;
 using DevExpress.XtraCharts;
 using BioA.Common.IO;
 using System.Threading;
+using BioA.Service;
 
 namespace BioA.UI
 {
@@ -42,9 +43,10 @@ namespace BioA.UI
                 }));
             }
         }
-
+        CalibrationCurveInfo calibrationCurve = null;
         public void AddCalibrationCurve(CalibrationCurveInfo calibrationCurveInfo)
-        {           
+        {
+            calibrationCurve = calibrationCurveInfo;
             textEditProjectName.Text = calibrationCurveInfo.ProjectName;
             textEditSampleType.Text = calibrationCurveInfo.SampleType;
             textEditCalibMethod.Text = calibrationCurveInfo.CalibType;
@@ -334,6 +336,12 @@ namespace BioA.UI
                 MessageBox.Show("该项目没有对应的校准曲线！不能保存！");
             }
 
+        }
+
+        private void CalibrationCurve_Load(object sender, EventArgs e)
+        {
+            Calibrator calibrator = new Calibrator();
+            SelectedlistCalibrationCurve(calibrator.QueryCalibrationCurveInfo("QueryCalibrationCurveInfo", calibrationCurve));
         }
 
       
