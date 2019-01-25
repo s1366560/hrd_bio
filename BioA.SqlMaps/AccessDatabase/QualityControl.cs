@@ -2144,7 +2144,7 @@ namespace BioA.SqlMaps
                 ht.Add("ProjectName", dataConfig.ProjectName);
                 ht.Add("SampleType", dataConfig.SampleType);
                 ht.Add("CalibMethod", dataConfig.CalibMethod);
-                ht.Add("DrawDate", dataConfig.DrawDate);
+                ht.Add("DrawDate", dataConfig.DrawDate.ToString("yyyy-MM-dd HH:mm:ss"));
                 ht.Add("IsUsed", dataConfig.IsUsed);
                 int updateResult = ism_SqlMap.Update("Calibrator.SaveSDTTableItem", ht);
                 if (updateResult > 0)

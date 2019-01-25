@@ -91,7 +91,7 @@ namespace BioA.UI
            }
            if (userInfo.DataCheck)
            {
-               str += "数据审核,";
+               str += "任务结果,";
            }
            if (userInfo.CalibDataCheck)
            {

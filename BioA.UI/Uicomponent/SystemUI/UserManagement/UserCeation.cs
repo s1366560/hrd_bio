@@ -515,7 +515,7 @@ namespace BioA.UI
                 {
                     chkApplyTask.Checked = true;
                 }
-                if (RunConfigureUtility.UserAuthorityInitial["数据审核"])
+                if (RunConfigureUtility.UserAuthorityInitial["任务结果"])
                 {
                     chkDataCheck.Checked = true;
                 }

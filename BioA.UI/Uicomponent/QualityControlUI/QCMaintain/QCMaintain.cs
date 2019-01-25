@@ -499,6 +499,12 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void SbutDeleteProject_Click(object sender, EventArgs e)
         {
+            MessageBoxButtons messButton = MessageBoxButtons.OKCancel;
+            DialogResult dr = MessageBox.Show("确定要删除关联的项目吗?", "删除确认", messButton);
+            if (dr != DialogResult.OK)
+            {
+                return;
+            }
             QCRelationProjectInfo qcProjectInfo = new QCRelationProjectInfo();
             if (this.gridView1.GetSelectedRows().Count() > 0)
             {

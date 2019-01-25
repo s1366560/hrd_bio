@@ -416,7 +416,7 @@ namespace BioA.SqlMaps
         }
 
         /// <summary>
-        /// 常规任务：查询所有数据审核是否通过
+        /// 常规任务：查询所有任务结果是否通过
         /// </summary>
         /// <param name="strMethodName"></param>
         /// <param name="sampleInfo"></param>

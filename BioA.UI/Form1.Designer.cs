@@ -822,7 +822,7 @@ namespace BioA.UI
             this.WorkingAreaApplyTaskElement1.Height = 50;
             this.WorkingAreaApplyTaskElement1.Name = "WorkingAreaApplyTaskElement1";
             this.WorkingAreaApplyTaskElement1.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.WorkingAreaApplyTaskElement1.Text = "             申请审核       ";
+            this.WorkingAreaApplyTaskElement1.Text = "             任务申请       ";
             this.WorkingAreaApplyTaskElement1.Click += new System.EventHandler(this.accordionControlElement1_Click);
             // 
             // WorkingAreaDataCheckElement2
@@ -835,7 +835,7 @@ namespace BioA.UI
             this.WorkingAreaDataCheckElement2.Height = 50;
             this.WorkingAreaDataCheckElement2.Name = "WorkingAreaDataCheckElement2";
             this.WorkingAreaDataCheckElement2.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.WorkingAreaDataCheckElement2.Text = "             数据审核       ";
+            this.WorkingAreaDataCheckElement2.Text = "             任务结果       ";
             this.WorkingAreaDataCheckElement2.Click += new System.EventHandler(this.accordionControlElement2_Click);
             // 
             // WorkingAreaMissionInspectionElement3

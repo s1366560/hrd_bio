@@ -142,7 +142,7 @@
             this.chkDataCheck.Name = "chkDataCheck";
             this.chkDataCheck.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkDataCheck.Properties.Appearance.Options.UseFont = true;
-            this.chkDataCheck.Properties.Caption = "数据审核";
+            this.chkDataCheck.Properties.Caption = "任务结果";
             this.chkDataCheck.Size = new System.Drawing.Size(168, 21);
             this.chkDataCheck.TabIndex = 32;
             // 

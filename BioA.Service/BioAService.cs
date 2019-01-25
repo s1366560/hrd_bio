@@ -250,7 +250,7 @@ namespace BioA.Service
             client.NotifyCallBack.DataAllReturnFunction(moduleInfo, strMethodParam);
         }
         /// <summary>
-        /// 工作区（数据审核界面）
+        /// 工作区（任务结果界面）
         /// </summary>
         /// <param name="moduleInfo"></param>
         /// <param name="client"></param>

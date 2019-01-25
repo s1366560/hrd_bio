@@ -156,7 +156,7 @@ namespace BioA.Common
         }
         private bool dataCheck;
         /// <summary>
-        /// 数据审核
+        /// 任务结果
         /// </summary>
         public bool DataCheck
         {

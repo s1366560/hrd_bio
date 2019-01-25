@@ -145,7 +145,7 @@ namespace BioA.UI
                     applyTask = new ApplyTask();                    
                     applyTask.getopid += getOPIDEvent;
                     CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent += applyTask.DataTransfer_Event;
-                    txtPrompt.Text = "您当前的操作：工作区——申请审核";
+                    txtPrompt.Text = "您当前的操作：工作区——任务申请";
                     //initializationLoad = new InitializationLoad();
 
                     BeginInvoke(new Action(() => {
@@ -455,7 +455,7 @@ namespace BioA.UI
                 else if (this.txtPrompt.Text == "您当前的操作：校准——校准任务")
                     BeginInvoke(new Action(calibControlTask.QueryTasksStatus));
 
-                else if (this.txtPrompt.Text == "您当前的操作：工作区——申请审核")
+                else if (this.txtPrompt.Text == "您当前的操作：工作区——任务申请")
                     BeginInvoke(new Action(applyTask.QueryTasksStatus));
             }
             catch(Exception ex)
@@ -702,7 +702,7 @@ namespace BioA.UI
                     applyTask = new ApplyTask();
                     applyTask.getopid += getOPIDEvent;
                     CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent += applyTask.DataTransfer_Event;
-                    txtPrompt.Text = "您当前的操作：工作区——申请审核";
+                    txtPrompt.Text = "您当前的操作：工作区——任务申请";
                     pcThirdArea.Controls.Add(txtPrompt);
                     pcThirdArea.Controls.Add(applyTask);
                 }
@@ -721,7 +721,7 @@ namespace BioA.UI
 
                 dadtCheck = new DataCheck();
                 CommunicationUI.notifyCallBack.CommonSampleDataEvent += dadtCheck.DataTransfer_Event;
-                txtPrompt.Text = "您当前的操作：工作区——数据审核";
+                txtPrompt.Text = "您当前的操作：工作区——任务结果";
                 pcThirdArea.Controls.Add(txtPrompt);
                 pcThirdArea.Controls.Add(dadtCheck);
             }
@@ -738,7 +738,7 @@ namespace BioA.UI
                 applyTask = new ApplyTask();
                 applyTask.getopid += getOPIDEvent;
                 CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent += applyTask.DataTransfer_Event;
-                txtPrompt.Text = "您当前的操作：工作区——申请审核";
+                txtPrompt.Text = "您当前的操作：工作区——任务申请";
                 pcThirdArea.Controls.Add(txtPrompt);
                 pcThirdArea.Controls.Add(applyTask);
 

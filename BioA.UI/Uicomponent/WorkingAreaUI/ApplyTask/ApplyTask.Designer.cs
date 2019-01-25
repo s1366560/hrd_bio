@@ -346,7 +346,7 @@
             this.labelControl2.Name = "labelControl2";
             this.labelControl2.Size = new System.Drawing.Size(64, 19);
             this.labelControl2.TabIndex = 0;
-            this.labelControl2.Text = "申请审核";
+            this.labelControl2.Text = "任务申请";
             // 
             // txtSampleNum
             // 

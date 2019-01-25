@@ -14,7 +14,7 @@
       <result property="LotNum" column="LotNum" />
       <result property="Pos" column="Pos" />
       <result property="InvalidDate" column="InvalidDate" />
-      <result property="Manufacturer" column="Manufacturer" />     
+      <result property="Manufacturer" column="Manufacturer" />
     </resultMap>
     <resultMap id="CalibratorProjectinfoResult" class="CalibratorProjectinfo">
       <result property="CalibName" column="CalibName" />
@@ -42,7 +42,7 @@
       <result property="CalibConcentration" column="CalibConcentration" />
       <result property="CUVNO" column="CUVNO" />
     </resultMap>
-    
+
     <resultMap id="SDTTableItemResult" class="SDTTableItem">
       <result property="ProjectName" column="ProjectName" />
       <result property="SampleType" column="SampleType" />
@@ -73,8 +73,8 @@
       <result property="CalibDate" column="CalibDate" />
       <result property="DrawDate" column="DrawDate" />
       <result property="CalibState" column="CalibState"/>
-    </resultMap>        
-    
+    </resultMap>
+
     <resultMap id="CalibrationCurveInfoResult" class="CalibrationCurveInfo">
       <result property="CalibName" column="CalibName" />
       <result property="CalibConcentration" column="CalibConcentration" />
@@ -86,19 +86,19 @@
       <result property="CalibType" column="CalibType" />
       <result property="Factor" column="Factor" />
     </resultMap>
-    
+
     <resultMap id="CalibratorinfoTaskResult" class="CalibratorinfoTask">
       <result property="SampleNum" column="SampleNum" />
       <result property="CalibName" column="CalibName" />
       <result property="CreateDate" column="CreateDate" />
       <result property="Pos" column="Pos" />
-      <result property="ProjectName" column="ProjectName" /> 
+      <result property="ProjectName" column="ProjectName" />
       <result property="SampleType" column="SampleType" />
       <result property="InspectTimes" column="InspectTimes" />
       <result property="SendTimes" column="SendTimes" />
       <result property="FinishTimes" column="FinishTimes" />
-      <result property="TaskState" column="TaskState" />            
-    </resultMap>    
+      <result property="TaskState" column="TaskState" />
+    </resultMap>
   </resultMaps>
   <parameterMaps>
     <parameterMap id="CalibratorProjectRI" class="Hashtable">
@@ -109,13 +109,13 @@
       <parameter property="n" column="n" direction="Output"/>
     </parameterMap>
   </parameterMaps>
-  
+
   <statements>
     <!-- 删除校准品信息和校准对应的项目信息 -->
     <procedure id="DeleteCalibratorProjectRI" parameterMap="CalibratorProjectRI">
       DeleteCalibratorProjectRI
     </procedure>
-    
+
     <statement id="QueryCalibrationMaintain" ResultClass="Calibratorinfo" >
       select * from CalibratorTb
     </statement>
@@ -222,7 +222,7 @@
     <statement id="UpdateCalibProjectInfo" parameterClass="System.Collections.IDictionary">
       update calibratorprojecttb set CalibConcentration=#CalibConcentration# where ProjectName=#ProjectName# and CalibName=#CalibName#
     </statement>
-    
+
     <!-- 修改校准品项目信息表中的校准品名 -->
     <statement id="UpdateCalibNameAll" parameterClass="System.Collections.IDictionary" resultClass="int">
       update calibratorprojecttb set CalibName=#NewCalibName# where CalibName=#CalibName#
@@ -241,15 +241,15 @@
       select count(*) from CalibratorinfoTaskTb where ProjectName=#ProjectName# and SampleType=#SampleType# and TaskState!=2
     </statement>
     <statement id="QueryCalibrationResultInfoAndTimeCUVNO" ResultClass="CalibrationResultinfo" parameterClass="System.Collections.IDictionary" >
-      select calib.* from calibrationresulttb calib left join sdttableitemtb sdt on calib.ProjectName = sdt.ProjectName and calib.SampleType=sdt.SampleType and calib.CalibMethod=sdt.CalibMethod 
-        and calib.CalibrationDT=sdt.DrawDate
-          where sdt.ProjectName=#ProjectName# and sdt.SampleType=#SampleType# and sdt.CalibMethod=#CalibMethod# and sdt.CalibState='SUCCESSFUL' and sdt.IsUsed = 1
+      select calib.* from calibrationresulttb calib left join sdttableitemtb sdt on calib.ProjectName = sdt.ProjectName and calib.SampleType=sdt.SampleType and calib.CalibMethod=sdt.CalibMethod
+      and calib.CalibrationDT=sdt.DrawDate
+      where sdt.ProjectName=#ProjectName# and sdt.SampleType=#SampleType# and sdt.CalibMethod=#CalibMethod# and sdt.CalibState='SUCCESSFUL' and sdt.IsUsed = 1
     </statement>
     <statement id="QueryKMethodCalibResultInfoOrTimeCUVNO" ResultClass="CalibrationResultinfo" parameterClass="System.Collections.IDictionary" >
       select calib.* from calibrationresulttb calib
       where calib.ProjectName=#ProjectName# and calib.SampleType=#SampleType# and calib.CalibMethod=#CalibMethod# and calib.CalibrationState='2';
     </statement>
-    
+
     <statement id="AddCalibratorinfoTask" parameterClass="System.Collections.IDictionary">
       insert into CalibratorinfoTaskTb(SampleNum,CalibName,ProjectName,Pos,SampleType,InspectTimes,CreateDate,SendTimes,FinishTimes,TaskState)
       values (#SampleNum#,#CalibName#,#ProjectName#,#Pos#,#SampleType#,#InspectTimes#,#CreateDate#,0,0,0)
@@ -273,9 +273,9 @@
       values(#ProjectName#,#CalibMethod#,#SampleType#,#BlkConc#,#BlkItem#,#AbsoluteFactor#,#CalibDate#,#CalibState#)-->
     </statement>
 
-      <statement id="SelectCalibrationCurveInfo" ResultClass="CalibrationCurveInfo" parameterClass="System.Collections.IDictionary">
-        select * from CalibrationCurveTb where ProjectName=#ProjectName#
-      </statement>
+    <statement id="SelectCalibrationCurveInfo" ResultClass="CalibrationCurveInfo" parameterClass="System.Collections.IDictionary">
+      select * from CalibrationCurveTb where ProjectName=#ProjectName#
+    </statement>
 
     <statement id="SelectCalibrationParamInfo" ResultClass="AssayProjectCalibrationParamInfo" parameterClass="System.Collections.IDictionary">
       select * from CalibrationParamInfoTb where ProjectName=#ProjectName# and SampleType=#SampleType#
@@ -289,17 +289,17 @@
     </statement>
     <!-- 保存最新的校准曲线状态 -->
     <statement id="SaveSDTTableItem" parameterClass="System.Collections.IDictionary" ResultClass="int">
-      update sdttableitemtb set IsUsed = #IsUsed#  where ProjectName=#ProjectName# and SampleType=#SampleType# and CalibMethod=#CalibMethod# and DrawDate=#DrawDate#
+      update sdttableitemtb set IsUsed = #IsUsed#  where ProjectName=#ProjectName# and SampleType=#SampleType# and CalibMethod=#CalibMethod# and CONVERT(varchar(19),DrawDate,120) =#DrawDate#
     </statement>
     <!-- 修改之前被使用的校准曲线状态 -->
     <statement id="BeforeUpdateSDTTableItemIsUsedState" parameterClass="System.Collections.IDictionary">
-      update sdttableitemtb set IsUsed = false  where ProjectName=#ProjectName# and SampleType=#SampleType# and CalibMethod=#CalibMethod# and DrawDate!=#DrawDate#
+      update sdttableitemtb set IsUsed = 'false'  where ProjectName=#ProjectName# and SampleType=#SampleType# and CalibMethod=#CalibMethod# and DrawDate!=#DrawDate#
     </statement>
     <!--<statement id="AddSDTTableItem" parameterClass="System.Collections.IDictionary">      
     insert into sdttableitemtb(CalibMethod,ProjectName,BlkAbs,BlkConc,SDT1Abs,SDT1Conc,SDT2Abs,SDT2Conc,SDT3Abs,SDT3Conc,SDT4Abs,SDT4Conc,SDT5Abs,SDT5Conc,SDT6Abs,SDT6Conc,SampleType)
       values (#CalibMethod#,#ProjectName#,#BlkAbs#,#BlkConc#,#SDT1Abs#,#SDT1Conc#,#SDT2Abs#,#SDT2Conc#,#SDT3Abs#,#SDT3Conc#,#SDT4Abs#,#SDT4Conc#,#SDT5Abs#,#SDT5Conc#,#SDT6Abs#,#SDT6Conc#,#SampleType#)
     </statement>-->
- 
+
 
     <statement id="QueryCalibrationCurve" ResultClass="CalibrationCurveInfo" parameterClass="System.Collections.IDictionary" >
       select * from CalibrationCurveTb where  ProjectName=#ProjectName#
