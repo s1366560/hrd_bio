@@ -42,6 +42,16 @@ namespace BioA.UI
 
         //实例化数据库对象
         private SettingsChemicalParameter settingParameter = new SettingsChemicalParameter();
+        ///获取所有生化项目范围参数信息
+        List<AssayProjectRangeParamInfo> lstRangeParamInfo = new List<AssayProjectRangeParamInfo>();
+        /// <summary>
+        /// 生化项目范围参数数据表格
+        /// </summary>
+        DataTable dtRange = new DataTable();
+        /// <summary>
+        /// 
+        /// </summary>
+        
 
         private string strReceiveInfo = "";
         /// <summary>
@@ -95,6 +105,8 @@ namespace BioA.UI
             gridView2.Appearance.HeaderPanel.Font = font;
             gridView2.Appearance.Row.Font = font;
             this.Dock = DockStyle.Fill;
+            this.CBSuperiorLimit.Enabled = false;
+            this.CBLowerLimit.Enabled = false;
 
             cheProjectAddOrEdit.DataHandleEvent += cheProjectAddOrEdit_DataHandleEvent;
             //cheProjectAddOrEdit.StartPosition = FormStartPosition.CenterScreen;
@@ -133,83 +145,42 @@ namespace BioA.UI
         private void InitialControl()
         {
             // 分析方法
-            //foreach (string analizeMethod in RunConfigureUtility.AnalizeMethodList)
-            //{
-                cboAnalizeMethod.Properties.Items.AddRange(RunConfigureUtility.AnalizeMethodList);
-            //}
+            cboAnalizeMethod.Properties.Items.AddRange(RunConfigureUtility.AnalizeMethodList);
             //测光点范围
-            //foreach (string reactionPoints in RunConfigureUtility.ReactionPoints)
-            //{
-            //List<string> lstReactionPoints = RunConfigureUtility.ReactionPoints;
-            //lstReactionPoints.Insert(0, "0");
-                txtCheckLightDot1.Properties.Items.Add("0");
-                txtCheckLightDot1.Properties.Items.AddRange(RunConfigureUtility.ReactionPoints);
-                txtCheckLightDot2.Properties.Items.Add("0");
-                txtCheckLightDot2.Properties.Items.AddRange(RunConfigureUtility.ReactionPoints);
-                txtCheckLightDot3.Properties.Items.AddRange(RunConfigureUtility.ReactionPoints);
-                txtCheckLightDot4.Properties.Items.AddRange(RunConfigureUtility.ReactionPoints);
-            //}
-
-            //cboAnalizeMethod.SelectedIndex = 0;
+            txtCheckLightDot1.Properties.Items.Add("0");
+            txtCheckLightDot1.Properties.Items.AddRange(RunConfigureUtility.ReactionPoints);
+            txtCheckLightDot2.Properties.Items.Add("0");
+            txtCheckLightDot2.Properties.Items.AddRange(RunConfigureUtility.ReactionPoints);
+            txtCheckLightDot3.Properties.Items.AddRange(RunConfigureUtility.ReactionPoints);
+            txtCheckLightDot4.Properties.Items.AddRange(RunConfigureUtility.ReactionPoints);
             // 小数位数
-            //foreach (string resultDecimal in RunConfigureUtility.ResultDecimalList)
-            //{
             cboDecimal.Properties.Items.AddRange(RunConfigureUtility.ResultDecimalList);
-            //}
-            //cboDecimal.SelectedIndex = 0;
             // 波长
             cboSecWaveLength.Properties.Items.Add("请选择");
-            //foreach (string wave in RunConfigureUtility.WaveLengthList)
-            //{
-                cboWaveLength.Properties.Items.AddRange(RunConfigureUtility.WaveLengthList);
-                cboSecWaveLength.Properties.Items.AddRange(RunConfigureUtility.WaveLengthList);
-            //}
-            //cboWaveLength.SelectedIndex = 0;
-
-            //cboSecWaveLength.SelectedIndex = 0;
-            // 范围方向
-            //foreach (string boundDirection in RunConfigureUtility.BoundDirectionList)
-            //{
-                cboBoundDirection.Properties.Items.AddRange(RunConfigureUtility.BoundDirectionList);
-            //}
-            cboBoundDirection.SelectedIndex = 0;
+            cboWaveLength.Properties.Items.AddRange(RunConfigureUtility.WaveLengthList);
+            cboSecWaveLength.Properties.Items.AddRange(RunConfigureUtility.WaveLengthList);
             // 反应方向
-            //foreach (string reactionDirection in RunConfigureUtility.ReactionDirectionList)
-            //{
-                cboReactionDirection.Properties.Items.AddRange(RunConfigureUtility.ReactionDirectionList);
-            //}
+            cboReactionDirection.Properties.Items.AddRange(RunConfigureUtility.ReactionDirectionList);
             cboReactionDirection.SelectedIndex = 0;
             // 搅拌1强度
-            //foreach (string stirStrength in RunConfigureUtility.StirStrengthList)
-            //{
-                cboStirring1Intensity.Properties.Items.AddRange(RunConfigureUtility.StirStrengthList);
-            //}
+            cboStirring1Intensity.Properties.Items.AddRange(RunConfigureUtility.StirStrengthList);
             cboStirring1Intensity.SelectedIndex = 1;
             // 搅拌2强度
-            //foreach (string stirStrength in RunConfigureUtility.StirStrengthList)
-            //{
-                cboStirring2Intensity.Properties.Items.AddRange(RunConfigureUtility.StirStrengthList);
-            //}
+            cboStirring2Intensity.Properties.Items.AddRange(RunConfigureUtility.StirStrengthList);
             cboStirring2Intensity.SelectedIndex = 1;
-            // 获取结果单位
-            //proParamDic.Add("QueryProjectResultUnits", null);
-            ////获取所有生化项目对应的参数信息
-            //proParamDic.Add("QueryAssayProjectParamInfoAll", null);
-            ////获取所有生化项目
-            //proParamDic.Add("QueryAssayProAllInfo", new object[] { ""});
             //获取所有生化项目
             List<AssayProjectInfo> lstProjectInfos = settingParameter.QueryAssayProAllInfo("QueryAssayProAllInfo", null);
             this.LstAssayProInfos = lstProjectInfos;
             // 获取结果单位
             LstUnits = settingParameter.QueryProjectResultUnits("QueryProjectResultUnits");
+            //获取生化项目范围参数
+            lstRangeParamInfo = settingParameter.QueryRangeParam("QueryRangeParam");
             //获取所有生化项目对应的参数信息
             LstAssayProParamInfoAll = settingParameter.QueryAssayProjectParamInfoAll("QueryAssayProjectParamInfoAll", QueryResultSetTb.QueryResultSetInfo);
-
-            //if (AssayProInfoEvent != null)
-            //    AssayProInfoEvent(proParamDic);
-            
-            //if (AssayProInfoEvent != null)
-            //    AssayProInfoEvent(new CommunicationEntity("QueryAssayProAllInfo", null));
+            dtRange.Columns.Add("样本类型");
+            dtRange.Columns.Add("年龄范围");
+            dtRange.Columns.Add("男（浓度范围）");
+            dtRange.Columns.Add("女（浓度范围）");
         }
 
         private List<string> _lstUnits = new List<string>();
@@ -297,6 +268,8 @@ namespace BioA.UI
             get { return lstAssayProParamInfoAll; }
             set { lstAssayProParamInfoAll = value; lstvProject_Click(null, null); }
         }
+        //显示项目范围参数信息
+       List<AssayProjectRangeParamInfo> showLstRangeParam = null;
 
         private AssayProjectParamInfo proParamInfo = new AssayProjectParamInfo();
         /// <summary>
@@ -400,25 +373,10 @@ namespace BioA.UI
                         txtRea2ValidDate.Text = proParamInfo.Reagent2ValidDate.ToShortDateString();
                     }
 
-                    txtFirstSlope.Text = proParamInfo.FirstSlope == 100000000 ? "" : proParamInfo.FirstSlope.ToString();
-                    txtSecondSlope.Text = proParamInfo.SecondSlope == 100000000 ? "" : proParamInfo.SecondSlope.ToString();
-                    txtFirstSlopeHigh.Text = proParamInfo.FirstSlopeHigh == 100000000 ? "" : proParamInfo.FirstSlopeHigh.ToString();
-                    txtSecondSlopeHigh.Text = proParamInfo.SecondSlopeHigh == 100000000 ? "" : proParamInfo.SecondSlopeHigh.ToString();
-                    txtProLowestBound.Text = proParamInfo.ProLowestBound == 100000000 ? "" : proParamInfo.ProLowestBound.ToString();
-                    txtProHighestBound.Text = proParamInfo.ProHighestBound == 100000000 ? "" : proParamInfo.ProHighestBound.ToString();
-                    txtPmp1.Text = proParamInfo.Pmp1 == 100000000 ? "" : proParamInfo.Pmp1.ToString();
-                    txtPmp2.Text = proParamInfo.Pmp2 == 100000000 ? "" : proParamInfo.Pmp2.ToString();
-                    txtPmp3.Text = proParamInfo.Pmp3 == 100000000 ? "" : proParamInfo.Pmp3.ToString();
-                    txtPmp4.Text = proParamInfo.Pmp4 == 100000000 ? "" : proParamInfo.Pmp4.ToString();
-                    if (proParamInfo.BoundDirection != string.Empty)
-                        cboBoundDirection.SelectedIndex = cboBoundDirection.Properties.Items.IndexOf(proParamInfo.BoundDirection);
-                    else
-                    {
-                        cboBoundDirection.SelectedIndex = 0;
-                    }
-                    txtLimit1.Text = proParamInfo.Limit1 == 100000000 ? "" : proParamInfo.Limit1.ToString();
-                    txtLimit2.Text = proParamInfo.Limit2 == 100000000 ? "" : proParamInfo.Limit2.ToString();
-                    txtAbsLimitValue.Text = proParamInfo.AbsLimitValue == 100000000 ? "" : proParamInfo.AbsLimitValue.ToString();
+                    txtFirstSlope.Text = proParamInfo.FirstSlope == 100000000 ? "0" : proParamInfo.FirstSlope.ToString();
+                    txtFirstSlopeHigh.Text = proParamInfo.FirstSlopeHigh == 100000000 ? "0" : proParamInfo.FirstSlopeHigh.ToString();
+                    txtProLowestBound.Text = proParamInfo.ProLowestBound == 100000000 ? "0" : proParamInfo.ProLowestBound.ToString();
+                    txtAbsLimitValue.Text = proParamInfo.LimitValue == 100000000 ? "0" : proParamInfo.LimitValue.ToString();
                     if (proParamInfo.ReactionDirection != string.Empty)
                         cboReactionDirection.SelectedIndex = cboReactionDirection.Properties.Items.IndexOf(proParamInfo.ReactionDirection);
                     else
@@ -437,14 +395,54 @@ namespace BioA.UI
                     {
                         cboStirring2Intensity.SelectedIndex = 0;
                     }
+                    if (this.showLstRangeParam.Count <= 0)
+                    {
 
+                    }
+                    else
+                    {
+                        LoandProjectRangeParam(this.showLstRangeParam);
+                    }
 
-
-                    txtReagent1VolSettings.Text = proParamInfo.Reagent1VolSettings == 100000000 ? "" : proParamInfo.Reagent1VolSettings.ToString();
-                    txtReagent2VolSettings.Text = proParamInfo.Reagent2VolSettings == 100000000 ? "" : proParamInfo.Reagent2VolSettings.ToString();
+                    txtReagent1VolSettings.Text = proParamInfo.Reagent1VolSettings == 100000000 ? "0" : proParamInfo.Reagent1VolSettings.ToString();
+                    txtReagent2VolSettings.Text = proParamInfo.Reagent2VolSettings == 100000000 ? "0" : proParamInfo.Reagent2VolSettings.ToString();
+                    txtSerumMinValue.Text = proParamInfo.SerumCriticalMinimum == 100000000 ? "0" : proParamInfo.SerumCriticalMinimum.ToString();
+                    txtSerumMaxValue.Text = proParamInfo.SerumCriticalMaximum == 100000000 ? "0" : proParamInfo.SerumCriticalMaximum.ToString();
+                    txtReagentMinValue.Text = proParamInfo.ReagentBlankMinimum == 100000000 ? "0" : proParamInfo.ReagentBlankMinimum.ToString();
+                    txtReagentMaxValue.Text = proParamInfo.ReagentBlankMaximum == 100000000 ? "0" : proParamInfo.ReagentBlankMaximum.ToString();
                 }));
             }
         }
+        /// <summary>
+        /// 显示生化项目范围参数
+        /// </summary>
+        private void LoandProjectRangeParam(List<AssayProjectRangeParamInfo> lstrangeParam)
+        {
+            dtRange.Rows.Clear();
+            foreach (AssayProjectRangeParamInfo r in lstrangeParam)
+            {
+                if (r.AgeLow1 != -100000000 && r.AgeHigh1 != 100000000)
+                {
+                    dtRange.Rows.Add(r.SampleType, string.Format(r.AgeLow1 + " - " + r.AgeHigh1), string.Format(r.ManConsLow1.ToString() + " - " +  r.ManConsHigh1.ToString()), string.Format(r.WomanConsLow1.ToString() + " - " + r.WomanConsHigh1.ToString()));
+                }
+                if (r.AgeLow2 != -100000000 && r.AgeHigh2 != 100000000)
+                {
+                    dtRange.Rows.Add(r.SampleType, string.Format(r.AgeLow2 + " - " + r.AgeHigh2), string.Format(r.ManConsLow2.ToString() + " - " + r.ManConsHigh2.ToString()), string.Format(r.WomanConsLow2.ToString() + " - " + r.WomanConsHigh2.ToString()));
+                } 
+                if (r.AgeLow3 != -100000000 && r.AgeHigh3 != 100000000)
+                {
+                    dtRange.Rows.Add(r.SampleType, string.Format(r.AgeLow3 + " - " + r.AgeHigh3), string.Format(r.ManConsLow3.ToString() + " - " + r.ManConsHigh3.ToString()), string.Format(r.WomanConsLow3.ToString() + " - " + r.WomanConsHigh3.ToString()));
+                }
+                if (r.AgeLow4 != -100000000 && r.AgeHigh4 != 100000000)
+                {
+                    dtRange.Rows.Add(r.SampleType, string.Format(r.AgeLow4 + " - " + r.AgeHigh4), string.Format(r.ManConsLow4.ToString() + " - " + r.ManConsHigh4.ToString()), string.Format(r.WomanConsLow4.ToString() + " - " + r.WomanConsHigh4.ToString()));
+                }
+                
+            }
+            this.grpRangeParam.DataSource = dtRange;
+        }
+
+
         //生化项目信息
         private AssayProjectInfo _AssayProjectInfo = new AssayProjectInfo();
 
@@ -462,8 +460,6 @@ namespace BioA.UI
                 if (_AssayProjectParamInfo != null)
                 {
                     this.lstAssayProParamInfoAll.Add(_AssayProjectParamInfo);
-                    //this.lstAssayProInfos.Add(_AssayProjectInfo);
-                    //this.LstAssayProInfos = lstAssayProInfos;
                     List<AssayProjectInfo> lstProjectInfos = new SettingsChemicalParameter().QueryAssayProAllInfo("QueryAssayProAllInfo", null);
                     this.LstAssayProInfos = lstProjectInfos;
                     MessageBox.Show("项目保存成功！");
@@ -576,6 +572,11 @@ namespace BioA.UI
                 {
                     if (assayProParam.ProjectName == assayProInfo.ProjectName && assayProParam.SampleType == assayProInfo.SampleType)
                     {
+                        List<AssayProjectRangeParamInfo> range = lstRangeParamInfo.FindAll(r => r.ProjectName == assayProInfo.ProjectName);
+                        if (range != null)
+                            this.showLstRangeParam = range;
+                        else
+                            this.showLstRangeParam = null;
                         this.AssProParamInfoList = assayProParam;
                     }
                 }
@@ -597,7 +598,7 @@ namespace BioA.UI
             selectedHandle = this.gridView2.GetSelectedRows()[0];
             saveProParamInfo.ProjectName = this.gridView2.GetRowCellValue(selectedHandle, "项目名称").ToString();
             saveProParamInfo.SampleType = this.gridView2.GetRowCellValue(selectedHandle, "类型").ToString();
-
+            
             if (cboAnalizeMethod.SelectedIndex < 0)
             {
                 MessageBoxDraw.ShowMsg("请选择分析方法！", MsgType.Warning);
@@ -942,30 +943,25 @@ namespace BioA.UI
                 MessageBox.Show("样本体积设定数据输入格式有误，请重新输入！");
                 return;
             }
-            saveProParamInfo.ComStosteVol = (float)System.Convert.ToDouble(txtComStosteVol.Text);
-            saveProParamInfo.ComSamVol = (float)System.Convert.ToDouble(txtComSamVol.Text);
-            saveProParamInfo.ComDilutionVol = (float)System.Convert.ToDouble(txtComDilutionVol.Text);
-            saveProParamInfo.DecStosteVol = (float)System.Convert.ToDouble(txtDecStosteVol.Text);
-            saveProParamInfo.DecSamVol = (float)System.Convert.ToDouble(txtDecSamVol.Text);
-            saveProParamInfo.DecDilutionVol = (float)System.Convert.ToDouble(txtDecDilutionVol.Text);
-            saveProParamInfo.IncStosteVol = (float)System.Convert.ToDouble(txtIncStosteVol.Text);
-            saveProParamInfo.IncSamVol = (float)System.Convert.ToDouble(txtIncSamVol.Text);
-            saveProParamInfo.IncDilutionVol = (float)System.Convert.ToDouble(txtIncDilutionVol.Text);
+            saveProParamInfo.ComStosteVol = float.Parse(txtComStosteVol.Text);
+            saveProParamInfo.ComSamVol = float.Parse(txtComSamVol.Text);
+            saveProParamInfo.ComDilutionVol = float.Parse(txtComDilutionVol.Text);
+            saveProParamInfo.DecStosteVol = float.Parse(txtDecStosteVol.Text);
+            saveProParamInfo.DecSamVol = float.Parse(txtDecSamVol.Text);
+            saveProParamInfo.DecDilutionVol = float.Parse(txtDecDilutionVol.Text);
+            saveProParamInfo.IncStosteVol = float.Parse(txtIncStosteVol.Text);
+            saveProParamInfo.IncSamVol = float.Parse(txtIncSamVol.Text);
+            saveProParamInfo.IncDilutionVol = float.Parse(txtIncDilutionVol.Text);
 
-            if (txtFirstSlope.Text.Trim() != "" && txtSecondSlope.Text.Trim() != "" &&
-                txtFirstSlopeHigh.Text.Trim() != "" && txtSecondSlopeHigh.Text.Trim() != "")
+            if (txtFirstSlope.Text.Trim() != "" && txtFirstSlopeHigh.Text.Trim() != "" )
             {
                 if (
                     Regex.IsMatch(txtFirstSlope.Text.Trim(), @"^(-?\d+)(\.\d+)?$") &&
-                    Regex.IsMatch(txtSecondSlope.Text.Trim(), @"^(-?\d+)(\.\d+)?$") &&
-                    Regex.IsMatch(txtFirstSlopeHigh.Text.Trim(), @"^(-?\d+)(\.\d+)?$") &&
-                    Regex.IsMatch(txtSecondSlopeHigh.Text.Trim(), @"^(-?\d+)(\.\d+)?$")
+                    Regex.IsMatch(txtFirstSlopeHigh.Text.Trim(), @"^(-?\d+)(\.\d+)?$")
                     )
                 {
-                    saveProParamInfo.FirstSlope = (float)System.Convert.ToDouble(txtFirstSlope.Text);
-                    saveProParamInfo.SecondSlope = (float)System.Convert.ToDouble(txtSecondSlope.Text);
-                    saveProParamInfo.FirstSlopeHigh = (float)System.Convert.ToDouble(txtFirstSlopeHigh.Text);
-                    saveProParamInfo.SecondSlopeHigh = (float)System.Convert.ToDouble(txtSecondSlopeHigh.Text);
+                    saveProParamInfo.FirstSlope = float.Parse(txtFirstSlope.Text);
+                    saveProParamInfo.FirstSlopeHigh = float.Parse(txtFirstSlopeHigh.Text);
                 }
                 else
                 {
@@ -974,30 +970,11 @@ namespace BioA.UI
                 }
             }
 
-            if (txtProLowestBound.Text.Trim() != "" && txtProHighestBound.Text.Trim() != "" &&
-                txtPmp1.Text.Trim() != "" && txtPmp2.Text.Trim() != "" && txtPmp3.Text.Trim() != "" && txtPmp4.Text.Trim() != "" &&
-                txtLimit1.Text.Trim() != "" && txtLimit2.Text.Trim() != "")
+            if (txtProLowestBound.Text.Trim() != "")
             {
-                if (
-                    Regex.IsMatch(txtProLowestBound.Text.Trim(), @"^(-?\d+)(\.\d+)?$") &&
-                    Regex.IsMatch(txtProHighestBound.Text.Trim(), @"^(-?\d+)(\.\d+)?$") &&
-                    Regex.IsMatch(txtPmp1.Text.Trim(), @"^([0-9]{1,})$") &&
-                    Regex.IsMatch(txtPmp2.Text.Trim(), @"^([0-9]{1,})$") &&
-                    Regex.IsMatch(txtPmp3.Text.Trim(), @"^([0-9]{1,})$") &&
-                    Regex.IsMatch(txtPmp4.Text.Trim(), @"^([0-9]{1,})$") &&
-                    Regex.IsMatch(txtLimit1.Text.Trim(), @"^(-?\d+)(\.\d+)?$") &&
-                    Regex.IsMatch(txtLimit2.Text.Trim(), @"^(-?\d+)(\.\d+)?$")
-                    )
+                if (Regex.IsMatch(txtProLowestBound.Text.Trim(), @"^(-?\d+)(\.\d+)?$"))
                 {
-                    saveProParamInfo.ProLowestBound = (float)System.Convert.ToDouble(txtProLowestBound.Text);
-                    saveProParamInfo.ProHighestBound = (float)System.Convert.ToDouble(txtProHighestBound.Text);
-                    saveProParamInfo.Pmp1 = System.Convert.ToInt32(txtPmp1.Text);
-                    saveProParamInfo.Pmp2 = System.Convert.ToInt32(txtPmp2.Text);
-                    saveProParamInfo.Pmp3 = System.Convert.ToInt32(txtPmp3.Text);
-                    saveProParamInfo.Pmp4 = System.Convert.ToInt32(txtPmp4.Text);
-                    saveProParamInfo.BoundDirection = cboBoundDirection.SelectedIndex >= 0 ? cboBoundDirection.SelectedItem.ToString() : "";
-                    saveProParamInfo.Limit1 = (float)System.Convert.ToDouble(txtLimit1.Text);
-                    saveProParamInfo.Limit2 = (float)System.Convert.ToDouble(txtLimit2.Text);
+                    saveProParamInfo.ProLowestBound = float.Parse(txtProLowestBound.Text);
                 }
                 else
                 {
@@ -1011,7 +988,7 @@ namespace BioA.UI
             {
                 if (Regex.IsMatch(txtAbsLimitValue.Text.Trim(), @"^(-?\d+)(\.\d+)?$"))
                 {
-                    saveProParamInfo.AbsLimitValue = (float)System.Convert.ToDouble(txtAbsLimitValue.Text);
+                    saveProParamInfo.LimitValue = float.Parse(txtAbsLimitValue.Text);
                 }
                 else
                 {
@@ -1036,17 +1013,120 @@ namespace BioA.UI
                 return;
             }
 
-
-            if (AssayProInfoEvent != null)
+            if (txtSerumMinValue.Text.Trim() != "" && txtSerumMaxValue.Text.Trim() != "" || Regex.IsMatch(txtSerumMinValue.Text.Trim(), @"^\d+(\.\d+)?$") && Regex.IsMatch(txtSerumMaxValue.Text.Trim(), @"^\d+(\.\d+)?$"))
             {
-                //communicationEntity.StrmethodName = "UpdateAssayProjectParamInfo";
-                //communicationEntity.ObjParam = XmlUtility.Serializer(typeof(AssayProjectParamInfo), saveProParamInfo);
-                proParamDic.Clear();
-                proParamDic.Add("UpdateAssayProjectParamInfo", new object[] { XmlUtility.Serializer(typeof(AssayProjectParamInfo), saveProParamInfo) });
-                AssayProInfoEvent(proParamDic);
+                saveProParamInfo.SerumCriticalMinimum = float.Parse(txtSerumMinValue.Text);
+                saveProParamInfo.SerumCriticalMaximum = float.Parse(txtSerumMaxValue.Text);
             }
-                
+            else
+            {
+                MessageBoxDraw.ShowMsg("血清临界值格式有误,请重新输入", MsgType.OK);
+                return;
+            }
+            if (txtReagentMinValue.Text.Trim() != "" && txtReagentMaxValue.Text.Trim() != "" || Regex.IsMatch(txtReagentMinValue.Text.Trim(), @"^\d+(\.\d+)?$") && Regex.IsMatch(txtReagentMaxValue.Text.Trim(), @"^\d+(\.\d+)?$"))
+            {
+                saveProParamInfo.ReagentBlankMinimum = float.Parse(txtReagentMinValue.Text);
+                saveProParamInfo.ReagentBlankMaximum = float.Parse(txtReagentMaxValue.Text);
+            }
+            else
+            {
+                MessageBoxDraw.ShowMsg("试剂空白值格式有误,请重新输入", MsgType.OK);
+                return;
+            }
+
+            AssayProjectRangeParamInfo rangParamInfo = this.btnSaveRangeParameterInfo();
+            if (rangParamInfo == null)
+            {
+                return;
+            }
+            int result = new SettingsChemicalParameter().UpdateAssayProjectParamInfo("UpdateAssayProjectParamInfo", saveProParamInfo);
+            new SettingsChemicalParameter().UpdateRangeParamByProNameAndType("UpdateRangeParamByProNameAndType", rangParamInfo);
+            if (result > 0)
+            {
+                MessageBoxDraw.ShowMsg("保存成功！",MsgType.OK);
+                AssayProjectParamInfo assay = lstAssayProParamInfoAll.SingleOrDefault(s => s.ProjectName == saveProParamInfo.ProjectName);
+                saveProParamInfo.Reagent1Name = assay.Reagent1Name;
+                saveProParamInfo.Reagent1Pos = assay.Reagent1Pos;
+                saveProParamInfo.Reagent1Vol = assay.Reagent1Vol;
+                saveProParamInfo.Reagent1ValidDate = assay.Reagent1ValidDate;
+                saveProParamInfo.Reagent2Name = assay.Reagent2Name;
+                saveProParamInfo.Reagent2Pos = assay.Reagent2Pos;
+                saveProParamInfo.Reagent2Vol = assay.Reagent2Vol;
+                saveProParamInfo.Reagent2ValidDate = assay.Reagent2ValidDate;
+                lstAssayProParamInfoAll.RemoveAll(a => a.ProjectName == saveProParamInfo.ProjectName);
+                lstRangeParamInfo.RemoveAll(r => r.ProjectName == rangParamInfo.ProjectName);
+                lstAssayProParamInfoAll.Add(saveProParamInfo);
+                lstRangeParamInfo.Add(rangParamInfo);
+                lstvProject_Click(null,null);
+            }
         }
+
+        /// <summary>
+        /// 保存范围参数信息
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private AssayProjectRangeParamInfo btnSaveRangeParameterInfo()
+        {
+            AssayProjectRangeParamInfo parameterInfo = new AssayProjectRangeParamInfo();
+            parameterInfo.ProjectName = this.gridView2.GetRowCellValue(this.gridView2.GetSelectedRows()[0], "项目名称").ToString();
+            parameterInfo.SampleType = this.gridView2.GetRowCellValue(this.gridView2.GetSelectedRows()[0], "类型").ToString();
+
+            parameterInfo.AutoRerun = chkAutoResurvey.Checked;
+
+            if (this.gridView3.RowCount < 0)
+            {
+
+            }
+            else
+            {
+                for (int i = 0; i < this.gridView3.RowCount; i++)
+                {
+                    string[] age = this.gridView3.GetRowCellValue(i, "年龄范围").ToString().Replace(" ", "").Split('-');
+                    string[] man = this.gridView3.GetRowCellValue(i, "男（浓度范围）").ToString().Replace(" ", "").Split('-');
+                    string[] woMan = this.gridView3.GetRowCellValue(i, "女（浓度范围）").ToString().Replace(" ", "").Split('-');
+                    if(i == 0)
+                    {
+                        parameterInfo.AgeLow1 = Convert.ToInt32(age[0]);
+                        parameterInfo.AgeHigh1 = Convert.ToInt32(age[1]);
+                        parameterInfo.ManConsLow1 = float.Parse(man[0]);
+                        parameterInfo.ManConsHigh1 = float.Parse(man[1]);
+                        parameterInfo.WomanConsLow1 = float.Parse(woMan[0]);
+                        parameterInfo.WomanConsHigh1 = float.Parse(woMan[1]);
+                    }
+                    else if (i == 1)
+                    {
+                        parameterInfo.AgeLow2 = Convert.ToInt32(age[0]);
+                        parameterInfo.AgeHigh2 = Convert.ToInt32(age[1]);
+                        parameterInfo.ManConsLow2 = float.Parse(man[0]);
+                        parameterInfo.ManConsHigh2 = float.Parse(man[1]);
+                        parameterInfo.WomanConsLow2 = float.Parse(woMan[0]);
+                        parameterInfo.WomanConsHigh2 = float.Parse(woMan[1]);
+                    }
+                    else if (i == 2)
+                    {
+                        parameterInfo.AgeLow3 = Convert.ToInt32(age[0]);
+                        parameterInfo.AgeHigh3 = Convert.ToInt32(age[1]);
+                        parameterInfo.ManConsLow3 = float.Parse(man[0]);
+                        parameterInfo.ManConsHigh3 = float.Parse(man[1]);
+                        parameterInfo.WomanConsLow3 = float.Parse(woMan[0]);
+                        parameterInfo.WomanConsHigh3 = float.Parse(woMan[1]);
+                    }
+                    else if (i == 3)
+                    {
+                        parameterInfo.AgeLow4 = Convert.ToInt32(age[0]);
+                        parameterInfo.AgeHigh4 = Convert.ToInt32(age[1]);
+                        parameterInfo.ManConsLow4 = float.Parse(man[0]);
+                        parameterInfo.ManConsHigh4 = float.Parse(man[1]);
+                        parameterInfo.WomanConsLow4 = float.Parse(woMan[0]);
+                        parameterInfo.WomanConsHigh4 = float.Parse(woMan[1]);
+                    }
+                }
+            }
+            
+            return parameterInfo;
+        }
+
 
         private void cboAnalizeMethod_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1104,5 +1184,158 @@ namespace BioA.UI
                     break;
             }
         }
+        /// <summary>
+        /// 范围参数删除按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void butDelete_Click(object sender, EventArgs e)
+        {
+            if (this.gridView3.GetSelectedRows().Count() > 0)
+            {
+                int row = this.gridView3.GetSelectedRows()[0];
+                dtRange.Rows.RemoveAt(row);
+            }
+            else
+                MessageBoxDraw.ShowMsg("请选择要删除的范围参数！",MsgType.OK);
+        }
+        /// <summary>
+        /// 范围参数保存
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButSave_Click(object sender, EventArgs e)
+        {
+            List<AssayProjectRangeParamInfo> lstRange = new List<AssayProjectRangeParamInfo>();
+            AssayProjectRangeParamInfo parameter = new AssayProjectRangeParamInfo();
+            string sampleType = null;
+            if (this.gridView3.RowCount >= 4)
+            {
+                MessageBoxDraw.ShowMsg("范围参数设置不能超过4条！请选择列表中任意一行数据删除，然后再添加！", MsgType.OK);
+                return;
+            }
+            if (this.gridView2.GetSelectedRows().Count() > 0)
+            {
+                sampleType = this.gridView2.GetRowCellValue(this.gridView2.GetSelectedRows()[0], "类型").ToString();
+            }
+            // 最小和最大年龄范围只能输入数字
+            if (txtSerumAgeHigh1.Text.Trim() != "" && !Regex.IsMatch(txtSerumAgeHigh1.Text.Trim(), "^([0-9]{1,})$") ||
+                txtSerumAgeLow1.Text.Trim() != "" && !Regex.IsMatch(txtSerumAgeLow1.Text.Trim(), "^([0-9]{1,})$")||
+                Convert.ToInt32(txtSerumAgeHigh1.Text.Trim()) > 200 || Convert.ToInt32(txtSerumAgeLow1.Text.Trim()) >= 200 ||
+                Convert.ToInt32(txtSerumAgeLow1.Text.Trim()) > Convert.ToInt32(txtSerumAgeHigh1.Text.Trim()))
+            {
+                MessageBox.Show("期望值中的年龄输入格式有误，请重新输入！");
+                return;
+            }
+
+            // 当输入了对应年龄，则男、女值不为空时，值不能为非数字，男、女范围如果填写，则最大最小值需全填写，如果年龄未输入，则不允许输入男、女值（第一行除外）
+            if (txtSerumManConsLow.Text.Trim() != "" && !Regex.IsMatch(txtSerumManConsLow.Text.Trim(), @"^(-?\d+)(\.\d+)?$") ||
+                txtSerumManConsHigh.Text.Trim() != "" && !Regex.IsMatch(txtSerumManConsHigh.Text.Trim(), @"^(-?\d+)(\.\d+)?$"))
+            {
+                MessageBox.Show("范围参数(男：)浓度值输入有误，请重新输入！");
+                return;
+            }
+            else if (txtSerumManConsLow.Text.Trim() != "" && txtSerumManConsHigh.Text.Trim() == "" ||
+                txtSerumManConsLow.Text.Trim() != "" && txtSerumManConsHigh.Text.Trim() == "")
+            {
+                MessageBox.Show("范围参数(男：)浓度值输入有误，请重新输入！");
+                return;
+            }
+            else if (txtSerumManConsLow.Text.Trim() != "" && txtSerumManConsHigh.Text.Trim() == "" && System.Convert.ToDouble(txtSerumManConsLow.Text) > System.Convert.ToDouble(txtSerumManConsHigh.Text))
+            {
+                MessageBox.Show("范围参数(男：)浓度值输入有误，请重新输入！");
+                return;
+            }
+
+            if (txtSerumWomanConsLow.Text.Trim() != "" && !Regex.IsMatch(txtSerumWomanConsLow.Text.Trim(), @"^(-?\d+)(\.\d+)?$") ||
+                txtSerumWomanConsHigh.Text.Trim() != "" && !Regex.IsMatch(txtSerumWomanConsHigh.Text.Trim(), @"^(-?\d+)(\.\d+)?$"))
+            {
+                MessageBox.Show("范围参数(女：)浓度值输入有误，请重新输入！");
+                return;
+            }
+            else if (txtSerumWomanConsLow.Text.Trim() != "" && txtSerumWomanConsHigh.Text.Trim() == "" ||
+                txtSerumWomanConsLow.Text.Trim() != "" && txtSerumWomanConsHigh.Text.Trim() == "")
+            {
+                MessageBox.Show("范围参数(女：)浓度值输入有误，请重新输入！");
+                return;
+            }
+            else if (txtSerumWomanConsLow.Text.Trim() != "" && txtSerumWomanConsHigh.Text.Trim() == "" && System.Convert.ToDouble(txtSerumWomanConsLow.Text) > System.Convert.ToDouble(txtSerumWomanConsHigh.Text))
+            {
+                MessageBox.Show("范围参数(女：)浓度值输入有误，请重新输入！");
+                return;
+            }
+            if (this.gridView3.RowCount > 0)
+            {
+
+                int rows = this.gridView3.RowCount;
+                for (int i = 0; i < rows; i++)
+                {
+                    string s = this.gridView3.GetRowCellValue(i, "年龄范围").ToString();
+                    string[] age = s.Replace(" ","").Split('-');
+                    if (Convert.ToInt32(txtSerumAgeHigh1.Text.Trim()) <= Convert.ToInt32(age[1]) || Convert.ToInt32(txtSerumAgeLow1.Text.Trim()) <= Convert.ToInt32(age[1]))
+                    {
+                        MessageBoxDraw.ShowMsg("列表中已包含您输入的年龄！", MsgType.OK);
+                        return;
+                    }
+                    else
+                    {
+                        string man = this.gridView3.GetRowCellValue(i, "男（浓度范围）").ToString();
+                        string woMan = this.gridView3.GetRowCellValue(i, "女（浓度范围）").ToString();
+                        string[] mans = man.Replace(" ", "").Split('-');
+                        string[] woMans = woMan.Replace(" ", "").Split('-');
+                        AssayProjectRangeParamInfo rangeParam = new AssayProjectRangeParamInfo();
+                        rangeParam.SampleType = sampleType;
+                        rangeParam.AgeLow1 = Convert.ToInt32(age[0].Trim());
+                        rangeParam.AgeHigh1 = Convert.ToInt32(age[1].Trim());
+                        rangeParam.ManConsLow1 = float.Parse(mans[0].Trim());
+                        rangeParam.ManConsHigh1 = float.Parse(mans[1].Trim());
+                        rangeParam.WomanConsLow1 = float.Parse(woMans[0].Trim());
+                        rangeParam.WomanConsHigh1 = float.Parse(woMans[1].Trim());
+                        lstRange.Add(rangeParam);
+                    }
+                }
+            }
+            parameter.SampleType = sampleType;
+            parameter.AgeLow1 =System.Convert.ToInt32(txtSerumAgeLow1.Text.Trim());
+            parameter.AgeHigh1 = System.Convert.ToInt32(txtSerumAgeHigh1.Text.Trim());
+            parameter.ManConsLow1 = float.Parse(txtSerumManConsLow.Text.Trim());
+            parameter.ManConsHigh1 = float.Parse(txtSerumManConsHigh.Text.Trim());
+            parameter.WomanConsLow1 = float.Parse(txtSerumWomanConsLow.Text.Trim());
+            parameter.WomanConsHigh1 = float.Parse(txtSerumWomanConsHigh.Text.Trim());
+            lstRange.Add(parameter);
+            LoandProjectRangeParam(lstRange);
+            CloseRangeParameInfo();
+        }
+        /// <summary>
+        /// 反应方向下标改变事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cboReactionDirection_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.cboReactionDirection.SelectedIndex == 0)
+            {
+                this.CBSuperiorLimit.CheckState = CheckState.Checked;
+                this.CBLowerLimit.CheckState = CheckState.Unchecked;
+            }
+            else
+            {
+                this.CBLowerLimit.CheckState = CheckState.Checked;
+                this.CBSuperiorLimit.CheckState = CheckState.Unchecked;
+            }
+        }
+        /// <summary>
+        /// 清除上次范围参数录入的信息
+        /// </summary>
+        private void CloseRangeParameInfo()
+        {
+            this.txtSerumAgeLow1.Text = "0";
+            this.txtSerumAgeHigh1.Text = "200";
+            this.txtSerumManConsLow.Text = "0";
+            this.txtSerumManConsHigh.Text = "0";
+            this.txtSerumWomanConsLow.Text = "0";
+            this.txtSerumWomanConsHigh.Text = "0";
+        }
+
     }
 }

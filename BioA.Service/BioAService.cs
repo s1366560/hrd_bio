@@ -920,8 +920,6 @@ namespace BioA.Service
                         case "AssayProjectEdit":
                             AssayProjectInfo assayProInfoOld = XmlUtility.Deserialize(typeof(AssayProjectInfo), kvp.Value[0].ToString()) as AssayProjectInfo;
                             AssayProjectInfo assayProInfoLast = XmlUtility.Deserialize(typeof(AssayProjectInfo), kvp.Value[1].ToString()) as AssayProjectInfo;
-                            LogInfo.WriteProcessLog(kvp.Value[0].ToString(), Module.WindowsService);
-                            LogInfo.WriteProcessLog(kvp.Value[1].ToString(), Module.WindowsService);
                             int intEditResult = settingsChemicalParam.EditAssayProject(kvp.Key, assayProInfoOld, assayProInfoLast);
                             strMethodParam.Add(kvp.Key, intEditResult);
                             break;
@@ -950,11 +948,11 @@ namespace BioA.Service
                             int intCalibResult = settingsChemicalParam.UpdateCalibParamByProNameAndType(kvp.Key, sender);
                             strMethodParam.Add(kvp.Key, intCalibResult);
                             break;
-                        case "QueryRangeParamByProNameAndType": // 通过项目名称和项目类型获取项目范围参数
-                            assProInfo = XmlUtility.Deserialize(typeof(AssayProjectInfo), kvp.Value[0].ToString()) as AssayProjectInfo;
-                            AssayProjectRangeParamInfo rangeParam = settingsChemicalParam.QueryRangeParamByProNameAndType(kvp.Key, assProInfo);
-                            strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(AssayProjectRangeParamInfo), rangeParam));
-                            break;
+                        //case "QueryRangeParamByProNameAndType": // 通过项目名称和项目类型获取项目范围参数
+                        //    assProInfo = XmlUtility.Deserialize(typeof(AssayProjectInfo), kvp.Value[0].ToString()) as AssayProjectInfo;
+                        //    AssayProjectRangeParamInfo rangeParam = settingsChemicalParam.QueryRangeParamByProNameAndType(kvp.Key, assProInfo);
+                        //    strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(AssayProjectRangeParamInfo), rangeParam));
+                        //    break;
                         case "UpdateRangeParamByProNameAndType":
                             AssayProjectRangeParamInfo rangeSender = XmlUtility.Deserialize(typeof(AssayProjectRangeParamInfo), kvp.Value[0].ToString()) as AssayProjectRangeParamInfo;
                             int intRangeResult = settingsChemicalParam.UpdateRangeParamByProNameAndType(kvp.Key, rangeSender);

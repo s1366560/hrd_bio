@@ -134,12 +134,12 @@ namespace BioA.Service
             return myBatis.UpdateCalibParamByProNameAndType(strDBMethod, assayProInfo);
         }
         /// <summary>
-        /// 通过项目名称和项目类型获取项目范围参数
+        /// 获取所有生化项目范围参数信息
         /// </summary>
         /// <returns></returns>
-        public AssayProjectRangeParamInfo QueryRangeParamByProNameAndType(string strDBMethod, AssayProjectInfo assayProInfo)
+        public List<AssayProjectRangeParamInfo> QueryRangeParam(string strDBMethod)
         {
-            return myBatis.QueryRangeParamByProNameAndType(strDBMethod, assayProInfo);
+            return myBatis.QueryRangeParam(strDBMethod);
         }
 
         /// <summary>

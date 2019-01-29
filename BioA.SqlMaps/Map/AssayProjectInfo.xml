@@ -38,24 +38,18 @@
       <result property="IncDilutionVol" column="IncDilutionVol" nullValue="100000000"/>
       <result property="DilutionType" column="DilutionType"/>
       <result property="FirstSlope" column="FirstSlope" nullValue="100000000"/>
-      <result property="SecondSlope" column="SecondSlope" nullValue="100000000"/>
       <result property="FirstSlopeHigh" column="FirstSlopeHigh" nullValue="100000000"/>
-      <result property="SecondSlopeHigh" column="SecondSlopeHigh" nullValue="100000000"/>
       <result property="ProLowestBound" column="ProLowestBound" nullValue="100000000"/>
-      <result property="ProHighestBound" column="ProHighestBound" nullValue="100000000"/>
-      <result property="Pmp1" column="Pmp1" nullValue="100000000"/>
-      <result property="Pmp2" column="Pmp2" nullValue="100000000"/>
-      <result property="Pmp3" column="Pmp3" nullValue="100000000"/>
-      <result property="Pmp4" column="Pmp4" nullValue="100000000"/>
-      <result property="BoundDirection" column="BoundDirection"/>
-      <result property="Limit1" column="Limit1" nullValue="100000000"/>
-      <result property="Limit2" column="Limit2" nullValue="100000000"/>
-      <result property="AbsLimitValue" column="LimitValue" nullValue="100000000"/>
+      <result property="LimitValue" column="LimitValue" nullValue="100000000"/>
       <result property="ReactionDirection" column="ReactionDirection"/>
       <result property="Stirring1Intensity" column="Stirring1Intensity"/>
       <result property="Stirring2Intensity" column="Stirring2Intensity"/>
       <result property="Reagent1VolSettings" column="Reagent1VolSettings" nullValue="100000000"/>
       <result property="Reagent2VolSettings" column="Reagent2VolSettings" nullValue="100000000"/>
+      <result property="SerumCriticalMinimum" column="SerumCriticalMinimum" nullValue="100000000"/>
+      <result property="SerumCriticalMaximum" column="SerumCriticalMaximum" nullValue="100000000"/>
+      <result property="ReagentBlankMinimum" column="ReagentBlankMinimum" nullValue="100000000"/>
+      <result property="ReagentBlankMaximum" column="ReagentBlankMaximum" nullValue="100000000"/>
     </resultMap>
     <resultMap id="AssayProjectCalibrationParamInfoResult" class="AssayProjectCalibrationParamInfo">
       <result property="ProjectName" column="ProjectName" />
@@ -309,24 +303,18 @@
       CalibDilutionVol = #CalibDilutionVol#,
       DilutionType = #DilutionType#,
       FirstSlope = #FirstSlope#,
-      SecondSlope = #SecondSlope#,
       FirstSlopeHigh = #FirstSlopeHigh#,
-      SecondSlopeHigh = #SecondSlopeHigh#,
       ProLowestBound = #ProLowestBound#,
-      ProHighestBound = #ProHighestBound#,
-      Pmp1 = #Pmp1#,
-      Pmp2 = #Pmp2#,
-      Pmp3 = #Pmp3#,
-      Pmp4 = #Pmp4#,
-      BoundDirection = #BoundDirection#,
-      Limit1 = #Limit1#,
-      Limit2 = #Limit2#,
-      LimitValue = #AbsLimitValue#,
+      LimitValue = #LimitValue#,
       ReactionDirection = #ReactionDirection#,
       Stirring1Intensity = #Stirring1Intensity#,
       Stirring2Intensity = #Stirring2Intensity#,
       Reagent1VolSettings = #Reagent1VolSettings#,
-      Reagent2VolSettings = #Reagent2VolSettings#
+      Reagent2VolSettings = #Reagent2VolSettings#,
+      SerumCriticalMinimum = #SerumCriticalMinimum#,
+      SerumCriticalMaximum = #SerumCriticalMaximum#,
+      ReagentBlankMinimum = #ReagentBlankMinimum#,
+      ReagentBlankMaximum = #ReagentBlankMaximum#
       where ProjectName = #ProjectName# and SampleType = #SampleType#
     </update>
     <insert id="AddCalibrationParam" parameterClass="AssayProjectInfo">
@@ -412,8 +400,8 @@
     <delete id="RangeParamDelete" resultClass="int" parameterClass="System.Collections.IDictionary" >
       delete from RangeParamInfoTb where ProjectName=#ProjectName# and SampleType=#SampleType#
     </delete>
-    <select id="QueryRangeParamByProNameAndType" resultClass="AssayProjectRangeParamInfo" parameterClass="AssayProjectInfo">
-      select * from RangeParamInfoTb where ProjectName = #ProjectName# and SampleType = #SampleType#
+    <select id="QueryRangeParam" resultClass="AssayProjectRangeParamInfo" parameterClass="AssayProjectInfo">
+      select * from RangeParamInfoTb
     </select>
     <update id="UpdateRangeParamByProNameAndType" resultClass="int" parameterClass="AssayProjectRangeParamInfo">
       update RangeParamInfoTb set

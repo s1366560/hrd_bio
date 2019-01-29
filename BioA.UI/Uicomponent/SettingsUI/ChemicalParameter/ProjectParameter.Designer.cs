@@ -36,6 +36,45 @@
             this.btnDeleteProject = new DevExpress.XtraEditors.SimpleButton();
             this.btnEditProject = new DevExpress.XtraEditors.SimpleButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblProzoneBound = new DevExpress.XtraEditors.GroupControl();
+            this.label3 = new System.Windows.Forms.Label();
+            this.CBLowerLimit = new System.Windows.Forms.CheckBox();
+            this.CBSuperiorLimit = new System.Windows.Forms.CheckBox();
+            this.txtProLowestBound = new DevExpress.XtraEditors.TextEdit();
+            this.chkAutoResurvey = new DevExpress.XtraEditors.CheckEdit();
+            this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
+            this.butDelete = new System.Windows.Forms.Button();
+            this.labelControl15 = new DevExpress.XtraEditors.LabelControl();
+            this.labMan = new DevExpress.XtraEditors.LabelControl();
+            this.txtSerumWomanConsHigh = new DevExpress.XtraEditors.TextEdit();
+            this.txtSerumWomanConsLow = new DevExpress.XtraEditors.TextEdit();
+            this.labelControl13 = new DevExpress.XtraEditors.LabelControl();
+            this.grpRangeParam = new DevExpress.XtraGrid.GridControl();
+            this.gridView3 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.repositoryItemBreadCrumbEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemBreadCrumbEdit();
+            this.btuDelete = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
+            this.ButSave = new System.Windows.Forms.Button();
+            this.txtSerumManConsHigh = new DevExpress.XtraEditors.TextEdit();
+            this.txtSerumManConsLow = new DevExpress.XtraEditors.TextEdit();
+            this.labelControl19 = new DevExpress.XtraEditors.LabelControl();
+            this.txtSerumAgeHigh1 = new DevExpress.XtraEditors.TextEdit();
+            this.txtSerumAgeLow1 = new DevExpress.XtraEditors.TextEdit();
+            this.labelControl21 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl24 = new DevExpress.XtraEditors.LabelControl();
+            this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
+            this.labReagentMaximum = new System.Windows.Forms.Label();
+            this.labReagentMinimun = new System.Windows.Forms.Label();
+            this.txtReagentMinValue = new DevExpress.XtraEditors.TextEdit();
+            this.txtReagentMaxValue = new DevExpress.XtraEditors.TextEdit();
+            this.grpLinearityRange = new DevExpress.XtraEditors.GroupControl();
+            this.labLinearMaximum = new System.Windows.Forms.Label();
+            this.labLinearMinimum = new System.Windows.Forms.Label();
+            this.txtFirstSlope = new DevExpress.XtraEditors.TextEdit();
+            this.txtFirstSlopeHigh = new DevExpress.XtraEditors.TextEdit();
+            this.txtCheckLightDot2 = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.txtCheckLightDot1 = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.txtCheckLightDot3 = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.txtCheckLightDot4 = new DevExpress.XtraEditors.ComboBoxEdit();
             this.label22 = new System.Windows.Forms.Label();
             this.cboStirring2Intensity = new DevExpress.XtraEditors.ComboBoxEdit();
             this.labelControl12 = new DevExpress.XtraEditors.LabelControl();
@@ -57,29 +96,14 @@
             this.btnParamSave = new DevExpress.XtraEditors.SimpleButton();
             this.cboStirring1Intensity = new DevExpress.XtraEditors.ComboBoxEdit();
             this.txtAbsLimitValue = new DevExpress.XtraEditors.TextEdit();
-            this.cboBoundDirection = new DevExpress.XtraEditors.ComboBoxEdit();
             this.cboReactionDirection = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.txtLimit2 = new DevExpress.XtraEditors.TextEdit();
-            this.txtLimit1 = new DevExpress.XtraEditors.TextEdit();
-            this.txtPmp4 = new DevExpress.XtraEditors.TextEdit();
-            this.txtPmp3 = new DevExpress.XtraEditors.TextEdit();
-            this.txtPmp2 = new DevExpress.XtraEditors.TextEdit();
-            this.txtPmp1 = new DevExpress.XtraEditors.TextEdit();
-            this.txtProHighestBound = new DevExpress.XtraEditors.TextEdit();
-            this.txtProLowestBound = new DevExpress.XtraEditors.TextEdit();
-            this.txtSecondSlopeHigh = new DevExpress.XtraEditors.TextEdit();
             this.txtInstrumentFactorB = new DevExpress.XtraEditors.TextEdit();
-            this.txtFirstSlopeHigh = new DevExpress.XtraEditors.TextEdit();
             this.txtInstrumentFactorA = new DevExpress.XtraEditors.TextEdit();
-            this.txtSecondSlope = new DevExpress.XtraEditors.TextEdit();
             this.cboSecWaveLength = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.txtFirstSlope = new DevExpress.XtraEditors.TextEdit();
             this.cboWaveLength = new DevExpress.XtraEditors.ComboBoxEdit();
             this.cboResultUnit = new DevExpress.XtraEditors.ComboBoxEdit();
             this.cboDecimal = new DevExpress.XtraEditors.ComboBoxEdit();
             this.cboAnalizeMethod = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.lblLinearBound = new DevExpress.XtraEditors.LabelControl();
-            this.lblProzoneBound = new DevExpress.XtraEditors.LabelControl();
             this.lblAbsorbanceLimit = new DevExpress.XtraEditors.LabelControl();
             this.lblStirringIntensity = new DevExpress.XtraEditors.LabelControl();
             this.grpReagentSetting = new DevExpress.XtraEditors.GroupControl();
@@ -138,14 +162,43 @@
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.lblAnalizeMethod = new DevExpress.XtraEditors.LabelControl();
-            this.txtCheckLightDot4 = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.txtCheckLightDot3 = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.txtCheckLightDot1 = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.txtCheckLightDot2 = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.grpSerumCriticality = new DevExpress.XtraEditors.GroupControl();
+            this.labSerumMax = new System.Windows.Forms.Label();
+            this.labSerumMin = new System.Windows.Forms.Label();
+            this.txtSerumMinValue = new DevExpress.XtraEditors.TextEdit();
+            this.txtSerumMaxValue = new DevExpress.XtraEditors.TextEdit();
             ((System.ComponentModel.ISupportInitialize)(this.lstvProject)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lblProzoneBound)).BeginInit();
+            this.lblProzoneBound.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtProLowestBound.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkAutoResurvey.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
+            this.groupControl3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSerumWomanConsHigh.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSerumWomanConsLow.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpRangeParam)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemBreadCrumbEdit1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btuDelete)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSerumManConsHigh.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSerumManConsLow.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSerumAgeHigh1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSerumAgeLow1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
+            this.groupControl2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtReagentMinValue.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtReagentMaxValue.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpLinearityRange)).BeginInit();
+            this.grpLinearityRange.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtFirstSlope.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtFirstSlopeHigh.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtCheckLightDot2.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtCheckLightDot1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtCheckLightDot3.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtCheckLightDot4.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboStirring2Intensity.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
@@ -153,23 +206,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtReagent1VolSettings.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboStirring1Intensity.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAbsLimitValue.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboBoundDirection.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboReactionDirection.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtLimit2.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtLimit1.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtPmp4.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtPmp3.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtPmp2.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtPmp1.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtProHighestBound.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtProLowestBound.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtSecondSlopeHigh.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtInstrumentFactorB.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtFirstSlopeHigh.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtInstrumentFactorA.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtSecondSlope.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboSecWaveLength.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtFirstSlope.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboWaveLength.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboResultUnit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboDecimal.Properties)).BeginInit();
@@ -198,10 +238,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtComDilutionVol.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtComSamVol.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtComStosteVol.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtCheckLightDot4.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtCheckLightDot3.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtCheckLightDot1.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtCheckLightDot2.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpSerumCriticality)).BeginInit();
+            this.grpSerumCriticality.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSerumMinValue.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSerumMaxValue.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // lstvProject
@@ -261,6 +301,12 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.grpSerumCriticality);
+            this.panel1.Controls.Add(this.lblProzoneBound);
+            this.panel1.Controls.Add(this.chkAutoResurvey);
+            this.panel1.Controls.Add(this.groupControl3);
+            this.panel1.Controls.Add(this.groupControl2);
+            this.panel1.Controls.Add(this.grpLinearityRange);
             this.panel1.Controls.Add(this.txtCheckLightDot2);
             this.panel1.Controls.Add(this.txtCheckLightDot1);
             this.panel1.Controls.Add(this.txtCheckLightDot3);
@@ -279,29 +325,14 @@
             this.panel1.Controls.Add(this.btnParamSave);
             this.panel1.Controls.Add(this.cboStirring1Intensity);
             this.panel1.Controls.Add(this.txtAbsLimitValue);
-            this.panel1.Controls.Add(this.cboBoundDirection);
             this.panel1.Controls.Add(this.cboReactionDirection);
-            this.panel1.Controls.Add(this.txtLimit2);
-            this.panel1.Controls.Add(this.txtLimit1);
-            this.panel1.Controls.Add(this.txtPmp4);
-            this.panel1.Controls.Add(this.txtPmp3);
-            this.panel1.Controls.Add(this.txtPmp2);
-            this.panel1.Controls.Add(this.txtPmp1);
-            this.panel1.Controls.Add(this.txtProHighestBound);
-            this.panel1.Controls.Add(this.txtProLowestBound);
-            this.panel1.Controls.Add(this.txtSecondSlopeHigh);
             this.panel1.Controls.Add(this.txtInstrumentFactorB);
-            this.panel1.Controls.Add(this.txtFirstSlopeHigh);
             this.panel1.Controls.Add(this.txtInstrumentFactorA);
-            this.panel1.Controls.Add(this.txtSecondSlope);
             this.panel1.Controls.Add(this.cboSecWaveLength);
-            this.panel1.Controls.Add(this.txtFirstSlope);
             this.panel1.Controls.Add(this.cboWaveLength);
             this.panel1.Controls.Add(this.cboResultUnit);
             this.panel1.Controls.Add(this.cboDecimal);
             this.panel1.Controls.Add(this.cboAnalizeMethod);
-            this.panel1.Controls.Add(this.lblLinearBound);
-            this.panel1.Controls.Add(this.lblProzoneBound);
             this.panel1.Controls.Add(this.lblAbsorbanceLimit);
             this.panel1.Controls.Add(this.lblStirringIntensity);
             this.panel1.Controls.Add(this.grpReagentSetting);
@@ -320,11 +351,432 @@
             this.panel1.Size = new System.Drawing.Size(1266, 738);
             this.panel1.TabIndex = 4;
             // 
+            // lblProzoneBound
+            // 
+            this.lblProzoneBound.Controls.Add(this.label3);
+            this.lblProzoneBound.Controls.Add(this.CBLowerLimit);
+            this.lblProzoneBound.Controls.Add(this.CBSuperiorLimit);
+            this.lblProzoneBound.Controls.Add(this.txtProLowestBound);
+            this.lblProzoneBound.Location = new System.Drawing.Point(29, 531);
+            this.lblProzoneBound.Name = "lblProzoneBound";
+            this.lblProzoneBound.Size = new System.Drawing.Size(200, 111);
+            this.lblProzoneBound.TabIndex = 87;
+            this.lblProzoneBound.Text = "前区界限：";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label3.Location = new System.Drawing.Point(156, 53);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(24, 21);
+            this.label3.TabIndex = 50;
+            this.label3.Text = "%";
+            // 
+            // CBLowerLimit
+            // 
+            this.CBLowerLimit.AutoSize = true;
+            this.CBLowerLimit.Location = new System.Drawing.Point(18, 77);
+            this.CBLowerLimit.Name = "CBLowerLimit";
+            this.CBLowerLimit.Size = new System.Drawing.Size(50, 18);
+            this.CBLowerLimit.TabIndex = 49;
+            this.CBLowerLimit.Text = "下限";
+            this.CBLowerLimit.UseVisualStyleBackColor = true;
+            // 
+            // CBSuperiorLimit
+            // 
+            this.CBSuperiorLimit.AutoSize = true;
+            this.CBSuperiorLimit.Location = new System.Drawing.Point(18, 36);
+            this.CBSuperiorLimit.Name = "CBSuperiorLimit";
+            this.CBSuperiorLimit.Size = new System.Drawing.Size(50, 18);
+            this.CBSuperiorLimit.TabIndex = 48;
+            this.CBSuperiorLimit.Text = "上限";
+            this.CBSuperiorLimit.UseVisualStyleBackColor = true;
+            // 
+            // txtProLowestBound
+            // 
+            this.txtProLowestBound.Location = new System.Drawing.Point(86, 53);
+            this.txtProLowestBound.Name = "txtProLowestBound";
+            this.txtProLowestBound.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtProLowestBound.Properties.Appearance.Options.UseFont = true;
+            this.txtProLowestBound.Size = new System.Drawing.Size(67, 24);
+            this.txtProLowestBound.TabIndex = 47;
+            // 
+            // chkAutoResurvey
+            // 
+            this.chkAutoResurvey.Location = new System.Drawing.Point(33, 407);
+            this.chkAutoResurvey.Name = "chkAutoResurvey";
+            this.chkAutoResurvey.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkAutoResurvey.Properties.Appearance.Options.UseFont = true;
+            this.chkAutoResurvey.Properties.Caption = "是否自动重测：";
+            this.chkAutoResurvey.Size = new System.Drawing.Size(116, 21);
+            this.chkAutoResurvey.TabIndex = 83;
+            // 
+            // groupControl3
+            // 
+            this.groupControl3.Controls.Add(this.butDelete);
+            this.groupControl3.Controls.Add(this.labelControl15);
+            this.groupControl3.Controls.Add(this.labMan);
+            this.groupControl3.Controls.Add(this.txtSerumWomanConsHigh);
+            this.groupControl3.Controls.Add(this.txtSerumWomanConsLow);
+            this.groupControl3.Controls.Add(this.labelControl13);
+            this.groupControl3.Controls.Add(this.grpRangeParam);
+            this.groupControl3.Controls.Add(this.ButSave);
+            this.groupControl3.Controls.Add(this.txtSerumManConsHigh);
+            this.groupControl3.Controls.Add(this.txtSerumManConsLow);
+            this.groupControl3.Controls.Add(this.labelControl19);
+            this.groupControl3.Controls.Add(this.txtSerumAgeHigh1);
+            this.groupControl3.Controls.Add(this.txtSerumAgeLow1);
+            this.groupControl3.Controls.Add(this.labelControl21);
+            this.groupControl3.Controls.Add(this.labelControl24);
+            this.groupControl3.Location = new System.Drawing.Point(701, 410);
+            this.groupControl3.Name = "groupControl3";
+            this.groupControl3.Size = new System.Drawing.Size(537, 234);
+            this.groupControl3.TabIndex = 82;
+            this.groupControl3.Text = "参考区间";
+            // 
+            // butDelete
+            // 
+            this.butDelete.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.butDelete.Location = new System.Drawing.Point(444, 202);
+            this.butDelete.Name = "butDelete";
+            this.butDelete.Size = new System.Drawing.Size(73, 26);
+            this.butDelete.TabIndex = 90;
+            this.butDelete.Text = "删 除";
+            this.butDelete.UseVisualStyleBackColor = true;
+            this.butDelete.Click += new System.EventHandler(this.butDelete_Click);
+            // 
+            // labelControl15
+            // 
+            this.labelControl15.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl15.Appearance.Options.UseFont = true;
+            this.labelControl15.Location = new System.Drawing.Point(355, 23);
+            this.labelControl15.Name = "labelControl15";
+            this.labelControl15.Size = new System.Drawing.Size(15, 17);
+            this.labelControl15.TabIndex = 89;
+            this.labelControl15.Text = "女";
+            // 
+            // labMan
+            // 
+            this.labMan.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labMan.Appearance.Options.UseFont = true;
+            this.labMan.Location = new System.Drawing.Point(208, 23);
+            this.labMan.Name = "labMan";
+            this.labMan.Size = new System.Drawing.Size(15, 17);
+            this.labMan.TabIndex = 88;
+            this.labMan.Text = "男";
+            // 
+            // txtSerumWomanConsHigh
+            // 
+            this.txtSerumWomanConsHigh.EditValue = "0";
+            this.txtSerumWomanConsHigh.Location = new System.Drawing.Point(376, 47);
+            this.txtSerumWomanConsHigh.Name = "txtSerumWomanConsHigh";
+            this.txtSerumWomanConsHigh.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSerumWomanConsHigh.Properties.Appearance.ForeColor = System.Drawing.Color.Red;
+            this.txtSerumWomanConsHigh.Properties.Appearance.Options.UseFont = true;
+            this.txtSerumWomanConsHigh.Properties.Appearance.Options.UseForeColor = true;
+            this.txtSerumWomanConsHigh.Size = new System.Drawing.Size(52, 24);
+            this.txtSerumWomanConsHigh.TabIndex = 87;
+            // 
+            // txtSerumWomanConsLow
+            // 
+            this.txtSerumWomanConsLow.EditValue = "0";
+            this.txtSerumWomanConsLow.Location = new System.Drawing.Point(304, 47);
+            this.txtSerumWomanConsLow.Name = "txtSerumWomanConsLow";
+            this.txtSerumWomanConsLow.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSerumWomanConsLow.Properties.Appearance.ForeColor = System.Drawing.Color.Red;
+            this.txtSerumWomanConsLow.Properties.Appearance.Options.UseFont = true;
+            this.txtSerumWomanConsLow.Properties.Appearance.Options.UseForeColor = true;
+            this.txtSerumWomanConsLow.Size = new System.Drawing.Size(52, 24);
+            this.txtSerumWomanConsLow.TabIndex = 85;
+            // 
+            // labelControl13
+            // 
+            this.labelControl13.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl13.Appearance.Options.UseFont = true;
+            this.labelControl13.Location = new System.Drawing.Point(363, 48);
+            this.labelControl13.Name = "labelControl13";
+            this.labelControl13.Size = new System.Drawing.Size(5, 17);
+            this.labelControl13.TabIndex = 86;
+            this.labelControl13.Text = "-";
+            // 
+            // grpRangeParam
+            // 
+            this.grpRangeParam.Location = new System.Drawing.Point(6, 77);
+            this.grpRangeParam.MainView = this.gridView3;
+            this.grpRangeParam.Name = "grpRangeParam";
+            this.grpRangeParam.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.repositoryItemBreadCrumbEdit1,
+            this.btuDelete});
+            this.grpRangeParam.Size = new System.Drawing.Size(511, 119);
+            this.grpRangeParam.TabIndex = 84;
+            this.grpRangeParam.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridView3});
+            // 
+            // gridView3
+            // 
+            this.gridView3.Appearance.FocusedRow.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.gridView3.Appearance.FocusedRow.Options.UseBackColor = true;
+            this.gridView3.GridControl = this.grpRangeParam;
+            this.gridView3.Name = "gridView3";
+            this.gridView3.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.gridView3.OptionsSelection.MultiSelect = true;
+            this.gridView3.OptionsSelection.ResetSelectionClickOutsideCheckboxSelector = true;
+            this.gridView3.OptionsView.ShowGroupPanel = false;
+            // 
+            // repositoryItemBreadCrumbEdit1
+            // 
+            this.repositoryItemBreadCrumbEdit1.AutoHeight = false;
+            this.repositoryItemBreadCrumbEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemBreadCrumbEdit1.Name = "repositoryItemBreadCrumbEdit1";
+            // 
+            // btuDelete
+            // 
+            this.btuDelete.Name = "btuDelete";
+            // 
+            // ButSave
+            // 
+            this.ButSave.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ButSave.Location = new System.Drawing.Point(444, 35);
+            this.ButSave.Name = "ButSave";
+            this.ButSave.Size = new System.Drawing.Size(73, 26);
+            this.ButSave.TabIndex = 83;
+            this.ButSave.Text = "添 加";
+            this.ButSave.UseVisualStyleBackColor = true;
+            this.ButSave.Click += new System.EventHandler(this.ButSave_Click);
+            // 
+            // txtSerumManConsHigh
+            // 
+            this.txtSerumManConsHigh.EditValue = "0";
+            this.txtSerumManConsHigh.Location = new System.Drawing.Point(227, 47);
+            this.txtSerumManConsHigh.Name = "txtSerumManConsHigh";
+            this.txtSerumManConsHigh.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSerumManConsHigh.Properties.Appearance.ForeColor = System.Drawing.Color.Red;
+            this.txtSerumManConsHigh.Properties.Appearance.Options.UseFont = true;
+            this.txtSerumManConsHigh.Properties.Appearance.Options.UseForeColor = true;
+            this.txtSerumManConsHigh.Size = new System.Drawing.Size(52, 24);
+            this.txtSerumManConsHigh.TabIndex = 35;
+            // 
+            // txtSerumManConsLow
+            // 
+            this.txtSerumManConsLow.EditValue = "0";
+            this.txtSerumManConsLow.Location = new System.Drawing.Point(155, 47);
+            this.txtSerumManConsLow.Name = "txtSerumManConsLow";
+            this.txtSerumManConsLow.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSerumManConsLow.Properties.Appearance.ForeColor = System.Drawing.Color.Red;
+            this.txtSerumManConsLow.Properties.Appearance.Options.UseFont = true;
+            this.txtSerumManConsLow.Properties.Appearance.Options.UseForeColor = true;
+            this.txtSerumManConsLow.Size = new System.Drawing.Size(52, 24);
+            this.txtSerumManConsLow.TabIndex = 33;
+            // 
+            // labelControl19
+            // 
+            this.labelControl19.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl19.Appearance.Options.UseFont = true;
+            this.labelControl19.Location = new System.Drawing.Point(214, 48);
+            this.labelControl19.Name = "labelControl19";
+            this.labelControl19.Size = new System.Drawing.Size(5, 17);
+            this.labelControl19.TabIndex = 34;
+            this.labelControl19.Text = "-";
+            // 
+            // txtSerumAgeHigh1
+            // 
+            this.txtSerumAgeHigh1.EditValue = "200";
+            this.txtSerumAgeHigh1.Location = new System.Drawing.Point(88, 47);
+            this.txtSerumAgeHigh1.Name = "txtSerumAgeHigh1";
+            this.txtSerumAgeHigh1.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSerumAgeHigh1.Properties.Appearance.ForeColor = System.Drawing.Color.Red;
+            this.txtSerumAgeHigh1.Properties.Appearance.Options.UseFont = true;
+            this.txtSerumAgeHigh1.Properties.Appearance.Options.UseForeColor = true;
+            this.txtSerumAgeHigh1.Size = new System.Drawing.Size(47, 24);
+            this.txtSerumAgeHigh1.TabIndex = 26;
+            // 
+            // txtSerumAgeLow1
+            // 
+            this.txtSerumAgeLow1.EditValue = "0";
+            this.txtSerumAgeLow1.Location = new System.Drawing.Point(17, 47);
+            this.txtSerumAgeLow1.Name = "txtSerumAgeLow1";
+            this.txtSerumAgeLow1.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSerumAgeLow1.Properties.Appearance.ForeColor = System.Drawing.Color.Red;
+            this.txtSerumAgeLow1.Properties.Appearance.Options.UseFont = true;
+            this.txtSerumAgeLow1.Properties.Appearance.Options.UseForeColor = true;
+            this.txtSerumAgeLow1.Size = new System.Drawing.Size(51, 24);
+            this.txtSerumAgeLow1.TabIndex = 3;
+            // 
+            // labelControl21
+            // 
+            this.labelControl21.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl21.Appearance.Options.UseFont = true;
+            this.labelControl21.Location = new System.Drawing.Point(66, 23);
+            this.labelControl21.Name = "labelControl21";
+            this.labelControl21.Size = new System.Drawing.Size(15, 17);
+            this.labelControl21.TabIndex = 25;
+            this.labelControl21.Text = "岁";
+            // 
+            // labelControl24
+            // 
+            this.labelControl24.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl24.Appearance.Options.UseFont = true;
+            this.labelControl24.Location = new System.Drawing.Point(75, 50);
+            this.labelControl24.Name = "labelControl24";
+            this.labelControl24.Size = new System.Drawing.Size(5, 17);
+            this.labelControl24.TabIndex = 15;
+            this.labelControl24.Text = "-";
+            // 
+            // groupControl2
+            // 
+            this.groupControl2.Controls.Add(this.labReagentMaximum);
+            this.groupControl2.Controls.Add(this.labReagentMinimun);
+            this.groupControl2.Controls.Add(this.txtReagentMinValue);
+            this.groupControl2.Controls.Add(this.txtReagentMaxValue);
+            this.groupControl2.Location = new System.Drawing.Point(478, 531);
+            this.groupControl2.Name = "groupControl2";
+            this.groupControl2.Size = new System.Drawing.Size(211, 113);
+            this.groupControl2.TabIndex = 81;
+            this.groupControl2.Text = "试剂空白：";
+            // 
+            // labReagentMaximum
+            // 
+            this.labReagentMaximum.AutoSize = true;
+            this.labReagentMaximum.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labReagentMaximum.Location = new System.Drawing.Point(125, 35);
+            this.labReagentMaximum.Name = "labReagentMaximum";
+            this.labReagentMaximum.Size = new System.Drawing.Size(50, 17);
+            this.labReagentMaximum.TabIndex = 51;
+            this.labReagentMaximum.Text = "最大值";
+            // 
+            // labReagentMinimun
+            // 
+            this.labReagentMinimun.AutoSize = true;
+            this.labReagentMinimun.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labReagentMinimun.Location = new System.Drawing.Point(26, 37);
+            this.labReagentMinimun.Name = "labReagentMinimun";
+            this.labReagentMinimun.Size = new System.Drawing.Size(50, 17);
+            this.labReagentMinimun.TabIndex = 50;
+            this.labReagentMinimun.Text = "最小值";
+            // 
+            // txtReagentMinValue
+            // 
+            this.txtReagentMinValue.Location = new System.Drawing.Point(12, 65);
+            this.txtReagentMinValue.Name = "txtReagentMinValue";
+            this.txtReagentMinValue.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtReagentMinValue.Properties.Appearance.Options.UseFont = true;
+            this.txtReagentMinValue.Size = new System.Drawing.Size(79, 24);
+            this.txtReagentMinValue.TabIndex = 48;
+            // 
+            // txtReagentMaxValue
+            // 
+            this.txtReagentMaxValue.Location = new System.Drawing.Point(115, 65);
+            this.txtReagentMaxValue.Name = "txtReagentMaxValue";
+            this.txtReagentMaxValue.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtReagentMaxValue.Properties.Appearance.Options.UseFont = true;
+            this.txtReagentMaxValue.Size = new System.Drawing.Size(78, 24);
+            this.txtReagentMaxValue.TabIndex = 49;
+            // 
+            // grpLinearityRange
+            // 
+            this.grpLinearityRange.Controls.Add(this.labLinearMaximum);
+            this.grpLinearityRange.Controls.Add(this.labLinearMinimum);
+            this.grpLinearityRange.Controls.Add(this.txtFirstSlope);
+            this.grpLinearityRange.Controls.Add(this.txtFirstSlopeHigh);
+            this.grpLinearityRange.Location = new System.Drawing.Point(478, 410);
+            this.grpLinearityRange.Name = "grpLinearityRange";
+            this.grpLinearityRange.Size = new System.Drawing.Size(211, 102);
+            this.grpLinearityRange.TabIndex = 80;
+            this.grpLinearityRange.Text = "线性范围：";
+            // 
+            // labLinearMaximum
+            // 
+            this.labLinearMaximum.AutoSize = true;
+            this.labLinearMaximum.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labLinearMaximum.Location = new System.Drawing.Point(128, 30);
+            this.labLinearMaximum.Name = "labLinearMaximum";
+            this.labLinearMaximum.Size = new System.Drawing.Size(50, 17);
+            this.labLinearMaximum.TabIndex = 47;
+            this.labLinearMaximum.Text = "最大值";
+            // 
+            // labLinearMinimum
+            // 
+            this.labLinearMinimum.AutoSize = true;
+            this.labLinearMinimum.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labLinearMinimum.Location = new System.Drawing.Point(28, 32);
+            this.labLinearMinimum.Name = "labLinearMinimum";
+            this.labLinearMinimum.Size = new System.Drawing.Size(50, 17);
+            this.labLinearMinimum.TabIndex = 46;
+            this.labLinearMinimum.Text = "最小值";
+            // 
+            // txtFirstSlope
+            // 
+            this.txtFirstSlope.Location = new System.Drawing.Point(13, 60);
+            this.txtFirstSlope.Name = "txtFirstSlope";
+            this.txtFirstSlope.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFirstSlope.Properties.Appearance.Options.UseFont = true;
+            this.txtFirstSlope.Size = new System.Drawing.Size(79, 24);
+            this.txtFirstSlope.TabIndex = 43;
+            // 
+            // txtFirstSlopeHigh
+            // 
+            this.txtFirstSlopeHigh.Location = new System.Drawing.Point(116, 60);
+            this.txtFirstSlopeHigh.Name = "txtFirstSlopeHigh";
+            this.txtFirstSlopeHigh.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFirstSlopeHigh.Properties.Appearance.Options.UseFont = true;
+            this.txtFirstSlopeHigh.Size = new System.Drawing.Size(78, 24);
+            this.txtFirstSlopeHigh.TabIndex = 45;
+            // 
+            // txtCheckLightDot2
+            // 
+            this.txtCheckLightDot2.Location = new System.Drawing.Point(393, 52);
+            this.txtCheckLightDot2.Name = "txtCheckLightDot2";
+            this.txtCheckLightDot2.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCheckLightDot2.Properties.Appearance.Options.UseFont = true;
+            this.txtCheckLightDot2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.txtCheckLightDot2.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.txtCheckLightDot2.Size = new System.Drawing.Size(52, 24);
+            this.txtCheckLightDot2.TabIndex = 79;
+            // 
+            // txtCheckLightDot1
+            // 
+            this.txtCheckLightDot1.Location = new System.Drawing.Point(335, 52);
+            this.txtCheckLightDot1.Name = "txtCheckLightDot1";
+            this.txtCheckLightDot1.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCheckLightDot1.Properties.Appearance.Options.UseFont = true;
+            this.txtCheckLightDot1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.txtCheckLightDot1.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.txtCheckLightDot1.Size = new System.Drawing.Size(52, 24);
+            this.txtCheckLightDot1.TabIndex = 78;
+            // 
+            // txtCheckLightDot3
+            // 
+            this.txtCheckLightDot3.Location = new System.Drawing.Point(451, 52);
+            this.txtCheckLightDot3.Name = "txtCheckLightDot3";
+            this.txtCheckLightDot3.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCheckLightDot3.Properties.Appearance.Options.UseFont = true;
+            this.txtCheckLightDot3.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.txtCheckLightDot3.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.txtCheckLightDot3.Size = new System.Drawing.Size(52, 24);
+            this.txtCheckLightDot3.TabIndex = 77;
+            // 
+            // txtCheckLightDot4
+            // 
+            this.txtCheckLightDot4.Location = new System.Drawing.Point(509, 52);
+            this.txtCheckLightDot4.Name = "txtCheckLightDot4";
+            this.txtCheckLightDot4.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCheckLightDot4.Properties.Appearance.Options.UseFont = true;
+            this.txtCheckLightDot4.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.txtCheckLightDot4.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.txtCheckLightDot4.Size = new System.Drawing.Size(52, 24);
+            this.txtCheckLightDot4.TabIndex = 76;
+            // 
             // label22
             // 
             this.label22.AutoSize = true;
             this.label22.ForeColor = System.Drawing.Color.Red;
-            this.label22.Location = new System.Drawing.Point(475, 482);
+            this.label22.Location = new System.Drawing.Point(447, 492);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(14, 14);
             this.label22.TabIndex = 75;
@@ -332,7 +784,7 @@
             // 
             // cboStirring2Intensity
             // 
-            this.cboStirring2Intensity.Location = new System.Drawing.Point(366, 479);
+            this.cboStirring2Intensity.Location = new System.Drawing.Point(343, 486);
             this.cboStirring2Intensity.Name = "cboStirring2Intensity";
             this.cboStirring2Intensity.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboStirring2Intensity.Properties.Appearance.Options.UseFont = true;
@@ -346,7 +798,7 @@
             // 
             this.labelControl12.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelControl12.Appearance.Options.UseFont = true;
-            this.labelControl12.Location = new System.Drawing.Point(272, 482);
+            this.labelControl12.Location = new System.Drawing.Point(249, 489);
             this.labelControl12.Name = "labelControl12";
             this.labelControl12.Size = new System.Drawing.Size(92, 17);
             this.labelControl12.TabIndex = 73;
@@ -356,7 +808,7 @@
             // 
             this.label18.AutoSize = true;
             this.label18.ForeColor = System.Drawing.Color.Red;
-            this.label18.Location = new System.Drawing.Point(237, 482);
+            this.label18.Location = new System.Drawing.Point(227, 491);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(14, 14);
             this.label18.TabIndex = 72;
@@ -500,7 +952,7 @@
             this.btnDetele.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDetele.Appearance.Options.UseFont = true;
             this.btnDetele.Image = ((System.Drawing.Image)(resources.GetObject("btnDetele.Image")));
-            this.btnDetele.Location = new System.Drawing.Point(1070, 652);
+            this.btnDetele.Location = new System.Drawing.Point(1146, 664);
             this.btnDetele.Name = "btnDetele";
             this.btnDetele.Size = new System.Drawing.Size(92, 53);
             this.btnDetele.TabIndex = 60;
@@ -512,7 +964,7 @@
             this.btnParamSave.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnParamSave.Appearance.Options.UseFont = true;
             this.btnParamSave.Image = ((System.Drawing.Image)(resources.GetObject("btnParamSave.Image")));
-            this.btnParamSave.Location = new System.Drawing.Point(947, 652);
+            this.btnParamSave.Location = new System.Drawing.Point(1023, 664);
             this.btnParamSave.Name = "btnParamSave";
             this.btnParamSave.Size = new System.Drawing.Size(92, 53);
             this.btnParamSave.TabIndex = 59;
@@ -521,7 +973,7 @@
             // 
             // cboStirring1Intensity
             // 
-            this.cboStirring1Intensity.Location = new System.Drawing.Point(128, 479);
+            this.cboStirring1Intensity.Location = new System.Drawing.Point(124, 488);
             this.cboStirring1Intensity.Name = "cboStirring1Intensity";
             this.cboStirring1Intensity.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboStirring1Intensity.Properties.Appearance.Options.UseFont = true;
@@ -533,28 +985,16 @@
             // 
             // txtAbsLimitValue
             // 
-            this.txtAbsLimitValue.Location = new System.Drawing.Point(127, 423);
+            this.txtAbsLimitValue.Location = new System.Drawing.Point(127, 447);
             this.txtAbsLimitValue.Name = "txtAbsLimitValue";
             this.txtAbsLimitValue.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAbsLimitValue.Properties.Appearance.Options.UseFont = true;
             this.txtAbsLimitValue.Size = new System.Drawing.Size(82, 24);
             this.txtAbsLimitValue.TabIndex = 57;
             // 
-            // cboBoundDirection
-            // 
-            this.cboBoundDirection.Location = new System.Drawing.Point(837, 586);
-            this.cboBoundDirection.Name = "cboBoundDirection";
-            this.cboBoundDirection.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboBoundDirection.Properties.Appearance.Options.UseFont = true;
-            this.cboBoundDirection.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cboBoundDirection.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.cboBoundDirection.Size = new System.Drawing.Size(77, 24);
-            this.cboBoundDirection.TabIndex = 56;
-            // 
             // cboReactionDirection
             // 
-            this.cboReactionDirection.Location = new System.Drawing.Point(244, 423);
+            this.cboReactionDirection.Location = new System.Drawing.Point(244, 447);
             this.cboReactionDirection.Name = "cboReactionDirection";
             this.cboReactionDirection.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboReactionDirection.Properties.Appearance.Options.UseFont = true;
@@ -563,87 +1003,7 @@
             this.cboReactionDirection.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.cboReactionDirection.Size = new System.Drawing.Size(100, 24);
             this.cboReactionDirection.TabIndex = 55;
-            // 
-            // txtLimit2
-            // 
-            this.txtLimit2.Location = new System.Drawing.Point(1063, 586);
-            this.txtLimit2.Name = "txtLimit2";
-            this.txtLimit2.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtLimit2.Properties.Appearance.Options.UseFont = true;
-            this.txtLimit2.Size = new System.Drawing.Size(82, 24);
-            this.txtLimit2.TabIndex = 54;
-            // 
-            // txtLimit1
-            // 
-            this.txtLimit1.Location = new System.Drawing.Point(947, 586);
-            this.txtLimit1.Name = "txtLimit1";
-            this.txtLimit1.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtLimit1.Properties.Appearance.Options.UseFont = true;
-            this.txtLimit1.Size = new System.Drawing.Size(82, 24);
-            this.txtLimit1.TabIndex = 53;
-            // 
-            // txtPmp4
-            // 
-            this.txtPmp4.Location = new System.Drawing.Point(713, 586);
-            this.txtPmp4.Name = "txtPmp4";
-            this.txtPmp4.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPmp4.Properties.Appearance.Options.UseFont = true;
-            this.txtPmp4.Size = new System.Drawing.Size(82, 24);
-            this.txtPmp4.TabIndex = 52;
-            // 
-            // txtPmp3
-            // 
-            this.txtPmp3.Location = new System.Drawing.Point(596, 586);
-            this.txtPmp3.Name = "txtPmp3";
-            this.txtPmp3.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPmp3.Properties.Appearance.Options.UseFont = true;
-            this.txtPmp3.Size = new System.Drawing.Size(82, 24);
-            this.txtPmp3.TabIndex = 51;
-            // 
-            // txtPmp2
-            // 
-            this.txtPmp2.Location = new System.Drawing.Point(478, 586);
-            this.txtPmp2.Name = "txtPmp2";
-            this.txtPmp2.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPmp2.Properties.Appearance.Options.UseFont = true;
-            this.txtPmp2.Size = new System.Drawing.Size(82, 24);
-            this.txtPmp2.TabIndex = 50;
-            // 
-            // txtPmp1
-            // 
-            this.txtPmp1.Location = new System.Drawing.Point(362, 586);
-            this.txtPmp1.Name = "txtPmp1";
-            this.txtPmp1.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPmp1.Properties.Appearance.Options.UseFont = true;
-            this.txtPmp1.Size = new System.Drawing.Size(82, 24);
-            this.txtPmp1.TabIndex = 49;
-            // 
-            // txtProHighestBound
-            // 
-            this.txtProHighestBound.Location = new System.Drawing.Point(244, 586);
-            this.txtProHighestBound.Name = "txtProHighestBound";
-            this.txtProHighestBound.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtProHighestBound.Properties.Appearance.Options.UseFont = true;
-            this.txtProHighestBound.Size = new System.Drawing.Size(82, 24);
-            this.txtProHighestBound.TabIndex = 48;
-            // 
-            // txtProLowestBound
-            // 
-            this.txtProLowestBound.Location = new System.Drawing.Point(127, 586);
-            this.txtProLowestBound.Name = "txtProLowestBound";
-            this.txtProLowestBound.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtProLowestBound.Properties.Appearance.Options.UseFont = true;
-            this.txtProLowestBound.Size = new System.Drawing.Size(82, 24);
-            this.txtProLowestBound.TabIndex = 47;
-            // 
-            // txtSecondSlopeHigh
-            // 
-            this.txtSecondSlopeHigh.Location = new System.Drawing.Point(478, 534);
-            this.txtSecondSlopeHigh.Name = "txtSecondSlopeHigh";
-            this.txtSecondSlopeHigh.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSecondSlopeHigh.Properties.Appearance.Options.UseFont = true;
-            this.txtSecondSlopeHigh.Size = new System.Drawing.Size(82, 24);
-            this.txtSecondSlopeHigh.TabIndex = 46;
+            this.cboReactionDirection.SelectedIndexChanged += new System.EventHandler(this.cboReactionDirection_SelectedIndexChanged);
             // 
             // txtInstrumentFactorB
             // 
@@ -654,15 +1014,6 @@
             this.txtInstrumentFactorB.Size = new System.Drawing.Size(52, 24);
             this.txtInstrumentFactorB.TabIndex = 31;
             // 
-            // txtFirstSlopeHigh
-            // 
-            this.txtFirstSlopeHigh.Location = new System.Drawing.Point(362, 534);
-            this.txtFirstSlopeHigh.Name = "txtFirstSlopeHigh";
-            this.txtFirstSlopeHigh.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFirstSlopeHigh.Properties.Appearance.Options.UseFont = true;
-            this.txtFirstSlopeHigh.Size = new System.Drawing.Size(82, 24);
-            this.txtFirstSlopeHigh.TabIndex = 45;
-            // 
             // txtInstrumentFactorA
             // 
             this.txtInstrumentFactorA.EditValue = "1";
@@ -672,15 +1023,6 @@
             this.txtInstrumentFactorA.Properties.Appearance.Options.UseFont = true;
             this.txtInstrumentFactorA.Size = new System.Drawing.Size(52, 24);
             this.txtInstrumentFactorA.TabIndex = 30;
-            // 
-            // txtSecondSlope
-            // 
-            this.txtSecondSlope.Location = new System.Drawing.Point(244, 534);
-            this.txtSecondSlope.Name = "txtSecondSlope";
-            this.txtSecondSlope.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSecondSlope.Properties.Appearance.Options.UseFont = true;
-            this.txtSecondSlope.Size = new System.Drawing.Size(82, 24);
-            this.txtSecondSlope.TabIndex = 44;
             // 
             // cboSecWaveLength
             // 
@@ -694,15 +1036,6 @@
             this.cboSecWaveLength.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.cboSecWaveLength.Size = new System.Drawing.Size(100, 24);
             this.cboSecWaveLength.TabIndex = 29;
-            // 
-            // txtFirstSlope
-            // 
-            this.txtFirstSlope.Location = new System.Drawing.Point(127, 534);
-            this.txtFirstSlope.Name = "txtFirstSlope";
-            this.txtFirstSlope.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFirstSlope.Properties.Appearance.Options.UseFont = true;
-            this.txtFirstSlope.Size = new System.Drawing.Size(82, 24);
-            this.txtFirstSlope.TabIndex = 43;
             // 
             // cboWaveLength
             // 
@@ -755,31 +1088,11 @@
             this.cboAnalizeMethod.TabIndex = 25;
             this.cboAnalizeMethod.SelectedIndexChanged += new System.EventHandler(this.cboAnalizeMethod_SelectedIndexChanged);
             // 
-            // lblLinearBound
-            // 
-            this.lblLinearBound.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLinearBound.Appearance.Options.UseFont = true;
-            this.lblLinearBound.Location = new System.Drawing.Point(33, 537);
-            this.lblLinearBound.Name = "lblLinearBound";
-            this.lblLinearBound.Size = new System.Drawing.Size(70, 17);
-            this.lblLinearBound.TabIndex = 20;
-            this.lblLinearBound.Text = "线性界限：";
-            // 
-            // lblProzoneBound
-            // 
-            this.lblProzoneBound.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProzoneBound.Appearance.Options.UseFont = true;
-            this.lblProzoneBound.Location = new System.Drawing.Point(33, 589);
-            this.lblProzoneBound.Name = "lblProzoneBound";
-            this.lblProzoneBound.Size = new System.Drawing.Size(70, 17);
-            this.lblProzoneBound.TabIndex = 19;
-            this.lblProzoneBound.Text = "前区界限：";
-            // 
             // lblAbsorbanceLimit
             // 
             this.lblAbsorbanceLimit.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAbsorbanceLimit.Appearance.Options.UseFont = true;
-            this.lblAbsorbanceLimit.Location = new System.Drawing.Point(33, 426);
+            this.lblAbsorbanceLimit.Location = new System.Drawing.Point(33, 450);
             this.lblAbsorbanceLimit.Name = "lblAbsorbanceLimit";
             this.lblAbsorbanceLimit.Size = new System.Drawing.Size(84, 17);
             this.lblAbsorbanceLimit.TabIndex = 18;
@@ -789,7 +1102,7 @@
             // 
             this.lblStirringIntensity.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStirringIntensity.Appearance.Options.UseFont = true;
-            this.lblStirringIntensity.Location = new System.Drawing.Point(33, 482);
+            this.lblStirringIntensity.Location = new System.Drawing.Point(29, 491);
             this.lblStirringIntensity.Name = "lblStirringIntensity";
             this.lblStirringIntensity.Size = new System.Drawing.Size(92, 17);
             this.lblStirringIntensity.TabIndex = 17;
@@ -1384,53 +1697,55 @@
             this.lblAnalizeMethod.TabIndex = 0;
             this.lblAnalizeMethod.Text = "分析方法：";
             // 
-            // txtCheckLightDot4
+            // grpSerumCriticality
             // 
-            this.txtCheckLightDot4.Location = new System.Drawing.Point(509, 52);
-            this.txtCheckLightDot4.Name = "txtCheckLightDot4";
-            this.txtCheckLightDot4.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCheckLightDot4.Properties.Appearance.Options.UseFont = true;
-            this.txtCheckLightDot4.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.txtCheckLightDot4.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.txtCheckLightDot4.Size = new System.Drawing.Size(52, 24);
-            this.txtCheckLightDot4.TabIndex = 76;
+            this.grpSerumCriticality.Controls.Add(this.labSerumMax);
+            this.grpSerumCriticality.Controls.Add(this.labSerumMin);
+            this.grpSerumCriticality.Controls.Add(this.txtSerumMaxValue);
+            this.grpSerumCriticality.Controls.Add(this.txtSerumMinValue);
+            this.grpSerumCriticality.Location = new System.Drawing.Point(240, 531);
+            this.grpSerumCriticality.Name = "grpSerumCriticality";
+            this.grpSerumCriticality.Size = new System.Drawing.Size(222, 111);
+            this.grpSerumCriticality.TabIndex = 88;
+            this.grpSerumCriticality.Text = "血清临界：";
             // 
-            // txtCheckLightDot3
+            // labSerumMax
             // 
-            this.txtCheckLightDot3.Location = new System.Drawing.Point(451, 52);
-            this.txtCheckLightDot3.Name = "txtCheckLightDot3";
-            this.txtCheckLightDot3.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCheckLightDot3.Properties.Appearance.Options.UseFont = true;
-            this.txtCheckLightDot3.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.txtCheckLightDot3.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.txtCheckLightDot3.Size = new System.Drawing.Size(52, 24);
-            this.txtCheckLightDot3.TabIndex = 77;
+            this.labSerumMax.AutoSize = true;
+            this.labSerumMax.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labSerumMax.Location = new System.Drawing.Point(137, 35);
+            this.labSerumMax.Name = "labSerumMax";
+            this.labSerumMax.Size = new System.Drawing.Size(50, 17);
+            this.labSerumMax.TabIndex = 51;
+            this.labSerumMax.Text = "最大值";
             // 
-            // txtCheckLightDot1
+            // labSerumMin
             // 
-            this.txtCheckLightDot1.Location = new System.Drawing.Point(335, 52);
-            this.txtCheckLightDot1.Name = "txtCheckLightDot1";
-            this.txtCheckLightDot1.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCheckLightDot1.Properties.Appearance.Options.UseFont = true;
-            this.txtCheckLightDot1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.txtCheckLightDot1.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.txtCheckLightDot1.Size = new System.Drawing.Size(52, 24);
-            this.txtCheckLightDot1.TabIndex = 78;
+            this.labSerumMin.AutoSize = true;
+            this.labSerumMin.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labSerumMin.Location = new System.Drawing.Point(36, 37);
+            this.labSerumMin.Name = "labSerumMin";
+            this.labSerumMin.Size = new System.Drawing.Size(50, 17);
+            this.labSerumMin.TabIndex = 50;
+            this.labSerumMin.Text = "最小值";
             // 
-            // txtCheckLightDot2
+            // txtSerumMinValue
             // 
-            this.txtCheckLightDot2.Location = new System.Drawing.Point(393, 52);
-            this.txtCheckLightDot2.Name = "txtCheckLightDot2";
-            this.txtCheckLightDot2.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCheckLightDot2.Properties.Appearance.Options.UseFont = true;
-            this.txtCheckLightDot2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.txtCheckLightDot2.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.txtCheckLightDot2.Size = new System.Drawing.Size(52, 24);
-            this.txtCheckLightDot2.TabIndex = 79;
+            this.txtSerumMinValue.Location = new System.Drawing.Point(21, 65);
+            this.txtSerumMinValue.Name = "txtSerumMinValue";
+            this.txtSerumMinValue.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSerumMinValue.Properties.Appearance.Options.UseFont = true;
+            this.txtSerumMinValue.Size = new System.Drawing.Size(79, 24);
+            this.txtSerumMinValue.TabIndex = 48;
+            // 
+            // txtSerumMaxValue
+            // 
+            this.txtSerumMaxValue.Location = new System.Drawing.Point(125, 65);
+            this.txtSerumMaxValue.Name = "txtSerumMaxValue";
+            this.txtSerumMaxValue.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSerumMaxValue.Properties.Appearance.Options.UseFont = true;
+            this.txtSerumMaxValue.Size = new System.Drawing.Size(78, 24);
+            this.txtSerumMaxValue.TabIndex = 49;
             // 
             // ProjectParameter
             // 
@@ -1449,6 +1764,38 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lblProzoneBound)).EndInit();
+            this.lblProzoneBound.ResumeLayout(false);
+            this.lblProzoneBound.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtProLowestBound.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkAutoResurvey.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
+            this.groupControl3.ResumeLayout(false);
+            this.groupControl3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSerumWomanConsHigh.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSerumWomanConsLow.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpRangeParam)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemBreadCrumbEdit1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btuDelete)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSerumManConsHigh.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSerumManConsLow.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSerumAgeHigh1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSerumAgeLow1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
+            this.groupControl2.ResumeLayout(false);
+            this.groupControl2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtReagentMinValue.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtReagentMaxValue.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpLinearityRange)).EndInit();
+            this.grpLinearityRange.ResumeLayout(false);
+            this.grpLinearityRange.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtFirstSlope.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtFirstSlopeHigh.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtCheckLightDot2.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtCheckLightDot1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtCheckLightDot3.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtCheckLightDot4.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboStirring2Intensity.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
@@ -1457,23 +1804,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtReagent1VolSettings.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboStirring1Intensity.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAbsLimitValue.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboBoundDirection.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboReactionDirection.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtLimit2.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtLimit1.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtPmp4.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtPmp3.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtPmp2.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtPmp1.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtProHighestBound.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtProLowestBound.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtSecondSlopeHigh.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtInstrumentFactorB.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtFirstSlopeHigh.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtInstrumentFactorA.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtSecondSlope.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboSecWaveLength.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtFirstSlope.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboWaveLength.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboResultUnit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboDecimal.Properties)).EndInit();
@@ -1504,10 +1838,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtComDilutionVol.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtComSamVol.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtComStosteVol.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtCheckLightDot4.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtCheckLightDot3.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtCheckLightDot1.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtCheckLightDot2.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpSerumCriticality)).EndInit();
+            this.grpSerumCriticality.ResumeLayout(false);
+            this.grpSerumCriticality.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSerumMinValue.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSerumMaxValue.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1523,29 +1858,17 @@
         private DevExpress.XtraEditors.SimpleButton btnParamSave;
         private DevExpress.XtraEditors.ComboBoxEdit cboStirring1Intensity;
         private DevExpress.XtraEditors.TextEdit txtAbsLimitValue;
-        private DevExpress.XtraEditors.ComboBoxEdit cboBoundDirection;
         private DevExpress.XtraEditors.ComboBoxEdit cboReactionDirection;
-        private DevExpress.XtraEditors.TextEdit txtLimit2;
-        private DevExpress.XtraEditors.TextEdit txtLimit1;
-        private DevExpress.XtraEditors.TextEdit txtPmp4;
-        private DevExpress.XtraEditors.TextEdit txtPmp3;
-        private DevExpress.XtraEditors.TextEdit txtPmp2;
-        private DevExpress.XtraEditors.TextEdit txtPmp1;
-        private DevExpress.XtraEditors.TextEdit txtProHighestBound;
         private DevExpress.XtraEditors.TextEdit txtProLowestBound;
-        private DevExpress.XtraEditors.TextEdit txtSecondSlopeHigh;
         private DevExpress.XtraEditors.TextEdit txtInstrumentFactorB;
         private DevExpress.XtraEditors.TextEdit txtFirstSlopeHigh;
         private DevExpress.XtraEditors.TextEdit txtInstrumentFactorA;
-        private DevExpress.XtraEditors.TextEdit txtSecondSlope;
         private DevExpress.XtraEditors.ComboBoxEdit cboSecWaveLength;
         private DevExpress.XtraEditors.TextEdit txtFirstSlope;
         private DevExpress.XtraEditors.ComboBoxEdit cboWaveLength;
         private DevExpress.XtraEditors.ComboBoxEdit cboResultUnit;
         private DevExpress.XtraEditors.ComboBoxEdit cboDecimal;
         private DevExpress.XtraEditors.ComboBoxEdit cboAnalizeMethod;
-        private DevExpress.XtraEditors.LabelControl lblLinearBound;
-        private DevExpress.XtraEditors.LabelControl lblProzoneBound;
         private DevExpress.XtraEditors.LabelControl lblAbsorbanceLimit;
         private DevExpress.XtraEditors.LabelControl lblStirringIntensity;
         private DevExpress.XtraEditors.GroupControl grpReagentSetting;
@@ -1627,5 +1950,42 @@
         private DevExpress.XtraEditors.ComboBoxEdit txtCheckLightDot1;
         private DevExpress.XtraEditors.ComboBoxEdit txtCheckLightDot3;
         private DevExpress.XtraEditors.ComboBoxEdit txtCheckLightDot4;
+        private DevExpress.XtraEditors.GroupControl grpLinearityRange;
+        private System.Windows.Forms.Label labLinearMaximum;
+        private System.Windows.Forms.Label labLinearMinimum;
+        private DevExpress.XtraEditors.GroupControl groupControl2;
+        private System.Windows.Forms.Label labReagentMaximum;
+        private System.Windows.Forms.Label labReagentMinimun;
+        private DevExpress.XtraEditors.TextEdit txtReagentMinValue;
+        private DevExpress.XtraEditors.TextEdit txtReagentMaxValue;
+        private DevExpress.XtraEditors.GroupControl groupControl3;
+        private DevExpress.XtraEditors.TextEdit txtSerumManConsHigh;
+        private DevExpress.XtraEditors.TextEdit txtSerumManConsLow;
+        private DevExpress.XtraEditors.LabelControl labelControl19;
+        private DevExpress.XtraEditors.TextEdit txtSerumAgeHigh1;
+        private DevExpress.XtraEditors.TextEdit txtSerumAgeLow1;
+        private DevExpress.XtraEditors.LabelControl labelControl21;
+        private DevExpress.XtraEditors.LabelControl labelControl24;
+        private System.Windows.Forms.Button ButSave;
+        private DevExpress.XtraGrid.GridControl grpRangeParam;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridView3;
+        private DevExpress.XtraEditors.CheckEdit chkAutoResurvey;
+        private DevExpress.XtraEditors.LabelControl labelControl15;
+        private DevExpress.XtraEditors.LabelControl labMan;
+        private DevExpress.XtraEditors.TextEdit txtSerumWomanConsHigh;
+        private DevExpress.XtraEditors.TextEdit txtSerumWomanConsLow;
+        private DevExpress.XtraEditors.LabelControl labelControl13;
+        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit btuDelete;
+        private DevExpress.XtraEditors.Repository.RepositoryItemBreadCrumbEdit repositoryItemBreadCrumbEdit1;
+        private System.Windows.Forms.Button butDelete;
+        private DevExpress.XtraEditors.GroupControl lblProzoneBound;
+        private System.Windows.Forms.CheckBox CBLowerLimit;
+        private System.Windows.Forms.CheckBox CBSuperiorLimit;
+        private System.Windows.Forms.Label label3;
+        private DevExpress.XtraEditors.GroupControl grpSerumCriticality;
+        private System.Windows.Forms.Label labSerumMax;
+        private System.Windows.Forms.Label labSerumMin;
+        private DevExpress.XtraEditors.TextEdit txtSerumMaxValue;
+        private DevExpress.XtraEditors.TextEdit txtSerumMinValue;
     }
 }

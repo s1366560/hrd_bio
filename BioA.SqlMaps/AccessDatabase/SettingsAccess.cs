@@ -453,25 +453,25 @@ namespace BioA.SqlMaps
         }
 
         /// <summary>
-        /// 通过项目名称和项目类型获取项目范围参数
+        /// 获取所有生化项目范围参数信息
         /// </summary>
         /// <param name="strDBMethod"></param>
         /// <param name="assayProInfo"></param>
         /// <returns></returns>
-        public AssayProjectRangeParamInfo QueryRangeParamByProNameAndType(string strDBMethod, AssayProjectInfo assayProInfo)
+        public List<AssayProjectRangeParamInfo> QueryRangeParam(string strDBMethod)
         {
-            AssayProjectRangeParamInfo rangeParamInfo = new AssayProjectRangeParamInfo();
+            List<AssayProjectRangeParamInfo> lstRangeParamInfo = new List<AssayProjectRangeParamInfo>();
 
             try
             {
-                rangeParamInfo = (AssayProjectRangeParamInfo)ism_SqlMap.QueryForObject("AssayProjectInfo." + strDBMethod, assayProInfo);
+                lstRangeParamInfo = (List<AssayProjectRangeParamInfo>)ism_SqlMap.QueryForList<AssayProjectRangeParamInfo>("AssayProjectInfo." + strDBMethod, null);
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryRangeParamByProNameAndType(string strDBMethod, AssayProjectInfo assayProInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryRangeParam(string strDBMethod, AssayProjectInfo assayProInfo)==" + e.ToString(), Module.DAO);
             }
 
-            return rangeParamInfo;
+            return lstRangeParamInfo;
         }
         /// <summary>
         /// 通过项目名称和项目类型更新项目范围参数

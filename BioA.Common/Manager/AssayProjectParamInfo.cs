@@ -45,22 +45,16 @@ namespace BioA.Common
             Reagent2ValidDate = new DateTime();
             dilutionType = "";
             firstSlope = 100000000;
-            secondSlope = 100000000;
             firstSlopeHigh = 100000000;
-            secondSlopeHigh = 100000000;
             proLowestBound = 100000000;
-            proHighestBound = 100000000;
-            pmp1 = 100000000;
-            pmp2 = 100000000;
-            pmp3 = 100000000;
-            pmp4 = 100000000;
-            boundDirection = "";
-            limit1 = 100000000;
-            limit2 = 100000000;
-            abslimitValue = 100000000;
+            limitValue = 100000000;
             reactionDirection = "";
             stirring1Intensity = "";
             stirring2Intensity = "";
+            serumCriticalMinimum = 100000000;
+            serumCriticalMaximum = 100000000;
+            reagentBlankMinimum = 100000000;
+            reagentBlankMaximum = 100000000;
         }
         private string projectName;
         public string ProjectName
@@ -318,15 +312,6 @@ namespace BioA.Common
             get { return firstSlope; }
             set { firstSlope = value; }
         }
-        private float secondSlope;
-        /// <summary>
-        /// 第二线性界限值
-        /// </summary>
-        public float SecondSlope
-        {
-            get { return secondSlope; }
-            set { secondSlope = value; }
-        }
         private float firstSlopeHigh;
         /// <summary>
         /// 第一线性最高值
@@ -335,15 +320,6 @@ namespace BioA.Common
         {
             get { return firstSlopeHigh; }
             set { firstSlopeHigh = value; }
-        }
-        private float secondSlopeHigh;
-        /// <summary>
-        /// 第二线性最高值
-        /// </summary>
-        public float SecondSlopeHigh
-        {
-            get { return secondSlopeHigh; }
-            set { secondSlopeHigh = value; }
         }
         private float proLowestBound;
         /// <summary>
@@ -354,86 +330,14 @@ namespace BioA.Common
             get { return proLowestBound; }
             set { proLowestBound = value; }
         }
-        private float proHighestBound;
-        /// <summary>
-        /// 前区界限最高值
-        /// </summary>
-        public float ProHighestBound
-        {
-            get { return proHighestBound; }
-            set { proHighestBound = value; }
-        }
-        private int pmp1;
-        /// <summary>
-        /// 前区界限点1
-        /// </summary>
-        public int Pmp1
-        {
-            get { return pmp1; }
-            set { pmp1 = value; }
-        }
-        private int pmp2;
-        /// <summary>
-        /// 前区界限点2
-        /// </summary>
-        public int Pmp2
-        {
-            get { return pmp2; }
-            set { pmp2 = value; }
-        }
-        private int pmp3;
-        /// <summary>
-        /// 前区界限点3
-        /// </summary>
-        public int Pmp3
-        {
-            get { return pmp3; }
-            set { pmp3 = value; }
-        }
-        private int pmp4;
-        /// <summary>
-        /// 前区界限点4
-        /// </summary>
-        public int Pmp4
-        {
-            get { return pmp4; }
-            set { pmp4 = value; }
-        }
-        private string boundDirection;
-        /// <summary>
-        /// 前区界限区间设定
-        /// </summary>
-        public string BoundDirection
-        {
-            get { return boundDirection; }
-            set { boundDirection = value; }
-        }
-        private float limit1;
-        /// <summary>
-        /// 前区界限-区间界限1
-        /// </summary>
-        public float Limit1
-        {
-            get { return limit1; }
-            set { limit1 = value; }
-        }
-        private float limit2;
-        /// <summary>
-        /// 前区界限-区间界限2
-        /// </summary>
-        public float Limit2
-        {
-            get { return limit2; }
-            set { limit2 = value; }
-        }
-        private float abslimitValue;
+        private float limitValue;
         /// <summary>
         /// 吸光度界限值
         /// </summary>
-        public float AbsLimitValue
+        public float LimitValue
         {
-            get { return abslimitValue; }
-            set { abslimitValue = value; }
+            get { return limitValue; }
+            set { limitValue = value; }
         }
         private string reactionDirection;
         /// <summary>
@@ -481,6 +385,42 @@ namespace BioA.Common
         {
             get { return reagent2VolSettings; }
             set { reagent2VolSettings = value; }
+        }
+        private float serumCriticalMinimum;
+        /// <summary>
+        /// 血清临界最小值
+        /// </summary>
+        public float SerumCriticalMinimum
+        {
+            get { return serumCriticalMinimum; }
+            set { serumCriticalMinimum = value; }
+        }
+        private float serumCriticalMaximum;
+        /// <summary>
+        /// 血清临界最大值
+        /// </summary>
+        public float SerumCriticalMaximum
+        {
+            get { return serumCriticalMaximum; }
+            set { serumCriticalMaximum = value; }
+        }
+        private float reagentBlankMinimum;
+        /// <summary>
+        /// 试剂空白最小值
+        /// </summary>
+        public float ReagentBlankMinimum
+        {
+            get { return reagentBlankMinimum; }
+            set { reagentBlankMinimum = value; }
+        }
+        private float reagentBlankMaximum;
+        /// <summary>
+        /// 试剂空白最小值
+        /// </summary>
+        public float ReagentBlankMaximum
+        {
+            get { return reagentBlankMaximum; }
+            set { reagentBlankMaximum = value; }
         }
     }
 }
