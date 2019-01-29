@@ -64,7 +64,31 @@ namespace BioA.SqlMaps
             }
             return userInfo;
         }
+        /// <summary>
+        /// 访问数据库记录注销时间
+        /// </summary>
+        /// <param name="strMethodName"></param>
+        /// <param name="UserName"></param>
+        public void SaveUserExitInfo(string strMethodName, string UserName)
+        {
+            try
+            {
+                Hashtable hashtable = new Hashtable();
+                if (UserName != null)
+                {
+                    hashtable.Add("UserName", UserName);
+                    hashtable.Add("LogDetails", "注销系统");
+                    hashtable.Add("LogDateTime", DateTime.Now);
+                    ism_SqlMap.Insert("LogInfo.SaveLoginLog", hashtable);
+                }
+               
+            }
+            catch (Exception e)
+            {
+                LogInfo.WriteErrorLog("SaveUserExitInfo(string strMethodName, string UserName)==" + e.ToString(), Module.DAO);
+            }
 
+        }
         /// <summary>
         /// 保存保养日志信息
         /// </summary>

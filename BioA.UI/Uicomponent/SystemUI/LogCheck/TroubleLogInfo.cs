@@ -11,6 +11,7 @@ using DevExpress.XtraEditors;
 using BioA.Common;
 using System.Threading;
 using BioA.Common.IO;
+using BioA.Service;
 
 namespace BioA.UI
 {
@@ -18,7 +19,8 @@ namespace BioA.UI
     {
         public delegate void TroubleLogDelegate(Dictionary<string, object[]> sender);
         public event TroubleLogDelegate TroubleLogEvent;
-
+        //查询数据库的类
+        SystemLogCheck systemLogCheck = new SystemLogCheck();
         DataTable dt = new DataTable();
         /// <summary>
         /// 存储客户端发送信息给服务器的参数集合
@@ -46,13 +48,14 @@ namespace BioA.UI
             dt.Columns.Add("故障单元");
             dt.Columns.Add("故障日志详情");
             this.grdControlTrouble.DataSource = dt;
-
             string logstartTime = dtpStartTime.Value.ToShortDateString();
             string logEndTime = dtpEndTime.Value.AddDays(1).ToShortDateString();
+            TroubleLogInfoAdd(systemLogCheck.SelectTroubleLogInfoByTimeQuantum("SelectTroubleLogInfoByTimeQuantum", logstartTime, logEndTime));
+
             //获取保养日志信息
-            troubleLogDic.Add("SelectTroubleLogInfoByTimeQuantum", new object[] { logstartTime, logEndTime });
-            if (TroubleLogEvent != null)
-                TroubleLogEvent(troubleLogDic);
+            //troubleLogDic.Add("SelectTroubleLogInfoByTimeQuantum", new object[] { logstartTime, logEndTime });
+            //if (TroubleLogEvent != null)
+            //    TroubleLogEvent(troubleLogDic);
         }
 
 
@@ -96,11 +99,7 @@ namespace BioA.UI
         {
             string logstartTime = dtpStartTime.Value.ToShortDateString();
             string logEndTime = dtpEndTime.Value.AddDays(1).ToShortDateString();
-            troubleLogDic.Clear();
-            troubleLogDic.Add("SelectTroubleLogInfoByTimeQuantum", new object[] { logstartTime, logEndTime });
-            if (TroubleLogEvent != null)
-                TroubleLogEvent(troubleLogDic);
-            
+            TroubleLogInfoAdd(systemLogCheck.SelectTroubleLogInfoByTimeQuantum("SelectTroubleLogInfoByTimeQuantum", logstartTime, logEndTime));        
         }
         /// <summary>
         /// 显示序列号
@@ -146,19 +145,23 @@ namespace BioA.UI
         private void simpleButton1_Click(object sender, EventArgs e)
         {
             List<string> lstDrawDateTime = new List<string>();
+            int[] rows;
             if(this.gridView1.GetSelectedRows().Count() > 0)
             {
-                foreach (int i in this.gridView1.GetSelectedRows())
+                rows = this.gridView1.GetSelectedRows();
+                foreach (int i in rows)
                 {
-                    string drawDate = this.gridView1.GetRowCellValue(i, "时间").ToString();
+                    string drawDate = Convert.ToDateTime(this.gridView1.GetRowCellValue(i, "时间").ToString()).ToString("yyyy-MM-dd HH:mm:ss");
+                    drawDate = drawDate +"|"+ this.gridView1.GetRowCellValue(i, "故障编码").ToString();
                     lstDrawDateTime.Add(drawDate);
                 }
                 //消除重复的
                 lstDrawDateTime =lstDrawDateTime.Distinct().ToList();
-                troubleLogDic.Clear();
-                troubleLogDic.Add("AffirmTroubleLogInfo", new object[] { XmlUtility.Serializer(typeof(List<string>), lstDrawDateTime) });
-                if (TroubleLogEvent != null)
-                    TroubleLogEvent(troubleLogDic);
+                int count = systemLogCheck.AffirmTroubleLogInfo("AffirmTroubleLogInfo", lstDrawDateTime);
+                if(count >0)
+                {
+                    btnSearch_Click(null,null);
+                }
             }
         }
 

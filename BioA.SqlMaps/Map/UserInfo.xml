@@ -67,7 +67,7 @@
     </delete>
     <update id="EditUserInfo" parameterClass="System.Collections.IDictionary" resultClass="int">
       update UserInfoTb
-      set UserID = #UserID# , UserName = #UserName# , CreateTime=#CreateTime# ,ApplyTask = #ApplyTask#,
+      set UserPassword = #UserPassword# , UserName = #UserName# , CreateTime=#CreateTime# ,ApplyTask = #ApplyTask#,
       DataCheck = #DataCheck# , CalibDataCheck = #CalibDataCheck# , ReagentSetting=#ReagentSetting# ,ReagentState = #ReagentState#,
       CalibState = #CalibState# , CalibMaintain = #CalibMaintain# , QCState=#QCState# ,QCMaintain = #QCMaintain#,
       ChemistryParam = #ChemistryParam# , CombProject = #CombProject# , CalcProject=#CalcProject# ,EnvironmentParam = #EnvironmentParam#,

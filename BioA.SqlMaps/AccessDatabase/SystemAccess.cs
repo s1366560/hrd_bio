@@ -69,7 +69,7 @@ namespace BioA.SqlMaps
             }
         }
 
-        public int EditUserInfoUpDate(string strDBMethod, UserInfo userInfo, UserInfo userInfoOld)
+        public int EditUserInfoUpDate(string strDBMethod, UserInfo userInfo, string OldUserId)
         {
             int intResult = 0;
             try
@@ -103,7 +103,7 @@ namespace BioA.SqlMaps
                 hashTable.Add("LogCheck", userInfo.LogCheck);
                 hashTable.Add("VersionInfo", userInfo.VersionInfo);
 
-                hashTable.Add("UserIDOld", userInfoOld.UserID);
+                hashTable.Add("UserIDOld", OldUserId);
 
                 intResult = (int)ism_SqlMap.Update("UserInfo." + strDBMethod, hashTable);
             }
@@ -431,12 +431,15 @@ namespace BioA.SqlMaps
         /// </summary>
         /// <param name="strDBMethod"></param>
         /// <returns></returns>
-        public List<MaintenanceLogInfo> QueryOperationLogInfo(string strDBMethod)
+        public List<MaintenanceLogInfo> QueryOperationLogInfo(string strDBMethod, string startDate, string endDate)
         {
             List<MaintenanceLogInfo> lstQueryOperationLogInfo = new List<MaintenanceLogInfo>();
+            Hashtable table = new Hashtable();
             try
             {
-                lstQueryOperationLogInfo = (List<MaintenanceLogInfo>)ism_SqlMap.QueryForList<MaintenanceLogInfo>("LogInfo." + strDBMethod, null);
+                table.Add("startDate", startDate);
+                table.Add("endDate", endDate);
+                lstQueryOperationLogInfo = (List<MaintenanceLogInfo>)ism_SqlMap.QueryForList<MaintenanceLogInfo>("LogInfo." + strDBMethod, table);
             }
 
             catch (Exception e)
@@ -504,7 +507,15 @@ namespace BioA.SqlMaps
             {
                 foreach(string drawDateTime in lstDrawDateTime)
                 {
-                   result = ism_SqlMap.Update("PLCDataInfo." +strDBMethid, drawDateTime);
+                    string[] s = drawDateTime.Split('|');
+                    string startTime = s[0].Substring(0,10);
+                    string endTime = s[0];
+                    string code = s[1];
+                    Hashtable table = new Hashtable();
+                    table.Add("startTime", startTime);
+                    table.Add("endTime", endTime);
+                    table.Add("code", code);
+                    result = ism_SqlMap.Update("PLCDataInfo." + strDBMethid, table);
                 }
             }
             catch(Exception ex)
@@ -513,7 +524,28 @@ namespace BioA.SqlMaps
             }
             return result;
         }
-
+        /// <summary>
+        /// 删除操作日志
+        /// </summary>
+        /// <param name="strDBMethid"></param>
+        /// <param name="lstDrawDateTime"></param>
+        /// <returns></returns>
+        public int DeleteOperationLogInfo(string strDBMethid, List<string> lstDrawDateTime)
+        {
+            int result = 0;
+            try
+            {
+                foreach(string drawDateTime in lstDrawDateTime)
+                {
+                   result = ism_SqlMap.Delete("PLCDataInfo." +strDBMethid, drawDateTime);
+                }
+            }
+            catch(Exception ex)
+            {
+                LogInfo.WriteErrorLog("AffirmTroubleLogInfo(string strDBMethid, List<string> lstDrawDateTime) == " + ex.ToString(), Module.DAO);
+            }
+            return result;
+        }      
 
         public List<UserInfo> QueryUserCeation(string strDBMethod, string p2)
         {

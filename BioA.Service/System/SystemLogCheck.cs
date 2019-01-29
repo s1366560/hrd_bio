@@ -7,7 +7,7 @@ using BioA.Common;
 
 namespace BioA.Service
 {
-    class SystemLogCheck : DataTransmit
+  public  class SystemLogCheck : DataTransmit
     {
 
 
@@ -16,9 +16,9 @@ namespace BioA.Service
             return myBatis.QueryMaintenanceLogInfo(strDBMethod);
         }
 
-        public List<MaintenanceLogInfo> QueryOperationLogInfo(string strDBMethod)
-        { 
-            return myBatis.QueryOperationLogInfo(strDBMethod);
+        public List<MaintenanceLogInfo> QueryOperationLogInfo(string strDBMethod, string startDate, string endDate)
+        {
+            return myBatis.QueryOperationLogInfo(strDBMethod, startDate, endDate);
         }
 
         public List<AlarmLogInfo> QueryAlarmLogInfo(string strDBMethod)
@@ -36,6 +36,16 @@ namespace BioA.Service
         public int AffirmTroubleLogInfo(string strDBMethid, List<string> lstDrawDateTime)
         {
             return myBatis.AffirmTroubleLogInfo(strDBMethid, lstDrawDateTime);
+        }
+        /// <summary>
+        /// 删除操作日志
+        /// </summary>
+        /// <param name="strDBMethid"></param>
+        /// <param name="lstDrawDateTime"></param>
+        /// <returns></returns>
+        public int DeleteOperationLogInfo(string strDBMethid, List<string> lstDrawDateTime)
+        {
+            return myBatis.DeleteOperationLogInfo(strDBMethid, lstDrawDateTime);
         }
     }
 }

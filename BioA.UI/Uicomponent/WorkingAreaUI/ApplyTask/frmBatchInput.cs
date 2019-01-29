@@ -43,13 +43,10 @@ namespace BioA.UI
                 {
                     foreach (string strResult in lstReceiveInfo)
                     {
-                    
+
                         rtxtInfo.Text += Environment.NewLine + string.Format(strResult);
-                    }
-                    
+                    }                    
                 }));
-                MessageBox.Show("批量录入执行完成！");
-                this.Close();
             }
         }
         /// <summary>
@@ -107,6 +104,7 @@ namespace BioA.UI
 
             if (DataTransferEvent != null)
             {
+                
                 BeginInvoke( new Action( () => {
                     if (timer1.Enabled)
                     {
@@ -219,7 +217,5 @@ namespace BioA.UI
                 EndBatchEvent();
             }
         }
-     
-
     }
 }

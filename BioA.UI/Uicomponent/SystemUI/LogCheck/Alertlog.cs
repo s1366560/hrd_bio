@@ -11,6 +11,7 @@ using DevExpress.XtraEditors;
 using BioA.Common;
 using System.Threading;
 using BioA.Common.IO;
+using BioA.Service;
 
 namespace BioA.UI
 {
@@ -19,10 +20,14 @@ namespace BioA.UI
 
         public delegate void LogDelegate(Dictionary<string, object[]> sender);
         public event LogDelegate LogEvent;
+        //操作数据库的类
+        SystemLogCheck systemLogCheck = new SystemLogCheck();
         /// <summary>
         /// 存储客户端发送信息给服务器的参数集合
         /// </summary>
         private Dictionary<string, object[]> alertLogDic = new Dictionary<string, object[]>();
+        //操作日志数据源
+        DataTable dt = new DataTable();
 
         bool bol = false;
 
@@ -41,13 +46,9 @@ namespace BioA.UI
            
                 this.Invoke(new EventHandler(delegate
                 {
-                    gridView1.Columns.Clear();
-                    gridControl1.RefreshDataSource();
-                    DataTable dt = new DataTable();
+                    dt.Rows.Clear();
 
-                    dt.Columns.Add("用户名");
-                    dt.Columns.Add("时间");
-                    dt.Columns.Add("日志详情");
+                    
                     if (lstmaintenanceLogInfo.Count != 0)
                     {
                         foreach (MaintenanceLogInfo maintenanceLogInfo in lstmaintenanceLogInfo)
@@ -61,7 +62,8 @@ namespace BioA.UI
                     this.gridView1.Columns[2].Width = 1000;
                     this.gridView1.Columns[0].OptionsColumn.AllowEdit = false;
                     this.gridView1.Columns[1].OptionsColumn.AllowEdit = false;
-                    this.gridView1.Columns[2].OptionsColumn.AllowEdit = false;
+                    this.gridView1.Columns[2].OptionsColumn.AllowEdit = false;           
+
                 }));
             //}
         }
@@ -69,13 +71,23 @@ namespace BioA.UI
         private void Alertlog_Load(object sender, EventArgs e)
         {
             BeginInvoke(new Action(loadAlertlog));
-            
+            dt.Columns.Add("用户名");
+            dt.Columns.Add("时间");
+            dt.Columns.Add("日志详情");
+
         }
         private void loadAlertlog()
         {
             alertLogDic.Clear();
             if (bol == false)
             {
+                lblDate.Visible = false;
+                dtpStartTime.Visible = false;
+                dtpEndTime.Visible = false;
+                btnSearch.Visible = false;
+                btnSelect.Visible = false;
+                btnReverseSelection.Visible = false;
+                simpleButton1.Visible = false;
                 //获取保养日志信息
                 alertLogDic.Add("QueryMaintenanceLogInfo", null);
                 if (LogEvent != null)
@@ -83,9 +95,12 @@ namespace BioA.UI
             }
             else
             {
+                string logstartTime = dtpStartTime.Value.ToString("yyyy-MM-dd");
+                string logEndTime = dtpEndTime.Value.AddDays(1).ToString("yyyy-MM-dd");
                 //获取操作日志信息
-                alertLogDic.Add("QueryOperationLogInfo", null);
-                LogEvent(alertLogDic);
+                MaintenanceLogInfoAdd(systemLogCheck.QueryOperationLogInfo("QueryOperationLogInfo", logstartTime, logEndTime));
+                //alertLogDic.Add("QueryOperationLogInfo", new object[] { logstartTime, logEndTime });
+                //LogEvent(alertLogDic);
             }
         }
         /// <summary>
@@ -101,5 +116,74 @@ namespace BioA.UI
                 e.Info.DisplayText = (e.RowHandle + 1).ToString();
             }
         }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            string logstartTime = dtpStartTime.Value.ToString("yyyy-MM-dd");
+            string logEndTime = dtpEndTime.Value.AddDays(1).ToString("yyyy-MM-dd");
+            //alertLogDic.Clear();
+            //获取操作日志信息//
+            MaintenanceLogInfoAdd(systemLogCheck.QueryOperationLogInfo("QueryOperationLogInfo", logstartTime, logEndTime));
+            //alertLogDic.Add("QueryOperationLogInfo", new object[] { logstartTime, logEndTime });
+            //LogEvent(alertLogDic);
+        }
+        /// <summary>
+        /// 全选
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSelect_Click(object sender, EventArgs e)
+        {
+            this.gridView1.SelectAll();
+        }
+        /// <summary>
+        /// 反选
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnReverseSelection_Click(object sender, EventArgs e)
+        {
+            int[] aaa = this.gridView1.GetSelectedRows();
+            gridView1.SelectAll();
+            for (int i = 0; i < aaa.Length; i++)
+            {
+                gridView1.UnselectRow(aaa[i]);
+            }
+        }
+        int[] rows;
+        /// <summary>
+        /// 删除操作日志
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void simpleButton1_Click(object sender, EventArgs e)
+        {
+            List<string> lstDrawDateTime = new List<string>();
+            if (this.gridView1.GetSelectedRows().Count() > 0)
+            {
+                rows = this.gridView1.GetSelectedRows();
+                foreach (int i in rows)
+                {
+                    string drawDate = Convert.ToDateTime(this.gridView1.GetRowCellValue(i, "时间").ToString()).ToString("yyyy-MM-dd HH:mm:ss");                    
+                    lstDrawDateTime.Add(drawDate);
+                }
+                int count = systemLogCheck.DeleteOperationLogInfo("DeleteOperationLogInfo", lstDrawDateTime);
+                if (count > 0)
+                {
+                    foreach (int r in rows)
+                    {
+                        dt.Rows.RemoveAt(r);
+                    }
+                    gridControl1.RefreshDataSource();
+                }
+                //消除重复的
+                //lstDrawDateTime = lstDrawDateTime.Distinct().ToList();
+                //alertLogDic.Clear();
+                //alertLogDic.Add("DeleteOperationLogInfo", new object[] { XmlUtility.Serializer(typeof(List<string>), lstDrawDateTime) });
+                //if (LogEvent != null)
+                //    LogEvent(alertLogDic);                                             
+            }
+        }
+
     }
 }

@@ -946,8 +946,11 @@ namespace BioA.UI
             }
             dic.Clear();
             //添加批量录入的任务信息
-             WorkAreaApplyTask workAreaApplyTask = new WorkAreaApplyTask();
+            WorkAreaApplyTask workAreaApplyTask = new WorkAreaApplyTask();
             batchInput.LstReceiveInfo = workAreaApplyTask.BatchAddTask("AddTaskForBatch", inputDictionary);
+            MessageBox.Show("批量录入执行完成！");       
+            batchInput.DataTransferEvent -= batchInput_DataTransferEvent;
+            batchInput.Close();
         }
         AnologSamplePanel anologSamplePanel;
         private void BtnSampleDishState_Click(object sender, EventArgs e)

@@ -13,6 +13,8 @@ using System.ServiceModel;
 using BioA.Common;
 using BioA.Common.IO;
 using System.Threading;
+using System.Diagnostics;
+using BioA.Service;
 
 namespace BioA.UI
 {
@@ -21,6 +23,8 @@ namespace BioA.UI
         Alertlog Maintenancealertlog;
         Alertlog OperationLogInfo;
         TroubleLogInfo troubleLog;
+        //用户名
+        public string UserName = string.Empty;
         /// <summary>
         /// 存储客户端发送信息给服务器的参数集合
         /// </summary>
@@ -73,7 +77,6 @@ namespace BioA.UI
                         troubleLog.Result = result;
                     }
                     break;
-                
             }
         }
         /// <summary>
@@ -118,6 +121,26 @@ namespace BioA.UI
             troubleLog = new TroubleLogInfo();
             troubleLog.TroubleLogEvent += alertlog_LogEvent;
             xtraTabPage1.Controls.Add(troubleLog);
+        }
+        /// <summary>
+        /// 关闭系统
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void simpleButton1_Click(object sender, EventArgs e)
+        {
+            if (MessageBoxDraw.ShowMsg("确认要关闭系统吗？", MsgType.Question) == System.Windows.Forms.DialogResult.OK)
+            {
+                Login login = new Login();
+                login.SaveUserExitInfo("QueryUserAuthority", UserName);
+                System.Diagnostics.Process[] ps = Process.GetProcessesByName("BioA.PLCController");
+                foreach (System.Diagnostics.Process p in ps)
+                {
+                    p.Kill();
+                }
+                this.Dispose();                
+                System.Environment.Exit(System.Environment.ExitCode);
+            }
         }
        
     }

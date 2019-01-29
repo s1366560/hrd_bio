@@ -183,7 +183,9 @@
     <statement id="UpdateABSData" parameterClass="string">
       $value$
     </statement>
-
+    <statement id="DeleteOperationLogInfo" parameterClass="string" resultClass="int">
+      delete FROM loginlogtb where CONVERT(varchar(19),LogDateTime,120) = #value#
+    </statement>
     <statement id="GetWorkingDisk" resultClass="int">
       select WorkDisk from RunningStateTb
     </statement>
@@ -195,8 +197,8 @@
       select * from troublelogtb where DrawDate between #logStateTime# and #logEnditTime# and IsConfirm ='0'
     </select>
     <!-- 确认修改故障信息 -->
-    <update id="AffirmTroubleLogInfo" parameterClass ="string" resultClass="int">
-      update troublelogtb set IsConfirm = '1' where DrawDate=#value#
+    <update id="AffirmTroubleLogInfo" parameterClass="System.Collections.IDictionary" resultClass="int">
+      update troublelogtb set IsConfirm = '1' where CONVERT(varchar(19),DrawDate,120) between #startTime# and #endTime# and IsConfirm != '1' and cast(TroubleCode as varchar(100)) = #code#
     </update>
     <!-- 获取当天的故障信息总行数 -->
     <select id="GetTroubleInfoCount" parameterClass="string" resultClass="int">

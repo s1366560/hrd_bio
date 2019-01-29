@@ -40,8 +40,8 @@
     <select id="QueryMaintenanceLogInfo" resultClass="MaintenanceLogInfo">
       SELECT * FROM MaintainLogTb
     </select>
-    <select id="QueryOperationLogInfo" resultClass="MaintenanceLogInfo">
-      SELECT * FROM OperateLogTb
+    <select id="QueryOperationLogInfo" resultClass="MaintenanceLogInfo" parameterClass="System.Collections.IDictionary">
+      SELECT * FROM loginlogtb where LogDateTime between #startDate# and #endDate#
     </select>
     <!--
     <select id="QueryAlarmLogInfo" resultClass="AlarmLogInfo">

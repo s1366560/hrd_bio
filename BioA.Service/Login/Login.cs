@@ -18,7 +18,15 @@ namespace BioA.Service
         {
             return myBatis.QueryUserAuthority(strMethodName, UserName);
         }
-
+        /// <summary>
+        /// 将注销系统时间记入数据库
+        /// </summary>
+        /// <param name="strMethodName"></param>
+        /// <param name="UserName"></param>
+        public void SaveUserExitInfo(string strMethodName, string UserName)
+        {
+            myBatis.SaveUserExitInfo(strMethodName, UserName);
+        }
         public void ISaveMaintenanceLogInfo(string strDBMethodParam, MaintenanceLogInfo maintenanceLogInfo)
         {
             myBatis.SaveMaintenanceLogInfo(strDBMethodParam,maintenanceLogInfo);

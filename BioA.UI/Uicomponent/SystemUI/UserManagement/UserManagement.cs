@@ -233,9 +233,12 @@ namespace BioA.UI
                 //DataConfig.StrmethodName = "EditUserInfo";
                 //DataConfig.ObjParam = XmlUtility.Serializer(typeof(UserInfo), sender as UserInfo);
                 //DataConfig.ObjLastestParam = ID;
-                userManagementDic.Clear();
-                userManagementDic.Add("EditUserInfo", new object[] { XmlUtility.Serializer(typeof(UserInfo), sender as UserInfo), ID });
-                UserManagementSend(userManagementDic);
+                if (sender != null)
+                {
+                    userManagementDic.Clear();
+                    userManagementDic.Add("EditUserInfo", new object[] { XmlUtility.Serializer(typeof(UserInfo), sender as UserInfo), ID });
+                    UserManagementSend(userManagementDic);
+                }
             }
         }
         private string ID;

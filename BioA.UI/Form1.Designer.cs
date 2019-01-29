@@ -87,8 +87,8 @@ namespace BioA.UI
             this.ribbonPageGroup11 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup12 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.accordionControl1 = new DevExpress.XtraBars.Navigation.AccordionControl();
-            this.ReagentStateElement4 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.ReagentSettingElement5 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.ReagentStateElement4 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.CalibrationStateElement6 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.CalibrationMaintainElement7 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.QCStateElement8 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
@@ -511,19 +511,6 @@ namespace BioA.UI
             this.accordionControl1.TabIndex = 3;
             this.accordionControl1.Click += new System.EventHandler(this.accordionControl1_Click);
             // 
-            // ReagentStateElement4
-            // 
-            this.ReagentStateElement4.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
-            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Text),
-            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.ContextButtons),
-            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl),
-            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image)});
-            this.ReagentStateElement4.Height = 50;
-            this.ReagentStateElement4.Name = "ReagentStateElement4";
-            this.ReagentStateElement4.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.ReagentStateElement4.Text = "             试剂状态       ";
-            this.ReagentStateElement4.Click += new System.EventHandler(this.accordionControlElement4_Click);
-            // 
             // ReagentSettingElement5
             // 
             this.ReagentSettingElement5.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
@@ -536,6 +523,19 @@ namespace BioA.UI
             this.ReagentSettingElement5.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
             this.ReagentSettingElement5.Text = "             试剂设置       ";
             this.ReagentSettingElement5.Click += new System.EventHandler(this.accordionControlElement5_Click);
+            // 
+            // ReagentStateElement4
+            // 
+            this.ReagentStateElement4.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Text),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.ContextButtons),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image)});
+            this.ReagentStateElement4.Height = 50;
+            this.ReagentStateElement4.Name = "ReagentStateElement4";
+            this.ReagentStateElement4.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.ReagentStateElement4.Text = "             试剂状态       ";
+            this.ReagentStateElement4.Click += new System.EventHandler(this.accordionControlElement4_Click);
             // 
             // CalibrationStateElement6
             // 

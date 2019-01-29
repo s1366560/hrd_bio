@@ -2,6 +2,7 @@
 using BioA.Common.Communication;
 using BioA.Common.IO;
 using BioA.Common.Machine;
+using BioA.Service;
 using BioA.SqlMaps;
 using BioA.UI.ServiceReference1;
 using BioA.UI.Uicomponent;
@@ -1257,6 +1258,7 @@ namespace BioA.UI
                 if (CommunicationUI.notifyCallBack.LogDataTransferEvent != null)
                     CommunicationUI.notifyCallBack.LogDataTransferEvent -= log.DataTransfer_Event;
                 log = new Log();
+                log.UserName = labUserName.Text;
                 CommunicationUI.notifyCallBack.LogDataTransferEvent += log.DataTransfer_Event;
                 txtPrompt.Text = "您当前的操作：安全管理——日志查看";
                 pcThirdArea.Controls.Add(txtPrompt);
@@ -1424,6 +1426,7 @@ namespace BioA.UI
                     if (CommunicationUI.notifyCallBack.LogDataTransferEvent != null)
                         CommunicationUI.notifyCallBack.LogDataTransferEvent -= log.DataTransfer_Event;
                     log = new Log();
+                    log.UserName = labUserName.Text;
                     CommunicationUI.notifyCallBack.LogDataTransferEvent += log.DataTransfer_Event;
                     txtPrompt.Text = "您当前的操作：安全管理——日志查看";
                     pcThirdArea.Controls.Add(txtPrompt);

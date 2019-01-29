@@ -1326,10 +1326,8 @@ namespace BioA.Service
                         LogInfo.WriteProcessLog(strInfo, Module.WindowsService);
                         break;
                     case "EditUserInfo":
-                        UserInfo UserInfoOld = new UserInfo();
                         userInfo = XmlUtility.Deserialize(typeof(UserInfo), kvp.Value[0].ToString()) as UserInfo;
-                        UserInfoOld.UserID = kvp.Value[1].ToString();
-                        int intUpDateResult = systemUserManagement.EditUserInfoUpDate(kvp.Key, userInfo, UserInfoOld);
+                        int intUpDateResult = systemUserManagement.EditUserInfoUpDate(kvp.Key, userInfo, kvp.Value[1].ToString());
                         strMethodParam.Add(kvp.Key, intUpDateResult);
                         break;
                     case "DeleteUserInfo":
@@ -1361,7 +1359,7 @@ namespace BioA.Service
                         strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<MaintenanceLogInfo>), lisMaintenanceLogInfo));
                         break;
                     case "QueryOperationLogInfo":
-                        List<MaintenanceLogInfo> lisOperationLogInfo = systemLogCheck.QueryOperationLogInfo(kvp.Key);
+                        List<MaintenanceLogInfo> lisOperationLogInfo = systemLogCheck.QueryOperationLogInfo(kvp.Key, kvp.Value[0].ToString(), kvp.Value[1].ToString());
                         strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<MaintenanceLogInfo>), lisOperationLogInfo));
                         break;
                     case "QueryAlarmLogInfo":
@@ -1376,6 +1374,11 @@ namespace BioA.Service
                         List<string> lstDrawDateTime = (List<string>)XmlUtility.Deserialize(typeof(List<string>), kvp.Value[0].ToString());
                         int result = systemLogCheck.AffirmTroubleLogInfo(kvp.Key, lstDrawDateTime);
                         strMethodParam.Add(kvp.Key, result);
+                        break;
+                    case "DeleteOperationLogInfo":
+                        List<string> lstDateTime = (List<string>)XmlUtility.Deserialize(typeof(List<string>), kvp.Value[0].ToString());
+                        int count = systemLogCheck.DeleteOperationLogInfo(kvp.Key, lstDateTime);
+                        strMethodParam.Add(kvp.Key, count);
                         break;
                     default:
                         break;

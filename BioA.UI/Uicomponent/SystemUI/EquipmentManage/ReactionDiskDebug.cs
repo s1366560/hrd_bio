@@ -111,7 +111,7 @@ namespace BioA.UI
                     strSender = ConfigureInfo.ComponetList.Find(componet => componet.Name == lblEightRinseDebug.Text).CommandList.Find(command => command.FullName == btnSaveCalibration.Text).Name;
                     break;
                 case "btnprobeTD":
-                    strSender = ConfigureInfo.ComponetList.Find(componet => componet.Name == lblEightRinseDebug.Text).CommandList.Find(command => command.FullName == btnprobeTD.Text).Name;
+                    strSender = ConfigureInfo.ComponetList.Find(componet => componet.Name == lblResponseTC.Text).CommandList.Find(command => command.FullName == btnprobeTD.Text).Name;
                     break;
                 default:
                     break;

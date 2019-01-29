@@ -264,7 +264,7 @@ namespace BioA.UI
             }
             else
             {
-                
+                return null;
             }
             if(chkApplyTask.Checked)
             {

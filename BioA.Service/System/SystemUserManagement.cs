@@ -51,9 +51,9 @@ namespace BioA.Service
             return strInfo;
         }
 
-        public int EditUserInfoUpDate(string strDBMethod, UserInfo dataConfig, UserInfo dataConfigOld)
+        public int EditUserInfoUpDate(string strDBMethod, UserInfo dataConfig, string OldUserId)
         {
-            return myBatis.EditUserInfoUpDate(strDBMethod, dataConfig, dataConfigOld);
+            return myBatis.EditUserInfoUpDate(strDBMethod, dataConfig, OldUserId);
         }
 
         public int DeleteUserInfo(string strDBMethod, string dataConfig, string UserName)
