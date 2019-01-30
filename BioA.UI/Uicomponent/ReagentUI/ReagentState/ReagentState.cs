@@ -44,10 +44,14 @@ namespace BioA.UI
      
         private void ReagentStateLoad()
         {
-            reagentDictionary.Clear();
-            reagentDictionary.Add("QueryReagentState", new object[] { "" });
-
-            ReagentStateSend(reagentDictionary);
+            //reagentDictionary.Clear();
+            //reagentDictionary.Add("QueryReagentState", new object[] { "" });
+            lstReagentStateInfo = new BioA.Service.ReagentState().QueryReagentStateInfo("QueryReagentState", "");
+            BeginInvoke(new Action(() =>
+            {
+                InitialReagentStateInfo(lstReagentStateInfo);
+            }));
+            //ReagentStateSend(reagentDictionary);
             gridView1.OptionsSelection.MultiSelect = true;
             gridView1.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
             gridView1.OptionsSelection.ResetSelectionClickOutsideCheckboxSelector = true;
@@ -229,6 +233,11 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void btnLocking_Click(object sender, EventArgs e)
         {
+            if(this.gridView1.GetSelectedRows().Count() == 0)
+            {
+                MessageBoxDraw.ShowMsg("请选择一条记录！",MsgType.OK);
+                return;
+            }
             List<ReagentStateInfoR1R2> ReagentStateInfo = new List<ReagentStateInfoR1R2>();
             
             int [] aaa = this.gridView1.GetSelectedRows();
@@ -237,17 +246,34 @@ namespace BioA.UI
                 ReagentStateInfoR1R2 reagentStateInfoR1R2 = new ReagentStateInfoR1R2();
                 reagentStateInfoR1R2.ProjectName = this.gridView1.GetRowCellValue(aaa[i], "项目名称").ToString();
                 reagentStateInfoR1R2.ReagentName = this.gridView1.GetRowCellValue(aaa[i], "试剂1名称").ToString();
-                reagentStateInfoR1R2.Pos = this.gridView1.GetRowCellValue(aaa[i], "试剂1位置").ToString();
                 reagentStateInfoR1R2.ReagentType = this.gridView1.GetRowCellValue(aaa[i], "试剂1类型").ToString();
                 reagentStateInfoR1R2.ReagentName2 = this.gridView1.GetRowCellValue(aaa[i], "试剂2名称").ToString();
-                reagentStateInfoR1R2.Pos2 = this.gridView1.GetRowCellValue(aaa[i], "试剂2位置").ToString();
                 reagentStateInfoR1R2.ReagentType2 = this.gridView1.GetRowCellValue(aaa[i], "试剂2类型").ToString();
                 reagentStateInfoR1R2.Locked = true;
                 ReagentStateInfo.Add(reagentStateInfoR1R2);
             }
-            reagentDictionary.Clear();
-            reagentDictionary.Add("LockReagentState", new object[] { XmlUtility.Serializer(typeof(List<ReagentStateInfoR1R2>), ReagentStateInfo) });
-            ReagentStateSend(reagentDictionary);           
+            
+            lstReagentStateInfo.Clear();
+            lstReagentStateInfo = new BioA.Service.ReagentState().UpdataReagentStateInfo("LockReagentState", ReagentStateInfo);
+            if (lstReagentStateInfo.Count == 0)
+                MessageBox.Show("设置试剂状态失败！");
+            else
+            {
+                foreach(int r in aaa)
+                {
+                    dt.Rows[r][13] = "锁定";
+                }
+                gridReagentState.RefreshDataSource();
+            }
+                //BeginInvoke(new Action(() =>
+                //{
+                //   InitialReagentStateInfo(lstReagentStateInfo);
+                //}));
+
+            //reagentDictionary.Clear();
+            //reagentDictionary.Add("LockReagentState", new object[] { XmlUtility.Serializer(typeof(List<ReagentStateInfoR1R2>), ReagentStateInfo) });
+
+            //ReagentStateSend(reagentDictionary);           
         }
         /// <summary>
         /// 解锁状态
@@ -256,6 +282,11 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void deblocking_Click(object sender, EventArgs e)
         {
+            if (this.gridView1.GetSelectedRows().Count() == 0)
+            {
+                MessageBoxDraw.ShowMsg("请选择一条记录！", MsgType.OK);
+                return;
+            }
             List<ReagentStateInfoR1R2> ReagentStateInfo = new List<ReagentStateInfoR1R2>();
 
             int[] aaa = this.gridView1.GetSelectedRows();
@@ -264,17 +295,33 @@ namespace BioA.UI
                 ReagentStateInfoR1R2 reagentStateInfoR1R2 = new ReagentStateInfoR1R2();
                 reagentStateInfoR1R2.ProjectName = this.gridView1.GetRowCellValue(aaa[i], "项目名称").ToString();
                 reagentStateInfoR1R2.ReagentName = this.gridView1.GetRowCellValue(aaa[i], "试剂1名称").ToString();
-                reagentStateInfoR1R2.Pos = this.gridView1.GetRowCellValue(aaa[i], "试剂1位置").ToString();
                 reagentStateInfoR1R2.ReagentType = this.gridView1.GetRowCellValue(aaa[i], "试剂1类型").ToString();
                 reagentStateInfoR1R2.ReagentName2 = this.gridView1.GetRowCellValue(aaa[i], "试剂2名称").ToString();
-                reagentStateInfoR1R2.Pos2 = this.gridView1.GetRowCellValue(aaa[i], "试剂2位置").ToString();
                 reagentStateInfoR1R2.ReagentType2 = this.gridView1.GetRowCellValue(aaa[i], "试剂2类型").ToString();
                 reagentStateInfoR1R2.Locked = true;
                 ReagentStateInfo.Add(reagentStateInfoR1R2);
             }
-            reagentDictionary.Clear();
-            reagentDictionary.Add("UnlockReagentState", new object[] { XmlUtility.Serializer(typeof(List<ReagentStateInfoR1R2>), ReagentStateInfo) });
-            ReagentStateSend(reagentDictionary);
+
+            lstReagentStateInfo.Clear();
+            lstReagentStateInfo = new BioA.Service.ReagentState().UpdataUnlockReagentState("UnlockReagentState", ReagentStateInfo);
+            if (lstReagentStateInfo.Count == 0)
+                MessageBox.Show("设置试剂状态失败！");
+            else
+            {
+                foreach (int r in aaa)
+                {
+                    dt.Rows[r][13] = "未锁定";
+                }
+                gridReagentState.RefreshDataSource();
+            }
+                //BeginInvoke(new Action(() =>
+                //{
+                //    InitialReagentStateInfo(lstReagentStateInfo);
+                //}));
+
+            //reagentDictionary.Clear();
+            //reagentDictionary.Add("UnlockReagentState", new object[] { XmlUtility.Serializer(typeof(List<ReagentStateInfoR1R2>), ReagentStateInfo) });
+            //ReagentStateSend(reagentDictionary);
         }
        
         private void btnReverseSelection_Click(object sender, EventArgs e)

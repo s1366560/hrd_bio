@@ -229,6 +229,8 @@
             this.gridView2.GridControl = this.lstvInspectProInfo;
             this.gridView2.IndicatorWidth = 40;
             this.gridView2.Name = "gridView2";
+            this.gridView2.OptionsCustomization.AllowFilter = false;
+            this.gridView2.OptionsCustomization.AllowSort = false;
             this.gridView2.OptionsSelection.CheckBoxSelectorColumnWidth = 40;
             this.gridView2.OptionsView.ShowGroupPanel = false;
             this.gridView2.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridView2_CustomDrawRowIndicator);
@@ -405,7 +407,7 @@
             // dtpInspectTimeStart
             // 
             this.dtpInspectTimeStart.CustomFormat = "yyyy-MM-dd";
-            this.dtpInspectTimeStart.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.dtpInspectTimeStart.Font = new System.Drawing.Font("SimSun", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.dtpInspectTimeStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpInspectTimeStart.Location = new System.Drawing.Point(401, 80);
             this.dtpInspectTimeStart.Name = "dtpInspectTimeStart";
@@ -415,7 +417,7 @@
             // dtpInspectTimeOld
             // 
             this.dtpInspectTimeOld.CustomFormat = "yyyy-MM-dd";
-            this.dtpInspectTimeOld.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.dtpInspectTimeOld.Font = new System.Drawing.Font("SimSun", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.dtpInspectTimeOld.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpInspectTimeOld.Location = new System.Drawing.Point(555, 80);
             this.dtpInspectTimeOld.Name = "dtpInspectTimeOld";
@@ -453,6 +455,8 @@
             this.gridView1.OptionsBehavior.Editable = false;
             this.gridView1.OptionsBehavior.EditingMode = DevExpress.XtraGrid.Views.Grid.GridEditingMode.EditFormInplaceHideCurrentRow;
             this.gridView1.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.MouseDown;
+            this.gridView1.OptionsCustomization.AllowFilter = false;
+            this.gridView1.OptionsCustomization.AllowSort = false;
             this.gridView1.OptionsSelection.CheckBoxSelectorColumnWidth = 40;
             this.gridView1.OptionsSelection.MultiSelect = true;
             this.gridView1.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;

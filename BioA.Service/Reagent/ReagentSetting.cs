@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BioA.Service
 {
-    class ReagentSetting : DataTransmit
+   public class ReagentSetting : DataTransmit
     {
 
         public List<ReagentSettingsInfo> QueryReagentSettingsInfo(string strDBMethod, string p2)

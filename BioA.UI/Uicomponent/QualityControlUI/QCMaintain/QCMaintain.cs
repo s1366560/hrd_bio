@@ -82,6 +82,7 @@ namespace BioA.UI
             this.gridView1.Columns[4].OptionsColumn.AllowEdit = false;
             this.gridView1.Columns[5].OptionsColumn.AllowEdit = false;
             this.gridView1.Columns[6].OptionsColumn.AllowEdit = false;
+
         }
 
         private void QCMaintain_Load(object sender, EventArgs e)
@@ -98,15 +99,20 @@ namespace BioA.UI
             gridView2.Appearance.Row.Font = font;
             qualityControlAddAndEdit = new QualityControlAddAndEdit();
             qualityControlAddAndEdit.TransmitQCAndTestProjectInfoEvent += Execute_TransmitQCAndTestProjectInfoEvent;
-            
+            QCMaintian qcMaintian = new QCMaintian();
             qcMaintainDic.Clear();
             //获取质控品信息对应的所有项目信息
-            qcMaintainDic.Add("QueryRelativelyProjectByQCInfo", null);
+            //qcMaintainDic.Add("QueryRelativelyProjectByQCInfo", null);
+            lstQCRelationProjectInfo = qcMaintian.QueryRelativelyProjectByQCInfo("QueryRelativelyProjectByQCInfo", null);
+
             //获取所有质控信息
-            qcMaintainDic.Add("QueryQCAllInfo",null);
+            //qcMaintainDic.Add("QueryQCAllInfo",null);
+            lstQualityControlInfo = new QCGraphics().QueryQCAllInfo("QueryQCAllInfo");
+            InitQCInfos(lstQualityControlInfo);
             //获取所有项目信息
-            qcMaintainDic.Add("QueryAssayProAllInfo", new object[] { "" });
-            SendToServices(qcMaintainDic);
+            //qcMaintainDic.Add("QueryAssayProAllInfo", new object[] { "" });
+            lstAssayProInfo = qcMaintian.QueryAssayProAllInfo("QueryAssayProAllInfo", null);
+            //SendToServices(qcMaintainDic);
         }
         /// <summary>
         /// 发送信息给服务器

@@ -35,6 +35,8 @@
             this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.chkMarkFail = new DevExpress.XtraEditors.PanelControl();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.textEdit1 = new DevExpress.XtraEditors.TextEdit();
             this.label4 = new System.Windows.Forms.Label();
             this.txtCalibConc7 = new DevExpress.XtraEditors.TextEdit();
@@ -106,8 +108,6 @@
             this.lblRepetitiveRestriction = new DevExpress.XtraEditors.LabelControl();
             this.lblBlankAL = new DevExpress.XtraEditors.LabelControl();
             this.lblCalibrationMethod = new DevExpress.XtraEditors.LabelControl();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.lstvAssayProject)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkMarkFail)).BeginInit();
@@ -176,6 +176,8 @@
             this.gridView1.GridControl = this.lstvAssayProject;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsBehavior.EditingMode = DevExpress.XtraGrid.Views.Grid.GridEditingMode.EditFormInplaceHideCurrentRow;
+            this.gridView1.OptionsCustomization.AllowFilter = false;
+            this.gridView1.OptionsCustomization.AllowSort = false;
             this.gridView1.OptionsView.ShowGroupPanel = false;
             // 
             // gridColumn1
@@ -259,6 +261,24 @@
             this.chkMarkFail.Name = "chkMarkFail";
             this.chkMarkFail.Size = new System.Drawing.Size(1274, 774);
             this.chkMarkFail.TabIndex = 1;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(230, 382);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 24);
+            this.textBox1.TabIndex = 68;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(102, 385);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(120, 17);
+            this.label5.TabIndex = 67;
+            this.label5.Text = "校准曲线有效期：";
             // 
             // textEdit1
             // 
@@ -1018,24 +1038,6 @@
             this.lblCalibrationMethod.Size = new System.Drawing.Size(70, 17);
             this.lblCalibrationMethod.TabIndex = 0;
             this.lblCalibrationMethod.Text = "校准方法：";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(102, 385);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(120, 17);
-            this.label5.TabIndex = 67;
-            this.label5.Text = "校准曲线有效期：";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(230, 382);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 24);
-            this.textBox1.TabIndex = 68;
             // 
             // CalibrationParameter
             // 

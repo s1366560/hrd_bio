@@ -36,6 +36,11 @@
             this.btnDeleteProject = new DevExpress.XtraEditors.SimpleButton();
             this.btnEditProject = new DevExpress.XtraEditors.SimpleButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.grpSerumCriticality = new DevExpress.XtraEditors.GroupControl();
+            this.labSerumMax = new System.Windows.Forms.Label();
+            this.labSerumMin = new System.Windows.Forms.Label();
+            this.txtSerumMaxValue = new DevExpress.XtraEditors.TextEdit();
+            this.txtSerumMinValue = new DevExpress.XtraEditors.TextEdit();
             this.lblProzoneBound = new DevExpress.XtraEditors.GroupControl();
             this.label3 = new System.Windows.Forms.Label();
             this.CBLowerLimit = new System.Windows.Forms.CheckBox();
@@ -162,15 +167,14 @@
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.lblAnalizeMethod = new DevExpress.XtraEditors.LabelControl();
-            this.grpSerumCriticality = new DevExpress.XtraEditors.GroupControl();
-            this.labSerumMax = new System.Windows.Forms.Label();
-            this.labSerumMin = new System.Windows.Forms.Label();
-            this.txtSerumMinValue = new DevExpress.XtraEditors.TextEdit();
-            this.txtSerumMaxValue = new DevExpress.XtraEditors.TextEdit();
             ((System.ComponentModel.ISupportInitialize)(this.lstvProject)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grpSerumCriticality)).BeginInit();
+            this.grpSerumCriticality.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSerumMaxValue.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSerumMinValue.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblProzoneBound)).BeginInit();
             this.lblProzoneBound.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtProLowestBound.Properties)).BeginInit();
@@ -238,10 +242,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtComDilutionVol.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtComSamVol.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtComStosteVol.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grpSerumCriticality)).BeginInit();
-            this.grpSerumCriticality.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtSerumMinValue.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtSerumMaxValue.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // lstvProject
@@ -261,6 +261,8 @@
             this.gridView2.GridControl = this.lstvProject;
             this.gridView2.Name = "gridView2";
             this.gridView2.OptionsBehavior.EditingMode = DevExpress.XtraGrid.Views.Grid.GridEditingMode.EditFormInplaceHideCurrentRow;
+            this.gridView2.OptionsCustomization.AllowFilter = false;
+            this.gridView2.OptionsCustomization.AllowSort = false;
             this.gridView2.OptionsView.ShowGroupPanel = false;
             // 
             // gridView1
@@ -350,6 +352,56 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1266, 738);
             this.panel1.TabIndex = 4;
+            // 
+            // grpSerumCriticality
+            // 
+            this.grpSerumCriticality.Controls.Add(this.labSerumMax);
+            this.grpSerumCriticality.Controls.Add(this.labSerumMin);
+            this.grpSerumCriticality.Controls.Add(this.txtSerumMaxValue);
+            this.grpSerumCriticality.Controls.Add(this.txtSerumMinValue);
+            this.grpSerumCriticality.Location = new System.Drawing.Point(240, 531);
+            this.grpSerumCriticality.Name = "grpSerumCriticality";
+            this.grpSerumCriticality.Size = new System.Drawing.Size(222, 111);
+            this.grpSerumCriticality.TabIndex = 88;
+            this.grpSerumCriticality.Text = "血清临界：";
+            // 
+            // labSerumMax
+            // 
+            this.labSerumMax.AutoSize = true;
+            this.labSerumMax.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labSerumMax.Location = new System.Drawing.Point(137, 35);
+            this.labSerumMax.Name = "labSerumMax";
+            this.labSerumMax.Size = new System.Drawing.Size(50, 17);
+            this.labSerumMax.TabIndex = 51;
+            this.labSerumMax.Text = "最大值";
+            // 
+            // labSerumMin
+            // 
+            this.labSerumMin.AutoSize = true;
+            this.labSerumMin.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labSerumMin.Location = new System.Drawing.Point(36, 37);
+            this.labSerumMin.Name = "labSerumMin";
+            this.labSerumMin.Size = new System.Drawing.Size(50, 17);
+            this.labSerumMin.TabIndex = 50;
+            this.labSerumMin.Text = "最小值";
+            // 
+            // txtSerumMaxValue
+            // 
+            this.txtSerumMaxValue.Location = new System.Drawing.Point(125, 65);
+            this.txtSerumMaxValue.Name = "txtSerumMaxValue";
+            this.txtSerumMaxValue.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSerumMaxValue.Properties.Appearance.Options.UseFont = true;
+            this.txtSerumMaxValue.Size = new System.Drawing.Size(78, 24);
+            this.txtSerumMaxValue.TabIndex = 49;
+            // 
+            // txtSerumMinValue
+            // 
+            this.txtSerumMinValue.Location = new System.Drawing.Point(21, 65);
+            this.txtSerumMinValue.Name = "txtSerumMinValue";
+            this.txtSerumMinValue.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSerumMinValue.Properties.Appearance.Options.UseFont = true;
+            this.txtSerumMinValue.Size = new System.Drawing.Size(79, 24);
+            this.txtSerumMinValue.TabIndex = 48;
             // 
             // lblProzoneBound
             // 
@@ -519,6 +571,8 @@
             this.gridView3.Appearance.FocusedRow.Options.UseBackColor = true;
             this.gridView3.GridControl = this.grpRangeParam;
             this.gridView3.Name = "gridView3";
+            this.gridView3.OptionsCustomization.AllowFilter = false;
+            this.gridView3.OptionsCustomization.AllowSort = false;
             this.gridView3.OptionsSelection.EnableAppearanceFocusedCell = false;
             this.gridView3.OptionsSelection.MultiSelect = true;
             this.gridView3.OptionsSelection.ResetSelectionClickOutsideCheckboxSelector = true;
@@ -1697,56 +1751,6 @@
             this.lblAnalizeMethod.TabIndex = 0;
             this.lblAnalizeMethod.Text = "分析方法：";
             // 
-            // grpSerumCriticality
-            // 
-            this.grpSerumCriticality.Controls.Add(this.labSerumMax);
-            this.grpSerumCriticality.Controls.Add(this.labSerumMin);
-            this.grpSerumCriticality.Controls.Add(this.txtSerumMaxValue);
-            this.grpSerumCriticality.Controls.Add(this.txtSerumMinValue);
-            this.grpSerumCriticality.Location = new System.Drawing.Point(240, 531);
-            this.grpSerumCriticality.Name = "grpSerumCriticality";
-            this.grpSerumCriticality.Size = new System.Drawing.Size(222, 111);
-            this.grpSerumCriticality.TabIndex = 88;
-            this.grpSerumCriticality.Text = "血清临界：";
-            // 
-            // labSerumMax
-            // 
-            this.labSerumMax.AutoSize = true;
-            this.labSerumMax.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labSerumMax.Location = new System.Drawing.Point(137, 35);
-            this.labSerumMax.Name = "labSerumMax";
-            this.labSerumMax.Size = new System.Drawing.Size(50, 17);
-            this.labSerumMax.TabIndex = 51;
-            this.labSerumMax.Text = "最大值";
-            // 
-            // labSerumMin
-            // 
-            this.labSerumMin.AutoSize = true;
-            this.labSerumMin.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labSerumMin.Location = new System.Drawing.Point(36, 37);
-            this.labSerumMin.Name = "labSerumMin";
-            this.labSerumMin.Size = new System.Drawing.Size(50, 17);
-            this.labSerumMin.TabIndex = 50;
-            this.labSerumMin.Text = "最小值";
-            // 
-            // txtSerumMinValue
-            // 
-            this.txtSerumMinValue.Location = new System.Drawing.Point(21, 65);
-            this.txtSerumMinValue.Name = "txtSerumMinValue";
-            this.txtSerumMinValue.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSerumMinValue.Properties.Appearance.Options.UseFont = true;
-            this.txtSerumMinValue.Size = new System.Drawing.Size(79, 24);
-            this.txtSerumMinValue.TabIndex = 48;
-            // 
-            // txtSerumMaxValue
-            // 
-            this.txtSerumMaxValue.Location = new System.Drawing.Point(125, 65);
-            this.txtSerumMaxValue.Name = "txtSerumMaxValue";
-            this.txtSerumMaxValue.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSerumMaxValue.Properties.Appearance.Options.UseFont = true;
-            this.txtSerumMaxValue.Size = new System.Drawing.Size(78, 24);
-            this.txtSerumMaxValue.TabIndex = 49;
-            // 
             // ProjectParameter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -1764,6 +1768,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grpSerumCriticality)).EndInit();
+            this.grpSerumCriticality.ResumeLayout(false);
+            this.grpSerumCriticality.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSerumMaxValue.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSerumMinValue.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblProzoneBound)).EndInit();
             this.lblProzoneBound.ResumeLayout(false);
             this.lblProzoneBound.PerformLayout();
@@ -1838,11 +1847,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtComDilutionVol.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtComSamVol.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtComStosteVol.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grpSerumCriticality)).EndInit();
-            this.grpSerumCriticality.ResumeLayout(false);
-            this.grpSerumCriticality.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtSerumMinValue.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtSerumMaxValue.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }

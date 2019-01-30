@@ -107,10 +107,59 @@ namespace BioA.UI
 
             sampleInfo.StartTime = dtpInspectTimeStart.Value;
             sampleInfo.EndTime = dtpInspectTimeOld.Value.AddDays(1);
-            
-            dataCheckDic.Clear();
-            dataCheckDic.Add("QueryCommonSampleData", new object[] { XmlUtility.Serializer(typeof(SampleInfoForResult), sampleInfo), strFilter });
-            SendToServices(dataCheckDic);
+
+            BeginInvoke(new Action(() =>
+            {
+                dt.Rows.Clear();
+                sampleInfos = new WorkingAreaDataCheck().QueryCommonSampleData("QueryCommonSampleData", sampleInfo, strFilter);
+
+                foreach (SampleInfoForResult s in sampleInfos)
+                {
+                    string sampleState = string.Empty;
+                    switch (s.SampleState)
+                    {
+                        case 0:
+                            sampleState = "待测中";
+                            break;
+                        case 1:
+                            sampleState = "检测中";
+                            break;
+                        case 2:
+                            sampleState = "已完成";
+                            break;
+                        case 3:
+                            sampleState = "被暂停";
+                            break;
+                        default:
+                            break;
+                    }
+                    string age;
+                    if (s.Age == 0)
+                    {
+                        age = "";
+                    }
+                    else
+                    {
+                        age = s.Age.ToString();
+                    }
+
+                    dt.Rows.Add(new object[] { s.SampleNum, s.SampleID, s.SampleType, s.PatientName, s.Sex, age, s.CreateTime.ToString("yyyy-MM-dd HH:mm:ss.fff"), sampleState, s.IsAudit == false ? "未审核" : "已审核", s.PrintState == "" ? "未打印" : s.PrintState, s.IsOperateDilution ? "是" : "否" });
+                }
+                if (dt.Rows.Count > 0)
+                {
+                    lstvSampleInfo.DataSource = dt;
+                    gridView1.SelectRow(0);
+                    lstvSampleInfo_Click(null, null);
+                }
+                else
+                {
+                    CheckResultDT.Rows.Clear();
+                }
+            }));
+
+            //dataCheckDic.Clear();
+            //dataCheckDic.Add("QueryCommonSampleData", new object[] { XmlUtility.Serializer(typeof(SampleInfoForResult), sampleInfo), strFilter });
+            //SendToServices(dataCheckDic);
 
         }
         /// <summary>

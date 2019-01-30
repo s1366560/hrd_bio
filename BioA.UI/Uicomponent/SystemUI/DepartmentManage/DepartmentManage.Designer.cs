@@ -127,6 +127,8 @@
             this.gridView1.GridControl = this.grdApplyDepartments;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsBehavior.EditingMode = DevExpress.XtraGrid.Views.Grid.GridEditingMode.EditFormInplaceHideCurrentRow;
+            this.gridView1.OptionsCustomization.AllowFilter = false;
+            this.gridView1.OptionsCustomization.AllowSort = false;
             this.gridView1.OptionsView.ShowGroupPanel = false;
             // 
             // grdApplyDoctor
@@ -145,6 +147,8 @@
             this.gridView2.GridControl = this.grdApplyDoctor;
             this.gridView2.Name = "gridView2";
             this.gridView2.OptionsBehavior.EditingMode = DevExpress.XtraGrid.Views.Grid.GridEditingMode.EditFormInplaceHideCurrentRow;
+            this.gridView2.OptionsCustomization.AllowFilter = false;
+            this.gridView2.OptionsCustomization.AllowSort = false;
             this.gridView2.OptionsView.ShowGroupPanel = false;
             // 
             // grdCheckoutDoctor
@@ -161,6 +165,8 @@
             // 
             this.gridView3.GridControl = this.grdCheckoutDoctor;
             this.gridView3.Name = "gridView3";
+            this.gridView3.OptionsCustomization.AllowFilter = false;
+            this.gridView3.OptionsCustomization.AllowSort = false;
             this.gridView3.OptionsView.ShowGroupPanel = false;
             // 
             // grdAuditDoctor

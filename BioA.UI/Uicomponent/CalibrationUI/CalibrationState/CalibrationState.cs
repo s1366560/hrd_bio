@@ -140,7 +140,8 @@ namespace BioA.UI
         DataTable dt = new DataTable();
         private void CalibrationState_Load(object sender, EventArgs e)
         {
-            BeginInvoke(new Action(CalibrationStateLoad));
+            //BeginInvoke(new Action(CalibrationStateLoad));
+          
             dt.Columns.Add("检测项目");
             dt.Columns.Add("样本类型");
             dt.Columns.Add("检测方法");
@@ -158,6 +159,7 @@ namespace BioA.UI
             //this.gridView1.Columns[5].OptionsColumn.AllowEdit = false;
             //this.gridView1.Columns[6].OptionsColumn.AllowEdit = false;
             //this.gridView1.Columns[7].OptionsColumn.AllowEdit = false; 
+            AddCalibrationState(new Calibrator().QueryCalibrationState("QueryCalibrationState", ""));
         }
 
         void AddCalibrationState(List<CalibrationResultinfo> calibratorinfo)

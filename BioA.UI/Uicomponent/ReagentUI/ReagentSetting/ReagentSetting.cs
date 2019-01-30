@@ -12,6 +12,7 @@ using BioA.Common;
 using BioA.Common.IO;
 using DevExpress.XtraGrid;
 using System.Threading;
+using BioA.Service;
 namespace BioA.UI
 {
     public partial class ReagentSetting : DevExpress.XtraEditors.XtraUserControl
@@ -98,10 +99,21 @@ namespace BioA.UI
             gridView2.Appearance.Row.Font = font;
             frmloadingReagent = new frmLoadingReagent();
             frmloadingReagent.GetsReagentEvent += GeTheReagentAfterPreservationEvent;
-            reagentDictionary.Clear();
-            reagentDictionary.Add("QueryReagentSetting1", new object[] { "" });
-            reagentDictionary.Add("QueryReagentSetting2", new object[] { "" });
-            ClientSendToServicer(reagentDictionary);
+
+            lstReagentSettingsInfo = new BioA.Service.ReagentSetting().QueryReagentSettingsInfo("QueryReagentSetting1", "");
+            //把获取到的数据绑定到gridControl1控件上,显示到界面
+            //this.Invoke(new EventHandler(delegate { gridControl1.DataSource = lstReagentSettingsInfo; }));
+            InitialReagentInfos(lstReagentSettingsInfo);
+
+            lstReagentSettingsR2Info = new BioA.Service.ReagentSetting().QueryReagentSettingsInfo("QueryReagentSetting2", "");
+            //把获取到的数据绑定到gridControl2控件上,显示到界面
+            //this.Invoke(new EventHandler(delegate { gridControl2.DataSource = lstReagentSettingsR2Info; });
+            InitialReagentInfos2(lstReagentSettingsR2Info);
+
+            //reagentDictionary.Clear();
+            //reagentDictionary.Add("QueryReagentSetting1", new object[] { "" });
+            //reagentDictionary.Add("QueryReagentSetting2", new object[] { "" });
+            //ClientSendToServicer(reagentDictionary);
         }
         /// <summary>
         /// 试剂保存成功后，触发事件执行的方法
@@ -121,7 +133,7 @@ namespace BioA.UI
                     lstReagentSettingsR2Info.Add(key.Value);
                     InitialReagentInfos2(lstReagentSettingsR2Info);
                 }
-                MessageBox.Show("成功装载试剂" + key.Key);
+                MessageBoxDraw.ShowMsgBox("成功装载试剂" + key.Key,"试剂装载",MsgType.OK);
             }
         }
 

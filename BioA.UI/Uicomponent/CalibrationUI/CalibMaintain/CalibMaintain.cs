@@ -11,6 +11,7 @@ using DevExpress.XtraEditors;
 using BioA.Common;
 using BioA.Common.IO;
 using System.Threading;
+using BioA.Service;
 
 namespace BioA.UI
 {
@@ -102,16 +103,24 @@ namespace BioA.UI
         }
         private void CalibrationMaintainLoad()
         {
-            calibMainDictionary.Clear();
+            Calibrator calibrator = new Calibrator();            
+            //calibMainDictionary.Clear();
             //获取所有校准品对应的所有项目信息
-            calibMainDictionary.Add("QueryCalibratorProjectinfo", new object[] { "" });
+            //calibMainDictionary.Add("QueryCalibratorProjectinfo", new object[] { "" });
+            calibratorProjectinfo = calibrator.QueryCalibratorProjectinfo("QueryCalibratorProjectinfo", "");
             //获取所有校准品信息
-            calibMainDictionary.Add("QueryCalibrationMaintain", new object[] { "" });
+            //calibMainDictionary.Add("QueryCalibrationMaintain", new object[] { "" });
+            calibratorinfo = calibrator.QueryCalibratorinfo("QueryCalibrationMaintain", "");
+            BeginInvoke(new Action(() =>
+            {
+                DisplayCalibrationInfo(calibratorinfo);
+            }));
             //获取所有生化项目信息
-            calibMainDictionary.Add("QueryAssayProAllInfo", null);
+            //calibMainDictionary.Add("QueryAssayProAllInfo", null);
+            lisassayProjectInfo = new SettingsChemicalParameter().QueryAssayProAllInfo("QueryAssayProAllInfo", null);
             //获取所有校准品位置
             //calibMainDictionary.Add("QueryCalibPos", new object[] { "" });
-            CalibrationMaintainSend(calibMainDictionary);
+            //CalibrationMaintainSend(calibMainDictionary);
         }
         /// <summary>
         /// 新增校准品

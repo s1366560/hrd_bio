@@ -70,6 +70,8 @@
             // 
             this.gridView1.GridControl = this.lstvCalibInfo;
             this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsCustomization.AllowFilter = false;
+            this.gridView1.OptionsCustomization.AllowSort = false;
             this.gridView1.OptionsView.ShowGroupPanel = false;
             // 
             // lblTestItem
@@ -132,6 +134,8 @@
             // 
             this.gridView2.GridControl = this.lstvDetectionProject;
             this.gridView2.Name = "gridView2";
+            this.gridView2.OptionsCustomization.AllowFilter = false;
+            this.gridView2.OptionsCustomization.AllowSort = false;
             this.gridView2.OptionsView.ShowGroupPanel = false;
             // 
             // CalibMaintain
