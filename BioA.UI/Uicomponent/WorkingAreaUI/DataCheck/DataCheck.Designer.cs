@@ -41,9 +41,6 @@
             this.txtCaseNumber = new DevExpress.XtraEditors.TextEdit();
             this.lstvInspectProInfo = new DevExpress.XtraGrid.GridControl();
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.repositoryItemCheckEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
-            this.repositoryItemCheckEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
-            this.repositoryItemCheckedComboBoxEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckedComboBoxEdit();
             this.txtSampleNumber = new DevExpress.XtraEditors.TextEdit();
             this.txtName = new DevExpress.XtraEditors.TextEdit();
             this.lblName = new DevExpress.XtraEditors.LabelControl();
@@ -69,9 +66,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtCaseNumber.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lstvInspectProInfo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckedComboBoxEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSampleNumber.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtName.Properties)).BeginInit();
             this.grpSampleCheck.SuspendLayout();
@@ -211,15 +205,11 @@
             // lstvInspectProInfo
             // 
             this.lstvInspectProInfo.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.lstvInspectProInfo.Location = new System.Drawing.Point(1045, 129);
+            this.lstvInspectProInfo.Location = new System.Drawing.Point(973, 129);
             this.lstvInspectProInfo.MainView = this.gridView2;
             this.lstvInspectProInfo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lstvInspectProInfo.Name = "lstvInspectProInfo";
-            this.lstvInspectProInfo.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.repositoryItemCheckEdit1,
-            this.repositoryItemCheckEdit2,
-            this.repositoryItemCheckedComboBoxEdit1});
-            this.lstvInspectProInfo.Size = new System.Drawing.Size(661, 641);
+            this.lstvInspectProInfo.Size = new System.Drawing.Size(733, 641);
             this.lstvInspectProInfo.TabIndex = 41;
             this.lstvInspectProInfo.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView2});
@@ -235,23 +225,6 @@
             this.gridView2.OptionsView.ShowGroupPanel = false;
             this.gridView2.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridView2_CustomDrawRowIndicator);
             this.gridView2.CellValueChanging += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.gridView2_CellValueChanging);
-            // 
-            // repositoryItemCheckEdit1
-            // 
-            this.repositoryItemCheckEdit1.AutoHeight = false;
-            this.repositoryItemCheckEdit1.Name = "repositoryItemCheckEdit1";
-            // 
-            // repositoryItemCheckEdit2
-            // 
-            this.repositoryItemCheckEdit2.AutoHeight = false;
-            this.repositoryItemCheckEdit2.Name = "repositoryItemCheckEdit2";
-            // 
-            // repositoryItemCheckedComboBoxEdit1
-            // 
-            this.repositoryItemCheckedComboBoxEdit1.AutoHeight = false;
-            this.repositoryItemCheckedComboBoxEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repositoryItemCheckedComboBoxEdit1.Name = "repositoryItemCheckedComboBoxEdit1";
             // 
             // txtSampleNumber
             // 
@@ -473,7 +446,7 @@
             this.lstvSampleInfo.MainView = this.gridView1;
             this.lstvSampleInfo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lstvSampleInfo.Name = "lstvSampleInfo";
-            this.lstvSampleInfo.Size = new System.Drawing.Size(1028, 673);
+            this.lstvSampleInfo.Size = new System.Drawing.Size(956, 673);
             this.lstvSampleInfo.TabIndex = 40;
             this.lstvSampleInfo.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -553,9 +526,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtCaseNumber.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lstvInspectProInfo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckedComboBoxEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSampleNumber.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtName.Properties)).EndInit();
             this.grpSampleCheck.ResumeLayout(false);
@@ -599,9 +569,6 @@
         private DevExpress.XtraEditors.SimpleButton btnReportPrint;
         private System.Windows.Forms.DateTimePicker dtpInspectTimeStart;
         private System.Windows.Forms.DateTimePicker dtpInspectTimeOld;
-        private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repositoryItemCheckEdit1;
-        private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repositoryItemCheckEdit2;
-        private DevExpress.XtraEditors.Repository.RepositoryItemCheckedComboBoxEdit repositoryItemCheckedComboBoxEdit1;
         private DevExpress.XtraEditors.SimpleButton btnSave;
         private System.Windows.Forms.Label label1;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;

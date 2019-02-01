@@ -99,7 +99,14 @@ namespace BioA.Common
             get { return confirm; }
             set { confirm = value; }
         }
-
+        /// <summary>
+        /// 结果体积类型
+        /// </summary>
+        public string ResultVolType
+        {
+            get { return resultVolType; }
+            set { resultVolType = value; }
+        }
 
 
         private int iD;
@@ -111,6 +118,6 @@ namespace BioA.Common
         //private DateTime startTime;
         private bool isResurvey;
         private bool confirm;
-        
+        private string resultVolType;
     }
 }

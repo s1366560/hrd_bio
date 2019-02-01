@@ -34,6 +34,7 @@
       <result property="SendTimes" column="SendTimes" />
       <result property="FinishTimes" column="FinishTimes" />
       <result property="TaskState" column="TaskState" />
+      <result property="IsReRun" column="IsReRun" />
     </resultMap>
     <resultMap id="PatientInfoResult" class="PatientInfo">
       <result property="ID" column="ID" />                              
@@ -195,7 +196,10 @@
       <!--delete from sampleresulttb where ProjectName=#ProjectName# and TCNO=#TCNO#-->
       $value$
     </delete>
-
+    <!-- 操作数据库没返回值通用ID -->
+    <statement id="NoReturnValueGeneralID" parameterClass="string">
+      $value$
+    </statement>
     <!-- 获取普通任务信息 -->
     <statement id ="GetTaskInfo" parameterClass ="string" resultClass ="TaskInfo">
       $value$

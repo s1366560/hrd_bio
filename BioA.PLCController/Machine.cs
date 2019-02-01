@@ -2965,7 +2965,7 @@ namespace BioA.PLCController
             {
                 case 0:
                 case 1:
-                    myBatis.AddSampleResultInfo(T.SMPNO,T.CalibDate,T.ASSAY,T.SAMPLETYPE,TimeCourseNo);
+                    myBatis.AddSampleResultInfo(T.SMPNO,T.CalibDate,T.ASSAY,T.SAMPLETYPE,TimeCourseNo,T.VOLTYPE);
                     myBatis.UpdateSMPScheduleSendCount(T.SMPNO, T.ASSAY, T.SAMPLETYPE, myBatis.GetSMPScheduleSendCount(T.SMPNO, T.ASSAY, T.SAMPLETYPE) + 1);
                     break;
                 case 2:

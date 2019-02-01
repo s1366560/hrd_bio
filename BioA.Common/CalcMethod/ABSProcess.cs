@@ -551,7 +551,7 @@ namespace BioA.Common.CalcMethod
         //底物吸光度
         public static float GetAbsLimAbs(TimeCourseInfo TC, AssayProjectParamInfo AR)
         {
-            float WmAbs = TC.CuvXWmList[AR.MeasureLightDot3 - 1] - TC.CuvBlkWm;
+            float WmAbs = TC.CuvXWmList[AR.MeasureLightDot4 - 1] - TC.CuvBlkWm;
             float WsAbs = TC.CuvXWsList[AR.MeasureLightDot4 - 1] - TC.CuvBlkWs;
             
             return AR.SecWaveLength == 0 ? WmAbs : WmAbs - WsAbs;

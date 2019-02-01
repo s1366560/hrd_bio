@@ -323,7 +323,7 @@ namespace BioA.Common
         }
         private float proLowestBound;
         /// <summary>
-        /// 前区界限最低值
+        /// 前区上下界限百分比值
         /// </summary>
         public float ProLowestBound
         {
@@ -415,7 +415,7 @@ namespace BioA.Common
         }
         private float reagentBlankMaximum;
         /// <summary>
-        /// 试剂空白最小值
+        /// 试剂空白最大值
         /// </summary>
         public float ReagentBlankMaximum
         {

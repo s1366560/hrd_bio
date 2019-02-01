@@ -62,6 +62,9 @@ namespace BioA.Common
             get { return tCNO; }
             set { tCNO = value; }
         }
+        /// <summary>
+        /// 样本结果备注
+        /// </summary>
         public string Remarks
         {
             get { return remarks; }

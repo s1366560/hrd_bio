@@ -307,17 +307,21 @@ namespace BioA.UI
             CheckResultDT.Columns.Add("进程编号");
             CheckResultDT.Columns.Add("任务状态");
             CheckResultDT.Columns.Add("复查");
+            CheckResultDT.Columns.Add("样本体积类型");
             CheckResultDT.Columns.Add("备注");
             CheckResultDT.Columns.Add("确认", typeof(Boolean));
 
             lstvInspectProInfo.DataSource = CheckResultDT;
             gridView2.Columns[0].Width = 60;
-            gridView2.Columns[1].Width = 40;
+            gridView2.Columns[1].Width = 60;
             gridView2.Columns[2].Width = 40;
-            gridView2.Columns[4].Width = 50;
-            gridView2.Columns[5].Width = 30;
-            gridView2.Columns[7].Width = 50;
-            gridView2.Columns[8].Width = 30;
+            gridView2.Columns[3].Width = 90;
+            gridView2.Columns[4].Width = 40;
+            gridView2.Columns[5].Width = 50;
+            gridView2.Columns[6].Width = 30;
+            gridView2.Columns[7].Width = 60;
+            gridView2.Columns[8].Width = 70;
+            gridView2.Columns[9].Width = 30;
             gridView2.Columns[0].OptionsColumn.AllowEdit = false;
             gridView2.Columns[1].OptionsColumn.AllowEdit = false;
             gridView2.Columns[2].OptionsColumn.AllowEdit = false;
@@ -326,7 +330,8 @@ namespace BioA.UI
             gridView2.Columns[5].OptionsColumn.AllowEdit = false;
             gridView2.Columns[6].OptionsColumn.AllowEdit = false;
             gridView2.Columns[7].OptionsColumn.AllowEdit = false;
-            gridView2.Columns[8].OptionsColumn.AllowEdit = true;
+            gridView2.Columns[8].OptionsColumn.AllowEdit = false;
+            gridView2.Columns[9].OptionsColumn.AllowEdit = true;
 
             dt.Columns.Add("样本编号");
             dt.Columns.Add("样本ID");
@@ -466,7 +471,7 @@ namespace BioA.UI
                                 default:
                                     break;
                             }
-                            CheckResultDT.Rows.Add(new object[] { s.ProjectName, Math.Round(s.ConcResult, 4), s.UnitAndRange, s.SampleCompletionTime.ToString(),s.TCNO, taskState, s.IsResurvey == true ? "是" : "否", s.Remarks, s.Confirm });
+                            CheckResultDT.Rows.Add(new object[] { s.ProjectName, Math.Round(s.ConcResult, 4), s.UnitAndRange, s.SampleCompletionTime.ToString(),s.TCNO, taskState, s.IsResurvey == true ? "是" : "否",s.ResultVolType, s.Remarks, s.Confirm });
                         }
                         if (lstSamResultInfo.Count > 0)
                         {
@@ -603,7 +608,7 @@ namespace BioA.UI
                         default:
                             break;
                     }
-                    CheckResultDT.Rows.Add(new object[] { s.ProjectName, Math.Round(s.ConcResult, ss != null && ss.RadixPointNum != 100000000 ? ss.RadixPointNum : 4), s.UnitAndRange, s.SampleCompletionTime.ToString(), s.TCNO, taskState, s.IsResurvey == true ? "是" : "否", s.Remarks, s.Confirm });
+                    CheckResultDT.Rows.Add(new object[] { s.ProjectName, Math.Round(s.ConcResult, ss != null && ss.RadixPointNum != 100000000 ? ss.RadixPointNum : 4), s.UnitAndRange, s.SampleCompletionTime.ToString(), s.TCNO, taskState, s.IsResurvey == true ? "是" : "否", s.ResultVolType, s.Remarks, s.Confirm });
                 }
                 if (lstSamResultInfo.Count > 0)
                 {
@@ -657,7 +662,7 @@ namespace BioA.UI
                                 default:
                                     break;
                             }
-                            CheckResultDT.Rows.Add(new object[] { s.ProjectName, Math.Round(s.ConcResult, 4), s.UnitAndRange, s.SampleCompletionTime.ToString(), s.TCNO, taskState, s.IsResurvey == true ? "是" : "否", s.Remarks, s.Confirm });
+                            CheckResultDT.Rows.Add(new object[] { s.ProjectName, Math.Round(s.ConcResult, 4), s.UnitAndRange, s.SampleCompletionTime.ToString(), s.TCNO, taskState, s.IsResurvey == true ? "是" : "否", s.ResultVolType, s.Remarks, s.Confirm });
                         }
                         MessageBox.Show("删除成功！");
                     }

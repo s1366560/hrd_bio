@@ -474,6 +474,28 @@ namespace BioA.SqlMaps
             return lstRangeParamInfo;
         }
         /// <summary>
+        /// 获取范围参数
+        /// </summary>
+        /// <param name="projectName"></param>
+        /// <param name="sampleType"></param>
+        /// <returns></returns>
+        public AssayProjectRangeParamInfo GetRangeParamInfo(string projectName, string sampleType)
+        {
+            AssayProjectRangeParamInfo assayRangeParam = null;
+            try
+            {
+                Hashtable ht = new Hashtable();
+                ht.Add("ProjectName",projectName);
+                ht.Add("SampleType",sampleType);
+                assayRangeParam = (AssayProjectRangeParamInfo)ism_SqlMap.QueryForObject("AssayProjectInfo.QueryRangeByProject", ht);
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("GetRangeParamInfo(string projectName, string sampleType) ==" + ex.ToString(), Module.Setting);
+            }
+            return assayRangeParam;
+        }
+        /// <summary>
         /// 通过项目名称和项目类型更新项目范围参数
         /// </summary>
         /// <param name="strDBMethod"></param>

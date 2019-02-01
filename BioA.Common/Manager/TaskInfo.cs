@@ -121,6 +121,14 @@ namespace BioA.Common
             get { return _Barcode; }
             set { _Barcode = value; }
         }
+        /// <summary>
+        /// 是否重测
+        /// </summary>
+        public bool IsReRun
+        {
+            get { return isReRun; }
+            set { isReRun = value; }
+        }
 
         private int iD;
         private int sampleNum;
@@ -132,6 +140,7 @@ namespace BioA.Common
         private int inspectTimes;
         private int sendTimes;
         private int finishTimes;
-        private int taskState; 
+        private int taskState;
+        private bool isReRun;
     }
 }

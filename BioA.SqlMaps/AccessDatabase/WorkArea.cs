@@ -258,6 +258,49 @@ namespace BioA.SqlMaps
             return lstTaskInfos;
         }
         /// <summary>
+        /// 获取生化任务信息
+        /// </summary>
+        /// <param name="projectName"></param>
+        /// <param name="sampleType"></param>
+        /// <returns></returns>
+        public TaskInfo GetTask(string projectName, int sampleNum)
+        {
+            TaskInfo tasks = null;
+            try
+            {
+                //获取生化任务信息
+                tasks = (TaskInfo)ism_SqlMap.QueryForObject("WorkAreaApplyTask.GetTaskInfo", string.Format("select * from tasktb where ProjectName = '{0}' and SampleNum = {1} and TaskState < 2", projectName, sampleNum));
+                if (tasks == null)
+                {
+                    //删除生化任务信息
+                    ism_SqlMap.QueryForObject("WorkAreaApplyTask.NoReturnValueGeneralID", string.Format("delete from tasktb where ProjectName = '{0}' and SampleNum = {1} and TaskState = 2", projectName, sampleNum));
+                    //修改样本信息状态
+                    ism_SqlMap.QueryForObject("WorkAreaApplyTask.NoReturnValueGeneralID", string.Format("update tasktb set SampleState = 0 where SampleNum = {0} and CreateTime > '{1}'", sampleNum, DateTime.Now.Date));
+                }
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("GetTask(string projectName, string sampleType,string sampleNum) == " + ex.ToString(), Module.WorkingArea);
+            }
+            return tasks;
+        }
+        /// <summary>
+        /// 保存重测的生化项目任务
+        /// </summary>
+        /// <param name="t"></param>
+        public void SaveTske(TaskInfo t)
+        {
+            try
+            {
+                ism_SqlMap.Insert("WorkAreaApplyTask.NoReturnValueGeneralID", string.Format("insert into TaskTb (SampleNum, CreateDate, ProjectName, SampleType, SampleDilute, DilutedRatio, InspectTimes, SendTimes, FinishTimes, TaskState,IsReRun)values({0}, '{1}', '{2}', '{3}', '{4}', {5}, {6}, 0, 0, 0, {7})", t.SampleNum, t.CreateDate, t.ProjectName, t.SampleType, t.SampleDilute, t.DilutedRatio, t.InspectTimes, t.IsReRun));
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("SaveTske(TaskInfo t) ==" + ex.ToString(), Module.WorkingArea);
+            }
+        }
+
+        /// <summary>
         /// 清除普通任务和样本信息
         /// </summary>
         /// <param name="strMethodName"></param>

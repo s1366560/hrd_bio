@@ -575,24 +575,19 @@
       CalibDilutionVol float Null,
       DilutionType char(20) Null,
       FirstSlope float Null,
-      SecondSlope float Null,
       FirstSlopeHigh float Null,
-      SecondSlopeHigh float Null,
       ProLowestBound float Null,
-      ProHighestBound float Null,
-      Pmp1 int Null,
-      Pmp2 int Null,
-      Pmp3 int Null,
-      Pmp4 int Null,
       BoundDirection char(20) Null,
-      Limit1 float Null,
-      Limit2 float Null,
       LimitValue float Null,
       ReactionDirection char(10) Null,
       Stirring1Intensity char(10) Null,
       Stirring2Intensity char(10) Null,
       Reagent1VolSettings float Null,
       Reagent2VolSettings float Null,
+      SerumCriticalMinimum float null,
+      SerumCriticalMaximum float null,
+      ReagentBlankMinimum float null,
+      ReagentBlankMaximum float null,
       Constraint PK_AssayProject primary key (ProjectName, SampleType)
       )
     </statement>
@@ -1376,7 +1371,8 @@
       SampleCompletionStatus NULL,<!-- 任务完成状态 -->
       Remarks char(128) Null,
       IsResurvey tinyint Not Null Default 0,
-      Confirm tinyint Null
+      Confirm tinyint Null,
+      ResultVolType varchar(20) null
       )
     </statement>
     <!--样本反应进程表-->
@@ -1504,7 +1500,8 @@
       InspectTimes int Not Null,
       SendTimes int Not Null,
       FinishTimes int Not Null,
-      TaskState int Not Null
+      TaskState int Not Null,
+      IsReRun bit null
       )
     </statement>    
     <statement id="CreateCalcTaskTb">
@@ -1839,10 +1836,19 @@
     <statement id="CreateresultSetTb">
       create table resultSetTb
       (
-      ProjectName varchar(50) Null,
-      SampleType varchar(10) Null,
-      Unit varchar(10) Null,
-      RadixPointNum int Null
+        ProjectName varchar(50) Null,
+        SampleType varchar(10) Null,
+        Unit varchar(10) Null,
+        RadixPointNum int Null
+      )
+    </statement>
+    <!-- 试剂2提前消耗 -->
+    <statement id="CreateReagent2UsingCounttb">
+      create table Reagent2UsingCounttb
+      (
+        ProjectName varchar(50) Null,
+        ReagentTray int Null,
+        Count Null
       )
     </statement>
   </statements>

@@ -254,287 +254,309 @@ namespace BioA.PLCController.Service
             {
                 return;
             }
+            AssayProjectRangeParamInfo ARP = myBatis.GetRangeParamInfo(r.ProjectName,r.SampleType);
+            if (ARP == null)
+            {
+                return;
+            }
+            ProjectRunSequenceInfo proRunSequence = myBatis.QueryProjectRunSequenceByProject(new AssayProjectInfo() { ProjectName = r.ProjectName, SampleType = r.SampleType });
+            if (proRunSequence == null)
+            {
+                return;
+            }
             //试剂吸光度判读，检测试剂是否正常
-            //string RgtAbsFlag = null;
-            //float RgtAbs = ABSProcess.GetReangentAbs(T, A);
-            //if (A. > 0.000001 && AV.ReagentAbsMax < RgtAbs)
-            //{
-            //    RgtAbsFlag = "RgtAbsMax";
-            //}
-            //if (AV.ReagentAbsMax > 0.000001 && AV.ReagentAbsMin > RgtAbs)
-            //{
-            //    RgtAbsFlag = "RgtAbsMin";
-            //}
-            //if (RgtAbsFlag != null)
-            //{
-            //    if (string.IsNullOrEmpty(r.DoTestLog) || string.IsNullOrWhiteSpace(r.DoTestLog))
-            //    {
-            //        r.DoTestLog = RgtAbsFlag;
-            //    }
-            //    else
-            //    {
-            //        r.DoTestLog += "|" + RgtAbsFlag;
-            //    }
-            //    new ResultService().UpdateNORResultRunLog(r);
-            //    TroubleLog trouble = new TroubleLog();
-            //    trouble.TroubleType = TROUBLETYPE.WARN;
-            //    trouble.TroubleUnit = @"试剂";
-            //    trouble.TroubleCode = "000002";
-            //    trouble.TroubleInfo = string.Format(@"{0}:{1}发生试剂吸光度越界,其反应进程:{2}。请检测试剂是否过期. ", r.SMPNO, r.ItemName, r.TCNO);
-            //    new TroubleLogService().Save(trouble);
-            //}
+            string RgtAbsFlag = null;
+            float RgtAbs = ABSProcess.GetReangentAbs(T, A);
+            if (A.ReagentBlankMaximum > 0.000001 && A.ReagentBlankMaximum < RgtAbs)
+            {
+                RgtAbsFlag = "RgtAbsMax";
+            }
+            if (A.ReagentBlankMaximum > 0.000001 && A.ReagentBlankMinimum > RgtAbs)
+            {
+                RgtAbsFlag = "RgtAbsMin";
+            }
+            if (RgtAbsFlag != null)
+            {
+                if (string.IsNullOrEmpty(r.Remarks) || string.IsNullOrWhiteSpace(r.Remarks))
+                {
+                    r.Remarks = RgtAbsFlag;
+                }
+                else
+                {
+                    r.Remarks += "|" + RgtAbsFlag;
+                }
+                myBatis.UpdateNORResultRunLog(r);
+                TroubleLog trouble = new TroubleLog();
+                trouble.TroubleType = TROUBLETYPE.WARN;
+                trouble.TroubleUnit = @"试剂";
+                trouble.TroubleCode = "000002";
+                trouble.TroubleInfo = string.Format(@"{0}:{1}发生试剂吸光度越界,其反应进程:{2}。请检测试剂是否过期. ", r.SampleNum, r.ProjectName, r.TCNO);
+                myBatis.TroubleLogSave("TroubleLogSave", trouble);
+            }
 
 
             //底物耗尽判断处理,
-            //string AbsLimFlag = null;
-            //float AbsLimRef = AV.SerumAbs;//(0--3.5)
-            //float AbsLim = ABSProcess.GetAbsLimAbs(T, A);//M2E abs
-            //if (A.AnalyzeMethod == "ARate" || A.AnalyzeMethod == "BRate")
-            //{
-            //    if (A.ReacteDirect == 1)//正反应
-            //    {
-            //        if (AbsLimRef > 0.000001 && AbsLimRef < AbsLim)
-            //        {
-            //            AbsLimFlag = "AbsLim";
-            //        }
-            //    }
-            //    if (A.ReacteDirect == -1)//负反应
-            //    {
-            //        if (AbsLimRef > 0.000001 && AbsLimRef > AbsLim)
-            //        {
-            //            AbsLimFlag = "AbsLim";
-            //        }
-            //    }
+            string AbsLimFlag = null;
+            float AbsLimRef = A.LimitValue; //(0--3.5)
+            float AbsLim = ABSProcess.GetAbsLimAbs(T, A);//M2E abs
+            if (A.AnalysisMethod == "速率A法" || A.AnalysisMethod == "速率B法")
+            {
+                if (A.ReactionDirection == "正反应")//正反应
+                {
+                    if (AbsLimRef > 0.000001 && AbsLimRef < AbsLim)
+                    {
+                        AbsLimFlag = "AbsLim";
+                    }
+                }
+                if (A.ReactionDirection == "负反应")//负反应
+                {
+                    if (AbsLimRef > 0.000001 && AbsLimRef > AbsLim)
+                    {
+                        AbsLimFlag = "AbsLim";
+                    }
+                }
 
-            //}
-            //if (AbsLimFlag != null)
-            //{
-            //    if (string.IsNullOrEmpty(r.DoTestLog) || string.IsNullOrWhiteSpace(r.DoTestLog))
-            //    {
-            //        r.DoTestLog = AbsLimFlag;
-            //    }
-            //    else
-            //    {
-            //        r.DoTestLog += "|" + AbsLimFlag;
-            //    }
-            //    new ResultService().UpdateNORResultRunLog(r);
+            }
+            if (AbsLimFlag != null)
+            {
+                if (string.IsNullOrEmpty(r.Remarks) || string.IsNullOrWhiteSpace(r.Remarks))
+                {
+                    r.Remarks = AbsLimFlag;
+                }
+                else
+                {
+                    r.Remarks += "|" + AbsLimFlag;
+                }
+                myBatis.UpdateNORResultRunLog(r);
 
-            //    TroubleLog trouble = new TroubleLog();
-            //    trouble.TroubleType = TROUBLETYPE.ERR;
-            //    trouble.TroubleUnit = @"样本";
-            //    trouble.TroubleCode = "000003";
-            //    trouble.TroubleInfo = string.Format(@"{0}:{1}发生底物耗尽，其反应进程:{2}", r.SMPNO, r.ItemName, r.TCNO);
-            //    new TroubleLogService().Save(trouble);
+                TroubleLog trouble = new TroubleLog();
+                trouble.TroubleType = TROUBLETYPE.ERR;
+                trouble.TroubleUnit = @"样本";
+                trouble.TroubleCode = "000003";
+                trouble.TroubleInfo = string.Format(@"{0}:{1}发生底物耗尽，其反应进程:{2}", r.SampleNum, r.ProjectName, r.TCNO);
+                myBatis.TroubleLogSave("TroubleLogSave", trouble);
 
-            //    if (AV.IsAutoRedo == true)
-            //    {
-            //        Schedule Schedule = new ScheduleService().GetSMPSchedule(r.SMPNO, r.ItemName) as Schedule;
-            //        if (Schedule == null)
-            //        {
-            //            Schedule = new Schedule();
-            //            Schedule.SMPNO = r.SMPNO;
-            //            Schedule.Assay = r.ItemName;
-            //            Schedule.WorkType = S.IsEmergency == true ? WORKTYPE.E : WORKTYPE.N;
-            //            Schedule.VolType = VOLTYPE.DV;
-            //            Schedule.SendCount = 0;
-            //            Schedule.FinishCount = 0;
-            //            Schedule.ASYWorkNO = A.DoWorkSQ;
-            //            Schedule.ExpireDoCount = 1;
-            //            Schedule.IsReRun = true;
-            //            Schedule.ReRun = "AbsLim";
-            //            if (Schedule.VolType != r.VolType)//结果体积参数和计划体积参数不同才可以提交工作计划
-            //            {
-            //                new ScheduleService().Save(Schedule);
-            //            }
-            //        }
-            //    }
-            //}
+                if (ARP.AutoRerun == true)
+                {
+                    //Schedule Schedule = new ScheduleService().GetSMPSchedule(r.SMPNO, r.ItemName) as Schedule;
+                    TaskInfo task = myBatis.GetTask(r.ProjectName, r.SampleNum);
+                    if (task == null)
+                    {
+                        task = new TaskInfo();
+                        task.SampleNum = r.SampleNum;
+                        task.ProjectName = r.ProjectName;
+                        //Schedule.WorkType = S.IsEmergency == true ? WORKTYPE.E : WORKTYPE.N;
+                        task.SampleDilute = "减量体积";
+                        task.SendTimes = 0;
+                        task.FinishTimes = 0;
+                        task.InspectTimes = 1;
+                        task.TaskState = 0;
+                        task.IsReRun = true;
+                        //Schedule.ReRun = "AbsLim";
+                        if (r.ResultVolType != task.SampleDilute)//结果体积参数和计划体积参数不同才可以提交工作计划
+                        {
+                            //new ScheduleService().Save(Schedule);
+                            myBatis.SaveTske(task);
+                        }
+                    }
+                }
+            }
 
             //技术 血清/尿液范围即线性范围判读
-            //float LineRefMin = 0.0f;//线性参考值
-            //float LineRefMax = 0.0f;//线性参考值
-            //switch (SType.SMPVOLType)
-            //{
-            //    case "U":
-            //    case "S": LineRefMin = AV.LineSerumLimitMin; LineRefMax = AV.LineSerumLimitMax; break;
-            //}
+            float LineRefMin = 0.0f;//线性参考值
+            float LineRefMax = 0.0f;//线性参考值
+            switch (S.SampleType)
+            {
+                case "尿液":
+                case "血清": LineRefMin = A.FirstSlope; LineRefMax = A.FirstSlopeHigh; break;
+            }
 
-            //string LinFlag = null;
-            //try
-            //{
-            //    float v = float.Parse(r.RConcValue);
-            //    if (LineRefMax > 0.00001 && v > LineRefMax)
-            //    {
-            //        LinFlag = "Lin.H";
-            //    }
-            //    if (LineRefMax > 0.00001 && v < LineRefMin)
-            //    {
-            //        LinFlag = "Lin.L";
-            //    }
-            //}
-            //catch
-            //{
-            //}
-            //if (LinFlag != null)
-            //{
-            //    if (string.IsNullOrEmpty(r.DoTestLog) || string.IsNullOrWhiteSpace(r.DoTestLog))
-            //    {
-            //        r.DoTestLog = LinFlag;
-            //    }
-            //    else
-            //    {
-            //        r.DoTestLog += "|" + LinFlag;
-            //    }
-            //    new ResultService().UpdateNORResultRunLog(r);
-            //    TroubleLog trouble = new TroubleLog();
-            //    trouble.TroubleType = TROUBLETYPE.ERR;
-            //    trouble.TroubleUnit = @"样本";
-            //    trouble.TroubleCode = "00001";
-            //    trouble.TroubleInfo = string.Format(@"{0}:{1}线性范围违规，其反应进程:{2}", r.SMPNO, r.ItemName, r.TCNO);
-            //    new TroubleLogService().Save(trouble);
+            string LinFlag = null;
+            try
+            {
+                float v = r.ConcResult;
+                if (LineRefMax > 0.00001 && v > LineRefMax)
+                {
+                    LinFlag = "Lin.H";
+                }
+                if (LineRefMax > 0.00001 && v < LineRefMin)
+                {
+                    LinFlag = "Lin.L";
+                }
+            }
+            catch
+            {
+            }
+            if (LinFlag != null)
+            {
+                if (string.IsNullOrEmpty(r.Remarks) || string.IsNullOrWhiteSpace(r.Remarks))
+                {
+                    r.Remarks = LinFlag;
+                }
+                else
+                {
+                    r.Remarks += "|" + LinFlag;
+                }
+                myBatis.UpdateNORResultRunLog(r);
+                TroubleLog trouble = new TroubleLog();
+                trouble.TroubleType = TROUBLETYPE.ERR;
+                trouble.TroubleUnit = @"样本";
+                trouble.TroubleCode = "00001";
+                trouble.TroubleInfo = string.Format(@"{0}:{1}线性范围违规，其反应进程:{2}", r.SampleNum, r.ProjectName, r.TCNO);
+                myBatis.TroubleLogSave("TroubleLogSave", trouble);
 
-            //    if (AV.IsAutoRedo == true)
-            //    {
-            //        Schedule Schedule = new ScheduleService().GetSMPSchedule(r.SMPNO, r.ItemName) as Schedule;
-            //        if (Schedule == null)
-            //        {
-            //            Schedule = new Schedule();
-            //            Schedule.SMPNO = r.SMPNO;
-            //            Schedule.Assay = r.ItemName;
-            //            Schedule.WorkType = S.IsEmergency == true ? WORKTYPE.E : WORKTYPE.N;
-            //            switch (LinFlag)
-            //            {
-            //                case "Lin.L": Schedule.VolType = VOLTYPE.IV; break;
-            //                case "Lin.H": Schedule.VolType = VOLTYPE.DV; break;
-            //            }
-            //            Schedule.SendCount = 0;
-            //            Schedule.FinishCount = 0;
-            //            Schedule.ASYWorkNO = A.DoWorkSQ;
-            //            Schedule.ExpireDoCount = 1;
-            //            Schedule.IsReRun = true;
-            //            Schedule.ReRun = "Lin";
-            //            if (Schedule.VolType != r.VolType)//结果体积参数和计划体积参数不同才可以提交工作计划
-            //            {
-            //                new ScheduleService().Save(Schedule);
-            //            }
-            //        }
-            //    }
-            //}
+                if (ARP.AutoRerun == true)
+                {
+                    //Schedule Schedule = new ScheduleService().GetSMPSchedule(r.SMPNO, r.ItemName) as Schedule;
+                    TaskInfo task = myBatis.GetTask(r.ProjectName, r.SampleNum);
+                    if (task == null)
+                    {
+                        task = new TaskInfo();
+                        task.SampleNum = r.SampleNum;
+                        task.ProjectName = r.ProjectName;
+                        //Schedule.WorkType = S.IsEmergency == true ? WORKTYPE.E : WORKTYPE.N;
+                        switch (LinFlag)
+                        {
+                            case "Lin.L": task.SampleDilute = "增量体积"; break;
+                            case "Lin.H": task.SampleDilute = "减量体积"; break;
+                        }
+                        task.SendTimes = 0;
+                        task.FinishTimes = 0;
+                        task.InspectTimes = 1;
+                        task.TaskState = 0;
+                        task.IsReRun = true;
+                        //Schedule.ReRun = "AbsLim";
+                        if (r.ResultVolType != task.SampleDilute)//结果体积参数和计划体积参数不同才可以提交工作计划
+                        {
+                            //new ScheduleService().Save(Schedule);
+                            myBatis.SaveTske(task);
+                        }
+                    }
+                }
+            }
 
             //血清结果浓度临界判读,只对血清样本起作用。
-            //if (SType.SMPVOLType == "S")
-            //{
-            //    string PanicFlag = null;
-            //    try
-            //    {
-            //        float v = float.Parse(r.RConcValue);
-            //        if (AV.SerumPanicLimitMax > 0.00001 && AV.SerumPanicLimitMax < v)
-            //        {
-            //            PanicFlag = "Panic.H";
-            //        }
-            //        if (AV.SerumPanicLimitMax > 0.00001 && AV.SerumPanicLimitMin > v)
-            //        {
-            //            PanicFlag = "Panic.L";
-            //        }
-            //    }
-            //    catch
-            //    {
-            //    }
-            //    if (PanicFlag != null)
-            //    {
-            //        if (string.IsNullOrEmpty(r.DoTestLog) || string.IsNullOrWhiteSpace(r.DoTestLog))
-            //        {
-            //            r.DoTestLog = PanicFlag;
-            //        }
-            //        else
-            //        {
-            //            r.DoTestLog += "|" + PanicFlag;
-            //        }
-            //        new ResultService().UpdateNORResultRunLog(r);
+            if (S.SampleType == "血清")
+            {
+                string PanicFlag = null;
+                try
+                {
+                    float v = r.ConcResult;
+                    if (A.SerumCriticalMaximum > 0.00001 && A.SerumCriticalMaximum < v)
+                    {
+                        PanicFlag = "Panic.H";
+                    }
+                    if (A.SerumCriticalMaximum > 0.00001 && A.SerumCriticalMinimum > v)
+                    {
+                        PanicFlag = "Panic.L";
+                    }
+                }
+                catch
+                {
+                }
+                if (PanicFlag != null)
+                {
+                    if (string.IsNullOrEmpty(r.Remarks) || string.IsNullOrWhiteSpace(r.Remarks))
+                    {
+                        r.Remarks = PanicFlag;
+                    }
+                    else
+                    {
+                        r.Remarks += "|" + PanicFlag;
+                    }
+                    myBatis.UpdateNORResultRunLog(r);
 
-            //        TroubleLog trouble = new TroubleLog();
-            //        trouble.TroubleType = TROUBLETYPE.ERR;
-            //        trouble.TroubleUnit = @"样本";
-            //        trouble.TroubleCode = "00001";
-            //        trouble.TroubleInfo = string.Format(@"{0}:{1}发生血清临界值违规，其反应进程:{2}", r.SMPNO, r.ItemName, r.TCNO);
-            //        new TroubleLogService().Save(trouble);
+                    TroubleLog trouble = new TroubleLog();
+                    trouble.TroubleType = TROUBLETYPE.ERR;
+                    trouble.TroubleUnit = @"样本";
+                    trouble.TroubleCode = "00001";
+                    trouble.TroubleInfo = string.Format(@"{0}:{1}发生血清临界值违规，其反应进程:{2}", r.SampleNum, r.ProjectName, r.TCNO);
+                    myBatis.TroubleLogSave("TroubleLogSave", trouble);
 
-            //        if (AV.IsAutoRedo == true)
-            //        {
-            //            Schedule Schedule = new ScheduleService().GetSMPSchedule(r.SMPNO, r.ItemName) as Schedule;
-            //            if (Schedule == null)
-            //            {
-            //                Schedule = new Schedule();
-            //                Schedule.SMPNO = r.SMPNO;
-            //                Schedule.Assay = r.ItemName;
-            //                Schedule.WorkType = S.IsEmergency == true ? WORKTYPE.E : WORKTYPE.N;
-            //                Schedule.VolType = r.VolType;
-            //                Schedule.SendCount = 0;
-            //                Schedule.FinishCount = 0;
-            //                Schedule.ASYWorkNO = A.DoWorkSQ;
-            //                Schedule.ExpireDoCount = 1;
-            //                Schedule.IsReRun = true;
-            //                Schedule.ReRun = "Panic";
-            //                if (r.ResultType != "Panic")
-            //                {
-            //                    new ScheduleService().Save(Schedule);
-            //                }
-
-            //            }
-            //        }
-            //    }
-            //}
+                    if (ARP.AutoRerun == true)
+                    {
+                        //Schedule Schedule = new ScheduleService().GetSMPSchedule(r.SMPNO, r.ItemName) as Schedule;
+                        TaskInfo task = myBatis.GetTask(r.ProjectName, r.SampleNum);
+                        if (task == null)
+                        {
+                            task = new TaskInfo();
+                            task.SampleNum = r.SampleNum;
+                            task.ProjectName = r.ProjectName;
+                            //Schedule.WorkType = S.IsEmergency == true ? WORKTYPE.E : WORKTYPE.N;
+                            switch (r.ResultVolType)
+                            {
+                                case VOLTYPE.IV: task.SampleDilute = "增量体积"; break;
+                                case VOLTYPE.DV: task.SampleDilute = "减量体积"; break;
+                                case VOLTYPE.NA: task.SampleDilute = "常规体积"; break;
+                            }
+                            task.SendTimes = 0;
+                            task.FinishTimes = 0;
+                            task.InspectTimes = 1;
+                            task.TaskState = 0;
+                            task.IsReRun = true;
+                            //Schedule.ReRun = "AbsLim";
+                            if (r.ResultVolType != task.SampleDilute)//结果体积参数和计划体积参数不同才可以提交工作计划
+                            {
+                                //new ScheduleService().Save(Schedule);
+                                myBatis.SaveTske(task);
+                            }
+                        }
+                    }
+                }
+            }
 
             //前驱界限，该值是个比例
-            //string ProzontLimitPanicFlag = null;
-            //float ProzontLimit = ABSProcess.GetProzontLimitValue(T, A, r.VolType, SType.SMPVOLType);
-            //if (AV.PreviousLimit > 0.000001)
-            //{
-            //    if (ProzontLimit > AV.PreviousLimit / 100)
-            //    {
-            //        ProzontLimitPanicFlag = "P*";
-            //    }
-            //}
-            //if (ProzontLimitPanicFlag != null)
-            //{
-            //    if (string.IsNullOrEmpty(r.DoTestLog) || string.IsNullOrWhiteSpace(r.DoTestLog))
-            //    {
-            //        r.DoTestLog = ProzontLimitPanicFlag;
-            //    }
-            //    else
-            //    {
-            //        r.DoTestLog += "|" + ProzontLimitPanicFlag;
-            //    }
-            //    new ResultService().UpdateNORResultRunLog(r);
-            //    TroubleLog trouble = new TroubleLog();
-            //    trouble.TroubleType = TROUBLETYPE.ERR;
-            //    trouble.TroubleUnit = @"样本";
-            //    trouble.TroubleCode = "00001";
-            //    trouble.TroubleInfo = string.Format(@"{0}:{1}前驱界限违规！反应进程:{2}", r.SMPNO, r.ItemName, r.TCNO);
-            //    new TroubleLogService().Save(trouble);
-            //    if (AV.IsAutoRedo == true)
-            //    {
-            //        Schedule Schedule = new ScheduleService().GetSMPSchedule(r.SMPNO, r.ItemName) as Schedule;
-            //        if (Schedule == null)
-            //        {
-            //            Schedule = new Schedule();
-            //            Schedule.SMPNO = r.SMPNO;
-            //            Schedule.Assay = r.ItemName;
-            //            Schedule.WorkType = S.IsEmergency == true ? WORKTYPE.E : WORKTYPE.N;
-            //            Schedule.VolType = VOLTYPE.DV;
-            //            Schedule.SendCount = 0;
-            //            Schedule.FinishCount = 0;
-            //            Schedule.ASYWorkNO = A.DoWorkSQ;
-            //            Schedule.ExpireDoCount = 1;
-            //            Schedule.IsReRun = true;
-            //            Schedule.ReRun = "Prozont";
-            //            if (Schedule.VolType != r.VolType)//结果体积参数和计划体积参数不同才可以提交工作计划
-            //            {
-            //                new ScheduleService().Save(Schedule);
-            //            }
-            //        }
-            //    }
-            //}
+            string ProzontLimitPanicFlag = null;
+            float ProzontLimit = ABSProcess.GetProzontLimitValue(T, A, r.ResultVolType, S.SampleType);
+            if (A.ProLowestBound > 0.000001)
+            {
+                if (ProzontLimit > A.ProLowestBound / 100)
+                {
+                    ProzontLimitPanicFlag = "P*";
+                }
+            }
+            if (ProzontLimitPanicFlag != null)
+            {
+                if (string.IsNullOrEmpty(r.Remarks) || string.IsNullOrWhiteSpace(r.Remarks))
+                {
+                    r.Remarks = ProzontLimitPanicFlag;
+                }
+                else
+                {
+                    r.Remarks += "|" + ProzontLimitPanicFlag;
+                }
+                myBatis.UpdateNORResultRunLog(r);
+                TroubleLog trouble = new TroubleLog();
+                trouble.TroubleType = TROUBLETYPE.ERR;
+                trouble.TroubleUnit = @"样本";
+                trouble.TroubleCode = "00001";
+                trouble.TroubleInfo = string.Format(@"{0}:{1}前驱界限违规！反应进程:{2}", r.SampleNum, r.ProjectName, r.TCNO);
+                myBatis.TroubleLogSave("TroubleLogSave", trouble);
+                if (ARP.AutoRerun == true)
+                {
+                    //Schedule Schedule = new ScheduleService().GetSMPSchedule(r.SMPNO, r.ItemName) as Schedule;
+                    TaskInfo task = myBatis.GetTask(r.ProjectName, r.SampleNum);
+                    if (task == null)
+                    {
+                        task = new TaskInfo();
+                        task.SampleNum = r.SampleNum;
+                        task.ProjectName = r.ProjectName;
+                        //Schedule.WorkType = S.IsEmergency == true ? WORKTYPE.E : WORKTYPE.N;
+                        task.SampleDilute = "减量体积";
+                        task.SendTimes = 0;
+                        task.FinishTimes = 0;
+                        task.InspectTimes = 1;
+                        task.TaskState = 0;
+                        task.IsReRun = true;
+                        //Schedule.ReRun = "AbsLim";
+                        if (r.ResultVolType != task.SampleDilute)//结果体积参数和计划体积参数不同才可以提交工作计划
+                        {
+                            //new ScheduleService().Save(Schedule);
+                            myBatis.SaveTske(task);
+                        }
+                    }
+                }
+            }
         }
         /// <summary>
         /// 修改校准曲线,拟合表

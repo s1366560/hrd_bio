@@ -1455,7 +1455,7 @@ namespace BioA.SqlMaps
         /// <param name="projectName"></param>
         /// <param name="sampleType"></param>
         /// <param name="TCNO"></param>
-        public void AddSampleResultInfo(string sampleNum, DateTime sampleCreateTime, string projectName, string sampleType, int TCNO)
+        public void AddSampleResultInfo(string sampleNum, DateTime sampleCreateTime, string projectName, string sampleType, int TCNO,string VolType)
         {//T.SMPNO, T.ASSAY, T.SAMPLETYPE,
             try
             {
@@ -1465,6 +1465,7 @@ namespace BioA.SqlMaps
                 ht.Add("ProjectName", projectName);
                 ht.Add("SampleType", sampleType);
                 ht.Add("TCNO", TCNO);
+                ht.Add("ResultVolType",VolType);
                 ht.Add("SampleCompletionTime", DateTime.Now.ToString());
                 ht.Add("SampleCompletionStatus", TaskState.START);
 
