@@ -414,6 +414,12 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void btnStartCleaning_Click(object sender, EventArgs e)
         {
+            MessageBoxButtons messButton = MessageBoxButtons.OKCancel;
+            DialogResult dr = MessageBox.Show("光度计校准是否已完成？", "比色杯清洗确认", messButton);
+            if (dr != DialogResult.OK)
+            {
+                return;
+            }
             string strSender = "";
             strSender = MachineInfo.SubsystemList.Find(str => str.Name == "Common").ComponetList.Find(componet => componet.Name == "Maintance").CommandList.Find(command => command.FullName == btnStartCleaning.Text).Name;
             

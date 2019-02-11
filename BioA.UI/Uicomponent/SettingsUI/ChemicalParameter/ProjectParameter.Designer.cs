@@ -259,9 +259,17 @@
             // gridView2
             // 
             this.gridView2.GridControl = this.lstvProject;
+            this.gridView2.IndicatorWidth = 40;
             this.gridView2.Name = "gridView2";
+            this.gridView2.OptionsBehavior.Editable = false;
+            this.gridView2.OptionsBehavior.EditingMode = DevExpress.XtraGrid.Views.Grid.GridEditingMode.EditFormInplaceHideCurrentRow;
+            this.gridView2.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.MouseDown;
             this.gridView2.OptionsCustomization.AllowFilter = false;
             this.gridView2.OptionsCustomization.AllowSort = false;
+            this.gridView2.OptionsSelection.CheckBoxSelectorColumnWidth = 40;
+            this.gridView2.OptionsSelection.MultiSelect = true;
+            this.gridView2.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
+            this.gridView2.OptionsSelection.ResetSelectionClickOutsideCheckboxSelector = true;
             this.gridView2.OptionsView.ShowGroupPanel = false;
             // 
             // gridView1
@@ -399,8 +407,8 @@
             this.txtSerumMinValue.Name = "txtSerumMinValue";
             this.txtSerumMinValue.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSerumMinValue.Properties.Appearance.Options.UseFont = true;
-            this.txtSerumMinValue.Size = new System.Drawing.Size(79, 24);
-            this.txtSerumMinValue.TabIndex = 48;
+            this.txtSerumMinValue.Size = new System.Drawing.Size(78, 24);
+            this.txtSerumMinValue.TabIndex = 49;
             // 
             // lblProzoneBound
             // 
@@ -570,6 +578,9 @@
             this.gridView3.Appearance.FocusedRow.Options.UseBackColor = true;
             this.gridView3.GridControl = this.grpRangeParam;
             this.gridView3.Name = "gridView3";
+            this.gridView3.OptionsBehavior.Editable = false;
+            this.gridView3.OptionsBehavior.EditingMode = DevExpress.XtraGrid.Views.Grid.GridEditingMode.EditFormInplaceHideCurrentRow;
+            this.gridView3.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.MouseDown;
             this.gridView3.OptionsCustomization.AllowFilter = false;
             this.gridView3.OptionsCustomization.AllowSort = false;
             this.gridView3.OptionsSelection.EnableAppearanceFocusedCell = false;
