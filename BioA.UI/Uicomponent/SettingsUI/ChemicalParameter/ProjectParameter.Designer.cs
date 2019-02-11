@@ -260,7 +260,6 @@
             // 
             this.gridView2.GridControl = this.lstvProject;
             this.gridView2.Name = "gridView2";
-            this.gridView2.OptionsBehavior.EditingMode = DevExpress.XtraGrid.Views.Grid.GridEditingMode.EditFormInplaceHideCurrentRow;
             this.gridView2.OptionsCustomization.AllowFilter = false;
             this.gridView2.OptionsCustomization.AllowSort = false;
             this.gridView2.OptionsView.ShowGroupPanel = false;

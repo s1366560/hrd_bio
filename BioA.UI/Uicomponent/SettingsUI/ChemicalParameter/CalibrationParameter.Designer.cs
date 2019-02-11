@@ -265,7 +265,7 @@
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(230, 382);
+            this.textBox1.Location = new System.Drawing.Point(267, 382);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 24);
             this.textBox1.TabIndex = 68;
@@ -276,9 +276,9 @@
             this.label5.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(102, 385);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(120, 17);
+            this.label5.Size = new System.Drawing.Size(144, 17);
             this.label5.TabIndex = 67;
-            this.label5.Text = "校准曲线有效期：";
+            this.label5.Text = "校准曲线有效期(天)：";
             // 
             // textEdit1
             // 
@@ -642,15 +642,15 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(214, 101);
+            this.label1.Location = new System.Drawing.Point(192, 101);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(43, 14);
+            this.label1.Size = new System.Drawing.Size(59, 14);
             this.label1.TabIndex = 33;
-            this.label1.Text = "校准品";
+            this.label1.Text = "校准品    ";
             // 
             // cboCalibTimes
             // 
-            this.cboCalibTimes.Location = new System.Drawing.Point(231, 347);
+            this.cboCalibTimes.Location = new System.Drawing.Point(267, 347);
             this.cboCalibTimes.Name = "cboCalibTimes";
             this.cboCalibTimes.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboCalibTimes.Properties.Appearance.Options.UseFont = true;
