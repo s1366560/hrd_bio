@@ -335,7 +335,8 @@
       select LastestTC from RunningStateTb
     </statement>
     <update id="updateRunningStateInfo" parameterClass="System.Collections.IDictionary">
-      update RunningStateTb set QCSMPContainerType=#QCSMPContainerType#, SDTSMPContainerType=#SDTSMPContainerType#
+      update RunningStateTb set QCSMPContainerType=#QCSMPContainerType#, SDTSMPContainerType=#SDTSMPContainerType#,CUVBlkMax=#CUVBlkMax#,CUVBlkMin=#CUVBlkMin#,
+      RgtWarnCount=#RgtWarnCount#,RgtLeastCount=#RgtLeastCount#,TempOffset=#TempOffset#
     </update>
     <statement id="DeleteRealTimeCUVData" parameterClass="int">
        delete from RealTimeCUVDataTb where WorkNo=#value#

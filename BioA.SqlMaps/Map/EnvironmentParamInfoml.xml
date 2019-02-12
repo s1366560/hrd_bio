@@ -2,6 +2,7 @@
 <sqlMap namespace="EnvironmentParamInfoml" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
   <alias>
     <typeAlias alias="EnvironmentParamInfo" type="BioA.Common.EnvironmentParamInfo, BioA.Common" />
+    <typeAlias alias="RunningStateInfo" type="BioA.Common.RunningStateInfo, BioA.Common" />
   </alias>
   <resultMaps>
     <resultMap id="EnvironmentParamInfoResult" class="EnvironmentParamInfo">
@@ -32,6 +33,9 @@
     </update>
     <select id="QueryEnvironmentParamInfo" ResultClass="EnvironmentParamInfo" >
       select * from EnvironmentParamTb
+    </select>
+    <select id="QueryRuningSateInfo" ResultClass="RunningStateInfo" >
+      select * from Runningstatetb
     </select>
     <select id="GetRgtWarnCount" resultClass="float">
       select ReagentSurplus from EnvironmentParamTb

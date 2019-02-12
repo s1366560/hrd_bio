@@ -14,6 +14,7 @@ using BioA.UI.ServiceReference1;
 using System.ServiceModel;
 using System.Text.RegularExpressions;
 using System.Threading;
+using BioA.Service;
 
 namespace BioA.UI
 {
@@ -62,8 +63,8 @@ namespace BioA.UI
                 {
                     txtReaSurplusWarn.Text = environmentParamInfo[0].ReagentSurplus.ToString();
                     txtReaLowestVol.Text = environmentParamInfo[0].ReagentLeastVol.ToString();
-                    txtLowCuvette.Text = environmentParamInfo[0].CuvetteBlankHigh.ToString();
-                    txtHighCuvette.Text = environmentParamInfo[0].CuvetteBlankLow.ToString();
+                    txtHighCuvette.Text = environmentParamInfo[0].CuvetteBlankHigh.ToString();
+                    txtLowCuvette.Text = environmentParamInfo[0].CuvetteBlankLow.ToString();
                     txtWashSurplusWarn.Text = environmentParamInfo[0].AbluentSurplus.ToString();
                     txtWashLowestVol.Text = environmentParamInfo[0].AbluentLeastVol.ToString();
                     if (environmentParamInfo[0].AutoFreezeTask)
@@ -87,6 +88,11 @@ namespace BioA.UI
             //CommunicationEntity DatacommunicationEntity = new CommunicationEntity();
             //DatacommunicationEntity.StrmethodName = "QueryEnvironmentParamInfo";
             //DatacommunicationEntity.ObjParam = "";
+            RunningStateInfo runningstateinfo = new EnvironmentParameter().QueryRuningSateInfo("QueryRuningSateInfo");
+            txthatchtemp.Text = runningstateinfo.TempOffset.ToString();
+            comboBoxQCDCon.Text = runningstateinfo.QCSMPContainerType;
+            comboBoxCalbDCon.Text = runningstateinfo.SDTSMPContainerType;
+
             envmentDataDic.Clear();
             envmentDataDic.Add("QueryEnvironmentParamInfo", null);
             EnvironmentDataLoad(envmentDataDic);
@@ -142,15 +148,26 @@ namespace BioA.UI
                 MessageBoxDraw.ShowMsg("清洗剂最小体积应小于清洗剂余量报警体积！", MsgType.Warning);
                 return;
             }
-
+            if(!Regex.IsMatch(txthatchtemp.Text.Trim(), @"^(-?\d+)(\.\d+)?$"))
+            {
+                MessageBoxDraw.ShowMsg("孵育槽温控输入格式有误！", MsgType.Warning);
+                return;
+            }
+            if (Convert.ToDouble(txthatchtemp.Text.Trim()) > 5)
+            {
+                MessageBoxDraw.ShowMsg("孵育槽温控不能超过5！", MsgType.Warning);
+                return;
+            }
             environmentParamInfo.ReagentSurplus = (float)Convert.ToDouble(txtReaSurplusWarn.Text);
             environmentParamInfo.ReagentLeastVol = (float)Convert.ToDouble(txtReaLowestVol.Text);
-            environmentParamInfo.CuvetteBlankHigh = (float)Convert.ToDouble(txtLowCuvette.Text);
-            environmentParamInfo.CuvetteBlankLow = (float)Convert.ToDouble(txtHighCuvette.Text);
+            environmentParamInfo.CuvetteBlankLow = (float)Convert.ToDouble(txtLowCuvette.Text);
+            environmentParamInfo.CuvetteBlankHigh = (float)Convert.ToDouble(txtHighCuvette.Text);
             environmentParamInfo.AbluentSurplus = (float)Convert.ToDouble(txtWashSurplusWarn.Text);
             environmentParamInfo.AbluentLeastVol = (float)Convert.ToDouble(txtWashLowestVol.Text);
             running.QCSMPContainerType = comboBoxQCDCon.Text;
             running.SDTSMPContainerType = comboBoxCalbDCon.Text;
+            running.TempOffset = (float)Convert.ToDouble(txthatchtemp.Text);
+
             if (chkReagentMarginLock.Checked ==true)
             {
              

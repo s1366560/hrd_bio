@@ -18,7 +18,10 @@ namespace BioA.Service
         {
             return myBatis.QueryNewPhotemetricValue(strMethodName);
         }
-
+        public string getMaxMinforCuvette()
+        {
+            return myBatis.getMaxMinforCuvette();
+        }
         //public List<OffSetGain> QueryOldPhotemetricValue(string strMethodName)
         //{
         //    return myBatis.QueryOldPhotemetricValue(strMethodName);

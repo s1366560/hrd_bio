@@ -53,6 +53,10 @@
             this.labelCalbDCon = new DevExpress.XtraEditors.LabelControl();
             this.comboBoxCalbDCon = new DevExpress.XtraEditors.ComboBoxEdit();
             this.comboBoxQCDCon = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.labelControl7 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl8 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl9 = new DevExpress.XtraEditors.LabelControl();
+            this.txthatchtemp = new DevExpress.XtraEditors.TextEdit();
             ((System.ComponentModel.ISupportInitialize)(this.chkReagentMarginLock.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHighCuvette.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtLowCuvette.Properties)).BeginInit();
@@ -62,6 +66,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtWashLowestVol.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxCalbDCon.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxQCDCon.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txthatchtemp.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // lblReagentMV
@@ -286,7 +291,6 @@
             // 
             // comboBoxCalbDCon
             // 
-            this.comboBoxCalbDCon.EditValue = "样本杯";
             this.comboBoxCalbDCon.Location = new System.Drawing.Point(491, 177);
             this.comboBoxCalbDCon.Name = "comboBoxCalbDCon";
             this.comboBoxCalbDCon.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -295,13 +299,12 @@
             "样本杯",
             "样本管"});
             this.comboBoxCalbDCon.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.comboBoxCalbDCon.Size = new System.Drawing.Size(88, 26);
+            this.comboBoxCalbDCon.Size = new System.Drawing.Size(88, 20);
             this.comboBoxCalbDCon.TabIndex = 29;
             this.comboBoxCalbDCon.ToolTip = "\r\n\r\n";
             // 
             // comboBoxQCDCon
             // 
-            this.comboBoxQCDCon.EditValue = "样本杯";
             this.comboBoxQCDCon.Location = new System.Drawing.Point(267, 179);
             this.comboBoxQCDCon.Name = "comboBoxQCDCon";
             this.comboBoxQCDCon.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -310,13 +313,56 @@
             "样本杯",
             "样本管"});
             this.comboBoxQCDCon.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.comboBoxQCDCon.Size = new System.Drawing.Size(84, 26);
+            this.comboBoxQCDCon.Size = new System.Drawing.Size(84, 20);
             this.comboBoxQCDCon.TabIndex = 28;
+            // 
+            // labelControl7
+            // 
+            this.labelControl7.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl7.Appearance.Options.UseFont = true;
+            this.labelControl7.Location = new System.Drawing.Point(106, 611);
+            this.labelControl7.Name = "labelControl7";
+            this.labelControl7.Size = new System.Drawing.Size(75, 17);
+            this.labelControl7.TabIndex = 30;
+            this.labelControl7.Text = "孵育槽设置:";
+            // 
+            // labelControl8
+            // 
+            this.labelControl8.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl8.Appearance.Options.UseFont = true;
+            this.labelControl8.Location = new System.Drawing.Point(146, 670);
+            this.labelControl8.Name = "labelControl8";
+            this.labelControl8.Size = new System.Drawing.Size(90, 17);
+            this.labelControl8.TabIndex = 31;
+            this.labelControl8.Text = "孵育槽温控：";
+            // 
+            // labelControl9
+            // 
+            this.labelControl9.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl9.Appearance.Options.UseFont = true;
+            this.labelControl9.Location = new System.Drawing.Point(246, 670);
+            this.labelControl9.Name = "labelControl9";
+            this.labelControl9.Size = new System.Drawing.Size(30, 17);
+            this.labelControl9.TabIndex = 32;
+            this.labelControl9.Text = "37 ±";
+            // 
+            // txthatchtemp
+            // 
+            this.txthatchtemp.Location = new System.Drawing.Point(282, 667);
+            this.txthatchtemp.Name = "txthatchtemp";
+            this.txthatchtemp.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txthatchtemp.Properties.Appearance.Options.UseFont = true;
+            this.txthatchtemp.Size = new System.Drawing.Size(83, 24);
+            this.txthatchtemp.TabIndex = 33;
             // 
             // EnvironmentData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.txthatchtemp);
+            this.Controls.Add(this.labelControl9);
+            this.Controls.Add(this.labelControl8);
+            this.Controls.Add(this.labelControl7);
             this.Controls.Add(this.comboBoxCalbDCon);
             this.Controls.Add(this.comboBoxQCDCon);
             this.Controls.Add(this.labelCalbDCon);
@@ -353,6 +399,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtWashLowestVol.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxCalbDCon.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxQCDCon.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txthatchtemp.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -384,5 +431,9 @@
         private DevExpress.XtraEditors.LabelControl labelCalbDCon;
         private DevExpress.XtraEditors.ComboBoxEdit comboBoxCalbDCon;
         private DevExpress.XtraEditors.ComboBoxEdit comboBoxQCDCon;
+        private DevExpress.XtraEditors.LabelControl labelControl7;
+        private DevExpress.XtraEditors.LabelControl labelControl8;
+        private DevExpress.XtraEditors.LabelControl labelControl9;
+        private DevExpress.XtraEditors.TextEdit txthatchtemp;
     }
 }

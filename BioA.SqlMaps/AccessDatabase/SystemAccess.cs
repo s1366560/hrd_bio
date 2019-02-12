@@ -623,7 +623,7 @@ namespace BioA.SqlMaps
                 CuvetteBlankInfo cuvBlkNew = ism_SqlMap.QueryForObject("EquipmentManage.QueryWaterNewBlankValueByWave", waveLength) as CuvetteBlankInfo;
                 CuvetteBlankInfo cuvBlkOld = ism_SqlMap.QueryForObject("EquipmentManage.QueryWaterOldBlankValueByWave", waveLength) as CuvetteBlankInfo;
                 lstCuvBlk.Add(cuvBlkNew);
-                lstCuvBlk.Add(cuvBlkOld);
+                lstCuvBlk.Add(cuvBlkOld); 
             }
             catch (Exception e)
             {
@@ -631,6 +631,23 @@ namespace BioA.SqlMaps
             }
 
             return lstCuvBlk;
+        }
+        /// <summary>
+        /// 获取比色杯清洁程度的阈值
+        /// </summary>
+        /// <returns></returns>
+        public string getMaxMinforCuvette()
+        {
+            string result = "";
+            try
+            {
+                result = ism_SqlMap.QueryForObject("EquipmentManage.getMaxMinforCuvette", null).ToString();
+            }
+            catch (Exception e)
+            {
+                LogInfo.WriteErrorLog("getMaxMinforCuvette==" + e.ToString(), Module.DAO);
+            }
+            return result;
         }
         /// <summary>
         /// 获取最新的光度计检测值

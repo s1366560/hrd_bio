@@ -888,6 +888,12 @@ namespace BioA.SqlMaps
                 Hashtable ht = new Hashtable();
                 ht.Add("QCSMPContainerType", running.QCSMPContainerType);
                 ht.Add("SDTSMPContainerType", running.SDTSMPContainerType);
+                ht.Add("CUVBlkMax", environmentParamInfo.CuvetteBlankHigh);
+                ht.Add("CUVBlkMin", environmentParamInfo.CuvetteBlankLow);
+                ht.Add("RgtWarnCount", environmentParamInfo.ReagentSurplus);
+                ht.Add("RgtLeastCount", environmentParamInfo.ReagentLeastVol);
+                ht.Add("TempOffset", running.TempOffset);
+                
                 ism_SqlMap.Update("PLCDataInfo.updateRunningStateInfo", ht);
             }
             catch (Exception e)
@@ -1230,6 +1236,21 @@ namespace BioA.SqlMaps
             }
 
             return lstEnvironmentInfos;
+        }
+        public RunningStateInfo QueryRuningSateInfo(string strDBMethod)
+        {
+            RunningStateInfo runningstateinfo = new RunningStateInfo();
+            try
+            {
+                runningstateinfo = (RunningStateInfo)ism_SqlMap.QueryForObject("EnvironmentParamInfoml." + strDBMethod, null);
+            }
+
+            catch (Exception e)
+            {
+                LogInfo.WriteErrorLog("QueryRuningSateInfo(string strDBMethod)" + e.ToString(), Module.DAO);
+            }
+
+            return runningstateinfo;
         }
         /// <summary>
         /// 获取所有稀释比例信息

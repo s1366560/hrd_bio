@@ -30,6 +30,7 @@ namespace BioA.Common
             isAutoExchange = false;
             state1 = 0;
             state2 = 0;
+            machineIsRunning = 0;
         }
 
         private int      workDisk;
@@ -52,7 +53,7 @@ namespace BioA.Common
         private bool     isAutoExchange;
         private int      state1;
         private int      state2;
-
+        private int machineIsRunning;
         public int WorkDisk
         {
             get { return workDisk; }
@@ -152,6 +153,11 @@ namespace BioA.Common
         {
             get { return state2; }
             set { state2 = value; }
+        }
+        public int MachineIsRunning
+        {
+            get { return machineIsRunning; }
+            set { machineIsRunning = value; }
         }
     }
 }

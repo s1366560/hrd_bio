@@ -202,6 +202,10 @@
     <statement id="QueryNewCuvBlkByWave" parameterClass="int" resultClass="int">
       select count(*) from CuvetteBlankNewTb where WaveLength=#value#
     </statement>
+    <!--获取比色杯清洁程度的阈值-->
+    <statement id="getMaxMinforCuvette" resultClass="string">
+      select top 1 CONVERT(varchar(10),CUVBlkMax)+'|'+CONVERT(varchar(10),CUVBlkMin) MM from runningstatetb
+    </statement>
     <statement id="InsertNewCuvBlkByWave" parameterClass="int">
       insert into CuvetteBlankNewTb(WaveLength) values(#value#)
     </statement>

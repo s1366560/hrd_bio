@@ -24,5 +24,10 @@ namespace BioA.Service
 
             return lstEnvironmentInfos;
         }
+        public RunningStateInfo QueryRuningSateInfo(string strDBMethod)
+        {
+            RunningStateInfo runningstateinfo = myBatis.QueryRuningSateInfo(strDBMethod);
+            return runningstateinfo;
+        }
     }
 }

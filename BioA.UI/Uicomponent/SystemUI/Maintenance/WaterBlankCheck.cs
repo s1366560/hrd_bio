@@ -448,8 +448,13 @@ namespace BioA.UI
                     btnStartCleaning.Text = sub.ComponetList[1].CommandList[3].FullName;
                 }
             }
-            textEdit1.Text = (0.03).ToString();
-            textEdit2.Text = (0.3).ToString();
+            string ret = new SystemMaintenance().getMaxMinforCuvette();
+            if(!string.IsNullOrEmpty(ret))
+            {
+                string[] mm = ret.Split('|');
+                textEdit2.Text = mm[0];
+                textEdit1.Text = mm[1];
+            }
             textEdit1.BackColor = Color.Yellow;
             textEdit2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
             //CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.SystemMaintenance, new Dictionary<string, object[]>() { { "QueryWaterBlankValueByWave", null } });
