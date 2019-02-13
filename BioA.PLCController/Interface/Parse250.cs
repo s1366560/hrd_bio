@@ -72,11 +72,17 @@ namespace BioA.PLCController.Interface
 
                         TroubleLog t = new TroubleLog();
                         t.TroubleCode = string.Format("{0}{1}{2}{3}{4}{5}{6}", (char)Data[index], (char)Data[index + 1], (char)Data[index + 2], (char)Data[index + 3], (char)Data[index + 4], (char)Data[index + 5], (char)Data[index + 6]);
-                        t.TroubleType = TROUBLETYPE.ERR;
-                        t.TroubleUnit = "设备";
-                        t.TroubleInfo = null;
-                        myBatis.TroubleLogSave("TroubleLogSave", t);
+                        if (t.TroubleCode == "E000415" || t.TroubleCode == "E000615")
+                        {
 
+                        }
+                        else
+                        {
+                            t.TroubleType = TROUBLETYPE.ERR;
+                            t.TroubleUnit = "设备";
+                            t.TroubleInfo = null;
+                            myBatis.TroubleLogSave("TroubleLogSave", t);
+                        } 
                         //LogService.Log("Err code:" + t.TroubleCode, LogType.Debug);
                     }
                 }

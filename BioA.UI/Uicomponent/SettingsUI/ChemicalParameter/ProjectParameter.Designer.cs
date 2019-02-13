@@ -465,8 +465,10 @@
             // 
             this.chkAutoResurvey.Location = new System.Drawing.Point(33, 407);
             this.chkAutoResurvey.Name = "chkAutoResurvey";
-            this.chkAutoResurvey.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkAutoResurvey.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkAutoResurvey.Properties.Appearance.ForeColor = System.Drawing.Color.Red;
             this.chkAutoResurvey.Properties.Appearance.Options.UseFont = true;
+            this.chkAutoResurvey.Properties.Appearance.Options.UseForeColor = true;
             this.chkAutoResurvey.Properties.Caption = "是否自动重测：";
             this.chkAutoResurvey.Size = new System.Drawing.Size(116, 21);
             this.chkAutoResurvey.TabIndex = 83;

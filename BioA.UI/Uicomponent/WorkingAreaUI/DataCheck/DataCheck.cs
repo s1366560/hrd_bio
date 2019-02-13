@@ -456,22 +456,7 @@ namespace BioA.UI
                         lstSamResultInfo = (List<SampleResultInfo>)XmlUtility.Deserialize(typeof(List<SampleResultInfo>), sender as string);
                         foreach (SampleResultInfo s in lstSamResultInfo)
                         {
-                            string taskState = string.Empty;
-                            switch (s.SampleCompletionStatus)
-                            {
-                                case 0:
-                                    taskState = "异常";
-                                    break;
-                                case 1:
-                                    taskState = "检测中";
-                                    break;
-                                case 2:
-                                    taskState = "已完成";
-                                    break;
-                                default:
-                                    break;
-                            }
-                            CheckResultDT.Rows.Add(new object[] { s.ProjectName, Math.Round(s.ConcResult, 4), s.UnitAndRange, s.SampleCompletionTime.ToString(),s.TCNO, taskState, s.IsResurvey == true ? "是" : "否",s.ResultVolType, s.Remarks, s.Confirm });
+                            this.DisplaySampleResultInfo(s);
                         }
                         if (lstSamResultInfo.Count > 0)
                         {
@@ -592,23 +577,7 @@ namespace BioA.UI
                 CheckResultDT.Rows.Clear();
                 foreach (SampleResultInfo s in lstSamResultInfo)
                 {
-                    ResultSetInfo ss = lstResultSetInfo.SingleOrDefault(v => v.ProjectName == s.ProjectName) as ResultSetInfo;
-                    string taskState = string.Empty;
-                    switch (s.SampleCompletionStatus)
-                    {
-                        case 0:
-                            taskState = "异常";
-                            break;
-                        case 1:
-                            taskState = "检测中";
-                            break;
-                        case 2:
-                            taskState = "已完成";
-                            break;
-                        default:
-                            break;
-                    }
-                    CheckResultDT.Rows.Add(new object[] { s.ProjectName, Math.Round(s.ConcResult, ss != null && ss.RadixPointNum != 100000000 ? ss.RadixPointNum : 4), s.UnitAndRange, s.SampleCompletionTime.ToString(), s.TCNO, taskState, s.IsResurvey == true ? "是" : "否", s.ResultVolType, s.Remarks, s.Confirm });
+                    this.DisplaySampleResultInfo(s);
                 }
                 if (lstSamResultInfo.Count > 0)
                 {
@@ -617,6 +586,48 @@ namespace BioA.UI
             }));
             //}
         }
+        /// <summary>
+        /// 显示样本结果信息
+        /// </summary>
+        /// <param name="s"></param>
+        private void DisplaySampleResultInfo(SampleResultInfo s)
+        {
+            ResultSetInfo ss = lstResultSetInfo.SingleOrDefault(v => v.ProjectName == s.ProjectName) as ResultSetInfo;
+            string taskState = string.Empty;
+            string VolType = string.Empty;
+            switch (s.SampleCompletionStatus)
+            {
+                case 0:
+                    taskState = "异常";
+                    break;
+                case 1:
+                    taskState = "检测中";
+                    break;
+                case 2:
+                    taskState = "已完成";
+                    break;
+                default:
+                    break;
+            }
+            switch (s.ResultVolType)
+            {
+                case VOLTYPE.NV:
+                    VolType = "常规体积";
+                    break;
+                case VOLTYPE.IV:
+                    VolType = "增量体积";
+                    break;
+                case VOLTYPE.DV:
+                    VolType = "减量体积";
+                    break;
+                case VOLTYPE.SV:
+                    VolType = "定标体积";
+                    break;
+            }
+            CheckResultDT.Rows.Add(new object[] { s.ProjectName, Math.Round(s.ConcResult, ss != null && ss.RadixPointNum != 100000000 ? ss.RadixPointNum : 4), s.UnitAndRange, s.SampleCompletionTime.ToString(), s.TCNO, taskState, s.IsResurvey == true ? "是" : "否", VolType, s.Remarks, s.Confirm });
+                
+        }
+
         /// <summary>
         /// 删除结果
         /// </summary>
@@ -647,22 +658,7 @@ namespace BioA.UI
                         CheckResultDT.Rows.Clear();
                         foreach (SampleResultInfo s in lstSamResultInfo)
                         {
-                            string taskState = string.Empty;
-                            switch (s.SampleCompletionStatus)
-                            {
-                                case 0:
-                                    taskState = "异常";
-                                    break;
-                                case 1:
-                                    taskState = "检测中";
-                                    break;
-                                case 2:
-                                    taskState = "已完成";
-                                    break;
-                                default:
-                                    break;
-                            }
-                            CheckResultDT.Rows.Add(new object[] { s.ProjectName, Math.Round(s.ConcResult, 4), s.UnitAndRange, s.SampleCompletionTime.ToString(), s.TCNO, taskState, s.IsResurvey == true ? "是" : "否", s.ResultVolType, s.Remarks, s.Confirm });
+                            this.DisplaySampleResultInfo(s);
                         }
                         MessageBox.Show("删除成功！");
                     }

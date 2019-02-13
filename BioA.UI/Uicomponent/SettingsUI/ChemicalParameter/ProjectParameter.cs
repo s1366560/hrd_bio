@@ -421,6 +421,7 @@ namespace BioA.UI
             dtRange.Rows.Clear();
             foreach (AssayProjectRangeParamInfo r in lstrangeParam)
             {
+                chkAutoResurvey.Checked = r.AutoRerun;
                 if (r.AgeLow1 != -100000000 && r.AgeHigh1 != 100000000)
                 {
                     dtRange.Rows.Add(r.SampleType, string.Format(r.AgeLow1 + " - " + r.AgeHigh1), string.Format(r.ManConsLow1.ToString() + " - " +  r.ManConsHigh1.ToString()), string.Format(r.WomanConsLow1.ToString() + " - " + r.WomanConsHigh1.ToString()));
