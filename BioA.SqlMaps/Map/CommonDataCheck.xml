@@ -43,7 +43,7 @@
     <statement id="QueryProjectResultBySampleNum" parameterClass="System.Collections.IDictionary" resultClass="SampleResultInfo">
       <!--select * from SampleResultTb t1 left join TaskTb t2 on t1.SampleNum=t2.SampleNum and t1.SampleCreateTime=t2.CreateDate  
         and t1.ProjectName=t2.ProjectName where t1.SampleNum=#SampleNum# and t1.SampleCreateTime between #StartDateTime# and #EndDateTime#-->
-      select * from SampleResultTb where SampleNum=#SampleNum# and SampleCreateTime = #StartDateTime# and SampleType=#SampleType#
+      select * from SampleResultTb where SampleNum=#SampleNum# and SampleType=#SampleType# and DATEDIFF(dd,SampleCreateTime,#StartDateTime#) = 0
     </statement>
     <statement id="DeleteCommonSampleBySampleNum" parameterClass="System.Collections.IDictionary" resultClass="int">
       update SampleTb set IsDelete=1 where SampleNum=#SampleNum# and CreateTime=#CreateTime#

@@ -536,7 +536,7 @@ namespace BioA.Common.CalcMethod
             ProcessAbsLinear(TC, AR, out AbsList, out TimeList, VolType);
 
             float K2 = RateProcessC(AbsList, TimeList, AR.MeasureLightDot3, AR.MeasureLightDot4);
-            float K1 = RateProcessC(AbsList, TimeList, AR.MeasureLightDot2, AR.MeasureLightDot1);
+            float K1 = RateProcessC(AbsList, TimeList, AR.MeasureLightDot1, AR.MeasureLightDot2);
 
             return K2 - K1;
         }
@@ -593,7 +593,7 @@ namespace BioA.Common.CalcMethod
                     switch (VT)
                     {
                         case "减量体积":
-                                if (A.DecSamVol != 100000000)
+                                if (A.DecSamVol != 0)
                                 {
                                     k = (A.Reagent1Vol + A.DecSamVol) / (A.Reagent1Vol + A.Reagent2Vol + A.DecSamVol);
                                 }
@@ -603,7 +603,7 @@ namespace BioA.Common.CalcMethod
                                 }                            
                             break;
                         case "常规体积":
-                            if (A.ComSamVol != 100000000)
+                            if (A.ComSamVol != 0)
                             {
                                 k = (A.Reagent1Vol + A.ComSamVol) / (A.Reagent1Vol + A.Reagent2Vol + A.ComSamVol);
                             }
@@ -613,7 +613,7 @@ namespace BioA.Common.CalcMethod
                             }
                             break;
                         case "增量体积":
-                            if (A.IncSamVol != 100000000)
+                            if (A.IncSamVol != 0)
                             {
                                 k = (A.Reagent1Vol + A.IncSamVol) / (A.Reagent1Vol + A.Reagent2Vol + A.IncSamVol);
                             }
@@ -623,7 +623,7 @@ namespace BioA.Common.CalcMethod
                             }
                             break;
                         case "定标体积":
-                            if (A.CalibSamVol != 100000000)
+                            if (A.CalibSamVol != 0)
                             {
                                 k = (A.Reagent1Vol + A.CalibSamVol) / (A.Reagent1Vol + A.Reagent2Vol + A.CalibSamVol);
                             }

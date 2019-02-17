@@ -1377,8 +1377,8 @@ namespace BioA.SqlMaps
 
                 Hashtable hash = new Hashtable();
                 hash.Add("SampleNum", ht["SampleNum"]);
-                hash.Add("starttime", System.Convert.ToDateTime(ht["DateTime"]).ToShortDateString());
-                hash.Add("endtime", System.Convert.ToDateTime(ht["DateTime"]).AddDays(1).ToShortDateString());
+                hash.Add("starttime", System.Convert.ToDateTime(ht["DateTime"]).Date);
+                hash.Add("endtime", System.Convert.ToDateTime(ht["DateTime"]).AddDays(1).Date);
 
                 PatientInfo patientInfo = (PatientInfo)ism_SqlMap.QueryForObject("WorkAreaApplyTask.QueryPatientInfoBySampleNum", hash);
 

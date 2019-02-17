@@ -232,7 +232,7 @@ namespace BioA.SqlMaps
             List<TaskInfo> lstTaskInfos = new List<TaskInfo>();
             try
             {
-                List<TaskInfo> lstTaskInfo = (List<TaskInfo>)ism_SqlMap.QueryForList<TaskInfo>("WorkAreaApplyTask." + strMethodName, string.Format("select t.*,s.Barcode from tasktb t,sampletb s where t.SampleNum = s.SampleNum and t.CreateDate = s.CreateTime and s.PanelNum = {0} and t.CreateDate between '{1}' and '{2}'", panelNum, DateTime.Now.Date, DateTime.Now.Date.AddDays(1)));
+                List<TaskInfo> lstTaskInfo = (List<TaskInfo>)ism_SqlMap.QueryForList<TaskInfo>("WorkAreaApplyTask." + strMethodName, string.Format("select t.*,s.Barcode from tasktb t,sampletb s where t.SampleNum = s.SampleNum and s.PanelNum = {0} and s.CreateTime between '{1}' and '{2}'", panelNum, DateTime.Now.Date, DateTime.Now.Date.AddDays(1)));
                 foreach (TaskInfo task in lstTaskInfo)
                 {
                     if (lstTaskInfos.Count > 0)
@@ -275,7 +275,7 @@ namespace BioA.SqlMaps
                     //删除生化任务信息
                     ism_SqlMap.QueryForObject("WorkAreaApplyTask.NoReturnValueGeneralID", string.Format("delete from tasktb where ProjectName = '{0}' and SampleNum = {1} and TaskState = 2", projectName, sampleNum));
                     //修改样本信息状态
-                    ism_SqlMap.QueryForObject("WorkAreaApplyTask.NoReturnValueGeneralID", string.Format("update tasktb set SampleState = 0 where SampleNum = {0} and CreateTime > '{1}'", sampleNum, DateTime.Now.Date));
+                    ism_SqlMap.QueryForObject("WorkAreaApplyTask.NoReturnValueGeneralID", string.Format("update sampletb set SampleState = 1 where SampleNum = {0} and CreateTime > '{1}'", sampleNum, DateTime.Now.Date));
                 }
             }
             catch (Exception ex)
@@ -292,7 +292,7 @@ namespace BioA.SqlMaps
         {
             try
             {
-                ism_SqlMap.Insert("WorkAreaApplyTask.NoReturnValueGeneralID", string.Format("insert into TaskTb (SampleNum, CreateDate, ProjectName, SampleType, SampleDilute, DilutedRatio, InspectTimes, SendTimes, FinishTimes, TaskState,IsReRun)values({0}, '{1}', '{2}', '{3}', '{4}', {5}, {6}, 0, 0, 0, {7})", t.SampleNum, t.CreateDate, t.ProjectName, t.SampleType, t.SampleDilute, t.DilutedRatio, t.InspectTimes, t.IsReRun));
+                ism_SqlMap.Insert("WorkAreaApplyTask.NoReturnValueGeneralID", string.Format("insert into TaskTb (SampleNum, CreateDate, ProjectName, SampleType, SampleDilute, DilutedRatio, InspectTimes, SendTimes, FinishTimes, TaskState,IsReRun)values({0}, '{1}', '{2}', '{3}', '{4}', {5}, {6}, 0, 0, 0, '{7}')", t.SampleNum, t.CreateDate, t.ProjectName, t.SampleType, t.SampleDilute, t.DilutedRatio, t.InspectTimes, t.IsReRun));
             }
             catch (Exception ex)
             {
@@ -815,7 +815,7 @@ namespace BioA.SqlMaps
             {
                 Hashtable ht = new Hashtable();
                 ht.Add("sampleNum", sampleNum);
-                ht.Add("sampleCreateTime", sampleCreateTime);
+                ht.Add("sampleCreateTime", sampleCreateTime.Date);
                 sampleInfo = ism_SqlMap.QueryForObject("WorkAreaApplyTask.GetSample", ht) as SampleInfo;
             }
             catch (Exception e)

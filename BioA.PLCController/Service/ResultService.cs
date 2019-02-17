@@ -345,6 +345,7 @@ namespace BioA.PLCController.Service
                         task = new TaskInfo();
                         task.SampleNum = r.SampleNum;
                         task.ProjectName = r.ProjectName;
+                        task.SampleType = r.SampleType;
                         //Schedule.WorkType = S.IsEmergency == true ? WORKTYPE.E : WORKTYPE.N;
                         task.SampleDilute = "减量体积";
                         task.SendTimes = 0;
@@ -414,6 +415,7 @@ namespace BioA.PLCController.Service
                         task = new TaskInfo();
                         task.SampleNum = r.SampleNum;
                         task.ProjectName = r.ProjectName;
+                        task.SampleType = r.SampleType;
                         //Schedule.WorkType = S.IsEmergency == true ? WORKTYPE.E : WORKTYPE.N;
                         switch (LinFlag)
                         {
@@ -482,6 +484,7 @@ namespace BioA.PLCController.Service
                             task = new TaskInfo();
                             task.SampleNum = r.SampleNum;
                             task.ProjectName = r.ProjectName;
+                            task.SampleType = r.SampleType;
                             //Schedule.WorkType = S.IsEmergency == true ? WORKTYPE.E : WORKTYPE.N;
                             switch (r.ResultVolType)
                             {
@@ -541,6 +544,7 @@ namespace BioA.PLCController.Service
                         task = new TaskInfo();
                         task.SampleNum = r.SampleNum;
                         task.ProjectName = r.ProjectName;
+                        task.SampleType = r.SampleType;
                         //Schedule.WorkType = S.IsEmergency == true ? WORKTYPE.E : WORKTYPE.N;
                         task.SampleDilute = "减量体积";
                         task.SendTimes = 0;

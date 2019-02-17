@@ -564,7 +564,7 @@ namespace BioA.UI
                 sampleNum = null;
             //返回值
             sampleNum = gridView1.GetFocusedRowCellValue("样本编号").ToString();
-            string dt = gridView1.GetFocusedRowCellValue("申请时间").ToString();
+            DateTime dt = Convert.ToDateTime(gridView1.GetFocusedRowCellValue("申请时间")).Date;
             string sampleType = gridView1.GetFocusedRowCellValue("样本类型").ToString();
             string[] lstTaskResult = new string[] { sampleNum, dt.ToString(), sampleType };
             //dataCheckDic.Clear();
