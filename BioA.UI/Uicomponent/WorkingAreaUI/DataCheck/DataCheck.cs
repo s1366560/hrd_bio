@@ -254,7 +254,7 @@ namespace BioA.UI
                 SampleResultInfo sampleRes = new SampleResultInfo();
                 sampleRes.ProjectName = gridView2.GetRowCellValue(selectNum, "检测项目") as string;
                 sampleRes.ConcResult = (float)System.Convert.ToDouble(gridView2.GetRowCellValue(selectNum, "检测结果"));
-                sampleRes.SampleCompletionTime = System.Convert.ToDateTime(gridView2.GetRowCellValue(selectNum, "测试时间"));
+                sampleRes.SampleCompletionTime = System.Convert.ToDateTime(gridView2.GetRowCellValue(selectNum, "测试完成时间"));
                 reflectionMonitoring.SampleResInfo = sampleRes;
                 reflectionMonitoring.SampleInfoForRes = sampleInfo;
 
@@ -303,7 +303,7 @@ namespace BioA.UI
             CheckResultDT.Columns.Add("检测项目");
             CheckResultDT.Columns.Add("检测结果");
             CheckResultDT.Columns.Add("单位");
-            CheckResultDT.Columns.Add("测试时间");
+            CheckResultDT.Columns.Add("测试完成时间");
             CheckResultDT.Columns.Add("进程编号");
             CheckResultDT.Columns.Add("任务状态");
             CheckResultDT.Columns.Add("复查");

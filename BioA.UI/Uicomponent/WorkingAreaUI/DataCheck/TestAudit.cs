@@ -141,7 +141,7 @@ namespace BioA.UI
             dtCheckResult.Columns.Add("检测项目");
             dtCheckResult.Columns.Add("检测结果");
             dtCheckResult.Columns.Add("单位");
-            dtCheckResult.Columns.Add("测试时间");
+            dtCheckResult.Columns.Add("测试完成时间");
             dtCheckResult.Columns.Add("进程编号");
             dtCheckResult.Columns.Add("任务状态");
             dtCheckResult.Columns.Add("复查");
@@ -280,7 +280,7 @@ namespace BioA.UI
                 SampleResultInfo sampleRes = new SampleResultInfo();
                 sampleRes.ProjectName = gridView1.GetRowCellValue(selectNum, "检测项目") as string;
                 sampleRes.ConcResult = (float)System.Convert.ToDouble(gridView1.GetRowCellValue(selectNum, "检测结果"));
-                sampleRes.SampleCompletionTime = System.Convert.ToDateTime(gridView1.GetRowCellValue(selectNum, "测试时间"));
+                sampleRes.SampleCompletionTime = System.Convert.ToDateTime(gridView1.GetRowCellValue(selectNum, "测试完成时间"));
                 reflectionMonitoring.SampleResInfo = sampleRes;
                 reflectionMonitoring.SampleInfoForRes = sampleInfo;
 
@@ -322,7 +322,7 @@ namespace BioA.UI
         {
             string[] strCommunicate = new string[2];
             strCommunicate[0] = txtSampleNum.Text;
-            strCommunicate[1] = dtpApplyTime.Value.ToString();
+            strCommunicate[1] = dtpApplyTime.Value.Date.ToString();
 
             //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaDataCheck,
             //    XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("AuditSampleTest", XmlUtility.Serializer(typeof(string[]), strCommunicate))));

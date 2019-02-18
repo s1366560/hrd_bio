@@ -51,8 +51,9 @@
     <statement id="UpdateTaskStateBySampleNum" parameterClass="System.Collections.IDictionary" resultClass="int">
       update TaskTb set TaskState=#TaskState# where SampleNum=#SampleNum# and CreateDate=#CreateTime#
     </statement>
+    <!-- 修改任务结果审核状态 -->
     <statement id="AuditSampleTest" parameterClass="System.Collections.IDictionary" resultClass="int">
-      update SampleTb set IsAudit=#IsAudit# where SampleNum=#SampleNum# and CreateTime=#ApplyTime#
+      update SampleTb set IsAudit=#IsAudit# where SampleNum=#SampleNum# and DATEDIFF(dd,CreateTime,#ApplyTime#) = 0
     </statement>
     <statement id="UpdateIsResurvey" parameterClass="System.Collections.IDictionary" resultClass="int">
       update SampleResultTb set IsResurvey=#IsResurvey# where SampleCreateTime=#ApplyTime# and SampleNum=#SampleNum# and ProjectName=#ProjectName#

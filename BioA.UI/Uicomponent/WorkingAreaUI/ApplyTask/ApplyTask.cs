@@ -358,7 +358,7 @@ namespace BioA.UI
                     List<string> lstResult = (List<string>)XmlUtility.Deserialize(typeof(List<string>), sender as string);
                     batchInput.LstReceiveInfo = lstResult;
                     break;
-                case "QueryApplyApartment":
+                case "QueryDepartmentInfo":
                     patientInfofrm.LstApplyDepartment = (List<string>)XmlUtility.Deserialize(typeof(List<string>), sender as string);
                     break;
                 case "QueryApplyDoctor":
