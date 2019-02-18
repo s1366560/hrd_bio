@@ -197,7 +197,7 @@ namespace BioA.UI
                 xtraTabPage3.Controls.Clear();
                 projectParameter = new ProjectParameter();
                 projectParameter.AssayProInfoEvent += AssayProInfo_Event;
-                xtraTabPage1.Controls.Add(projectParameter);
+                xtraTabPage1.Controls.Add(projectParameter);                
             }
             else if (xtraTabControl1.SelectedTabPageIndex == 1)
             {

@@ -415,7 +415,7 @@ namespace BioA.UI
         private void btnStartCleaning_Click(object sender, EventArgs e)
         {
             MessageBoxButtons messButton = MessageBoxButtons.OKCancel;
-            DialogResult dr = MessageBox.Show("光度计校准是否已完成？", "比色杯清洗确认", messButton);
+            DialogResult dr = MessageBox.Show("光度计检测是否已完成？", "比色杯清洗确认", messButton);
             if (dr != DialogResult.OK)
             {
                 return;
@@ -448,7 +448,7 @@ namespace BioA.UI
                     btnStartCleaning.Text = sub.ComponetList[1].CommandList[3].FullName;
                 }
             }
-            string ret = new SystemMaintenance().getMaxMinforCuvette();
+            string ret = new SystemMaintenance().getMaxMinforCuvette();//获取比色杯清洁程度的最大值和最小值
             if(!string.IsNullOrEmpty(ret))
             {
                 string[] mm = ret.Split('|');

@@ -65,6 +65,7 @@
     <delete id="DeleteUserInfo" resultClass="int" parameterClass="System.Collections.IDictionary" >
       delete from UserInfoTb where UserID=#ID# 
     </delete>
+    <!--修改用户信息(包括密码、权限等)-->
     <update id="EditUserInfo" parameterClass="System.Collections.IDictionary" resultClass="int">
       update UserInfoTb
       set UserPassword = #UserPassword# , UserName = #UserName# , CreateTime=#CreateTime# ,ApplyTask = #ApplyTask#,

@@ -1237,6 +1237,11 @@ namespace BioA.SqlMaps
 
             return lstEnvironmentInfos;
         }
+        /// <summary>
+        /// 获取质控、校准默认容器及孵育槽温控值
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <returns></returns>
         public RunningStateInfo QueryRuningSateInfo(string strDBMethod)
         {
             RunningStateInfo runningstateinfo = new RunningStateInfo();

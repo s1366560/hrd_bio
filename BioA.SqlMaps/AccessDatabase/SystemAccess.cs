@@ -633,7 +633,7 @@ namespace BioA.SqlMaps
             return lstCuvBlk;
         }
         /// <summary>
-        /// 获取比色杯清洁程度的阈值
+        /// 获取比色杯清洁程度的最大值和最小值
         /// </summary>
         /// <returns></returns>
         public string getMaxMinforCuvette()

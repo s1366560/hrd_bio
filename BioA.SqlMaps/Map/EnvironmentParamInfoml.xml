@@ -34,6 +34,7 @@
     <select id="QueryEnvironmentParamInfo" ResultClass="EnvironmentParamInfo" >
       select * from EnvironmentParamTb
     </select>
+    <!--获取质控、校准默认容器及孵育槽温控-->
     <select id="QueryRuningSateInfo" ResultClass="RunningStateInfo" >
       select * from Runningstatetb
     </select>

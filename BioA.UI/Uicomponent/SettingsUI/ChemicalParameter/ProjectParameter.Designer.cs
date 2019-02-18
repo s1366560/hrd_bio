@@ -266,10 +266,6 @@
             this.gridView2.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.MouseDown;
             this.gridView2.OptionsCustomization.AllowFilter = false;
             this.gridView2.OptionsCustomization.AllowSort = false;
-            this.gridView2.OptionsSelection.CheckBoxSelectorColumnWidth = 40;
-            this.gridView2.OptionsSelection.MultiSelect = true;
-            this.gridView2.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
-            this.gridView2.OptionsSelection.ResetSelectionClickOutsideCheckboxSelector = true;
             this.gridView2.OptionsView.ShowGroupPanel = false;
             // 
             // gridView1
@@ -469,7 +465,7 @@
             this.chkAutoResurvey.Properties.Appearance.ForeColor = System.Drawing.Color.Red;
             this.chkAutoResurvey.Properties.Appearance.Options.UseFont = true;
             this.chkAutoResurvey.Properties.Appearance.Options.UseForeColor = true;
-            this.chkAutoResurvey.Properties.Caption = "是否自动重测：";
+            this.chkAutoResurvey.Properties.Caption = "自动重测：";
             this.chkAutoResurvey.Size = new System.Drawing.Size(116, 21);
             this.chkAutoResurvey.TabIndex = 83;
             // 

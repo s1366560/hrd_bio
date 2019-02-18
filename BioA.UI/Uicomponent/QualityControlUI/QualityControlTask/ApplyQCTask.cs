@@ -46,6 +46,8 @@ namespace BioA.UI
         //声明一个获取任务状态的委托
         public delegate bool getOPID();
         public event getOPID getopid;
+        //定义一个被选任务关联的项目名称
+        public List<string> lstprojectName = new List<string>();
         public ApplyQCTask()
         {
             InitializeComponent();
@@ -253,9 +255,9 @@ namespace BioA.UI
                             //projectPage2.ResetControlState();
                             //projectPage3.ResetControlState();
 
-                            projectPage1.TaskProjects = qCTaskInfoQuery.Projects;
-                            projectPage2.TaskProjects = qCTaskInfoQuery.Projects;
-                            projectPage3.TaskProjects = qCTaskInfoQuery.Projects;
+                            projectPage1.TaskProjects = lstprojectName;// qCTaskInfoQuery.Projects;
+                            projectPage2.TaskProjects = lstprojectName;// qCTaskInfoQuery.Projects;
+                            projectPage3.TaskProjects = lstprojectName;// qCTaskInfoQuery.Projects;
 
                         }));
                         taskFlag = false;
@@ -275,6 +277,7 @@ namespace BioA.UI
                 DataTable dt = new DataTable();
                 dt.Columns.Add("顺序号");
                 dt.Columns.Add("质控品位置");
+                dt.Columns.Add("项目名称");
                 dt.Columns.Add("任务状态");
                 foreach (QCTaskInfo qcTask in lstQCTask)
                 {
@@ -299,7 +302,7 @@ namespace BioA.UI
                             strState = "被终止";
                             break;
                     }
-                    dt.Rows.Add(new object[] { qcTask.SampleNum, qcTask.Position, strState });
+                    dt.Rows.Add(new object[] { qcTask.SampleNum, qcTask.Position,qcTask.ProjectName,strState});
                 }
                 this.lstvQCTask.DataSource = dt;
                 txtSumpleNum.Text = "C" + (intMaxSamNum + 1).ToString();
@@ -539,8 +542,9 @@ namespace BioA.UI
             if (this.gridView1.GetSelectedRows().Count() > 0)
             {
                 selectedHandle = this.gridView1.GetSelectedRows()[0];
-                string strTaskNum = this.gridView1.GetRowCellValue(selectedHandle, "顺序号").ToString();
-
+                string strTaskNum = this.gridView1.GetRowCellValue(selectedHandle, "顺序号").ToString();   
+                string projectName = this.gridView1.GetRowCellValue(selectedHandle, "项目名称").ToString();
+                lstprojectName.Add(projectName);        
                 //communicationEntity.StrmethodName = "QueryQCTaskBySampleNum";
                 //communicationEntity.ObjParam = strTaskNum;
                 qcTaskDictionary.Clear();

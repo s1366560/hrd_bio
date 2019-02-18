@@ -194,7 +194,7 @@
     </statement>
     <!-- 获取故障信息 -->
     <select id="SelectTroubleLogInfoByTimeQuantum" parameterClass="System.Collections.IDictionary" resultMap="TroubleLogInfoResult">
-      select * from troublelogtb where DrawDate between #logStateTime# and #logEnditTime# and IsConfirm ='0'
+      select * from troublelogtb where DrawDate between #logStateTime# and #logEnditTime# and IsConfirm ='0' order by DrawDate desc
     </select>
     <!-- 确认修改故障信息 -->
     <update id="AffirmTroubleLogInfo" parameterClass="System.Collections.IDictionary" resultClass="int">
@@ -334,6 +334,7 @@
     <statement id="GetLastestTC">
       select LastestTC from RunningStateTb
     </statement>
+    <!--保存环境参数-->
     <update id="updateRunningStateInfo" parameterClass="System.Collections.IDictionary">
       update RunningStateTb set QCSMPContainerType=#QCSMPContainerType#, SDTSMPContainerType=#SDTSMPContainerType#,CUVBlkMax=#CUVBlkMax#,CUVBlkMin=#CUVBlkMin#,
       RgtWarnCount=#RgtWarnCount#,RgtLeastCount=#RgtLeastCount#,TempOffset=#TempOffset#

@@ -18,6 +18,10 @@ namespace BioA.Service
         {
             return myBatis.QueryNewPhotemetricValue(strMethodName);
         }
+        /// <summary>
+        /// 获取比色杯清洁程度的最大值和最小值
+        /// </summary>
+        /// <returns></returns>
         public string getMaxMinforCuvette()
         {
             return myBatis.getMaxMinforCuvette();

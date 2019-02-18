@@ -673,7 +673,7 @@ namespace BioA.PLCController.Interface
                     break;
                 case WORKTYPE.B:
                 case WORKTYPE.S:
-                    CalibrationResultinfo calibResInfo = myBatis.QueryCalibResultInfoByTCNO(realTimeData);
+                    CalibrationResultinfo calibResInfo = myBatis.QueryCalibResultInfoByTCNO(realTimeData);//根据进程编号获取需要更新的校准结果记录
                     if (calibResInfo != null)
                     {
                         if (resultService.IsResultRight(calibResInfo.Remarks) == true)

@@ -40,8 +40,9 @@
     <select id="QueryMaintenanceLogInfo" resultClass="MaintenanceLogInfo">
       SELECT * FROM MaintainLogTb
     </select>
+    <!--根据条件查询登录日志-->
     <select id="QueryOperationLogInfo" resultClass="MaintenanceLogInfo" parameterClass="System.Collections.IDictionary">
-      SELECT * FROM loginlogtb where LogDateTime between #startDate# and #endDate#
+      SELECT * FROM loginlogtb where LogDateTime between #startDate# and #endDate# order by LogDateTime desc
     </select>
     <!--
     <select id="QueryAlarmLogInfo" resultClass="AlarmLogInfo">
