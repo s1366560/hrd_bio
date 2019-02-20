@@ -912,26 +912,26 @@ namespace BioA.SqlMaps
         /// </summary>
         /// <param name="sampleResultInfo"></param>
         /// <returns></returns>
-        public int DeleteSampleResult(List<SampleResultInfo> sampleResultInfo)
+        public int DeleteSampleResult(List<string> CompletionTime)
         {
             int result = 0;
             //Hashtable hashtable = new Hashtable();
             string str = "";
-            for (int i = 1; i <= sampleResultInfo.Count; i++)
+            for (int i = 1; i <= CompletionTime.Count; i++)
             {
-                if (i == sampleResultInfo.Count)
+                if (i == CompletionTime.Count)
                 {
-                    str += sampleResultInfo[i - 1].TCNO;
+                    str += "'"+CompletionTime[i - 1]+"'";
                 }
                 else
                 {
 
-                    str += (sampleResultInfo[i - 1].TCNO + ",");
+                    str += ("'"+CompletionTime[i - 1] + "',");
                 }
             }
             try
             {
-                string strSql = string.Format("delete from sampleresulttb where ProjectName='{0}' and TCNO in ({1})", sampleResultInfo[0].ProjectName, str);
+                string strSql = string.Format("delete from sampleresulttb where CONVERT(varchar(19), SampleCompletionTime,120) in({0})",str);
                 //hashtable.Add("TCNO", item.TCNO);
                 result = ism_SqlMap.Delete("WorkAreaApplyTask.DeleteSampleResultInfo", strSql);
             }

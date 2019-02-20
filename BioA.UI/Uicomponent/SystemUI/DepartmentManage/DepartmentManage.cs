@@ -58,7 +58,7 @@ namespace BioA.UI
                     ComboBoxAdd(lstQueryDepartmentInfo);
                     break;
                 case "AddDepartmentInfo":
-                    string strAdd =  sender as string;
+                    string strAdd = Convert.ToString(sender);
                     if (strAdd == "科室创建成功！")
                     {
                         QueryDepartmentInfo();
@@ -78,11 +78,11 @@ namespace BioA.UI
 
                     break;
                 case "DeleteDepartment":
-                    string str =  sender as string;
+                    string str = Convert.ToString(sender);
                     int count = Convert.ToInt32(str);
                     if (count>0)
                     {
-                        MessageBoxDraw.ShowMsg("删除失败！请先删除申请医师中的科室！", MsgType.Exception);
+                        MessageBoxDraw.ShowMsg("删除失败！请先删除该科室中的医师！", MsgType.Exception);
                     }
                     QueryDepartmentInfo();
                     break;
@@ -92,6 +92,7 @@ namespace BioA.UI
                    
                     break;
                 case "AddApplyDoctorInfo":
+                    MessageBoxDraw.ShowMsg(Convert.ToString(sender), MsgType.Exception);
                     QueryApplyDoctorInfo();
                     break;
                 case "DeleteApplyDoctorInfo":

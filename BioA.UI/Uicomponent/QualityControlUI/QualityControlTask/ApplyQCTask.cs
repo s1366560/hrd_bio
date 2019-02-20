@@ -544,6 +544,7 @@ namespace BioA.UI
                 selectedHandle = this.gridView1.GetSelectedRows()[0];
                 string strTaskNum = this.gridView1.GetRowCellValue(selectedHandle, "顺序号").ToString();   
                 string projectName = this.gridView1.GetRowCellValue(selectedHandle, "项目名称").ToString();
+                lstprojectName.Clear();
                 lstprojectName.Add(projectName);        
                 //communicationEntity.StrmethodName = "QueryQCTaskBySampleNum";
                 //communicationEntity.ObjParam = strTaskNum;

@@ -229,8 +229,6 @@ namespace BioA.UI
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            this.btnSave.Enabled = false;
-            this.btnCancel.Enabled = false;
             reagentSettingsInfo = new ReagentSettingsInfo();
             reagentSettingsInfo.Barcode = txtBarcode.Text;
             reagentSettingsInfo.BatchNum = txtBatchNum.Text;
@@ -271,6 +269,8 @@ namespace BioA.UI
                 this.txtReagentName.Focus();
                 return;
             }
+            this.btnSave.Enabled = false;
+            this.btnCancel.Enabled = false;
             reagentSettingsInfo.ValidDate = dtpValidDate.DateTime;
             reagentSettingsInfo.ReagentContainer = cboReagentVol.Text;
             reagentSettingsInfo.ReagentType = cboReagentType.Text;

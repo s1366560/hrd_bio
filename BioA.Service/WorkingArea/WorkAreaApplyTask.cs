@@ -258,9 +258,9 @@ namespace BioA.Service
         /// </summary>
         /// <param name="sampleResultInfo"></param>
         /// <returns></returns>
-        public int DeleteSampleResult(List<SampleResultInfo> sampleResultInfo)
+        public int DeleteSampleResult(List<string> CompletionTime)
         {
-            return myBatis.DeleteSampleResult(sampleResultInfo);
+            return myBatis.DeleteSampleResult(CompletionTime);
         }
         /// <summary>
         /// 获取结果设置表信息

@@ -640,15 +640,17 @@ namespace BioA.UI
             {
                 if (MessageBox.Show(string.Format("确实要删除样本结果吗？"), "删除样本数据", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
+                    List<string> CompletionTime = new List<string>();
                     foreach (int i in this.gridView2.GetSelectedRows())
-                    {
+                    {                        
                         SampleResultInfo sampResultInfo = new SampleResultInfo();
                         sampResultInfo.ProjectName = this.gridView2.GetRowCellValue(i, "检测项目") as string;
                         sampResultInfo.TCNO = Convert.ToInt32(this.gridView2.GetRowCellValue(i, "进程编号"));
                         lstResultInfo.Add(sampResultInfo);
-
+                        string t = Convert.ToDateTime(this.gridView2.GetRowCellValue(i, "测试完成时间")).ToString("yyyy-MM-dd HH:mm:ss");
+                        CompletionTime.Add(t);
                     }
-                    int result = new WorkAreaApplyTask().DeleteSampleResult(lstResultInfo);
+                    int result = new WorkAreaApplyTask().DeleteSampleResult(CompletionTime);
                     if (result > 0)
                     {
                         foreach (var item in lstResultInfo)
