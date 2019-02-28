@@ -23,6 +23,7 @@ namespace BioA.Common
             sex = string.Empty;
             patientType = string.Empty;
             inspectTime = DateTime.Now;
+            medicalRecordNum = string.Empty;
             bedNum = string.Empty;
             applyDepartment = string.Empty;
             applyDoctor = string.Empty;
@@ -43,7 +44,7 @@ namespace BioA.Common
             }
         }
         /// <summary>
-        /// 样本/病人编号
+        /// 样本/患者编号
         /// </summary>
         public int SampleNum
         {
@@ -51,7 +52,7 @@ namespace BioA.Common
             set { sampleNum = value; }
         }
         /// <summary>
-        /// 录入病人信息创建时间
+        /// 录入患者信息创建时间
         /// </summary>
         public DateTime InputTime
         {
@@ -59,7 +60,7 @@ namespace BioA.Common
             set { inputTime = value; }
         }
         /// <summary>
-        /// 样本ID
+        /// 患者ID
         /// </summary>
         public string SampleID
         {
@@ -67,7 +68,7 @@ namespace BioA.Common
             set { sampleID = value; }
         }
         /// <summary>
-        /// 病人姓名
+        /// 患者姓名
         /// </summary>
         public string PatientName
         {
@@ -75,7 +76,7 @@ namespace BioA.Common
             set { patientName = value; }
         }
         /// <summary>
-        /// 病人出生日期
+        /// 患者出生日期
         /// </summary>
         public DateTime BirthDate
         {
@@ -99,7 +100,7 @@ namespace BioA.Common
             set { sex = value; }
         }
         /// <summary>
-        /// 病人类型
+        /// 患者类型
         /// </summary>
         public string PatientType
         {
@@ -113,6 +114,14 @@ namespace BioA.Common
         {
             get { return inspectTime; }
             set { inspectTime = value; }
+        }
+        /// <summary>
+        /// 病历号
+        /// </summary>
+        public string MedicalRecordNum
+        {
+            get { return medicalRecordNum; }
+            set { medicalRecordNum = value; }
         }
         /// <summary>
         /// 床位号
@@ -197,6 +206,7 @@ namespace BioA.Common
         private string sex;
         private string patientType;
         private DateTime inspectTime;
+        private string medicalRecordNum;
         private string bedNum;
         private string applyDepartment;
         private string applyDoctor;

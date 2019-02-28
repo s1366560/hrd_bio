@@ -16,8 +16,8 @@ namespace BioA.Common
             serialName = string.Empty;
             baudRate = 0;
             dataBits = 0;
-            stopBits = 0;
-            parity = 0;
+            stopBits = string.Empty;
+            parity = string.Empty;
             communicateionType = string.Empty;
             communicateionOvertime = 0;
             reConnectionTime = 0;
@@ -29,8 +29,8 @@ namespace BioA.Common
         private string serialName;
         private int baudRate;
         private int dataBits;
-        private int stopBits;
-        private int parity;
+        private string stopBits;
+        private string parity;
         private string communicateionType;
         private float communicateionOvertime;
         private float reConnectionTime;
@@ -64,7 +64,7 @@ namespace BioA.Common
         /// <summary>
         /// 停止位
         /// </summary>
-        public int StopBits
+        public string StopBits
         {
             get { return stopBits; }
             set { stopBits = value; }
@@ -72,7 +72,7 @@ namespace BioA.Common
         /// <summary>
         /// 奇偶校验位
         /// </summary>
-        public int Parity
+        public string Parity
         {
             get { return parity; }
             set { parity = value; }

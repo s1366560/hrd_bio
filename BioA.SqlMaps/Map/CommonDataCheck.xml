@@ -67,5 +67,9 @@
     <statement id="GetNORResult" parameterClass="System.Collections.IDictionary" resultClass="SampleResultInfo">
       select * from SampleResultTb where TCNO=#TCNO# and SampleCreateTime between #StartTime# and #EndTime#
     </statement>
+    <!-- 获取实时发送样本结果信息 -->
+    <statement id="GetActualTimeSampResult" parameterClass="string" resultClass="SampleResultInfo">
+      $value$
+    </statement>
   </statements>
 </sqlMap>

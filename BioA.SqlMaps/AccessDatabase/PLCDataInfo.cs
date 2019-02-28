@@ -33,8 +33,8 @@ namespace BioA.SqlMaps
             {
 
                 Hashtable ht = new Hashtable();
-                ht.Add("BeginTime", DateTime.Now.ToShortDateString());
-                ht.Add("EndTime", DateTime.Now.AddDays(1).ToShortDateString());
+                ht.Add("BeginTime", DateTime.Now.Date);
+                ht.Add("EndTime", DateTime.Now.AddDays(1).Date);
                 ht.Add("PanelNum", disk);
                 disks = (List<int>)ism_SqlMap.QueryForList<int>("PLCDataInfo.GetHasSmpWorkDisk",ht);
             }
@@ -59,8 +59,8 @@ namespace BioA.SqlMaps
                 Hashtable ht = new Hashtable();
                 ht.Add("disk", disk);
                 ht.Add("count", count);
-                ht.Add("CreateDateBegin", DateTime.Now.ToShortDateString());
-                ht.Add("CreateDateEnd", DateTime.Now.AddDays(1).ToShortDateString());
+                ht.Add("CreateDateBegin", DateTime.Now.Date);
+                ht.Add("CreateDateEnd", DateTime.Now.AddDays(1).Date);
 
                 Schedules = ism_SqlMap.QueryForList<TaskInfo>("WorkAreaApplyTask.GetSingleWorkingEmgAssayScheduleNoRgtLock", ht) as List<TaskInfo>;
             }

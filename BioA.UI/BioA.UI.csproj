@@ -495,6 +495,18 @@
     <Compile Include="Uicomponent\SettingsUI\CombProject\CombProject.Designer.cs">
       <DependentUpon>CombProject.cs</DependentUpon>
     </Compile>
+    <Compile Include="Uicomponent\SettingsUI\LISCommunicate\LISSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\LISCommunicate\LISSetting.Designer.cs">
+      <DependentUpon>LISSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\LISCommunicate\XtraUserControl1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SettingsUI\LISCommunicate\XtraUserControl1.Designer.cs">
+      <DependentUpon>XtraUserControl1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Uicomponent\SystemUI\Configure\Configure.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -761,7 +773,7 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -947,6 +959,12 @@
     <EmbeddedResource Include="Uicomponent\SettingsUI\CombProject\CombProject.resx">
       <DependentUpon>CombProject.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SettingsUI\LISCommunicate\LISSetting.resx">
+      <DependentUpon>LISSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SettingsUI\LISCommunicate\XtraUserControl1.resx">
+      <DependentUpon>XtraUserControl1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\SystemUI\Configure\Configure.resx">
       <DependentUpon>Configure.cs</DependentUpon>
     </EmbeddedResource>
@@ -1081,6 +1099,7 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="ClassDiagram2.cd" />
     <None Include="Properties\DataSources\BioA.Service.CompositeType.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

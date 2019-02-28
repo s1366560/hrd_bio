@@ -19,18 +19,21 @@ namespace BioA.Service
         {
             List<SampleResultInfo> lstSampleResultInfo = new List<SampleResultInfo>();
             lstSampleResultInfo = myBatis.QueryProjectResultBySampleNum(strMethodName, strConditions);
-
-            List<SampleResultInfo> lstUpdateResultInfo = new List<SampleResultInfo>();
+            string projectName = null;
+            string[] UnitAndRangeParameter = new string[2];
             foreach (SampleResultInfo sampleResInfo in lstSampleResultInfo)
             {
-                Hashtable ht = new Hashtable();
-                ht.Add("SampleNum", strConditions[0]);
-                ht.Add("DateTime", strConditions[1]);
-                ht.Add("ProjectName", sampleResInfo.ProjectName);
-                ht.Add("SampleType", strConditions[2]);
-
-                sampleResInfo.UnitAndRange = myBatis.QueryUnitAndRangeByProject("QueryUnitAndRangeByProject", ht);
-                lstUpdateResultInfo.Add(sampleResInfo);
+                if (projectName == null || projectName != sampleResInfo.ProjectName)
+                {
+                    Hashtable ht = new Hashtable();
+                    ht.Add("SampleNum", strConditions[0]);
+                    ht.Add("DateTime", strConditions[1]);
+                    ht.Add("ProjectName", sampleResInfo.ProjectName);
+                    ht.Add("SampleType", strConditions[2]);
+                    UnitAndRangeParameter = myBatis.QueryUnitAndRange("QueryUnitAndRangeByProject", ht);
+                }
+                sampleResInfo.UnitAndRange = UnitAndRangeParameter[0];
+                sampleResInfo.RangeParameter = UnitAndRangeParameter[1];
             }
             return lstSampleResultInfo;
 

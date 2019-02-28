@@ -454,5 +454,8 @@
     <insert id="SaveProjectRunSequenceInfo" parameterClass="System.Collections.IDictionary">
       insert into projectrunsequencetb(ProjectName,SampleType,RunSequence) values(#projectName#,#sampleType#,#runSequence#)
     </insert>
+    <statement id="GetLastestSMPNO" parameterClass="string" resultClass="int">
+      $value$
+    </statement>
   </statements>
 </sqlMap>

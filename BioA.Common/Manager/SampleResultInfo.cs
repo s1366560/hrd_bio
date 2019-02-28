@@ -92,6 +92,14 @@ namespace BioA.Common
             set { isResurvey = value; }
         }
         /// <summary>
+        /// 是否发送
+        /// </summary>
+        public bool IsSend
+        {
+            get { return isSend; }
+            set { isSend = value; }
+        }
+        /// <summary>
         /// 是否确认
         /// </summary>
         public bool Confirm
@@ -117,6 +125,7 @@ namespace BioA.Common
         private string rangeParameter;
         //private DateTime startTime;
         private bool isResurvey;
+        private bool isSend;
         private bool confirm;
         private string resultVolType;
     }

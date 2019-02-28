@@ -3,6 +3,7 @@
   <alias>
     <typeAlias alias="LISCommunicateNetworkInfo" type="BioA.Common.LISCommunicateNetworkInfo, BioA.Common" />
     <typeAlias alias="SerialCommunicationInfo" type="BioA.Common.SerialCommunicationInfo, BioA.Common" />
+    <typeAlias alias="LISSettingInfo" type="BioA.Common.LISSettingInfo, BioA.Common" />
 
   </alias>
   <resultMaps>
@@ -67,5 +68,21 @@
       RealTimeSendResult = #RealTimeSendResult#
       where id=1
     </update>
-  </statements>
+    <!-- 获取LIS常规设置信息 -->
+    <statement id="QueryLISSettingInfo" parameterClass="string" resultClass="LISSettingInfo">
+      $value$
+    </statement>
+    <!-- 获取串口设置信息 -->
+    <statement id="QueryLISSerialCommunicationInfo" parameterClass="string" resultClass="SerialCommunicationInfo">
+      $value$
+    </statement>
+    <!-- 获取网络设置信息 -->
+    <statement id="QueryLISCommunicateNetworkInfo" parameterClass="string" resultClass="LISCommunicateNetworkInfo">
+      $value$
+    </statement>
+    <!-- 更新LIS常规设置信息和网络设置信息或者串口设置信息 -->
+    <statement id="updateLISInfo" parameterClass="string">
+      $value$
+    </statement>
+</statements>
 </sqlMap>

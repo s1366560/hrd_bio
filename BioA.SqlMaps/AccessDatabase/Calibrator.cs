@@ -78,8 +78,8 @@ namespace BioA.SqlMaps
             {
                 Hashtable ht = new Hashtable();
                 ht.Add("TCNO", realTimeDataInfo.TC);
-                ht.Add("BeginTime", DateTime.Now.ToShortDateString());
-                ht.Add("EndTime", DateTime.Now.AddDays(1).ToShortDateString());
+                ht.Add("BeginTime", DateTime.Now.Date);
+                ht.Add("EndTime", DateTime.Now.AddDays(1).Date);
                 calibResInfo = ism_SqlMap.QueryForObject("Calibrator.QueryCalibResultInfoByTCNO", ht) as CalibrationResultinfo;
             }
             catch (Exception e)

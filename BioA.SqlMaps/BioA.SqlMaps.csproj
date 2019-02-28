@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessDatabase\Calibrator.cs" />
+    <Compile Include="AccessDatabase\LISSettingDB.cs" />
     <Compile Include="AccessDatabase\PLCDataInfo.cs" />
     <Compile Include="AccessDatabase\Login.cs" />
     <Compile Include="AccessDatabase\QualityControl.cs" />

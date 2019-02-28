@@ -46,7 +46,8 @@
       <result property="Age" column="Age" />                
       <result property="Sex" column="Sex" />                
       <result property="PatientType" column="PatientType" />           
-      <result property="InspectTime" column="InspectTime" />         
+      <result property="InspectTime" column="InspectTime" />
+      <result property="MedicalRecordNum" column="MedicalRecordNum" />
       <result property="BedNum" column="BedNum" />                
       <result property="ApplyDepartment" column="ApplyDepartment" />              
       <result property="ApplyDoctor" column="ApplyDoctor" />           
@@ -91,6 +92,7 @@
     <statement id="QueryPatientInfoCountByNum" patameterClass="System.Collections.IDictionary" resultClass="int">
       select count(*) from PatientInfoTb where SampleNum=#SampleNum# and InputTime between #starttime# and #endtime#
     </statement>
+    <!-- 修改病人信息 -->
     <statement id="UpdatePatientInfo" parameterClass="PatientInfo">
       update PatientInfoTb
       set
@@ -101,6 +103,7 @@
       Sex=#Sex#,
       PatientType=#PatientType#,
       InspectTime=#InspectTime#,
+      MedicalRecordNum =#MedicalRecordNum#,
       BedNum=#BedNum#,
       ApplyDepartment=#ApplyDepartment#,
       ApplyDoctor=#ApplyDoctor#,
@@ -114,9 +117,9 @@
     </statement>
     <statement id="AddPatientInfo" parameterClass="PatientInfo">
       insert into PatientInfoTb (SampleNum, InputTime, SampleID, PatientName, BirthDate, Age, Sex, PatientType, InspectTime,
-      BedNum, ApplyDepartment, ApplyDoctor, AuditDoctor, InspectDoctor, SamplingTime, ApplyTime, ClinicalDiagnosis, Remarks)
+      MedicalRecordNum,BedNum, ApplyDepartment, ApplyDoctor, AuditDoctor, InspectDoctor, SamplingTime, ApplyTime, ClinicalDiagnosis, Remarks)
       values (#SampleNum#, #InputTime#, #SampleID#, #PatientName#, #BirthDate#, #Age#, #Sex#, #PatientType#, #InspectTime#,
-      #BedNum#, #ApplyDepartment#, #ApplyDoctor#, #AuditDoctor#, #InspectDoctor#, #SamplingTime#, #ApplyTime#, #ClinicalDiagnosis#, #Remarks#)
+      #MedicalRecordNum#,#BedNum#, #ApplyDepartment#, #ApplyDoctor#, #AuditDoctor#, #InspectDoctor#, #SamplingTime#, #ApplyTime#, #ClinicalDiagnosis#, #Remarks#)
     </statement>
     <statement id="QueryPatientInfos" parameterClass="System.Collections.IDictionary" resultClass="PatientInfo">
       select * from PatientInfoTb where InputTime between #starttime# and #endtime#
@@ -205,6 +208,14 @@
     </statement>
     <!--删除普通任务和样本信息 -->
     <statement id ="DeleteTaskAndSampleInfo" parameterClass ="string" resultClass ="int">
+      $value$
+    </statement>
+    <!-- 根据样本编号获取当天患者信息 -->
+    <statement id="AccordingSampNumGetPatientInfo" parameterClass="string" resultClass="PatientInfo">
+      $value$
+    </statement>
+    <!-- 根据样本条码和当天时间获取样本信息 -->
+    <statement id="QuerySampleInfo" parameterClass="string" resultClass="SampleInfo">
       $value$
     </statement>
   </statements>

@@ -32,7 +32,6 @@
             this.lblSampleNum = new DevExpress.XtraEditors.LabelControl();
             this.lblApplicationSection = new DevExpress.XtraEditors.LabelControl();
             this.lblPatientSex = new DevExpress.XtraEditors.LabelControl();
-            this.lblBirthDate = new DevExpress.XtraEditors.LabelControl();
             this.lblPatientAge = new DevExpress.XtraEditors.LabelControl();
             this.lblPatientName = new DevExpress.XtraEditors.LabelControl();
             this.lblSampleID = new DevExpress.XtraEditors.LabelControl();
@@ -63,9 +62,10 @@
             this.dtpInspectTime = new System.Windows.Forms.DateTimePicker();
             this.combPatientType = new DevExpress.XtraEditors.ComboBoxEdit();
             this.combSex = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.dtpDateBirth = new System.Windows.Forms.DateTimePicker();
             this.lstvPatientInfo = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.comMedicalRecordNum = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.txtSampleNum.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAge.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtName.Properties)).BeginInit();
@@ -81,6 +81,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.combSex.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lstvPatientInfo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.comMedicalRecordNum.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // lblSampleNum
@@ -97,7 +98,7 @@
             // 
             this.lblApplicationSection.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblApplicationSection.Appearance.Options.UseFont = true;
-            this.lblApplicationSection.Location = new System.Drawing.Point(258, 203);
+            this.lblApplicationSection.Location = new System.Drawing.Point(43, 276);
             this.lblApplicationSection.Name = "lblApplicationSection";
             this.lblApplicationSection.Size = new System.Drawing.Size(70, 17);
             this.lblApplicationSection.TabIndex = 1;
@@ -112,16 +113,6 @@
             this.lblPatientSex.Size = new System.Drawing.Size(42, 17);
             this.lblPatientSex.TabIndex = 3;
             this.lblPatientSex.Text = "性别：";
-            // 
-            // lblBirthDate
-            // 
-            this.lblBirthDate.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBirthDate.Appearance.Options.UseFont = true;
-            this.lblBirthDate.Location = new System.Drawing.Point(689, 60);
-            this.lblBirthDate.Name = "lblBirthDate";
-            this.lblBirthDate.Size = new System.Drawing.Size(70, 17);
-            this.lblBirthDate.TabIndex = 4;
-            this.lblBirthDate.Text = "出生日期：";
             // 
             // lblPatientAge
             // 
@@ -151,7 +142,7 @@
             this.lblSampleID.Name = "lblSampleID";
             this.lblSampleID.Size = new System.Drawing.Size(56, 17);
             this.lblSampleID.TabIndex = 7;
-            this.lblSampleID.Text = "样本ID：";
+            this.lblSampleID.Text = "患者ID：";
             // 
             // lblInspectTIme
             // 
@@ -167,7 +158,7 @@
             // 
             this.lblAuditDoctor.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAuditDoctor.Appearance.Options.UseFont = true;
-            this.lblAuditDoctor.Location = new System.Drawing.Point(43, 270);
+            this.lblAuditDoctor.Location = new System.Drawing.Point(479, 199);
             this.lblAuditDoctor.Name = "lblAuditDoctor";
             this.lblAuditDoctor.Size = new System.Drawing.Size(70, 17);
             this.lblAuditDoctor.TabIndex = 11;
@@ -177,7 +168,7 @@
             // 
             this.labelControl5.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelControl5.Appearance.Options.UseFont = true;
-            this.labelControl5.Location = new System.Drawing.Point(258, 272);
+            this.labelControl5.Location = new System.Drawing.Point(479, 270);
             this.labelControl5.Name = "labelControl5";
             this.labelControl5.Size = new System.Drawing.Size(70, 17);
             this.labelControl5.TabIndex = 12;
@@ -197,7 +188,7 @@
             // 
             this.labelControl7.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelControl7.Appearance.Options.UseFont = true;
-            this.labelControl7.Location = new System.Drawing.Point(43, 199);
+            this.labelControl7.Location = new System.Drawing.Point(258, 199);
             this.labelControl7.Name = "labelControl7";
             this.labelControl7.Size = new System.Drawing.Size(42, 17);
             this.labelControl7.TabIndex = 14;
@@ -207,7 +198,7 @@
             // 
             this.lblApplicationDoctor.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblApplicationDoctor.Appearance.Options.UseFont = true;
-            this.lblApplicationDoctor.Location = new System.Drawing.Point(479, 201);
+            this.lblApplicationDoctor.Location = new System.Drawing.Point(258, 270);
             this.lblApplicationDoctor.Name = "lblApplicationDoctor";
             this.lblApplicationDoctor.Size = new System.Drawing.Size(70, 17);
             this.lblApplicationDoctor.TabIndex = 15;
@@ -283,7 +274,7 @@
             // 
             // txtBedNum
             // 
-            this.txtBedNum.Location = new System.Drawing.Point(119, 199);
+            this.txtBedNum.Location = new System.Drawing.Point(334, 199);
             this.txtBedNum.Name = "txtBedNum";
             this.txtBedNum.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBedNum.Properties.Appearance.Options.UseFont = true;
@@ -292,7 +283,7 @@
             // 
             // combInspectDoctor
             // 
-            this.combInspectDoctor.Location = new System.Drawing.Point(334, 270);
+            this.combInspectDoctor.Location = new System.Drawing.Point(555, 268);
             this.combInspectDoctor.Name = "combInspectDoctor";
             this.combInspectDoctor.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.combInspectDoctor.Properties.Appearance.Options.UseFont = true;
@@ -303,7 +294,7 @@
             // 
             // combCheckDoctor
             // 
-            this.combCheckDoctor.Location = new System.Drawing.Point(119, 269);
+            this.combCheckDoctor.Location = new System.Drawing.Point(555, 198);
             this.combCheckDoctor.Name = "combCheckDoctor";
             this.combCheckDoctor.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.combCheckDoctor.Properties.Appearance.Options.UseFont = true;
@@ -314,7 +305,7 @@
             // 
             // combApplyDoctor
             // 
-            this.combApplyDoctor.Location = new System.Drawing.Point(555, 200);
+            this.combApplyDoctor.Location = new System.Drawing.Point(334, 269);
             this.combApplyDoctor.Name = "combApplyDoctor";
             this.combApplyDoctor.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.combApplyDoctor.Properties.Appearance.Options.UseFont = true;
@@ -325,7 +316,7 @@
             // 
             // combApplyDepartment
             // 
-            this.combApplyDepartment.Location = new System.Drawing.Point(334, 201);
+            this.combApplyDepartment.Location = new System.Drawing.Point(119, 274);
             this.combApplyDepartment.Name = "combApplyDepartment";
             this.combApplyDepartment.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.combApplyDepartment.Properties.Appearance.Options.UseFont = true;
@@ -340,7 +331,7 @@
             this.txtRemarks.Name = "txtRemarks";
             this.txtRemarks.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRemarks.Properties.Appearance.Options.UseFont = true;
-            this.txtRemarks.Size = new System.Drawing.Size(857, 24);
+            this.txtRemarks.Size = new System.Drawing.Size(315, 24);
             this.txtRemarks.TabIndex = 41;
             // 
             // txtClinicalDiagnosis
@@ -349,7 +340,7 @@
             this.txtClinicalDiagnosis.Name = "txtClinicalDiagnosis";
             this.txtClinicalDiagnosis.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtClinicalDiagnosis.Properties.Appearance.Options.UseFont = true;
-            this.txtClinicalDiagnosis.Size = new System.Drawing.Size(857, 24);
+            this.txtClinicalDiagnosis.Size = new System.Drawing.Size(819, 24);
             this.txtClinicalDiagnosis.TabIndex = 42;
             // 
             // btnSave
@@ -379,7 +370,7 @@
             this.dtpApplyTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpApplyTime.Location = new System.Drawing.Point(765, 130);
             this.dtpApplyTime.Name = "dtpApplyTime";
-            this.dtpApplyTime.Size = new System.Drawing.Size(199, 23);
+            this.dtpApplyTime.Size = new System.Drawing.Size(173, 23);
             this.dtpApplyTime.TabIndex = 46;
             // 
             // dtpSamplingTime
@@ -389,7 +380,7 @@
             this.dtpSamplingTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpSamplingTime.Location = new System.Drawing.Point(765, 202);
             this.dtpSamplingTime.Name = "dtpSamplingTime";
-            this.dtpSamplingTime.Size = new System.Drawing.Size(199, 23);
+            this.dtpSamplingTime.Size = new System.Drawing.Size(173, 23);
             this.dtpSamplingTime.TabIndex = 47;
             // 
             // dtpInspectTime
@@ -399,7 +390,7 @@
             this.dtpInspectTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpInspectTime.Location = new System.Drawing.Point(765, 272);
             this.dtpInspectTime.Name = "dtpInspectTime";
-            this.dtpInspectTime.Size = new System.Drawing.Size(199, 23);
+            this.dtpInspectTime.Size = new System.Drawing.Size(173, 23);
             this.dtpInspectTime.TabIndex = 48;
             // 
             // combPatientType
@@ -424,22 +415,12 @@
             this.combSex.Size = new System.Drawing.Size(100, 24);
             this.combSex.TabIndex = 50;
             // 
-            // dtpDateBirth
-            // 
-            this.dtpDateBirth.CustomFormat = "yyyy-MM-dd";
-            this.dtpDateBirth.Font = new System.Drawing.Font("SimSun", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.dtpDateBirth.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpDateBirth.Location = new System.Drawing.Point(765, 56);
-            this.dtpDateBirth.Name = "dtpDateBirth";
-            this.dtpDateBirth.Size = new System.Drawing.Size(199, 23);
-            this.dtpDateBirth.TabIndex = 51;
-            // 
             // lstvPatientInfo
             // 
-            this.lstvPatientInfo.Location = new System.Drawing.Point(1013, 18);
+            this.lstvPatientInfo.Location = new System.Drawing.Point(944, 18);
             this.lstvPatientInfo.MainView = this.gridView1;
             this.lstvPatientInfo.Name = "lstvPatientInfo";
-            this.lstvPatientInfo.Size = new System.Drawing.Size(349, 560);
+            this.lstvPatientInfo.Size = new System.Drawing.Size(418, 560);
             this.lstvPatientInfo.TabIndex = 52;
             this.lstvPatientInfo.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -454,12 +435,34 @@
             this.gridView1.OptionsCustomization.AllowSort = false;
             this.gridView1.OptionsView.ShowGroupPanel = false;
             // 
+            // comMedicalRecordNum
+            // 
+            this.comMedicalRecordNum.Location = new System.Drawing.Point(119, 198);
+            this.comMedicalRecordNum.Name = "comMedicalRecordNum";
+            this.comMedicalRecordNum.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comMedicalRecordNum.Properties.Appearance.Options.UseFont = true;
+            this.comMedicalRecordNum.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.comMedicalRecordNum.Size = new System.Drawing.Size(100, 24);
+            this.comMedicalRecordNum.TabIndex = 54;
+            // 
+            // labelControl1
+            // 
+            this.labelControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl1.Appearance.Options.UseFont = true;
+            this.labelControl1.Location = new System.Drawing.Point(43, 199);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(56, 17);
+            this.labelControl1.TabIndex = 53;
+            this.labelControl1.Text = "病历号：";
+            // 
             // PatientInfoEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.comMedicalRecordNum);
+            this.Controls.Add(this.labelControl1);
             this.Controls.Add(this.lstvPatientInfo);
-            this.Controls.Add(this.dtpDateBirth);
             this.Controls.Add(this.combSex);
             this.Controls.Add(this.combPatientType);
             this.Controls.Add(this.dtpInspectTime);
@@ -489,7 +492,6 @@
             this.Controls.Add(this.lblSampleID);
             this.Controls.Add(this.lblPatientName);
             this.Controls.Add(this.lblPatientAge);
-            this.Controls.Add(this.lblBirthDate);
             this.Controls.Add(this.lblPatientSex);
             this.Controls.Add(this.lblPaientType);
             this.Controls.Add(this.lblApplicationSection);
@@ -512,6 +514,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.combSex.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lstvPatientInfo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.comMedicalRecordNum.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -522,7 +525,6 @@
         private DevExpress.XtraEditors.LabelControl lblSampleNum;
         private DevExpress.XtraEditors.LabelControl lblApplicationSection;
         private DevExpress.XtraEditors.LabelControl lblPatientSex;
-        private DevExpress.XtraEditors.LabelControl lblBirthDate;
         private DevExpress.XtraEditors.LabelControl lblPatientAge;
         private DevExpress.XtraEditors.LabelControl lblPatientName;
         private DevExpress.XtraEditors.LabelControl lblSampleID;
@@ -553,8 +555,9 @@
         private System.Windows.Forms.DateTimePicker dtpInspectTime;
         private DevExpress.XtraEditors.ComboBoxEdit combPatientType;
         private DevExpress.XtraEditors.ComboBoxEdit combSex;
-        private System.Windows.Forms.DateTimePicker dtpDateBirth;
         private DevExpress.XtraGrid.GridControl lstvPatientInfo;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
+        private DevExpress.XtraEditors.ComboBoxEdit comMedicalRecordNum;
+        private DevExpress.XtraEditors.LabelControl labelControl1;
     }
 }

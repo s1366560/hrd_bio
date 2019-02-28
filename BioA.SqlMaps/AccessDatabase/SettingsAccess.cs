@@ -1479,6 +1479,128 @@ namespace BioA.SqlMaps
             return unitAndRange;
         }
         /// <summary>
+        /// 获取单位和范围参数值
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <param name="ht"></param>
+        /// <returns></returns>
+        public string[] QueryUnitAndRange(string strDBMethod, Hashtable ht)
+        {
+            string[] unitAndRange =new string[2];
+            try
+            {
+                //ht.Add("SampleNum", strConditions[0]);
+                //ht.Add("DateTime", strConditions[1]);
+                //ht.Add("ProjectName", sampleResInfo.ProjectName);
+                //ht.Add("SampleType", strConditions[2]);
+                string unit = (string)ism_SqlMap.QueryForObject("AssayProjectInfo.QueryUnitByProject", ht);
+                unit = unit == null ? "" : unit;
+
+                unitAndRange[0] = unit;
+                Hashtable hash = new Hashtable();
+                hash.Add("SampleNum", ht["SampleNum"]);
+                hash.Add("starttime", System.Convert.ToDateTime(ht["DateTime"]).Date);
+                hash.Add("endtime", System.Convert.ToDateTime(ht["DateTime"]).AddDays(1).Date);
+
+                PatientInfo patientInfo = (PatientInfo)ism_SqlMap.QueryForObject("WorkAreaApplyTask.QueryPatientInfoBySampleNum", hash);
+
+                patientInfo = patientInfo == null ? new PatientInfo() : patientInfo;
+
+                AssayProjectRangeParamInfo projectRangeInfo = (AssayProjectRangeParamInfo)ism_SqlMap.QueryForObject("AssayProjectInfo.QueryRangeByProject", ht);
+
+                projectRangeInfo = projectRangeInfo == null ? new AssayProjectRangeParamInfo() : projectRangeInfo;
+
+                // 年龄、性别 判断范围
+                int age = patientInfo.Age;
+                string sex = patientInfo.Sex;
+
+                float lowestValue = -100000000, highest = 100000000;
+                if (age >= projectRangeInfo.AgeLow1 && age <= projectRangeInfo.AgeHigh1)
+                {
+                    if (sex == "男")
+                    {
+                        lowestValue = projectRangeInfo.ManConsLow1;
+                        highest = projectRangeInfo.ManConsHigh1;
+                    }
+                    else if (sex == "女")
+                    {
+                        lowestValue = projectRangeInfo.WomanConsLow1;
+                        highest = projectRangeInfo.WomanConsHigh1;
+                    }
+                    else
+                    {
+                        lowestValue = projectRangeInfo.ManConsLow1;
+                        highest = projectRangeInfo.ManConsHigh1;
+                    }
+                }
+                else if (projectRangeInfo.AgeLow2 > -100000000)
+                {
+                    if (age >= projectRangeInfo.AgeLow2 && age <= projectRangeInfo.AgeHigh2)
+                    {
+                        if (sex == "男")
+                        {
+                            lowestValue = projectRangeInfo.ManConsLow2;
+                            highest = projectRangeInfo.ManConsHigh2;
+                        }
+                        else if (sex == "女")
+                        {
+                            lowestValue = projectRangeInfo.WomanConsLow2;
+                            highest = projectRangeInfo.WomanConsHigh2;
+                        }
+                    }
+                }
+                else if (projectRangeInfo.AgeLow3 > -100000000)
+                {
+                    if (age >= projectRangeInfo.AgeLow3 && age <= projectRangeInfo.AgeHigh3)
+                    {
+                        if (sex == "男")
+                        {
+                            lowestValue = projectRangeInfo.ManConsLow3;
+                            highest = projectRangeInfo.ManConsHigh3;
+                        }
+                        else if (sex == "女")
+                        {
+                            lowestValue = projectRangeInfo.WomanConsLow3;
+                            highest = projectRangeInfo.WomanConsHigh3;
+                        }
+                    }
+                }
+                else if (projectRangeInfo.AgeLow4 > -100000000)
+                {
+                    if (age >= projectRangeInfo.AgeLow4 && age <= projectRangeInfo.AgeHigh4)
+                    {
+                        if (sex == "男")
+                        {
+                            lowestValue = projectRangeInfo.ManConsLow4;
+                            highest = projectRangeInfo.ManConsHigh4;
+                        }
+                        else if (sex == "女")
+                        {
+                            lowestValue = projectRangeInfo.WomanConsLow4;
+                            highest = projectRangeInfo.WomanConsHigh4;
+                        }
+                    }
+                }
+
+
+                if (lowestValue != -100000000 && highest != 100000000)
+                {
+                    unitAndRange[1] = lowestValue.ToString() + "—" + highest.ToString();
+                }
+                else
+                {
+                    unitAndRange[1] = "";
+                }
+
+            }
+            catch (Exception e)
+            {
+                LogInfo.WriteErrorLog("QueryUnitAndRangeByProject(string strDBMethod, Hashtable ht)" + e.ToString(), Module.DAO);
+            }
+
+            return unitAndRange;
+        }
+        /// <summary>
         /// 该主函数没有被调用
         /// </summary>
         /// <param name="strDBMethod"></param>

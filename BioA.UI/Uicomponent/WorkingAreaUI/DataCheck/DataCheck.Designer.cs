@@ -205,11 +205,11 @@
             // lstvInspectProInfo
             // 
             this.lstvInspectProInfo.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.lstvInspectProInfo.Location = new System.Drawing.Point(973, 129);
+            this.lstvInspectProInfo.Location = new System.Drawing.Point(815, 129);
             this.lstvInspectProInfo.MainView = this.gridView2;
             this.lstvInspectProInfo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lstvInspectProInfo.Name = "lstvInspectProInfo";
-            this.lstvInspectProInfo.Size = new System.Drawing.Size(733, 641);
+            this.lstvInspectProInfo.Size = new System.Drawing.Size(891, 641);
             this.lstvInspectProInfo.TabIndex = 41;
             this.lstvInspectProInfo.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView2});
@@ -446,7 +446,7 @@
             this.lstvSampleInfo.MainView = this.gridView1;
             this.lstvSampleInfo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lstvSampleInfo.Name = "lstvSampleInfo";
-            this.lstvSampleInfo.Size = new System.Drawing.Size(956, 673);
+            this.lstvSampleInfo.Size = new System.Drawing.Size(798, 673);
             this.lstvSampleInfo.TabIndex = 40;
             this.lstvSampleInfo.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});

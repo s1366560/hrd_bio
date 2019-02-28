@@ -115,6 +115,9 @@ namespace BioA.UI
             }
         }
         private PatientInfo patientInfoByNum = new PatientInfo();
+        /// <summary>
+        /// 根据样本编号获取病人信息，显示
+        /// </summary>
         public PatientInfo PatientInfoByNum
         {
             get { return patientInfoByNum; }
@@ -128,11 +131,11 @@ namespace BioA.UI
                             txtSampleNum.Text = patientInfoByNum.SampleNum.ToString();
                             txtSampleID.Text = patientInfoByNum.SampleID;
                             txtName.Text = patientInfoByNum.PatientName;
-                            dtpDateBirth.Value = patientInfoByNum.BirthDate;
                             txtAge.Text = patientInfoByNum.Age.ToString();
                             combSex.SelectedItem = patientInfoByNum.Sex;
                             combPatientType.SelectedItem = patientInfoByNum.PatientType;
                             dtpApplyTime.Value = patientInfoByNum.ApplyTime;
+                            comMedicalRecordNum.Text = patientInfoByNum.MedicalRecordNum;
                             txtBedNum.Text = patientInfoByNum.BedNum;
                             combApplyDepartment.SelectedItem = patientInfoByNum.ApplyDepartment;
                             combApplyDoctor.SelectedItem = patientInfoByNum.ApplyDoctor;
@@ -215,11 +218,11 @@ namespace BioA.UI
                                                 txtSampleNum.Text = p.SampleNum.ToString();
                                                 txtSampleID.Text = p.SampleID;
                                                 txtName.Text = p.PatientName;
-                                                dtpDateBirth.Value = p.BirthDate;
                                                 txtAge.Text = p.Age.ToString();
                                                 combSex.SelectedItem = p.Sex;
                                                 combPatientType.SelectedItem = p.PatientType;
                                                 dtpApplyTime.Value = p.ApplyTime;
+                                                comMedicalRecordNum.Text = p.MedicalRecordNum;
                                                 txtBedNum.Text = p.BedNum;
                                                 combApplyDepartment.SelectedItem = p.ApplyDepartment;
                                                 combApplyDoctor.SelectedItem = p.ApplyDoctor;
@@ -281,7 +284,6 @@ namespace BioA.UI
                 patient.SampleNum = System.Convert.ToInt32(txtSampleNum.Text);
                 patient.SampleID = txtSampleID.Text;
                 patient.PatientName = txtName.Text;
-                patient.BirthDate = dtpDateBirth.Value;
                 patient.Age = txtAge.Text != "" ? System.Convert.ToInt32(txtAge.Text) : 0;
                 patient.Sex = combSex.SelectedItem != null ? combSex.SelectedItem.ToString() : "";
                 patient.PatientType = combPatientType.SelectedItem != null ? combPatientType.SelectedItem.ToString() : "";

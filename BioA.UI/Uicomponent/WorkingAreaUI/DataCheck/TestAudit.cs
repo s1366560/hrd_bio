@@ -141,10 +141,13 @@ namespace BioA.UI
             dtCheckResult.Columns.Add("检测项目");
             dtCheckResult.Columns.Add("检测结果");
             dtCheckResult.Columns.Add("单位");
+            dtCheckResult.Columns.Add("范围参数");
             dtCheckResult.Columns.Add("测试完成时间");
             dtCheckResult.Columns.Add("进程编号");
+            dtCheckResult.Columns.Add("发送");
             dtCheckResult.Columns.Add("任务状态");
             dtCheckResult.Columns.Add("复查");
+            
             grcCheckResult.DataSource = dtCheckResult;
 
             gridView1.Columns[0].OptionsColumn.AllowEdit = false;
@@ -248,7 +251,7 @@ namespace BioA.UI
                             break;
                     }
 
-                    dtCheckResult.Rows.Add(new object[] { s.ProjectName, Math.Round(s.ConcResult, result != null && result.RadixPointNum != 100000000 ? result.RadixPointNum : 4), s.UnitAndRange, s.SampleCompletionTime.ToString(), s.TCNO, taskState, s.IsResurvey ? "是" : "否" });
+                    dtCheckResult.Rows.Add(new object[] { s.ProjectName, Math.Round(s.ConcResult, result != null && result.RadixPointNum != 100000000 ? result.RadixPointNum : 4), s.UnitAndRange, s.RangeParameter, s.SampleCompletionTime.ToString(), s.TCNO, s.IsSend == true ? "是" : "否", taskState, s.IsResurvey ? "是" : "否" });
                 }
             }
         }

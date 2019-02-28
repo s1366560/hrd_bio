@@ -307,8 +307,8 @@ namespace BioA.UI
             serialCommunicationInfo.SerialName = cboSerialPort.Text;
             serialCommunicationInfo.BaudRate = Convert.ToInt32(cboBaudRate.Text);
             serialCommunicationInfo.DataBits = Convert.ToInt32(cboDataBit.Text);
-            serialCommunicationInfo.StopBits = Convert.ToInt32(cboStopBits.Text);
-            serialCommunicationInfo.Parity = Convert.ToInt32(cboParity.Text);
+            serialCommunicationInfo.StopBits = cboStopBits.Text;
+            serialCommunicationInfo.Parity = cboParity.Text;
             //serialCommunicationInfo.CommunicateionType= textEdit8.Text ;
             
             if (checkEdit1.Checked == true)

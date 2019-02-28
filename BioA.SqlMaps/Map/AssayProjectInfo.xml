@@ -461,8 +461,8 @@
       select * from CalibrationParamInfoTb where ProjectName=#ProjectName# and SampleType=#SampleType#
     </statement>
     <!-- 获取结果设置表信息（resultSetTb） -->
-    <statement id ="QueryResultSetInfo" resultClass ="ResultSetInfo">
-      select * from resultSetTb
+    <statement id ="QueryResultSetInfo" parameterClass="string" resultClass ="ResultSetInfo">
+      $value$
     </statement>
     <!-- 修改结果设置表的单位和小数点位 -->
     <statement id ="UpdateResultSetInfo" resultClass ="int">

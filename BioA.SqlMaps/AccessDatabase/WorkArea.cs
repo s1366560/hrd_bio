@@ -807,7 +807,12 @@ namespace BioA.SqlMaps
 
             return sampleInfo;
         }
-
+        /// <summary>
+        /// 根据样本编号获取当天样本信息
+        /// </summary>
+        /// <param name="sampleNum"></param>
+        /// <param name="sampleCreateTime"></param>
+        /// <returns></returns>
         public SampleInfo GetSample(int sampleNum, DateTime sampleCreateTime)
         {
             SampleInfo sampleInfo = new SampleInfo();
@@ -1006,7 +1011,7 @@ namespace BioA.SqlMaps
             List<ResultSetInfo> lstResultSetInfo = new List<ResultSetInfo>();
             try
             {
-                lstResultSetInfo = (List<ResultSetInfo>)ism_SqlMap.QueryForList<ResultSetInfo>("AssayProjectInfo." + strDBMethod, null);
+                lstResultSetInfo = (List<ResultSetInfo>)ism_SqlMap.QueryForList<ResultSetInfo>("AssayProjectInfo." + strDBMethod, string.Format("select * from resultSetTb"));
             }
             catch (Exception ex)
             {

@@ -51,6 +51,8 @@
     <Compile Include="DataTransmit.cs" />
     <Compile Include="INotifyCallBack.cs" />
     <Compile Include="IBioAService.cs" />
+    <Compile Include="LIS\LISService.cs" />
+    <Compile Include="LIS\LISSettingService.cs" />
     <Compile Include="Login\Login.cs" />
     <Compile Include="MainTains\MainTain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -79,6 +81,10 @@
     <ProjectReference Include="..\BioA.Common\BioA.Common.csproj">
       <Project>{e1438a53-5dde-42c0-b2ff-0f4a892e95b6}</Project>
       <Name>BioA.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BioA.HL7\BioA.HL7.csproj">
+      <Project>{dd39cdca-22ba-46bb-9e66-a37ef577f16e}</Project>
+      <Name>BioA.HL7</Name>
     </ProjectReference>
     <ProjectReference Include="..\BioA.SqlMaps\BioA.SqlMaps.csproj">
       <Project>{0fa896e7-ee6f-471d-b3fa-8e5768fd9e7a}</Project>

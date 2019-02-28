@@ -19,7 +19,9 @@ namespace BioA.Common
         WindowsService = 8,
         DAO = 9,
         Common = 10,
-        PLCData =11
+        PLCData =11,
+        LISSetting = 12,
+        LISService = 13
     }
 
     public static class LogInfo

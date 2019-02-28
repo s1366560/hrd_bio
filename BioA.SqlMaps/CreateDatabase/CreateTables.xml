@@ -1323,6 +1323,7 @@
       Sex char(10) Null,
       PatientType char(10) Null,
       InspectTime datetime NOT NULL DEFAULT NOW(),
+      MedicalRecordNum varchar(20) Null,
       BedNum char(20) Null,
       ApplyDepartment char(20) Null,
       ApplyDoctor char(20) Null,
@@ -1849,6 +1850,16 @@
         ProjectName varchar(50) Null,
         ReagentTray int Null,
         Count Null
+      )
+    </statement>
+    <!-- LIS设置表 -->
+    <statement id="CreateLISSettingtb">
+      create table LISSettingtb
+      (
+        CommunicationMode nchar(15) Null,
+        CommunicationDirection nchar(6) Null,
+        CommunicationOverTime int Null,
+        RealTiimeSampleResults bit Null
       )
     </statement>
   </statements>
