@@ -81,7 +81,7 @@ namespace BioA.UI
                 MessageBoxDraw.ShowMsg("项目名称为必填项，请填写项目名称！", MsgType.Warning);
                 return;
             }
-            else if (cboSampleType.SelectedIndex < 0)
+            else if (cboSampleType.SelectedIndex == 0)
             {
                 MessageBoxDraw.ShowMsg("请选择项目样本类型！", MsgType.Warning);
                 return;

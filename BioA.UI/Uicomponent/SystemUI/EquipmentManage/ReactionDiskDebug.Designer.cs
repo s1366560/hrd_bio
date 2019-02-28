@@ -154,7 +154,7 @@
             this.lblEightRinseDebug.Name = "lblEightRinseDebug";
             this.lblEightRinseDebug.Size = new System.Drawing.Size(133, 23);
             this.lblEightRinseDebug.TabIndex = 38;
-            this.lblEightRinseDebug.Text = "八节清洗调试：";
+            this.lblEightRinseDebug.Text = "八阶清洗调试：";
             // 
             // btninitializeER
             // 

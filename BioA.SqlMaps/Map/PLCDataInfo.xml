@@ -457,5 +457,13 @@
     <statement id="GetLastestSMPNO" parameterClass="string" resultClass="int">
       $value$
     </statement>
+      <!--获取任务总次数(用于计算任务的预计完成时间)-->
+    <statement id ="GetAllTasksTimes" ResultClass ="int">
+      select ISNULL(SUM(a),0) num from ( select sum(InspectTimes) a from TaskTb where TaskState = 0
+      union
+      select sum(InspectTimes) a from CalibratorInfoTaskTb where TaskState = 0
+      union
+      select sum(InspectTimes) a from QCTaskTb where TaskState = 0)b
+    </statement>
   </statements>
 </sqlMap>

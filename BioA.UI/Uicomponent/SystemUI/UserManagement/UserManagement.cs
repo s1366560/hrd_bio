@@ -140,7 +140,7 @@ namespace BioA.UI
            }
            if (userInfo.CrossPollute)
            {
-               str += "交叉污染,";
+               str += "防污策略,";
            }
            if (userInfo.DataConfiguration)
            {

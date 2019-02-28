@@ -1143,18 +1143,18 @@ namespace BioA.PLCController
                     this.MachineState.Fired = null;//消息驱动置空
                     break;
                 case 0x21://R1交叉污染
-                    this.MachineState.State = "设置试剂针1防交叉污染";
+                    this.MachineState.State = "设置试剂针1防污策略";
                     this.SerialPort.SendBytesData(EncodeDictionary["0x21"].Encode(0x21));
                     break;
                 case 0x22://R2交叉污染
-                    this.MachineState.State = "设置试剂针2防交叉污染";
+                    this.MachineState.State = "设置试剂针2防污策略";
                     this.SerialPort.SendBytesData(EncodeDictionary["0x21"].Encode(0x22));
                     this.IsRunningSchedule = true;
                     //记录测试开始时间
                     myBatis.UpdateDetergentUsingStartingTime(DateTime.Now);
                     break;
                 case 0x23://CUV交叉污染
-                    this.MachineState.State = "设置比色杯防交叉污染";
+                    this.MachineState.State = "设置比色杯防污策略";
                     this.SerialPort.SendBytesData(EncodeDictionary["0x21"].Encode(0x23));
                     this.IsRunningSchedule = true;
                     //记录测试开始时间
@@ -2453,7 +2453,7 @@ namespace BioA.PLCController
             if (SdtSchedule != null)
             {
                 myBatis.UpdateSDTSchedulePerform(SdtSchedule, TaskState.START);
-                myBatis.UpdateSDTResultState(SdtSchedule, TaskState.START);
+                //myBatis.UpdateSDTResultState(SdtSchedule, TaskState.START);
                 return CreatCalibTaskList(SdtSchedule);
             }
             return new List<TASK>();

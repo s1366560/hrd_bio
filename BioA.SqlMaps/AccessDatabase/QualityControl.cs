@@ -1675,18 +1675,38 @@ namespace BioA.SqlMaps
         public List<CalibrationResultinfo> QueryCalibrationState(string strDBMethod, string p2)
         {
             List<CalibrationResultinfo> lstCalibrationResultinfo = new List<CalibrationResultinfo>();
+            List<CalibrationResultinfo> lstCalibrationResult = new List<CalibrationResultinfo>();
             try
             {
                 //ism_SqlMap.QueryForList<CalibrationResultinfo>("Calibrator." + strDBMethod, null);
                 lstCalibrationResultinfo = (List<CalibrationResultinfo>)ism_SqlMap.QueryForList<CalibrationResultinfo>("Calibrator." + strDBMethod, null);
-
-
+                List<int> lstint = new List<int>();
+                List<CalibrationResultinfo> lststring = new List<CalibrationResultinfo>();
+                foreach(CalibrationResultinfo c in lstCalibrationResultinfo)
+                {
+                    if (c.ProjectName.Contains('.'))
+                    {
+                        lstint.Add(int.Parse(c.ProjectName.Split('.')[0]));
+                    }
+                    else
+                    {
+                        lststring.Add(c);
+                    }
+                    lstint.Distinct();
+                    lstint.Sort();
+                }
+                foreach(int i in lstint)
+                {
+                    CalibrationResultinfo calibration = lstCalibrationResultinfo.Find(x =>  x.ProjectName.Substring(0,i.ToString().Length) == i.ToString());
+                    lstCalibrationResult.Add(calibration);
+                }
+                lstCalibrationResult.AddRange(lststring);
             }
             catch (Exception e)
             {
                 LogInfo.WriteErrorLog("QueryCalibratorinfo(string strDBMethod)==" + e.ToString(), Module.DAO);
             }
-            return lstCalibrationResultinfo;
+            return lstCalibrationResult;
         }
         /// <summary>
         /// 获取校准品对应的项目信息

@@ -128,6 +128,7 @@ namespace BioA.UI
             this.lblSampleContainer = new DevExpress.XtraEditors.LabelControl();
             this.pictureEdit2 = new DevExpress.XtraEditors.PictureEdit();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            this.labfinishTime = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.galleryDropDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.accordionControl1)).BeginInit();
@@ -421,7 +422,6 @@ namespace BioA.UI
             this.barButtonItem18.Id = 34;
             this.barButtonItem18.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem18.LargeGlyph")));
             this.barButtonItem18.Name = "barButtonItem18";
-            this.barButtonItem18.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem18_ItemClick);
             // 
             // ribbonPage1
             // 
@@ -652,7 +652,7 @@ namespace BioA.UI
             this.CrossPollutionElement14.Height = 50;
             this.CrossPollutionElement14.Name = "CrossPollutionElement14";
             this.CrossPollutionElement14.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.CrossPollutionElement14.Text = "             交叉污染       ";
+            this.CrossPollutionElement14.Text = "             防污策略       ";
             this.CrossPollutionElement14.Click += new System.EventHandler(this.accordionControlElement14_Click);
             // 
             // DataConfigElement15
@@ -849,7 +849,7 @@ namespace BioA.UI
             this.WorkingAreaMissionInspectionElement3.Height = 50;
             this.WorkingAreaMissionInspectionElement3.Name = "WorkingAreaMissionInspectionElement3";
             this.WorkingAreaMissionInspectionElement3.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.WorkingAreaMissionInspectionElement3.Text = "             任务考察       ";
+            this.WorkingAreaMissionInspectionElement3.Text = "             任务核查       ";
             this.WorkingAreaMissionInspectionElement3.Click += new System.EventHandler(this.accordionControlElement3_Click);
             // 
             // ribbonPageGroup7
@@ -902,6 +902,8 @@ namespace BioA.UI
             // 
             // pcThirdArea
             // 
+            this.pcThirdArea.Appearance.BackColor = System.Drawing.Color.Transparent;
+            this.pcThirdArea.Appearance.Options.UseBackColor = true;
             this.pcThirdArea.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
             this.pcThirdArea.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pcThirdArea.Location = new System.Drawing.Point(200, 165);
@@ -997,7 +999,7 @@ namespace BioA.UI
             this.lblSampleContainer.Name = "lblSampleContainer";
             this.lblSampleContainer.Size = new System.Drawing.Size(131, 61);
             this.lblSampleContainer.TabIndex = 34;
-            this.lblSampleContainer.Text = "水域温度：";
+            this.lblSampleContainer.Text = "孵育温度：";
             // 
             // pictureEdit2
             // 
@@ -1028,6 +1030,14 @@ namespace BioA.UI
             this.labelControl1.TabIndex = 36;
             this.labelControl1.Text = "全自动生化分析仪操作平台";
             // 
+            // labfinishTime
+            // 
+            this.labfinishTime.AutoSize = true;
+            this.labfinishTime.Location = new System.Drawing.Point(1640, 9);
+            this.labfinishTime.Name = "labfinishTime";
+            this.labfinishTime.Size = new System.Drawing.Size(0, 14);
+            this.labfinishTime.TabIndex = 40;
+            // 
             // Form1
             // 
             this.AllowFormGlass = DevExpress.Utils.DefaultBoolean.False;
@@ -1035,6 +1045,7 @@ namespace BioA.UI
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1701, 906);
+            this.Controls.Add(this.labfinishTime);
             this.Controls.Add(this.labelControl1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblSampleContainer);
@@ -1173,6 +1184,7 @@ namespace BioA.UI
         private DevExpress.XtraEditors.PictureEdit pictureEdit2;
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraEditors.LabelControl lblSampleContainer;
+        private System.Windows.Forms.Label labfinishTime;
     }
 }
 

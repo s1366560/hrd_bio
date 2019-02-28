@@ -49,6 +49,7 @@
             this.txtSD = new DevExpress.XtraEditors.TextEdit();
             this.txtTargetSD = new DevExpress.XtraEditors.TextEdit();
             this.txtCV = new DevExpress.XtraEditors.TextEdit();
+            this.txtStatistic = new DevExpress.XtraEditors.TextEdit();
             ((System.ComponentModel.ISupportInitialize)(this.txtProjectName.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtQCName.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtLotNum.Properties)).BeginInit();
@@ -59,6 +60,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtSD.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtTargetSD.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtCV.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtStatistic.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -292,11 +294,23 @@
             this.txtCV.Size = new System.Drawing.Size(116, 20);
             this.txtCV.TabIndex = 21;
             // 
+            // txtStatistic
+            // 
+            this.txtStatistic.Location = new System.Drawing.Point(398, 25);
+            this.txtStatistic.Margin = new System.Windows.Forms.Padding(4);
+            this.txtStatistic.Name = "txtStatistic";
+            this.txtStatistic.Properties.Appearance.Font = new System.Drawing.Font("SimSun", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtStatistic.Properties.Appearance.Options.UseFont = true;
+            this.txtStatistic.Properties.ReadOnly = true;
+            this.txtStatistic.Size = new System.Drawing.Size(116, 20);
+            this.txtStatistic.TabIndex = 22;
+            // 
             // frmRepeat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(602, 354);
+            this.Controls.Add(this.txtStatistic);
             this.Controls.Add(this.txtCV);
             this.Controls.Add(this.txtTargetSD);
             this.Controls.Add(this.txtSD);
@@ -333,6 +347,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtSD.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtTargetSD.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtCV.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtStatistic.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -361,5 +376,6 @@
         private DevExpress.XtraEditors.TextEdit txtSD;
         private DevExpress.XtraEditors.TextEdit txtTargetSD;
         private DevExpress.XtraEditors.TextEdit txtCV;
+        private DevExpress.XtraEditors.TextEdit txtStatistic;
     }
 }

@@ -119,7 +119,7 @@
             this.lblEightJointsRinse.Name = "lblEightJointsRinse";
             this.lblEightJointsRinse.Size = new System.Drawing.Size(83, 23);
             this.lblEightJointsRinse.TabIndex = 21;
-            this.lblEightJointsRinse.Text = "八节清洗:";
+            this.lblEightJointsRinse.Text = "八阶清洗:";
             // 
             // btnDetectionSV
             // 

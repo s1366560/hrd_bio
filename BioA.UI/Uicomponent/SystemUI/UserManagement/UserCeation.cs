@@ -611,7 +611,7 @@ namespace BioA.UI
                 {
                     chkEnvironmentParam.Checked = false;
                 }
-                if (RunConfigureUtility.UserAuthorityInitial["交叉污染"])
+                if (RunConfigureUtility.UserAuthorityInitial["防污策略"])
                 {
                     chkCrossPollute.Checked = true;
                 }

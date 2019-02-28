@@ -33,9 +33,9 @@ namespace BioA.Common.Machine
         public static readonly string Machine22 = "设备状态异常";                            
         public static readonly string Machine23 = "开始检查清洗液D";                         
         public static readonly string Machine24 = "设备异常，不能进行水交换";                
-        public static readonly string Machine25 = "设置试剂针1防交叉污染";                               
-        public static readonly string Machine26 = "设置试剂针2防交叉污染";                               
-        public static readonly string Machine27 = "设置比色杯防交叉污染";                                
+        public static readonly string Machine25 = "设置试剂针1防污策略";
+        public static readonly string Machine26 = "设置试剂针2防污策略";
+        public static readonly string Machine27 = "设置比色杯防污策略";                                
         public static readonly string Machine28 = "该批次任务即将完成";                                  
         public static readonly string Machine29 = "该批次任务完成";                                      
         public static readonly string Machine30 = "系统清洗完成";                                        

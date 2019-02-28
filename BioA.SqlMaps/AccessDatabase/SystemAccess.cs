@@ -799,5 +799,22 @@ namespace BioA.SqlMaps
             }
             return taskCount;
         }
+        /// <summary>
+        /// 获取待测任务数量
+        /// </summary>
+        /// <returns></returns>
+        public int getFinishTime()
+        {
+            int finishtime = 0;
+            try
+            {
+                finishtime = (int)ism_SqlMap.QueryForObject("PLCDataInfo.GetAllTasksTimes", null);
+            }
+            catch (Exception e)
+            {
+                LogInfo.WriteErrorLog("getFinishTime(string strMethodName)==" + e.ToString(), Module.FramUI);
+            }
+            return finishtime;
+        }
     }
 }

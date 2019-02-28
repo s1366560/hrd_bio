@@ -53,7 +53,7 @@ namespace BioA.UI
 
             fCV = fStandardDeviation / fAverage;
 
-
+            txtStatistic.Text = lstConcResults.Count.ToString();
             txtProjectName.Text = qcResultInfo.ProjectName;
             txtQCName.Text = qcResultInfo.QCName;
             txtLotNum.Text = qcResultInfo.LotNum;

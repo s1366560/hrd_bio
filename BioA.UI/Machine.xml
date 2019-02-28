@@ -236,7 +236,7 @@
         <Command Name="ChunshuiguangCheck" FullName="纯水箱液位检测" />
         <Command Name="YiliuguangCheck" FullName="溢流罐液位检测" />
       </Componet>
-      <Componet Name="反应槽温控">
+      <Componet Name="孵育槽温控">
         <Command Name="ReadTempt" FullName="检查设备状态" />
       </Componet>
       <Componet Name="齿轮泵GP1">

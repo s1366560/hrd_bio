@@ -3,6 +3,7 @@ using BioA.Common.Communication;
 using BioA.Common.IO;
 using BioA.Common.Machine;
 using BioA.Service;
+using BioA.Service.MainTains;
 using BioA.SqlMaps;
 using BioA.UI.ServiceReference1;
 using BioA.UI.Uicomponent;
@@ -120,9 +121,6 @@ namespace BioA.UI
 
             var machineTroubleThread = new Thread(this.MachineIsTrouble) { IsBackground = true };
             machineTroubleThread.Start();
-
-            //异步连接LIS服务器
-            this.AsyncConnectLis();
 
             this.barButtonItem17.AllowDrawArrow = true;
             pictureBox1.BackColor = Color.FromArgb(251, 248, 240);
@@ -277,7 +275,7 @@ namespace BioA.UI
                                 {
                                     if (machineState.State == "超时")
                                     {
-                                        lblSampleContainer.Text = "水域温度"+temp+"°C";
+                                        lblSampleContainer.Text = "孵育温度" + temp + "°C";
                                     }
                                     else
                                     {
@@ -289,10 +287,13 @@ namespace BioA.UI
                                         {
 
                                         }
-                                        lblSampleContainer.Text = "水域温度" + temp + "°C";
+                                        lblSampleContainer.Text = "孵育温度" + temp + "°C";
                                     }
                                 }
-
+                                if (machineState.Fired == AnalyzeEvent.MACHINE_WILL_FINIFSHSCHEDULE)
+                                {
+                                    labfinishTime.Text = "";//任务即将结束时清除预计完成时间提示                                            
+                                }
                                 txtInfoPrompt.Text = machineState.State;
                             }));
                             if (machineState.Command != null)
@@ -539,9 +540,7 @@ namespace BioA.UI
         /// 初始化改线程为阻塞
         /// </summary>
         ManualResetEvent ErrorFaultSignal = new ManualResetEvent(false);
-        /// <summary>
-        /// 报警提示
-        /// </summary>
+
         private void DisplayHavingError()
         {
             while (true)
@@ -554,57 +553,14 @@ namespace BioA.UI
                 this.Invoke(new Action(() => { this.pictureBox2.Image = this.pictureBox2.ErrorImage; }));
                 Thread.Sleep(450);
 
-                this.Invoke(new Action(() => { this.pictureBox2.Image = System.Drawing.Image.FromFile(_FileName + "Resources\\Image\\WarnUn.png"); }));
+                this.Invoke(new Action(() => { this.pictureBox2.Image = System.Drawing.Image.FromFile( _FileName +"Resources\\Image\\WarnUn.png"); }));
                 Thread.Sleep(450);
-                if (this.IsWarningInfoUIActivity == true)
-                {
-                    this.Invoke(new Action(() => { this.pictureBox2.Image = this.pictureBox2.InitialImage; }));
-                }
+                //if(this.IsWarningInfoUIActivity == true)
+                //{
+                //    this.Invoke(new Action(() => { this.pictureBox2.Image = this.pictureBox2.InitialImage; }));
+                //}
             }
         }
-        /// <summary>
-        /// 启动LIS服务
-        /// </summary>
-        public void AsyncConnectLis()
-        {
-            new Thread(new ThreadStart(ConnectLisServer)).Start();
-        }
-
-        void ConnectLisServer()
-        {
-            //this.RunningSer.LISToolTip = Application.Current.FindResource("ViewModeMAINMainWindowViewModel9").ToString();
-
-            //this.LISSer.ConnectSuccessEvent -= new LISService.LISServiceHandler(OnLISConnectSuccessEvent);
-            //this.LISSer.LisErrorEvent -= new LISService.LISServiceHandler(OnLISSerLisErrorEvent);
-
-            //this.LISSer.SendLisDataEvent -= new LISService.LISServiceHandler(OnLISSerSendLisDataEvent);
-            //this.LISSer.NotHasLisDataEvent -= new LISService.LISServiceHandler(OnLISSerNotHasLisDataEvent);
-            //this.LISSer.SMPCodeBarQueryEvent -= new LISService.LISServiceHandler(OnLISSerSMPCodeBarQueryEvent);
-            //this.LISSer.ApplySampleSuccessEvent -= new LISService.LISServiceHandler(OnLISSerApplySampleSuccessEvent);
-            //this.LISSer.SendLisResultDataFailedEvent -= new LISService.LISServiceHandler(OnLISSerSendLisResultDataFailedEvent);
-            //this.LISSer.SendLisResultDataOKEvent -= new LISService.LISServiceHandler(OnLISSerSendLisResultDataOKEvent);
-            //this.LISSer.SendLisResultDataRunningEvent -= new LISService.LISServiceHandler(OnLISSerSendLisResultDataRunningEvent);
-
-            //this.RunningSer.LISToolTip = Application.Current.FindResource("ViewModeMAINMainWindowViewModel10").ToString();
-            //this.LISSer.StopService();
-            //Thread.Sleep(1000 * 2);
-
-            //this.LISSer.ConnectSuccessEvent += new LISService.LISServiceHandler(OnLISConnectSuccessEvent);
-            //this.LISSer.LisErrorEvent += new LISService.LISServiceHandler(OnLISSerLisErrorEvent);
-
-            ////this.LISSer.SendLisDataEvent += new LISService.LISServiceHandler(OnLISSerSendLisDataEvent);
-            //this.LISSer.SendLisResultDataFailedEvent += new LISService.LISServiceHandler(OnLISSerSendLisResultDataFailedEvent);
-            //this.LISSer.SendLisResultDataOKEvent += new LISService.LISServiceHandler(OnLISSerSendLisResultDataOKEvent);
-            //this.LISSer.SendLisResultDataRunningEvent += new LISService.LISServiceHandler(OnLISSerSendLisResultDataRunningEvent);
-            //this.LISSer.NotHasLisDataEvent += new LISService.LISServiceHandler(OnLISSerNotHasLisDataEvent);
-            //this.LISSer.SMPCodeBarQueryEvent += new LISService.LISServiceHandler(OnLISSerSMPCodeBarQueryEvent);
-            //this.LISSer.ApplySampleSuccessEvent += new LISService.LISServiceHandler(OnLISSerApplySampleSuccessEvent);
-
-            //this.RunningSer.LISStartWork();
-            //this.RunningSer.LISRunning();
-            //Thread.Sleep(10000);
-            //this.LISSer.StartService();
-        } 
 
         private void MachineIsTrouble()
         {
@@ -800,7 +756,7 @@ namespace BioA.UI
             pcThirdArea.Controls.Clear();
             missionInspection = new MissionInspection();
             missionInspection.GetOpidEvent += this.getOPIDEvent;
-            txtPrompt.Text = "您当前的操作：工作区——任务考察";
+            txtPrompt.Text = "您当前的操作：工作区——任务核查";
             pcThirdArea.Controls.Add(txtPrompt);
             pcThirdArea.Controls.Add(missionInspection);
         }
@@ -1092,7 +1048,7 @@ namespace BioA.UI
                     CommunicationUI.notifyCallBack.ReagentNeedleDataTransferEvent -= reagentNeedle.DataTransfer_Event;
                 reagentNeedle = new ReagentNeedle();
                 CommunicationUI.notifyCallBack.ReagentNeedleDataTransferEvent += reagentNeedle.DataTransfer_Event;
-                txtPrompt.Text = "您当前的操作：系统设置——交叉污染";
+                txtPrompt.Text = "您当前的操作：系统设置——防污策略";
                 pcThirdArea.Controls.Add(txtPrompt);
                 pcThirdArea.Controls.Add(reagentNeedle);
 
@@ -1356,11 +1312,29 @@ namespace BioA.UI
                 return;
             }
             else
-            {
-                BeginInvoke(new Action(() =>
+            {                
+                int lstResult = new MainTain().GetAllTasksCount("GetAllTasksCount");
+                if (lstResult != 0)
+                {                  
+                    if (this.OPID == 0)
+                    {
+                        if (MessageBoxDraw.ShowMsg("确定开始样本测试吗？", MsgType.Question) == System.Windows.Forms.DialogResult.OK)
+                        {
+                            double time = (getFinishTime() - 1) * 4.5 + 720;
+                            labfinishTime.Text = "预计完成时间:" + DateTime.Now.AddSeconds(time).ToString();
+                            SendCommand("StartSchedule");
+                        }
+                    }
+                }
+                else
                 {
-                    CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.MainTain, new Dictionary<string, object[]> { { "GetAllTasksCount", null } });
-                }));
+                    MessageBox.Show("没有测试任务！");
+                    return;
+                }
+                //BeginInvoke(new Action(() =>
+                //{
+                //    CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.MainTain, new Dictionary<string, object[]> { { "GetAllTasksCount", null } });
+                //}));
             }
 
         }
@@ -1381,14 +1355,13 @@ namespace BioA.UI
             switch (strMethod)
             {
                 case "GetAllTasksCount":
-                    int taskCount = (int)sender;
-                    if (taskCount != 0)
-
+                    List<int> lstResult = (List<int>)sender;
+                    if (lstResult[0] != 0)
                     {
                         if (this.OPID == 0)
                         {
                             if (MessageBoxDraw.ShowMsg("确定开始样本测试吗？", MsgType.Question) == System.Windows.Forms.DialogResult.OK)
-                            {
+                            {                               
                                 SendCommand("StartSchedule");
                             }
                         }
@@ -1502,11 +1475,6 @@ namespace BioA.UI
             this.barButtonItem17.AllowDrawArrow = false;
             this.barButtonItem11.AllowDrawArrow = false;
             this.barButtonItem12.AllowDrawArrow = false;
-            if (this.IsWarningInfoUIActivity == true)
-            {
-                this.IsWarningInfoUIActivity = false;
-                this.Invoke(new Action(() => { this.pictureBox2.Image = System.Drawing.Image.FromFile(_FileName + "Resources\\Image\\WarnUn.png"); }));
-            }
         }
         /// <summary>
         /// 取消功能列表标记图标
@@ -1533,16 +1501,9 @@ namespace BioA.UI
                 return false;
             }
         }
-        /// <summary>
-        /// LIS设置
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void barButtonItem18_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        public int getFinishTime()
         {
-            LISSetting LIS = new LISSetting();
-            LIS.StartPosition = FormStartPosition.CenterScreen;
-            LIS.ShowDialog();
+            return new MainTain().getFinishTime();
         }
         // private void ribbonControl1_Click(object sender, EventArgs e)
         // {

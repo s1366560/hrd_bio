@@ -12,5 +12,9 @@ namespace BioA.Service.MainTains
         {
             return myBatis.GetAllTasksCount(StrmethodName);
         }
+        public int getFinishTime()
+        {
+            return myBatis.getFinishTime();
+        }
     }
 }

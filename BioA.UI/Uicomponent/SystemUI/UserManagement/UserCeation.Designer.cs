@@ -283,7 +283,7 @@
             this.chkCrossPollute.Name = "chkCrossPollute";
             this.chkCrossPollute.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkCrossPollute.Properties.Appearance.Options.UseFont = true;
-            this.chkCrossPollute.Properties.Caption = "交叉污染";
+            this.chkCrossPollute.Properties.Caption = "防污策略";
             this.chkCrossPollute.Size = new System.Drawing.Size(168, 21);
             this.chkCrossPollute.TabIndex = 40;
             // 
