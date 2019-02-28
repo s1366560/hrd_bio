@@ -501,12 +501,6 @@
     <Compile Include="Uicomponent\SettingsUI\LISCommunicate\LISSetting.Designer.cs">
       <DependentUpon>LISSetting.cs</DependentUpon>
     </Compile>
-    <Compile Include="Uicomponent\SettingsUI\LISCommunicate\XtraUserControl1.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Uicomponent\SettingsUI\LISCommunicate\XtraUserControl1.Designer.cs">
-      <DependentUpon>XtraUserControl1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Uicomponent\SystemUI\Configure\Configure.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -961,9 +955,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\SettingsUI\LISCommunicate\LISSetting.resx">
       <DependentUpon>LISSetting.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Uicomponent\SettingsUI\LISCommunicate\XtraUserControl1.resx">
-      <DependentUpon>XtraUserControl1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\SystemUI\Configure\Configure.resx">
       <DependentUpon>Configure.cs</DependentUpon>
