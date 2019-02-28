@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
 <MachineConfigure>
-  <SerialPort Port="COM7"/>
+  <SerialPort Port="COM6"/>
   <!--命令字典-->
   <CommandProtocol>
     <Command  Name ="CheckSumRight" Value="0x06"/>
