@@ -3,7 +3,6 @@ using BioA.Common.Communication;
 using BioA.Common.IO;
 using BioA.Common.Machine;
 using BioA.Service;
-using BioA.Service.MainTains;
 using BioA.SqlMaps;
 using BioA.UI.ServiceReference1;
 using BioA.UI.Uicomponent;
@@ -121,6 +120,8 @@ namespace BioA.UI
 
             var machineTroubleThread = new Thread(this.MachineIsTrouble) { IsBackground = true };
             machineTroubleThread.Start();
+            //异步连接LIS服务器
+            this.AsyncConnectLis();
 
             this.barButtonItem17.AllowDrawArrow = true;
             pictureBox1.BackColor = Color.FromArgb(251, 248, 240);
@@ -540,7 +541,9 @@ namespace BioA.UI
         /// 初始化改线程为阻塞
         /// </summary>
         ManualResetEvent ErrorFaultSignal = new ManualResetEvent(false);
-
+        /// <summary>
+        /// 报警提示
+        /// </summary>
         private void DisplayHavingError()
         {
             while (true)
@@ -553,14 +556,57 @@ namespace BioA.UI
                 this.Invoke(new Action(() => { this.pictureBox2.Image = this.pictureBox2.ErrorImage; }));
                 Thread.Sleep(450);
 
-                this.Invoke(new Action(() => { this.pictureBox2.Image = System.Drawing.Image.FromFile( _FileName +"Resources\\Image\\WarnUn.png"); }));
+                this.Invoke(new Action(() => { this.pictureBox2.Image = System.Drawing.Image.FromFile(_FileName + "Resources\\Image\\WarnUn.png"); }));
                 Thread.Sleep(450);
-                //if(this.IsWarningInfoUIActivity == true)
-                //{
-                //    this.Invoke(new Action(() => { this.pictureBox2.Image = this.pictureBox2.InitialImage; }));
-                //}
+                if (this.IsWarningInfoUIActivity == true)
+                {
+                    this.Invoke(new Action(() => { this.pictureBox2.Image = this.pictureBox2.InitialImage; }));
+                }
             }
         }
+        /// <summary>
+        /// 启动LIS服务
+        /// </summary>
+        public void AsyncConnectLis()
+        {
+            new Thread(new ThreadStart(ConnectLisServer)).Start();
+        }
+
+        void ConnectLisServer()
+        {
+            //this.RunningSer.LISToolTip = Application.Current.FindResource("ViewModeMAINMainWindowViewModel9").ToString();
+
+            //this.LISSer.ConnectSuccessEvent -= new LISService.LISServiceHandler(OnLISConnectSuccessEvent);
+            //this.LISSer.LisErrorEvent -= new LISService.LISServiceHandler(OnLISSerLisErrorEvent);
+
+            //this.LISSer.SendLisDataEvent -= new LISService.LISServiceHandler(OnLISSerSendLisDataEvent);
+            //this.LISSer.NotHasLisDataEvent -= new LISService.LISServiceHandler(OnLISSerNotHasLisDataEvent);
+            //this.LISSer.SMPCodeBarQueryEvent -= new LISService.LISServiceHandler(OnLISSerSMPCodeBarQueryEvent);
+            //this.LISSer.ApplySampleSuccessEvent -= new LISService.LISServiceHandler(OnLISSerApplySampleSuccessEvent);
+            //this.LISSer.SendLisResultDataFailedEvent -= new LISService.LISServiceHandler(OnLISSerSendLisResultDataFailedEvent);
+            //this.LISSer.SendLisResultDataOKEvent -= new LISService.LISServiceHandler(OnLISSerSendLisResultDataOKEvent);
+            //this.LISSer.SendLisResultDataRunningEvent -= new LISService.LISServiceHandler(OnLISSerSendLisResultDataRunningEvent);
+
+            //this.RunningSer.LISToolTip = Application.Current.FindResource("ViewModeMAINMainWindowViewModel10").ToString();
+            //this.LISSer.StopService();
+            //Thread.Sleep(1000 * 2);
+
+            //this.LISSer.ConnectSuccessEvent += new LISService.LISServiceHandler(OnLISConnectSuccessEvent);
+            //this.LISSer.LisErrorEvent += new LISService.LISServiceHandler(OnLISSerLisErrorEvent);
+
+            ////this.LISSer.SendLisDataEvent += new LISService.LISServiceHandler(OnLISSerSendLisDataEvent);
+            //this.LISSer.SendLisResultDataFailedEvent += new LISService.LISServiceHandler(OnLISSerSendLisResultDataFailedEvent);
+            //this.LISSer.SendLisResultDataOKEvent += new LISService.LISServiceHandler(OnLISSerSendLisResultDataOKEvent);
+            //this.LISSer.SendLisResultDataRunningEvent += new LISService.LISServiceHandler(OnLISSerSendLisResultDataRunningEvent);
+            //this.LISSer.NotHasLisDataEvent += new LISService.LISServiceHandler(OnLISSerNotHasLisDataEvent);
+            //this.LISSer.SMPCodeBarQueryEvent += new LISService.LISServiceHandler(OnLISSerSMPCodeBarQueryEvent);
+            //this.LISSer.ApplySampleSuccessEvent += new LISService.LISServiceHandler(OnLISSerApplySampleSuccessEvent);
+
+            //this.RunningSer.LISStartWork();
+            //this.RunningSer.LISRunning();
+            //Thread.Sleep(10000);
+            //this.LISSer.StartService();
+        } 
 
         private void MachineIsTrouble()
         {
@@ -1313,7 +1359,7 @@ namespace BioA.UI
             }
             else
             {                
-                int lstResult = new MainTain().GetAllTasksCount("GetAllTasksCount");
+                int lstResult = myBatis.GetAllTasksCount("GetAllTasksCount");
                 if (lstResult != 0)
                 {                  
                     if (this.OPID == 0)
@@ -1475,6 +1521,11 @@ namespace BioA.UI
             this.barButtonItem17.AllowDrawArrow = false;
             this.barButtonItem11.AllowDrawArrow = false;
             this.barButtonItem12.AllowDrawArrow = false;
+            if (this.IsWarningInfoUIActivity == true)
+            {
+                this.IsWarningInfoUIActivity = false;
+                this.Invoke(new Action(() => { this.pictureBox2.Image = System.Drawing.Image.FromFile(_FileName + "Resources\\Image\\WarnUn.png"); }));
+            }
         }
         /// <summary>
         /// 取消功能列表标记图标
@@ -1501,9 +1552,25 @@ namespace BioA.UI
                 return false;
             }
         }
+
+        /// <summary>
+        /// LIS设置
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void barButtonItem18_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            LISSetting LIS = new LISSetting();
+            LIS.StartPosition = FormStartPosition.CenterScreen;
+            LIS.ShowDialog();
+        }
+        /// <summary>
+        /// 获取预计完成时间
+        /// </summary>
+        /// <returns></returns>
         public int getFinishTime()
         {
-            return new MainTain().getFinishTime();
+            return myBatis.getFinishTime();
         }
         // private void ribbonControl1_Click(object sender, EventArgs e)
         // {
