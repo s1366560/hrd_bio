@@ -901,9 +901,7 @@ namespace BioA.UI
             this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
             // pcThirdArea
-            // 
-            this.pcThirdArea.Appearance.BackColor = System.Drawing.Color.Transparent;
-            this.pcThirdArea.Appearance.Options.UseBackColor = true;
+            //
             this.pcThirdArea.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
             this.pcThirdArea.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pcThirdArea.Location = new System.Drawing.Point(200, 165);
