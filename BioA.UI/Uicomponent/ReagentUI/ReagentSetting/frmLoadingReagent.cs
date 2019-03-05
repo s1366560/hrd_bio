@@ -315,12 +315,12 @@ namespace BioA.UI
                 if (this.cboReagentVol.Text == "70ml")
                 {
                     this.cboReagentPos.Properties.Items.Clear();
-                    List<string> str = new List<string>();
-                    for (int i = 0; i < 50; i++)
-                    {
-                        str.Add(RunConfigureUtility.Reagentpos[i]);
-                    }
-                    this.cboReagentPos.Properties.Items.AddRange(str);
+                    //List<string> str = new List<string>();
+                    //for (int i = 0; i < 50; i++)
+                    //{
+                    //    str.Add(RunConfigureUtility.Reagentpos[i]);
+                    //}
+                    this.cboReagentPos.Properties.Items.AddRange(RunConfigureUtility.Reagentpos);
                     cboReagentPos.SelectedIndex = 0;
                 }
             }
@@ -335,12 +335,12 @@ namespace BioA.UI
                 if (this.cboReagentVol.Text == "70ml")
                 {
                     this.cboReagentPos.Properties.Items.Clear();
-                    List<string> str = new List<string>();
-                    for (int i = 0; i < 50; i++)
-                    {
-                        str.Add(RunConfigureUtility.Reagentpos2[i]);
-                    }
-                    this.cboReagentPos.Properties.Items.AddRange(str);
+                    //List<string> str = new List<string>();
+                    //for (int i = 0; i < 50; i++)
+                    //{
+                    //    str.Add(RunConfigureUtility.Reagentpos2[i]);
+                    //}
+                    this.cboReagentPos.Properties.Items.AddRange(RunConfigureUtility.Reagentpos2);
                     cboReagentPos.SelectedIndex = 0;
                 }
             }

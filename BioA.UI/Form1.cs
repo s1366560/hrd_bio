@@ -52,7 +52,10 @@ namespace BioA.UI
         TextBox txtPrompt;
         LoginInterface login;
         UserInfo userInfo = new UserInfo();
-
+        //预计完成时间
+        DateTime finishTime;
+        //暂停的时间
+        DateTime pauseTime;
         private MyBatis myBatis = new MyBatis();
 
         public float temp;
@@ -1338,6 +1341,7 @@ namespace BioA.UI
             {
                 if (MessageBoxDraw.ShowMsg("确认暂停任务吗？", MsgType.Question) == System.Windows.Forms.DialogResult.OK)
                 {
+                    pauseTime = DateTime.Now;
                     SendCommand("PauseSchedule");
                     this.barButtonItem13.LargeGlyph = Firing;
                     this.barButtonItem13.Caption = "启动操作";
@@ -1347,6 +1351,8 @@ namespace BioA.UI
             {
                 if (MessageBoxDraw.ShowMsg("确定恢复样本测试吗？", MsgType.Question) == System.Windows.Forms.DialogResult.OK)
                 {
+                    TimeSpan ts = finishTime - pauseTime;
+                    labfinishTime.Text = "预计完成时间:" + DateTime.Now.AddDays(ts.Days).AddHours(ts.Hours).AddMinutes(ts.Minutes).AddSeconds(ts.Seconds + getFinishTime() * 4.5).ToString();
                     SendCommand("StartSchedule");
                     this.barButtonItem13.LargeGlyph = Suspend;
                     this.barButtonItem13.Caption = "暂停操作";
@@ -1366,8 +1372,9 @@ namespace BioA.UI
                     {
                         if (MessageBoxDraw.ShowMsg("确定开始样本测试吗？", MsgType.Question) == System.Windows.Forms.DialogResult.OK)
                         {
-                            double time = (getFinishTime() - 1) * 4.5 + 720;
-                            labfinishTime.Text = "预计完成时间:" + DateTime.Now.AddSeconds(time).ToString();
+                            double time = (getFinishTime() - 1) * 4.5 + 810;
+                            finishTime = DateTime.Now.AddSeconds(time);
+                            labfinishTime.Text = "预计完成时间:" + finishTime.ToString();
                             SendCommand("StartSchedule");
                         }
                     }
@@ -1433,6 +1440,7 @@ namespace BioA.UI
             }
             if (MessageBoxDraw.ShowMsg("现在确定要紧急停止吗？", MsgType.Question) == System.Windows.Forms.DialogResult.OK)
             {
+                labfinishTime.Text = "预计完成时间:";
                 SendCommand("AbortSchedule");
             }
         }

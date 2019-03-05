@@ -883,7 +883,7 @@ namespace BioA.UI
             this.txtInfoPrompt.Properties.Appearance.Options.UseFont = true;
             this.txtInfoPrompt.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat;
             this.txtInfoPrompt.Properties.ReadOnly = true;
-            this.txtInfoPrompt.Size = new System.Drawing.Size(266, 63);
+            this.txtInfoPrompt.Size = new System.Drawing.Size(266, 39);
             this.txtInfoPrompt.TabIndex = 7;
             // 
             // pictureBox2
@@ -902,7 +902,7 @@ namespace BioA.UI
             this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
             // pcThirdArea
-            //
+            // 
             this.pcThirdArea.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
             this.pcThirdArea.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pcThirdArea.Location = new System.Drawing.Point(200, 165);
@@ -1031,11 +1031,15 @@ namespace BioA.UI
             // 
             // labfinishTime
             // 
+            this.labfinishTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labfinishTime.AutoSize = true;
-            this.labfinishTime.Location = new System.Drawing.Point(1640, 9);
+            this.labfinishTime.BackColor = System.Drawing.Color.FloralWhite;
+            this.labfinishTime.Font = new System.Drawing.Font("Tahoma", 10.5F);
+            this.labfinishTime.Location = new System.Drawing.Point(1219, 130);
             this.labfinishTime.Name = "labfinishTime";
-            this.labfinishTime.Size = new System.Drawing.Size(0, 14);
+            this.labfinishTime.Size = new System.Drawing.Size(106, 17);
             this.labfinishTime.TabIndex = 40;
+            this.labfinishTime.Text = "预计完成时间：";
             // 
             // Form1
             // 
