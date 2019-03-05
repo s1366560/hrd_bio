@@ -356,7 +356,7 @@ namespace BioA.Common
                 if (_CUVCount == 0)
                 {
                     XmlNode point = XMLHelper.GetNode(RunConfigureNode, "ReactionPanel");
-                    _LastPoint = System.Convert.ToInt32(XMLHelper.Read(point, "CUVCount"));
+                    _CUVCount = System.Convert.ToInt32(XMLHelper.Read(point, "CUVCount"));
                 }
 
                 return _CUVCount;

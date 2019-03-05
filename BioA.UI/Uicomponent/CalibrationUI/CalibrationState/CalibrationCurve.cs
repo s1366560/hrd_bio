@@ -87,13 +87,13 @@ namespace BioA.UI
             DataTable dt = new DataTable();
             DataColumn[] dtc = new DataColumn[8];
             dtc[0] = new DataColumn("浓度");
-            dtc[1] = new DataColumn(textEditBlkConc.Text);
-            dtc[2] = new DataColumn(textEditSDT1Conc.Text);
-            dtc[3] = new DataColumn(textEditSDT2Conc.Text);
-            dtc[4] = new DataColumn(textEditSDT3Conc.Text);
-            dtc[5] = new DataColumn(textEditSDT4Conc.Text);
-            dtc[6] = new DataColumn(textEditSDT5Conc.Text);
-            dtc[7] = new DataColumn(textEditSDT6Conc.Text);
+            dtc[1] = new DataColumn(textEditBlkConc.Text + "");
+            dtc[2] = new DataColumn(textEditSDT1Conc.Text + " ");
+            dtc[3] = new DataColumn(textEditSDT2Conc.Text + "  ");
+            dtc[4] = new DataColumn(textEditSDT3Conc.Text + "   ");
+            dtc[5] = new DataColumn(textEditSDT4Conc.Text + "    ");
+            dtc[6] = new DataColumn(textEditSDT5Conc.Text + "     ");
+            dtc[7] = new DataColumn(textEditSDT6Conc.Text + "      ");
             object[] obj = new object[8];
             obj[0] = "吸光度";
             obj[1] = textEditBlkAbs.Text;
@@ -102,9 +102,16 @@ namespace BioA.UI
             obj[4] = textEditSDT3Abs.Text;
             obj[5] = textEditSDT4Abs.Text;
             obj[6] = textEditSDT5Abs.Text;
-            obj[7] = textEditSDT6Abs.Text;         
-            dt.Columns.AddRange(dtc);
-            dt.Rows.Add(obj);
+            obj[7] = textEditSDT6Abs.Text;
+            try
+            {
+                dt.Columns.AddRange(dtc);
+                dt.Rows.Add(obj);
+            }
+            catch(Exception ex)
+            {
+                LogInfo.WriteErrorLog("BioA.UI下的CalibrationCurve()类下的方法{DataTable CreateData()}" + ex.Message, Module.Calibration);
+            }
             return dt;
         }
 

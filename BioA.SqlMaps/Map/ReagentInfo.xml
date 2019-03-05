@@ -289,10 +289,10 @@
         </isNotEmpty>
       </dynamic>
     </update>
-    <update id="UpdateDetergentUsingStartingTime" parameterClass="datetime">
+    <update id="UpdateDetergentUsingStartingTime" parameterClass="string">
       update DetergentUsingTimerTb set StartingTime=#value#
     </update>
-    <update id="UpdateDetergentUsingFinishingTime" parameterClass="datetime">
+    <update id="UpdateDetergentUsingFinishingTime" parameterClass="string">
       update DetergentUsingTimerTb set FinishingTime=#value#
     </update>
     <select id="GetValidPercent" parameterClass="System.Collections.IDictionary" resultClass="ReagentStateInfoR1R2">

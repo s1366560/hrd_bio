@@ -284,69 +284,90 @@ namespace BioA.UI
                 cboCalibMethod.Text == "三次多项式法" )
             {
                 int selectedHandle = this.gridView1.GetSelectedRows()[0];
-                CalibrationCurveInfo calibrationCurveInfo1 = new CalibrationCurveInfo();
-                calibrationCurveInfo1.CalibConcentration = (float)Convert.ToDouble(txtCalibConc1.Text);
-                calibrationCurveInfo1.CalibName = cboCalib1.Text;
-                calibrationCurveInfo1.Pos = txtPos1.Text;
-                calibrationCurveInfo1.ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "项目名称").ToString();
-                calibrationCurveInfo1.SampleType = this.gridView1.GetRowCellValue(selectedHandle, "类型").ToString();
-                calibrationCurveInfo1.CalibType = cboCalibMethod.Text;
-                calibrationCurveInfo1.CalibTime = Convert.ToInt32(cboCalibTimes.Text);
-                lisCalibrationCurveInfo.Add(calibrationCurveInfo1);
-                CalibrationCurveInfo calibrationCurveInfo2 = new CalibrationCurveInfo();
-                calibrationCurveInfo2.CalibConcentration = (float)Convert.ToDouble(txtCalibConc2.Text);
-                calibrationCurveInfo2.CalibName = cboCalib2.Text;
-                calibrationCurveInfo2.Pos = txtPos2.Text;
-                calibrationCurveInfo2.ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "项目名称").ToString();
-                calibrationCurveInfo2.SampleType = this.gridView1.GetRowCellValue(selectedHandle, "类型").ToString();
-                calibrationCurveInfo2.CalibType = cboCalibMethod.Text;
-                calibrationCurveInfo2.CalibTime = Convert.ToInt32(cboCalibTimes.Text);
-                lisCalibrationCurveInfo.Add(calibrationCurveInfo2);
-                CalibrationCurveInfo calibrationCurveInfo3 = new CalibrationCurveInfo();
-                calibrationCurveInfo3.CalibConcentration = (float)Convert.ToDouble(txtCalibConc3.Text);
-                calibrationCurveInfo3.CalibName = cboCalib3.Text;
-                calibrationCurveInfo3.Pos = txtPos3.Text;
-                calibrationCurveInfo3.ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "项目名称").ToString();
-                calibrationCurveInfo3.SampleType = this.gridView1.GetRowCellValue(selectedHandle, "类型").ToString();
-                calibrationCurveInfo3.CalibType = cboCalibMethod.Text;
-                calibrationCurveInfo3.CalibTime = Convert.ToInt32(cboCalibTimes.Text);
-                lisCalibrationCurveInfo.Add(calibrationCurveInfo3);
-                CalibrationCurveInfo calibrationCurveInfo4 = new CalibrationCurveInfo();
-                calibrationCurveInfo4.CalibConcentration = (float)Convert.ToDouble(txtCalibConc4.Text);
-                calibrationCurveInfo4.CalibName = cboCalib4.Text;
-                calibrationCurveInfo4.Pos = txtPos4.Text;
-                calibrationCurveInfo4.ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "项目名称").ToString();
-                calibrationCurveInfo4.SampleType = this.gridView1.GetRowCellValue(selectedHandle, "类型").ToString();
-                calibrationCurveInfo4.CalibType = cboCalibMethod.Text;
-                calibrationCurveInfo4.CalibTime = Convert.ToInt32(cboCalibTimes.Text);
-                lisCalibrationCurveInfo.Add(calibrationCurveInfo4);
-                CalibrationCurveInfo calibrationCurveInfo5 = new CalibrationCurveInfo();
-                calibrationCurveInfo5.CalibConcentration = (float)Convert.ToDouble(txtCalibConc5.Text);
-                calibrationCurveInfo5.CalibName = cboCalib5.Text;
-                calibrationCurveInfo5.Pos = txtPos5.Text;
-                calibrationCurveInfo5.ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "项目名称").ToString();
-                calibrationCurveInfo5.SampleType = this.gridView1.GetRowCellValue(selectedHandle, "类型").ToString();
-                calibrationCurveInfo5.CalibType = cboCalibMethod.Text;
-                calibrationCurveInfo5.CalibTime = Convert.ToInt32(cboCalibTimes.Text);
-                lisCalibrationCurveInfo.Add(calibrationCurveInfo5);
-                CalibrationCurveInfo calibrationCurveInfo6 = new CalibrationCurveInfo();
-                calibrationCurveInfo6.CalibConcentration = (float)Convert.ToDouble(txtCalibConc6.Text);
-                calibrationCurveInfo6.CalibName = cboCalib6.Text;
-                calibrationCurveInfo6.Pos = txtPos6.Text;
-                calibrationCurveInfo6.ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "项目名称").ToString();
-                calibrationCurveInfo6.SampleType = this.gridView1.GetRowCellValue(selectedHandle, "类型").ToString();
-                calibrationCurveInfo6.CalibType = cboCalibMethod.Text;
-                calibrationCurveInfo6.CalibTime = Convert.ToInt32(cboCalibTimes.Text);
-                lisCalibrationCurveInfo.Add(calibrationCurveInfo6);
-                CalibrationCurveInfo calibrationCurveInfo7 = new CalibrationCurveInfo();
-                calibrationCurveInfo7.CalibConcentration = (float)Convert.ToDouble(txtCalibConc7.Text);
-                calibrationCurveInfo7.CalibName = cboCalib7.Text;
-                calibrationCurveInfo7.Pos = txtPos7.Text;
-                calibrationCurveInfo7.ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "项目名称").ToString();
-                calibrationCurveInfo7.SampleType = this.gridView1.GetRowCellValue(selectedHandle, "类型").ToString();
-                calibrationCurveInfo7.CalibType = cboCalibMethod.Text;
-                calibrationCurveInfo7.CalibTime = Convert.ToInt32(cboCalibTimes.Text);
-                lisCalibrationCurveInfo.Add(calibrationCurveInfo7);
+                if (txtPos1.Text != "" && cboCalib1.Text != "")
+                {
+                    CalibrationCurveInfo calibrationCurveInfo1 = new CalibrationCurveInfo();
+                    calibrationCurveInfo1.CalibConcentration = (float)Convert.ToDouble(txtCalibConc1.Text);
+                    calibrationCurveInfo1.CalibName = cboCalib1.Text;
+                    calibrationCurveInfo1.Pos = txtPos1.Text;
+                    calibrationCurveInfo1.ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "项目名称").ToString();
+                    calibrationCurveInfo1.SampleType = this.gridView1.GetRowCellValue(selectedHandle, "类型").ToString();
+                    calibrationCurveInfo1.CalibType = cboCalibMethod.Text;
+                    calibrationCurveInfo1.CalibTime = Convert.ToInt32(cboCalibTimes.Text);
+                    lisCalibrationCurveInfo.Add(calibrationCurveInfo1);
+                }
+                if (txtPos2.Text != "" && cboCalib2.Text != "")
+                {
+                    CalibrationCurveInfo calibrationCurveInfo2 = new CalibrationCurveInfo();
+                    calibrationCurveInfo2.CalibConcentration = (float)Convert.ToDouble(txtCalibConc2.Text == "" ? "0" : txtCalibConc2.Text);
+                    calibrationCurveInfo2.CalibName = cboCalib2.Text;
+                    calibrationCurveInfo2.Pos = txtPos2.Text;
+                    calibrationCurveInfo2.ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "项目名称").ToString();
+                    calibrationCurveInfo2.SampleType = this.gridView1.GetRowCellValue(selectedHandle, "类型").ToString();
+                    calibrationCurveInfo2.CalibType = cboCalibMethod.Text;
+                    calibrationCurveInfo2.CalibTime = Convert.ToInt32(cboCalibTimes.Text);
+                    lisCalibrationCurveInfo.Add(calibrationCurveInfo2);
+                }
+                if (txtPos3.Text != "" && cboCalib3.Text != "")
+                {
+                    CalibrationCurveInfo calibrationCurveInfo3 = new CalibrationCurveInfo();
+                    calibrationCurveInfo3.CalibConcentration = (float)Convert.ToDouble(txtCalibConc3.Text == "" ? "0" : txtCalibConc3.Text);
+                    calibrationCurveInfo3.CalibName = cboCalib3.Text;
+                    calibrationCurveInfo3.Pos = txtPos3.Text;
+                    calibrationCurveInfo3.ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "项目名称").ToString();
+                    calibrationCurveInfo3.SampleType = this.gridView1.GetRowCellValue(selectedHandle, "类型").ToString();
+                    calibrationCurveInfo3.CalibType = cboCalibMethod.Text;
+                    calibrationCurveInfo3.CalibTime = Convert.ToInt32(cboCalibTimes.Text);
+                    lisCalibrationCurveInfo.Add(calibrationCurveInfo3);
+                }
+                if (txtPos4.Text != "" && cboCalib4.Text != "")
+                {
+                    CalibrationCurveInfo calibrationCurveInfo4 = new CalibrationCurveInfo();
+                    calibrationCurveInfo4.CalibConcentration = (float)Convert.ToDouble(txtCalibConc4.Text == "" ? "0" : txtCalibConc4.Text);
+                    calibrationCurveInfo4.CalibName = cboCalib4.Text;
+                    calibrationCurveInfo4.Pos = txtPos4.Text;
+                    calibrationCurveInfo4.ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "项目名称").ToString();
+                    calibrationCurveInfo4.SampleType = this.gridView1.GetRowCellValue(selectedHandle, "类型").ToString();
+                    calibrationCurveInfo4.CalibType = cboCalibMethod.Text;
+                    calibrationCurveInfo4.CalibTime = Convert.ToInt32(cboCalibTimes.Text);
+                    lisCalibrationCurveInfo.Add(calibrationCurveInfo4);
+                }
+                if (txtPos5.Text != "" && cboCalib5.Text != "")
+                {
+                    CalibrationCurveInfo calibrationCurveInfo5 = new CalibrationCurveInfo();
+                    calibrationCurveInfo5.CalibConcentration = (float)Convert.ToDouble(txtCalibConc5.Text == "" ? "0" : txtCalibConc5.Text);
+                    calibrationCurveInfo5.CalibName = cboCalib5.Text;
+                    calibrationCurveInfo5.Pos = txtPos5.Text;
+                    calibrationCurveInfo5.ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "项目名称").ToString();
+                    calibrationCurveInfo5.SampleType = this.gridView1.GetRowCellValue(selectedHandle, "类型").ToString();
+                    calibrationCurveInfo5.CalibType = cboCalibMethod.Text;
+                    calibrationCurveInfo5.CalibTime = Convert.ToInt32(cboCalibTimes.Text);
+                    lisCalibrationCurveInfo.Add(calibrationCurveInfo5);
+                }
+                if (txtPos6.Text != "" && cboCalib6.Text != "")
+                {
+                    CalibrationCurveInfo calibrationCurveInfo6 = new CalibrationCurveInfo();
+                    calibrationCurveInfo6.CalibConcentration = (float)Convert.ToDouble(txtCalibConc6.Text == "" ? "0" : txtCalibConc6.Text);
+                    calibrationCurveInfo6.CalibName = cboCalib6.Text;
+                    calibrationCurveInfo6.Pos = txtPos6.Text;
+                    calibrationCurveInfo6.ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "项目名称").ToString();
+                    calibrationCurveInfo6.SampleType = this.gridView1.GetRowCellValue(selectedHandle, "类型").ToString();
+                    calibrationCurveInfo6.CalibType = cboCalibMethod.Text;
+                    calibrationCurveInfo6.CalibTime = Convert.ToInt32(cboCalibTimes.Text);
+                    lisCalibrationCurveInfo.Add(calibrationCurveInfo6);
+                }
+                if (txtPos7.Text != "" && cboCalib7.Text != "")
+                {
+                    CalibrationCurveInfo calibrationCurveInfo7 = new CalibrationCurveInfo();
+                    calibrationCurveInfo7.CalibConcentration = (float)Convert.ToDouble(txtCalibConc7.Text == "" ? "0" : txtCalibConc7.Text);
+                    calibrationCurveInfo7.CalibName = cboCalib7.Text;
+                    calibrationCurveInfo7.Pos = txtPos7.Text;
+                    calibrationCurveInfo7.ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "项目名称").ToString();
+                    calibrationCurveInfo7.SampleType = this.gridView1.GetRowCellValue(selectedHandle, "类型").ToString();
+                    calibrationCurveInfo7.CalibType = cboCalibMethod.Text;
+                    calibrationCurveInfo7.CalibTime = Convert.ToInt32(cboCalibTimes.Text);
+                    lisCalibrationCurveInfo.Add(calibrationCurveInfo7);
+                }
 
             }
             //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SettingsChemicalParameter, XmlUtility.Serializer(typeof(CommunicationEntity),
@@ -370,12 +391,12 @@ namespace BioA.UI
             if (txtCalibConc1.Text != "" && txtCalibConc2.Text != "" && txtCalibConc3.Text != "" && txtCalibConc4.Text != "" && txtCalibConc5.Text != ""
                 && txtCalibConc6.Text != "" && txtCalibConc7.Text !="")
             {
-                if (Convert.ToDouble(txtCalibConc1.Text) > Convert.ToDouble(txtCalibConc2.Text) && txtCalibConc1.Visible == true && txtCalibConc2.Visible == true ||
-                    Convert.ToDouble(txtCalibConc2.Text) > Convert.ToDouble(txtCalibConc3.Text) && txtCalibConc2.Visible == true && txtCalibConc3.Visible == true ||
-                    Convert.ToDouble(txtCalibConc3.Text) > Convert.ToDouble(txtCalibConc4.Text) && txtCalibConc3.Visible == true && txtCalibConc4.Visible == true ||
-                    Convert.ToDouble(txtCalibConc4.Text) > Convert.ToDouble(txtCalibConc5.Text) && txtCalibConc4.Visible == true && txtCalibConc5.Visible == true ||
-                    Convert.ToDouble(txtCalibConc5.Text) > Convert.ToDouble(txtCalibConc6.Text) && txtCalibConc5.Visible == true && txtCalibConc6.Visible == true ||
-                    Convert.ToDouble(txtCalibConc6.Text) > Convert.ToDouble(txtCalibConc7.Text) && txtCalibConc6.Visible == true && txtCalibConc7.Visible == true
+                if (Convert.ToDouble(txtCalibConc1.Text) > Convert.ToDouble(txtCalibConc2.Text) && Convert.ToDouble(txtCalibConc2.Text) > 0 && txtCalibConc1.Visible == true && txtCalibConc2.Visible == true ||
+                    Convert.ToDouble(txtCalibConc2.Text) > Convert.ToDouble(txtCalibConc3.Text) && Convert.ToDouble(txtCalibConc3.Text) > 0 && txtCalibConc2.Visible == true && txtCalibConc3.Visible == true ||
+                    Convert.ToDouble(txtCalibConc3.Text) > Convert.ToDouble(txtCalibConc4.Text) && Convert.ToDouble(txtCalibConc4.Text) > 0 && txtCalibConc3.Visible == true && txtCalibConc4.Visible == true ||
+                    Convert.ToDouble(txtCalibConc4.Text) > Convert.ToDouble(txtCalibConc5.Text) && Convert.ToDouble(txtCalibConc5.Text) > 0 && txtCalibConc4.Visible == true && txtCalibConc5.Visible == true ||
+                    Convert.ToDouble(txtCalibConc5.Text) > Convert.ToDouble(txtCalibConc6.Text) && Convert.ToDouble(txtCalibConc6.Text) > 0 && txtCalibConc5.Visible == true && txtCalibConc6.Visible == true ||
+                    Convert.ToDouble(txtCalibConc6.Text) > Convert.ToDouble(txtCalibConc7.Text) && Convert.ToDouble(txtCalibConc7.Text) > 0 && txtCalibConc6.Visible == true && txtCalibConc7.Visible == true
                     )
                 {
                     MessageBoxDraw.ShowMsg("请按浓度大小排列！", MsgType.Warning);
@@ -428,54 +449,58 @@ namespace BioA.UI
             {
 
             }
-            if (cboCalib4.Visible == true && cboCalib4.Text == "")
-            {
-                MessageBoxDraw.ShowMsg("请选择浓度3的校准品！", MsgType.Warning);
-                return;
-            }
-            else
-            {
+            //if (cboCalib4.Visible == true && cboCalib4.Text == "")
+            //{
+            //    MessageBoxDraw.ShowMsg("请选择浓度3的校准品！", MsgType.Warning);
+            //    return;
+            //}
+            //else
+            //{
 
-            }
-            if (cboCalib5.Visible == true && cboCalib5.Text == "")
-            {
-                MessageBoxDraw.ShowMsg("请选择浓度4的校准品！", MsgType.Warning);
-                return;
-            }
-            else
-            {
+            //}
+            //if (cboCalib5.Visible == true && cboCalib5.Text == "")
+            //{
+            //    MessageBoxDraw.ShowMsg("请选择浓度4的校准品！", MsgType.Warning);
+            //    return;
+            //}
+            //else
+            //{
 
-            }
-            if (cboCalib6.Visible == true && cboCalib6.Text == "")
-            {
-                MessageBoxDraw.ShowMsg("请选择浓度5的校准品！", MsgType.Warning);
-                return;
-            }
-            else
-            {
+            //}
+            //if (cboCalib6.Visible == true && cboCalib6.Text == "")
+            //{
+            //    MessageBoxDraw.ShowMsg("请选择浓度5的校准品！", MsgType.Warning);
+            //    return;
+            //}
+            //else
+            //{
 
-            }
-            if (cboCalib7.Visible == true && cboCalib7.Text == "")
-            {
-                MessageBoxDraw.ShowMsg("请选择浓度6的校准品！", MsgType.Warning);
-                return;
-            }
-            else
-            {
+            //}
+            //if (cboCalib7.Visible == true && cboCalib7.Text == "")
+            //{
+            //    MessageBoxDraw.ShowMsg("请选择浓度6的校准品！", MsgType.Warning);
+            //    return;
+            //}
+            //else
+            //{
 
-            }
-            if (txtPos1.Visible == true && txtPos1.Text.Trim() == ""||txtPos2.Visible == true && txtPos2.Text.Trim() == ""||
-                txtPos3.Visible == true && txtPos3.Text.Trim() == ""||txtPos4.Visible == true && txtPos4.Text.Trim() == ""||
-                txtPos5.Visible == true && txtPos5.Text.Trim() == ""||txtPos6.Visible == true && txtPos6.Text.Trim() == ""||
-                txtPos7.Visible == true && txtPos7.Text.Trim() == "")
+            //}
+            if (txtPos1.Visible == true && txtPos1.Text.Trim() == ""||txtPos2.Visible == true && txtPos2.Text.Trim() == ""
+                //||
+                //txtPos3.Visible == true && txtPos3.Text.Trim() == ""||txtPos4.Visible == true && txtPos4.Text.Trim() == ""||
+                //txtPos5.Visible == true && txtPos5.Text.Trim() == ""||txtPos6.Visible == true && txtPos6.Text.Trim() == ""||
+                //txtPos7.Visible == true && txtPos7.Text.Trim() == ""
+                )
             {
                 MessageBoxDraw.ShowMsg("校准品位置不能为空值！", MsgType.Warning);
                 return;
             }
-            if (txtCalibConc1.Visible == true && txtCalibConc1.Text.Trim() == "" || txtCalibConc2.Visible == true && txtCalibConc2.Text.Trim() == "" ||
-               txtCalibConc3.Visible == true && txtCalibConc3.Text.Trim() == "" || txtCalibConc4.Visible == true && txtCalibConc4.Text.Trim() == "" ||
-               txtCalibConc5.Visible == true && txtCalibConc5.Text.Trim() == "" || txtCalibConc6.Visible == true && txtCalibConc6.Text.Trim() == "" ||
-               txtCalibConc7.Visible == true && txtCalibConc7.Text.Trim() == "" )
+            if (txtCalibConc1.Visible == true && txtCalibConc1.Text.Trim() == "" || txtCalibConc2.Visible == true && txtCalibConc2.Text.Trim() == "" 
+               // ||
+               //txtCalibConc3.Visible == true && txtCalibConc3.Text.Trim() == "" || txtCalibConc4.Visible == true && txtCalibConc4.Text.Trim() == "" ||
+               //txtCalibConc5.Visible == true && txtCalibConc5.Text.Trim() == "" || txtCalibConc6.Visible == true && txtCalibConc6.Text.Trim() == "" ||
+               //txtCalibConc7.Visible == true && txtCalibConc7.Text.Trim() == "" 
+                )
             {
                 MessageBoxDraw.ShowMsg("校准品浓度不能为空值！", MsgType.Warning);
                 return;

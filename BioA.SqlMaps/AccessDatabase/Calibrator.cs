@@ -443,26 +443,26 @@ namespace BioA.SqlMaps
                         {
                             strResult = "校准项目参数设置中：(多点线性法、折线法、对数法.....)中有校准品名为空！";
                         }
-                        else if (calibrationParamInfo.CalibName2 == "")
-                        {
-                            strResult = "校准项目参数设置中：(多点线性法、折线法、对数法.....)中有校准品名为空！";
-                        }
-                        else if (calibrationParamInfo.CalibName3 == "")
-                        {
-                            strResult = "校准项目参数设置中：(多点线性法、折线法、对数法.....)中有校准品名为空！";
-                        }
-                        else if (calibrationParamInfo.CalibName4 == "")
-                        {
-                            strResult = "校准项目参数设置中：(多点线性法、折线法、对数法.....)中有校准品名为空！";
-                        }
-                        else if (calibrationParamInfo.CalibName5 == "")
-                        {
-                            strResult = "校准项目参数设置中：(多点线性法、折线法、对数法.....)中有校准品名为空！";
-                        }
-                        else if (calibrationParamInfo.CalibName6 == "")
-                        {
-                            strResult = "校准项目参数设置中：(多点线性法、折线法、对数法.....)中有校准品名为空！";
-                        }
+                        //else if (calibrationParamInfo.CalibName2 == "")
+                        //{
+                        //    strResult = "校准项目参数设置中：(多点线性法、折线法、对数法.....)中有校准品名为空！";
+                        //}
+                        //else if (calibrationParamInfo.CalibName3 == "")
+                        //{
+                        //    strResult = "校准项目参数设置中：(多点线性法、折线法、对数法.....)中有校准品名为空！";
+                        //}
+                        //else if (calibrationParamInfo.CalibName4 == "")
+                        //{
+                        //    strResult = "校准项目参数设置中：(多点线性法、折线法、对数法.....)中有校准品名为空！";
+                        //}
+                        //else if (calibrationParamInfo.CalibName5 == "")
+                        //{
+                        //    strResult = "校准项目参数设置中：(多点线性法、折线法、对数法.....)中有校准品名为空！";
+                        //}
+                        //else if (calibrationParamInfo.CalibName6 == "")
+                        //{
+                        //    strResult = "校准项目参数设置中：(多点线性法、折线法、对数法.....)中有校准品名为空！";
+                        //}
                     }
                 }
             }

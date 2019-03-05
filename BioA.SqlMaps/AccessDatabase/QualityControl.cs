@@ -877,8 +877,8 @@ namespace BioA.SqlMaps
             try
             {
                 Hashtable ht = new Hashtable();
-                ht.Add("starttime", DateTime.Now.ToShortDateString());
-                ht.Add("endtime", DateTime.Now.AddDays(1).ToShortDateString());
+                ht.Add("starttime", DateTime.Now.Date);
+                ht.Add("endtime", DateTime.Now.AddDays(1).Date);
                 ht.Add("SampleNum", SampleNum);
 
                 lstQCTaskInfos = (List<QCTaskInfo>)ism_SqlMap.QueryForList<QCTaskInfo>("QCTaskInfo." + strDBMethod, ht);
@@ -2164,7 +2164,7 @@ namespace BioA.SqlMaps
                 ht.Add("ProjectName", dataConfig.ProjectName);
                 ht.Add("SampleType", dataConfig.SampleType);
                 ht.Add("CalibMethod", dataConfig.CalibMethod);
-                ht.Add("DrawDate", dataConfig.DrawDate.ToString("yyyy-MM-dd HH:mm:ss"));
+                ht.Add("DrawDate", dataConfig.DrawDate);
                 ht.Add("IsUsed", dataConfig.IsUsed);
                 int updateResult = ism_SqlMap.Update("Calibrator.SaveSDTTableItem", ht);
                 if (updateResult > 0)

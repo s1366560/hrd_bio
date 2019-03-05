@@ -293,7 +293,7 @@
     </statement>
     <!-- 修改之前被使用的校准曲线状态 -->
     <statement id="BeforeUpdateSDTTableItemIsUsedState" parameterClass="System.Collections.IDictionary">
-      update sdttableitemtb set IsUsed = 'false'  where ProjectName=#ProjectName# and SampleType=#SampleType# and CalibMethod=#CalibMethod# and DrawDate!=#DrawDate#
+      update sdttableitemtb set IsUsed = 'false'  where ProjectName=#ProjectName# and SampleType=#SampleType# and CalibMethod=#CalibMethod# and CONVERT(varchar(19),DrawDate,120)!=#DrawDate#
     </statement>
     <!--<statement id="AddSDTTableItem" parameterClass="System.Collections.IDictionary">      
     insert into sdttableitemtb(CalibMethod,ProjectName,BlkAbs,BlkConc,SDT1Abs,SDT1Conc,SDT2Abs,SDT2Conc,SDT3Abs,SDT3Conc,SDT4Abs,SDT4Conc,SDT5Abs,SDT5Conc,SDT6Abs,SDT6Conc,SampleType)
