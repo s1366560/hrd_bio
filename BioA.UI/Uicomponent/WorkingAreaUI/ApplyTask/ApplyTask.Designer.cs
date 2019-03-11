@@ -370,6 +370,7 @@
             this.txtBarCode.Properties.Appearance.Options.UseFont = true;
             this.txtBarCode.Size = new System.Drawing.Size(300, 24);
             this.txtBarCode.TabIndex = 29;
+            this.txtBarCode.EditValueChanged += new System.EventHandler(this.txtBarCode_EditValueChanged);
             // 
             // combSampleContainer
             // 

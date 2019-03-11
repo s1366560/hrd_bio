@@ -722,6 +722,12 @@
     <Compile Include="Uicomponent\WorkingAreaUI\DataCheck\DataCheck.Designer.cs">
       <DependentUpon>DataCheck.cs</DependentUpon>
     </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\DataCheck\SMPResultSend.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\DataCheck\SMPResultSend.Designer.cs">
+      <DependentUpon>SMPResultSend.cs</DependentUpon>
+    </Compile>
     <Compile Include="Uicomponent\WorkingAreaUI\DataCheck\PrintType.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1066,6 +1072,9 @@
     <EmbeddedResource Include="Uicomponent\WorkingAreaUI\DataCheck\DataCheck.resx">
       <DependentUpon>DataCheck.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\WorkingAreaUI\DataCheck\SMPResultSend.resx">
+      <DependentUpon>SMPResultSend.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\WorkingAreaUI\DataCheck\PrintType.resx">
       <DependentUpon>PrintType.cs</DependentUpon>
     </EmbeddedResource>
@@ -1179,6 +1188,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Resources\barButtonItem18.LargeGlyph.jpg" />
     <Content Include="RunConfigure.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

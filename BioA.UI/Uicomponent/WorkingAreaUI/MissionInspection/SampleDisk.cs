@@ -211,6 +211,49 @@ namespace BioA.UI
                 }
             }
         }
+        /// <summary>
+        /// 样本、试剂仓扫描条形码
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void mbStartScan_Click(object sender, EventArgs e)
+        {
+            if (getOPID != null && !getOPID())
+            {
+                MessageBoxDraw.ShowMsg("机器正在运行中，不能进行条码扫描！", MsgType.OK);
+                return;
+            }
+            else
+            {
+                int[] count = this.gridView1.GetSelectedRows();
+                if (count.Length > 0)
+                {
+                    for (int i = 0; i < count.Length; i++)
+                    {
+                        ScanBarcodePosInfo samp = new ScanBarcodePosInfo();
+                        samp.Disk = 1;
+                        samp.Position = count[i] + 1;
+                        //new Form1().SMPPositions.Enqueue(samp);
+                        ScanBarcodePostEvent(samp);
+                    }
+                }
+                else
+                    MessageBoxDraw.ShowMsg("请选择要扫描的位置！", MsgType.OK);
+                //new Form1().SMPBarcodeSignal.Set();
+                SMPBarcodeSignalEvent();
+            }
+        }
+        /// <summary>
+        /// 发送扫描样本仓要位置和盘号委托事件
+        /// </summary>
+        /// <param name="s"></param>
+        public delegate void ScanBarcodePost(ScanBarcodePosInfo s);
+        public event ScanBarcodePost ScanBarcodePostEvent;
+        /// <summary>
+        /// 发送样本扫码启动线程信号委托事件
+        /// </summary>
+        public delegate void SMPBarcodeSignal();
+        public event SMPBarcodeSignal SMPBarcodeSignalEvent;
 
     }
 }

@@ -89,6 +89,7 @@
             this.btnSendLIS.Size = new System.Drawing.Size(106, 44);
             this.btnSendLIS.TabIndex = 57;
             this.btnSendLIS.Text = "发送LIS";
+            this.btnSendLIS.Click += new System.EventHandler(this.btnSendLIS_Click);
             // 
             // btnDelete
             // 

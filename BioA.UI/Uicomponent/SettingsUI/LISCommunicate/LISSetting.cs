@@ -19,6 +19,13 @@ namespace BioA.UI
         //实例化数据库
         LISSettingService service = new LISSettingService();
 
+        /// <summary>
+        /// 用户点击LIS设置应用后触发事件给启动LIS服务代码
+        /// </summary>
+        public delegate void LISApply();
+        public event LISApply LISApplyEvent;
+
+
         public LISSetting()
         {
             InitializeComponent();
@@ -76,6 +83,12 @@ namespace BioA.UI
                 LISSettingList[2] = lisCommNetwork;
             }
             service.UpdateLISSetingAndNetworkORSerialInfo(LISSettingList);
+
+            if (LISApplyEvent != null)
+            {
+                LISApplyEvent();
+            }
+
             button2_Click(null,null);
         }
         /// <summary>

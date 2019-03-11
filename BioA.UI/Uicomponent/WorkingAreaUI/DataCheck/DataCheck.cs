@@ -974,6 +974,7 @@ namespace BioA.UI
             }
             else if (sender == "3")
             {
+                this.gridView1.SelectAll();
                 if (this.gridView1.GetSelectedRows().Count() > 0)
                 {
                     foreach (int i in this.gridView1.GetSelectedRows())
@@ -1131,6 +1132,112 @@ namespace BioA.UI
         private void PatientResultInfo(string samp, DateTime dateTime)
         {
             lstSampleReuslt = new WorkingAreaDataCheck().GetSmpPrintValues(samp, dateTime, out sampleInfoForResult);
-       }
+        }
+        MyBatis myBatis = null;
+        SMPResultSend smprs = null;
+        /// <summary>
+        /// 发送结果数据给LIS服务
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSendLIS_Click(object sender, EventArgs e)
+        {
+            smprs = new SMPResultSend();
+            smprs.SMPResultSendDelegateEvent += SMPResultSendDelegateEvent_Event;
+            smprs.ShowDialog();
+        }
+
+        public void SMPResultSendDelegateEvent_Event(string sender)
+        {
+            myBatis = new MyBatis();
+            if (sender == "1")
+            {
+                if (this.gridView1.SelectedRowsCount > 0)
+                {
+                    int number = this.gridView1.GetSelectedRows()[0];
+
+                    int sample =int.Parse(this.gridView1.GetRowCellValue(number, "样本编号") as string);
+                    DateTime dateTime = Convert.ToDateTime(this.gridView1.GetRowCellValue(number, "申请时间"));
+                    CreateSMPResultSend(sample, dateTime);
+                    this.smprs.Close();
+                }
+                else
+                {
+                    MessageBox.Show("请选择发送样本结果信息！");
+                }
+
+            }
+            else if (sender == "2")
+            {
+                if (this.gridView1.GetSelectedRows().Count() > 0)
+                {
+                    this.smprs.Close();
+                    foreach (int i in this.gridView1.GetSelectedRows())
+                    {
+                        int sample =int.Parse(this.gridView1.GetRowCellValue(i, "样本编号") as string);
+                        DateTime dateTime = Convert.ToDateTime(this.gridView1.GetRowCellValue(i, "申请时间"));
+                        CreateSMPResultSend(sample, dateTime);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("请选择发送样本结果信息！");
+                }
+            }
+            else if (sender == "3")
+            {
+                this.gridView1.SelectAll();
+                if (this.gridView1.GetSelectedRows().Count() > 0)
+                {
+                    this.smprs.Close();
+                    foreach (int i in this.gridView1.GetSelectedRows())
+                    {
+                        int sample =int.Parse(this.gridView1.GetRowCellValue(i, "样本编号") as string);
+                        DateTime dateTime = Convert.ToDateTime(this.gridView1.GetRowCellValue(i, "申请时间"));
+                        CreateSMPResultSend(sample, dateTime);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("请选择发送样本结果信息！");
+                }
+            }
+        }
+        /// <summary>
+        /// 发送样本结果委托事件
+        /// </summary>
+        /// <param name="resultData"></param>
+        public delegate void SendSMPRsultInfo(ResultData resultData);
+        public event SendSMPRsultInfo SendSMPRsultInfoEvent;
+        /// <summary>
+        /// 获取样本信息、患者信息、结果信息发送给LIS服务
+        /// </summary>
+        /// <param name="sample"></param>
+        /// <param name="dt"></param>
+        public void CreateSMPResultSend(int sample, DateTime dt)
+        {
+            ResultData rd = new ResultData();
+            rd.SampleInfo = myBatis.GetSample(sample, dt);
+            rd.PatientInfo = myBatis.AccordingSampNumGetPatientInfo(sample, dt);
+
+            //string SQL = null;
+            //if (day.Date == DateTime.Now.Date)
+            //{
+            //    SQL = string.Format(@"select * from NORResultTb where SMPNO='{0}' and IsReMoveFlag='{1}' and DateDiff(dd,DrawDate,'{2}')=0",sn, false,day);
+            //}
+            //else
+            //{
+            //    SQL = string.Format(@"select * from NORResultBackUpTb where SMPNO='{0}' and IsReMoveFlag='{1}' and DateDiff(dd,DrawDate,'{2}')=0", sn, false, day);
+            //}
+            List<SampleResultInfo> results = myBatis.QueryProjectResultBySampleNum("QueryProjectResultBySampleNum", new string[] {sample.ToString(),dt.Date.ToString(),rd.SampleInfo.SampleType });
+            //List<CLItem> results = new ResultService().GetNORResults(SQL);
+            rd.Results = new List<SampleResultInfo>();
+            foreach (SampleResultInfo r in results)
+            {
+                rd.Results.Add(r);
+            }
+
+            SendSMPRsultInfoEvent(rd);
+        }
     }
 }

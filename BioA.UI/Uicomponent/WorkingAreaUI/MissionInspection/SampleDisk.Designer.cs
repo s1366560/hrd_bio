@@ -38,6 +38,7 @@
             this.ButInnerRingSelection = new DevExpress.XtraEditors.SimpleButton();
             this.ButReverseSelection = new DevExpress.XtraEditors.SimpleButton();
             this.ButClearSample = new DevExpress.XtraEditors.SimpleButton();
+            this.mbStartScan = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             this.SuspendLayout();
@@ -159,10 +160,22 @@
             this.ButClearSample.Text = "清除样本";
             this.ButClearSample.Click += new System.EventHandler(this.ButClearSample_Click);
             // 
+            // mbStartScan
+            // 
+            this.mbStartScan.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mbStartScan.Appearance.Options.UseFont = true;
+            this.mbStartScan.Location = new System.Drawing.Point(909, 783);
+            this.mbStartScan.Name = "mbStartScan";
+            this.mbStartScan.Size = new System.Drawing.Size(104, 34);
+            this.mbStartScan.TabIndex = 9;
+            this.mbStartScan.Text = "扫描条形码";
+            this.mbStartScan.Click += new System.EventHandler(this.mbStartScan_Click);
+            // 
             // SampleDisk
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.mbStartScan);
             this.Controls.Add(this.ButClearSample);
             this.Controls.Add(this.ButReverseSelection);
             this.Controls.Add(this.ButInnerRingSelection);
@@ -193,5 +206,6 @@
         private DevExpress.XtraEditors.SimpleButton ButInnerRingSelection;
         private DevExpress.XtraEditors.SimpleButton ButReverseSelection;
         private DevExpress.XtraEditors.SimpleButton ButClearSample;
+        private DevExpress.XtraEditors.SimpleButton mbStartScan;
     }
 }

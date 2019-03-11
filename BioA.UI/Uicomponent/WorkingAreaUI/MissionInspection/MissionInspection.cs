@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
+using BioA.Common;
 
 namespace BioA.UI
 {
@@ -15,6 +16,12 @@ namespace BioA.UI
     {
         public delegate bool getopid();
         public event getopid GetOpidEvent;
+
+        public delegate void ScanBarcodePost(ScanBarcodePosInfo s);
+        public event ScanBarcodePost ScanBarcodePostEvent;
+
+        public delegate void SMPBarcodeSignal();
+        public event SMPBarcodeSignal SMPBarcodeSignalEvent;
 
         public MissionInspection()
         {
@@ -29,6 +36,8 @@ namespace BioA.UI
         {
             SampleDisk sampleDisk = new SampleDisk();
             sampleDisk.getOPID += GetOPIDEvent;
+            sampleDisk.ScanBarcodePostEvent += ScanBarcodePostEvent_Event;
+            sampleDisk.SMPBarcodeSignalEvent += SMPBarcodeSignalEvent_Event;
             xtraTabPage1.Controls.Add(sampleDisk);
         }
         /// <summary>
@@ -38,6 +47,21 @@ namespace BioA.UI
         private bool GetOPIDEvent()
         {
             return GetOpidEvent();
+        }
+        /// <summary>
+        /// 发送扫码样本仓要的位置和盘号委托事件
+        /// </summary>
+        /// <param name="s"></param>
+        public void ScanBarcodePostEvent_Event(ScanBarcodePosInfo s)
+        {
+            this.ScanBarcodePostEvent(s);
+        }
+        /// <summary>
+        /// 发送样本扫码命令启动线程信号委托事件
+        /// </summary>
+        public void SMPBarcodeSignalEvent_Event()
+        {
+            this.SMPBarcodeSignalEvent();
         }
     }
 }

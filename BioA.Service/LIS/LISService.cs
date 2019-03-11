@@ -54,6 +54,9 @@ namespace BioA.Service
         /// </summary>
         Queue<string> LisDataRevBuff = new Queue<string>();
         object SendObject = null;
+        /// <summary>
+        /// 开启LIS服务
+        /// </summary>
         public void StartService()
         {
             ReadLisSet();
@@ -61,12 +64,47 @@ namespace BioA.Service
 
             Thread.Sleep(2000);
 
-            new Thread(new ThreadStart(SendData)).Start();
-            new Thread(new ThreadStart(ParseLisDataRevBuff)).Start();
+            //new Thread(new ThreadStart(SendData)).Start();
+            //new Thread(new ThreadStart(ParseLisDataRevBuff)).Start();
+            Task.Run(() => { SendData(); });
+            Task.Run(() => { ParseLisDataRevBuff(); });
 
             if (this.LISRevEvent == null)
             {
                 this.LISRevEvent += new LISServiceHandler(OnLISDataRevService);
+            }
+        }
+        /// <summary>
+        /// 清除数据后，停止LIS服务
+        /// </summary>
+        public void StopService()
+        {
+            if (this.LISRevEvent != null)
+            {
+                this.LISRevEvent -= new LISServiceHandler(OnLISDataRevService);
+            }
+
+            if (this.SerialPort != null && this.SerialPort.IsOpen == true)
+            {
+                this.SerialPort.Close();
+            }
+            if (this.TcpClient != null && this.TcpClient.Connected == true)
+            {
+                this.TcpClient.Client.Close();
+                this.TcpClient.Close();
+            }
+
+            this.IsConnecting = false;
+            Thread.Sleep(300);
+            this.HavingSentObjectSignal.Set();
+
+            lock (LisDataRevBuff)
+            {
+                LisDataRevBuff.Clear();
+            }
+            lock (SendObjectBuffer)
+            {
+                SendObjectBuffer.Clear();
             }
         }
         /// <summary>
@@ -102,12 +140,22 @@ namespace BioA.Service
             else
                 ConnectServer();
         }
+
+        /// <summary>
+        /// 接收样本结果信息
+        /// </summary>
+        /// <param name="rd"></param>
+        public void ReceiveSampleResultEvent_Event(ResultData rd)
+        {
+            this.AddData(rd);
+        }
+
         /// <summary>
         /// 处理发送给LIS服务数据的线程，（信号决定线程状态：set 执行线程，waitOne 阻塞，reset 重置）
         /// </summary>
         ManualResetEvent HavingSentObjectSignal = new ManualResetEvent(false);
         /// <summary>
-        /// 发送的结果数据存入队列中
+        /// 发送的结果数据和条型码扫码存入队列中
         /// </summary>
         /// <param name="d"></param>
         public void AddData(object d)
@@ -153,11 +201,11 @@ namespace BioA.Service
                 this.SerialPort.DataReceived += new SerialDataReceivedEventHandler(OnSerialPortDataReceived);
 
                 this.SerialPort.Open();
-                //OnConnectSuccess(null);
+                OnConnectSuccess(null);
             }
             catch (Exception ex)
             {
-
+                OnLisError(this.LisSet.serialCommInfo.SerialName + "连接失败。");
             }
         }
         /// <summary>
@@ -181,7 +229,7 @@ namespace BioA.Service
             }
             catch (Exception ex)
             {
-                //OnLisError(this.LisSet.COM + ex.Message);
+                OnLisError(this.LisSet.serialCommInfo.SerialName + ex.Message);
             }
         }
         /// <summary>
@@ -744,7 +792,7 @@ namespace BioA.Service
             }
             catch
             {
-                //OnLisError(this.LisSet.IP + ":" + this.LisSet.Port + ":" + "连接失败. ");
+                OnLisError(this.LisSet.lisNetworkInfo.IPAddress + ":" + this.LisSet.lisNetworkInfo.NetworkPort + ":" + "连接失败. ");
             }
         }
         void ConnectCallBack(IAsyncResult iar)
@@ -752,7 +800,7 @@ namespace BioA.Service
             TcpClientSignal.Set();
             try
             {
-                //OnConnectSuccess(null);
+                OnConnectSuccess(null);
 
                 TcpClient = (TcpClient)iar.AsyncState;
                 TcpClient.EndConnect(iar);
@@ -762,7 +810,7 @@ namespace BioA.Service
             }
             catch (Exception e)
             {
-                //OnLisError(this.LisSet.IP + ":" + this.LisSet.Port + ":" + "连接失败. ");
+                OnLisError(this.LisSet.lisNetworkInfo.IPAddress + ":" + this.LisSet.lisNetworkInfo.NetworkPort + ":" + "连接失败. ");
             }
         }
         /// <summary>
@@ -785,7 +833,7 @@ namespace BioA.Service
             }
             catch (Exception e)
             {
-                //OnLisError("从LIS服务器获取网络数据失败. ");
+                OnLisError("从LIS服务器获取网络数据失败. ");
             }
         }
         /// <summary>
@@ -802,7 +850,7 @@ namespace BioA.Service
             }
             catch (Exception e)
             {
-                //OnLisError("通过网络向LIS服务器发送数据失败. ");
+                OnLisError("通过网络向LIS服务器发送数据失败. ");
             }
         }
         void SendCallBack(IAsyncResult iar)
@@ -813,7 +861,7 @@ namespace BioA.Service
             }
             catch (Exception e)
             {
-                //OnLisError("通过网络向LIS服务器发送数据失败2. ");
+                OnLisError("通过网络向LIS服务器发送数据失败2. ");
             }
         }
         /// <summary>
@@ -831,7 +879,10 @@ namespace BioA.Service
                 OnLisError(this.LisSet.serialCommInfo.SerialName + e.Message);
             }
         }
-
+        /// <summary>
+        /// 修改法送结果状态
+        /// </summary>
+        /// <param name="results"></param>
         void UpdateResultsSendFlag(List<SampleResultInfo> results)
         {
             //resultservice resultser = new resultservice();
@@ -867,7 +918,7 @@ namespace BioA.Service
 
         event LISServiceHandler LISRevEvent;
         /// <summary>
-        /// 收到串口数据委托事件
+        /// 收到LIS服务返回数据的委托事件
         /// </summary>
         /// <param name="sender"></param>
         void OnLISRev(object sender)
@@ -915,7 +966,7 @@ namespace BioA.Service
                     //有发送任务
                     if (this.SendObjectBuffer.Count > 0)
                     {
-                        //OnSendLisResultDataRunning("正在发送数据...");
+                        OnSendLisResultDataRunning("正在发送数据...");
 
                         this.SendObject = null;
                         lock (this.SendObjectBuffer)
@@ -962,7 +1013,7 @@ namespace BioA.Service
                                     this.SendObjectBuffer.Remove(this.SendObject);
                                 }
                                 //OnSendLisData("样本结果数据发送超时. ");
-                                //OnSendLisResultDataFailed("结果数据发送超时. ");
+                                OnSendLisResultDataFailed("结果数据发送超时. ");
                             }
                             //样本请求超时
                             if ((this.SendObject is string) == true)
@@ -971,7 +1022,7 @@ namespace BioA.Service
                                 {
                                     this.SendObjectBuffer.Remove(this.SendObject);
                                 }
-                                //OnSMPCodeBarQueryEvent("样本条码：" + (SendObject as string) + "向LIS服务器发出申请超时. ");
+                                OnSMPCodeBarQueryEvent("样本条码：" + (SendObject as string) + "向LIS服务器发出申请超时. ");
                             }
                         }
                         else//服务给出了应答信息
@@ -982,7 +1033,7 @@ namespace BioA.Service
                             {
                                 UpdateResultsSendFlag((SendObject as LISData).Results);
                                 //OnSendLisData("样本结果数据发送成功. ");
-                                //OnSendLisResultDataOK("结果数据发送成功. ");
+                                OnSendLisResultDataOK("结果数据发送成功.... ");
                             }
                             //样本发送成功确认
                             if ((this.SendObject is string) == true)
@@ -990,11 +1041,11 @@ namespace BioA.Service
                                 if (this.IsSampleBarcodeExsiting == true)
                                 {
                                     //OnSendLisData("样本任务请求成功. ");
-                                    //OnApplySampleSuccessEvent(this.SendObject);
+                                    OnApplySampleSuccessEvent(this.SendObject);
                                 }
                                 else
                                 {
-                                    //OnSMPCodeBarQueryEvent("样本条码：" + (SendObject as string) + " 没有查询到，请确认条码. ");
+                                    OnSMPCodeBarQueryEvent("样本条码：" + (SendObject as string) + " 没有查询到，请确认条码. ");
                                 }
 
                             }
@@ -1016,7 +1067,7 @@ namespace BioA.Service
 
                     if (this.SendObjectBuffer.Count == 0)
                     {
-                        //OnNotHasLisDataEvent("暂时没有数据需要发送. ");
+                        OnNotHasLisDataEvent("暂时没有数据需要发送.... ");
                         HavingSentObjectSignal.WaitOne(1000 * 5);
                         HavingSentObjectSignal.Reset();
                     }
@@ -1470,6 +1521,93 @@ namespace BioA.Service
             string Str = MSH.GetString() + (char)CR + QRD.GetString() + (char)CR + QRF.GetString() + (char)CR;
 
             return (char)SB + Str + (char)EB + (char)CR;
+        }
+
+        public event LISServiceHandler ConnectSuccessEvent;
+        /// <summary>
+        /// 连接成功，改变连通状态
+        /// </summary>
+        /// <param name="sender"></param>
+        protected virtual void OnConnectSuccess(object sender)
+        {
+            if (this.ConnectSuccessEvent != null)
+            {
+                this.IsConnecting = true;
+
+                this.ConnectSuccessEvent(sender);
+            }
+        }
+        /// <summary>
+        /// 样本条码请求成功事件
+        /// </summary>
+        public event LISServiceHandler ApplySampleSuccessEvent;
+        protected virtual void OnApplySampleSuccessEvent(object sender)
+        {
+            if (this.ApplySampleSuccessEvent != null)
+            {
+                this.ApplySampleSuccessEvent(sender);
+            }
+        }
+        /// <summary>
+        /// 扫码枪异常提示事件
+        /// </summary>
+        public event LISServiceHandler SMPCodeBarQueryEvent;
+        protected virtual void OnSMPCodeBarQueryEvent(object sender)
+        {
+            if (this.SMPCodeBarQueryEvent != null)
+            {
+                this.SMPCodeBarQueryEvent(sender);
+            }
+        }
+        /// <summary>
+        /// 没有数据发送
+        /// </summary>
+        public event LISServiceHandler NotHasLisDataEvent;
+        protected virtual void OnNotHasLisDataEvent(object sender)
+        {
+            if (this.NotHasLisDataEvent != null)
+            {
+                this.NotHasLisDataEvent(sender);
+            }
+        }
+
+        public event LISServiceHandler SendLisResultDataRunningEvent;
+        /// <summary>
+        /// 正在发送数据
+        /// </summary>
+        /// <param name="sender"></param>
+        protected virtual void OnSendLisResultDataRunning(object sender)
+        {
+            if (this.SendLisResultDataRunningEvent != null)
+            {
+                this.SendLisResultDataRunningEvent(sender);
+            }
+        }
+
+        public event LISServiceHandler SendLisResultDataOKEvent;
+        /// <summary>
+        /// 结果数据发送成功
+        /// </summary>
+        /// <param name="sender"></param>
+        protected virtual void OnSendLisResultDataOK(object sender)
+        {
+            if (this.SendLisResultDataOKEvent != null)
+            {
+                this.SendLisResultDataOKEvent(sender);
+            }
+        }
+
+        public event LISServiceHandler SendLisResultDataFailedEvent;
+        /// <summary>
+        /// 发送结果超时
+        /// </summary>
+        /// <param name="sender"></param>
+        protected virtual void OnSendLisResultDataFailed(object sender)
+        {
+            if (this.SendLisResultDataFailedEvent != null)
+            {
+                this.SendLisResultDataFailedEvent(sender);
+            }
         }
     }
 

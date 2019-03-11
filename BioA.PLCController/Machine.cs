@@ -713,6 +713,10 @@ namespace BioA.PLCController
         //}
         //获取运动当前节点名称
         List<CommandFlow> CommandFlows = new List<CommandFlow>();
+        /// <summary>
+        /// 命令流（获取对应节点的value执行命令）
+        /// </summary>
+        /// <param name="machineXmlNode"></param>
         void LoadCommandFlows(XmlNode machineXmlNode)
         {
             XmlNode MoveNode = XMLHelper.GetNode(machineXmlNode, "CommandFlows");
@@ -1092,7 +1096,7 @@ namespace BioA.PLCController
 
                         float tempoffset = myBatis.GetTempOffset("GetTempOffset");
                         float ct = float.Parse(tempstr);
-                        if (ct > (37.2f + tempoffset) || ct < (36.8f - tempoffset))
+                        if (ct > (37 + tempoffset) || ct < (37 - tempoffset))
                         {
                             this.MachineState.Fired = AnalyzeEvent.SCAN_Temp_INVALID;
                             this.MachineState.State = MachineReturnState.Machine17 + tempstr;
@@ -1740,14 +1744,14 @@ namespace BioA.PLCController
                     //this.MachineState.Fired = null;//消息驱动置空
                     break;
                 case 0x45://样本条码
-                    //string s1 = ParseDictionary[0x45].Parse(data);
-                    //string[] s1v = s1.Split('|');
-                    //this.MachineState.StateValue = s1;
-                    //this.MachineState.Fired = AnalyzeEvent.COMPLETED_SCAN_SMPBarcode;
-                    //this.MachineState.Command.State = 2;
-                    //string strsmpbar = MyResources.Instance.FindResource("Machine83").ToString() + s1v[1] + MyResources.Instance.FindResource("Machine82").ToString();
-                    //this.MachineState.State = strsmpbar;
-                    //this.MachineState.Fired = null;//消息驱动置空
+                    string s1 = ParseDictionary[0x45].Parse(data);
+                    string[] s1v = s1.Split('|');
+                    this.MachineState.StateValue = s1;
+                    this.MachineState.Fired = AnalyzeEvent.COMPLETED_SCAN_SMPBarcode;
+                    this.MachineState.Command.State = 2;
+                    string strsmpbar = "样本位置：" + s1v[1] + "完成条码扫码";
+                    this.MachineState.State = strsmpbar;
+                    this.MachineState.Fired = null;//消息驱动置空
                     break;
                 case 0xAB://ISE模块分析参数设置
                     //ISECalParaSet ISECalParaSet = null;

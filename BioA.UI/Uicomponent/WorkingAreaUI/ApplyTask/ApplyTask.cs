@@ -386,6 +386,13 @@ namespace BioA.UI
                     break;
             }
         }
+        /// <summary>
+        /// 扫码创建项目任务事件
+        /// </summary>
+        public void SMPScanBracodeCreateTask_Event()
+        {
+            this.ApplyTask_Load(null,null);
+        }
 
         private void grpProject_Click(object sender, EventArgs e)
         {
@@ -1103,6 +1110,35 @@ namespace BioA.UI
             //{
             //    myBatis.UpdateRunningTaskWorDisk("UpdateRunningTaskWorDisk", this.combPanelNum.SelectedItem.ToString());
             //}
+        }
+
+        public delegate void SMPBracodInput(string sender);
+        /// <summary>
+        /// 样本条码输入委托事件
+        /// </summary>
+        /// <param name="sender"></param>
+        public event SMPBracodInput SMPBracodInputEvent;
+
+        /// <summary>
+        /// 样本条码输入事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtBarCode_EditValueChanged(object sender, EventArgs e)
+        {
+            if (this.txtBarCode.Text.Length == 7)
+            {
+                if (getopid != null && !getopid())
+                {
+                    MessageBox.Show("当前任务正在测试，暂停后方可继续下任务!");
+                    return;
+                }
+                this.SMPBracodInputEvent(this.txtBarCode.Text);
+            }
+            else
+            {
+                return;
+            }
         }
     }
 }

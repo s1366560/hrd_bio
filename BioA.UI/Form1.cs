@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BioA.UI
@@ -52,10 +53,7 @@ namespace BioA.UI
         TextBox txtPrompt;
         LoginInterface login;
         UserInfo userInfo = new UserInfo();
-        //预计完成时间
-        DateTime finishTime;
-        //暂停的时间
-        DateTime pauseTime;
+
         private MyBatis myBatis = new MyBatis();
 
         public float temp;
@@ -68,8 +66,7 @@ namespace BioA.UI
         /// 初始化一个子控件元素集合
         /// </summary>
         private List<DevExpress.XtraBars.Navigation.AccordionControlElement> _Elements = new List<DevExpress.XtraBars.Navigation.AccordionControlElement>();
-        
-        BioAServiceClient serviceClient = CommunicationUI.ServiceClient;
+
         // 与下位机网口通信
         CLIENT CLClient;
         // 判断系统启动状态，完成读取温度置为false，代表启动完成
@@ -77,7 +74,7 @@ namespace BioA.UI
         public Form1()
         {
             InitializeComponent();
-            
+            this.barButtonItem18.SuperTip = new DevExpress.Utils.SuperToolTip();
             this.WindowState = FormWindowState.Maximized;  //窗口最大化
             this.FormBorderStyle = FormBorderStyle.None; //状态栏没有
             this.CloseBox = false;                      //关闭按钮
@@ -87,17 +84,19 @@ namespace BioA.UI
 
         public void Init()
         {
+            _LISService = new LISService();
+
             CLClient = new CLIENT();
             this.CLClient.DataArriveEvent += ConsoleDataArriveEvent;
             this.CLClient.ConnectSuccessEvent += OnConnectSuccessEvent;
             this.CLClient.ConnectFailedEvent += OnConnectFailedEvent;
             this.CLClient.ClientErrorEvent += OnClientErrorEvent;
             //应该就是这个方法了
-           // this.CLClient.ConnectServer();
+            // this.CLClient.ConnectServer();
 
-           var connThread =  new Thread(CLClient.ConnectServer);//.Start();
-           connThread.IsBackground = true;
-           connThread.Start();
+            var connThread = new Thread(CLClient.ConnectServer);//.Start();
+            connThread.IsBackground = true;
+            connThread.Start();
 
             txtPrompt = new TextBox();
             txtPrompt.Font = new System.Drawing.Font("宋体", 14f);
@@ -114,17 +113,20 @@ namespace BioA.UI
             //var loginThread = new Thread(StartLogin);
             //loginThread.IsBackground = true;
             //loginThread.Start();
+            //异步连接LIS服务器
+            this.AsyncConnectLis();
 
             var analyzerDataQueueServiceThread = new Thread(AnalyzerDataQueueService);
             analyzerDataQueueServiceThread.IsBackground = true;
             analyzerDataQueueServiceThread.Start();
             this.OPID = 0;
 
-
             var machineTroubleThread = new Thread(this.MachineIsTrouble) { IsBackground = true };
             machineTroubleThread.Start();
-            //异步连接LIS服务器
-            this.AsyncConnectLis();
+
+            //new Thread(new ThreadStart(ScanRgtBarcodeService)).Start();
+            //样本仓条码扫描
+            Task.Run(() => { ScanSampleBarcodeService(); });
 
             this.barButtonItem17.AllowDrawArrow = true;
             pictureBox1.BackColor = Color.FromArgb(251, 248, 240);
@@ -136,8 +138,9 @@ namespace BioA.UI
             if (userInfo.DataCheck)
                 _Elements.Add(this.WorkingAreaDataCheckElement2);
             _Elements.Add(this.WorkingAreaMissionInspectionElement3);
-            BeginInvoke(new Action(()=> {
-                 this.accordionControl1.Elements.AddRange(_Elements.ToArray());
+            BeginInvoke(new Action(() =>
+            {
+                this.accordionControl1.Elements.AddRange(_Elements.ToArray());
             }));
             if (userInfo.ApplyTask)
             {
@@ -148,13 +151,16 @@ namespace BioA.UI
                     if (CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent != null)
                         CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent -= applyTask.DataTransfer_Event;
 
-                    applyTask = new ApplyTask();                    
+                    applyTask = new ApplyTask();
                     applyTask.getopid += getOPIDEvent;
                     CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent += applyTask.DataTransfer_Event;
+                    this.SMPBracodeCreateTaskEvent += applyTask.SMPScanBracodeCreateTask_Event;
+                    applyTask.SMPBracodInputEvent += SMPBracodInputEvent_Event;
                     txtPrompt.Text = "您当前的操作：工作区——任务申请";
                     //initializationLoad = new InitializationLoad();
 
-                    BeginInvoke(new Action(() => {
+                    BeginInvoke(new Action(() =>
+                    {
                         pcThirdArea.Controls.Add(txtPrompt);
                         //pcThirdArea.Controls.Add(initializationLoad);
                         pcThirdArea.Controls.Add(applyTask);
@@ -396,9 +402,9 @@ namespace BioA.UI
                                 //case AnalyzeEvent.WORKSTATION_NOMATCHING://工作站失效!
                                 //    OnInvalidUserEvent(null);
                                 //    break;
-                                //case AnalyzeEvent.COMPLETED_SCAN_SMPBarcode://样本条码扫描完成!;
-                                //    OnProcessSampleBarcode(machineState.StateValue);
-                                //    break;
+                                case AnalyzeEvent.COMPLETED_SCAN_SMPBarcode://样本条码扫描完成!;
+                                    OnProcessSampleBarcode(machineState.StateValue);
+                                    break;
                                 //case AnalyzeEvent.COMPLETED_SCAN_RGTBarcode://试剂条码扫描完成
                                 //    OnProcessRgtBarcode(machineState.StateValue);
                                 //    break;
@@ -467,11 +473,11 @@ namespace BioA.UI
                 else if (this.txtPrompt.Text == "您当前的操作：工作区——任务申请")
                     BeginInvoke(new Action(applyTask.QueryTasksStatus));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                LogInfo.WriteErrorLog("TaskStatusDeletection() == "+ ex.ToString(), Module.FramUI);
+                LogInfo.WriteErrorLog("TaskStatusDeletection() == " + ex.ToString(), Module.FramUI);
             }
-            
+
         }
 
         // 任务状态，0——无任务；1——开始；2——暂停；3——紧急停止
@@ -508,10 +514,10 @@ namespace BioA.UI
 
         private void ShowMachineInfo(string machineInfo)
         {
-                BeginInvoke(new EventHandler(delegate
-                {
-                    txtInfoPrompt.Text = machineInfo;
-                }));
+            BeginInvoke(new EventHandler(delegate
+            {
+                txtInfoPrompt.Text = machineInfo;
+            }));
         }
 
         private void HandleSCAN_Temp_INVALID()
@@ -533,6 +539,20 @@ namespace BioA.UI
         private void login_LoginEvent(object sender)
         {
             userInfo = sender as UserInfo;
+        }
+        /// <summary>
+        /// 样本条码
+        /// </summary>
+        /// <param name="v"></param>
+        private void OnProcessSampleBarcode(string v)
+        {
+            string[] vs = v.Split('|');
+
+            switch (this._LISService.LisSet.lisSettingInfo.CommunicationMode)
+            {
+                case "双向": this._LISService.AddData(vs[2]); break;
+                case "单向": break;
+            }
         }
 
         private void StartLogin()
@@ -567,49 +587,247 @@ namespace BioA.UI
                 }
             }
         }
+        private LISService _LISService = null;
+
         /// <summary>
         /// 启动LIS服务
         /// </summary>
         public void AsyncConnectLis()
         {
-            new Thread(new ThreadStart(ConnectLisServer)).Start();
+            //new Thread(new ThreadStart(ConnectLisServer)).Start();
+            Task.Run(() => { ConnectLisServer(); });
         }
 
         void ConnectLisServer()
         {
-            //this.RunningSer.LISToolTip = Application.Current.FindResource("ViewModeMAINMainWindowViewModel9").ToString();
+            this.barButtonItem18.ImageUri = "E:\\HRD_BioA\\BioA.UI\\Resources\\Image\\LIS\\server.png";
 
-            //this.LISSer.ConnectSuccessEvent -= new LISService.LISServiceHandler(OnLISConnectSuccessEvent);
-            //this.LISSer.LisErrorEvent -= new LISService.LISServiceHandler(OnLISSerLisErrorEvent);
+            this._LISService.ConnectSuccessEvent -= new LISService.LISServiceHandler(OnLISConnectSuccessEvent);
+            this._LISService.LisErrorEvent -= new LISService.LISServiceHandler(OnLISSerLisErrorEvent);
 
-            //this.LISSer.SendLisDataEvent -= new LISService.LISServiceHandler(OnLISSerSendLisDataEvent);
-            //this.LISSer.NotHasLisDataEvent -= new LISService.LISServiceHandler(OnLISSerNotHasLisDataEvent);
-            //this.LISSer.SMPCodeBarQueryEvent -= new LISService.LISServiceHandler(OnLISSerSMPCodeBarQueryEvent);
-            //this.LISSer.ApplySampleSuccessEvent -= new LISService.LISServiceHandler(OnLISSerApplySampleSuccessEvent);
-            //this.LISSer.SendLisResultDataFailedEvent -= new LISService.LISServiceHandler(OnLISSerSendLisResultDataFailedEvent);
-            //this.LISSer.SendLisResultDataOKEvent -= new LISService.LISServiceHandler(OnLISSerSendLisResultDataOKEvent);
-            //this.LISSer.SendLisResultDataRunningEvent -= new LISService.LISServiceHandler(OnLISSerSendLisResultDataRunningEvent);
+            //this._LISService.SendLisDataEvent -= new LISService.LISServiceHandler(OnLISSerSendLisDataEvent);
+            this._LISService.NotHasLisDataEvent -= new LISService.LISServiceHandler(OnLISSerNotHasLisDataEvent);
+            this._LISService.SMPCodeBarQueryEvent -= new LISService.LISServiceHandler(OnLISSerSMPCodeBarQueryEvent);
+            this._LISService.ApplySampleSuccessEvent -= new LISService.LISServiceHandler(OnLISSerApplySampleSuccessEvent);
+            this._LISService.SendLisResultDataFailedEvent -= new LISService.LISServiceHandler(OnLISSerSendLisResultDataFailedEvent);
+            this._LISService.SendLisResultDataOKEvent -= new LISService.LISServiceHandler(OnLISSerSendLisResultDataOKEvent);
+            this._LISService.SendLisResultDataRunningEvent -= new LISService.LISServiceHandler(OnLISSerSendLisResultDataRunningEvent);
 
-            //this.RunningSer.LISToolTip = Application.Current.FindResource("ViewModeMAINMainWindowViewModel10").ToString();
-            //this.LISSer.StopService();
-            //Thread.Sleep(1000 * 2);
+            this.DisplayLISServiceTip("Resources\\Image\\LIS\\server_lightning.png", "清除LIS服务信息....");
+            this._LISService.StopService();
+            Thread.Sleep(1000 * 2);
 
-            //this.LISSer.ConnectSuccessEvent += new LISService.LISServiceHandler(OnLISConnectSuccessEvent);
-            //this.LISSer.LisErrorEvent += new LISService.LISServiceHandler(OnLISSerLisErrorEvent);
+            this._LISService.ConnectSuccessEvent += new LISService.LISServiceHandler(OnLISConnectSuccessEvent);
+            this._LISService.LisErrorEvent += new LISService.LISServiceHandler(OnLISSerLisErrorEvent);
 
             ////this.LISSer.SendLisDataEvent += new LISService.LISServiceHandler(OnLISSerSendLisDataEvent);
-            //this.LISSer.SendLisResultDataFailedEvent += new LISService.LISServiceHandler(OnLISSerSendLisResultDataFailedEvent);
-            //this.LISSer.SendLisResultDataOKEvent += new LISService.LISServiceHandler(OnLISSerSendLisResultDataOKEvent);
-            //this.LISSer.SendLisResultDataRunningEvent += new LISService.LISServiceHandler(OnLISSerSendLisResultDataRunningEvent);
-            //this.LISSer.NotHasLisDataEvent += new LISService.LISServiceHandler(OnLISSerNotHasLisDataEvent);
-            //this.LISSer.SMPCodeBarQueryEvent += new LISService.LISServiceHandler(OnLISSerSMPCodeBarQueryEvent);
-            //this.LISSer.ApplySampleSuccessEvent += new LISService.LISServiceHandler(OnLISSerApplySampleSuccessEvent);
+            this._LISService.SendLisResultDataFailedEvent += new LISService.LISServiceHandler(OnLISSerSendLisResultDataFailedEvent);
+            this._LISService.SendLisResultDataOKEvent += new LISService.LISServiceHandler(OnLISSerSendLisResultDataOKEvent);
+            this._LISService.SendLisResultDataRunningEvent += new LISService.LISServiceHandler(OnLISSerSendLisResultDataRunningEvent);
+            this._LISService.NotHasLisDataEvent += new LISService.LISServiceHandler(OnLISSerNotHasLisDataEvent);
+            this._LISService.SMPCodeBarQueryEvent += new LISService.LISServiceHandler(OnLISSerSMPCodeBarQueryEvent);
+            this._LISService.ApplySampleSuccessEvent += new LISService.LISServiceHandler(OnLISSerApplySampleSuccessEvent);
 
-            //this.RunningSer.LISStartWork();
-            //this.RunningSer.LISRunning();
-            //Thread.Sleep(10000);
-            //this.LISSer.StartService();
-        } 
+            this.IsLISflagRunning = true;
+            Task.Run(() => { this.LISRunningService(); });
+            Thread.Sleep(10000);
+            this._LISService.StartService();
+
+        }
+
+        private bool IsLISflagRunning = true;
+        /// <summary>
+        /// LIS服务图标切换
+        /// </summary>
+        private void LISRunningService()
+        {
+            while (this.IsLISflagRunning == true)
+            {
+                this.Invoke(new Action(() => { this.barButtonItem18.ImageUri = _FileName + "Resources\\Image\\LIS\\server.png"; }));
+
+                Thread.Sleep(350);
+                this.Invoke(new Action(() => { this.barButtonItem18.ImageUri = _FileName + "Resources\\Image\\LIS\\server_lightning.png"; }));
+
+                Thread.Sleep(350);
+                this.Invoke(new Action(() => { this.barButtonItem18.ImageUri = _FileName + "Resources\\Image\\LIS\\server.png"; }));
+
+                Thread.Sleep(350);
+            }
+            if (this.IsLISflagRunning == false)
+            {
+                this.Invoke(new Action(() => { this.barButtonItem18.ImageUri = _FileName + SFUrl; }));
+            }
+        }
+
+        /// <summary>
+        /// LIS连接失败后重新连接
+        /// </summary>
+        /// <param name="sender"></param>
+        void OnLISSerLisErrorEvent(object sender)
+        {
+            //this.SuccessAndFailureUrl("Resources\\Image\\LIS\\server_delete.png");
+            this.DisplayLISServiceTip("Resources\\Image\\LIS\\server_delete.png", "LIS连接失败....");
+            //LIS连接失败
+            Thread.Sleep(1000 * 60);
+            this.AsyncConnectLis();
+        }
+        /// <summary>
+        /// LIS服务连接成功，把信息显示给用户
+        /// </summary>
+        /// <param name="sender"></param>
+        private void OnLISConnectSuccessEvent(object sender)
+        {
+            //this.SuccessAndFailureUrl("Resources\\Image\\LIS\\server_add.png");
+            this.DisplayLISServiceTip("Resources\\Image\\LIS\\server_add.png", "LIS连接成功....");
+        }
+        /// <summary>
+        /// 通过扫码创建项目任务委托事件
+        /// </summary>
+        public delegate void SMPBracodeCreateTask();
+        public event SMPBracodeCreateTask SMPBracodeCreateTaskEvent;
+
+        /// <summary>
+        /// 手持样本扫码枪
+        /// 样本条码申请任务执行事件
+        /// </summary>
+        /// <param name="sender"></param>
+        void OnLISSerApplySampleSuccessEvent(object sender)
+        {
+            string code = sender as string;
+
+            SampleInfo Sample = myBatis.GetSampleByBarcode(code, DateTime.Now);
+            BeginInvoke(new Action(() =>
+            {
+                if (this.txtPrompt.Text == "您当前的操作：工作区——任务申请")
+                {
+                    this.SMPBracodeCreateTaskEvent();
+                };
+                MessageBox.Show(string.Format("样本条码：{0} 完成样本任务申请。\r" + "样本盘符:{1} " + "  样本编号：{2} " + "  样本位置：{3}", Sample.Barcode, Sample.PanelNum, Sample.SampleNum, Sample.SamplePos));
+            }));
+
+            SMPBarcodeSignal.Set();
+        }
+        /// <summary>
+        /// 扫码枪异常提示执行事件
+        /// </summary>
+        /// <param name="sender"></param>
+        void OnLISSerSMPCodeBarQueryEvent(object sender)
+        {
+            this.Invoke(new Action(() => { MessageBox.Show(sender.ToString()); }));
+            this.barButtonItem18.ImageUri = _FileName + "Resources\\Image\\LIS\\server_add.png";
+            //Thread.Sleep(1000);
+            SMPBarcodeSignal.Set();
+        }
+        /// <summary>
+        /// 没数据可发送事件
+        /// </summary>
+        /// <param name="sender"></param>
+        private void OnLISSerNotHasLisDataEvent(object sender)
+        {
+            this.DisplayLISServiceTip("Resources\\Image\\LIS\\server_add.png", sender.ToString());
+        }
+        /// <summary>
+        /// 正在发送数据给LIS
+        /// </summary>
+        /// <param name="sender"></param>
+        private void OnLISSerSendLisResultDataRunningEvent(object sender)
+        {
+            this.DisplayLISServiceTip("Resources\\Image\\LIS\\server_go.png", sender.ToString());
+        }
+        /// <summary>
+        /// 发送结果数据成功
+        /// </summary>
+        /// <param name="sender"></param>
+        private void OnLISSerSendLisResultDataOKEvent(object sender)
+        {
+            this.DisplayLISServiceTip("Resources\\Image\\LIS\\server_add.png",sender.ToString());
+        }
+        /// <summary>
+        /// 发送结果超时
+        /// </summary>
+        /// <param name="sender"></param>
+        private void OnLISSerSendLisResultDataFailedEvent(object sender)
+        {
+            this.DisplayLISServiceTip("Resources\\Image\\LIS\\server_delete.png", sender.ToString());
+        }
+        /// <summary>
+        /// 显示LIS连接、发送、接收数据提示信息
+        /// </summary>
+        /// <param name="Url"></param>
+        /// <param name="displayInfo"></param>
+        private void DisplayLISServiceTip(string Url, string displayInfo)
+        {
+            this.barButtonItem18.ImageUri = _FileName + Url; // "E:\\HRD_BioA\\BioA.UI\\Resources\\Image\\LIS\\server_add.png";
+            this.barButtonItem18.SuperTip.Items.Clear();
+            this.barButtonItem18.SuperTip.Items.AddTitle(displayInfo);
+        }
+
+        string SFUrl = "";
+
+        /// <summary>
+        /// 成功、失败、没有数据发送
+        /// </summary>
+        private void SuccessAndFailureUrl(string url)
+        {
+            this.IsLISflagRunning = false;
+            this.SFUrl = url;
+        }
+
+        public Queue<ScanBarcodePosInfo> SMPPositions = new Queue<ScanBarcodePosInfo>();
+        public ManualResetEvent SMPBarcodeSignal = new ManualResetEvent(false);
+        /// <summary>
+        /// 样本条码命令处理
+        /// </summary>
+        void ScanSampleBarcodeService()
+        {
+            while (true)
+            {
+                SMPBarcodeSignal.WaitOne();
+                if (this.SMPPositions.Count > 0)
+                {
+                    ScanBarcodePosInfo p = null;
+                    lock (SMPPositions)
+                    {
+                        p = SMPPositions.Dequeue();
+                    }
+                    //发送命令
+                    OnScanSampleBarcode(p);
+
+                    this.SMPBarcodeSignal.Reset();
+                }
+
+                if (this.SMPPositions.Count == 0)
+                {
+                    this.SMPBarcodeSignal.Reset();
+                }
+            }
+        }
+        /// <summary>
+        ///要执行的样本、试剂仓条码器的命令发送给下位机
+        /// </summary>
+        /// <param name="p"></param>
+        void OnScanSampleBarcode(ScanBarcodePosInfo p)
+        {
+            Command c = null;
+            switch (p.Disk)
+            {
+                case 1:
+                    c = MachineInfo.GetCommandByName("SMPPanelScanBarcode");
+                    break;
+                case 2:
+                    c = MachineInfo.GetCommandByName("SMPPanelScan2Barcode");
+                    break;
+            }
+
+            if (c != null)
+            {
+                string PositionsString = "";
+                PositionsString += p.Position.ToString() + "|";
+                c.Para = p.Disk + ":" + PositionsString;
+                c.State = 1;
+                this.CLClient.SendData(XmlUtility.Serializer(typeof(Command), c));
+            }
+        }
 
         private void MachineIsTrouble()
         {
@@ -617,7 +835,7 @@ namespace BioA.UI
             while (true)
             {
                 bool bol = myBatis.TroubleLogInfo();
-                if(bol == true)
+                if (bol == true)
                 {
                     if (this.IsWarningInfoUIActivity == true)
                     {
@@ -628,14 +846,14 @@ namespace BioA.UI
                 }
                 else
                 {
-                    if(i == 1)
+                    if (i == 1)
                     {
                         ErrorFaultSignal.Set();
                         i++;
                     }
                 }
             }
-            
+
         }
 
 
@@ -652,6 +870,7 @@ namespace BioA.UI
             var initThread = new Thread(Init);
             initThread.IsBackground = true;
             initThread.Start();
+
 
         }
 
@@ -756,6 +975,8 @@ namespace BioA.UI
                     applyTask = new ApplyTask();
                     applyTask.getopid += getOPIDEvent;
                     CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent += applyTask.DataTransfer_Event;
+                    this.SMPBracodeCreateTaskEvent += applyTask.SMPScanBracodeCreateTask_Event;
+                    applyTask.SMPBracodInputEvent += SMPBracodInputEvent_Event;
                     txtPrompt.Text = "您当前的操作：工作区——任务申请";
                     pcThirdArea.Controls.Add(txtPrompt);
                     pcThirdArea.Controls.Add(applyTask);
@@ -775,6 +996,7 @@ namespace BioA.UI
 
                 dadtCheck = new DataCheck();
                 CommunicationUI.notifyCallBack.CommonSampleDataEvent += dadtCheck.DataTransfer_Event;
+                dadtCheck.SendSMPRsultInfoEvent += this._LISService.ReceiveSampleResultEvent_Event;
                 txtPrompt.Text = "您当前的操作：工作区——任务结果";
                 pcThirdArea.Controls.Add(txtPrompt);
                 pcThirdArea.Controls.Add(dadtCheck);
@@ -792,6 +1014,8 @@ namespace BioA.UI
                 applyTask = new ApplyTask();
                 applyTask.getopid += getOPIDEvent;
                 CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent += applyTask.DataTransfer_Event;
+                this.SMPBracodeCreateTaskEvent += applyTask.SMPScanBracodeCreateTask_Event;
+                applyTask.SMPBracodInputEvent += SMPBracodInputEvent_Event;
                 txtPrompt.Text = "您当前的操作：工作区——任务申请";
                 pcThirdArea.Controls.Add(txtPrompt);
                 pcThirdArea.Controls.Add(applyTask);
@@ -805,6 +1029,8 @@ namespace BioA.UI
             pcThirdArea.Controls.Clear();
             missionInspection = new MissionInspection();
             missionInspection.GetOpidEvent += this.getOPIDEvent;
+            missionInspection.ScanBarcodePostEvent += ScanBarcodePostEvent_Event;
+            missionInspection.SMPBarcodeSignalEvent += SMPBarcodeSignalEvent_Event;
             txtPrompt.Text = "您当前的操作：工作区——任务核查";
             pcThirdArea.Controls.Add(txtPrompt);
             pcThirdArea.Controls.Add(missionInspection);
@@ -937,7 +1163,7 @@ namespace BioA.UI
                     this.QCTaskElement25.Image = images;
                     pcThirdArea.Controls.Clear();
                     applyQCTask = new ApplyQCTask();
-                    applyQCTask.getopid += getOPIDEvent;                   
+                    applyQCTask.getopid += getOPIDEvent;
                     if (CommunicationUI.notifyCallBack.QCTaskDataTransferEvent != null)
                         CommunicationUI.notifyCallBack.QCTaskDataTransferEvent -= applyQCTask.DataTransfer_Event;
                     CommunicationUI.notifyCallBack.QCTaskDataTransferEvent += applyQCTask.DataTransfer_Event;
@@ -947,7 +1173,7 @@ namespace BioA.UI
 
                 }
             }
-            
+
         }
         private void accordionControlElement8_Click(object sender, EventArgs e)
         {
@@ -1341,7 +1567,6 @@ namespace BioA.UI
             {
                 if (MessageBoxDraw.ShowMsg("确认暂停任务吗？", MsgType.Question) == System.Windows.Forms.DialogResult.OK)
                 {
-                    pauseTime = DateTime.Now;
                     SendCommand("PauseSchedule");
                     this.barButtonItem13.LargeGlyph = Firing;
                     this.barButtonItem13.Caption = "启动操作";
@@ -1351,8 +1576,6 @@ namespace BioA.UI
             {
                 if (MessageBoxDraw.ShowMsg("确定恢复样本测试吗？", MsgType.Question) == System.Windows.Forms.DialogResult.OK)
                 {
-                    TimeSpan ts = finishTime - pauseTime;
-                    labfinishTime.Text = "预计完成时间:" + DateTime.Now.AddDays(ts.Days).AddHours(ts.Hours).AddMinutes(ts.Minutes).AddSeconds(ts.Seconds + getFinishTime() * 4.5).ToString();
                     SendCommand("StartSchedule");
                     this.barButtonItem13.LargeGlyph = Suspend;
                     this.barButtonItem13.Caption = "暂停操作";
@@ -1364,17 +1587,16 @@ namespace BioA.UI
                 return;
             }
             else
-            {                
+            {
                 int lstResult = myBatis.GetAllTasksCount("GetAllTasksCount");
                 if (lstResult != 0)
-                {                  
+                {
                     if (this.OPID == 0)
                     {
                         if (MessageBoxDraw.ShowMsg("确定开始样本测试吗？", MsgType.Question) == System.Windows.Forms.DialogResult.OK)
                         {
-                            double time = (getFinishTime() - 1) * 4.5 + 810;
-                            finishTime = DateTime.Now.AddSeconds(time);
-                            labfinishTime.Text = "预计完成时间:" + finishTime.ToString();
+                            double time = (getFinishTime() - 1) * 4.5 + 720;
+                            labfinishTime.Text = "预计完成时间:" + DateTime.Now.AddSeconds(time).ToString();
                             SendCommand("StartSchedule");
                         }
                     }
@@ -1395,7 +1617,7 @@ namespace BioA.UI
         //暂停
         private Image Suspend = System.Drawing.Image.FromFile(_FileName + "Resources\\Image\\Tempstoping.png");
         //启动
-        private Image Firing = System.Drawing.Image.FromFile(_FileName +"Resources\\Image\\Execing.png");
+        private Image Firing = System.Drawing.Image.FromFile(_FileName + "Resources\\Image\\Execing.png");
 
         /// <summary>
         /// 启动按钮
@@ -1414,7 +1636,7 @@ namespace BioA.UI
                         if (this.OPID == 0)
                         {
                             if (MessageBoxDraw.ShowMsg("确定开始样本测试吗？", MsgType.Question) == System.Windows.Forms.DialogResult.OK)
-                            {                               
+                            {
                                 SendCommand("StartSchedule");
                             }
                         }
@@ -1440,12 +1662,11 @@ namespace BioA.UI
             }
             if (MessageBoxDraw.ShowMsg("现在确定要紧急停止吗？", MsgType.Question) == System.Windows.Forms.DialogResult.OK)
             {
-                labfinishTime.Text = "预计完成时间:";
                 SendCommand("AbortSchedule");
             }
         }
 
-       
+
 
         private void accordionControlElement21_Click(object sender, EventArgs e)
         {
@@ -1456,7 +1677,7 @@ namespace BioA.UI
                 pcThirdArea.Controls.Add(configure);
             }
         }
-        
+
 
         private void pcThirdArea_Paint(object sender, PaintEventArgs e)
         {
@@ -1513,7 +1734,7 @@ namespace BioA.UI
         private bool IsWarningInfoUIActivity = false;
         private void ChangeiconEvent(object sender, MouseEventArgs e)
         {
-            
+
             this.IsWarningInfoUIActivity = true;
             this.Invoke(new Action(() => { this.pictureBox2.Image = this.pictureBox2.InitialImage; }));
             ErrorFaultSignal.Reset();
@@ -1540,7 +1761,7 @@ namespace BioA.UI
         /// </summary>
         private void FeatureListTagIcon(List<DevExpress.XtraBars.Navigation.AccordionControlElement> _Elements)
         {
-            foreach(DevExpress.XtraBars.Navigation.AccordionControlElement accrodionElement in _Elements)
+            foreach (DevExpress.XtraBars.Navigation.AccordionControlElement accrodionElement in _Elements)
             {
                 accrodionElement.Image = null;
             }
@@ -1560,6 +1781,37 @@ namespace BioA.UI
                 return false;
             }
         }
+        /// <summary>
+        /// 委托事件传递数据存储到队列里
+        /// </summary>
+        /// <param name="s"></param>
+        public void ScanBarcodePostEvent_Event(ScanBarcodePosInfo s)
+        {
+            this.SMPPositions.Enqueue(s);
+        }
+        /// <summary>
+        /// 启动样本条码线程信号
+        /// </summary>
+        public void SMPBarcodeSignalEvent_Event()
+        {
+            this.SMPBarcodeSignal.Set();
+        }
+        /// <summary>
+        /// 样本条码输入触发事件
+        /// </summary>
+        /// <param name="sender"></param>
+        private void SMPBracodInputEvent_Event(string sender)
+        {
+            switch (this._LISService.LisSet.lisSettingInfo.CommunicationDirection)
+            {
+                case "双向":
+                    this._LISService.AddData(sender);
+                    BeginInvoke(new Action(() => { MessageBox.Show("样本条码正在向LIS申请任务，请稍等！");}));
+                    break;
+                case "单向":
+                    break;
+            }
+        }
 
         /// <summary>
         /// LIS设置
@@ -1570,6 +1822,7 @@ namespace BioA.UI
         {
             LISSetting LIS = new LISSetting();
             LIS.StartPosition = FormStartPosition.CenterScreen;
+            LIS.LISApplyEvent += this.AsyncConnectLis;
             LIS.ShowDialog();
         }
         /// <summary>
