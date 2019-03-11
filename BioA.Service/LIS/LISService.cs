@@ -800,10 +800,10 @@ namespace BioA.Service
             TcpClientSignal.Set();
             try
             {
-                OnConnectSuccess(null);
 
                 TcpClient = (TcpClient)iar.AsyncState;
                 TcpClient.EndConnect(iar);
+                OnConnectSuccess(null);
                 networkStream = TcpClient.GetStream();
                 TcpClientDataRead dataRead = new TcpClientDataRead(networkStream, TcpClient.ReceiveBufferSize);
                 networkStream.BeginRead(dataRead.msg, 0, dataRead.msg.Length, ReadCallBack, dataRead);

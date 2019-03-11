@@ -668,8 +668,8 @@ namespace BioA.UI
         /// <param name="sender"></param>
         void OnLISSerLisErrorEvent(object sender)
         {
-            //this.SuccessAndFailureUrl("Resources\\Image\\LIS\\server_delete.png");
-            this.DisplayLISServiceTip("Resources\\Image\\LIS\\server_delete.png", "LIS连接失败....");
+            this.SuccessAndFailureUrl("Resources\\Image\\LIS\\server_delete.png");
+            this.DisplayLISServiceTip("Resources\\Image\\LIS\\server_delete.png", sender.ToString());
             //LIS连接失败
             Thread.Sleep(1000 * 60);
             this.AsyncConnectLis();
@@ -680,8 +680,8 @@ namespace BioA.UI
         /// <param name="sender"></param>
         private void OnLISConnectSuccessEvent(object sender)
         {
-            //this.SuccessAndFailureUrl("Resources\\Image\\LIS\\server_add.png");
-            this.DisplayLISServiceTip("Resources\\Image\\LIS\\server_add.png", "LIS连接成功....");
+            this.SuccessAndFailureUrl("Resources\\Image\\LIS\\server_add.png");
+            this.DisplayLISServiceTip("Resources\\Image\\LIS\\server_add.png", sender.ToString());
         }
         /// <summary>
         /// 通过扫码创建项目任务委托事件

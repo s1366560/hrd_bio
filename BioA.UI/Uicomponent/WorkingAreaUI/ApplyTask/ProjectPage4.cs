@@ -192,7 +192,7 @@ namespace BioA.UI
                 selectedProjects = value;
                 foreach (Control control in this.Controls)
                 {
-                    if (control.GetType() == typeof(DevExpress.XtraEditors.SimpleButton))
+                    if (control.GetType() == typeof(System.Windows.Forms.Button))
                     {
                         foreach (string str in selectedProjects)
                         {
@@ -262,7 +262,7 @@ namespace BioA.UI
             {
                 if(control.Tag != null)
                 {
-                    if (control.GetType() == typeof(DevExpress.XtraEditors.SimpleButton))
+                    if (control.GetType() == typeof(System.Windows.Forms.Button))
                     {
                         this.Invoke(new EventHandler(delegate
                         {

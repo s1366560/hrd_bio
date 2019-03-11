@@ -362,7 +362,6 @@
             superToolTip1.Items.Add(toolTipTitleItem1);
             this.comBoxCommMode.SuperTip = superToolTip1;
             this.comBoxCommMode.TabIndex = 1;
-            this.comBoxCommMode.ToolTip = "\r\n";
             this.comBoxCommMode.SelectedValueChanged += new System.EventHandler(this.comBoxCommMode_SelectedValueChanged);
             // 
             // label1
