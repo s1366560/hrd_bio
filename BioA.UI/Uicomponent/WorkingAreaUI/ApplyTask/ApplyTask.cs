@@ -588,8 +588,12 @@ namespace BioA.UI
             {
                 if (s.SampleNum == System.Convert.ToInt32(txtSampleNum.Text))
                 {
-                    MessageBox.Show("此样本号已被申请任务，请修改样本号！");
+                    DialogResult dr = MessageBox.Show("此样本号已被申请任务，请修改样本号！");
                     btnSave.Enabled = true;
+                    if (dr == DialogResult.OK)
+                    {
+                        btnApply_Click(null, null);
+                    }
                     return;
                 }
             }

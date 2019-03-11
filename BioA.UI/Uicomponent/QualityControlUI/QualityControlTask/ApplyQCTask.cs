@@ -430,6 +430,18 @@ namespace BioA.UI
                                 qcTaskDictionary.Clear();
                                 qcTaskDictionary.Add("QueryProjectNameInfoByQC", new object[] { XmlUtility.Serializer(typeof(QualityControlInfo), qcInfo), combSampleType.SelectedItem.ToString() });
                                 ClientSendToServices(qcTaskDictionary);
+                                //lstQCRelateProject = new QCTask().QueryProjectNameInfoByQC("QueryProjectNameInfoByQC",qcInfo, combSampleType.SelectedItem.ToString());
+                                //this.Invoke(new EventHandler(delegate
+                                //{
+                                //    tabcProject.SelectedTabPageIndex = 0;
+                                //}));
+
+                                //projectPage1.ResetControlState();
+                                //projectPage2.ResetControlState();
+                                //projectPage3.ResetControlState();
+                                //projectPage1.SelectedProjects = lstQCRelateProject;
+                                //projectPage2.SelectedProjects = lstQCRelateProject;
+                                //projectPage3.SelectedProjects = lstQCRelateProject;
                             }
                         }
                     }

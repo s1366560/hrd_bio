@@ -1037,9 +1037,8 @@ namespace BioA.UI
             this.labfinishTime.Font = new System.Drawing.Font("Tahoma", 10.5F);
             this.labfinishTime.Location = new System.Drawing.Point(1219, 130);
             this.labfinishTime.Name = "labfinishTime";
-            this.labfinishTime.Size = new System.Drawing.Size(106, 17);
+            this.labfinishTime.Size = new System.Drawing.Size(0, 17);
             this.labfinishTime.TabIndex = 40;
-            this.labfinishTime.Text = "预计完成时间：";
             // 
             // Form1
             // 
