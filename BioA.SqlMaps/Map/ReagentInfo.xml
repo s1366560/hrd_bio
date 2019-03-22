@@ -6,6 +6,8 @@
     <typeAlias alias="ReagentStateInfo" type="BioA.Common.ReagentStateInfo, BioA.Common" />
     <typeAlias alias="ReagentStateInfoR1R2" type="BioA.Common.ReagentStateInfoR1R2, BioA.Common" />
     <typeAlias alias="Reagent2UsingCountInfo" type="BioA.Common.Reagent2UsingCountInfo, BioA.Common" />
+    <typeAlias alias="ReagentItem" type="BioA.Common.ReagentItem, BioA.Common" />
+    <typeAlias alias="ReagentBarcodeParam" type="BioA.Common.ReagentBarcodeParam, BioA.Common" />
   </alias>
   <resultMaps>
     <resultMap id="ReagentSettingsInfoResult" class="ReagentSettingsInfo">
@@ -336,6 +338,49 @@
     </statement>
     <!-- 试剂2使用次数表插入数据 -->
     <statement id="InsertReagent2UsingCountInfo" parameterClass="string">
+      $value$
+    </statement>
+    
+    <!-- 获取试剂项目参数信息 -->
+    <statement id="getReagentItemInfo" parameterClass="string" resultClass="ReagentItem">
+      $value$
+    </statement>
+
+    <!-- 获取试剂条码参数信息 ReagentBarcodeParam -->
+    <statement id="GetAssayALLReagentByBarcode" parameterClass="string" resultClass="ReagentSettingsInfo">
+      $value$
+    </statement>
+    <!-- 保存试剂条码参数信息 ReagentBarcodeParamTb -->
+    <statement id="InsertReagentBarcode" parameterClass="string">
+      $value$
+    </statement>
+
+    <!-- 获取试剂条码参数信息 ReagentBarcodeParamTb-->
+    <statement id="GetAllReagentBarParamByBarcode" parameterClass="string" resultClass="ReagentBarcodeParam">
+      $value$
+    </statement>
+
+    <!-- 删除试剂参数信息 ReagentSettingsTb/ReagentSettingstbr2-->
+    <statement id="DeleteReagentInfo" parameterClass="string">
+      $value$
+    </statement>GetAssayReagentByDisk
+
+    <!-- 获取试剂参数信息 ReagentSettingsTb/ReagentSettingstbr2-->
+    <statement id="GetAssayReagentByDisk" parameterClass="string" resultClass="ReagentSettingsInfo">
+      $value$
+    </statement>UpdateReagentR1AndR2Info
+    <!-- 更新试剂状态R1R2信息 reagentstateinfor1r2tb-->
+    <statement id="UpdateReagentR1AndR2Info" parameterClass="string">
+      $value$
+    </statement>
+
+    <!-- 保存试剂状态R1R2信息 reagentstateinfor1r2tb 和试剂参数信息 ReagentSettingsTb/ReagentSettingsTbR2-->
+    <statement id="SaveReagentR1AndR2Info" parameterClass="string">
+      $value$
+    </statement>
+
+    <!-- 获取试剂状态信息 reagentstateinfor1r2tb -->
+    <statement id="GetReagentStateInfoR1R2" parameterClass="string" resultClass="ReagentStateInfoR1R2">
       $value$
     </statement>
   </statements>

@@ -102,18 +102,12 @@ namespace BioA.UI
 
             lstReagentSettingsInfo = new BioA.Service.ReagentSetting().QueryReagentSettingsInfo("QueryReagentSetting1", "");
             //把获取到的数据绑定到gridControl1控件上,显示到界面
-            //this.Invoke(new EventHandler(delegate { gridControl1.DataSource = lstReagentSettingsInfo; }));
             InitialReagentInfos(lstReagentSettingsInfo);
 
             lstReagentSettingsR2Info = new BioA.Service.ReagentSetting().QueryReagentSettingsInfo("QueryReagentSetting2", "");
             //把获取到的数据绑定到gridControl2控件上,显示到界面
-            //this.Invoke(new EventHandler(delegate { gridControl2.DataSource = lstReagentSettingsR2Info; });
             InitialReagentInfos2(lstReagentSettingsR2Info);
 
-            //reagentDictionary.Clear();
-            //reagentDictionary.Add("QueryReagentSetting1", new object[] { "" });
-            //reagentDictionary.Add("QueryReagentSetting2", new object[] { "" });
-            //ClientSendToServicer(reagentDictionary);
         }
         /// <summary>
         /// 试剂保存成功后，触发事件执行的方法

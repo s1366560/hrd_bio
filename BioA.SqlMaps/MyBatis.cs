@@ -38,24 +38,63 @@ namespace BioA.SqlMaps
         /// <summary>
         /// 访问数据库对象
         /// </summary>
-        public ISqlMapper ism_SqlMap;
+        //public ISqlMapper ism_SqlMap;
         public MyBatis()
+        {
+            //try
+            //{
+            //    // 加载sqlmap.config文件
+            //    Assembly assembly = Assembly.Load("BioA.SqlMaps");
+            //    Stream stream = assembly.GetManifestResourceStream("BioA.SqlMaps.SqlMap.config");
+
+            //    // 初始化访问数据库对象
+            //    DomSqlMapBuilder builder = new DomSqlMapBuilder();
+            //    ism_SqlMap = builder.Configure(stream);
+            //    //CreateTables();
+            //}
+            //catch (Exception e)
+            //{
+            //    LogInfo.WriteErrorLog("MyBatis.cs_MyBatis()==" + e.ToString(), Common.Module.DAO);
+            //}
+        }
+
+        private static readonly object SqlMapperLock = new object();
+        /// <summary>
+        /// 全局唯一静态，重用这个变量
+        /// </summary>
+        private static volatile ISqlMapper _ISqlMapper;
+        /// <summary>
+        /// 公开的静态方法提供对象实例
+        /// </summary>
+        /// <returns></returns>
+        public static ISqlMapper ISqlMapper()
         {
             try
             {
-                // 加载sqlmap.config文件
-                Assembly assembly = Assembly.Load("BioA.SqlMaps");
-                Stream stream = assembly.GetManifestResourceStream("BioA.SqlMaps.SqlMap.config");
+                if (_ISqlMapper == null)
+                {
+                    lock (SqlMapperLock)
+                    {
+                        if (_ISqlMapper == null)
+                        {
+                            // 加载sqlmap.config文件
+                            Assembly assembly = Assembly.Load("BioA.SqlMaps");
+                            Stream stream = assembly.GetManifestResourceStream("BioA.SqlMaps.SqlMap.config");
 
-                // 初始化访问数据库对象
-                DomSqlMapBuilder builder = new DomSqlMapBuilder();
-                ism_SqlMap = builder.Configure(stream);
-                //CreateTables();
+                            // 初始化访问数据库对象
+                            DomSqlMapBuilder builder = new DomSqlMapBuilder();
+                            _ISqlMapper = builder.Configure(stream);
+                            //CreateTables();
+                        }
+                    }
+                }
+                
             }
             catch (Exception e)
             {
                 LogInfo.WriteErrorLog("MyBatis.cs_MyBatis()==" + e.ToString(), Common.Module.DAO);
             }
+            return _ISqlMapper;
         }
 
         public void CreateTables()

@@ -326,6 +326,14 @@
       <DependentUpon>QCProjectPage3.cs</DependentUpon>
     </Compile>
     <Compile Include="Uicomponent\QueryResultSetTb.cs" />
+    <Compile Include="Uicomponent\ReagentUI\ReagentSetting\LoadingReagentBlocking.cs">
+      <SubType>Form</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Uicomponent\ReagentUI\ReagentSetting\LoadingReagentBlocking.Designer.cs">
+      <DependentUpon>LoadingReagentBlocking.cs</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Uicomponent\ReagentUI\ReagentSetting\frmLoadingReagent.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -506,6 +514,20 @@
     </Compile>
     <Compile Include="Uicomponent\SystemUI\Configure\Configure.Designer.cs">
       <DependentUpon>Configure.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\Configure\ConfigurationScript.cs">
+      <SubType>UserControl</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\Configure\ConfigurationScript.Designer.cs">
+      <DependentUpon>ConfigurationScript.cs</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\Configure\WaitForm1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\Configure\WaitForm1.Designer.cs">
+      <DependentUpon>WaitForm1.cs</DependentUpon>
     </Compile>
     <Compile Include="Uicomponent\SystemUI\DepartmentManage\DepartmentManageCallBack.cs" />
     <Compile Include="Uicomponent\SystemUI\DepartmentManage\DepartmentManage.cs">
@@ -878,6 +900,10 @@
     <EmbeddedResource Include="Uicomponent\QualityControlUI\QualityControlTask\QCProjectPage3.resx">
       <DependentUpon>QCProjectPage3.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\ReagentUI\ReagentSetting\LoadingReagentBlocking.resx">
+      <DependentUpon>LoadingReagentBlocking.cs</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\ReagentUI\ReagentSetting\frmLoadingReagent.resx">
       <DependentUpon>frmLoadingReagent.cs</DependentUpon>
     </EmbeddedResource>
@@ -964,6 +990,13 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\SystemUI\Configure\Configure.resx">
       <DependentUpon>Configure.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SystemUI\Configure\ConfigurationScript.resx">
+      <DependentUpon>ConfigurationScript.cs</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SystemUI\Configure\WaitForm1.resx">
+      <DependentUpon>WaitForm1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\SystemUI\DepartmentManage\DepartmentManage.resx">
       <DependentUpon>DepartmentManage.cs</DependentUpon>
@@ -1137,9 +1170,17 @@
     <None Include="Resources\b.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BioA.BLL\BioA.BLL.csproj">
+      <Project>{91dd8a76-d393-4de4-9d65-9093420ad115}</Project>
+      <Name>BioA.BLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BioA.Common\BioA.Common.csproj">
       <Project>{e1438a53-5dde-42c0-b2ff-0f4a892e95b6}</Project>
       <Name>BioA.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BioA.IBLL\BioA.IBLL.csproj">
+      <Project>{20a64092-a5c2-4f73-a02b-7fe6c0ca6e7b}</Project>
+      <Name>BioA.IBLL</Name>
     </ProjectReference>
     <ProjectReference Include="..\BioA.Service\BioA.Service.csproj">
       <Project>{5DE2FE07-D302-4921-A780-BCFB067A69A4}</Project>

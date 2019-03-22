@@ -112,6 +112,8 @@ namespace BioA.UI
             //获取所有组合项目名和生化项目名
             dic.Add("QueryProjectAndCombProName", null);
             ClientSendToServices(dic);
+
+            this.txtBarCode.Focus();
             //CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaApplyTask, dic);
             Console.WriteLine("ApplyTaskInit CONN End " + DateTime.Now.Ticks);
         }

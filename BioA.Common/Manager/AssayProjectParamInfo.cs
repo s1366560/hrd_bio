@@ -254,7 +254,9 @@ namespace BioA.Common
             set { reagent1Pos = value; }
         }
         private float reagent1Vol;
-
+        /// <summary>
+        /// 试剂1余量体积
+        /// </summary>
         public float Reagent1Vol
         {
             get { return reagent1Vol; }
@@ -282,7 +284,9 @@ namespace BioA.Common
             set { reagent2Pos = value; }
         }
         private float reagent2Vol;
-
+        /// <summary>
+        /// 试剂2余量体积
+        /// </summary>
         public float Reagent2Vol
         {
             get { return reagent2Vol; }

@@ -154,7 +154,11 @@
     <Compile Include="Manager\OffSetGain.cs" />
     <Compile Include="Manager\PhotometricGainInfo.cs" />
     <Compile Include="Manager\ProjectRunSequenceInfo.cs" />
-    <Compile Include="Manager\Reagent2UsingCountInfo.cs" />
+    <Compile Include="Manager\Reagent2UsingCountInfo.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Manager\ReagentBarcodeParam.cs" />
+    <Compile Include="Manager\ReagentItem.cs" />
     <Compile Include="Manager\RealTimeCUVDataInfo.cs" />
     <Compile Include="Manager\ResultInfo.cs" />
     <Compile Include="Manager\ResultSetInfo.cs" />

@@ -595,41 +595,41 @@ namespace BioA.Common.CalcMethod
                         case "减量体积":
                                 if (A.DecSamVol != 0)
                                 {
-                                    k = (A.Reagent1Vol + A.DecSamVol) / (A.Reagent1Vol + A.Reagent2Vol + A.DecSamVol);
+                                    k = (A.Reagent1VolSettings + A.DecSamVol) / (A.Reagent1VolSettings + A.Reagent2VolSettings + A.DecSamVol);
                                 }
                                 else
                                 {
-                                    k = (A.Reagent1Vol + A.DecStosteVol) / (A.Reagent1Vol + A.Reagent2Vol + A.DecStosteVol);
+                                    k = (A.Reagent1VolSettings + A.DecStosteVol) / (A.Reagent1VolSettings + A.Reagent2VolSettings + A.DecStosteVol);
                                 }                            
                             break;
                         case "常规体积":
                             if (A.ComSamVol != 0)
                             {
-                                k = (A.Reagent1Vol + A.ComSamVol) / (A.Reagent1Vol + A.Reagent2Vol + A.ComSamVol);
+                                k = (A.Reagent1VolSettings + A.ComSamVol) / (A.Reagent1VolSettings + A.Reagent2VolSettings + A.ComSamVol);
                             }
                             else
                             {
-                                k = (A.Reagent1Vol + A.ComStosteVol) / (A.Reagent1Vol + A.Reagent2Vol + A.ComStosteVol);
+                                k = (A.Reagent1VolSettings + A.ComStosteVol) / (A.Reagent1VolSettings + A.Reagent2VolSettings + A.ComStosteVol);
                             }
                             break;
                         case "增量体积":
                             if (A.IncSamVol != 0)
                             {
-                                k = (A.Reagent1Vol + A.IncSamVol) / (A.Reagent1Vol + A.Reagent2Vol + A.IncSamVol);
+                                k = (A.Reagent1VolSettings + A.IncSamVol) / (A.Reagent1VolSettings + A.Reagent2VolSettings + A.IncSamVol);
                             }
                             else
                             {
-                                k = (A.Reagent1Vol + A.IncStosteVol) / (A.Reagent1Vol + A.Reagent2Vol + A.IncStosteVol);
+                                k = (A.Reagent1VolSettings + A.IncStosteVol) / (A.Reagent1VolSettings + A.Reagent2VolSettings + A.IncStosteVol);
                             }
                             break;
                         case "定标体积":
                             if (A.CalibSamVol != 0)
                             {
-                                k = (A.Reagent1Vol + A.CalibSamVol) / (A.Reagent1Vol + A.Reagent2Vol + A.CalibSamVol);
+                                k = (A.Reagent1VolSettings + A.CalibSamVol) / (A.Reagent1VolSettings + A.Reagent2VolSettings + A.CalibSamVol);
                             }
                             else
                             {
-                                k = (A.Reagent1Vol + A.CalibStosteVol) / (A.Reagent1Vol + A.Reagent2Vol + A.CalibStosteVol);
+                                k = (A.Reagent1VolSettings + A.CalibStosteVol) / (A.Reagent1VolSettings + A.Reagent2VolSettings + A.CalibStosteVol);
                             }
                             break;
                         case "自定义":

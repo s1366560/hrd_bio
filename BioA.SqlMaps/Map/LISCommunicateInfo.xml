@@ -29,8 +29,19 @@
       <result property="RealTimeSendResult" clumn="RealTimeSendResult" />    
     </resultMap>   
   </resultMaps>
+  <parameterMaps>
+    <parameterMap id="DeleteScanCodeRGSAssayProject" class="Hashtable">
+      <parameter property="proName" column="proName"/>
+      <parameter property="samType" column="samType"/>
+    </parameterMap>
+  </parameterMaps>
   
   <statements>
+
+    <procedure id="DeleteScanCodeRGSpendingAssayProject" parameterMap="DeleteScanCodeRGSAssayProject">
+      DeleteScanCodeRGSpendingAssayProject
+    </procedure>
+    
     <insert id="AddNetworkLISCommunicate" parameterClass="LISCommunicateNetworkInfo">
       insert into NetworkCommunicationTb values (#IPAddress#,#NetworkPort#,#StartingUp#,#Reconnection#,#RealTimeSendResult#)
     </insert>
@@ -84,5 +95,15 @@
     <statement id="updateLISInfo" parameterClass="string">
       $value$
     </statement>
-</statements>
+    
+    <!-- 保存试剂扫描对应的项目参数信息 / 项目执行顺序参数信息-->
+    <statement id="SaveReagentProjectParamInfo" parameterClass="string">
+      $value$
+    </statement>
+
+    <!-- 获取项目测试顺序号 -->
+    <statement id="GetProjectRunSequ" parameterClass="string" resultClass ="int">
+      $value$
+    </statement>
+  </statements>
 </sqlMap>

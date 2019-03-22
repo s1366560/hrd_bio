@@ -14,7 +14,7 @@ using System.Threading;
 
 namespace BioA.UI
 {
-    public partial class frmLoadingReagent : DevExpress.XtraEditors.XtraForm
+    public partial class LoadingReagentBlocking : DevExpress.XtraEditors.XtraForm
     {
 
         public delegate void GetsReagent(Dictionary<string, ReagentSettingsInfo> keyValuePairs);//声明一个委托
@@ -24,6 +24,12 @@ namespace BioA.UI
         /// 存储客户端发送信息给服务器的参数集合
         /// </summary>
         private Dictionary<string, object[]> frmLoadingReagentDic = new Dictionary<string, object[]>();
+
+        /// <summary>
+        /// 静态属性,全局唯一,默认为0：没有装载试剂，1：代表装载试剂1， 2：代表装载试剂2
+        /// </summary>
+        private static int ReagentDisk = 0;
+
 
         private string recieveInfo = "";
         public string RecieveInfo
@@ -82,7 +88,7 @@ namespace BioA.UI
             set { lstUsedPos = value; }
         }
 
-        public frmLoadingReagent()
+        public LoadingReagentBlocking()
         {
             InitializeComponent();
             this.ControlBox = false;
@@ -91,7 +97,7 @@ namespace BioA.UI
             dtpValidDate.DateTime = DateTime.Now.AddMonths(1);
         }
 
-        private void frmLoadingReagent_Load(object sender, EventArgs e)
+        private void LoadingReagentBlocking_Load(object sender, EventArgs e)
         {
             //异步方法调用
             BeginInvoke(new Action(loadFrmReagent));
@@ -144,10 +150,7 @@ namespace BioA.UI
                 cboReagentVol.SelectedIndex = 0;
             }
         }
-        /// <summary>
-        /// 根据试剂类型显示对应的项目类型名称
-        /// </summary>
-        /// <param name="lstAssayProInfos"></param>
+
         public void comBoxAdd(List<AssayProjectInfo> lstAssayProInfos)
         {
             if (this.IsHandleCreated)
@@ -158,6 +161,7 @@ namespace BioA.UI
                     List<string> listProName = new List<string>();
                     if (cboReagentType.Text == "血清")
                     {
+                        listProName.Clear();
                         cboProjectCheck.Enabled = true;
                         for (int i = 0; i < lstAssayProInfos.Count; i++)
                         {
@@ -169,10 +173,15 @@ namespace BioA.UI
                             }
                         }
                         listProName.RemoveAll(i => lstProjectName.Contains(i));
+                        //this.cboProjectCheck.Properties.Items.AddRange(new object[] 
+                        //{ 
+                        //    lstAssayProInfos[i].ProjectName
+                        //});
                         this.cboProjectCheck.Properties.Items.AddRange(listProName);
                     }
                     if (cboReagentType.Text == "尿液")
                     {
+                        listProName.Clear();
                         cboProjectCheck.Enabled = true;
                         for (int i = 0; i < lstAssayProInfos.Count; i++)
                         {
@@ -183,6 +192,7 @@ namespace BioA.UI
                         }
                         listProName.RemoveAll(i => lstProjectName.Contains(i));
                         this.cboProjectCheck.Properties.Items.AddRange(listProName);
+                        //this.cboProjectCheck.Properties.Items.AddRange(new object[] { lstAssayProInfos[i].ProjectName });
                     }
                     if (cboReagentType.Text == "清洗剂")
                     {
@@ -192,6 +202,7 @@ namespace BioA.UI
                     }
                     if (cboReagentType.Text == "")
                     {
+                        listProName.Clear();
                         cboProjectCheck.Enabled = true;
                         for (int i = 0; i < lstAssayProInfos.Count; i++)
                         {
@@ -202,6 +213,7 @@ namespace BioA.UI
                         }
                         listProName.RemoveAll(i => lstProjectName.Contains(i));
                         this.cboProjectCheck.Properties.Items.AddRange(listProName);
+                        //this.cboProjectCheck.Properties.Items.AddRange(new object[] { lstAssayProInfos[i].ProjectName });
                     }
                 }));
             }
@@ -364,7 +376,7 @@ namespace BioA.UI
             frmLoadingReagentThread.Start();
         }
 
-        private void frmLoadingReagent_FormClosing(object sender, FormClosingEventArgs e)
+        private void LoadingReagentBlocking_FormClosing(object sender, FormClosingEventArgs e)
         {
             cboReagentType.Text = "血清";
             cboReagentVol.SelectedIndex = 0;

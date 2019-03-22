@@ -1,5 +1,6 @@
 ﻿using BioA.Common;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -268,6 +269,137 @@ namespace BioA.SqlMaps
             catch (Exception ex)
             {
                 LogInfo.WriteErrorLog("SavePatientInfo(PatientInfo patientInfo) ==" + ex.Message, Module.LISSetting);
+            }
+        }
+        /// <summary>
+        /// 修改样本结果已发送状态
+        /// </summary>
+        public void UpdateSendSMPResultStatus(SampleResultInfo r)
+        {
+            try
+            {
+                string SQL = string.Format("update sampleresulttb set IsSend = '{0}' where TCNO = {1} and ProjectName = '{2}' and SampleNum = '{3}' and SampleType = '{4}' and DATEDIFF(dd,SampleCompletionTime,'{5}')=0", r.IsSend, r.TCNO, r.ProjectName, r.SampleNum, r.SampleType, r.SampleCompletionTime);
+                ism_SqlMap.Update("CommonDataCheck.UpdateSMPResultInfo", SQL);
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("UpdateSendSMPResultStatus(SampleResultInfo r) ==" + ex.ToString(), Module.LISSetting);
+            }
+        }
+        /// <summary>
+        /// 试剂对应的项目参数信息
+        /// </summary>
+        /// <param name="sql"></param>
+        public void SaveReagentProjectParamInfo(string sql)
+        {
+            try
+            {
+                ism_SqlMap.Insert("LISCommunicateInfo.SaveReagentProjectParamInfo", sql);
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("SaveReagentProjectParamInfo(string sql) ==" + ex.Message, Module.LISSetting);
+            }
+        }
+        /// <summary>
+        /// 根据试剂条码扫码出来的项目名称删除之前的项目参数信息
+        /// </summary>
+        /// <param name="projectName"></param>
+        /// <param name="sampleType"></param>
+        public void DeleteAssayProject(string projectName, string sampleType)
+        {
+            try
+            {
+                Hashtable ht = new Hashtable();
+                ht.Add("proName", projectName);
+                ht.Add("samType", sampleType);
+                ism_SqlMap.QueryForObject("LISCommunicateInfo.DeleteScanCodeRGSpendingAssayProject",ht);
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("DeleteAssayProject(string projectName, string sampleType) == " + ex.Message, Module.LISSetting);
+            }
+        }
+        /// <summary>
+        /// 根据试剂保存对应的生化项目参数信息
+        /// </summary>
+        /// <param name="a"></param>
+        public void SaveRGSpendingAssayProjectInfo(AssayProjectParamInfo a)
+        {
+            try
+            {
+                string sql = string.Format(@"insert assayprojectparaminfotb(
+                    ProjectName,SampleType,AnalysisMethod,MeasureLightDot1,MeasureLightDot2,MeasureLightDot3,MeasureLightDot4,
+                    ResultUnit,MainWaveLength,SecWaveLength,InstrumentFactorA,InstrumentFactorB,ComStosteVol,ComSamVol,ComDilutionVol,
+                    DecStosteVol,DecSamVol,DecDilutionVol,IncStosteVol,IncSamVol,IncDilutionVol,
+                    DilutionType,FirstSlope,FirstSlopeHigh,ProLowestBound,LimitValue,ReactionDirection,Reagent1VolSettings,Reagent2VolSettings,
+                    CalibStosteVol,CalibSamVol,CalibDilutionVol,Stirring1Intensity,Stirring2Intensity,SerumCriticalMinimum,SerumCriticalMaximum,ReagentBlankMinimum,ReagentBlankMaximum)
+                values('{0}','{1}','{2}',{3},{4},{5},{6},
+                    '{7}',{8},{9},{10},{11},{12},{13},{14},
+                    {15},{16},{17},{181},{19},{20},'{21}',
+                    {22},{23},{24},{25},'{26}',{27},{28},
+                    {29},{30},{31},'{32}','{33}',{34},{35},{36},{37})", 
+                    a.ProjectName, a.SampleType, a.AnalysisMethod, a.MeasureLightDot1, a.MeasureLightDot2, a.MeasureLightDot3, a.MeasureLightDot4, 
+                    a.ResultUnit, a.MainWaveLength, a.SecWaveLength, a.InstrumentFactorA, a.InstrumentFactorB, a.ComStosteVol, a.ComSamVol, a.ComDilutionVol,
+                    a.DecStosteVol, a.DecSamVol, a.DecDilutionVol, a.IncStosteVol, a.IncSamVol, a.IncDilutionVol, 
+                    a.DilutionType, a.FirstSlope, a.FirstSlopeHigh, a.ProLowestBound, a.LimitValue, a.ReactionDirection, a.Reagent1VolSettings,
+                    a.Reagent2VolSettings, a.CalibStosteVol, a.CalibSamVol, a.CalibDilutionVol, a.Stirring1Intensity, a.Stirring2Intensity, 
+                    a.SerumCriticalMinimum, a.SerumCriticalMaximum, a.ReagentBlankMinimum, a.ReagentBlankMaximum);
+                ism_SqlMap.Insert("AssayProjectInfo.SaveRGSpendingAssayProjectInfo", sql);
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("SaveAssayProjectInfo(AssayProjectParamInfo a) == " + ex.Message, Module.LISSetting);
+            }
+        }
+        /// <summary>
+        /// 保存项目范围参数信息和校准参数信息
+        /// </summary>
+        public void SaveRangeParamAndCalibParam(string proName, string proType, int SDTCount)
+        {
+            try
+            {
+                ism_SqlMap.Insert("AssayProjectInfo.SaveRangeParamAndCalibParam", string.Format("insert rangeparaminfotb(ProjectName,SampleType) values('{0}','{1}')", proName, proType));
+                ism_SqlMap.Insert("AssayProjectInfo.SaveRangeParamAndCalibParam", string.Format("insert calibrationparaminfotb(ProjectName,SampleType,CalibrationTimes) values('{0}','{1}',{2})", proName, proType,SDTCount));
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("SaveRangeParamAndCalibParam(string proName, string proType, int SDTCount) ==" + ex.Message, Module.LISSetting);
+            }
+        }
+        /// <summary>
+        /// 保存结果信息
+        /// </summary>
+        /// <param name="r"></param>
+        /// <param name="proType"></param>
+        public void SaveResultSets(ReagentItem r, string proType)
+        {
+            try
+            {
+                ism_SqlMap.Insert("AssayProjectInfo.SaveRangeParamAndCalibParam", string.Format("insert resultSetTb(ProjectName,SampleType,Unit,RadixPointNum) values('{0}','{1}','{2}',{3})", r.ItemName, proType, r.Unit, r.RadixPointNum));
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("SaveResultSetsAndProRunSequence(ReagentItem r, string proType) ==" + ex.Message, Module.LISSetting);
+            }
+        }
+        /// <summary>
+        /// 保存项目运行顺序信息
+        /// </summary>
+        /// <param name="proName"></param>
+        /// <param name="proType"></param>
+        public void SaveProRunSequence(string proName, string proType)
+        {
+            int runSequ = 0;
+            try
+            {
+                runSequ = (int)ism_SqlMap.QueryForObject("LISCommunicateInfo.GetProjectRunSequ", string.Format("select isnull(MAX(RunSequence),0) as sunsequ from projectrunsequencetb"));
+
+                ism_SqlMap.Insert("LISCommunicateInfo.SaveReagentProjectParamInfo", string.Format("insert projectrunsequencetb(ProjectName,SampleType,RunSequence) values('{0}','{1}',{2})", proName, proType, runSequ + 1));
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("", Module.LISSetting);
             }
         }
     }

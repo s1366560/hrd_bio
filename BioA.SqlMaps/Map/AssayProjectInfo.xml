@@ -224,7 +224,7 @@
     <select id="ProjectPageinfoBySampleType" parameterClass="string" resultClass="string">
       select ProjectName from AssayProjectInfoTb where SampleType=#value#
     </select>
-    <insert id="AssayProjectAdd" parameterClass="AssayProjectInfo">
+    <insert id="SaveAssayProject" parameterClass="AssayProjectInfo">
       insert into AssayProjectInfoTb (ProjectName, SampleType, ProFullName, ChannelNum)
       values (#ProjectName#, #SampleType#, #ProFullName#, #ChannelNum#)
     </insert>
@@ -470,6 +470,14 @@
     </statement>
     <!-- 获取项目参数设置的试剂体积 -->
     <statement id ="GetAssProParamReagentSetiingVol" parameterClass ="string" resultClass ="float">
+      $value$
+    </statement>
+    <!-- 保存生化项目参数信息 -->
+    <statement id="SaveRGSpendingAssayProjectInfo" parameterClass="string">
+      $value$
+    </statement>
+    <!-- 保存项目范围参数和校准参数信息、结果信息 -->
+    <statement id="SaveRangeParamAndCalibParam" parameterClass="string">
       $value$
     </statement>
   </statements>

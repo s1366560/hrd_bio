@@ -6,13 +6,13 @@ using System.Xml;
 using System.Globalization;
 using BioA.Common.IO;
 /*************************************************************************************
- * CLR版本：        4.0.30319.261
- * 类 名 称：       RunConfigureUtility
- * 机器名称：       WENSION
- * 命名空间：       NAD.Common
- * 文 件 名：       RunConfigureUtility
- * 创建时间：       4/27/2012 5:06:05 PM
- * 作    者：       李文山
+ * CLR版本：       
+ * 类 名 称：       
+ * 机器名称：       
+ * 命名空间：       
+ * 文 件 名：       
+ * 创建时间：       
+ * 作    者：       
  * 
  * 修改时间：
  * 修 改 人：

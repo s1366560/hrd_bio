@@ -9,7 +9,7 @@ namespace BioA.Common
     /// <summary>
     /// 试剂设置表
     /// </summary>
-    public class ReagentSettingsInfo
+    public class ReagentSettingsInfo : ReagentStateInfo
     {
         public ReagentSettingsInfo()
         {
@@ -127,6 +127,10 @@ namespace BioA.Common
             get { return locked; }
             set { locked = value; }
         }
+        /// <summary>
+        /// 试剂项目类型R1/R2
+        /// </summary>
+        public string AssayParamType { get; set; }
 
         private string pos;
         private string projectName;

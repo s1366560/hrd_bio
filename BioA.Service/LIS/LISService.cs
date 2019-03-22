@@ -205,7 +205,7 @@ namespace BioA.Service
             }
             catch (Exception ex)
             {
-                OnLisError(this.LisSet.serialCommInfo.SerialName + "连接失败。");
+                OnLisError(this.LisSet.serialCommInfo.SerialName + "连接失败....");
             }
         }
         /// <summary>
@@ -792,7 +792,7 @@ namespace BioA.Service
             }
             catch
             {
-                OnLisError(this.LisSet.lisNetworkInfo.IPAddress + ":" + this.LisSet.lisNetworkInfo.NetworkPort + ":" + "连接失败. ");
+                OnLisError(this.LisSet.lisNetworkInfo.IPAddress + ":" + this.LisSet.lisNetworkInfo.NetworkPort + ":" + "连接失败.... ");
             }
         }
         void ConnectCallBack(IAsyncResult iar)
@@ -810,7 +810,7 @@ namespace BioA.Service
             }
             catch (Exception e)
             {
-                OnLisError(this.LisSet.lisNetworkInfo.IPAddress + ":" + this.LisSet.lisNetworkInfo.NetworkPort + ":" + "连接失败. ");
+                OnLisError(this.LisSet.lisNetworkInfo.IPAddress + ":" + this.LisSet.lisNetworkInfo.NetworkPort + ":" + "连接失败.... ");
             }
         }
         /// <summary>
@@ -885,33 +885,33 @@ namespace BioA.Service
         /// <param name="results"></param>
         void UpdateResultsSendFlag(List<SampleResultInfo> results)
         {
-            //resultservice resultser = new resultservice();
+            //ResultService ResultSer = new ResultService();
 
-            //foreach (result e in results)
-            //{
-            //    e.issent = true;
+            foreach (SampleResultInfo r in results)
+            {
+                r.IsSend = true;
 
-            //    result r = resultser.getnorresult(e.tcno, e.drawdate);
-            //    if (r != null)
-            //    {
-            //        resultser.updatenorresult(e);
-            //        continue;
-            //    }
-            //    r = resultser.getqcresult(e.tcno, e.drawdate);
-            //    if (r != null)
-            //    {
-            //        resultser.updateqcresult(e);
-            //        continue;
-            //    }
+                //Result R = ResultSer.GetNORResult(e.TCNO, e.DrawDate);
+                //if ( = null)
+                //{
+                MyBatis.UpdateSendSMPResultStatus(r);
+                    //continue;
+                //}
+                //R = ResultSer.GetQCResult(e.TCNO, e.DrawDate);
+                //if (R != null)
+                //{
+                //    ResultSer.UpdateQCResult(e);
+                //    continue;
+                //}
 
-            //    r = resultser.getsdtresult(e.tcno, e.drawdate);
-            //    if (r != null)
-            //    {
-            //        resultser.updatesdtresult(e);
-            //        continue;
-            //    }
+                //R = ResultSer.GetSDTResult(e.TCNO, e.DrawDate);
+                //if (R != null)
+                //{
+                //    ResultSer.UpdateSDTResult(e);
+                //    continue;
+                //}
 
-            //}
+            }
         }
 
         public delegate void LISServiceHandler(object sender);
@@ -966,7 +966,7 @@ namespace BioA.Service
                     //有发送任务
                     if (this.SendObjectBuffer.Count > 0)
                     {
-                        OnSendLisResultDataRunning("正在发送数据...");
+                        OnSendLisResultDataRunning("正在发送数据....");
 
                         this.SendObject = null;
                         lock (this.SendObjectBuffer)
@@ -1013,7 +1013,7 @@ namespace BioA.Service
                                     this.SendObjectBuffer.Remove(this.SendObject);
                                 }
                                 //OnSendLisData("样本结果数据发送超时. ");
-                                OnSendLisResultDataFailed("结果数据发送超时. ");
+                                OnSendLisResultDataFailed("结果数据发送超时.... ");
                             }
                             //样本请求超时
                             if ((this.SendObject is string) == true)
@@ -1022,7 +1022,7 @@ namespace BioA.Service
                                 {
                                     this.SendObjectBuffer.Remove(this.SendObject);
                                 }
-                                OnSMPCodeBarQueryEvent("样本条码：" + (SendObject as string) + "向LIS服务器发出申请超时. ");
+                                OnSMPCodeBarQueryEvent("样本条码：" + (SendObject as string) + "向LIS服务器发出申请超时.... ");
                             }
                         }
                         else//服务给出了应答信息
@@ -1045,7 +1045,7 @@ namespace BioA.Service
                                 }
                                 else
                                 {
-                                    OnSMPCodeBarQueryEvent("样本条码：" + (SendObject as string) + " 没有查询到，请确认条码. ");
+                                    OnSMPCodeBarQueryEvent("样本条码：" + (SendObject as string) + " 没有查询到，请确认条码.... ");
                                 }
 
                             }

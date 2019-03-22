@@ -1,7 +1,9 @@
-﻿using BioA.Common;
+﻿using BioA.BLL;
+using BioA.Common;
 using BioA.Common.Communication;
 using BioA.Common.IO;
 using BioA.Common.Machine;
+using BioA.IBLL;
 using BioA.Service;
 using BioA.SqlMaps;
 using BioA.UI.ServiceReference1;
@@ -52,6 +54,8 @@ namespace BioA.UI
         InitializationLoad initializationLoad;
         TextBox txtPrompt;
         LoginInterface login;
+        ConfigurationScript configurationScript;
+
         UserInfo userInfo = new UserInfo();
         //预计完成时间
         DateTime finishTime;
@@ -408,9 +412,9 @@ namespace BioA.UI
                                 case AnalyzeEvent.COMPLETED_SCAN_SMPBarcode://样本条码扫描完成!;
                                     OnProcessSampleBarcode(machineState.StateValue);
                                     break;
-                                //case AnalyzeEvent.COMPLETED_SCAN_RGTBarcode://试剂条码扫描完成
-                                //    OnProcessRgtBarcode(machineState.StateValue);
-                                //    break;
+                                case AnalyzeEvent.COMPLETED_SCAN_RGTBarcode://试剂条码扫描完成
+                                    OnProcessRgtBarcode(machineState.StateValue);
+                                    break;
                                 case AnalyzeEvent.COMPLETED_SCHEDULE://工作队列执行完成
                                     //this.CMDManager.OPMgr.OPCMDStr = null;
                                     //this.CMDManager.OPMgr.OPBTReset();
@@ -681,7 +685,7 @@ namespace BioA.UI
         private void OnLISConnectSuccessEvent(object sender)
         {
             this.SuccessAndFailureUrl("Resources\\Image\\LIS\\server_add.png");
-            this.DisplayLISServiceTip("Resources\\Image\\LIS\\server_add.png", sender.ToString());
+            this.DisplayLISServiceTip("Resources\\Image\\LIS\\server_add.png", "LIS服务连接成功....");
         }
         /// <summary>
         /// 通过扫码创建项目任务委托事件
@@ -830,6 +834,32 @@ namespace BioA.UI
                 c.State = 1;
                 this.CLClient.SendData(XmlUtility.Serializer(typeof(Command), c));
             }
+        }
+
+        //试剂条码处理
+        void OnProcessRgtBarcode(string v)
+        {
+            string[] vs = v.Split('|');
+
+            string info = new ReagentBarcode().GetRgBracodePara(int.Parse(vs[0]), vs[1], vs[2]) as string;
+            if (info == null)
+            {
+            }
+            else
+            {
+                new ReagentBarcode().BarcodeScanningFailed(int.Parse(vs[0]), vs[1]);
+            }
+
+            //Application.Current.Dispatcher.Invoke(new Action(() =>
+            //{
+            //    RGTPanel RgtPanel = this.WorkView.DataContext as RGTPanel;
+            //    if (RgtPanel != null)
+            //    {
+            //        //RgtPanel.DisplayRGTInfo(vs[1]);
+            //        RgtPanel.LoadData();
+            //    }
+            //}));
+
         }
 
         private void MachineIsTrouble()
@@ -1430,6 +1460,7 @@ namespace BioA.UI
                 _Elements.Add(this.LogCheckElement22);
             if (userInfo.VersionInfo)
                 _Elements.Add(this.VersionInfomationElement23);
+            _Elements.Add(this.ConfigurationScriptElement);
             this.accordionControl1.Elements.AddRange(_Elements.ToArray());
             if (userInfo.RouMaintain)
             {
@@ -1527,6 +1558,20 @@ namespace BioA.UI
                 txtPrompt.Text = "您当前的操作：安全管理——科室管理";
                 pcThirdArea.Controls.Add(txtPrompt);
                 pcThirdArea.Controls.Add(departmentManage);
+            }
+        }
+
+        private void ConfigurationScriptElement_Click(object sender, EventArgs e)
+        {
+            if (pcThirdArea.Controls.Equals(configurationScript) == false)
+            {
+                this.FeatureListTagIcon(_Elements);
+                this.ConfigurationScriptElement.Image = this.images;
+                pcThirdArea.Controls.Clear();
+                configurationScript = new ConfigurationScript();
+                txtPrompt.Text = "您当前的操作：安全管理——脚本配置";
+                pcThirdArea.Controls.Add(txtPrompt);
+                pcThirdArea.Controls.Add(configurationScript);
             }
         }
 

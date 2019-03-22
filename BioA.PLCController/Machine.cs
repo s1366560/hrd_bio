@@ -1734,14 +1734,14 @@ namespace BioA.PLCController
                     //this.MachineState.State = MyResources.Instance.FindResource("Machine98").ToString();
                     break;
                 case 0xC5://试剂条码
-                    //string str = ParseDictionary[0xC5].Parse(data);
-                    //string[] sv = str.Split('|');
-                    //this.MachineState.StateValue = str;
-                    //this.MachineState.Command.State = 2;
-                    //this.MachineState.Fired = AnalyzeEvent.COMPLETED_SCAN_RGTBarcode;
-                    //string strrgt = MyResources.Instance.FindResource("Machine81").ToString() + sv[1] + MyResources.Instance.FindResource("Machine82").ToString();
-                    //this.MachineState.State = strrgt;
-                    //this.MachineState.Fired = null;//消息驱动置空
+                    string str = ParseDictionary[0xC5].Parse(data);
+                    string[] sv = str.Split('|');
+                    this.MachineState.StateValue = str;
+                    this.MachineState.Command.State = 2;
+                    this.MachineState.Fired = AnalyzeEvent.COMPLETED_SCAN_RGTBarcode;
+                    string strrgt = MachineReturnState.Machine81 + sv[1] + MachineReturnState.Machine82;
+                    this.MachineState.State = strrgt;
+                    this.MachineState.Fired = null;//消息驱动置空
                     break;
                 case 0x45://样本条码
                     string s1 = ParseDictionary[0x45].Parse(data);
@@ -1749,7 +1749,7 @@ namespace BioA.PLCController
                     this.MachineState.StateValue = s1;
                     this.MachineState.Fired = AnalyzeEvent.COMPLETED_SCAN_SMPBarcode;
                     this.MachineState.Command.State = 2;
-                    string strsmpbar = "样本位置：" + s1v[1] + "完成条码扫码";
+                    string strsmpbar = MachineReturnState.Machine83 + s1v[1] + MachineReturnState.Machine82;
                     this.MachineState.State = strsmpbar;
                     this.MachineState.Fired = null;//消息驱动置空
                     break;

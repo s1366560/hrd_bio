@@ -1019,5 +1019,20 @@ namespace BioA.SqlMaps
             }
             return lstResultSetInfo;
         }
+        /// <summary>
+        /// 保存项目信息
+        /// </summary>
+        /// <param name="a"></param>
+        public void SaveProjectAssayInfo(AssayProjectInfo a)
+        {
+            try
+            {
+                ism_SqlMap.Insert("AssayProjectInfo.SaveAssayProject", a);
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("SaveProjectAssayInfo(AssayProjectInfo a) ==" + ex.Message, Module.WorkingArea);
+            }
+        }
     }
 }

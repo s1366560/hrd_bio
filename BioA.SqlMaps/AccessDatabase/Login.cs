@@ -5,11 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using BioA.Common;
 using System.Collections;
+using IBatisNet.DataMapper;
 
 namespace BioA.SqlMaps
 {
     public partial class MyBatis
     {
+        public ISqlMapper ism_SqlMap = MyBatis.ISqlMapper();
         public string UserLogin(string strMethodName, string userName, string password)
         {
             string strResult = string.Empty;

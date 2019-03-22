@@ -71,5 +71,9 @@
     <statement id="GetActualTimeSampResult" parameterClass="string" resultClass="SampleResultInfo">
       $value$
     </statement>
+    <!-- 修改样本结果发送LIS服务状态 -->
+    <statement id="UpdateSMPResultInfo" parameterClass="string">
+      $value$
+    </statement>
   </statements>
 </sqlMap>

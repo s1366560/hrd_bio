@@ -1137,7 +1137,7 @@ namespace BioA.SqlMaps
         /// <returns></returns>
         public ReagentStateInfoR1R2 SelectReagentStateForR1R2(string strAccessDBMethod, ReagentSettingsInfo DeletereagentSettingsInfo)
         {
-            ReagentStateInfoR1R2 reagentR1AndR2 = new ReagentStateInfoR1R2();
+            ReagentStateInfoR1R2 reagentR1AndR2 = null;
             try
             {
                 Hashtable hashTable = new Hashtable();
