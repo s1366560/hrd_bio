@@ -37,12 +37,15 @@
       <result property="R2SurplusQuantity" column="R2SurplusQuantity" />
     </resultMap>
     <resultMap id="ReagentStateInfoResult" class="ReagentStateInfo">
-      <result property="ReagentPos" column="ReagentPos"/>
+      <!--<result property="ReagentPos" column="ReagentPos"/>
       <result property="ReagentChamber" column="ReagentChamber"/>
       <result property="ReagentName" column="ReagentName"/>
       <result property="ProjectName" column="ProjectName"/>
       <result property="ReagentUsedVol" column="ReagentUsedVol"/>
-      <result property="ReagentSurplusVol" column="ReagentSurplusVol"/>
+      <result property="ReagentSurplusVol" column="ReagentSurplusVol"/>-->
+      <result property="ValidPercent" column="ValidPercent"/>
+      <result property="ValidPercent2" column="ValidPercent2"/>
+      <result property="ReagentVol" column="ReagentVol"/>
     </resultMap>
 
     <resultMap id="ReagentStateInfoR1R2Result" class="ReagentStateInfoR1R2">

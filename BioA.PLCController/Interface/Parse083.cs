@@ -197,7 +197,7 @@ namespace BioA.PLCController.Interface
 
                     int erwn = MachineControlProtocol.HexConverToDec(Data[index], Data[index + 1], Data[index + 2]);
                     string ercode = string.Format("{0}{1}{2}{3}{4}{5}{6}", (char)Data[index + 3], (char)Data[index + 4], (char)Data[index + 5], (char)Data[index + 6], (char)Data[index + 7], (char)Data[index + 8], (char)Data[index + 9]);
-                    if (ercode == "E000415" || ercode == "E000615")
+                    if (ercode == "E000415" || ercode == "E000615" || ercode == "E000515")
                     {
 
                     }

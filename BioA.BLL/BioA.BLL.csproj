@@ -30,11 +30,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="IBatisNet.Common">
-      <HintPath>..\..\HRD项目\Software\HRD_BioA\编码\HRD_BioA\BioA.SqlMaps\bin\Debug\IBatisNet.Common.dll</HintPath>
+    <Reference Include="IBatisNet.Common, Version=1.6.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MyBatis.NET.1.6.4\lib\IBatisNet.Common.dll</HintPath>
     </Reference>
-    <Reference Include="IBatisNet.DataMapper">
-      <HintPath>..\..\HRD项目\Software\HRD_BioA\编码\HRD_BioA\BioA.SqlMaps\bin\Debug\IBatisNet.DataMapper.dll</HintPath>
+    <Reference Include="IBatisNet.DataMapper, Version=1.6.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MyBatis.NET.1.6.4\lib\IBatisNet.DataMapper.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

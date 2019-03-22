@@ -273,9 +273,9 @@ namespace BioA.SqlMaps
                 if (tasks == null)
                 {
                     //删除生化任务信息
-                    ism_SqlMap.QueryForObject("WorkAreaApplyTask.NoReturnValueGeneralID", string.Format("delete from tasktb where ProjectName = '{0}' and SampleNum = {1} and TaskState = 2", projectName, sampleNum));
+                    ism_SqlMap.Delete("WorkAreaApplyTask.NoReturnValueGeneralID", string.Format("delete from tasktb where ProjectName = '{0}' and SampleNum = {1} and TaskState = 2", projectName, sampleNum));
                     //修改样本信息状态
-                    ism_SqlMap.QueryForObject("WorkAreaApplyTask.NoReturnValueGeneralID", string.Format("update sampletb set SampleState = 1 where SampleNum = {0} and CreateTime > '{1}'", sampleNum, DateTime.Now.Date));
+                    ism_SqlMap.Update("WorkAreaApplyTask.NoReturnValueGeneralID", string.Format("update sampletb set SampleState = 1 where SampleNum = {0} and CreateTime > '{1}'", sampleNum, DateTime.Now.Date));
                 }
             }
             catch (Exception ex)
