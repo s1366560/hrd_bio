@@ -45,7 +45,7 @@ namespace BioA.UI
         TestEquipment testEquipment;
         UserManagement userManagement;
         DepartmentManage departmentManage;
-        Configure configure;
+        FunctionConfig configure;
         VersionInformation versionInformation;
         Log log;
         ReagentNeedle reagentNeedle;
@@ -55,6 +55,7 @@ namespace BioA.UI
         TextBox txtPrompt;
         LoginInterface login;
         ConfigurationScript configurationScript;
+        FunctionConfig functionConfig;
 
         UserInfo userInfo = new UserInfo();
         //预计完成时间
@@ -131,7 +132,8 @@ namespace BioA.UI
             var machineTroubleThread = new Thread(this.MachineIsTrouble) { IsBackground = true };
             machineTroubleThread.Start();
 
-            //new Thread(new ThreadStart(ScanRgtBarcodeService)).Start();
+            //试剂仓 条码扫描
+            Task.Run(() => { ScanReagentBarcodeService(); });
             //样本仓条码扫描
             Task.Run(() => { ScanSampleBarcodeService(); });
 
@@ -810,7 +812,7 @@ namespace BioA.UI
             }
         }
         /// <summary>
-        ///要执行的样本、试剂仓条码器的命令发送给下位机
+        ///要执行的样本仓条码器的命令发送给下位机
         /// </summary>
         /// <param name="p"></param>
         void OnScanSampleBarcode(ScanBarcodePosInfo p)
@@ -836,6 +838,87 @@ namespace BioA.UI
             }
         }
 
+        private Queue<ScanBarcodePosInfo> ScanReagentPostQueun = new Queue<ScanBarcodePosInfo>();
+        private ManualResetEvent ScanReagentBarcodeSingler = new ManualResetEvent(false);
+
+        /// <summary>
+        /// 从队列取出要扫描试剂盘号、位置信息
+        /// </summary>
+        private void ScanReagentBarcodeService()
+        {
+            while (true)
+            {
+                ScanReagentBarcodeSingler.WaitOne();
+                if (ScanReagentPostQueun.Count > 0)
+                {
+                    ScanBarcodePosInfo s = null;
+                    lock (ScanReagentPostQueun)
+                    {
+                        s = ScanReagentPostQueun.Dequeue();
+                    }
+                    this.OnScanReagentBarcode(s);
+                    this.ScanReagentBarcodeSingler.Reset();
+                }
+                if (this.ScanReagentPostQueun.Count == 0)
+                {
+                    this.ScanReagentBarcodeSingler.Reset();
+                }
+            }
+        }
+        /// <summary>
+        /// 执行试剂仓扫描命令
+        /// </summary>
+        private void OnScanReagentBarcode(ScanBarcodePosInfo s)
+        {
+            Command c = null;
+            switch (s.Disk)
+            {
+                case 1:
+                    c = MachineInfo.GetCommandByName("RGTPanel1BarcodeScan");
+                    break;
+                case 2:
+                    c = MachineInfo.GetCommandByName("RGTPanel2BarcodeScan");
+                    break;
+            }
+
+            if (c != null)
+            {
+                string PositionsString = "";
+                PositionsString += s.Position.ToString() + "|";
+                c.Para = s.Disk + ":" + PositionsString;
+                c.State = 1;
+                this.CLClient.SendData(XmlUtility.Serializer(typeof(Command), c));
+            }
+        }
+
+        /// <summary>
+        /// 把试剂盘号、位置存入队列
+        /// </summary>
+        /// <param name="sender"></param>
+        private void OnSendeScannReagentEvent(object sender)
+        {
+            int[] s = new int[2];
+            s = sender as int[];
+            if (s[1] == 0)
+            {
+                for (int i = 1; i <= 50; i++)
+                {
+                    ScanBarcodePosInfo e = new ScanBarcodePosInfo();
+                    e.Disk = s[0];
+                    e.Position = i;
+                    ScanReagentPostQueun.Enqueue(e);
+                }
+            }
+            else
+            {
+                ScanBarcodePosInfo e = new ScanBarcodePosInfo();
+                e.Disk = s[0];
+                e.Position = s[1];
+                ScanReagentPostQueun.Enqueue(e);
+            }
+            ScanReagentBarcodeSingler.Set();
+        }
+
         //试剂条码处理
         void OnProcessRgtBarcode(string v)
         {
@@ -859,6 +942,7 @@ namespace BioA.UI
             //        RgtPanel.LoadData();
             //    }
             //}));
+            this.ScanReagentBarcodeSingler.Set();
 
         }
 
@@ -1060,6 +1144,12 @@ namespace BioA.UI
             this.FeatureListTagIcon(_Elements);
             this.WorkingAreaMissionInspectionElement3.Image = this.images;
             pcThirdArea.Controls.Clear();
+            if (missionInspection != null)
+            {
+                missionInspection.GetOpidEvent -= this.getOPIDEvent;
+                missionInspection.ScanBarcodePostEvent -= ScanBarcodePostEvent_Event;
+                missionInspection.SMPBarcodeSignalEvent -= SMPBarcodeSignalEvent_Event;
+            }
             missionInspection = new MissionInspection();
             missionInspection.GetOpidEvent += this.getOPIDEvent;
             missionInspection.ScanBarcodePostEvent += ScanBarcodePostEvent_Event;
@@ -1108,11 +1198,15 @@ namespace BioA.UI
                 this.ReagentSettingElement5.Image = images;
                 pcThirdArea.Controls.Clear();
 
-                if (CommunicationUI.notifyCallBack.ReagentSettingsDataTransferEvent != null)
+                if (reagentSetting != null)
+                {
                     CommunicationUI.notifyCallBack.ReagentSettingsDataTransferEvent -= reagentSetting.DataTransfer_Event;
+                    reagentSetting.SendeScannReagentEvent -= OnSendeScannReagentEvent;
+                }
                 reagentSetting = new ReagentSetting();
                 pcThirdArea.Controls.Add(reagentSetting);
                 CommunicationUI.notifyCallBack.ReagentSettingsDataTransferEvent += reagentSetting.DataTransfer_Event;
+                reagentSetting.SendeScannReagentEvent += OnSendeScannReagentEvent;
                 txtPrompt.Text = "您当前的操作：试剂——试剂设置";
                 pcThirdArea.Controls.Add(txtPrompt);
                 pcThirdArea.Controls.Add(reagentSetting);
@@ -1461,6 +1555,7 @@ namespace BioA.UI
             if (userInfo.VersionInfo)
                 _Elements.Add(this.VersionInfomationElement23);
             _Elements.Add(this.ConfigurationScriptElement);
+            _Elements.Add(this.FunctionConfigureElement);
             this.accordionControl1.Elements.AddRange(_Elements.ToArray());
             if (userInfo.RouMaintain)
             {
@@ -1573,6 +1668,21 @@ namespace BioA.UI
                 pcThirdArea.Controls.Add(txtPrompt);
                 pcThirdArea.Controls.Add(configurationScript);
             }
+        }
+        /// <summary>
+        /// 功能配置
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FunctionConfigureElement_Click(object sender, EventArgs e)
+        {
+            this.FeatureListTagIcon(_Elements);
+            this.FunctionConfigureElement.Image = this.images;
+            pcThirdArea.Controls.Clear();
+            functionConfig = new FunctionConfig();
+            txtPrompt.Text = "您当前的操作：安全管理——功能配置";
+            pcThirdArea.Controls.Add(txtPrompt);
+            pcThirdArea.Controls.Add(functionConfig);
         }
 
         private void accordionControlElement22_Click(object sender, EventArgs e)
@@ -1717,19 +1827,6 @@ namespace BioA.UI
                 SendCommand("AbortSchedule");
             }
         }
-
-
-
-        private void accordionControlElement21_Click(object sender, EventArgs e)
-        {
-            if (pcThirdArea.Controls.Equals(configure) == false)
-            {
-                pcThirdArea.Controls.Clear();
-                configure = new Configure();
-                pcThirdArea.Controls.Add(configure);
-            }
-        }
-
 
         private void pcThirdArea_Paint(object sender, PaintEventArgs e)
         {

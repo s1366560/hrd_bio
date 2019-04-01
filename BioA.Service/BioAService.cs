@@ -383,14 +383,14 @@ namespace BioA.Service
                         strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<ReagentSettingsInfo>), lisReagentSettingsR2Info));
                         break;
                     case "reagentSettingAddR1":
-                        ReagentSettingsInfo reagentSettingsInfo1 = XmlUtility.Deserialize(typeof(ReagentSettingsInfo), kvp.Value[0].ToString()) as ReagentSettingsInfo;
-                        string strInfo1 = reagentSetting.AddreagentSettingInfo(kvp.Key, reagentSettingsInfo1);
-                        strMethodParam.Add(kvp.Key, strInfo1);
+                        //ReagentSettingsInfo reagentSettingsInfo1 = XmlUtility.Deserialize(typeof(ReagentSettingsInfo), kvp.Value[0].ToString()) as ReagentSettingsInfo;
+                        //string strInfo1 = reagentSetting.AddreagentSettingInfo(kvp.Key, reagentSettingsInfo1);
+                        //strMethodParam.Add(kvp.Key, strInfo1);
                         break;
                     case "reagentSettingAddR2":
-                        ReagentSettingsInfo reagentSettingsInfo2 = XmlUtility.Deserialize(typeof(ReagentSettingsInfo), kvp.Value[0].ToString()) as ReagentSettingsInfo;
-                        string strInfo2 = reagentSetting.AddreagentSettingInfo2(kvp.Key, reagentSettingsInfo2);
-                        strMethodParam.Add(kvp.Key, strInfo2);
+                        //ReagentSettingsInfo reagentSettingsInfo2 = XmlUtility.Deserialize(typeof(ReagentSettingsInfo), kvp.Value[0].ToString()) as ReagentSettingsInfo;
+                        //string strInfo2 = reagentSetting.AddreagentSettingInfo2(kvp.Key, reagentSettingsInfo2);
+                        //strMethodParam.Add(kvp.Key, strInfo2);
                         break;
                     //case "reagentStateAdd":
                     //    ReagentStateInfoR1R2 reagentStateInfoR1R2 = XmlUtility.Deserialize(typeof(ReagentStateInfoR1R2), kvp.Value[0].ToString()) as ReagentStateInfoR1R2;

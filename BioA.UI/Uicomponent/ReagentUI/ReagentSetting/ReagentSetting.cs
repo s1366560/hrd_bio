@@ -13,16 +13,26 @@ using BioA.Common.IO;
 using DevExpress.XtraGrid;
 using System.Threading;
 using BioA.Service;
+using BioA.IBLL;
+using BioA.BLL;
+using System.Collections.Generic;
+
+
 namespace BioA.UI
 {
     public partial class ReagentSetting : DevExpress.XtraEditors.XtraUserControl
     {
+        //试剂全开放界面
         frmLoadingReagent frmloadingReagent;
+        //试剂本封闭界面
+        LoadingReagentBlocking lReagentBlock;
         List<AssayProjectInfo> lstAssayProInfos = new List<AssayProjectInfo>();
         /// <summary>
         /// 存储客户端发送给服务器信息的集合
         /// </summary>
         private Dictionary<string, object[]> reagentDictionary = new Dictionary<string, object[]>();
+        //配置试剂状态设置信息
+        ReagentStateInfo rs;
         /// <summary>
         /// 保存试剂1设置信息
         /// </summary>
@@ -90,6 +100,9 @@ namespace BioA.UI
             this.gridView2.Columns[6].OptionsColumn.AllowEdit = false;
 
         }
+        //试剂盘号
+        private int Disk = 0;
+
         private void ReagentSettingLoad()
         {
             Font font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -97,8 +110,6 @@ namespace BioA.UI
             gridView1.Appearance.Row.Font = font;
             gridView2.Appearance.HeaderPanel.Font = font;
             gridView2.Appearance.Row.Font = font;
-            frmloadingReagent = new frmLoadingReagent();
-            frmloadingReagent.GetsReagentEvent += GeTheReagentAfterPreservationEvent;
 
             lstReagentSettingsInfo = new BioA.Service.ReagentSetting().QueryReagentSettingsInfo("QueryReagentSetting1", "");
             //把获取到的数据绑定到gridControl1控件上,显示到界面
@@ -107,28 +118,78 @@ namespace BioA.UI
             lstReagentSettingsR2Info = new BioA.Service.ReagentSetting().QueryReagentSettingsInfo("QueryReagentSetting2", "");
             //把获取到的数据绑定到gridControl2控件上,显示到界面
             InitialReagentInfos2(lstReagentSettingsR2Info);
+            rs = ReagentConfigInfoConstrunction.ReagentStateInfo;
+            if (rs.ReagentStatusModule == 1)
+            {
+                frmloadingReagent = new frmLoadingReagent();
+                frmloadingReagent.GetsReagentEvent += GeTheReagentAfterPreservationEvent;
 
+            }
+            else if (rs.ReagentStatusModule == 2)
+            {
+                lReagentBlock = new LoadingReagentBlocking();
+                lReagentBlock.ScannSingleReagentEvent +=OnScannSingleReagentEvent;
+                lReagentBlock.InputReagentBarcodeEvent += OnInputReagentBarcodeEvent;
+                lReagentBlock.RefreshReagentInfoEvent += GeTheReagentAfterPreservationEvent;
+            }
+
+        }
+
+        public delegate void ReagentSettingHandler(object o);
+        public event ReagentSettingHandler SendeScannReagentEvent;
+
+        private void OnScannSingleReagentEvent(object sender)
+        {
+            if (SendeScannReagentEvent != null)
+            {
+                int[] s = new int[2];
+                s[0] = this.Disk;
+                s[1] =int.Parse(sender.ToString());
+                SendeScannReagentEvent(s);
+            }
+        }
+
+        private void OnInputReagentBarcodeEvent(object o)
+        {
+            int i = int.Parse(o.ToString());
+            if (i == 1)
+            {
+                lstReagentSettingsInfo = new BioA.Service.ReagentSetting().QueryReagentSettingsInfo("QueryReagentSetting1", "");
+                //把获取到的数据绑定到gridControl1控件上,显示到界面
+                InitialReagentInfos(lstReagentSettingsInfo);
+
+            }
+            else if (i == 2)
+            {
+                lstReagentSettingsR2Info = new BioA.Service.ReagentSetting().QueryReagentSettingsInfo("QueryReagentSetting2", "");
+                //把获取到的数据绑定到gridControl2控件上,显示到界面
+                InitialReagentInfos2(lstReagentSettingsR2Info);
+
+            }
         }
         /// <summary>
         /// 试剂保存成功后，触发事件执行的方法
         /// </summary>
         /// <param name="keyValuePairs"></param>
-        private void GeTheReagentAfterPreservationEvent(Dictionary<string, ReagentSettingsInfo> keyValuePairs)
+        private void GeTheReagentAfterPreservationEvent(int disk, ReagentSettingsInfo rs)
         {
-            foreach (KeyValuePair<string, ReagentSettingsInfo> key in keyValuePairs)
+            if (disk == 1)
             {
-                if (key.Key == "R1")
-                {
-                    lstReagentSettingsInfo.Add(key.Value);
-                    InitialReagentInfos(lstReagentSettingsInfo);
-                }
-                else
-                {
-                    lstReagentSettingsR2Info.Add(key.Value);
-                    InitialReagentInfos2(lstReagentSettingsR2Info);
-                }
-                MessageBoxDraw.ShowMsgBox("成功装载试剂" + key.Key,"试剂装载",MsgType.OK);
+                lstReagentSettingsInfo.Add(rs);
+                dt1.Rows.Add(new object[] { rs.ReagentName,rs.ReagentType ,rs.Pos, rs.ProjectName
+                    //, reagentSettingsInfo.ResidualQuantity, reagentSettingsInfo.Measuredquantity
+                    ,rs.ValidDate.ToString("yyyy-MM-dd"),rs.ReagentContainer,rs.BatchNum
+                });
             }
+            else if(disk == 2)
+            {
+                lstReagentSettingsR2Info.Add(rs);
+                dt2.Rows.Add(new object[] { rs.ReagentName,rs.ReagentType ,rs.Pos, rs.ProjectName
+                    //, reagentSettingsInfo.ResidualQuantity, reagentSettingsInfo.Measuredquantity
+                    ,rs.ValidDate.ToString("yyyy-MM-dd"),rs.ReagentContainer,rs.BatchNum
+                });
+            }
+            MessageBoxDraw.ShowMsgBox("试剂R" + disk + "装载完成！","试剂装载",MsgType.OK);
         }
 
         /// <summary>
@@ -187,48 +248,11 @@ namespace BioA.UI
                     //this.Invoke(new EventHandler(delegate { gridControl2.DataSource = lstReagentSettingsR2Info; });
                     InitialReagentInfos2(lstReagentSettingsR2Info);
                     break;
-                case "reagentSettingAddR1":
-                    if (sender as string == null)
-                    {
-                        MessageBoxDraw.ShowMsgBox("试剂R1装载失败！", "失败！", MsgType.OK);
-                        this.Invoke(new EventHandler(delegate
-                        {
-                            frmloadingReagent.Close();
-                        }));
-
-                    }
-                    else
-                    {
-                        frmloadingReagent.RecieveInfo = "R1";
-                        this.Invoke(new EventHandler(delegate
-                        {
-                            frmloadingReagent.Close();
-                        }));
-                    }
-                    break;
-                case "reagentSettingAddR2":
-                    if (sender as string == null)
-                    {
-                        MessageBoxDraw.ShowMsgBox("试剂R2装载失败！", "失败！", MsgType.OK);
-                        this.Invoke(new EventHandler(delegate
-                        {
-                            frmloadingReagent.Close();
-                        }));
-                    }
-                    else
-                    {
-                        frmloadingReagent.RecieveInfo = "R2";
-                        this.Invoke(new EventHandler(delegate
-                        {
-                            frmloadingReagent.Close();
-                        }));
-                    }
-                    break;
                 case "DeleteReagentSettingsR1":
                     if ((int)sender > 0)
                     {
                         lstReagentSettingsInfo.RemoveAll(x => x.ProjectName == reagentSettingsInfo.ProjectName && x.ReagentName == reagentSettingsInfo.ReagentName);
-                        InitialReagentInfos(lstReagentSettingsInfo);
+                        //InitialReagentInfos(lstReagentSettingsInfo);
                     }
                     else
                         MessageBox.Show("试剂1卸载失败！");
@@ -238,7 +262,7 @@ namespace BioA.UI
                     if ((int)sender > 0)
                     {
                         lstReagentSettingsR2Info.RemoveAll(x => x.ProjectName == reagentSettingsInfo.ProjectName && x.ReagentName == reagentSettingsInfo.ReagentName);
-                        InitialReagentInfos2(lstReagentSettingsR2Info);
+                        //InitialReagentInfos2(lstReagentSettingsR2Info);
                     }
                     else
                         MessageBox.Show("试剂2卸载失败！");
@@ -258,9 +282,6 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void btnLoadingReagent_Click(object sender, EventArgs e)
         {
-            frmloadingReagent.StartPosition = FormStartPosition.CenterScreen;
-            frmloadingReagent.Text = "试剂装载R1";
-
             List<string> lstPos = new List<string>();
             foreach (ReagentSettingsInfo r in lstReagentSettingsInfo)
             {
@@ -271,12 +292,27 @@ namespace BioA.UI
             {
                 lstProjectName.Add(projectName.ProjectName);
             }
-            frmloadingReagent.LstUsedPos.Clear();
-            frmloadingReagent.LstProjectName.Clear();
-            frmloadingReagent.LstProjectName = lstProjectName;
-            frmloadingReagent.LstUsedPos = lstPos;
-            frmloadingReagent.LoadingReagentData();
-            frmloadingReagent.ShowDialog();
+            if (rs.ReagentStatusModule == 1)
+            {
+                frmloadingReagent.StartPosition = FormStartPosition.CenterScreen;
+                frmloadingReagent.Text = "试剂装载R1";
+
+                frmloadingReagent.LstUsedPos.Clear();
+                frmloadingReagent.LstProjectName.Clear();
+                frmloadingReagent.LstProjectName = lstProjectName;
+                frmloadingReagent.LstUsedPos = lstPos;
+                frmloadingReagent.LoadingReagentData();
+                frmloadingReagent.ShowDialog();
+            }
+            if (rs.ReagentStatusModule == 2)
+            {
+                lReagentBlock.ReagentDisk = this.Disk = 1;
+                lReagentBlock.StartPosition = FormStartPosition.CenterScreen;
+                lReagentBlock.Text = "试剂条码装载R1";
+                lReagentBlock.LstProjectName = lstProjectName;
+                lReagentBlock.LstPos = lstPos;
+                lReagentBlock.ShowDialog();
+            }
         }
         /// <summary>
         /// 装载试剂2
@@ -285,8 +321,6 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void simpleButton2_Click(object sender, EventArgs e)
         {
-            frmloadingReagent.StartPosition = FormStartPosition.CenterScreen;
-            frmloadingReagent.Text = "试剂装载R2";
             List<string> lstPos = new List<string>();
             foreach (ReagentSettingsInfo r in lstReagentSettingsR2Info)
             {
@@ -296,12 +330,26 @@ namespace BioA.UI
             {
                 lstProjectName.Add(projectName.ProjectName);
             }
-            frmloadingReagent.LstUsedPos.Clear();
-            frmloadingReagent.LstProjectName.Clear();
-            frmloadingReagent.LstProjectName = lstProjectName;
-            frmloadingReagent.LstUsedPos = lstPos;
-            frmloadingReagent.LoadingReagentData();
-            frmloadingReagent.ShowDialog();
+            if (rs.ReagentStatusModule == 1)
+            {
+                frmloadingReagent.StartPosition = FormStartPosition.CenterScreen;
+                frmloadingReagent.Text = "试剂装载R2";
+                frmloadingReagent.LstUsedPos.Clear();
+                frmloadingReagent.LstProjectName.Clear();
+                frmloadingReagent.LstProjectName = lstProjectName;
+                frmloadingReagent.LstUsedPos = lstPos;
+                frmloadingReagent.LoadingReagentData();
+                frmloadingReagent.ShowDialog();
+            }
+            else if (rs.ReagentStatusModule == 2)
+            {
+                lReagentBlock.ReagentDisk = this.Disk = 2;
+                lReagentBlock.StartPosition = FormStartPosition.CenterScreen;
+                lReagentBlock.Text = "试剂条码装载R2";
+                lReagentBlock.LstProjectName = lstProjectName;
+                lReagentBlock.LstPos = lstPos;
+                lReagentBlock.ShowDialog();
+            }
         }
         //存储删除试剂的信息
         private ReagentSettingsInfo reagentSettingsInfo;
@@ -337,6 +385,7 @@ namespace BioA.UI
                     reagentDictionary.Clear();
                     reagentDictionary.Add("DeleteReagentSettingsR1", new object[] { XmlUtility.Serializer(typeof(ReagentSettingsInfo), reagentSettingsInfo) });
                     ClientSendToServicer(reagentDictionary);
+                    dt1.Rows.Remove(dt1.Rows[selectedHandle]);
                 }
 
             }
@@ -371,6 +420,7 @@ namespace BioA.UI
                     reagentDictionary.Clear();
                     reagentDictionary.Add("DeleteReagentSettingsR2", new object[] { XmlUtility.Serializer(typeof(ReagentSettingsInfo), reagentSettingsInfo) });
                     ClientSendToServicer(reagentDictionary);
+                    dt1.Rows.Remove(dt2.Rows[selectedHandle]);
                 }
             }
         }

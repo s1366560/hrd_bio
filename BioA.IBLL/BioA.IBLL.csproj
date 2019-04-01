@@ -39,8 +39,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IReagent\IReagentStateSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IReagentBracod\IReagentBarcode.cs" />
+    <Compile Include="IReagent\IReagentBarcode.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BioA.Common\BioA.Common.csproj">
+      <Project>{e1438a53-5dde-42c0-b2ff-0f4a892e95b6}</Project>
+      <Name>BioA.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

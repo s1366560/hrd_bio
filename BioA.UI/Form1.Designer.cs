@@ -104,13 +104,13 @@ namespace BioA.UI
             this.EquipmentManageElement18 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.UserManagementElement19 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.DepartmentManageElement20 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.ConfigureElement21 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.LogCheckElement22 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.VersionInfomationElement23 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.QCGraphicElement24 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.QCTaskElement25 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.CalibTaskElement26 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.ConfigurationScriptElement = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.FunctionConfigureElement = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.WorkingAreaApplyTaskElement1 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.WorkingAreaDataCheckElement2 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.WorkingAreaMissionInspectionElement3 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
@@ -735,19 +735,6 @@ namespace BioA.UI
             this.DepartmentManageElement20.Text = "             科室管理       ";
             this.DepartmentManageElement20.Click += new System.EventHandler(this.accordionControlElement20_Click);
             // 
-            // ConfigureElement21
-            // 
-            this.ConfigureElement21.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
-            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Text),
-            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image),
-            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl),
-            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.ContextButtons)});
-            this.ConfigureElement21.Height = 50;
-            this.ConfigureElement21.Name = "ConfigureElement21";
-            this.ConfigureElement21.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.ConfigureElement21.Text = "             配    置       ";
-            this.ConfigureElement21.Click += new System.EventHandler(this.accordionControlElement21_Click);
-            // 
             // LogCheckElement22
             // 
             this.LogCheckElement22.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
@@ -867,7 +854,20 @@ namespace BioA.UI
             this.ConfigurationScriptElement.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
             this.ConfigurationScriptElement.Text = "             脚本配置       ";
             this.ConfigurationScriptElement.Click += new System.EventHandler(this.ConfigurationScriptElement_Click);
-
+            //
+            // FunctionConfigureElement
+            //
+            this.FunctionConfigureElement.Expanded = true;
+            this.FunctionConfigureElement.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Text),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.ContextButtons)});
+            this.FunctionConfigureElement.Height = 50;
+            this.FunctionConfigureElement.Name = "FunctionConfigureElement";
+            this.FunctionConfigureElement.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.FunctionConfigureElement.Text = "             功能配置       ";
+            this.FunctionConfigureElement.Click += new System.EventHandler(this.FunctionConfigureElement_Click);
             // 
             // ribbonPageGroup7
             // 
@@ -1146,12 +1146,12 @@ namespace BioA.UI
         private DevExpress.XtraBars.Navigation.AccordionControlElement EquipmentManageElement18;
         private DevExpress.XtraBars.Navigation.AccordionControlElement UserManagementElement19;
         private DevExpress.XtraBars.Navigation.AccordionControlElement DepartmentManageElement20;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement ConfigureElement21;
         private DevExpress.XtraBars.Navigation.AccordionControlElement LogCheckElement22;
         private DevExpress.XtraBars.Navigation.AccordionControlElement VersionInfomationElement23;
         private DevExpress.XtraBars.Navigation.AccordionControlElement QCGraphicElement24;
         private DevExpress.XtraBars.Navigation.AccordionControlElement QCTaskElement25;
         private DevExpress.XtraBars.Navigation.AccordionControlElement ConfigurationScriptElement;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement FunctionConfigureElement;
 
 
 

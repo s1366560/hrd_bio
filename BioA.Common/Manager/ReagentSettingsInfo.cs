@@ -9,7 +9,7 @@ namespace BioA.Common
     /// <summary>
     /// 试剂设置表
     /// </summary>
-    public class ReagentSettingsInfo : ReagentStateInfo
+    public class ReagentSettingsInfo : ReagentResidualInfo
     {
         public ReagentSettingsInfo()
         {

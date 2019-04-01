@@ -158,7 +158,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Manager\ReagentBarcodeParam.cs" />
+    <Compile Include="Manager\ReagentConfigInfo.cs" />
     <Compile Include="Manager\ReagentItem.cs" />
+    <Compile Include="Manager\ReagentResidualInfo.cs" />
     <Compile Include="Manager\RealTimeCUVDataInfo.cs" />
     <Compile Include="Manager\ResultInfo.cs" />
     <Compile Include="Manager\ResultSetInfo.cs" />

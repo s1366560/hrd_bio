@@ -3,11 +3,13 @@
   <alias>
     <typeAlias alias="ReagentSettingsInfo" type="BioA.Common.ReagentSettingsInfo, BioA.Common" />
     <typeAlias alias="ProjectReagentStateInfo" type="BioA.Common.ProjectReagentStateInfo, BioA.Common" />
-    <typeAlias alias="ReagentStateInfo" type="BioA.Common.ReagentStateInfo, BioA.Common" />
+    <typeAlias alias="ReagentResidualInfo" type="BioA.Common.ReagentResidualInfo, BioA.Common" />
     <typeAlias alias="ReagentStateInfoR1R2" type="BioA.Common.ReagentStateInfoR1R2, BioA.Common" />
     <typeAlias alias="Reagent2UsingCountInfo" type="BioA.Common.Reagent2UsingCountInfo, BioA.Common" />
     <typeAlias alias="ReagentItem" type="BioA.Common.ReagentItem, BioA.Common" />
     <typeAlias alias="ReagentBarcodeParam" type="BioA.Common.ReagentBarcodeParam, BioA.Common" />
+    <typeAlias alias="ReagentStateInfo" type="BioA.Common.ReagentStateInfo, BioA.Common" />
+    <typeAlias alias="ReagentConfigInfo" type="BioA.Common.ReagentConfigInfo, BioA.Common" />
   </alias>
   <resultMaps>
     <resultMap id="ReagentSettingsInfoResult" class="ReagentSettingsInfo">
@@ -36,7 +38,7 @@
       <result property="R2TestQuantity" column="R2TestQuantity" />
       <result property="R2SurplusQuantity" column="R2SurplusQuantity" />
     </resultMap>
-    <resultMap id="ReagentStateInfoResult" class="ReagentStateInfo">
+    <resultMap id="ReagentStateInfoResult" class="ReagentResidualInfo">
       <!--<result property="ReagentPos" column="ReagentPos"/>
       <result property="ReagentChamber" column="ReagentChamber"/>
       <result property="ReagentName" column="ReagentName"/>
@@ -386,5 +388,26 @@
     <statement id="GetReagentStateInfoR1R2" parameterClass="string" resultClass="ReagentStateInfoR1R2">
       $value$
     </statement>
+    
+    <!-- 删除/保存试剂条码配制信息  ReagentConfigTb-->
+    <statement id="DeleteAndSaveReagentConfig" parameterClass="string">
+      $value$
+    </statement>
+    
+    <!-- 修改/保存试剂状态设置信息  ReagentStateTb-->
+    <statement id="SaveAndUpdateReagentStateInfo" parameterClass="string">
+      $value$
+    </statement>
+    
+    <!-- 获取试剂状态设置信息  ReagentStateTb-->
+    <statement id="QueryReagentStateSettingInfo" parameterClass="string" resultClass="ReagentStateInfo">
+      $value$
+    </statement>
+
+    <!-- 获取条码配置信息  ReagentConfigTb-->
+    <statement id="GetReagentConfigInfo" parameterClass="string" resultClass="ReagentConfigInfo">
+      $value$
+    </statement>
+    
   </statements>
 </sqlMap>

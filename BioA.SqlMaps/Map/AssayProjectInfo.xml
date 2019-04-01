@@ -480,6 +480,12 @@
     <statement id="SaveRangeParamAndCalibParam" parameterClass="string">
       $value$
     </statement>
+
+
+    <!-- 根据试剂开放的通道号获取对应的项目名称  assayprojectinfotb-->
+    <statement id="GetProjectNameByChannleNum" parameterClass="string" resultClass="AssayProjectInfo">
+      $value$
+    </statement>
   </statements>
   
 </sqlMap>

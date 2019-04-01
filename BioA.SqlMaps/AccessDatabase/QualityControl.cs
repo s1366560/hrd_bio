@@ -1088,69 +1088,7 @@ namespace BioA.SqlMaps
         //        LogInfo.WriteErrorLog("InitMachineUpdateQCTaskState(string strDBMethod, string Empty)" + e.ToString(), Module.DAO);
         //    }
         //}
-        /// <summary>
-        /// 根据项目名称删除试剂R1R2表中对应的数据
-        /// </summary>
-        /// <param name="strDBMethod"></param>
-        /// <param name="DeletereagentSettingsInfo"></param>
-        public void DeletereagentStateInfoR1R2(string strDBMethod, ReagentSettingsInfo DeletereagentSettingsInfo)
-        {
-
-            try
-            {
-                Hashtable hashTable = new Hashtable();
-
-                hashTable.Add("ProjectName", DeletereagentSettingsInfo.ProjectName);
-                ism_SqlMap.Delete("ReagentInfo." + strDBMethod, hashTable);
-            }
-            catch (Exception e)
-            {
-                LogInfo.WriteErrorLog("DeleteDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.DAO);
-            }
-
-        }
-        /// <summary>
-        /// 根据项目名称修改试剂R1R2表中试剂2对应的数据
-        /// </summary>
-        /// <param name="strDBMethod"></param>
-        /// <param name="DeletereagentSettingsInfo"></param>
-        public void UpdateReagentStateForR1R2CorrespondenceR1(string strDBMethod, ReagentSettingsInfo DeletereagentSettingsInfo)
-        {
-            try
-            {
-                Hashtable hashTable = new Hashtable();
-                hashTable.Add("ProjectName", DeletereagentSettingsInfo.ProjectName);
-
-                ism_SqlMap.Update("ReagentInfo." + strDBMethod, hashTable);
-
-            }
-            catch (Exception e)
-            {
-                LogInfo.WriteErrorLog("UpdateReagentStateForDeleteR1(string strDBMethod, ReagentSettingsInfo DeletereagentSettingsInfo)==" + e.ToString(), Module.DAO);
-            }
-        }
-        /// <summary>
-        /// 根据项目名称获取试剂R1R2表数据
-        /// </summary>
-        /// <param name="strAccessDBMethod"></param>
-        /// <param name="DeletereagentSettingsInfo"></param>
-        /// <returns></returns>
-        public ReagentStateInfoR1R2 SelectReagentStateForR1R2(string strAccessDBMethod, ReagentSettingsInfo DeletereagentSettingsInfo)
-        {
-            ReagentStateInfoR1R2 reagentR1AndR2 = null;
-            try
-            {
-                Hashtable hashTable = new Hashtable();
-                hashTable.Add("ProjectName", DeletereagentSettingsInfo.ProjectName);
-                reagentR1AndR2 = ism_SqlMap.QueryForObject("ReagentInfo." + strAccessDBMethod, hashTable) as ReagentStateInfoR1R2;
-            }
-            catch (Exception e)
-            {
-
-            }
-            return reagentR1AndR2;
-        }
-
+        
         public void DeletereagentStateInfoR2(string strDBMethod, ReagentSettingsInfo DeletereagentSettingsInfo)
         {
             try
@@ -1164,25 +1102,6 @@ namespace BioA.SqlMaps
             catch (Exception e)
             {
                 LogInfo.WriteErrorLog("DeleteDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.DAO);
-            }
-        }
-        /// <summary>
-        /// 根据项目名称修改试剂R1R2表中的pos2,reagentName2,ResidualQuantity2,ReagentType2,ReagentResidualVol2,ValidPercent2为空
-        /// </summary>
-        /// <param name="strDBMethod"></param>
-        /// <param name="DeletereagentSettingsInfo"></param>
-        public void UpdateReagentStateForR1R2(string strDBMethod, ReagentSettingsInfo DeletereagentSettingsInfo)
-        {
-            try
-            {
-                Hashtable hashTable = new Hashtable();
-                hashTable.Add("ProjectName", DeletereagentSettingsInfo.ProjectName);
-                ism_SqlMap.Update("ReagentInfo." + strDBMethod, hashTable);
-
-            }
-            catch (Exception e)
-            {
-                LogInfo.WriteErrorLog("UpdateReagentStateForDeleteR2(string strDBMethod, ReagentSettingsInfo DeletereagentSettingsInfo)==" + e.ToString(), Module.DAO);
             }
         }
 

@@ -17,37 +17,13 @@ namespace BioA.UI
     public partial class frmLoadingReagent : DevExpress.XtraEditors.XtraForm
     {
 
-        public delegate void GetsReagent(Dictionary<string, ReagentSettingsInfo> keyValuePairs);//声明一个委托
+        public delegate void GetsReagent(int d, ReagentSettingsInfo rs);//声明一个委托
         public event GetsReagent GetsReagentEvent;//声明一个委托事件
 
         /// <summary>
         /// 存储客户端发送信息给服务器的参数集合
         /// </summary>
         private Dictionary<string, object[]> frmLoadingReagentDic = new Dictionary<string, object[]>();
-
-        private string recieveInfo = "";
-        public string RecieveInfo
-        {
-            set
-            {
-                recieveInfo = value;
-                if (this.IsHandleCreated)
-                {
-                    BeginInvoke(new Action(() =>
-                    {
-                        frmLoadingReagentDic.Clear();
-                        Dictionary<string, ReagentSettingsInfo> dic = new Dictionary<string, ReagentSettingsInfo>();
-                        dic.Add(recieveInfo, reagentSettingsInfo);
-                        if (GetsReagentEvent != null)
-                        {
-                            GetsReagentEvent(dic);
-                            this.btnSave.Enabled = true;
-                            this.btnCancel.Enabled = true;
-                        }
-                    }));
-                }
-            }
-        }
 
         private List<AssayProjectInfo> assayProjectInfo = new List<AssayProjectInfo>();
         /// <summary>
@@ -112,11 +88,10 @@ namespace BioA.UI
             if (this.Text == "试剂装载R1")
             {
                 List<string> lstCanUsePos = RunConfigureUtility.Reagentpos;
-                lstCanUsePos.RemoveAll(i => lstUsedPos.Contains(i));
                 cboReagentPos.Properties.Items.Clear();
-                cboReagentPos.Properties.Items.AddRange(lstCanUsePos);
+                List<string> pos = lstCanUsePos.FindAll(i => !lstUsedPos.Contains(i));
+                cboReagentPos.Properties.Items.AddRange(pos);
                 cboReagentPos.SelectedIndex = 0;
-                lstCanUsePos = null;
 
 
                 cboReagentType.Properties.Items.Clear();
@@ -130,11 +105,9 @@ namespace BioA.UI
             else
             {
                 List<string> lstCanUsePos = RunConfigureUtility.Reagentpos2;
-                lstCanUsePos.RemoveAll(i => lstUsedPos.Contains(i));
                 cboReagentPos.Properties.Items.Clear();
-                cboReagentPos.Properties.Items.AddRange(lstCanUsePos);
+                cboReagentPos.Properties.Items.AddRange(lstCanUsePos.FindAll(i => !lstUsedPos.Contains(i)));
                 cboReagentPos.SelectedIndex = 0;
-                lstCanUsePos = null;
                 cboReagentType.Properties.Items.Clear();
                 cboReagentType.Properties.Items.AddRange(new object[] { "", "血清", "尿液", "清洗剂" });
                 cboReagentType.SelectedIndex = 1;
@@ -268,32 +241,29 @@ namespace BioA.UI
             reagentSettingsInfo.ValidDate = dtpValidDate.DateTime;
             reagentSettingsInfo.ReagentContainer = cboReagentVol.Text;
             reagentSettingsInfo.ReagentType = cboReagentType.Text;
-
-            ReagentStateInfoR1R2 reagentStateInfoR1R2 = new ReagentStateInfoR1R2();
-            if (cboReagentType.Text != "清洗剂" && cboProjectCheck.Text != "")
-            {
-                reagentStateInfoR1R2.ProjectName = cboProjectCheck.Text;
-            }
+            int reagentDisk = 0;
 
             if (this.Text == "试剂装载R1")
             {
-                frmLoadingReagentDic.Clear();
-                //新增试剂1信息
-                frmLoadingReagentDic.Add("reagentSettingAddR1", new object[] { XmlUtility.Serializer(typeof(ReagentSettingsInfo), reagentSettingsInfo) });
-                SendInfoToService(frmLoadingReagentDic);
-
+                reagentDisk = 1;
             }
             else if (this.Text == "试剂装载R2")
             {
-                frmLoadingReagentDic.Clear();
-                //新增试剂2信息
-                frmLoadingReagentDic.Add("reagentSettingAddR2", new object[] { XmlUtility.Serializer(typeof(ReagentSettingsInfo), reagentSettingsInfo) });
-                SendInfoToService(frmLoadingReagentDic);
+                reagentDisk = 2;
+            }
+            string s = new BioA.Service.ReagentSetting().AddreagentSettingInfo(reagentDisk,reagentSettingsInfo);
+            if (s != "试剂装载成功！")
+            {
+                MessageBox.Show("试剂条码R" + reagentDisk + "装载失败！");
             }
             else
             {
-                return;
+                if (GetsReagentEvent != null)
+                {
+                    GetsReagentEvent(reagentDisk, reagentSettingsInfo);
+                }
             }
+            this.Close();
         }
 
         private void comboBoxEdit3_SelectedIndexChanged(object sender, EventArgs e)

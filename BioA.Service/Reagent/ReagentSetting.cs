@@ -38,161 +38,41 @@ namespace BioA.Service
             }
             return lstReagentSettingsInfo;
         }
-        public string AddreagentSettingInfo(string strDBMethod, ReagentSettingsInfo reagentSettingsInfo)
+       /// <summary>
+       /// 保存试剂设置信息和试剂状态信息
+       /// </summary>
+       /// <param name="disk"></param>
+       /// <param name="rs"></param>
+       /// <returns></returns>
+        public string AddreagentSettingInfo(int disk, ReagentSettingsInfo rs)
         {
             string str = "";
-            try
-            {
-                List<ReagentSettingsInfo> lstReagentSettingsInfo = myBatis.QueryReagentSettingsInfo("QueryReagentSetting1", null);
-                
-                for (int i = 0; i < lstReagentSettingsInfo.Count;i++ )
-                {
-                    if(reagentSettingsInfo.ProjectName==lstReagentSettingsInfo[i].ProjectName && reagentSettingsInfo.ReagentType == lstReagentSettingsInfo[i].ReagentType && reagentSettingsInfo.ReagentType != "清洗剂")
-                    {
-                        str= "项目名称不能重复,请重新装载试剂!";
-                    }
-                    else if (reagentSettingsInfo.ReagentName == lstReagentSettingsInfo[i].ReagentName)
-                    {
-                        str = "试剂名称不能重复,请重新装载试剂!";
-                    }
-                    else if (reagentSettingsInfo.Pos == lstReagentSettingsInfo[i].Pos)
-                    {
-                        str = "试剂位置不能重复，请重新装载试剂！";
-                    }
-                    else{
+            //保存试剂信息
+            str = myBatis.AddreagentSettingInfo(disk, rs);
 
-                    }
-                  
-                }
-                if(str=="")
-                {
-                    //保存试剂信息
-                    str = myBatis.AddreagentSettingInfo(strDBMethod, reagentSettingsInfo);
-                }
-
-                // 保存或更新试剂状态信息
-                if (reagentSettingsInfo.ReagentType != "清洗剂")
-                {
-                    if (str == "试剂R1装载成功！")
-                    {
-                        ReagentStateInfoR1R2 reagentState = myBatis.QueryReagentStateInfoByProjectName("QueryReagentStateInfoByProjectName", reagentSettingsInfo);
-                        if (reagentState == null)
-                        {
-                            ReagentStateInfoR1R2 addReagentState = new ReagentStateInfoR1R2();
-                            addReagentState.ProjectName = reagentSettingsInfo.ProjectName;
-                            addReagentState.ReagentType = reagentSettingsInfo.ReagentType;
-                            addReagentState.ReagentName = reagentSettingsInfo.ReagentName;
-                            addReagentState.Pos = reagentSettingsInfo.Pos;
-                            myBatis.AddreagentStateInfoR1R2("reagentStateAdd", addReagentState);
-                        }
-                        else
-                        {
-                            // 更新
-                            reagentState.ReagentName = reagentSettingsInfo.ReagentName;
-                            reagentState.ReagentType = reagentSettingsInfo.ReagentType;
-                            reagentState.Pos = reagentSettingsInfo.Pos;
-                            myBatis.UpdateReagent1State("UpdateReagent1State", reagentState);
-                        }
-                    }
-                    else
-                        return str;
-                }
-                else
-                {
-                    ReagentStateInfoR1R2 addReagentState = new ReagentStateInfoR1R2();
-                    addReagentState.ProjectName = reagentSettingsInfo.ProjectName;
-                    addReagentState.ReagentType = reagentSettingsInfo.ReagentType;
-                    addReagentState.ReagentName = reagentSettingsInfo.ReagentName;
-                    addReagentState.Pos = reagentSettingsInfo.Pos;
-                    myBatis.AddreagentStateInfoR1R2("reagentStateAdd", addReagentState);
-                }
-                                 
-                
-            }
-            catch (Exception e)
-            {
-                LogInfo.WriteErrorLog("AddreagentSettingInfo(string strDBMethod, ReagentSettingsInfo reagentSettingsInfo)==" + e.ToString(), Module.WindowsService);
-            }
+            //// 保存或更新试剂状态信息
+            //if (rs.ReagentType != "清洗剂")
+            //{
+            //    if (str == "试剂R1装载成功！")
+            //    {
+            //        ReagentStateInfoR1R2 reagentState = myBatis.QueryReagentStateInfoByProjectName("QueryReagentStateInfoByProjectName", rs);
+            //        if (reagentState == null)
+            //        {
+            //            myBatis.SaveReagentR1AndR2Info(disk, rs, 0);
+            //        }
+            //        else
+            //        {
+            //            myBatis.UpdateReagentR1AndR2Info(disk, rs, 0);
+            //        }
+            //    }
+            //    else
+            //        return str;
+            //}
+            //else
+            //{
+            //    myBatis.SaveReagentR1AndR2Info(disk, rs, 0);
+            //}
             return str;
-        }
-        public string AddreagentSettingInfo2(string strDBMethod, ReagentSettingsInfo reagentSettingsInfo)
-        {
-            string str = "";
-            try
-            {
-                
-                List<ReagentSettingsInfo> lstReagentSettingsInfo = myBatis.QueryReagentSettingsInfo2("QueryReagentSetting2", null);
-                
-                for (int i = 0; i < lstReagentSettingsInfo.Count; i++)
-                {
-                    if (reagentSettingsInfo.ProjectName == lstReagentSettingsInfo[i].ProjectName && reagentSettingsInfo.ReagentType == lstReagentSettingsInfo[i].ReagentType && reagentSettingsInfo.ReagentType != "清洗剂")
-                    {
-                        str = "项目名称不能重复,请重新装载试剂!";
-                    }
-                    else if (reagentSettingsInfo.ReagentName == lstReagentSettingsInfo[i].ReagentName)
-                    {
-                        str = "试剂名称不能重复,请重新装载试剂!";
-                    }
-                    else if (reagentSettingsInfo.Pos == lstReagentSettingsInfo[i].Pos)
-                    {
-                        str = "试剂位置不能重复，请重新装载试剂！";
-                    }
-                    else
-                    {
-
-                    }
-
-                }
-                if (str == "")
-                {
-                    str = myBatis.AddreagentSettingInfo2(strDBMethod, reagentSettingsInfo);
-                }
-                // 添加或更新试剂状态
-                if (reagentSettingsInfo.ReagentType != "清洗剂")
-                {
-                    if (str == "试剂R2装载成功！")
-                    {
-                        ReagentStateInfoR1R2 reagentState = myBatis.QueryReagentStateInfoByProjectName("QueryReagentStateInfoByProjectName", reagentSettingsInfo);
-                        if (reagentState == null)
-                        {
-                            ReagentStateInfoR1R2 addReagentState = new ReagentStateInfoR1R2();
-                            addReagentState.ProjectName = reagentSettingsInfo.ProjectName;
-                            addReagentState.ReagentType2 = reagentSettingsInfo.ReagentType;
-                            addReagentState.ReagentName2 = reagentSettingsInfo.ReagentName;
-                            addReagentState.Pos2 = reagentSettingsInfo.Pos;
-                            string reagentStateR1R2 = myBatis.AddreagentStateInfoR1R2("reagentStateAdd2", addReagentState);
-                        }
-                        else
-                        {
-                            // 更新
-                            reagentState.ReagentName2 = reagentSettingsInfo.ReagentName;
-                            reagentState.ReagentType2 = reagentSettingsInfo.ReagentType;
-                            reagentState.Pos2 = reagentSettingsInfo.Pos;
-                            myBatis.UpdateReagent1State("UpdateReagent2State", reagentState);
-                        }
-                    }
-                    else
-                        return str;
-                }
-                else
-                {
-                    ReagentStateInfoR1R2 addReagentState = new ReagentStateInfoR1R2();
-                    addReagentState.ProjectName = reagentSettingsInfo.ProjectName;
-                    addReagentState.ReagentType2 = reagentSettingsInfo.ReagentType;
-                    addReagentState.ReagentName2 = reagentSettingsInfo.ReagentName;
-                    addReagentState.Pos2 = reagentSettingsInfo.Pos;
-                    string reagentStateR1R2 = myBatis.AddreagentStateInfoR1R2("reagentStateAdd2", addReagentState);
-                }
-                               
-
-
-            }
-            catch (Exception e)
-            {
-                LogInfo.WriteErrorLog("AddreagentSettingInfo2(string strDBMethod, ReagentSettingsInfo2 reagentSettingsInfo)==" + e.ToString(), Module.WindowsService);
-            }
-            return str;
-            
         }
 
         /// <summary>
@@ -254,11 +134,6 @@ namespace BioA.Service
             }
             //根据项目名称删除试剂2表对应数据
             return myBatis.DeletereagentSettingsInfo2(strDBMethod, DeletereagentSettingsInfo);
-        }
-
-        public string AddreagentStateInfoR1R2(string strDBMethod, ReagentStateInfoR1R2 reagentStateInfoR1R2)
-        {
-            return myBatis.AddreagentStateInfoR1R2(strDBMethod, reagentStateInfoR1R2);
         }
     }
 }

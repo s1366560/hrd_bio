@@ -11,96 +11,36 @@ namespace BioA.Common
     /// </summary>
     public class ReagentStateInfo
     {
-        //private string reagentPos;
-        //private string reagentChamber;
-        //private string reagentName;
-        //private string projectName;
-        //private float reagentUsedVol;
-        private float validPercent;
-        private float validPercent2;
-        private int reagentVol;
-
-        ///// <summary>
-        ///// 试剂1位置
-        ///// </summary>
-        //public string ReagentPos
-        //{
-        //    get { return reagentPos; }
-        //    set { reagentPos = value; }
-        //}
-        ///// <summary>
-        ///// 试剂1通道
-        ///// </summary>
-        //public string ReagentChamber
-        //{
-        //    get { return reagentChamber; }
-        //    set { reagentChamber = value; }
-        //}
-        ///// <summary>
-        ///// 试剂1名称
-        ///// </summary>
-        //public string ReagentName
-        //{
-        //    get { return reagentName; }
-        //    set { reagentName = value; }
-        //}
-        ///// <summary>
-        ///// 项目名称
-        ///// </summary>
-        //public string ProjectName
-        //{
-        //    get { return projectName; }
-        //    set { projectName = value; }
-        //}
-        ///// <summary>
-        ///// 已用容量
-        ///// </summary>
-        //public float ReagentUsedVol
-        //{
-        //    get { return reagentUsedVol; }
-        //    set { reagentUsedVol = value; }
-        //}
+        private int reagentStatusModule;
+        private int reagentChannelNum1;
+        private int reagentChannelNum2;
         /// <summary>
-        /// 剩余容量R1
+        /// 试剂状态模型： 0：代表什么都没有。 1：代表试剂全部开放。 2：代表试剂半封闭（可以选择1~10的开放通道号）
         /// </summary>
-        public float ValidPercent
+        public int ReagentStatusModule
         {
-            get { return validPercent; }
-            set { validPercent = value; }
+            get { return reagentStatusModule; }
+            set { reagentStatusModule = value; }
         }
         /// <summary>
-        /// 剩余容量R2
+        /// 试剂开放通道号1~5
         /// </summary>
-        public float ValidPercent2
+        public int ReagentChannelNum1
         {
-            get { return validPercent2; }
-            set { validPercent2 = value; }
-        }
-        private int residualQuantity;
-        // <summary>
-        /// 余量可测量个数R1
-        /// </summary>
-        public int ResidualQuantity
-        {
-            get { return residualQuantity; }
-            set { residualQuantity = value; }
-        }
-        private int residualQuantity2;
-        /// <summary>
-        ///余量可测量个数1R2
-        /// </summary>
-        public int ResidualQuantity2
-        {
-            get { return residualQuantity2; }
-            set { residualQuantity2 = value; }
+            get { return reagentChannelNum1; }
+            set { reagentChannelNum1 = value; }
         }
         /// <summary>
-        /// 试剂加样体积
+        /// 试剂开放通道号6~10
         /// </summary>
-        public int ReagentVol
+        public int ReagentChannelNum2
         {
-            get { return reagentVol; }
-            set { reagentVol = value; }
+            get { return reagentChannelNum2; }
+            set { reagentChannelNum2 = value; }
         }
+        /// <summary>
+        /// 所有的试剂通道号
+        /// </summary>
+        public List<int> ReagentNumberList { get; set; }
     }
 }

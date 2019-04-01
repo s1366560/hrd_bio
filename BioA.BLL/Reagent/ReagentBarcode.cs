@@ -462,7 +462,7 @@ namespace BioA.BLL
 
             string batchnum = barcode.Substring(5, 6);
             //项目试剂类型
-            string projectReagenttype = barcode.Substring(6, 7);
+            string projectReagenttype = barcode.Substring(12, 1);
             switch (projectReagenttype)
             {
                 case "1": reagentSettingsInfo.ReagentType = "血清"; break;
@@ -532,10 +532,10 @@ namespace BioA.BLL
                 case "2Point":
                     a.AnalysisMethod = "二点终点法";
                     break;
-                case "ARate":
+                case "Arate":
                     a.AnalysisMethod = "速率A法";
                     break;
-                case "BRate":
+                case "Brate":
                     a.AnalysisMethod = "速率B法";
                     break;
             }

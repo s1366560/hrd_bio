@@ -48,7 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReagentBarcode\ReagentBarcode.cs" />
+    <Compile Include="Reagent\ReagentBarcode.cs" />
+    <Compile Include="Reagent\ReagentStateSetting.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BioA.Common\BioA.Common.csproj">

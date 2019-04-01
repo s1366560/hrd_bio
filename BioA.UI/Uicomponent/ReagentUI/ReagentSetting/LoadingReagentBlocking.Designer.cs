@@ -48,7 +48,7 @@
             this.dtpValidDate = new DevExpress.XtraEditors.DateEdit();
             this.lbaSacnReagentAllBarcode = new DevExpress.XtraEditors.LabelControl();
             this.butSacnAllBarcode = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.butReagentScann = new System.Windows.Forms.Button();
             this.btnSave = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.txtBarcode.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtReagentName.Properties)).BeginInit();
@@ -157,8 +157,11 @@
             this.txtBarcode.Name = "txtBarcode";
             this.txtBarcode.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBarcode.Properties.Appearance.Options.UseFont = true;
+            this.txtBarcode.Properties.MaxLength = 20;
             this.txtBarcode.Size = new System.Drawing.Size(164, 24);
             this.txtBarcode.TabIndex = 14;
+            this.txtBarcode.EditValueChanged += new System.EventHandler(this.txtBarcode_EditValueChanged);
+            this.txtBarcode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBarcode_KeyPress);
             // 
             // txtReagentName
             // 
@@ -262,16 +265,18 @@
             this.butSacnAllBarcode.TabIndex = 26;
             this.butSacnAllBarcode.Text = "扫描";
             this.butSacnAllBarcode.UseVisualStyleBackColor = true;
+            this.butSacnAllBarcode.Click += new System.EventHandler(this.butSacnAllBarcode_Click);
             // 
-            // button1
+            // butReagentScann
             // 
-            this.button1.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(253, 246);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(83, 33);
-            this.button1.TabIndex = 27;
-            this.button1.Text = "扫描试剂";
-            this.button1.UseVisualStyleBackColor = true;
+            this.butReagentScann.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.butReagentScann.Location = new System.Drawing.Point(253, 246);
+            this.butReagentScann.Name = "butReagentScann";
+            this.butReagentScann.Size = new System.Drawing.Size(83, 33);
+            this.butReagentScann.TabIndex = 27;
+            this.butReagentScann.Text = "装载试剂";
+            this.butReagentScann.UseVisualStyleBackColor = true;
+            this.butReagentScann.Click += new System.EventHandler(this.butReagentScann_Click);
             // 
             // btnSave
             // 
@@ -289,7 +294,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(726, 484);
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.butReagentScann);
             this.Controls.Add(this.butSacnAllBarcode);
             this.Controls.Add(this.lbaSacnReagentAllBarcode);
             this.Controls.Add(this.cboReagentPos);
@@ -311,7 +316,6 @@
             this.Controls.Add(this.lblReagentDisc);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "LoadingReagentBlocking";
-            this.Text = "装载试剂";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LoadingReagentBlocking_FormClosing);
             this.Load += new System.EventHandler(this.LoadingReagentBlocking_Load);
             ((System.ComponentModel.ISupportInitialize)(this.txtBarcode.Properties)).EndInit();
@@ -349,7 +353,7 @@
         private DevExpress.XtraEditors.DateEdit dtpValidDate;
         private DevExpress.XtraEditors.LabelControl lbaSacnReagentAllBarcode;
         private System.Windows.Forms.Button butSacnAllBarcode;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button butReagentScann;
         private DevExpress.XtraEditors.SimpleButton btnSave;
     }
 }

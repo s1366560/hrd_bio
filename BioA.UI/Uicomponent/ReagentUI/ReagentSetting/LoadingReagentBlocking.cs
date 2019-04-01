@@ -11,89 +11,26 @@ using DevExpress.XtraEditors;
 using BioA.Common;
 using BioA.Common.IO;
 using System.Threading;
+using BioA.BLL;
+using BioA.IBLL;
 
 namespace BioA.UI
 {
     public partial class LoadingReagentBlocking : DevExpress.XtraEditors.XtraForm
     {
-
-        public delegate void GetsReagent(Dictionary<string, ReagentSettingsInfo> keyValuePairs);//声明一个委托
-        public event GetsReagent GetsReagentEvent;//声明一个委托事件
-
         /// <summary>
-        /// 存储客户端发送信息给服务器的参数集合
+        /// 默认为0：没有装载试剂，1：代表装载试剂1， 2：代表装载试剂2
         /// </summary>
-        private Dictionary<string, object[]> frmLoadingReagentDic = new Dictionary<string, object[]>();
-
-        /// <summary>
-        /// 静态属性,全局唯一,默认为0：没有装载试剂，1：代表装载试剂1， 2：代表装载试剂2
-        /// </summary>
-        private static int ReagentDisk = 0;
-
-
-        private string recieveInfo = "";
-        public string RecieveInfo
-        {
-            set
-            {
-                recieveInfo = value;
-                if (this.IsHandleCreated)
-                {
-                    BeginInvoke(new Action(() =>
-                    {
-                        frmLoadingReagentDic.Clear();
-                        Dictionary<string, ReagentSettingsInfo> dic = new Dictionary<string, ReagentSettingsInfo>();
-                        dic.Add(recieveInfo, reagentSettingsInfo);
-                        if (GetsReagentEvent != null)
-                        {
-                            GetsReagentEvent(dic);
-                            this.btnSave.Enabled = true;
-                            this.btnCancel.Enabled = true;
-                        }
-                    }));
-                }
-            }
-        }
-
-        private List<AssayProjectInfo> assayProjectInfo = new List<AssayProjectInfo>();
-        /// <summary>
-        /// 存储所有项目
-        /// </summary>
-        public List<AssayProjectInfo> AssayProjectInfo
-        {
-            get { return assayProjectInfo; }
-            set
-            {
-                assayProjectInfo = value;
-                comBoxAdd(assayProjectInfo);
-            }
-        }
-        /// <summary>
-        /// 存储已使用的项目名
-        /// </summary>
-        private List<object> lstProjectName = new List<object>();
-        public List<object> LstProjectName
-        {
-            get { return lstProjectName; }
-            set { lstProjectName = value; }
-        }
-
-        private List<string> lstUsedPos = new List<string>();
-        /// <summary>
-        /// 存储已使用的位置
-        /// </summary>
-        public List<string> LstUsedPos
-        {
-            get { return lstUsedPos; }
-            set { lstUsedPos = value; }
-        }
+        public int ReagentDisk { get; set; }
+        //试剂状态设置信息
+        private ReagentStateInfo rs; 
+        //条码配置信息
+        private ReagentConfigInfo rc;
 
         public LoadingReagentBlocking()
         {
             InitializeComponent();
             this.ControlBox = false;
-            cboReagentType.Text = "血清";
-            cboReagentVol.Text = "20ml";
             dtpValidDate.DateTime = DateTime.Now.AddMonths(1);
         }
 
@@ -101,29 +38,32 @@ namespace BioA.UI
         {
             //异步方法调用
             BeginInvoke(new Action(loadFrmReagent));
+            rs= ReagentConfigInfoConstrunction.ReagentStateInfo;
+            rc = ReagentConfigInfoConstrunction.ReagentConfig;
 
         }
+        //存储已经分好类型<key> 对应项目名称<value>
+        private Dictionary<string, List<string>> dictionary = new Dictionary<string, List<string>>();
 
         private void loadFrmReagent()
         {
-            frmLoadingReagentDic.Clear();
-            //获取所有生化项目信息
-            frmLoadingReagentDic.Add("QueryAssayProAllInfo", new object[]{""});
-            SendInfoToService(frmLoadingReagentDic);
-            cboProjectCheck.Text = "请选择";
+            if (rs.ReagentNumberList.Count > 0)
+            {
+                IReagentStateSetting iReagentSS = new ReagentStateSetting();
+                dictionary = iReagentSS.Get(rs.ReagentNumberList);
+            }
+            this.LoadingReagentData();
+            this.txtBarcode.Focus();
         }
 
         public void LoadingReagentData()
         {
-            if (this.Text == "试剂装载R1")
+            if (this.Text == "试剂条码装载R1")
             {
                 List<string> lstCanUsePos = RunConfigureUtility.Reagentpos;
-                lstCanUsePos.RemoveAll(i => lstUsedPos.Contains(i));
                 cboReagentPos.Properties.Items.Clear();
                 cboReagentPos.Properties.Items.AddRange(lstCanUsePos);
                 cboReagentPos.SelectedIndex = 0;
-                lstCanUsePos = null;
-
 
                 cboReagentType.Properties.Items.Clear();
                 cboReagentType.Properties.Items.AddRange(new object[] { "", "血清", "尿液", "清洗剂" });
@@ -136,11 +76,9 @@ namespace BioA.UI
             else
             {
                 List<string> lstCanUsePos = RunConfigureUtility.Reagentpos2;
-                lstCanUsePos.RemoveAll(i => lstUsedPos.Contains(i));
                 cboReagentPos.Properties.Items.Clear();
                 cboReagentPos.Properties.Items.AddRange(lstCanUsePos);
                 cboReagentPos.SelectedIndex = 0;
-                lstCanUsePos = null;
                 cboReagentType.Properties.Items.Clear();
                 cboReagentType.Properties.Items.AddRange(new object[] { "", "血清", "尿液", "清洗剂" });
                 cboReagentType.SelectedIndex = 1;
@@ -150,71 +88,24 @@ namespace BioA.UI
                 cboReagentVol.SelectedIndex = 0;
             }
         }
-
-        public void comBoxAdd(List<AssayProjectInfo> lstAssayProInfos)
+        /// <summary>
+        /// 显示试剂对应的项目名称
+        /// </summary>
+        /// <param name="dic"></param>
+        public void DisplayReagentProjectName(Dictionary<string, List<string>> dic)
         {
-            if (this.IsHandleCreated)
+            if (dic.Count() > 0)
             {
                 this.Invoke(new EventHandler(delegate
                 {
                     this.cboProjectCheck.Properties.Items.Clear();
-                    List<string> listProName = new List<string>();
-                    if (cboReagentType.Text == "血清")
-                    {
-                        listProName.Clear();
-                        cboProjectCheck.Enabled = true;
-                        for (int i = 0; i < lstAssayProInfos.Count; i++)
+                    foreach (var item in dic)
+	                {
+                        if (item.Key == cboReagentType.Text)
                         {
-                            if (lstAssayProInfos[i].SampleType == "血清")
-                            {
-
-                                listProName.Add(lstAssayProInfos[i].ProjectName);
-
-                            }
+                            cboProjectCheck.Properties.Items.AddRange(item.Value.FindAll(i => !LstProjectName.Contains(i)));
                         }
-                        listProName.RemoveAll(i => lstProjectName.Contains(i));
-                        //this.cboProjectCheck.Properties.Items.AddRange(new object[] 
-                        //{ 
-                        //    lstAssayProInfos[i].ProjectName
-                        //});
-                        this.cboProjectCheck.Properties.Items.AddRange(listProName);
-                    }
-                    if (cboReagentType.Text == "尿液")
-                    {
-                        listProName.Clear();
-                        cboProjectCheck.Enabled = true;
-                        for (int i = 0; i < lstAssayProInfos.Count; i++)
-                        {
-                            if (lstAssayProInfos[i].SampleType == "尿液")
-                            {
-                                listProName.Add(lstAssayProInfos[i].ProjectName);
-                            }
-                        }
-                        listProName.RemoveAll(i => lstProjectName.Contains(i));
-                        this.cboProjectCheck.Properties.Items.AddRange(listProName);
-                        //this.cboProjectCheck.Properties.Items.AddRange(new object[] { lstAssayProInfos[i].ProjectName });
-                    }
-                    if (cboReagentType.Text == "清洗剂")
-                    {
-
-                        cboProjectCheck.Enabled = false;
-
-                    }
-                    if (cboReagentType.Text == "")
-                    {
-                        listProName.Clear();
-                        cboProjectCheck.Enabled = true;
-                        for (int i = 0; i < lstAssayProInfos.Count; i++)
-                        {
-                            if (lstAssayProInfos[i].SampleType == "")
-                            {
-                                listProName.Add(lstAssayProInfos[i].ProjectName);
-                            }
-                        }
-                        listProName.RemoveAll(i => lstProjectName.Contains(i));
-                        this.cboProjectCheck.Properties.Items.AddRange(listProName);
-                        //this.cboProjectCheck.Properties.Items.AddRange(new object[] { lstAssayProInfos[i].ProjectName });
-                    }
+	                }
                 }));
             }
         }
@@ -228,6 +119,24 @@ namespace BioA.UI
             txtBatchNum.Text = "";
 
         }
+
+        /// <summary>
+        /// 存储已使用的项目名
+        /// </summary>
+        public List<object> LstProjectName
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 存储已使用的位置
+        /// </summary>
+        public List<string> LstPos
+        {
+            get;
+            set;
+        }
         /// <summary>
         /// 私有变量，存储试剂保存信息
         /// </summary>
@@ -238,9 +147,14 @@ namespace BioA.UI
             reagentSettingsInfo = new ReagentSettingsInfo();
             reagentSettingsInfo.Barcode = txtBarcode.Text;
             reagentSettingsInfo.BatchNum = txtBatchNum.Text;
-
+            
             if (cboReagentPos.Text != "")
             {
+                if (LstPos.Contains(cboReagentPos.Text.Trim()) == true)
+                {
+                    MessageBox.Show("试剂位置"+cboReagentPos.Text + "已被其他项目占用！");
+                    return;
+                }
                 reagentSettingsInfo.Pos = cboReagentPos.Text;
             }
             else
@@ -280,37 +194,26 @@ namespace BioA.UI
             reagentSettingsInfo.ValidDate = dtpValidDate.DateTime;
             reagentSettingsInfo.ReagentContainer = cboReagentVol.Text;
             reagentSettingsInfo.ReagentType = cboReagentType.Text;
-
-            ReagentStateInfoR1R2 reagentStateInfoR1R2 = new ReagentStateInfoR1R2();
-            if (cboReagentType.Text != "清洗剂" && cboProjectCheck.Text != "")
+            string s = new BioA.Service.ReagentSetting().AddreagentSettingInfo(ReagentDisk, reagentSettingsInfo);
+            if (s != "试剂装载成功！")
             {
-                reagentStateInfoR1R2.ProjectName = cboProjectCheck.Text;
-            }
-
-            if (this.Text == "试剂装载R1")
-            {
-                frmLoadingReagentDic.Clear();
-                //新增试剂1信息
-                frmLoadingReagentDic.Add("reagentSettingAddR1", new object[] { XmlUtility.Serializer(typeof(ReagentSettingsInfo), reagentSettingsInfo) });
-                SendInfoToService(frmLoadingReagentDic);
-
-            }
-            else if (this.Text == "试剂装载R2")
-            {
-                frmLoadingReagentDic.Clear();
-                //新增试剂2信息
-                frmLoadingReagentDic.Add("reagentSettingAddR2", new object[] { XmlUtility.Serializer(typeof(ReagentSettingsInfo), reagentSettingsInfo) });
-                SendInfoToService(frmLoadingReagentDic);
+                MessageBox.Show("试剂条码R"+ ReagentDisk +"装载失败！");
             }
             else
             {
-                return;
+                if (RefreshReagentInfoEvent != null)
+                {
+                    RefreshReagentInfoEvent(ReagentDisk, reagentSettingsInfo);
+                }
             }
+            this.btnSave.Enabled = true;
+            this.btnCancel.Enabled = true;
+            this.Close();
         }
 
         private void comboBoxEdit3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.Text == "试剂装载R1")
+            if (this.Text == "试剂条码装载R1")
             {
                 if (this.cboReagentVol.Text == "20ml" || this.cboReagentVol.Text == "40ml")
                 {
@@ -321,11 +224,6 @@ namespace BioA.UI
                 if (this.cboReagentVol.Text == "70ml")
                 {
                     this.cboReagentPos.Properties.Items.Clear();
-                    //List<string> str = new List<string>();
-                    //for (int i = 0; i < 50; i++)
-                    //{
-                    //    str.Add(RunConfigureUtility.Reagentpos[i]);
-                    //}
                     this.cboReagentPos.Properties.Items.AddRange(RunConfigureUtility.Reagentpos);
                     cboReagentPos.SelectedIndex = 0;
                 }
@@ -341,39 +239,24 @@ namespace BioA.UI
                 if (this.cboReagentVol.Text == "70ml")
                 {
                     this.cboReagentPos.Properties.Items.Clear();
-                    //List<string> str = new List<string>();
-                    //for (int i = 0; i < 50; i++)
-                    //{
-                    //    str.Add(RunConfigureUtility.Reagentpos2[i]);
-                    //}
                     this.cboReagentPos.Properties.Items.AddRange(RunConfigureUtility.Reagentpos2);
                     cboReagentPos.SelectedIndex = 0;
                 }
             }
         }
-
+        /// <summary>
+        /// 试剂类型下拉框改变下标事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void comboBoxEdit2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            comBoxAdd(assayProjectInfo);
+            this.DisplayReagentProjectName(dictionary);
             txtReagentName.Text = "";
             cboProjectCheck.Text = "请选择";
             txtBarcode.Text = "";
             txtBatchNum.Text = "";
 
-
-        }
-        /// <summary>
-        /// 发送信息给服务器
-        /// </summary>
-        /// <param name="sender"></param>
-        private void SendInfoToService(Dictionary<string, object[]> sender)
-        {
-            var frmLoadingReagentThread = new Thread(() =>
-            {
-                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.ReagentSetting, sender);
-            });
-            frmLoadingReagentThread.IsBackground = true;
-            frmLoadingReagentThread.Start();
         }
 
         private void LoadingReagentBlocking_FormClosing(object sender, FormClosingEventArgs e)
@@ -386,7 +269,91 @@ namespace BioA.UI
             txtBarcode.Text = "";
             txtBatchNum.Text = "";
         }
+        /// <summary>
+        /// 扫描试剂单个试剂
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void butReagentScann_Click(object sender, EventArgs e)
+        {
+            if (int.Parse(this.cboReagentPos.Text.Trim()) <= 50)
+            {
+                if (this.ScannSingleReagentEvent != null)
+                {
+                    ScannSingleReagentEvent(int.Parse(this.cboReagentPos.Text));
+                }
+            }
+            else
+            {
+                MessageBox.Show(string.Format("当前试剂位置{0}已超出试剂仓扫描范围！",int.Parse(this.cboReagentPos.Text.Trim())));
+            }
+        }
+        public delegate void RefreshReagentInfo(int d, ReagentSettingsInfo rs);//声明一个委托
+        public event RefreshReagentInfo RefreshReagentInfoEvent;//声明一个委托事件
 
+        public delegate void LoadingReagentBlockingHandler(object sender);
+        public event LoadingReagentBlockingHandler ScannSingleReagentEvent;
+        public event LoadingReagentBlockingHandler InputReagentBarcodeEvent;
+        /// <summary>
+        /// 扫码所有试剂
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void butSacnAllBarcode_Click(object sender, EventArgs e)
+        {
+            if (this.ScannSingleReagentEvent != null)
+            {
+                ScannSingleReagentEvent(0);
+            }
+        }
+        /// <summary>
+        /// 试剂条码输入限制
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtBarcode_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((e.KeyChar >= 'a' && e.KeyChar <= 'z') || (e.KeyChar >= 'A' && e.KeyChar <= 'Z')
+                || (e.KeyChar >= '0' && e.KeyChar <= '9') || (e.KeyChar == 8))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+        /// <summary>
+        /// 文本框值发生改变事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtBarcode_EditValueChanged(object sender, EventArgs e)
+        {
+            if (txtBarcode.Text.Trim().Length == 18)
+            {
+                BeginInvoke(new Action(() => { this.ProcessReagentBarcodeScan(); }));
+            }
+        }
+
+        private void ProcessReagentBarcodeScan()
+        {
+            string s = new ReagentBarcode().GetRgBracodePara(ReagentDisk, cboReagentPos.Text.Trim(), txtBarcode.Text.Trim()) as string;
+            if (s == null)
+            {
+                if (this.InputReagentBarcodeEvent != null)
+                {
+                    this.InputReagentBarcodeEvent(ReagentDisk);
+                }
+                MessageBox.Show(txtBarcode.Text.Trim() + "条码装载试剂成功！");
+            }
+            else
+            {
+                MessageBox.Show(s);
+            }
+            //Thread.Sleep(500);
+            this.Close();
+        }
 
     }
 }

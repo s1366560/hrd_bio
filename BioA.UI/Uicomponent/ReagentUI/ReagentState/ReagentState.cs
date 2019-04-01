@@ -71,16 +71,16 @@ namespace BioA.UI
             BeginInvoke(new Action(ReagentStateLoad));
             dt.Columns.Add("项目名称");
             dt.Columns.Add("试剂1名称");
-            dt.Columns.Add("试剂1可测数量");
             dt.Columns.Add("试剂1位置");
             dt.Columns.Add("试剂1类型");
+            dt.Columns.Add("试剂1可测数量");
             dt.Columns.Add("试剂1剩余容量ml");
             dt.Columns.Add("试剂1剩余容量%");
 
             dt.Columns.Add("试剂2名称");
-            dt.Columns.Add("试剂2可测数量");
             dt.Columns.Add("试剂2位置");
             dt.Columns.Add("试剂2类型");
+            dt.Columns.Add("试剂2可测数量");
             dt.Columns.Add("试剂2剩余容量ml");
             dt.Columns.Add("试剂2剩余容量%");
             dt.Columns.Add("是否锁定");
@@ -168,33 +168,52 @@ namespace BioA.UI
                 dt.Rows.Clear();
                 foreach (ReagentStateInfoR1R2 reagentStateInfo in lisReagentStateInfo3)
                 {
-                    if (reagentStateInfo.ReagentName == "")
+                    if (reagentStateInfo.ReagentName == "" || reagentStateInfo.ReagentName == null)
                     {
                         dt.Rows.Add(new object[] { reagentStateInfo.ProjectName, "", "", "", "", "","",
-                            reagentStateInfo.ReagentName2,reagentStateInfo.ResidualQuantity2,reagentStateInfo.Pos2,reagentStateInfo.ReagentType2,
+                            reagentStateInfo.ReagentName2,
+                            reagentStateInfo.Pos2,
+                            reagentStateInfo.ReagentType2,
                             //reagentStateInfo.BatchNum2,
+                            reagentStateInfo.ResidualQuantity2,
                             reagentStateInfo.ReagentResidualVol2,
                             reagentStateInfo.ValidPercent2 + "%",
-                            reagentStateInfo.Locked == true ? "锁定" : "未锁定"                        });
+                            reagentStateInfo.Locked == true ? "锁定" : "未锁定" 
+                        });
                     }
-                    else if (reagentStateInfo.ReagentName2 == "")
+                    else if (reagentStateInfo.ReagentName2 == "" || reagentStateInfo.ReagentName2 == null)
                     {
-                        dt.Rows.Add(new object[] { reagentStateInfo.ProjectName,reagentStateInfo.ReagentName,reagentStateInfo.ResidualQuantity,reagentStateInfo.Pos,
+                        dt.Rows.Add(new object[] { 
+                            reagentStateInfo.ProjectName,
+                            reagentStateInfo.ReagentName,
+                            
+                            reagentStateInfo.Pos,
                             reagentStateInfo.ReagentType,
+                            reagentStateInfo.ResidualQuantity,
                             //reagentStateInfo.BatchNum,
-                            reagentStateInfo.ReagentResidualVol,reagentStateInfo.ValidPercent + "%",
+                            reagentStateInfo.ReagentResidualVol,
+                            reagentStateInfo.ValidPercent + "%",
                             "", "", "", "", "", "", reagentStateInfo.Locked == true ? "锁定" : "未锁定"
                         }); 
                     }
                     else
                     {
-                        dt.Rows.Add(new object[] { reagentStateInfo.ProjectName,reagentStateInfo.ReagentName,reagentStateInfo.ResidualQuantity,reagentStateInfo.Pos,
+                        dt.Rows.Add(new object[] {
+                            reagentStateInfo.ProjectName,
+                            reagentStateInfo.ReagentName,
+                            reagentStateInfo.Pos,
                             reagentStateInfo.ReagentType,
                             //reagentStateInfo.BatchNum,
-                            reagentStateInfo.ReagentResidualVol,reagentStateInfo.ValidPercent + "%",
-                            reagentStateInfo.ReagentName2,reagentStateInfo.ResidualQuantity2,reagentStateInfo.Pos2,reagentStateInfo.ReagentType2,
+                            reagentStateInfo.ResidualQuantity,
+                            reagentStateInfo.ReagentResidualVol,
+                            reagentStateInfo.ValidPercent + "%",
+                            reagentStateInfo.ReagentName2,
+                            reagentStateInfo.Pos2,
+                            reagentStateInfo.ReagentType2,
                             //reagentStateInfo.BatchNum2,
-                            reagentStateInfo.ReagentResidualVol2,reagentStateInfo.ValidPercent2 + "%",
+                            reagentStateInfo.ResidualQuantity2,
+                            reagentStateInfo.ReagentResidualVol2,
+                            reagentStateInfo.ValidPercent2 + "%",
                             reagentStateInfo.Locked == true ? "锁定" : "未锁定"
                         });   
                     }
@@ -202,10 +221,15 @@ namespace BioA.UI
                 }
                 foreach (ReagentStateInfoR1R2 reagentStateInfo in lisReagentStateInfo1)
                 {
-                    dt.Rows.Add(new object[] { reagentStateInfo.ProjectName,reagentStateInfo.ReagentName,reagentStateInfo.ResidualQuantity,reagentStateInfo.Pos,
+                    dt.Rows.Add(new object[] { 
+                        reagentStateInfo.ProjectName,
+                        reagentStateInfo.ReagentName,
+                        reagentStateInfo.Pos,
                         reagentStateInfo.ReagentType,
                         //reagentStateInfo.BatchNum,
-                        reagentStateInfo.ReagentResidualVol,reagentStateInfo.ValidPercent + "%",
+                        reagentStateInfo.ResidualQuantity,
+                        reagentStateInfo.ReagentResidualVol,
+                        reagentStateInfo.ValidPercent + "%",
                         "","","","","",
                         "",reagentStateInfo.Locked == true ? "锁定" : "未锁定"                    });
                 }
@@ -213,9 +237,13 @@ namespace BioA.UI
                 {
                     dt.Rows.Add(new object[] { "","","","",
                         "","","",
-                        reagentStateInfo.ReagentName2,reagentStateInfo.ResidualQuantity2,reagentStateInfo.Pos2,reagentStateInfo.ReagentType2,
+                        reagentStateInfo.ReagentName2,
+                        reagentStateInfo.Pos2,
+                        reagentStateInfo.ReagentType2,
                         //reagentStateInfo.BatchNum2,
-                        reagentStateInfo.ReagentResidualVol2,reagentStateInfo.ValidPercent2 + "%",
+                        reagentStateInfo.ResidualQuantity2,
+                        reagentStateInfo.ReagentResidualVol2,
+                        reagentStateInfo.ValidPercent2 + "%",
                         reagentStateInfo.Locked == true ? "锁定" : "未锁定"
                     });
                 }
@@ -359,7 +387,7 @@ namespace BioA.UI
 
                         if (position == "" || position == null)
                         {
-                            break;
+                            continue;
                         }
                         else
                         {
@@ -416,7 +444,7 @@ namespace BioA.UI
 
                         if (position == "" || position == null)
                         {
-                            break;
+                            continue;
                         }
                         else
                         {

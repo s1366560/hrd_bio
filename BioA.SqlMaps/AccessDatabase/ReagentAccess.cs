@@ -21,7 +21,7 @@ namespace BioA.SqlMaps
 
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.Reagent);
             }
 
             return lstReagentSettingsInfo;
@@ -40,63 +40,78 @@ namespace BioA.SqlMaps
 
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.Reagent);
             }
 
             return lstReagentSettingsInfo;
         }
 
-
-        public string AddreagentSettingInfo(string strDBMethod, ReagentSettingsInfo reagentSettingsInfo)
+        /// <summary>
+        /// 添加试剂参数信息
+        /// </summary>
+        /// <param name="disk"></param>
+        /// <param name="r"></param>
+        /// <returns></returns>
+        public string AddreagentSettingInfo(int disk, ReagentSettingsInfo r)
         {
-            Hashtable hashTable = new Hashtable();
-            hashTable.Add("Barcode", reagentSettingsInfo.Barcode);
-            hashTable.Add("BatchNum", reagentSettingsInfo.BatchNum);
-            hashTable.Add("Pos", reagentSettingsInfo.Pos);
-            hashTable.Add("ProjectName", reagentSettingsInfo.ProjectName);
-            hashTable.Add("ReagentContainer", reagentSettingsInfo.ReagentContainer);
-            hashTable.Add("ReagentName", reagentSettingsInfo.ReagentName);
-            hashTable.Add("ValidDate", reagentSettingsInfo.ValidDate);
-            hashTable.Add("ReagentType", reagentSettingsInfo.ReagentType);
-
+            //保存试剂设置参数信息 ReagentSettingsTb  ReagentSettingsTbR2
+            string SQL = "";
+            //保存/修改试剂状态参数信息 reagentstateinfor1r2Tb
+            string SQL2 = "";
+            if (disk == 1)
+            {
+                SQL = string.Format(@"insert into ReagentSettingsTb(Pos,ProjectName,ReagentName,ValidDate,Barcode,ReagentContainer,BatchNum,ReagentType)
+                                values('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}')", r.Pos, r.ProjectName, r.ReagentName, r.ValidDate, r.Barcode, r.ReagentContainer, r.BatchNum, r.ReagentType);
+            }
+            else if (disk == 2)
+            {
+                SQL = string.Format(@"insert into ReagentSettingsTbR2(Pos,ProjectName,ReagentName,ValidDate,Barcode,ReagentContainer,BatchNum,ReagentType)
+                                values('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}')", r.Pos, r.ProjectName, r.ReagentName, r.ValidDate, r.Barcode, r.ReagentContainer, r.BatchNum, r.ReagentType);
+            }
             try
-            { 
-                ism_SqlMap.Insert("ReagentInfo." + strDBMethod, hashTable);
-                return "试剂R1装载成功！";
+            {
+                ReagentStateInfoR1R2 reagentState = this.QueryReagentStateInfoByProjectName("QueryReagentStateInfoByProjectName", r);
+                ism_SqlMap.BeginTransaction();
+                //保存试剂设置参数信息
+                ism_SqlMap.Insert("ReagentInfo.SaveReagentR1AndR2Info", SQL);
+                if (reagentState == null)
+                {
+                    if (disk == 1)
+                    {
+                        SQL2 = string.Format(@"insert into reagentstateinfor1r2Tb(ProjectName,Locked,ReagentName,ResidualQuantity,Pos,ReagentType,ValidPercent)
+                                        values('{0}','{1}','{2}','{3}','{4}','{5}','{6}')", r.ProjectName, r.Locked, r.ReagentName, r.ResidualQuantity, r.Pos, r.ReagentType, r.ValidPercent);
+                    }
+                    else if (disk == 2)
+                    {
+                        SQL2 = string.Format(@"insert into reagentstateinfor1r2Tb(ProjectName,Locked,ReagentName2,ResidualQuantity2,Pos2,ReagentType2,ValidPercent2)
+                                        values('{0}','{1}','{2}','{3}','{4}','{5}','{6}')", r.ProjectName, r.Locked, r.ReagentName, r.ResidualQuantity, r.Pos, r.ReagentType, r.ValidPercent);
+
+                    }
+                    ism_SqlMap.Insert("ReagentInfo.SaveReagentR1AndR2Info", SQL2);
+
+                }
+                else
+                {
+                    if (disk == 1)
+                    {
+                        SQL2 = string.Format("update reagentstateinfor1r2tb set ReagentName = '{0}',Pos = '{1}', ReagentType = '{2}', ValidPercent = '{3}', ResidualQuantity = '{4}' where ProjectName = '{5}'", r.ReagentName, r.Pos, r.ReagentType, r.ValidPercent, r.ResidualQuantity, r.ProjectName);
+                    }
+                    else if (disk == 2)
+                    {
+                        SQL2 = string.Format("update reagentstateinfor1r2tb set ReagentName2 = '{0}',Pos2 = '{1}', ReagentType2 = '{2}', ValidPercent2 = '{3}', ResidualQuantity2 = '{4}' where ProjectName = '{5}'", r.ReagentName, r.Pos, r.ReagentType, r.ValidPercent, r.ResidualQuantity, r.ProjectName);
+                    }
+                    ism_SqlMap.Update("ReagentInfo.UpdateReagentR1AndR2Info", SQL);
+                }
+                
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("AddDataConfig(string strDBMethod, CalcProjectInfo calcProjectInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("AddDataConfig(string strDBMethod, CalcProjectInfo calcProjectInfo)==" + e.ToString(), Module.Reagent);
+                ism_SqlMap.RollBackTransaction();
                 return "试剂装载失败！";
-
             }
-        }
-        public string AddreagentSettingInfo2(string strDBMethod, ReagentSettingsInfo reagentSettingsInfo)
-        {
-            Hashtable hashTable = new Hashtable();
-            hashTable.Add("Barcode", reagentSettingsInfo.Barcode);
-            hashTable.Add("BatchNum", reagentSettingsInfo.BatchNum);
-            hashTable.Add("Pos", reagentSettingsInfo.Pos);
-            hashTable.Add("ProjectName", reagentSettingsInfo.ProjectName);
-            hashTable.Add("ReagentContainer", reagentSettingsInfo.ReagentContainer);
-            hashTable.Add("ReagentName", reagentSettingsInfo.ReagentName);
-            hashTable.Add("ValidDate", reagentSettingsInfo.ValidDate);
-            hashTable.Add("ReagentType", reagentSettingsInfo.ReagentType);
-
-
-
-
-            try
-            {
-                ism_SqlMap.Insert("ReagentInfo." + strDBMethod, hashTable);
-                return "试剂R2装载成功！";
-            }
-            catch (Exception e)
-            {
-                LogInfo.WriteErrorLog("AddDataConfig(string strDBMethod, CalcProjectInfo calcProjectInfo)==" + e.ToString(), Module.DAO);
-                return "试剂装载失败";
-
-            }
+            ism_SqlMap.CommitTransaction();
+            return "试剂装载成功！";
         }
 
         /// <summary>
@@ -146,7 +161,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("DeletereagentSettingsInfo(string strDBMethod, ReagentSettingsInfo DeletereagentSettingsInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("DeletereagentSettingsInfo(string strDBMethod, ReagentSettingsInfo DeletereagentSettingsInfo)==" + e.ToString(), Module.Reagent);
             }
             return intResult;
         }
@@ -163,7 +178,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("DeleteDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("DeleteDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.Reagent);
             }
             return intResult;
         }
@@ -212,7 +227,7 @@ namespace BioA.SqlMaps
 
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.Reagent);
             }
             return lstReagentR1R2StateInfo;
         }
@@ -227,7 +242,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("AddDataConfig(string strDBMethod, CalcProjectInfo calcProjectInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("AddDataConfig(string strDBMethod, CalcProjectInfo calcProjectInfo)==" + e.ToString(), Module.Reagent);
                 strResult = "添加失败！";
 
             }
@@ -243,7 +258,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateReagent1State(string strMethodName, ReagentStateInfoR1R2 reagentState)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateReagent1State(string strMethodName, ReagentStateInfoR1R2 reagentState)==" + e.ToString(), Module.Reagent);
             }
         }
 
@@ -256,7 +271,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryReagentStateInfoByProjectName(string strMethodName, ReagentSettingsInfo reagentSettingsInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryReagentStateInfoByProjectName(string strMethodName, ReagentSettingsInfo reagentSettingsInfo)==" + e.ToString(), Module.Reagent);
             }
             return reagentState;
         }
@@ -306,7 +321,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("LockQualityControl(string strDBMethod, QualityControlInfo QCInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("LockQualityControl(string strDBMethod, QualityControlInfo QCInfo)==" + e.ToString(), Module.Reagent);
             }
 
             return lstResultRegaentInfoR1R2;
@@ -319,7 +334,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateDetergentUsingStartingTime(DateTime time)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateDetergentUsingStartingTime(DateTime time)==" + e.ToString(), Module.Reagent);
             }
         }
 
@@ -331,7 +346,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateDetergentUsingFinishingTime(DateTime time)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateDetergentUsingFinishingTime(DateTime time)==" + e.ToString(), Module.Reagent);
             }
         }
         /// <summary>
@@ -365,7 +380,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetValidPercent(int disk, int pos)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetValidPercent(int disk, int pos)==" + e.ToString(), Module.Reagent);
             }
 
             return percent;
@@ -393,7 +408,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateValidPercent(int volume, int disk, int pos)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateValidPercent(int volume, int disk, int pos)==" + e.ToString(), Module.Reagent);
             }
         }
         /// <summary>
@@ -414,7 +429,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetReagentStateInfoByPos(int panel, int pos)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetReagentStateInfoByPos(int panel, int pos)==" + e.ToString(), Module.Reagent);
             }
 
             return reaStateInfo;
@@ -446,7 +461,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetReagentSettingsInfoByPos(int panel, int pos)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetReagentSettingsInfoByPos(int panel, int pos)==" + e.ToString(), Module.Reagent);
             }
 
             return reaSettingInfo;
@@ -492,7 +507,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateReagentValidPercent(int vol, int panel, int position)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateReagentValidPercent(int vol, int panel, int position)==" + e.ToString(), Module.Reagent);
             }
         }
         /// <summary>
@@ -612,7 +627,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetReagentSettingsInfo(string projectName, string sampleType)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetReagentSettingsInfo(string projectName, string sampleType)==" + e.ToString(), Module.Reagent);
             }
 
             return reagentSettingInfo;
@@ -630,7 +645,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetReagentSettingsInfo2(string projectName, string sampleType)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetReagentSettingsInfo2(string projectName, string sampleType)==" + e.ToString(), Module.Reagent);
             }
 
             return reagentSettingInfo;
@@ -655,7 +670,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateLockState(string ReagentPanel, ReagentSettingsInfo reagentSettingInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateLockState(string ReagentPanel, ReagentSettingsInfo reagentSettingInfo)==" + e.ToString(), Module.Reagent);
             }
         }
         /// <summary>
@@ -669,11 +684,11 @@ namespace BioA.SqlMaps
 
             try
             {
-                ism_SqlMap.QueryForObject("ReagentInfo.getReagentItemInfo", string.Format("select * from ReagentItemTb where Code ={0}", code));
+                reagent = ism_SqlMap.QueryForObject<ReagentItem>("ReagentInfo.getReagentItemInfo", string.Format("select * from ReagentItemTb where Code ={0}", code));
             }
             catch (Exception ex)
             {
-                LogInfo.WriteErrorLog("getReagentItemInfo(string code) ==" + ex.Message, Module.LISSetting);
+                LogInfo.WriteErrorLog("getReagentItemInfo(string code) ==" + ex.Message, Module.Reagent);
             }
             return reagent;
         }
@@ -798,7 +813,7 @@ namespace BioA.SqlMaps
             }
             else if (disk == 2)
             {
-                SQL = string.Format("update reagentstateinfor1r2tb set ReagentName2 = '{0}',Pos2 = '{1}', ReagentType2 = '{2}', ValidPercent2 = '{3}', ResidualQuantity2 = '{4}' where ProjectName = '{5}'", r.ReagentName, r.Pos, r.ReagentType, r.ValidPercent, MeasurableNumber, r.ProjectName);
+                SQL = string.Format("update reagentstateinfor1r2tb set ReagentName2 = '{0}',Pos2 = '{1}', ReagentType2 = '{2}', ValidPercent2 = '{3}', ResidualQuantity2 = '{4}' where ProjectName = '{5}'", r.ReagentName, r.Pos, r.ReagentType, r.ValidPercent2, MeasurableNumber, r.ProjectName);
             }
             try
             {
@@ -826,7 +841,7 @@ namespace BioA.SqlMaps
             else if(disk == 2)
             {
                 SQL = string.Format(@"insert into reagentstateinfor1r2Tb(ProjectName,Locked,ReagentName2,ResidualQuantity2,Pos2,ReagentType2,ValidPercent2)
-                                values('{0}','{1}','{2}','{3}','{4}','{5}','{6}')", r.ProjectName, r.Locked, r.ReagentName, MeasurableNumber, r.Pos, r.ReagentType, r.ValidPercent);
+                                values('{0}','{1}','{2}','{3}','{4}','{5}','{6}')", r.ProjectName, r.Locked, r.ReagentName, MeasurableNumber, r.Pos, r.ReagentType, r.ValidPercent2);
             }
             try
             {
@@ -880,6 +895,191 @@ namespace BioA.SqlMaps
                 LogInfo.WriteErrorLog("DeleteReagentSettingAndStateInfo(int disk, string pos) ==" + ex.Message, Module.Reagent);
             }
             return r;
+        }
+        /// <summary>
+        /// 删除试剂条码配制信息
+        /// </summary>
+        public void DeleteReagentConfigInfo()
+        {
+            try
+            {
+                string Sql = string.Format("delete from ReagentConfigTb");
+                ism_SqlMap.Delete("ReagentInfo.DeleteAndSaveReagentConfig", Sql);
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("DeleteReagentConfigInfo() == " + ex.Message, Module.Reagent);
+            }
+        }
+
+        /// <summary>
+        /// 保存试剂条码配制信息
+        /// </summary>
+        /// <param name="rc"></param>
+        public void SaveReagentConfigInfo(ReagentConfigInfo rc)
+        {
+            try
+            {
+                string Sql = string.Format("insert ReagentConfigTb(IsSampBarcodeOpen,IsReagentBarcodeOpen,IsHandheldBarcodeOpen,SampleBracodeLength,ReagentBarcodeLength) values('{0}','{1}','{2}',{3},{4})", rc.IsSampBarcodeOpen, rc.IsReagentBarcodeOpen, rc.IsHandheldBarcodeOpen, rc.SampleBracodeLength, rc.ReagentBarcodeLength);
+                ism_SqlMap.Insert("ReagentInfo.DeleteAndSaveReagentConfig", Sql);
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("SaveReagentConfigInfo(ReagentConfigInfo rc) == " + ex.Message, Module.Reagent);
+            }
+        }
+        /// <summary>
+        /// 修改试剂状态设置信息
+        /// </summary>
+        /// <param name="rs"></param>
+        public void UpdateReagentStateInfo(ReagentStateInfo rs)
+        {
+            try
+            {
+                string Sql = string.Format("update reagentstatetb set ReagentStatusModule = {0}, ReagentChannelNum1 = {1}, ReagentChannelNum2 = {2}",rs.ReagentStatusModule,rs.ReagentChannelNum1,rs.ReagentChannelNum2);
+                ism_SqlMap.Update("ReagentInfo.SaveAndUpdateReagentStateInfo", Sql);
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("UpdateReagentStateInfo(ReagentStateInfo rs) == " + ex.Message, Module.Reagent);
+            }
+        }
+        /// <summary>
+        /// 获取试剂状态设置信息
+        /// </summary>
+        /// <returns></returns>
+        public ReagentStateInfo QueryReagentStateSettingInfo()
+        {
+            ReagentStateInfo rs = null;
+            try
+            {
+                rs = ism_SqlMap.QueryForObject("ReagentInfo.QueryReagentStateSettingInfo", string.Format("select * from reagentstatetb")) as ReagentStateInfo;
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("ReagentStateInfo GetReagentStateInfo() == " + ex.Message, Module.Reagent);
+            }
+            return rs;
+        }
+        /// <summary>
+        /// 获取条码配置信息
+        /// </summary>
+        /// <returns></returns>
+        public ReagentConfigInfo GetReagentConfigInfo()
+        {
+            ReagentConfigInfo rc = null;
+            try
+            {
+                rc = ism_SqlMap.QueryForObject("ReagentInfo.GetReagentConfigInfo", string.Format("select * from ReagentConfigTb")) as ReagentConfigInfo;
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("ReagentConfigInfo GetReagentConfigInfo() == " + ex.Message, Module.Reagent);
+            }
+            return rc;
+        }
+        /// <summary>
+        /// 根据试剂开放通道号获取对象的项目名称
+        /// </summary>
+        /// <param name="reagentNumbers"></param>
+        /// <returns></returns>
+        public List<AssayProjectInfo> GetProjectNameByChannleNum(string reagentNumbers)
+        {
+            List<AssayProjectInfo> proNameList = null;
+            string Sql = string.Format("select * from assayprojectinfotb where ChannelNum in(" + reagentNumbers + ")");
+            try
+            {
+                proNameList = ism_SqlMap.QueryForList<AssayProjectInfo>("AssayProjectInfo.GetProjectNameByChannleNum", Sql) as List<AssayProjectInfo>;
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("GetProjectNameByChannleNum(List<int> reagentNumbers) == " + ex.Message, Module.Reagent);
+            }
+            return proNameList;
+        }
+
+        /// <summary>
+        /// 根据项目名称获取试剂R1R2表数据
+        /// </summary>
+        /// <param name="strAccessDBMethod"></param>
+        /// <param name="DeletereagentSettingsInfo"></param>
+        /// <returns></returns>
+        public ReagentStateInfoR1R2 SelectReagentStateForR1R2(string strAccessDBMethod, ReagentSettingsInfo DeletereagentSettingsInfo)
+        {
+            ReagentStateInfoR1R2 reagentR1AndR2 = null;
+            try
+            {
+                Hashtable hashTable = new Hashtable();
+                hashTable.Add("ProjectName", DeletereagentSettingsInfo.ProjectName);
+                reagentR1AndR2 = ism_SqlMap.QueryForObject("ReagentInfo." + strAccessDBMethod, hashTable) as ReagentStateInfoR1R2;
+            }
+            catch (Exception e)
+            {
+                LogInfo.WriteErrorLog("SelectReagentStateForR1R2(string strAccessDBMethod, ReagentSettingsInfo DeletereagentSettingsInfo) ==" + e.Message, Module.Reagent);
+            }
+            return reagentR1AndR2;
+        }
+
+        /// <summary>
+        /// 根据项目名称修改试剂R1R2表中的pos2,reagentName2,ResidualQuantity2,ReagentType2,ReagentResidualVol2,ValidPercent2为空
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <param name="DeletereagentSettingsInfo"></param>
+        public void UpdateReagentStateForR1R2(string strDBMethod, ReagentSettingsInfo DeletereagentSettingsInfo)
+        {
+            try
+            {
+                Hashtable hashTable = new Hashtable();
+                hashTable.Add("ProjectName", DeletereagentSettingsInfo.ProjectName);
+                ism_SqlMap.Update("ReagentInfo." + strDBMethod, hashTable);
+
+            }
+            catch (Exception e)
+            {
+                LogInfo.WriteErrorLog("UpdateReagentStateForDeleteR2(string strDBMethod, ReagentSettingsInfo DeletereagentSettingsInfo)==" + e.ToString(), Module.Reagent);
+            }
+        }
+
+        /// <summary>
+        /// 根据项目名称删除试剂R1R2表中对应的数据
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <param name="DeletereagentSettingsInfo"></param>
+        public void DeletereagentStateInfoR1R2(string strDBMethod, ReagentSettingsInfo DeletereagentSettingsInfo)
+        {
+
+            try
+            {
+                Hashtable hashTable = new Hashtable();
+
+                hashTable.Add("ProjectName", DeletereagentSettingsInfo.ProjectName);
+                ism_SqlMap.Delete("ReagentInfo." + strDBMethod, hashTable);
+            }
+            catch (Exception e)
+            {
+                LogInfo.WriteErrorLog("DeleteDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.Reagent);
+            }
+
+        }
+        /// <summary>
+        /// 根据项目名称修改试剂R1R2表中试剂2对应的数据
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <param name="DeletereagentSettingsInfo"></param>
+        public void UpdateReagentStateForR1R2CorrespondenceR1(string strDBMethod, ReagentSettingsInfo DeletereagentSettingsInfo)
+        {
+            try
+            {
+                Hashtable hashTable = new Hashtable();
+                hashTable.Add("ProjectName", DeletereagentSettingsInfo.ProjectName);
+
+                ism_SqlMap.Update("ReagentInfo." + strDBMethod, hashTable);
+
+            }
+            catch (Exception e)
+            {
+                LogInfo.WriteErrorLog("UpdateReagentStateForDeleteR1(string strDBMethod, ReagentSettingsInfo DeletereagentSettingsInfo)==" + e.ToString(), Module.Reagent);
+            }
         }
     }
 }
