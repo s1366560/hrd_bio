@@ -242,6 +242,28 @@ namespace BioA.UI
         }
         private void loadDataConfig()
         {
+            comboPaperType.Properties.Items.Clear();
+            comboPaperType.Properties.Items.AddRange(RunConfigureUtility.PrintPaper);
+            string setting = new BioA.SqlMaps.MyBatis().QueryPrintSetting();
+            string[]  ret = setting.Split('|');
+            this.comboPaperType.Text  = ret[0].Trim();
+            if (ret[1].Trim() == "1")
+            {
+                chkChecker.Checked = true;
+            }
+            else
+            {
+                chkChecker.Checked = false;
+            }
+            if (ret[2].Trim() == "1")
+            {
+                chkAuditor.Checked = true;
+            }
+            else
+            {
+                chkAuditor.Checked = false;
+            }
+
             dataConfigDic.Clear();
             //获取所有数据单位信息
             dataConfigDic.Add("QueryDataConfig",null);
@@ -521,6 +543,31 @@ namespace BioA.UI
         {
             textEdit2.Text = "";
             dilutionRatio = null;
+        }
+        /// <summary>
+        /// 保存打印设置
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            string parperType = comboPaperType.SelectedItem.ToString();
+            int cheker = 0;
+            int aduitor = 0;
+            if (chkChecker.Checked == true)
+            {
+                cheker = 1;
+            }
+            if (chkAuditor.Checked == true)
+            {
+                aduitor = 1;
+            }
+            int row = new BioA.SqlMaps.MyBatis().SavePritSetting(parperType, cheker, aduitor);
+            if (row > 0)
+            {
+                MessageBoxDraw.Show("保存成功！");
+            }
         }
     }
 }

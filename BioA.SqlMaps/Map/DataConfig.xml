@@ -36,5 +36,14 @@
     <delete id="DeleteDilutionRatio" resultClass="int" parameterClass="System.Collections.IDictionary" >
       delete from DilutionRatioTb where DilutionRatio=#DilutionRatio#
     </delete>
+    <!--查询打印设置数据-->
+    <select id="QueryPrintSetting" ResultClass="string" >
+      select top 1 PaperType +'|'+convert(nchar(10),IsChecker)+'|'+convert(nchar(10),IsAuditor) as result from printsetting
+    </select>
+    <!--保存打印设置-->
+    <update id="UpdataPrintSetting" parameterClass="System.Collections.IDictionary" resultClass="int">
+      update printsetting
+      set PaperType = #PaperType#,IsChecker = #IsChecker#,IsAuditor = #IsAuditor#
+    </update>
   </statements>
 </sqlMap>

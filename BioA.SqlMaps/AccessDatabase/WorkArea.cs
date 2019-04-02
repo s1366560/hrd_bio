@@ -964,13 +964,14 @@ namespace BioA.SqlMaps
             try
             {
                 //获取样本信息和病人信息
-                sampleInfoForResult = (SampleInfoForResult)ism_SqlMap.QueryForObject("CommonDataCheck.GetSamplePatientInfo", hashtable);
+                sampleInfoForResult = (SampleInfoForResult)ism_SqlMap.QueryForObject("CommonDataCheck.GetSamplePatientInfo", hashtable);            
                 //获取样本结果信息
                 lstSample = (List<SampleResultInfo>)ism_SqlMap.QueryForList<SampleResultInfo>("CommonDataCheck.GetSampleResultInfo", hashtable);
                 //根据项目名称和样本类型移除该集合中相同的元素
                 if (lstSample != null)
                 {
                     List<SampleResultInfo> resultInfos = lstSample.Where((x, i) => lstSample.FindIndex(y => y.ProjectName == x.ProjectName && y.SampleType == x.SampleType) == i).ToList();
+
                     foreach (var item in resultInfos)
                     {
                         hashtable.Clear();
@@ -978,14 +979,37 @@ namespace BioA.SqlMaps
                         hashtable.Add("SampleType", item.SampleType);
                         //获取项目的中文名称
                         string chineseName = ism_SqlMap.QueryForObject("AssayProjectInfo.GetProjectFullName", hashtable) as string;
-                        //获取单位信息
-                        string unit = ism_SqlMap.QueryForObject("AssayProjectInfo.GetProjectUnitInfo", hashtable) as string;
+                        //获取单位、范围信息
+                        //string unit1 = ism_SqlMap.QueryForObject("AssayProjectInfo.GetProjectUnitInfo", hashtable) as string;
+                        string[] UnitAndRangeParameter;
+                        Hashtable ht = new Hashtable();
+                        ht.Add("SampleNum", samp);
+                        ht.Add("DateTime", dateTime);
+                        ht.Add("ProjectName", item.ProjectName);
+                        ht.Add("SampleType", item.SampleType);
+                        UnitAndRangeParameter = QueryUnitAndRange("QueryUnitAndRangeByProject", ht);
+                        string unit = UnitAndRangeParameter[0];
+                        string range = UnitAndRangeParameter[1];
+
                         foreach (var s in lstSample)
                         {
                             if (s.ProjectName == item.ProjectName && s.SampleType == item.SampleType && s.SampleCreateTime == item.SampleCreateTime)
                             {
                                 s.ChineseName = chineseName;
                                 s.UnitAndRange = unit;
+                                s.RangeParameter = range;
+                                if (!string.IsNullOrEmpty(range))
+                                {
+                                    string[] r = range.Split('—');
+                                    if (s.ConcResult < float.Parse(r[0]))
+                                    {
+                                        s.Remarks = "↓";
+                                    }
+                                    if (s.ConcResult > float.Parse(r[1]))
+                                    {
+                                        s.Remarks = "↑";
+                                    }
+                                }
                             }
                         }
                     }

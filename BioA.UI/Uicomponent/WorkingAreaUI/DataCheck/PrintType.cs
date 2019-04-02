@@ -26,6 +26,7 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void ButPrintState_Click(object sender, EventArgs e)
         {
+            this.ButPrintState.Enabled = false;
             if(this.CECurrentSample.Checked == true)
             {
                 if (this.PrintDelegateEvent != null)

@@ -441,7 +441,51 @@ namespace BioA.Common
                 return _SampleTypes;
             }
         }
+        static string _HospitolName;
+        /// <summary>
+        /// 获取医院名称
+        /// </summary>
+        public static string HospitolName
+        {
+            get 
+            {
+                if(_HospitolName == null)
+                {
+                    XmlNode hospitolname = XMLHelper.GetNode(RunConfigureNode, "HospitalName");
+                    string strhospitolname = XMLHelper.Read(hospitolname, "Values");
+                    _HospitolName = strhospitolname;
+                }
 
+                return _HospitolName;
+            }
+        }
+        static List<string> _PrintPaper;
+        /// <summary>
+        /// 获取打印纸张类型
+        /// </summary>
+        public static List<string> PrintPaper
+        {
+            get
+            {
+                if (_PrintPaper == null)
+                {
+                    _PrintPaper = new List<string>();
+
+                    XmlNode printPaper = XMLHelper.GetNode(RunConfigureNode, "PrintPaper");
+                    string strPrintPaper = XMLHelper.Read(printPaper, "Values");
+
+                    while (strPrintPaper.IndexOf(",") >= 0)
+                    {
+                        _PrintPaper.Add(strPrintPaper.Substring(0, strPrintPaper.IndexOf(",")));
+                        strPrintPaper = strPrintPaper.Substring(strPrintPaper.IndexOf(",") + 1);
+                    }
+
+                    _PrintPaper.Add(strPrintPaper);
+                }
+
+                return _PrintPaper;
+            }
+        }
         static List<string> _QCLevelConc;
         /// <summary>
         /// 质控品水平浓度

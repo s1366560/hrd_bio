@@ -930,22 +930,25 @@ namespace BioA.UI
             printType.PrintDelegateEvent += PrintReport_Event;
             printType.ShowDialog();
         }
+        string sPath = "";
         /// <summary>
         /// 处理打印报告事件
         /// </summary>
         /// <param name="sender"></param>
         private void PrintReport_Event(string sender)
-        {
+        {            
             if (sender == "1")
             {
+                selectedrow = this.gridView1.SelectedRowsCount;
                 if (this.gridView1.SelectedRowsCount > 0)
                 {
-                    int number = this.gridView1.GetSelectedRows()[0];
+                    //int number = this.gridView1.GetSelectedRows()[0];
 
-                    string sample = this.gridView1.GetRowCellValue(number, "样本编号") as string;
-                    DateTime dateTime = Convert.ToDateTime(this.gridView1.GetRowCellValue(number, "申请时间"));
-                    BeginInvoke(new Action(() => { PatientResultInfo(sample, dateTime); }));
+                    //string sample = this.gridView1.GetRowCellValue(number, "样本编号") as string;
+                    //DateTime dateTime = Convert.ToDateTime(this.gridView1.GetRowCellValue(number, "申请时间"));
+                    //BeginInvoke(new Action(() => { PatientResultInfo(sample, dateTime); }));
                     CreatePrintFile();
+                    MessageBoxDraw.Show("打印完成,您一共打印了1页");
                     this.printType.Close();
                 }
                 else
@@ -956,15 +959,19 @@ namespace BioA.UI
             }
             else if (sender == "2")
             {
+                selectedrow = this.gridView1.GetSelectedRows().Count();
+
                 if (this.gridView1.GetSelectedRows().Count() > 0)
                 {
-                    foreach (int i in this.gridView1.GetSelectedRows())
-                    {
-                        string sample = this.gridView1.GetRowCellValue(i, "样本编号") as string;
-                        DateTime dateTime = Convert.ToDateTime(this.gridView1.GetRowCellValue(i, "申请时间"));
-                        BeginInvoke(new Action(() => { PatientResultInfo(sample, dateTime); }));
-                        CreatePrintFile();
-                    }
+                    //foreach (int i in this.gridView1.GetSelectedRows())
+                    //{
+                    //    string sample = this.gridView1.GetRowCellValue(i, "样本编号") as string;
+                    //    DateTime dateTime = Convert.ToDateTime(this.gridView1.GetRowCellValue(i, "申请时间"));
+                    //    BeginInvoke(new Action(() => { PatientResultInfo(sample, dateTime); }));
+                    //    CreatePrintFile();
+                    //}
+                    CreatePrintFile();
+                    MessageBoxDraw.Show("打印完成,您一共打印了"+selectedrow+"页");
                     this.printType.Close();
                 }
                 else
@@ -973,17 +980,20 @@ namespace BioA.UI
                 }
             }
             else if (sender == "3")
-            {
+            {                
                 this.gridView1.SelectAll();
+                selectedrow = this.gridView1.GetSelectedRows().Count();
                 if (this.gridView1.GetSelectedRows().Count() > 0)
                 {
-                    foreach (int i in this.gridView1.GetSelectedRows())
-                    {
-                        string sample = this.gridView1.GetRowCellValue(i, "样本编号") as string;
-                        DateTime dateTime = Convert.ToDateTime(this.gridView1.GetRowCellValue(i, "申请时间"));
-                        BeginInvoke(new Action(() => { PatientResultInfo(sample, dateTime); }));
-                        CreatePrintFile();
-                    }
+                    //foreach (int i in this.gridView1.GetSelectedRows())
+                    //{
+                    //    string sample = this.gridView1.GetRowCellValue(i, "样本编号") as string;
+                    //    DateTime dateTime = Convert.ToDateTime(this.gridView1.GetRowCellValue(i, "申请时间"));
+                    //    BeginInvoke(new Action(() => { PatientResultInfo(sample, dateTime); }));
+                    //    CreatePrintFile();
+                    //}
+                    CreatePrintFile();
+                    MessageBoxDraw.Show("打印完成,您一共打印了" + selectedrow + "页");
                     this.printType.Close();
                 }
                 else
@@ -995,29 +1005,46 @@ namespace BioA.UI
 
         private PrintDocument printDocument1;
         PrintPreviewDialog printPreviewDialog1;
+        string[] printSetting;//获取打印设置的参数
         private void CreatePrintFile()
         {
+            printSetting = new BioA.SqlMaps.MyBatis().QueryPrintSetting().Split('|');
             //设置打印用的纸张 当设置为Custom的时候，可以自定义纸张的大小，还可以选择A4,A5等常用纸型
-            printDocument1 = new PrintDocument();
+            if (printSetting[0].Trim() == "A5")
+            {
+                printDocument1 = new PrintDocument();
+                PaperSize p = new PaperSize();
 
-            //this.printDocument1.DefaultPageSettings.PaperSize = new PaperSize("Custum", 827, 1169);
-            printDocument1.DefaultPageSettings.Landscape = false;    //纵向打印
-
-            //DataTablePrinter = new PrintDocument();
-
-            //PageSetupDialog PageSetup = new PageSetupDialog();
-            //PageSetup.Document = printDocument1;
-            //printDocument1.DefaultPageSettings = PageSetup.PageSettings;
-            //printDocument1.DefaultPageSettings.Landscape = false;//设置打印横向还是纵向
+                foreach (PaperSize ps in printDocument1.PrinterSettings.PaperSizes)
+                {
+                    if (ps.PaperName.Equals("A5(148x210mm)"))
+                        p = ps;
+                }
+                printDocument1.DefaultPageSettings.PaperSize = p;
+                printDocument1.DefaultPageSettings.Landscape = true;    //横向打印
+            }
+            else
+            {
+                printDocument1.DefaultPageSettings.Landscape = false;//纵向打印
+            }
 
             this.printDocument1.PrintPage += new PrintPageEventHandler(this.MyPrintDocument_PrintPage);
+            this.printDocument1.Print();
 
             printPreviewDialog1 = new PrintPreviewDialog();
+            
             //将写好的格式给打印预览控件以便预览
             printPreviewDialog1.Document = printDocument1;
-            
-            //显示打印预览
+            //printPreviewDialog1.Document.DefaultPageSettings.Landscape = true;
             DialogResult result = printPreviewDialog1.ShowDialog();
+            ////显示打印预览
+            //if (num == 0)
+            //{
+            //    num++;
+            //    DialogResult result = printPreviewDialog1.ShowDialog();
+                
+            //}
+           
             //if (result == DialogResult.OK)
             //    this.printPreviewDialog1.Close();
                 //this.printDocument1.Print();
@@ -1025,7 +1052,13 @@ namespace BioA.UI
         }
 
         //记录已打印的行数
-        int count = 0;
+        int count = 0; 
+        //当前页数
+        int cur = 0; 
+        //被选中的行数
+        int selectedrow = 0;
+        //一页是否超过50条(或20条)记录
+        bool flag = false;
         /// <summary>
         /// 打印报告事件
         /// </summary>
@@ -1033,52 +1066,52 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void MyPrintDocument_PrintPage(object sender, PrintPageEventArgs e)
         {
-            
+            if (!flag)
+            {
+                string sample = this.gridView1.GetRowCellValue(this.gridView1.GetSelectedRows()[cur], "样本编号") as string;
+                DateTime dateTime = Convert.ToDateTime(this.gridView1.GetRowCellValue(this.gridView1.GetSelectedRows()[cur], "申请时间"));
+                PatientResultInfo(sample, dateTime);
+            }
             //rowCount是除去打印过的行数后剩下的行数
             int rowCount = lstSampleReuslt.Count - count;
             //maxPageRow是当前设置下该页面可以打印的最大行数
-            int maxPageRow = 35;
-            e.Graphics.DrawString("XXXXXXXXXXXX医院", new Font(new FontFamily("黑体"), 18), System.Drawing.Brushes.Black, 320, 30);
+            int maxPageRow = 50;
+            //底线的位置：A4纸张为1095，A5纸张为515
+            int BaselineY = 1095;
+            if (printSetting[0].Trim() == "A5")
+            {
+                BaselineY = BaselineY - 580;
+                maxPageRow = 21;
+            }
 
-            e.Graphics.DrawString(string.Format("样本编号："+ sampleInfoForResult.SampleNum), new Font(new FontFamily("新宋体"), 11), System.Drawing.Brushes.Black, 20, 70);
-            //信息的名称
+            e.Graphics.DrawString(RunConfigureUtility.HospitolName, new Font(new FontFamily("黑体"), 18), System.Drawing.Brushes.Black, 320, 0);
+            e.Graphics.DrawString(string.Format("编号：" + sampleInfoForResult.SampleNum + "   样本类型：" + sampleInfoForResult.SampleType + "   姓名：" + sampleInfoForResult.PatientName
+                + "   " + "性别：" + sampleInfoForResult.Sex + "   " + "年龄：" + sampleInfoForResult.Age + "   科室：" + sampleInfoForResult.ApplyDepartment + "   送检医生：" + sampleInfoForResult.InspectDoctor
+                ), new Font(new FontFamily("新宋体"), 11), System.Drawing.Brushes.Black, 20, 40);
 
-            e.Graphics.DrawString("姓名：" + sampleInfoForResult.PatientName + "     " + "性别：" + sampleInfoForResult.Sex + "     " + "年龄：" + sampleInfoForResult.Age,
-                new Font(new FontFamily("新宋体"), 11), System.Drawing.Brushes.Black, 20, 98);
-            e.Graphics.DrawString("科室：" + sampleInfoForResult.ApplyDepartment + "     " + "送检医生：" + sampleInfoForResult.InspectDoctor + "     " + "送检日期：" + sampleInfoForResult.InspectTime,
-                new Font(new FontFamily("新宋体"), 11), System.Drawing.Brushes.Black, 20, 125);
-            e.Graphics.DrawString("备注：" + sampleInfoForResult.Remarks,
-                new Font(new FontFamily("新宋体"), 11), System.Drawing.Brushes.Black, 20, 148);
             //分割线样式和大小
             Pen pen = new Pen(Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(79)))), ((int)(((byte)(79))))), 2);
-            e.Graphics.DrawLine(pen, 8, 171, 820, 171);
-            e.Graphics.DrawString("项目",new Font(new FontFamily("Consolas"), 11), System.Drawing.Brushes.Black, 15, 181);
-            e.Graphics.DrawString("中文名称", new Font(new FontFamily("Consolas"), 11), System.Drawing.Brushes.Black, 215, 181);
-            e.Graphics.DrawString("结果", new Font(new FontFamily("Consolas"), 11), System.Drawing.Brushes.Black, 415, 181);
-            e.Graphics.DrawString("标识", new Font(new FontFamily("Consolas"), 11), System.Drawing.Brushes.Black, 505, 181);
-            e.Graphics.DrawString("单位", new Font(new FontFamily("Consolas"), 11), System.Drawing.Brushes.Black, 605, 181);
-            e.Graphics.DrawString("参考范围", new Font(new FontFamily("Consolas"), 11), System.Drawing.Brushes.Black, 665, 181);
-            //e.Graphics.DrawString("参考范围" + "         " + "中文名称" + "              " + "结果" + "          " + "标识" + "         " + "单位" + "         " + "参考范围",
-            //    new Font(new FontFamily("Consolas"), 11), System.Drawing.Brushes.Black, 15, 181);
-            int withd = 181;
+            e.Graphics.DrawLine(pen, 8, 65, 800, 65);
+            e.Graphics.DrawString("序号", new Font(new FontFamily("Consolas"), 10), System.Drawing.Brushes.Black, 20, 75);
+            e.Graphics.DrawString("项目名称",new Font(new FontFamily("Consolas"), 10), System.Drawing.Brushes.Black, 140, 75);
+            e.Graphics.DrawString("结果", new Font(new FontFamily("Consolas"), 10), System.Drawing.Brushes.Black, 360, 75);
+            e.Graphics.DrawString("参考范围", new Font(new FontFamily("Consolas"), 10), System.Drawing.Brushes.Black, 540, 75);
+            e.Graphics.DrawString("单位", new Font(new FontFamily("Consolas"), 10), System.Drawing.Brushes.Black, 740, 75);
+
+            int withd = 75;
             if (maxPageRow >= rowCount)
             {
                 while (count < lstSampleReuslt.Count)
                 {
                     int columnCount = 0;
-                    int height = withd += 25;
+                    int height = withd += 20;
                     while (columnCount < 1)
                     {
-                        //e.Graphics.DrawString(lstSampleReuslt[count].ProjectName + "         " + lstSampleReuslt[count].ChineseName + "               " + lstSampleReuslt[count].ConcResult + "        " +
-                        //"" + "         " + lstSampleReuslt[count].UnitAndRange + "        " + "",
-                        //new Font(new FontFamily("Consolas"), 11), System.Drawing.Brushes.Black, 15, withd += 25);
-                        
-                        e.Graphics.DrawString(lstSampleReuslt[count].ProjectName, new Font(new FontFamily("Consolas"), 11), System.Drawing.Brushes.Black, 15, height);
-                        e.Graphics.DrawString(lstSampleReuslt[count].ChineseName, new Font(new FontFamily("Consolas"), 11), System.Drawing.Brushes.Black, 215, height);
-                        e.Graphics.DrawString(lstSampleReuslt[count].ConcResult.ToString("#0.0000"), new Font(new FontFamily("Consolas"), 11), System.Drawing.Brushes.Black, 415, height);
-                        e.Graphics.DrawString("", new Font(new FontFamily("Consolas"), 11), System.Drawing.Brushes.Black, 505, height);
-                        e.Graphics.DrawString(lstSampleReuslt[count].UnitAndRange, new Font(new FontFamily("Consolas"), 11), System.Drawing.Brushes.Black, 605, height);
-                        e.Graphics.DrawString("", new Font(new FontFamily("Consolas"), 11), System.Drawing.Brushes.Black, 665, height);
+                        e.Graphics.DrawString((count+1).ToString(), new Font(new FontFamily("Consolas"), 10), System.Drawing.Brushes.Black, 20, height);
+                        e.Graphics.DrawString(lstSampleReuslt[count].ProjectName + " " + lstSampleReuslt[count].ChineseName, new Font(new FontFamily("Consolas"), 10), System.Drawing.Brushes.Black, 140, height);
+                        e.Graphics.DrawString(lstSampleReuslt[count].ConcResult.ToString("#0.0000") +" "+ lstSampleReuslt[count].Remarks + " ", new Font(new FontFamily("Consolas"), 10), System.Drawing.Brushes.Black, 360, height);
+                        e.Graphics.DrawString(lstSampleReuslt[count].RangeParameter, new Font(new FontFamily("Consolas"), 10), System.Drawing.Brushes.Black, 540, height);
+                        e.Graphics.DrawString(lstSampleReuslt[count].UnitAndRange, new Font(new FontFamily("Consolas"), 10), System.Drawing.Brushes.Black, 740, height);
                         columnCount++;
                     }
                     count++;
@@ -1089,37 +1122,60 @@ namespace BioA.UI
                 do
                 {
                     int columnCount = 0;
-                    int height = withd += 25;
+                    int height = withd += 20;
                     while (columnCount < 1)
                     {
-                        
-                        e.Graphics.DrawString(lstSampleReuslt[count].ProjectName, new Font(new FontFamily("Consolas"), 11), System.Drawing.Brushes.Black, 15, height);
-                        e.Graphics.DrawString(lstSampleReuslt[count].ChineseName, new Font(new FontFamily("Consolas"), 11), System.Drawing.Brushes.Black, 215, height);
-                        e.Graphics.DrawString(lstSampleReuslt[count].ConcResult.ToString(), new Font(new FontFamily("Consolas"), 11), System.Drawing.Brushes.Black, 415, height);
-                        e.Graphics.DrawString("", new Font(new FontFamily("Consolas"), 11), System.Drawing.Brushes.Black, 505, height);
-                        e.Graphics.DrawString(lstSampleReuslt[count].UnitAndRange, new Font(new FontFamily("Consolas"), 11), System.Drawing.Brushes.Black, 605, height);
-                        e.Graphics.DrawString("", new Font(new FontFamily("Consolas"), 11), System.Drawing.Brushes.Black, 665, height);
+                        e.Graphics.DrawString((count + 1).ToString(), new Font(new FontFamily("Consolas"), 10), System.Drawing.Brushes.Black, 20, height);
+                        e.Graphics.DrawString(lstSampleReuslt[count].ProjectName + " " + lstSampleReuslt[count].ChineseName, new Font(new FontFamily("Consolas"), 10), System.Drawing.Brushes.Black, 120, height);
+                        e.Graphics.DrawString(lstSampleReuslt[count].ConcResult.ToString("#0.0000") + " ", new Font(new FontFamily("Consolas"), 10), System.Drawing.Brushes.Black, 360, height);
+                        e.Graphics.DrawString(lstSampleReuslt[count].RangeParameter, new Font(new FontFamily("Consolas"), 10), System.Drawing.Brushes.Black, 540, height);
+                        e.Graphics.DrawString(lstSampleReuslt[count].UnitAndRange, new Font(new FontFamily("Consolas"), 10), System.Drawing.Brushes.Black, 740, height);
                         columnCount++;
                     }
                     count++;
                 }
                 while (count % maxPageRow > 0);
             }
-            e.Graphics.DrawLine(pen, 8, withd + 25, 820, withd + 25);
-            e.Graphics.DrawString("测试日期：" + sampleInfoForResult.InputTime + "        " + "检验员：" + sampleInfoForResult.InspectDoctor + "        " + "审核人：" + sampleInfoForResult.AuditDoctor + "      " + "报告日期：" + DateTime.Now.ToShortDateString(),
-                new Font(new FontFamily("新宋体"), 11), System.Drawing.Brushes.Black, 15, withd + 32);
+            if (printSetting[1].Trim() == "0")
+            {
+                sampleInfoForResult.InspectDoctor = "   ";//未设置电子签名
+            }
+            if (printSetting[2].Trim() == "0")
+            {
+                sampleInfoForResult.AuditDoctor = "   ";//未设置电子签名
+            }
+            e.Graphics.DrawLine(pen, 8, BaselineY, 800, BaselineY);
+            e.Graphics.DrawString("检验人：" +sampleInfoForResult.InspectDoctor  + "   " + "审核人：" +   sampleInfoForResult.AuditDoctor  + "   " + "报告日期：" + DateTime.Now.ToShortDateString() + "   审核日期：" + DateTime.Now.ToShortDateString()
+                + "   送检日期：" + DateTime.Now.ToShortDateString(),
+                new Font(new FontFamily("新宋体"), 11), System.Drawing.Brushes.Black, 15, BaselineY + 10);
             // 指定HasMorePages值，如果页面最大行数小于剩下的行数，则返回true（还有），否则返回false
             if (maxPageRow < rowCount)
             {
                 e.HasMorePages = true;
+                flag = true;
             }
             else
             {
                 e.HasMorePages = false;
                 count = 0;
+                flag = false;
+            }
+            if (!flag)
+            {
+                cur++;
+                if (cur < selectedrow)
+                {
+                    e.HasMorePages = true;
+                }
+                else
+                {
+                    e.HasMorePages = false;
+                    cur = 0;
+                }
             }
         }
-
+        
+       
         //样本病人信息
         SampleInfoForResult sampleInfoForResult = null;
         //样本结果信息

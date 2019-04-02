@@ -1311,7 +1311,47 @@ namespace BioA.SqlMaps
                 LogInfo.WriteErrorLog("AddDataConfig(string strDBMethod, CalcProjectInfo calcProjectInfo)==" + e.ToString(), Module.DAO);
             }
         }
-
+        /// <summary>
+        /// 获取打印设置
+        /// </summary>
+        /// <returns></returns>
+        public string QueryPrintSetting()
+        {
+            string result = "";
+            try
+            {
+                result = (string)ism_SqlMap.QueryForObject("DataConfig.QueryPrintSetting", null);
+            }
+            catch (Exception e)
+            {
+                LogInfo.WriteErrorLog("QueryPrintSetting(string strDBMethod, QueryPrintSetting QueryPrintSetting)==" + e.ToString(), Module.Setting);
+            }
+            return result;
+        }
+        /// <summary>
+        /// 保存打印设置
+        /// </summary>
+        /// <param name="paperType"></param>
+        /// <param name="isChecker"></param>
+        /// <param name="isAuditor"></param>
+        /// <returns></returns>
+        public int SavePritSetting(string paperType,int isChecker,int isAuditor)
+        {
+            int intResult = 0;
+            Hashtable hashTable = new Hashtable();
+            try
+            {
+                hashTable.Add("PaperType", paperType);
+                hashTable.Add("IsChecker", isChecker);
+                hashTable.Add("IsAuditor", isAuditor);
+                intResult = (int)ism_SqlMap.Update("DataConfig.UpdataPrintSetting", hashTable);
+            }
+            catch(Exception e)
+            {
+                LogInfo.WriteErrorLog("SavePritSetting(string strDBMethod, SavePritSetting SavePritSetting)==" + e.ToString(), Module.Setting);
+            }
+            return intResult;
+        }
         public int UpdataDilutionRatio(string strDBMethod, string dataConfig, string dataConfigOld)
         {
             int intResult = 0;

@@ -45,12 +45,22 @@
             this.gridControl2 = new DevExpress.XtraGrid.GridControl();
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            this.comboPaperType = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.labelPaperType = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl6 = new DevExpress.XtraEditors.LabelControl();
+            this.chkChecker = new DevExpress.XtraEditors.CheckEdit();
+            this.chkAuditor = new DevExpress.XtraEditors.CheckEdit();
+            this.btnSave = new DevExpress.XtraEditors.SimpleButton();
+            this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.comboPaperType.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkChecker.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkAuditor.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // lblResultUnitInput
@@ -227,10 +237,89 @@
             this.labelControl1.TabIndex = 21;
             this.labelControl1.Text = "稀释比例录入：";
             // 
+            // comboPaperType
+            // 
+            this.comboPaperType.Location = new System.Drawing.Point(884, 72);
+            this.comboPaperType.Name = "comboPaperType";
+            this.comboPaperType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.comboPaperType.Properties.Items.AddRange(new object[] {
+            "样本杯",
+            "样本管"});
+            this.comboPaperType.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.comboPaperType.Size = new System.Drawing.Size(63, 20);
+            this.comboPaperType.TabIndex = 31;
+            // 
+            // labelPaperType
+            // 
+            this.labelPaperType.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F);
+            this.labelPaperType.Appearance.Options.UseFont = true;
+            this.labelPaperType.Location = new System.Drawing.Point(803, 73);
+            this.labelPaperType.Name = "labelPaperType";
+            this.labelPaperType.Size = new System.Drawing.Size(70, 17);
+            this.labelPaperType.TabIndex = 30;
+            this.labelPaperType.Text = "纸张类型：";
+            // 
+            // labelControl6
+            // 
+            this.labelControl6.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl6.Appearance.Options.UseFont = true;
+            this.labelControl6.Location = new System.Drawing.Point(763, 37);
+            this.labelControl6.Name = "labelControl6";
+            this.labelControl6.Size = new System.Drawing.Size(70, 17);
+            this.labelControl6.TabIndex = 29;
+            this.labelControl6.Text = "打印配置：";
+            // 
+            // chkChecker
+            // 
+            this.chkChecker.Location = new System.Drawing.Point(984, 71);
+            this.chkChecker.Name = "chkChecker";
+            this.chkChecker.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkChecker.Properties.Appearance.Options.UseFont = true;
+            this.chkChecker.Properties.Caption = "检验人电子签名";
+            this.chkChecker.Size = new System.Drawing.Size(120, 21);
+            this.chkChecker.TabIndex = 32;
+            // 
+            // chkAuditor
+            // 
+            this.chkAuditor.Location = new System.Drawing.Point(1136, 71);
+            this.chkAuditor.Name = "chkAuditor";
+            this.chkAuditor.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkAuditor.Properties.Appearance.Options.UseFont = true;
+            this.chkAuditor.Properties.Caption = "审核人电子签名";
+            this.chkAuditor.Size = new System.Drawing.Size(120, 21);
+            this.chkAuditor.TabIndex = 33;
+            // 
+            // btnSave
+            // 
+            this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
+            this.btnSave.Location = new System.Drawing.Point(1016, 183);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(88, 49);
+            this.btnSave.TabIndex = 35;
+            this.btnSave.Text = "保存";
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
+            this.btnCancel.Location = new System.Drawing.Point(1157, 183);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(88, 49);
+            this.btnCancel.TabIndex = 34;
+            this.btnCancel.Text = "取消";
+            // 
             // DataConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnSave);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.chkAuditor);
+            this.Controls.Add(this.chkChecker);
+            this.Controls.Add(this.comboPaperType);
+            this.Controls.Add(this.labelPaperType);
+            this.Controls.Add(this.labelControl6);
             this.Controls.Add(this.textEdit2);
             this.Controls.Add(this.btnDeleteDilutionRatio);
             this.Controls.Add(this.btnUpdateDilutionRatio);
@@ -254,6 +343,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.comboPaperType.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkChecker.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkAuditor.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -277,5 +369,12 @@
         private DevExpress.XtraGrid.GridControl gridControl2;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView2;
         private DevExpress.XtraEditors.LabelControl labelControl1;
+        private DevExpress.XtraEditors.ComboBoxEdit comboPaperType;
+        private DevExpress.XtraEditors.LabelControl labelPaperType;
+        private DevExpress.XtraEditors.LabelControl labelControl6;
+        private DevExpress.XtraEditors.CheckEdit chkChecker;
+        private DevExpress.XtraEditors.CheckEdit chkAuditor;
+        private DevExpress.XtraEditors.SimpleButton btnSave;
+        private DevExpress.XtraEditors.SimpleButton btnCancel;
     }
 }
