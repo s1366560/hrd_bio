@@ -942,11 +942,7 @@ namespace BioA.UI
                 selectedrow = this.gridView1.SelectedRowsCount;
                 if (this.gridView1.SelectedRowsCount > 0)
                 {
-                    //int number = this.gridView1.GetSelectedRows()[0];
 
-                    //string sample = this.gridView1.GetRowCellValue(number, "样本编号") as string;
-                    //DateTime dateTime = Convert.ToDateTime(this.gridView1.GetRowCellValue(number, "申请时间"));
-                    //BeginInvoke(new Action(() => { PatientResultInfo(sample, dateTime); }));
                     CreatePrintFile();
                     MessageBoxDraw.Show("打印完成,您一共打印了1页");
                     this.printType.Close();
@@ -963,13 +959,6 @@ namespace BioA.UI
 
                 if (this.gridView1.GetSelectedRows().Count() > 0)
                 {
-                    //foreach (int i in this.gridView1.GetSelectedRows())
-                    //{
-                    //    string sample = this.gridView1.GetRowCellValue(i, "样本编号") as string;
-                    //    DateTime dateTime = Convert.ToDateTime(this.gridView1.GetRowCellValue(i, "申请时间"));
-                    //    BeginInvoke(new Action(() => { PatientResultInfo(sample, dateTime); }));
-                    //    CreatePrintFile();
-                    //}
                     CreatePrintFile();
                     MessageBoxDraw.Show("打印完成,您一共打印了"+selectedrow+"页");
                     this.printType.Close();
@@ -985,13 +974,6 @@ namespace BioA.UI
                 selectedrow = this.gridView1.GetSelectedRows().Count();
                 if (this.gridView1.GetSelectedRows().Count() > 0)
                 {
-                    //foreach (int i in this.gridView1.GetSelectedRows())
-                    //{
-                    //    string sample = this.gridView1.GetRowCellValue(i, "样本编号") as string;
-                    //    DateTime dateTime = Convert.ToDateTime(this.gridView1.GetRowCellValue(i, "申请时间"));
-                    //    BeginInvoke(new Action(() => { PatientResultInfo(sample, dateTime); }));
-                    //    CreatePrintFile();
-                    //}
                     CreatePrintFile();
                     MessageBoxDraw.Show("打印完成,您一共打印了" + selectedrow + "页");
                     this.printType.Close();
@@ -1009,16 +991,22 @@ namespace BioA.UI
         private void CreatePrintFile()
         {
             printSetting = new BioA.SqlMaps.MyBatis().QueryPrintSetting().Split('|');
-            //设置打印用的纸张 当设置为Custom的时候，可以自定义纸张的大小，还可以选择A4,A5等常用纸型
+            printDocument1 = new PrintDocument();
             if (printSetting[0].Trim() == "A5")
             {
-                printDocument1 = new PrintDocument();
                 PaperSize p = new PaperSize();
-
                 foreach (PaperSize ps in printDocument1.PrinterSettings.PaperSizes)
                 {
-                    if (ps.PaperName.Equals("A5(148x210mm)"))
+                    if (ps.Kind.Equals(PaperKind.A5))
+                    {
                         p = ps;
+                        break;
+                    }
+                }
+                if (!p.Kind.Equals(PaperKind.A5))
+                {
+                    MessageBoxDraw.Show("打印异常，打印服务中不存在A5设置");
+                    return;
                 }
                 printDocument1.DefaultPageSettings.PaperSize = p;
                 printDocument1.DefaultPageSettings.Landscape = true;    //横向打印
@@ -1037,18 +1025,6 @@ namespace BioA.UI
             printPreviewDialog1.Document = printDocument1;
             //printPreviewDialog1.Document.DefaultPageSettings.Landscape = true;
             DialogResult result = printPreviewDialog1.ShowDialog();
-            ////显示打印预览
-            //if (num == 0)
-            //{
-            //    num++;
-            //    DialogResult result = printPreviewDialog1.ShowDialog();
-                
-            //}
-           
-            //if (result == DialogResult.OK)
-            //    this.printPreviewDialog1.Close();
-                //this.printDocument1.Print();
-
         }
 
         //记录已打印的行数
@@ -1057,7 +1033,7 @@ namespace BioA.UI
         int cur = 0; 
         //被选中的行数
         int selectedrow = 0;
-        //一页是否超过50条(或20条)记录
+        //一页是否超过50条(或21条)记录
         bool flag = false;
         /// <summary>
         /// 打印报告事件
@@ -1138,11 +1114,11 @@ namespace BioA.UI
             }
             if (printSetting[1].Trim() == "0")
             {
-                sampleInfoForResult.InspectDoctor = "   ";//未设置电子签名
+                sampleInfoForResult.InspectDoctor = "     ";//未设置电子签名
             }
             if (printSetting[2].Trim() == "0")
             {
-                sampleInfoForResult.AuditDoctor = "   ";//未设置电子签名
+                sampleInfoForResult.AuditDoctor = "     ";//未设置电子签名
             }
             e.Graphics.DrawLine(pen, 8, BaselineY, 800, BaselineY);
             e.Graphics.DrawString("检验人：" +sampleInfoForResult.InspectDoctor  + "   " + "审核人：" +   sampleInfoForResult.AuditDoctor  + "   " + "报告日期：" + DateTime.Now.ToShortDateString() + "   审核日期：" + DateTime.Now.ToShortDateString()
@@ -1151,7 +1127,7 @@ namespace BioA.UI
             // 指定HasMorePages值，如果页面最大行数小于剩下的行数，则返回true（还有），否则返回false
             if (maxPageRow < rowCount)
             {
-                e.HasMorePages = true;
+                e.HasMorePages = true;//1页超过50（A4）或21（A5）条数据时分页
                 flag = true;
             }
             else
@@ -1165,7 +1141,7 @@ namespace BioA.UI
                 cur++;
                 if (cur < selectedrow)
                 {
-                    e.HasMorePages = true;
+                    e.HasMorePages = true;//所需打印的数据为多条时分页
                 }
                 else
                 {
