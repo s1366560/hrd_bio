@@ -501,25 +501,59 @@ namespace BioA.SqlMaps
         /// <returns></returns>
         public List<string> QueryAssayProAllInfoByDistinctProName(string strDBMethod)
         {
-            List<string> assayProInfos = new List<string>();
-
+            //List<string> assayProInfos = new List<string>();
+            List<string> lstProName = new List<string>();
+            List<int> lstInt = new List<int>();
+            List<string> lstProjectNames = new List<string>();
+            List<string> lstNotSortProjectName = new List<string>();
             try
             {
-                assayProInfos = (List<string>)ism_SqlMap.QueryForList<string>("AssayProjectInfo." + strDBMethod, null);
-
-                List<CalcProjectInfo> calcProInfos = (List<CalcProjectInfo>)ism_SqlMap.QueryForList<CalcProjectInfo>("CalcProjectInfo.QueryCalcProjectAllInfo", null);
-
-                foreach (CalcProjectInfo calcProInfo in calcProInfos)
+                lstProName = (List<string>)ism_SqlMap.QueryForList<string>("AssayProjectInfo." + strDBMethod, null);
+                foreach (string projectName in lstProName)
                 {
-                    assayProInfos.Add(calcProInfo.CalcProjectName);
+                    int s = projectName.IndexOf('.');
+                    if (s < 0)
+                    {
+                        lstNotSortProjectName.Add(projectName);
+                        continue;
+                    }
+                    lstInt.Add(Convert.ToInt32(projectName.Substring(0, s)));
                 }
+                lstInt.Sort();
+                foreach (int i in lstInt)
+                {
+                    foreach (string proName in lstProName)
+                    {
+                        int s = proName.IndexOf('.');
+                        if (s < 0)
+                        {
+                            continue;
+                        }
+                        if (i == Convert.ToInt32(proName.Substring(0, s)))
+                        {
+                            lstProjectNames.Add(proName);
+                        }
+                    }
+                }
+                lstProjectNames.AddRange(lstNotSortProjectName);
             }
+            //try
+            //{
+            //    assayProInfos = (List<string>)ism_SqlMap.QueryForList<string>("AssayProjectInfo." + strDBMethod, null);
+
+            //    List<CalcProjectInfo> calcProInfos = (List<CalcProjectInfo>)ism_SqlMap.QueryForList<CalcProjectInfo>("CalcProjectInfo.QueryCalcProjectAllInfo", null);
+
+            //    foreach (CalcProjectInfo calcProInfo in calcProInfos)
+            //    {
+            //        assayProInfos.Add(calcProInfo.CalcProjectName);
+            //    }
+            //}
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryAssayProAllInfoByDistinctProName(string strDBMethod, object ObjParam)==" + e.ToString(), Module.Setting);
+                LogInfo.WriteErrorLog("QueryAssayProAllInfoByDistinctProName(string strDBMethod, object ObjParam)==" + e.ToString(), Module.DAO);
             }
 
-            return assayProInfos;
+            return lstProjectNames;
         }
 
         /// <summary>
