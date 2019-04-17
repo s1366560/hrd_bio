@@ -53,8 +53,10 @@
             // 
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsBehavior.Editable = false;
             this.gridView1.OptionsCustomization.AllowFilter = false;
             this.gridView1.OptionsCustomization.AllowSort = false;
+            this.gridView1.OptionsSelection.EnableAppearanceFocusedCell = false;
             this.gridView1.OptionsView.ShowGroupPanel = false;
             // 
             // btnCalibTrace
@@ -114,7 +116,7 @@
             this.Controls.Add(this.gridControl1);
             this.Name = "lstvCalibrationState";
             this.Size = new System.Drawing.Size(1717, 906);
-            this.Load += new System.EventHandler(this.CalibrationState_Load);
+            //this.Load += new System.EventHandler(this.CalibrationState_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             this.ResumeLayout(false);

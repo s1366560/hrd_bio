@@ -25,7 +25,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetAssayUsingTable(string projectName, string sampleType)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetAssayUsingTable(string projectName, string sampleType)==" + e.ToString(), Module.Calibration);
             }
 
             return sdtItem;
@@ -48,7 +48,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetAssayProjectCalParamInfo(string projectName, string sampleType)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetAssayProjectCalParamInfo(string projectName, string sampleType)==" + e.ToString(), Module.Calibration);
             }
             return calParam;
         }
@@ -65,7 +65,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryCalibratorinfo(string strDBMethod)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryCalibratorinfo(string strDBMethod)==" + e.ToString(), Module.Calibration);
             }
 
             return lstCalibrationReactionProcess;
@@ -84,7 +84,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryCalibResultInfoByTCNO(RealTimeCUVDataInfo realTimeDataInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryCalibResultInfoByTCNO(RealTimeCUVDataInfo realTimeDataInfo)==" + e.ToString(), Module.Calibration);
             }
 
             return calibResInfo;
@@ -116,7 +116,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateSDTResult(CalibrationResultinfo calibResInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateSDTResult(CalibrationResultinfo calibResInfo)==" + e.ToString(), Module.Calibration);
             }
         }
         /// <summary>
@@ -229,7 +229,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateCalibratingCurve(CalibrationResultinfo calibResInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateCalibratingCurve(CalibrationResultinfo calibResInfo)==" + e.ToString(), Module.Calibration);
             }
         }
         /// <summary>
@@ -253,7 +253,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QuerySDTTableItemByCalibrating(string projectName, string sampleType)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QuerySDTTableItemByCalibrating(string projectName, string sampleType)==" + e.ToString(), Module.Calibration);
             }
 
             return sdtItem;
@@ -281,7 +281,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("IsHasSDTSchedule(CalibrationResultinfo calibResInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("IsHasSDTSchedule(CalibrationResultinfo calibResInfo)==" + e.ToString(), Module.Calibration);
             }
 
             return bExist;
@@ -302,7 +302,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("IsHasSDTSchedule(CalibrationResultinfo calibResInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("IsHasSDTSchedule(CalibrationResultinfo calibResInfo)==" + e.ToString(), Module.Calibration);
             }
 
             return calibResInfo;
@@ -326,7 +326,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("SetSDTTabelSuccessfulState(string projectName, string sampleType)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("SetSDTTabelSuccessfulState(string projectName, string sampleType)==" + e.ToString(), Module.Calibration);
             }
         }
         /// <summary>
@@ -352,7 +352,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("SetSDTUsingFlag(SDTTableItem t)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("SetSDTUsingFlag(SDTTableItem t)==" + e.ToString(), Module.Calibration);
             }
         }
         /// <summary>
@@ -375,7 +375,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("SetSDTTabelFailedState(string projectName, string sampleType)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("SetSDTTabelFailedState(string projectName, string sampleType)==" + e.ToString(), Module.Calibration);
             }
         }
 
@@ -394,7 +394,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryCalibTaskByProjectAndSamType(string strMethodName, CalibratorinfoTask calibTask)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryCalibTaskByProjectAndSamType(string strMethodName, CalibratorinfoTask calibTask)==" + e.ToString(), Module.Calibration);
             }
             return calibTaskCount;
         }
@@ -488,7 +488,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateCalibTaskState(string ProjectName, string sampleType)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateCalibTaskState(string ProjectName, string sampleType)==" + e.ToString(), Module.Calibration);
             }
         }
 
@@ -503,7 +503,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateCalibCurveState(string ProjectName, string sampleType)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateCalibCurveState(string ProjectName, string sampleType)==" + e.ToString(), Module.Calibration);
             }
         }
 
@@ -521,7 +521,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateCalibResultRunLog(CalibrationResultinfo calibResInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateCalibResultRunLog(CalibrationResultinfo calibResInfo)==" + e.ToString(), Module.Calibration);
             }
         }
 
@@ -534,7 +534,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetAllNewSDTTable()==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetAllNewSDTTable()==" + e.ToString(), Module.Calibration);
             }
 
             return lstSDTItem;            
@@ -548,7 +548,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("DeleteSDTTableItemByProAndDate(SDTTableItem s)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("DeleteSDTTableItemByProAndDate(SDTTableItem s)==" + e.ToString(), Module.Calibration);
             }
         }
 
@@ -564,7 +564,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("DeleteSDTSchedule(string calibMethod, string projectName, string sampleType)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("DeleteSDTSchedule(string calibMethod, string projectName, string sampleType)==" + e.ToString(), Module.Calibration);
             }
         }
 
@@ -579,7 +579,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("DeleteSDTTableItemByProject(string projectName, string sampleType)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("DeleteSDTTableItemByProject(string projectName, string sampleType)==" + e.ToString(), Module.Calibration);
             }
         }
 
@@ -592,7 +592,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QuerySDTTableItemTb()==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QuerySDTTableItemTb()==" + e.ToString(), Module.Calibration);
             }
 
             return lstSDTItems;

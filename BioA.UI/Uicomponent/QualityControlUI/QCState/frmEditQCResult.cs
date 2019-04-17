@@ -34,6 +34,17 @@ namespace BioA.UI
             InitializeComponent();
 
             editModel = EditModel.Edit;
+            cboQCName.Properties.ReadOnly = true;
+            cboSampleType.Properties.ReadOnly = true;
+            cboProjectName.Properties.ReadOnly = true;
+            cboLotNum.Properties.ReadOnly = true;
+            cboPosition.Properties.ReadOnly = true;
+            cboHorizonLevel.Properties.ReadOnly = true;
+            txtTargetMean.Properties.ReadOnly = true;
+            txtTargetSD.Properties.ReadOnly = true;
+            txtConcResult.Properties.ReadOnly = false;
+            dtpQCStartTime.Enabled = false;
+            cboManufacturer.Properties.ReadOnly = true;
         }
 
         private QCResultForUIInfo qCResInfo = new QCResultForUIInfo();
@@ -164,29 +175,13 @@ namespace BioA.UI
             frmEditQCThread.Start();
         }
 
-        private void frmEditQCResult_Load(object sender, EventArgs e)
+        public void frmEditQCResult_Load(object sender, EventArgs e)
         {
-            BeginInvoke(new Action(loadFrmEditQCResult));
-            
+            this.loadFrmEditQCResult();
         }
 
         private void loadFrmEditQCResult()
         {
-            editModel = EditModel.Edit;
-
-            cboQCName.Properties.ReadOnly = true;
-            cboSampleType.Properties.ReadOnly = true;
-            cboProjectName.Properties.ReadOnly = true;
-            cboLotNum.Properties.ReadOnly = true;
-            cboPosition.Properties.ReadOnly = true;
-            cboHorizonLevel.Properties.ReadOnly = true;
-            txtTargetMean.Properties.ReadOnly = true;
-            txtTargetSD.Properties.ReadOnly = true;
-            txtConcResult.Properties.ReadOnly = false;
-            dtpQCStartTime.Enabled = false;
-            cboManufacturer.Properties.ReadOnly = true;
-
-
             cboQCName.Text = qCResInfo.QCName;
             cboSampleType.Text = qCResInfo.SampleType;
             cboProjectName.Text = qCResInfo.ProjectName;

@@ -38,6 +38,16 @@ namespace BioA.UI
         /// 保存修改之前的稀释比例参数
         /// </summary>
         string dilutionRationParam;
+
+        /// <summary>
+        /// 稀释比例数据表
+        /// </summary>
+        DataTable dilution  = new DataTable();
+        /// <summary>
+        /// 结果单位数据表
+        /// </summary>
+        DataTable Unit = new DataTable();
+
         public DataConfig()
         {
             InitializeComponent();
@@ -46,6 +56,12 @@ namespace BioA.UI
             gridView1.Appearance.Row.Font = font;
             gridView2.Appearance.HeaderPanel.Font = font;
             gridView2.Appearance.Row.Font = font;
+
+            Unit.Columns.Add("编号");
+            Unit.Columns.Add("结果单位");
+
+            dilution.Columns.Add("编号");
+            dilution.Columns.Add("稀释比例");
         }
 
         protected bool isNumberic(string message, out int result)
@@ -70,156 +86,95 @@ namespace BioA.UI
                     QueryDataConfigAdd(lstQueryDataConfig);
                     break;
                 case "DataConfigAdd":
-                    string strAdd = (string)sender;
-                    if (strAdd == "项目创建成功！")
-                    {
-                        QueryDataConfig();
-                        MessageBox.Show("结果单位：" + strAdd);
-                    }
-                    else
-                    {
-                        MessageBox.Show("结果单位：" + strAdd);
-                        return;
-                    }      
+                    this.DisplayIUDPromptMsg(sender as string, 1);
                     break;
                 case "UpdataDataConfig":
-                    int resultReturn = (int)sender;
-                    if (resultReturn > 0)
-                    {
-                        QueryDataConfig();
-                        MessageBox.Show("结果单位：修改成功！");
-                    }
-                    else
-                    {
-                        MessageBox.Show("结果单位：修改失败！");
-                        return;
-                    }
+                    this.DisplayIUDPromptMsg(sender as string, 1);
                     break;
                 case "DeleteDataConfig":
-                    int deleteReturn = (int)sender;
-                    if (deleteReturn > 0)
-                    {
-                        QueryDataConfig();
-                        MessageBox.Show("结果单位：删除成功！");
-                    }
-                    else
-                    {
-                        MessageBox.Show("结果单位：删除失败！");
-                        return;
-                    }               
+                    this.DisplayIUDPromptMsg(sender as string, 1);
                     break;
                    
                 case  "QueryDilutionRatio":
-                    List<string> lstQueryDilutionRatio = (List<string>)XmlUtility.Deserialize(typeof(List<string>), sender as string);
+                    List<float> lstQueryDilutionRatio = (List<float>)XmlUtility.Deserialize(typeof(List<float>), sender as string);
                     QueryDilutionRatioAdd(lstQueryDilutionRatio);
                     break;
 
                 case "DilutionRatioAdd":
-                    string DilutionRatioAdd = (string)XmlUtility.Deserialize(typeof(string), sender as string);
-                    if (DilutionRatioAdd != "项目创建成功！")
-                    {
-                        QueryDilutionRatio();
-                        MessageBox.Show("稀释比例：" + DilutionRatioAdd);
-                    }
-                    else
-                    {
-                        MessageBox.Show("稀释比例：" + DilutionRatioAdd);
-                        return;
-                    }
+                    this.DisplayIUDPromptMsg(sender as string,0);
                     break;
                 case "UpdataDilutionRatio":
-                    int DiluRatioReturn = (int)sender;
-                    if (DiluRatioReturn > 0)
-                    {
-                        QueryDataConfig();
-                        MessageBox.Show("稀释比例：修改成功！");
-                    }
-                    else
-                    {
-                        MessageBox.Show("稀释比例：修改失败！");
-                        return;
-                    }
+                    this.DisplayIUDPromptMsg(sender as string, 0);
                     break;
                 case "DeleteDilutionRatio":
-                    int DeleteDiluRatioReturn = (int)sender;
-                    if (DeleteDiluRatioReturn > 0)
-                    {
-                        QueryDataConfig();
-                        MessageBox.Show("稀释比例：删除成功！");
-                    }
-                    else
-                    {
-                        MessageBox.Show("稀释比例：删除失败！");
-                        return;
-                    }
+                    this.DisplayIUDPromptMsg(sender as string, 0);
                     break;
             }
         }
 
-        private void DataConfigAdd(string DataConfig)
+        private void DisplayIUDPromptMsg(string msg, int state)
         {
-            throw new NotImplementedException();
+            if (state == 0)
+            {
+                if (msg == "稀释比例创建成功！" || msg == "稀释比例修改成功！" || msg == "稀释比例删除成功！")
+                {
+                    QueryDilutionRatio();
+                }
+            }
+            else
+            {
+                if (msg == "新增结果单位成功！" || msg == "修改结果单位成功！" || msg == "删除结果单位成功！")
+                {
+                    QueryDataConfig();
+                }
+            }
+            this.Invoke(new EventHandler(delegate { MessageBox.Show(msg); }));
         }
-        private void QueryDilutionRatioAdd(List<string> lstQueryDataConfig)
+
+        private void QueryDilutionRatioAdd(List<float> lstQueryDataConfig)
         {
 
             this.BeginInvoke(new EventHandler(delegate
             {
-                gridView2.Columns.Clear();
-                gridControl2.RefreshDataSource();
-
                 int i = 1;
-                DataTable dt = new DataTable();
-
-                dt.Columns.Add("编号");
-                dt.Columns.Add("稀释比例");
-
+                dilution.Rows.Clear();
                 if (lstQueryDataConfig.Count != 0)
                 {
-                    foreach (string QueryDataConfig in lstQueryDataConfig)
+                    foreach (float QueryDataConfig in lstQueryDataConfig)
                     {
-                        dt.Rows.Add(new object[] { i, QueryDataConfig });
+                        dilution.Rows.Add(new object[] { i, QueryDataConfig });
 
                         i++;
                     }
                 }
-                this.gridControl2.DataSource = dt;
+                this.gridControl2.DataSource = dilution;
 
             }));
 
         }
         private void QueryDataConfigAdd(List<string> lstQueryDataConfig)
         {
-           
-                this.BeginInvoke(new EventHandler(delegate
+
+            this.BeginInvoke(new EventHandler(delegate
+            {
+
+                int i = 1;
+                Unit.Rows.Clear();
+                if (lstQueryDataConfig.Count != 0)
+                {
+                    foreach (string QueryDataConfig in lstQueryDataConfig)
                     {
-                    gridView1.Columns.Clear();
-                    gridControl1.RefreshDataSource();
-                    
-                    int i = 1;
-                    DataTable dt = new DataTable();
+                        Unit.Rows.Add(new object[] { i, QueryDataConfig });
 
-                    dt.Columns.Add("编号");
-                    dt.Columns.Add("结果单位");
-
-                    if (lstQueryDataConfig.Count != 0)
-                    {
-                        foreach (string QueryDataConfig in lstQueryDataConfig)
-                        {
-                            dt.Rows.Add(new object[] { i, QueryDataConfig });
-
-                            i++;
-                        }
+                        i++;
                     }
-                    this.gridControl1.DataSource = dt;
-                }));
+                }
+                this.gridControl1.DataSource = Unit;
+            }));
             
         }
         private void QueryDataConfig()
         {
-            //CommunicationEntity DataConfig = new CommunicationEntity();
-            //DataConfig.StrmethodName = "QueryDataConfig";
-            //DataConfig.ObjParam = "";
             dataConfigDic.Clear();
             //获取所有数据单位信息
             dataConfigDic.Add("QueryDataConfig", null);
@@ -227,17 +182,14 @@ namespace BioA.UI
         }
         private void QueryDilutionRatio()
         {
-            //CommunicationEntity DataConfig = new CommunicationEntity();
-            //DataConfig.StrmethodName = "QueryDilutionRatio";
-            //DataConfig.ObjParam = "";
             dataConfigDic.Clear();
             //获取所有稀释比例信息
             dataConfigDic.Add("QueryDilutionRatio", null);
             DataConfigLoad(dataConfigDic);
         }
-        private void DataConfig_Load(object sender, EventArgs e)
+        public void DataConfig_Load(object sender, EventArgs e)
         {
-            BeginInvoke(new Action(loadDataConfig));
+             this.loadDataConfig();
             
         }
         private void loadDataConfig()
@@ -294,9 +246,6 @@ namespace BioA.UI
 
             if (dilutionRatio != "")
             {
-                //CommunicationEntity DataConfig = new CommunicationEntity();
-                //DataConfig.StrmethodName = "DataConfigAdd";
-                //DataConfig.ObjParam = str;
                 dataConfigDic.Clear();
                 //添加数据结果单位
                 dataConfigDic.Add("DataConfigAdd", new object[] { resultUnit });
@@ -322,9 +271,6 @@ namespace BioA.UI
             {
                 if (resultUnit != "")
                 {
-                
-                    //UpdataDataConfig.StrmethodName = "UpdataDataConfig";
-                    //UpdataDataConfig.ObjParam = str;
                     dataConfigDic.Clear();
                     //修改数据结果单位
                     dataConfigDic.Add("UpdataDataConfig", new object[] { resultUnit, resultUnitParam });
@@ -378,7 +324,6 @@ namespace BioA.UI
                 {
                     return;
                 }
-                //CommunicationEntity DataConfig = new CommunicationEntity();
                 int selectedHandle;
 
                 selectedHandle = this.gridView1.GetSelectedRows()[0];
@@ -386,8 +331,6 @@ namespace BioA.UI
                 if (resultUnit != null)
                 {
                     textEdit1.Text = resultUnit;
-                    //DataConfig.StrmethodName = "DeleteDataConfig";
-                    //DataConfig.ObjParam = str1;
                     dataConfigDic.Clear();
                     //删除结果单位
                     dataConfigDic.Add("DeleteDataConfig", new object[] { resultUnit });
@@ -400,10 +343,6 @@ namespace BioA.UI
 
         private void btnResultUnitCancel_Click(object sender, EventArgs e)
         {
-            //int selectedHandle;
-            //selectedHandle = this.gridView1.GetSelectedRows()[0];
-            //string str1 = this.gridView1.GetRowCellValue(selectedHandle, "结果单位").ToString();
-            //textEdit1.Text = str1;
             textEdit1.Text = "";
             resultUnitParam = null;
         }
@@ -430,9 +369,6 @@ namespace BioA.UI
 
             if (dilutionRatio != "")
             {
-                //CommunicationEntity DataConfig = new CommunicationEntity();
-                //DataConfig.StrmethodName = "DilutionRatioAdd";
-                //DataConfig.ObjParam = str;
                 dataConfigDic.Clear();
                 //添加稀释比例
                 dataConfigDic.Add("DilutionRatioAdd", new object[] { dilutionRatio });
@@ -470,7 +406,7 @@ namespace BioA.UI
                 {
                     dataConfigDic.Clear();
                     //修改稀释比例
-                    dataConfigDic.Add("UpdataDilutionRatio", new object[] { dilutionRatio });
+                    dataConfigDic.Add("UpdataDilutionRatio", new object[] { dilutionRatio, dilutionRationParam });
                     DataConfigLoad(dataConfigDic);
                 }
                 else
@@ -519,7 +455,6 @@ namespace BioA.UI
                 {
                     return;
                 }
-                //CommunicationEntity DataConfig = new CommunicationEntity();
                 int selectedHandle;
 
                 selectedHandle = this.gridView2.GetSelectedRows()[0];
@@ -527,9 +462,6 @@ namespace BioA.UI
                 if (dilutionRatio != null)
                 {
                     textEdit2.Text = dilutionRatio;
-                    //DataConfig.StrmethodName = "DeleteDilutionRatio";
-                    //DataConfig.ObjParam = str1;
-                    //DataConfigLoad(DataConfig);
                     dataConfigDic.Clear();
                     dataConfigDic.Add("DeleteDilutionRatio", new object[] { dilutionRatio });
                     DataConfigLoad(dataConfigDic);

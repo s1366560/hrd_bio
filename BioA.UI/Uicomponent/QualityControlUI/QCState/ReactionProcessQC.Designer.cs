@@ -365,7 +365,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "ReactionProcessQC";
             this.Text = "反应进程";
-            this.Load += new System.EventHandler(this.ReactionProcessQC_Load);
+            //this.Load += new System.EventHandler(this.ReactionProcessQC_Load);
             ((System.ComponentModel.ISupportInitialize)(this.txtConcResult.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAbsorb.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtReactionCupNum.Properties)).EndInit();

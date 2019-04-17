@@ -53,7 +53,7 @@
             this.xtraTabPage3,
             this.xtraTabPage4,
             this.xtraTabPage2});
-            this.xtraTabControl1.Click += new System.EventHandler(this.xtraTabControl1_Click);
+            this.xtraTabControl1.SelectedPageChanged += new DevExpress.XtraTab.TabPageChangedEventHandler(this.xtraTabControl1_SelectedPageChanged);
             // 
             // xtraTabPage1
             // 
@@ -115,7 +115,7 @@
             this.Controls.Add(this.xtraTabControl1);
             this.Name = "Log";
             this.Size = new System.Drawing.Size(1717, 906);
-            this.Load += new System.EventHandler(this.Log_Load);
+            //this.Load += new System.EventHandler(this.Log_Load);
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).EndInit();
             this.xtraTabControl1.ResumeLayout(false);
             this.xtraTabPage2.ResumeLayout(false);

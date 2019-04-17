@@ -179,10 +179,11 @@ namespace BioA.UI
                         if (strReturnInfo.Contains("已成功添加质控品信息！"))
                         {
                             string qid = strReturnInfo.Substring(11);
+                            qcInfo.QCID = int.Parse(qid);
                             List<QCRelationProjectInfo> qcpro = new List<QCRelationProjectInfo>();
                             foreach (QCRelationProjectInfo r in lstQCRelationProInfo)
                             {
-                                r.QCID = int.Parse(qid);
+                                r.QCID = qcInfo.QCID;
                                 qcpro.Add(r);
                             }
                             Dictionary<QualityControlInfo, List<QCRelationProjectInfo>> keyValuePairs = new Dictionary<QualityControlInfo, List<QCRelationProjectInfo>>();
@@ -337,14 +338,6 @@ namespace BioA.UI
                 return;
             }
 
-            //QualityControlInfo qcInfo = new QualityControlInfo();
-            //List<QCRelationProjectInfo> lstQCRelationProInfo = new List<QCRelationProjectInfo>();
-            // if (_ListQualityControlInfo.Exists(x => x.QCName == txtQCName.Text))
-            //{
-            //    MessageBox.Show("该质控品名称已存在，请重新录入！");
-            //     txtQCName.Focus();
-            //     return;
-            // }
             qcInfo.QCID = qCOldInfo.QCID;
             qcInfo.QCName = txtQCName.Text.Trim();
             qcInfo.Pos = cboPosition.SelectedItem.ToString();
@@ -412,17 +405,15 @@ namespace BioA.UI
             qcAddThread.Start();
         }
 
-        private void QualityControlAddAndEdit_Load(object sender, EventArgs e)
+        public void QualityControlAddAndEdit_Load(object sender, EventArgs e)
         {
-            BeginInvoke(new Action(loadQualityControlAddAndEdit));
+            this.qcAddDic.Clear();
+            this.loadQualityControlAddAndEdit();
 
         }
 
         private void loadQualityControlAddAndEdit()
         {
-            //cboPosition.SelectedIndex = 0;
-            //combLevelConc.SelectedIndex = 1;
-
             if (this.Text == "新增质控品")
             {
                 txtQCName.Text = "";

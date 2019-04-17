@@ -25,7 +25,7 @@ namespace BioA.UI
         /// </summary>
         private Dictionary<string, object[]> envmentDataDic = new Dictionary<string, object[]>();
 
-        List<EnvironmentParamInfo> environmentParamInfo = new List<EnvironmentParamInfo>();
+        List<EnvironmentParamInfo> environmentParamInfoList = new List<EnvironmentParamInfo>();
         public EnvironmentData()
         {
             InitializeComponent();
@@ -37,16 +37,12 @@ namespace BioA.UI
             switch (strMethod)
             {
                 case "QueryEnvironmentParamInfo":
-                    environmentParamInfo = (List<EnvironmentParamInfo>)XmlUtility.Deserialize(typeof(List<EnvironmentParamInfo>), sender as string);
-                    EnvironmentAdd(environmentParamInfo);
+                    environmentParamInfoList = (List<EnvironmentParamInfo>)XmlUtility.Deserialize(typeof(List<EnvironmentParamInfo>), sender as string);
+                    EnvironmentAdd(environmentParamInfoList);
                     break;
                 case "UpdateEnvironmentParamInfo":
                     if ((int)sender > 0)
                     {
-                        //CommunicationEntity DatacommunicationEntity = new CommunicationEntity();
-                        //DatacommunicationEntity.StrmethodName = "QueryEnvironmentParamInfo";
-                        //DatacommunicationEntity.ObjParam = "";
-                        //EnvironmentDataLoad(DatacommunicationEntity);
                         loadEnvironmentData();
                     }
                     break;
@@ -55,19 +51,19 @@ namespace BioA.UI
             }
         }
 
-        private void EnvironmentAdd(List<EnvironmentParamInfo> environmentParamInfo)
+        private void EnvironmentAdd(List<EnvironmentParamInfo> lstEnvironmentParamInfo)
         {
-            if (environmentParamInfo.Count > 0)
+            if (lstEnvironmentParamInfo.Count > 0)
             {
                 this.Invoke(new EventHandler(delegate
                 {
-                    txtReaSurplusWarn.Text = environmentParamInfo[0].ReagentSurplus.ToString();
-                    txtReaLowestVol.Text = environmentParamInfo[0].ReagentLeastVol.ToString();
-                    txtHighCuvette.Text = environmentParamInfo[0].CuvetteBlankHigh.ToString();
-                    txtLowCuvette.Text = environmentParamInfo[0].CuvetteBlankLow.ToString();
-                    txtWashSurplusWarn.Text = environmentParamInfo[0].AbluentSurplus.ToString();
-                    txtWashLowestVol.Text = environmentParamInfo[0].AbluentLeastVol.ToString();
-                    if (environmentParamInfo[0].AutoFreezeTask)
+                    txtReaSurplusWarn.Text = lstEnvironmentParamInfo[0].ReagentSurplus.ToString();
+                    txtReaLowestVol.Text = lstEnvironmentParamInfo[0].ReagentLeastVol.ToString();
+                    txtHighCuvette.Text = lstEnvironmentParamInfo[0].CuvetteBlankHigh.ToString();
+                    txtLowCuvette.Text = lstEnvironmentParamInfo[0].CuvetteBlankLow.ToString();
+                    txtWashSurplusWarn.Text = lstEnvironmentParamInfo[0].AbluentSurplus.ToString();
+                    txtWashLowestVol.Text = lstEnvironmentParamInfo[0].AbluentLeastVol.ToString();
+                    if (lstEnvironmentParamInfo[0].AutoFreezeTask)
                     {
                         chkReagentMarginLock.Checked = true;
                     }
@@ -79,15 +75,12 @@ namespace BioA.UI
             }
         }
 
-        private void EnvironmentData_Load(object sender, EventArgs e)
+        public void EnvironmentData_Load(object sender, EventArgs e)
         {
-            BeginInvoke(new Action(loadEnvironmentData));
+            this.loadEnvironmentData();
         }
         private void loadEnvironmentData()
         {
-            //CommunicationEntity DatacommunicationEntity = new CommunicationEntity();
-            //DatacommunicationEntity.StrmethodName = "QueryEnvironmentParamInfo";
-            //DatacommunicationEntity.ObjParam = "";
             RunningStateInfo runningstateinfo = new EnvironmentParameter().QueryRuningSateInfo("QueryRuningSateInfo");
             txthatchtemp.Text = runningstateinfo.TempOffset.ToString();
             comboBoxQCDCon.Text = runningstateinfo.QCSMPContainerType;
@@ -177,10 +170,6 @@ namespace BioA.UI
             {
                 environmentParamInfo.AutoFreezeTask  = false;
             }
-            //CommunicationEntity DatacommunicationEntity = new CommunicationEntity();
-            //DatacommunicationEntity.StrmethodName = "UpdateEnvironmentParamInfo";
-            //DatacommunicationEntity.ObjParam = XmlUtility.Serializer(typeof(EnvironmentParamInfo), environmentParamInfo);
-            //DatacommunicationEntity.ObjLastestParam = XmlUtility.Serializer(typeof(RunningStateInfo), running);
             envmentDataDic.Clear();
             envmentDataDic.Add("UpdateEnvironmentParamInfo", new object[] { XmlUtility.Serializer(typeof(EnvironmentParamInfo), environmentParamInfo), XmlUtility.Serializer(typeof(RunningStateInfo), running) });
             EnvironmentDataLoad(envmentDataDic);
@@ -188,7 +177,7 @@ namespace BioA.UI
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            EnvironmentAdd(environmentParamInfo);
+            EnvironmentAdd(environmentParamInfoList);
         }
     }
 }

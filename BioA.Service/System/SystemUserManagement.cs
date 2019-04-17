@@ -84,19 +84,9 @@ namespace BioA.Service
             
         }
 
-        public List<UserInfo> QueryUserCeation(string strDBMethod, string p2)
+        public UserInfo QueryUserCeation(string strDBMethod, string p2)
         {
-            List<UserInfo> lstQueryUserCeation = new List<UserInfo>();
-            try
-            {
-                lstQueryUserCeation = myBatis.QueryUserCeation(strDBMethod, p2);
-                LogInfo.WriteProcessLog(strDBMethod + "zhuszihe33" + lstQueryUserCeation, Module.WindowsService);
-            }
-            catch (Exception e)
-            {
-                LogInfo.WriteErrorLog(e.ToString(), Module.WindowsService);
-            }
-            return lstQueryUserCeation;
+            return myBatis.QueryUserCeation(strDBMethod, p2);
         }
     }
 }

@@ -19,10 +19,7 @@ namespace BioA.Service
         /// <param name="assayProInfo"></param>
         public List<CalcProjectInfo> QueryCalcProjectAllInfo(string strDBMethod)
         {
-            List<CalcProjectInfo> lstCalcProInfos = myBatis.QueryCalcProjectAllInfo(strDBMethod);
-            LogInfo.WriteProcessLog("public List<CalcProjectInfo> QueryCalcProjectAllInfo(string strDBMethod) == " + lstCalcProInfos.Count.ToString(), Module.WindowsService);
-
-            return lstCalcProInfos;
+            return myBatis.QueryCalcProjectAllInfo(strDBMethod);
         }
 
         /// <summary>
@@ -39,22 +36,12 @@ namespace BioA.Service
 
             if (intResult == 0)
             {
-                myBatis.AddCalcProject(strDBMethod, calcProjectInfo);
-                if (intResult == 0)
-                {
-                    strResult = "计算项目添加失败";
-                }
-                else
-                {
-                    strResult = "计算项目添加成功";
-                }
+                strResult = myBatis.AddCalcProject(strDBMethod, calcProjectInfo);
             }
             else
             {
                 strResult = "该项目名称已存在！";
             }
-            LogInfo.WriteProcessLog("public string AddCalcProject(string strDBMethod, CalcProjectInfo calcProjectInfo) == " + strResult.ToString(), Module.WindowsService);
-
             return strResult;
         }
         /// <summary>
@@ -63,12 +50,9 @@ namespace BioA.Service
         /// <param name="strDBMethod"></param>
         /// <param name="combProjectInfos"></param>
         /// <returns></returns>
-        public int DeleteCalcProject(string strDBMethod, List<CalcProjectInfo> calcProjectInfos)
+        public string DeleteCalcProject(string strDBMethod, List<CalcProjectInfo> calcProjectInfos)
         {
-            int intResult = myBatis.DeleteCalcProject(strDBMethod, calcProjectInfos);
-            LogInfo.WriteProcessLog("public int DeleteCalcProject(string strDBMethod, List<CalcProjectInfo> calcProjectInfos) == " + intResult.ToString(), Module.WindowsService);
-
-            return intResult;
+            return myBatis.DeleteCalcProject(strDBMethod, calcProjectInfos);
         }
         /// <summary>
         /// 更新计算项目
@@ -76,12 +60,9 @@ namespace BioA.Service
         /// <param name="strDBMethod"></param>
         /// <param name="combProjectInfo"></param>
         /// <returns></returns>
-        public int UpdateCalcProject(string strDBMethod, CalcProjectInfo calcProjectInfoOld, CalcProjectInfo calcProInfoNew)
+        public string UpdateCalcProject(string strDBMethod, CalcProjectInfo calcProjectInfoOld, CalcProjectInfo calcProInfoNew)
         {
-            int intResult = myBatis.UpdateCalcProject(strDBMethod, calcProjectInfoOld, calcProInfoNew);
-            LogInfo.WriteProcessLog("public int UpdateCalcProject(string strDBMethod, CalcProjectInfo calcProjectInfoOld, CalcProjectInfo calcProInfoNew) == " + intResult.ToString(), Module.WindowsService);
-
-            return intResult;
+            return myBatis.UpdateCalcProject(strDBMethod, calcProjectInfoOld, calcProInfoNew);
         }
 
         /// <summary>
@@ -92,10 +73,7 @@ namespace BioA.Service
         /// <returns></returns>
         public List<string> ProjectPageinfoForCalc(string strDBMethod, string sampleType)
         {
-            List<string> assayProInfos = new List<string>();
-            assayProInfos = myBatis.ProjectPageinfoForCalc(strDBMethod, sampleType);
-
-            return assayProInfos;
+            return myBatis.ProjectPageinfoForCalc(strDBMethod, sampleType);
         }
     }
 }

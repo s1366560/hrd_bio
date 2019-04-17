@@ -64,8 +64,6 @@ namespace BioA.Service
 
             Thread.Sleep(2000);
 
-            //new Thread(new ThreadStart(SendData)).Start();
-            //new Thread(new ThreadStart(ParseLisDataRevBuff)).Start();
             Task.Run(() => { SendData(); });
             Task.Run(() => { ParseLisDataRevBuff(); });
 

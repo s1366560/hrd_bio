@@ -62,7 +62,7 @@
             this.Controls.Add(this.xtraTabControl1);
             this.Name = "MissionInspection";
             this.Size = new System.Drawing.Size(1717, 906);
-            this.Load += new System.EventHandler(this.MissionInspection_Load);
+            //this.Load += new System.EventHandler(this.MissionInspection_Load);
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).EndInit();
             this.xtraTabControl1.ResumeLayout(false);
             this.ResumeLayout(false);

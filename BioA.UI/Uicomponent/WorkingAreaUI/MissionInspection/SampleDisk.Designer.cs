@@ -166,9 +166,9 @@
             this.mbStartScan.Appearance.Options.UseFont = true;
             this.mbStartScan.Location = new System.Drawing.Point(909, 783);
             this.mbStartScan.Name = "mbStartScan";
-            this.mbStartScan.Size = new System.Drawing.Size(104, 34);
+            this.mbStartScan.Size = new System.Drawing.Size(128, 34);
             this.mbStartScan.TabIndex = 9;
-            this.mbStartScan.Text = "扫描条形码";
+            this.mbStartScan.Text = "扫描条形码(外圈)";
             this.mbStartScan.Click += new System.EventHandler(this.mbStartScan_Click);
             // 
             // SampleDisk
@@ -187,7 +187,7 @@
             this.Controls.Add(this.gridControl1);
             this.Name = "SampleDisk";
             this.Size = new System.Drawing.Size(1691, 819);
-            this.Load += new System.EventHandler(this.SampleDisk_Load);
+            //this.Load += new System.EventHandler(this.SampleDisk_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             this.ResumeLayout(false);

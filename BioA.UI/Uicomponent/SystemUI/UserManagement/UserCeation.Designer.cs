@@ -113,7 +113,7 @@
             // 
             // xtraTabControl1
             // 
-            this.xtraTabControl1.Location = new System.Drawing.Point(291, 308);
+            this.xtraTabControl1.Location = new System.Drawing.Point(109, 238);
             this.xtraTabControl1.Name = "xtraTabControl1";
             this.xtraTabControl1.SelectedTabPage = this.xtraTabPage1;
             this.xtraTabControl1.Size = new System.Drawing.Size(598, 255);
@@ -423,47 +423,47 @@
             // 
             // textEdit4
             // 
-            this.textEdit4.Location = new System.Drawing.Point(291, 242);
+            this.textEdit4.Location = new System.Drawing.Point(109, 186);
             this.textEdit4.Name = "textEdit4";
             this.textEdit4.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textEdit4.Properties.Appearance.Options.UseFont = true;
             this.textEdit4.Properties.UseSystemPasswordChar = true;
-            this.textEdit4.Size = new System.Drawing.Size(593, 24);
+            this.textEdit4.Size = new System.Drawing.Size(211, 24);
             this.textEdit4.TabIndex = 28;
             // 
             // textEdit3
             // 
-            this.textEdit3.Location = new System.Drawing.Point(291, 191);
+            this.textEdit3.Location = new System.Drawing.Point(109, 135);
             this.textEdit3.Name = "textEdit3";
             this.textEdit3.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textEdit3.Properties.Appearance.Options.UseFont = true;
             this.textEdit3.Properties.UseSystemPasswordChar = true;
-            this.textEdit3.Size = new System.Drawing.Size(593, 24);
+            this.textEdit3.Size = new System.Drawing.Size(211, 24);
             this.textEdit3.TabIndex = 27;
             // 
             // textEdit2
             // 
-            this.textEdit2.Location = new System.Drawing.Point(291, 136);
+            this.textEdit2.Location = new System.Drawing.Point(109, 80);
             this.textEdit2.Name = "textEdit2";
             this.textEdit2.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textEdit2.Properties.Appearance.Options.UseFont = true;
-            this.textEdit2.Size = new System.Drawing.Size(593, 24);
+            this.textEdit2.Size = new System.Drawing.Size(211, 24);
             this.textEdit2.TabIndex = 26;
             // 
             // textEdit1
             // 
-            this.textEdit1.Location = new System.Drawing.Point(291, 78);
+            this.textEdit1.Location = new System.Drawing.Point(109, 22);
             this.textEdit1.Name = "textEdit1";
             this.textEdit1.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textEdit1.Properties.Appearance.Options.UseFont = true;
-            this.textEdit1.Size = new System.Drawing.Size(593, 24);
+            this.textEdit1.Size = new System.Drawing.Size(211, 24);
             this.textEdit1.TabIndex = 25;
             // 
             // lblJurisdiction
             // 
             this.lblJurisdiction.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblJurisdiction.Appearance.Options.UseFont = true;
-            this.lblJurisdiction.Location = new System.Drawing.Point(168, 308);
+            this.lblJurisdiction.Location = new System.Drawing.Point(34, 238);
             this.lblJurisdiction.Name = "lblJurisdiction";
             this.lblJurisdiction.Size = new System.Drawing.Size(70, 17);
             this.lblJurisdiction.TabIndex = 24;
@@ -473,7 +473,7 @@
             // 
             this.lblConfirm.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblConfirm.Appearance.Options.UseFont = true;
-            this.lblConfirm.Location = new System.Drawing.Point(168, 249);
+            this.lblConfirm.Location = new System.Drawing.Point(34, 193);
             this.lblConfirm.Name = "lblConfirm";
             this.lblConfirm.Size = new System.Drawing.Size(70, 17);
             this.lblConfirm.TabIndex = 23;
@@ -483,7 +483,7 @@
             // 
             this.lblName.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblName.Appearance.Options.UseFont = true;
-            this.lblName.Location = new System.Drawing.Point(168, 139);
+            this.lblName.Location = new System.Drawing.Point(34, 83);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(70, 17);
             this.lblName.TabIndex = 22;
@@ -493,7 +493,7 @@
             // 
             this.lblPassword.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPassword.Appearance.Options.UseFont = true;
-            this.lblPassword.Location = new System.Drawing.Point(168, 194);
+            this.lblPassword.Location = new System.Drawing.Point(34, 138);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(70, 17);
             this.lblPassword.TabIndex = 21;
@@ -503,7 +503,7 @@
             // 
             this.labAccount.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labAccount.Appearance.Options.UseFont = true;
-            this.labAccount.Location = new System.Drawing.Point(168, 81);
+            this.labAccount.Location = new System.Drawing.Point(34, 25);
             this.labAccount.Name = "labAccount";
             this.labAccount.Size = new System.Drawing.Size(70, 17);
             this.labAccount.TabIndex = 20;
@@ -514,7 +514,7 @@
             this.btnSave.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.Appearance.Options.UseFont = true;
             this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
-            this.btnSave.Location = new System.Drawing.Point(703, 592);
+            this.btnSave.Location = new System.Drawing.Point(515, 499);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 50);
             this.btnSave.TabIndex = 30;
@@ -526,7 +526,7 @@
             this.btnCancel.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.Appearance.Options.UseFont = true;
             this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
-            this.btnCancel.Location = new System.Drawing.Point(809, 592);
+            this.btnCancel.Location = new System.Drawing.Point(621, 499);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 50);
             this.btnCancel.TabIndex = 31;
@@ -539,7 +539,7 @@
             this.lblNotes.Appearance.ForeColor = System.Drawing.Color.Red;
             this.lblNotes.Appearance.Options.UseFont = true;
             this.lblNotes.Appearance.Options.UseForeColor = true;
-            this.lblNotes.Location = new System.Drawing.Point(904, 81);
+            this.lblNotes.Location = new System.Drawing.Point(326, 27);
             this.lblNotes.Name = "lblNotes";
             this.lblNotes.Size = new System.Drawing.Size(0, 17);
             this.lblNotes.TabIndex = 32;
@@ -550,7 +550,7 @@
             this.labelControl1.Appearance.ForeColor = System.Drawing.Color.Red;
             this.labelControl1.Appearance.Options.UseFont = true;
             this.labelControl1.Appearance.Options.UseForeColor = true;
-            this.labelControl1.Location = new System.Drawing.Point(904, 139);
+            this.labelControl1.Location = new System.Drawing.Point(326, 85);
             this.labelControl1.Name = "labelControl1";
             this.labelControl1.Size = new System.Drawing.Size(0, 17);
             this.labelControl1.TabIndex = 33;
@@ -561,7 +561,7 @@
             this.labelControl2.Appearance.ForeColor = System.Drawing.Color.Red;
             this.labelControl2.Appearance.Options.UseFont = true;
             this.labelControl2.Appearance.Options.UseForeColor = true;
-            this.labelControl2.Location = new System.Drawing.Point(904, 194);
+            this.labelControl2.Location = new System.Drawing.Point(326, 140);
             this.labelControl2.Name = "labelControl2";
             this.labelControl2.Size = new System.Drawing.Size(0, 17);
             this.labelControl2.TabIndex = 34;
@@ -572,7 +572,7 @@
             this.labelControl3.Appearance.ForeColor = System.Drawing.Color.Red;
             this.labelControl3.Appearance.Options.UseFont = true;
             this.labelControl3.Appearance.Options.UseForeColor = true;
-            this.labelControl3.Location = new System.Drawing.Point(904, 245);
+            this.labelControl3.Location = new System.Drawing.Point(326, 191);
             this.labelControl3.Name = "labelControl3";
             this.labelControl3.Size = new System.Drawing.Size(0, 17);
             this.labelControl3.TabIndex = 35;
@@ -581,7 +581,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1169, 653);
+            this.ClientSize = new System.Drawing.Size(719, 560);
             this.Controls.Add(this.labelControl3);
             this.Controls.Add(this.labelControl2);
             this.Controls.Add(this.labelControl1);
@@ -600,7 +600,6 @@
             this.Controls.Add(this.labAccount);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "UserCeation";
-            this.Load += new System.EventHandler(this.UserCeation_Load);
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).EndInit();
             this.xtraTabControl1.ResumeLayout(false);
             this.xtraTabPage1.ResumeLayout(false);

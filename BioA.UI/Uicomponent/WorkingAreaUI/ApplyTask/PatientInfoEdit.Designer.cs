@@ -498,7 +498,7 @@
             this.Controls.Add(this.lblSampleNum);
             this.Name = "PatientInfoEdit";
             this.Size = new System.Drawing.Size(1431, 581);
-            this.Load += new System.EventHandler(this.PatientInfoEdit_Load);
+            //this.Load += new System.EventHandler(this.PatientInfoEdit_Load);
             ((System.ComponentModel.ISupportInitialize)(this.txtSampleNum.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAge.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtName.Properties)).EndInit();

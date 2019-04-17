@@ -38,43 +38,35 @@ namespace BioA.UI
             gridView1.Appearance.HeaderPanel.Font = font;
             gridView1.Appearance.Row.Font = font;
             this.bol = b;
-        }
-        public void MaintenanceLogInfoAdd(List<MaintenanceLogInfo> lstmaintenanceLogInfo)
-        {
-            //if (this.IsHandleCreated)
-            //{
-           
-                this.Invoke(new EventHandler(delegate
-                {
-                    dt.Rows.Clear();
 
-                    
-                    if (lstmaintenanceLogInfo.Count != 0)
-                    {
-                        foreach (MaintenanceLogInfo maintenanceLogInfo in lstmaintenanceLogInfo)
-                        {
-                            dt.Rows.Add(new object[] {maintenanceLogInfo.UserName, maintenanceLogInfo.LogDateTime, maintenanceLogInfo.LogDetails });
-                        }
-                    }
-                    this.gridControl1.DataSource = dt;
-                    this.gridView1.Columns[0].Width = 200;
-                    this.gridView1.Columns[1].Width = 200;
-                    this.gridView1.Columns[2].Width = 1000;
-                    this.gridView1.Columns[0].OptionsColumn.AllowEdit = false;
-                    this.gridView1.Columns[1].OptionsColumn.AllowEdit = false;
-                    this.gridView1.Columns[2].OptionsColumn.AllowEdit = false;           
-
-                }));
-            //}
-        }
-
-        private void Alertlog_Load(object sender, EventArgs e)
-        {
-            BeginInvoke(new Action(loadAlertlog));
             dt.Columns.Add("用户名");
             dt.Columns.Add("时间");
             dt.Columns.Add("日志详情");
+            this.gridControl1.DataSource = dt;
+            this.gridView1.Columns[0].Width = 200;
+            this.gridView1.Columns[1].Width = 200;
+            this.gridView1.Columns[2].Width = 1000;
+        }
+        public void MaintenanceLogInfoAdd(List<MaintenanceLogInfo> lstmaintenanceLogInfo)
+        {
+           
+            this.Invoke(new EventHandler(delegate
+            {
+                dt.Rows.Clear();
+                if (lstmaintenanceLogInfo.Count != 0)
+                {
+                    foreach (MaintenanceLogInfo maintenanceLogInfo in lstmaintenanceLogInfo)
+                    {
+                        dt.Rows.Add(new object[] {maintenanceLogInfo.UserName, maintenanceLogInfo.LogDateTime, maintenanceLogInfo.LogDetails });
+                    }
+                }
+                this.gridControl1.DataSource = dt;
+            }));
+        }
 
+        public void Alertlog_Load(object sender, EventArgs e)
+        {
+            this.loadAlertlog();
         }
         private void loadAlertlog()
         {
@@ -95,12 +87,10 @@ namespace BioA.UI
             }
             else
             {
-                string logstartTime = dtpStartTime.Value.ToString("yyyy-MM-dd");
-                string logEndTime = dtpEndTime.Value.AddDays(1).ToString("yyyy-MM-dd");
+                dtpStartTime.Value = DateTime.Now.Date;
+                dtpEndTime.Value = DateTime.Now.Date;
                 //获取操作日志信息
-                MaintenanceLogInfoAdd(systemLogCheck.QueryOperationLogInfo("QueryOperationLogInfo", logstartTime, logEndTime));
-                //alertLogDic.Add("QueryOperationLogInfo", new object[] { logstartTime, logEndTime });
-                //LogEvent(alertLogDic);
+                MaintenanceLogInfoAdd(systemLogCheck.QueryOperationLogInfo("QueryOperationLogInfo", dtpStartTime.Value.ToString(), dtpEndTime.Value.AddDays(1).ToString()));
             }
         }
         /// <summary>
@@ -121,11 +111,8 @@ namespace BioA.UI
         {
             string logstartTime = dtpStartTime.Value.ToString("yyyy-MM-dd");
             string logEndTime = dtpEndTime.Value.AddDays(1).ToString("yyyy-MM-dd");
-            //alertLogDic.Clear();
             //获取操作日志信息//
             MaintenanceLogInfoAdd(systemLogCheck.QueryOperationLogInfo("QueryOperationLogInfo", logstartTime, logEndTime));
-            //alertLogDic.Add("QueryOperationLogInfo", new object[] { logstartTime, logEndTime });
-            //LogEvent(alertLogDic);
         }
         /// <summary>
         /// 全选
@@ -175,13 +162,7 @@ namespace BioA.UI
                         dt.Rows.RemoveAt(r);
                     }
                     gridControl1.RefreshDataSource();
-                }
-                //消除重复的
-                //lstDrawDateTime = lstDrawDateTime.Distinct().ToList();
-                //alertLogDic.Clear();
-                //alertLogDic.Add("DeleteOperationLogInfo", new object[] { XmlUtility.Serializer(typeof(List<string>), lstDrawDateTime) });
-                //if (LogEvent != null)
-                //    LogEvent(alertLogDic);                                             
+                }                              
             }
         }
 

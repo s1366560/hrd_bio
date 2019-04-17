@@ -26,7 +26,7 @@ namespace BioA.UI
         public static string _userName;
 
         UltravioletRays ultravioletRays;
-        WaterBlankCheck waterBlankCheck;
+        private WaterBlankCheck waterBlankCheck;
         CleaningMaintenance cleaningMaintenance;
         BlankInterface blankInterface;
 
@@ -45,18 +45,6 @@ namespace BioA.UI
                     List<CuvetteBlankInfo> lstAllCuvBlank;
                     lstAllCuvBlank = XmlUtility.Deserialize(typeof(List<CuvetteBlankInfo>), sender as string) as List<CuvetteBlankInfo>;
                     waterBlankCheck.ListCuveBlankInfo = lstAllCuvBlank;
-                    //List<CuvetteBlankInfo> lstWLCData  = new List<CuvetteBlankInfo>();
-                    //for (int i = 0; i < lstAllCuvBlank.Count; i++)
-                    //{
-                    //    if (lstAllCuvBlank[i].WaveLength == 340)
-                    //    {
-                    //        lstWLCData.Add(lstAllCuvBlank[i]);
-                    //    }
-                    //}
-                    //if (lstWLCData.Count > 0)
-                    //{
-                    //    waterBlankCheck.LstCuvBlk = lstWLCData;
-                    //}
                     this.Invoke(new EventHandler(delegate { xtraTabPage1.Controls.Remove(blankInterface); }));
                     break;
                 case "QueryNewPhotemetricValue":
@@ -68,43 +56,7 @@ namespace BioA.UI
                         ultravioletRays.LstOldPhotoGain = LstNewAndOldPhotoGain[1];
                     }
                     break;
-                //case "QueryOldPhotemetricValue":
-                //    ultravioletRays.LstOldPhotoGain = XmlUtility.Deserialize(typeof(List<OffSetGain>), sender as string) as List<OffSetGain>;
-                //    break;
             }
-        }
-
-        private void xtraTabControl1_Click(object sender, EventArgs e)
-        {
-            if (xtraTabControl1.SelectedTabPageIndex == 0)
-            {
-                xtraTabPage1.Controls.Clear();
-                waterBlankCheck = new WaterBlankCheck();
-                blankInterface = new BlankInterface();
-                waterBlankCheck.SendNetworkEvent += SendNetwork_Event;
-                waterBlankCheck.SendMaintenanceNameEvent += SendMaintenanceName_Event;
-                xtraTabPage1.Controls.Add(blankInterface);
-                xtraTabPage1.Controls.Add(waterBlankCheck);
-                this.Invoke(new EventHandler(delegate { xtraTabPage1.Controls.Remove(blankInterface); }));
-            }
-            else if (xtraTabControl1.SelectedTabPageIndex == 1)
-            {
-                xtraTabPage2.Controls.Clear();
-                ultravioletRays = new UltravioletRays();
-                ultravioletRays.SendNetworkEvent += SendNetwork_Event;
-                ultravioletRays.SendMaintenanceNameEvent += SendMaintenanceName_Event;
-                xtraTabPage2.Controls.Add(ultravioletRays);
-            }
-            else if (xtraTabControl1.SelectedTabPageIndex == 2)
-            {
-                xtraTabPage3.Controls.Clear();
-                
-                cleaningMaintenance = new CleaningMaintenance();
-                cleaningMaintenance.SendNetworkEvent += SendNetwork_Event;
-                cleaningMaintenance.SendMaintenanceNameEvent += SendMaintenanceName_Event;
-                xtraTabPage3.Controls.Add(cleaningMaintenance);
-            }
-           
         }
 
         private void SendNetwork_Event(string sender)
@@ -131,18 +83,56 @@ namespace BioA.UI
             MaintenanceLogInfoThread.Start();
         }
 
-        private void RMThirdMenu_Load(object sender, EventArgs e)
+        public void RMThirdMenu_Load(object sender, EventArgs e)
         {
-            BeginInvoke(new Action(() =>
+            if (waterBlankCheck == null)
             {
                 waterBlankCheck = new WaterBlankCheck();
-                blankInterface = new BlankInterface();
                 waterBlankCheck.SendNetworkEvent += SendNetwork_Event;
                 waterBlankCheck.SendMaintenanceNameEvent += SendMaintenanceName_Event;
-                xtraTabPage1.Controls.Add(blankInterface);
                 xtraTabPage1.Controls.Add(waterBlankCheck);
-                xtraTabPage1.Controls.Remove(blankInterface);
-            }));
+            }
+            waterBlankCheck.WaterBlankCheck_Load();
+        }
+        /// <summary>
+        /// 页面切换事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void xtraTabControl1_SelectedPageChanged(object sender, DevExpress.XtraTab.TabPageChangedEventArgs e)
+        {
+            if (xtraTabControl1.SelectedTabPageIndex == 0)
+            {
+                if (!xtraTabPage1.Contains(waterBlankCheck))
+                    xtraTabPage1.Controls.Add(waterBlankCheck);
+                waterBlankCheck.WaterBlankCheck_Load();
+            }
+            else if (xtraTabControl1.SelectedTabPageIndex == 1)
+            {
+                if (ultravioletRays == null)
+                {
+                    ultravioletRays = new UltravioletRays();
+                    ultravioletRays.SendNetworkEvent += SendNetwork_Event;
+                    ultravioletRays.SendMaintenanceNameEvent += SendMaintenanceName_Event;
+                    xtraTabPage2.Controls.Add(ultravioletRays);
+                }
+                if(!xtraTabPage2.Contains(ultravioletRays))
+                    xtraTabPage2.Controls.Add(ultravioletRays);
+                ultravioletRays.UltravioletRays_Load(null,null);
+            }
+            else if (xtraTabControl1.SelectedTabPageIndex == 2)
+            {
+                if (cleaningMaintenance == null)
+                {
+                    cleaningMaintenance = new CleaningMaintenance();
+                    cleaningMaintenance.SendNetworkEvent += SendNetwork_Event;
+                    cleaningMaintenance.SendMaintenanceNameEvent += SendMaintenanceName_Event;
+                    xtraTabPage3.Controls.Add(cleaningMaintenance);
+                }
+                if (!xtraTabPage3.Contains(cleaningMaintenance))
+                    xtraTabPage3.Controls.Add(cleaningMaintenance);
+                cleaningMaintenance.CleaningMaintenance_Load(null,null);
+            }
         }
     }
 }

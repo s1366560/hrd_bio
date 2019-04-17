@@ -80,6 +80,7 @@
             this.gridView1.GridControl = this.grdControlTrouble;
             this.gridView1.IndicatorWidth = 45;
             this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsBehavior.Editable = false;
             this.gridView1.OptionsCustomization.AllowFilter = false;
             this.gridView1.OptionsCustomization.AllowSort = false;
             this.gridView1.OptionsSelection.CheckBoxSelectorColumnWidth = 45;
@@ -160,7 +161,7 @@
             this.Controls.Add(this.lblDate);
             this.Name = "TroubleLogInfo";
             this.Size = new System.Drawing.Size(1632, 821);
-            this.Load += new System.EventHandler(this.TroubleLogInfo_Load);
+            //this.Load += new System.EventHandler(this.TroubleLogInfo_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grdControlTrouble)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             this.ResumeLayout(false);

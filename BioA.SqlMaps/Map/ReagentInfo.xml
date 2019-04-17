@@ -368,12 +368,12 @@
     <!-- 删除试剂参数信息 ReagentSettingsTb/ReagentSettingstbr2-->
     <statement id="DeleteReagentInfo" parameterClass="string">
       $value$
-    </statement>GetAssayReagentByDisk
+    </statement>
 
     <!-- 获取试剂参数信息 ReagentSettingsTb/ReagentSettingstbr2-->
     <statement id="GetAssayReagentByDisk" parameterClass="string" resultClass="ReagentSettingsInfo">
       $value$
-    </statement>UpdateReagentR1AndR2Info
+    </statement>
     <!-- 更新试剂状态R1R2信息 reagentstateinfor1r2tb-->
     <statement id="UpdateReagentR1AndR2Info" parameterClass="string">
       $value$

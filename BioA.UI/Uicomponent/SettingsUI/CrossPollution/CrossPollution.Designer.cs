@@ -47,7 +47,7 @@
             this.xtraTabPage1,
             this.xtraTabPage2,
             this.xtraTabPage3});
-            this.xtraTabControl1.Click += new System.EventHandler(this.xtraTabControl1_Click);
+            this.xtraTabControl1.SelectedPageChanged += new DevExpress.XtraTab.TabPageChangedEventHandler(this.xtraTabControl1_SelectedPageChanged);
             // 
             // xtraTabPage1
             // 
@@ -77,7 +77,7 @@
             this.Controls.Add(this.xtraTabControl1);
             this.Name = "CrossPollution";
             this.Size = new System.Drawing.Size(1749, 933);
-            this.Click += new System.EventHandler(this.CrossPollution_Click);
+            this.Load += new System.EventHandler(this.CrossPollution_Load);
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).EndInit();
             this.xtraTabControl1.ResumeLayout(false);
             this.ResumeLayout(false);

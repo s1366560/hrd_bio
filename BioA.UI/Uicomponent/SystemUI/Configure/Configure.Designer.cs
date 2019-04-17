@@ -449,7 +449,7 @@
             this.Controls.Add(this.grpBarcodeConfig);
             this.Name = "FunctionConfig";
             this.Size = new System.Drawing.Size(1450, 887);
-            this.Load += new System.EventHandler(this.FunctionConfig_Load);
+            //this.Load += new System.EventHandler(this.FunctionConfig_Load);
             ((System.ComponentModel.ISupportInitialize)(this.checkReagentOpen.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkReagentSemiBlocking.Properties)).EndInit();
             this.grpBarcodeConfig.ResumeLayout(false);

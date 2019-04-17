@@ -20,9 +20,7 @@ namespace BioA.Service
         /// <param name="assayProInfo"></param>
         public List<AssayProjectInfo> QueryAssayProAllInfo(string strDBMethod, AssayProjectInfo assayProInfo)
         {
-            List<AssayProjectInfo> lstAssayProInfos = myBatis.QueryAssayProAllInfo(strDBMethod, assayProInfo);
-
-            return lstAssayProInfos;
+            return myBatis.QueryAssayProAllInfo(strDBMethod, assayProInfo);
         }
 
 
@@ -122,17 +120,6 @@ namespace BioA.Service
         {
             return myBatis.QueryCalibParamInfoAll(strDBMethod);
         }
-
-        /// <summary>
-        /// 通过项目名称和项目类型更新项目校准参数
-        /// </summary>
-        /// <param name="strDBMethod"></param>
-        /// <param name="assayProInfo"></param>
-        /// <returns></returns>
-        public int UpdateCalibParamByProNameAndType(string strDBMethod, AssayProjectCalibrationParamInfo assayProInfo)
-        {
-            return myBatis.UpdateCalibParamByProNameAndType(strDBMethod, assayProInfo);
-        }
         /// <summary>
         /// 获取所有生化项目范围参数信息
         /// </summary>
@@ -189,17 +176,18 @@ namespace BioA.Service
             return lstQueryCalib;
         }
 
-        public string AddCalibrationCurveInfo(string strDBMethod, List<CalibrationCurveInfo> calibrationCurveInfo)
+        public string IUpdateCalibParamerterAndAddCalibCurveInfo(string strDBMethod, AssayProjectCalibrationParamInfo assayProInfo, List<CalibrationCurveInfo> calibrationCurveInfo)
         {
             int count = myBatis.IsExsitCalibrationTask(calibrationCurveInfo[0].ProjectName);
             if (count > 0)
             {
-                return "-1";
+                return "保存失败，此项目已下校准任务!";
             }
             string str = myBatis.DeleteCalibrationCurveInfo("DeleteCalibrationCurveInfo", calibrationCurveInfo);
-           
-              return  myBatis.AddCalibrationCurveInfo(strDBMethod, calibrationCurveInfo);
-            
+            if (str == "删除成功！")
+                return myBatis.UpdateCalibParamerterAndAddCalibCurveInfo(strDBMethod, assayProInfo, calibrationCurveInfo);
+            else
+                return "校准参数保存出现异常，请联系管理员！";
         }
 
         public List<CalibrationCurveInfo> QueryCalibrationCurveInfo(string strDBMethod, string p2)

@@ -303,7 +303,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "ReactionProcessCB";
             this.Text = "反应进程";
-            this.Load += new System.EventHandler(this.ReactionProcessCB_Load);
+            //this.Load += new System.EventHandler(this.ReactionProcessCB_Load);
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxNum.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEditProName.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEditSamType.Properties)).EndInit();

@@ -26,16 +26,18 @@ namespace BioA.UI
         public event DataHandle DataHandleEvent;
         
 
-        AssayProjectInfo assayProInfoOld = new AssayProjectInfo();
+        AssayProjectInfo assayProInfoOld;
         public CheProjectAddOrEdit()
         {
             InitializeComponent();
             this.ControlBox = false;
             cboSampleType.Properties.Items.AddRange(RunConfigureUtility.SampleTypes);
             cboSampleType.SelectedIndex = 1;
+            
         }
         public void FormAdd(AssayProjectInfo assayProInfo)
         {
+            assayProInfoOld = new AssayProjectInfo();
             txtProShortName.Text = assayProInfo.ProjectName;
             txtProLongName.Text = assayProInfo.ProFullName;
             txtChannelNumber.Text = assayProInfo.ChannelNum;

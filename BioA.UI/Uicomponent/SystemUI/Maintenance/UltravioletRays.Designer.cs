@@ -552,7 +552,7 @@
             this.Controls.Add(this.lblWaveLength);
             this.Name = "UltravioletRays";
             this.Size = new System.Drawing.Size(1381, 847);
-            this.Load += new System.EventHandler(this.UltravioletRays_Load);
+            //this.Load += new System.EventHandler(this.UltravioletRays_Load);
             ((System.ComponentModel.ISupportInitialize)(this.txtNewGain340.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtNewGain405.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtNewGain445.Properties)).EndInit();

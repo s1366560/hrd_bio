@@ -24,19 +24,52 @@ namespace BioA.UI
         /// <param name="strAccessSqlMethod">访问数据库方法名</param>
         /// <param name="sender">参数对象</param>
         public delegate void AssayProInfoDelegate(Dictionary<string, object[]> sender);
-        public event AssayProInfoDelegate AssayProInfoForCalibParamEvent;        
+        public event AssayProInfoDelegate AssayProInfoForCalibParamEvent;
+
+        /// <summary>
+        /// 校准项目信息数据表
+        /// </summary>
+        DataTable dt = new DataTable();
+
         public CalibrationParameter()
         {
             InitializeComponent();
             Font font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             gridView1.Appearance.HeaderPanel.Font = font;
             gridView1.Appearance.Row.Font = font;
+
+            dt.Columns.Add("序号");
+            dt.Columns.Add("项目名称");
+            dt.Columns.Add("类型");
+            dt.Columns.Add("项目全称");
+            dt.Columns.Add("通道号");
+            this.lstvAssayProject.DataSource = dt;
+
             cboCalibMethod.Text = "请选择";
             label4.Visible = false;
             textEdit1.Visible = false;
             cboCalibMethod.Properties.Items.AddRange(RunConfigureUtility.CalibrationMethods);
 
             cboCalibTimes.Properties.Items.AddRange(RunConfigureUtility.CalibrationTimes);
+            cboCalibLotCheck.Properties.Items.Add("是");
+            cboCalibLotCheck.Properties.Items.Add("否");
+            cboCalibLotCheck.SelectedIndex = 0;
+
+            cboCalibValidDateCheck.Properties.Items.Add("是");
+            cboCalibValidDateCheck.Properties.Items.Add("否");
+            cboCalibValidDateCheck.SelectedIndex = 0;
+
+            cboQCFailed.Properties.Items.Add("是");
+            cboQCFailed.Properties.Items.Add("否");
+            cboQCFailed.SelectedIndex = 0;
+
+            cboReagentLotCheck.Properties.Items.Add("是");
+            cboReagentLotCheck.Properties.Items.Add("否");
+            cboReagentLotCheck.SelectedIndex = 0;
+
+            cboReagentValidDateCheck.Properties.Items.Add("是");
+            cboReagentValidDateCheck.Properties.Items.Add("否");
+            cboReagentValidDateCheck.SelectedIndex = 0;
             
         }
 
@@ -65,33 +98,23 @@ namespace BioA.UI
             set
             {
                 lstAssayProInfos = value;
-                this.Invoke(new EventHandler(delegate
+                dt.Rows.Clear();
+                int i = 1;
+                if (lstAssayProInfos.Count != 0)
                 {
-                    lstvAssayProject.RefreshDataSource();
-                    int i = 1;
-                    DataTable dt = new DataTable();
-
-                    dt.Columns.Add("序号");
-                    dt.Columns.Add("项目名称");
-                    dt.Columns.Add("类型");
-                    dt.Columns.Add("项目全称");
-                    dt.Columns.Add("通道号");
-                    if (lstAssayProInfos.Count != 0)
+                    foreach (AssayProjectInfo assayProInfo in lstAssayProInfos)
                     {
-                        foreach (AssayProjectInfo assayProInfo in lstAssayProInfos)
-                        {
-                            dt.Rows.Add(new object[] { i, assayProInfo.ProjectName, assayProInfo.SampleType, assayProInfo.ProFullName, assayProInfo.ChannelNum });
+                        dt.Rows.Add(new object[] { i, assayProInfo.ProjectName, assayProInfo.SampleType, assayProInfo.ProFullName, assayProInfo.ChannelNum });
 
-                            i++;
-                        }
+                        i++;
                     }
-                    this.lstvAssayProject.DataSource = dt;
-                    if (this.gridView1.RowCount > 0)
-                    {
-                        this.gridView1.SelectRow(0);//FocusedRowHandle = 0;
-                        //lstvAssayProject_Click(null, null);
-                    }
-                }));
+                }
+                this.lstvAssayProject.DataSource = dt;
+                //if (this.gridView1.RowCount > 0)
+                //{
+                //    this.gridView1.SelectRow(0);//FocusedRowHandle = 0;
+                //    //lstvAssayProject_Click(null, null);
+                //}
             }
         }
         private List<AssayProjectCalibrationParamInfo> lstCalibParamInfo = new List<AssayProjectCalibrationParamInfo>();
@@ -114,89 +137,88 @@ namespace BioA.UI
             set
             {
                 calibParamInfo = value;
-                BeginInvoke(new Action(() =>
+                if (string.IsNullOrEmpty(calibParamInfo.CalibrationMethod))
                 {
-                    if (calibParamInfo.CalibrationMethod == "")
+                    this.nullinfo();
+                    cboCalibMethod.Text = "请选择";
+                    cboCalibTimes.SelectedIndex = 0;
+                    ClearCalibName();
+                    //this.AddCalibratorProjectinfo();
+                }
+                else
+                {
+                    //this.AddCalibratorProjectinfo();
+                    if (cboCalibMethod.Text == calibParamInfo.CalibrationMethod)
+                        this.AddCalibratorProjectinfo();
+                    else
+                        cboCalibMethod.Text = calibParamInfo.CalibrationMethod;
+                    this.nullinfo();
+                    txtCalibPoint.Text = calibParamInfo.Point.ToString();
+                    txtAbsLimit.Text = calibParamInfo.AbsLimit.ToString();
+                    txtSpan.Text = calibParamInfo.Span.ToString();
+                    txtSensitivityLow.Text = calibParamInfo.SensitivityLow.ToString();
+                    txtSensitivityHigh.Text = calibParamInfo.SensitivityHigh.ToString();
+                    txtDuplicatePercent.Text = calibParamInfo.DuplicatePercent.ToString();
+                    txtDuplicateAbs.Text = calibParamInfo.DuplicateAbs.ToString();
+                    cboCalibTimes.Text = calibParamInfo.CalibrationTimes.ToString();
+                    txtBlankAbsLow.Text = calibParamInfo.BlankAbsLow.ToString();
+                    txtBlankAbsHigh.Text = calibParamInfo.BlankAbsHigh.ToString();
+                    chkAutoCalibration.Checked = calibParamInfo.AutoCalibration;
+                    chkAutoCalibMask.Checked = calibParamInfo.AutoCalibMask;
+                    cboCalib1.Text = calibParamInfo.CalibName0;
+                    cboCalib2.Text = calibParamInfo.CalibName1;
+                    cboCalib3.Text = calibParamInfo.CalibName2;
+                    cboCalib4.Text = calibParamInfo.CalibName3;
+                    cboCalib5.Text = calibParamInfo.CalibName4;
+                    cboCalib6.Text = calibParamInfo.CalibName5;
+                    cboCalib7.Text = calibParamInfo.CalibName6;
+                    txtPos1.Text = calibParamInfo.CalibPos0;
+                    txtPos2.Text = calibParamInfo.CalibPos1;
+                    txtPos3.Text = calibParamInfo.CalibPos2;
+                    txtPos4.Text = calibParamInfo.CalibPos3;
+                    txtPos5.Text = calibParamInfo.CalibPos4;
+                    txtPos6.Text = calibParamInfo.CalibPos5;
+                    txtPos7.Text = calibParamInfo.CalibPos6;
+                    txtCalibConc1.Text = calibParamInfo.CalibConcentration0.ToString();
+                    txtCalibConc2.Text = calibParamInfo.CalibConcentration1.ToString();
+                    txtCalibConc3.Text = calibParamInfo.CalibConcentration2.ToString();
+                    txtCalibConc4.Text = calibParamInfo.CalibConcentration3.ToString();
+                    txtCalibConc5.Text = calibParamInfo.CalibConcentration4.ToString();
+                    txtCalibConc6.Text = calibParamInfo.CalibConcentration5.ToString();
+                    txtCalibConc7.Text = calibParamInfo.CalibConcentration6.ToString();
+                    textEdit1.Text = calibParamInfo.Factor.ToString();
+
+                    if (calibParamInfo.CalibLotCheck)
+                        cboCalibLotCheck.Text = "是";
+                    else
+                        cboCalibLotCheck.Text = "否";
+                    if (calibParamInfo.CalibValidDateCheck)
+                        cboCalibValidDateCheck.Text = "是";
+                    else
+                        cboCalibValidDateCheck.Text = "否";
+
+                    if (calibParamInfo.ReagentLotCheck)
+                        cboReagentLotCheck.Text = "是";
+                    else
+                        cboReagentLotCheck.Text = "否";
+                    if (calibParamInfo.ReagentValidDateCheck)
+                        cboReagentValidDateCheck.Text = "是";
+                    else
+                        cboReagentValidDateCheck.Text = "否";
+
+                    if (calibParamInfo.QCFailed)
+                        cboQCFailed.Text = "是";
+                    else
+                        cboQCFailed.Text = "否";
+                    if (calibParamInfo.CalibCurveValidDay == 0)
                     {
-                        cboCalibMethod.Text = "请选择";
-                        this.nullinfo();
-                        cboCalibTimes.SelectedIndex = 0;
-                        this.BeginInvoke(new Action(AddCalibratorProjectinfo));
+                        textBox1.Text = "150";
                     }
                     else
                     {
-                        ClearCalibName();
-                        this.BeginInvoke(new Action(AddCalibratorProjectinfo));
-                        cboCalibMethod.Text = calibParamInfo.CalibrationMethod;
-                        this.nullinfo();
-                        txtCalibPoint.Text = calibParamInfo.Point.ToString();
-                        txtAbsLimit.Text = calibParamInfo.AbsLimit.ToString();
-                        txtSpan.Text = calibParamInfo.Span.ToString();
-                        txtSensitivityLow.Text = calibParamInfo.SensitivityLow.ToString();
-                        txtSensitivityHigh.Text = calibParamInfo.SensitivityHigh.ToString();
-                        txtDuplicatePercent.Text = calibParamInfo.DuplicatePercent.ToString();
-                        txtDuplicateAbs.Text = calibParamInfo.DuplicateAbs.ToString();
-                        cboCalibTimes.Text = calibParamInfo.CalibrationTimes.ToString();
-                        txtBlankAbsLow.Text = calibParamInfo.BlankAbsLow.ToString();
-                        txtBlankAbsHigh.Text = calibParamInfo.BlankAbsHigh.ToString();
-                        chkAutoCalibration.Checked = calibParamInfo.AutoCalibration;
-                        chkAutoCalibMask.Checked = calibParamInfo.AutoCalibMask;
-                        cboCalib1.Text = calibParamInfo.CalibName0;
-                        cboCalib2.Text = calibParamInfo.CalibName1;
-                        cboCalib3.Text = calibParamInfo.CalibName2;
-                        cboCalib4.Text = calibParamInfo.CalibName3;
-                        cboCalib5.Text = calibParamInfo.CalibName4;
-                        cboCalib6.Text = calibParamInfo.CalibName5;
-                        cboCalib7.Text = calibParamInfo.CalibName6;
-                        txtPos1.Text = calibParamInfo.CalibPos0;
-                        txtPos2.Text = calibParamInfo.CalibPos1;
-                        txtPos3.Text = calibParamInfo.CalibPos2;
-                        txtPos4.Text = calibParamInfo.CalibPos3;
-                        txtPos5.Text = calibParamInfo.CalibPos4;
-                        txtPos6.Text = calibParamInfo.CalibPos5;
-                        txtPos7.Text = calibParamInfo.CalibPos6;
-                        txtCalibConc1.Text = calibParamInfo.CalibConcentration0.ToString();
-                        txtCalibConc2.Text = calibParamInfo.CalibConcentration1.ToString();
-                        txtCalibConc3.Text = calibParamInfo.CalibConcentration2.ToString();
-                        txtCalibConc4.Text = calibParamInfo.CalibConcentration3.ToString();
-                        txtCalibConc5.Text = calibParamInfo.CalibConcentration4.ToString();
-                        txtCalibConc6.Text = calibParamInfo.CalibConcentration5.ToString();
-                        txtCalibConc7.Text = calibParamInfo.CalibConcentration6.ToString();
-                        textEdit1.Text = calibParamInfo.Factor.ToString();
-
-                        if (calibParamInfo.CalibLotCheck)
-                            cboCalibLotCheck.Text = "是";
-                        else
-                            cboCalibLotCheck.Text = "否";
-                        if (calibParamInfo.CalibValidDateCheck)
-                            cboCalibValidDateCheck.Text = "是";
-                        else
-                            cboCalibValidDateCheck.Text = "否";
-
-                        if (calibParamInfo.ReagentLotCheck)
-                            cboReagentLotCheck.Text = "是";
-                        else
-                            cboReagentLotCheck.Text = "否";
-                        if (calibParamInfo.ReagentValidDateCheck)
-                            cboReagentValidDateCheck.Text = "是";
-                        else
-                            cboReagentValidDateCheck.Text = "否";
-
-                        if (calibParamInfo.QCFailed)
-                            cboQCFailed.Text = "是";
-                        else
-                            cboQCFailed.Text = "否";
-                        if(calibParamInfo.CalibCurveValidDay ==  0)
-                        {
-                            textBox1.Text = "150";
-                        }
-                        else
-                        {
-                            textBox1.Text = calibParamInfo.CalibCurveValidDay.ToString();
-                        }
+                        textBox1.Text = calibParamInfo.CalibCurveValidDay.ToString();
                     }
-                }));
-
+                }
             }
 
         }
@@ -236,8 +258,8 @@ namespace BioA.UI
             txtBlankAbsLow.Text = "0";
             txtBlankAbsHigh.Text = "0";
         }
-        
-        private void AddCalibrationCurveInfo ()
+
+        private List<CalibrationCurveInfo> AddCalibrationCurveInfo()
         {
             List<CalibrationCurveInfo> lisCalibrationCurveInfo = new List<CalibrationCurveInfo>();
             if (cboCalibMethod.Text == "2点线性法" )
@@ -370,10 +392,9 @@ namespace BioA.UI
                 }
 
             }
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SettingsChemicalParameter, XmlUtility.Serializer(typeof(CommunicationEntity),
-            //    new CommunicationEntity("AddCalibrationCurveInfo", XmlUtility.Serializer(typeof(List<CalibrationCurveInfo>), lisCalibrationCurveInfo))));
-            calibParamDic.Add("AddCalibrationCurveInfo", new object[] { XmlUtility.Serializer(typeof(List<CalibrationCurveInfo>), lisCalibrationCurveInfo) });
-            ClientSendMsgToServices(calibParamDic);
+            //calibParamDic.Add("AddCalibrationCurveInfo", new object[] { XmlUtility.Serializer(typeof(List<CalibrationCurveInfo>), lisCalibrationCurveInfo) });
+            //ClientSendMsgToServices(calibParamDic);
+            return lisCalibrationCurveInfo;
          
         }
         /// <summary>
@@ -449,42 +470,6 @@ namespace BioA.UI
             {
 
             }
-            //if (cboCalib4.Visible == true && cboCalib4.Text == "")
-            //{
-            //    MessageBoxDraw.ShowMsg("请选择浓度3的校准品！", MsgType.Warning);
-            //    return;
-            //}
-            //else
-            //{
-
-            //}
-            //if (cboCalib5.Visible == true && cboCalib5.Text == "")
-            //{
-            //    MessageBoxDraw.ShowMsg("请选择浓度4的校准品！", MsgType.Warning);
-            //    return;
-            //}
-            //else
-            //{
-
-            //}
-            //if (cboCalib6.Visible == true && cboCalib6.Text == "")
-            //{
-            //    MessageBoxDraw.ShowMsg("请选择浓度5的校准品！", MsgType.Warning);
-            //    return;
-            //}
-            //else
-            //{
-
-            //}
-            //if (cboCalib7.Visible == true && cboCalib7.Text == "")
-            //{
-            //    MessageBoxDraw.ShowMsg("请选择浓度6的校准品！", MsgType.Warning);
-            //    return;
-            //}
-            //else
-            //{
-
-            //}
             if (txtPos1.Visible == true && txtPos1.Text.Trim() == ""||txtPos2.Visible == true && txtPos2.Text.Trim() == ""
                 //||
                 //txtPos3.Visible == true && txtPos3.Text.Trim() == ""||txtPos4.Visible == true && txtPos4.Text.Trim() == ""||
@@ -761,48 +746,26 @@ namespace BioA.UI
                     parameter.CalibCurveValidDay = 0;
                 }
                 calibParamDic.Clear();
-                calibParamDic.Add("UpdateCalibParamByProNameAndType", new object[] { XmlUtility.Serializer(typeof(AssayProjectCalibrationParamInfo), parameter) });
-                //保存或更新校准方法对应的校准品信息
-                BeginInvoke(new Action(AddCalibrationCurveInfo));
-        
+                List<CalibrationCurveInfo> lstClibCurveInfo = AddCalibrationCurveInfo();
+                //更新校准参数信息
+                calibParamDic.Add("UpdateCalibParamByProNameAndType", new object[] { XmlUtility.Serializer(typeof(AssayProjectCalibrationParamInfo), parameter), XmlUtility.Serializer(typeof(List<CalibrationCurveInfo>), lstClibCurveInfo) });
+                this.ClientSendMsgToServices(calibParamDic);
             }
         }
 
-        private void CalibrationParameter_Load(object sender, EventArgs e)
+        public void CalibrationParameter_Load(object sender, EventArgs e)
         {
             //启动异步线程调用方法
-            BeginInvoke(new Action(InitialControl));
+            this.InitialControl();
+            calibParamDic.Clear();
         }
         public void InitialControl()
         {
-            cboCalibLotCheck.Properties.Items.Add("是");
-            cboCalibLotCheck.Properties.Items.Add("否");
-            cboCalibLotCheck.SelectedIndex = 0;
-
-            cboCalibValidDateCheck.Properties.Items.Add("是");
-            cboCalibValidDateCheck.Properties.Items.Add("否");
-            cboCalibValidDateCheck.SelectedIndex = 0;
-
-            cboQCFailed.Properties.Items.Add("是");
-            cboQCFailed.Properties.Items.Add("否");
-            cboQCFailed.SelectedIndex = 0;
-
-            cboReagentLotCheck.Properties.Items.Add("是");
-            cboReagentLotCheck.Properties.Items.Add("否");
-            cboReagentLotCheck.SelectedIndex = 0;
-
-            cboReagentValidDateCheck.Properties.Items.Add("是");
-            cboReagentValidDateCheck.Properties.Items.Add("否");
-            cboReagentValidDateCheck.SelectedIndex = 0;
- 
-            //CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.SettingsChemicalParameter, new Dictionary<string, List<object>>() { { "QueryCalibParamInfoAll", null } });
-            calibParamDic.Clear();
             //获取所有生化项目
             List<AssayProjectInfo> lstProjectInfos = new SettingsChemicalParameter().QueryAssayProAllInfo("QueryAssayProAllInfo", null);
             this.LstAssayProInfos = lstProjectInfos;
-            
-            calibParamDic.Add("QueryCalibParamInfoAll", null);
-            ClientSendMsgToServices(calibParamDic);
+
+            LstCalibParamInfo = new SettingsChemicalParameter().QueryCalibParamInfoAll("QueryCalibParamInfoAll");
 
         }
 
@@ -818,23 +781,18 @@ namespace BioA.UI
         /// <summary>
         /// 校准项目参数保存成功或失败处理信息
         /// </summary>
-        public void ProcessSuccessOrFailureInfo(int sender)
+        public void ProcessSuccessOrFailureInfo(string sender)
         {
-            if (sender > 0)
+            this.Invoke(new EventHandler(delegate
             {
-                this.lstCalibParamInfo.RemoveAll(x => x.ProjectName == parameter.ProjectName && x.SampleType == parameter.SampleType);
-                this.lstCalibParamInfo.Add(this.parameter);
-                this.LstCalibParamInfo = lstCalibParamInfo;
-                this.Invoke(new EventHandler(delegate { MessageBox.Show("校准项目参数保存成功！"); }));
-            }
-            else if(sender == -1)
-            {
-                MessageBox.Show("保存失败，此项目已下校准任务");
-            }
-            else
-            {
-                MessageBox.Show("校准项目参数保存失败！");
-            }
+                if (sender == "校准参数信息保存成功！")
+                {
+                    this.lstCalibParamInfo.RemoveAll(x => x.ProjectName == parameter.ProjectName && x.SampleType == parameter.SampleType);
+                    this.lstCalibParamInfo.Add(this.parameter);
+                    this.LstCalibParamInfo = lstCalibParamInfo;
+                }
+                MessageBox.Show(sender);
+            }));
         }
 
 
@@ -855,13 +813,6 @@ namespace BioA.UI
                 AssayProjectCalibrationParamInfo assayProParamInfo = lstCalibParamInfo.Find(x => x.ProjectName == assayProInfo.ProjectName && x.SampleType == assayProInfo.SampleType);
                 if(assayProParamInfo != null) 
                     this.CalibParamInfo = assayProParamInfo;
-                //foreach (AssayProjectCalibrationParamInfo assayProParamInfo in lstCalibParamInfo)
-                //{
-                //    if (assayProParamInfo.ProjectName == assayProInfo.ProjectName && assayProParamInfo.SampleType == assayProInfo.SampleType)
-                //    {
-                //        this.CalibParamInfo = assayProParamInfo;
-                //    }
-                //}
             }
         }
         /// <summary>
@@ -882,25 +833,22 @@ namespace BioA.UI
         List<CalibratorProjectinfo> calibratorPro = new List<CalibratorProjectinfo>();
         public void AddCalibrator(List<CalibratorProjectinfo> calibratorProjectinfo)
         {
-             this.Invoke(new EventHandler(delegate
-                {
-                    ClearCalibName();
-                    if (calibratorProjectinfo.Count>0)
-                    {
+            ClearCalibName();
+            if (calibratorProjectinfo.Count>0)
+            {
 
-                        foreach(CalibratorProjectinfo cal in calibratorProjectinfo)
-                        {
-                            calibratorPro.Add(cal);
-                            cboCalib1.Properties.Items.Add(cal.CalibName);
-                            cboCalib2.Properties.Items.Add(cal.CalibName);
-                            cboCalib3.Properties.Items.Add(cal.CalibName);
-                            cboCalib4.Properties.Items.Add(cal.CalibName);
-                            cboCalib5.Properties.Items.Add(cal.CalibName);
-                            cboCalib6.Properties.Items.Add(cal.CalibName);
-                            cboCalib7.Properties.Items.Add(cal.CalibName);
-                        }
-                    }
-              }));
+                foreach(CalibratorProjectinfo cal in calibratorProjectinfo)
+                {
+                    calibratorPro.Add(cal);
+                    cboCalib1.Properties.Items.Add(cal.CalibName);
+                    cboCalib2.Properties.Items.Add(cal.CalibName);
+                    cboCalib3.Properties.Items.Add(cal.CalibName);
+                    cboCalib4.Properties.Items.Add(cal.CalibName);
+                    cboCalib5.Properties.Items.Add(cal.CalibName);
+                    cboCalib6.Properties.Items.Add(cal.CalibName);
+                    cboCalib7.Properties.Items.Add(cal.CalibName);
+                }
+            }
         }
         private void AddCalibratorProjectinfo()
         {
@@ -911,9 +859,10 @@ namespace BioA.UI
                 string ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "项目名称").ToString();
                 string SampleType = this.gridView1.GetRowCellValue(selectedHandle, "类型").ToString();
 
-                calibParamDic.Clear();
-                calibParamDic.Add("QueryCalibratorProinfo", new object[] { ProjectName, SampleType });
-                ClientSendMsgToServices(calibParamDic);
+                //calibParamDic.Clear();
+                //calibParamDic.Add("QueryCalibratorProinfo", new object[] { ProjectName, SampleType });
+                //ClientSendMsgToServices(calibParamDic);
+                this.AddCalibrator(new SettingsChemicalParameter().QueryCalibratorProjectinfo("QueryCalibratorProinfo", ProjectName, SampleType));
             }
             
         }
@@ -925,7 +874,6 @@ namespace BioA.UI
         private void btnCancel_Click(object sender, EventArgs e)
         {
             AssayProjectInfo assayProInfo = new AssayProjectInfo();
-            //CommunicationEntity communicationEntity = new CommunicationEntity();
             int selectedHandle;
             selectedHandle = this.gridView1.GetSelectedRows()[0];
             assayProInfo.ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "项目名称").ToString();
@@ -937,10 +885,6 @@ namespace BioA.UI
                     this.CalibParamInfo = assayProParamInfo;
                 }
             }
-            //    communicationEntity.StrmethodName = "QueryCalibParamByProNameAndType";
-            //    communicationEntity.ObjParam = XmlUtility.Serializer(typeof(AssayProjectInfo), assayProInfo);
-
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SettingsChemicalParameter, XmlUtility.Serializer(typeof(CommunicationEntity), communicationEntity));
         }
 
         private void cboCalibMethod_SelectedIndexChanged(object sender, EventArgs e)
@@ -1046,7 +990,16 @@ namespace BioA.UI
                 txtCalibConc6.Visible = false;
                 txtCalibConc7.Visible = false;
             }
-            else if (cboCalibMethod.SelectedItem.ToString() == "多项式法")
+            else if (cboCalibMethod.SelectedItem.ToString() == "多项式法" ||
+                    cboCalibMethod.SelectedItem.ToString() == "一次多项式法" ||
+                    cboCalibMethod.SelectedItem.ToString() == "二次多项式法" ||
+                    cboCalibMethod.SelectedItem.ToString() == "三次多项式法" ||
+                    cboCalibMethod.SelectedItem.ToString() == "样条法" ||
+                    cboCalibMethod.SelectedItem.ToString() == "指数法" ||
+                    cboCalibMethod.SelectedItem.ToString() == "对数法" ||
+                    cboCalibMethod.SelectedItem.ToString() == "多点线性法" ||
+                    cboCalibMethod.SelectedItem.ToString() == "折线法"
+                )
             {
                 lblConc1.Visible = true;
                 lblConc2.Visible = true;
@@ -1079,270 +1032,9 @@ namespace BioA.UI
                 label4.Visible = false;
                 textEdit1.Visible = false;
             }
-            else if (cboCalibMethod.SelectedItem.ToString() == "一次多项式法")
-            {
-                lblConc1.Visible = true;
-                lblConc2.Visible = true;
-                lblConc3.Visible = true;
-                lblConc4.Visible = true;
-                lblConc5.Visible = true;
-                lblConc6.Visible = true;
-                lblConc7.Visible = true;
-                cboCalib1.Visible = true;
-                cboCalib2.Visible = true;
-                cboCalib3.Visible = true;
-                cboCalib4.Visible = true;
-                cboCalib5.Visible = true;
-                cboCalib6.Visible = true;
-                cboCalib7.Visible = true;
-                txtPos1.Visible = true;
-                txtPos2.Visible = true;
-                txtPos3.Visible = true;
-                txtPos4.Visible = true;
-                txtPos5.Visible = true;
-                txtPos6.Visible = true;
-                txtPos7.Visible = true;
-                txtCalibConc1.Visible = true;
-                txtCalibConc2.Visible = true;
-                txtCalibConc3.Visible = true;
-                txtCalibConc4.Visible = true;
-                txtCalibConc5.Visible = true;
-                txtCalibConc6.Visible = true;
-                txtCalibConc7.Visible = true;
-                label4.Visible = false;
-                textEdit1.Visible = false;
-            }
-            else if (cboCalibMethod.SelectedItem.ToString() == "二次多项式法")
-            {
-                lblConc1.Visible = true;
-                lblConc2.Visible = true;
-                lblConc3.Visible = true;
-                lblConc4.Visible = true;
-                lblConc5.Visible = true;
-                lblConc6.Visible = true;
-                lblConc7.Visible = true;
-                cboCalib1.Visible = true;
-                cboCalib2.Visible = true;
-                cboCalib3.Visible = true;
-                cboCalib4.Visible = true;
-                cboCalib5.Visible = true;
-                cboCalib6.Visible = true;
-                cboCalib7.Visible = true;
-                txtPos1.Visible = true;
-                txtPos2.Visible = true;
-                txtPos3.Visible = true;
-                txtPos4.Visible = true;
-                txtPos5.Visible = true;
-                txtPos6.Visible = true;
-                txtPos7.Visible = true;
-                txtCalibConc1.Visible = true;
-                txtCalibConc2.Visible = true;
-                txtCalibConc3.Visible = true;
-                txtCalibConc4.Visible = true;
-                txtCalibConc5.Visible = true;
-                txtCalibConc6.Visible = true;
-                txtCalibConc7.Visible = true;
-                label4.Visible = false;
-                textEdit1.Visible = false;
-            }
-            else if (cboCalibMethod.SelectedItem.ToString() == "三次多项式法")
-            {
-                lblConc1.Visible = true;
-                lblConc2.Visible = true;
-                lblConc3.Visible = true;
-                lblConc4.Visible = true;
-                lblConc5.Visible = true;
-                lblConc6.Visible = true;
-                lblConc7.Visible = true;
-                cboCalib1.Visible = true;
-                cboCalib2.Visible = true;
-                cboCalib3.Visible = true;
-                cboCalib4.Visible = true;
-                cboCalib5.Visible = true;
-                cboCalib6.Visible = true;
-                cboCalib7.Visible = true;
-                txtPos1.Visible = true;
-                txtPos2.Visible = true;
-                txtPos3.Visible = true;
-                txtPos4.Visible = true;
-                txtPos5.Visible = true;
-                txtPos6.Visible = true;
-                txtPos7.Visible = true;
-                txtCalibConc1.Visible = true;
-                txtCalibConc2.Visible = true;
-                txtCalibConc3.Visible = true;
-                txtCalibConc4.Visible = true;
-                txtCalibConc5.Visible = true;
-                txtCalibConc6.Visible = true;
-                txtCalibConc7.Visible = true;
-                label4.Visible = false;
-                textEdit1.Visible = false;
-            } 
-            else if (cboCalibMethod.SelectedItem.ToString() == "样条法")
-            {
-                lblConc1.Visible = true;
-                lblConc2.Visible = true;
-                lblConc3.Visible = true;
-                lblConc4.Visible = true;
-                lblConc5.Visible = true;
-                lblConc6.Visible = true;
-                lblConc7.Visible = true;
-                cboCalib1.Visible = true;
-                cboCalib2.Visible = true;
-                cboCalib3.Visible = true;
-                cboCalib4.Visible = true;
-                cboCalib5.Visible = true;
-                cboCalib6.Visible = true;
-                cboCalib7.Visible = true;
-                txtPos1.Visible = true;
-                txtPos2.Visible = true;
-                txtPos3.Visible = true;
-                txtPos4.Visible = true;
-                txtPos5.Visible = true;
-                txtPos6.Visible = true;
-                txtPos7.Visible = true;
-                txtCalibConc1.Visible = true;
-                txtCalibConc2.Visible = true;
-                txtCalibConc3.Visible = true;
-                txtCalibConc4.Visible = true;
-                txtCalibConc5.Visible = true;
-                txtCalibConc6.Visible = true;
-                txtCalibConc7.Visible = true;
-                label4.Visible = false;
-                textEdit1.Visible = false;
-            } 
-            else if (cboCalibMethod.SelectedItem.ToString() == "指数法")
-            {
-                lblConc1.Visible = true;
-                lblConc2.Visible = true;
-                lblConc3.Visible = true;
-                lblConc4.Visible = true;
-                lblConc5.Visible = true;
-                lblConc6.Visible = true;
-                lblConc7.Visible = true;
-                cboCalib1.Visible = true;
-                cboCalib2.Visible = true;
-                cboCalib3.Visible = true;
-                cboCalib4.Visible = true;
-                cboCalib5.Visible = true;
-                cboCalib6.Visible = true;
-                cboCalib7.Visible = true;
-                txtPos1.Visible = true;
-                txtPos2.Visible = true;
-                txtPos3.Visible = true;
-                txtPos4.Visible = true;
-                txtPos5.Visible = true;
-                txtPos6.Visible = true;
-                txtPos7.Visible = true;
-                txtCalibConc1.Visible = true;
-                txtCalibConc2.Visible = true;
-                txtCalibConc3.Visible = true;
-                txtCalibConc4.Visible = true;
-                txtCalibConc5.Visible = true;
-                txtCalibConc6.Visible = true;
-                txtCalibConc7.Visible = true;
-                label4.Visible = false;
-                textEdit1.Visible = false;
-            } 
-            else if (cboCalibMethod.SelectedItem.ToString() == "对数法")
-            {
-                lblConc1.Visible = true;
-                lblConc2.Visible = true;
-                lblConc3.Visible = true;
-                lblConc4.Visible = true;
-                lblConc5.Visible = true;
-                lblConc6.Visible = true;
-                lblConc7.Visible = true;
-                cboCalib1.Visible = true;
-                cboCalib2.Visible = true;
-                cboCalib3.Visible = true;
-                cboCalib4.Visible = true;
-                cboCalib5.Visible = true;
-                cboCalib6.Visible = true;
-                cboCalib7.Visible = true;
-                txtPos1.Visible = true;
-                txtPos2.Visible = true;
-                txtPos3.Visible = true;
-                txtPos4.Visible = true;
-                txtPos5.Visible = true;
-                txtPos6.Visible = true;
-                txtPos7.Visible = true;
-                txtCalibConc1.Visible = true;
-                txtCalibConc2.Visible = true;
-                txtCalibConc3.Visible = true;
-                txtCalibConc4.Visible = true;
-                txtCalibConc5.Visible = true;
-                txtCalibConc6.Visible = true;
-                txtCalibConc7.Visible = true;
-                label4.Visible = false;
-                textEdit1.Visible = false;
-            } 
-            else if (cboCalibMethod.SelectedItem.ToString() == "多点线性法")
-            {
-                lblConc1.Visible = true;
-                lblConc2.Visible = true;
-                lblConc3.Visible = true;
-                lblConc4.Visible = true;
-                lblConc5.Visible = true;
-                lblConc6.Visible = true;
-                lblConc7.Visible = true;
-                cboCalib1.Visible = true;
-                cboCalib2.Visible = true;
-                cboCalib3.Visible = true;
-                cboCalib4.Visible = true;
-                cboCalib5.Visible = true;
-                cboCalib6.Visible = true;
-                cboCalib7.Visible = true;
-                txtPos1.Visible = true;
-                txtPos2.Visible = true;
-                txtPos3.Visible = true;
-                txtPos4.Visible = true;
-                txtPos5.Visible = true;
-                txtPos6.Visible = true;
-                txtPos7.Visible = true;
-                txtCalibConc1.Visible = true;
-                txtCalibConc2.Visible = true;
-                txtCalibConc3.Visible = true;
-                txtCalibConc4.Visible = true;
-                txtCalibConc5.Visible = true;
-                txtCalibConc6.Visible = true;
-                txtCalibConc7.Visible = true;
-                label4.Visible = false;
-                textEdit1.Visible = false;
-            }
-            else if (cboCalibMethod.SelectedItem.ToString() == "折线法")
-            {
-                lblConc1.Visible = true;
-                lblConc2.Visible = true;
-                lblConc3.Visible = true;
-                lblConc4.Visible = true;
-                lblConc5.Visible = true;
-                lblConc6.Visible = true;
-                lblConc7.Visible = true;
-                cboCalib1.Visible = true;
-                cboCalib2.Visible = true;
-                cboCalib3.Visible = true;
-                cboCalib4.Visible = true;
-                cboCalib5.Visible = true;
-                cboCalib6.Visible = true;
-                cboCalib7.Visible = true;
-                txtPos1.Visible = true;
-                txtPos2.Visible = true;
-                txtPos3.Visible = true;
-                txtPos4.Visible = true;
-                txtPos5.Visible = true;
-                txtPos6.Visible = true;
-                txtPos7.Visible = true;
-                txtCalibConc1.Visible = true;
-                txtCalibConc2.Visible = true;
-                txtCalibConc3.Visible = true;
-                txtCalibConc4.Visible = true;
-                txtCalibConc5.Visible = true;
-                txtCalibConc6.Visible = true;
-                txtCalibConc7.Visible = true;
-                label4.Visible = false;
-                textEdit1.Visible = false;
-            }
+
+            if (cboCalibMethod.Text.Trim() != "请选择")
+                this.AddCalibratorProjectinfo();
         }
 
         private void cboCalib1_SelectedIndexChanged(object sender, EventArgs e)
@@ -1360,12 +1052,6 @@ namespace BioA.UI
                 MessageBoxDraw.ShowMsg("您输入的校准品名称重复，请重新输入！", MsgType.Warning);
                 return;
             }
-            //CommunicationEntity communicationEntity = new CommunicationEntity();
-   
-            //    communicationEntity.StrmethodName = "QueryCalib";
-            //    communicationEntity.ObjParam = cboCalib1.Text;
-
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SettingsChemicalParameter, XmlUtility.Serializer(typeof(CommunicationEntity), communicationEntity));
             for (int i = 0; i < calibratorPro.Count; i++)
             {
                 if (cboCalib1.Text == calibratorPro[i].CalibName)
@@ -1376,47 +1062,6 @@ namespace BioA.UI
             }
 
 
-        }
-        /// <summary>
-        /// 显示校准品对应的位置
-        /// </summary>
-        /// <param name="lisCalibratorinfo"></param>
-        public void lisCalibratorinfo(List<Calibratorinfo> lisCalibratorinfo)
-        {
-            BeginInvoke(new Action(() =>
-            {
-                for (int i = 0; i < lisCalibratorinfo.Count; i++)
-                {
-                    if (lisCalibratorinfo[i].CalibName == cboCalib1.Text)
-                    {
-                        txtPos1.Text = lisCalibratorinfo[i].Pos;
-                    }
-                    if (lisCalibratorinfo[i].CalibName == cboCalib2.Text)
-                    {
-                        txtPos2.Text = lisCalibratorinfo[i].Pos;
-                    }
-                    if (lisCalibratorinfo[i].CalibName == cboCalib3.Text)
-                    {
-                        txtPos3.Text = lisCalibratorinfo[i].Pos;
-                    }
-                    if (lisCalibratorinfo[i].CalibName == cboCalib4.Text)
-                    {
-                        txtPos4.Text = lisCalibratorinfo[i].Pos;
-                    }
-                    if (lisCalibratorinfo[i].CalibName == cboCalib5.Text)
-                    {
-                        txtPos5.Text = lisCalibratorinfo[i].Pos;
-                    }
-                    if (lisCalibratorinfo[i].CalibName == cboCalib6.Text)
-                    {
-                        txtPos6.Text = lisCalibratorinfo[i].Pos;
-                    }
-                    if (lisCalibratorinfo[i].CalibName == cboCalib7.Text)
-                    {
-                        txtPos7.Text = lisCalibratorinfo[i].Pos;
-                    }
-                }
-            }));
         }
 
         private void cboCalib2_SelectedIndexChanged(object sender, EventArgs e)
@@ -1434,12 +1079,6 @@ namespace BioA.UI
                 //MessageBox.Show("您输入的校准品名称重复，请重新输入！");
                 return;
             }
-            //CommunicationEntity communicationEntity = new CommunicationEntity();
-
-            //    communicationEntity.StrmethodName = "QueryCalib";
-            //    communicationEntity.ObjParam = cboCalib2.Text;
-
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SettingsChemicalParameter, XmlUtility.Serializer(typeof(CommunicationEntity), communicationEntity));
             for (int i = 0; i < calibratorPro.Count; i++)
             {
                 if (cboCalib2.Text == calibratorPro[i].CalibName)
@@ -1464,12 +1103,6 @@ namespace BioA.UI
                 MessageBoxDraw.ShowMsg("您输入的校准品名称重复，请重新输入！", MsgType.Warning);
                 return;
             }
-            //CommunicationEntity communicationEntity = new CommunicationEntity();
-  
-            //    communicationEntity.StrmethodName = "QueryCalib";
-            //    communicationEntity.ObjParam = cboCalib3.Text;
-    
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SettingsChemicalParameter, XmlUtility.Serializer(typeof(CommunicationEntity), communicationEntity));
             for (int i = 0; i < calibratorPro.Count; i++)
             {
                 if (cboCalib3.Text == calibratorPro[i].CalibName)
@@ -1494,12 +1127,6 @@ namespace BioA.UI
                 MessageBox.Show("您输入的校准品名称重复，请重新输入！");
                 return;
             }
-            //CommunicationEntity communicationEntity = new CommunicationEntity();
-
-            //    communicationEntity.StrmethodName = "QueryCalib";
-            //    communicationEntity.ObjParam = cboCalib4.Text;
-
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SettingsChemicalParameter, XmlUtility.Serializer(typeof(CommunicationEntity), communicationEntity));
             for (int i = 0; i < calibratorPro.Count; i++)
             {
                 if (cboCalib4.Text == calibratorPro[i].CalibName)
@@ -1523,12 +1150,6 @@ namespace BioA.UI
                 MessageBoxDraw.ShowMsg("您输入的校准品名称重复，请重新输入！", MsgType.Warning);
                 return;
             }
-            //CommunicationEntity communicationEntity = new CommunicationEntity();
-
-            //    communicationEntity.StrmethodName = "QueryCalib";
-            //    communicationEntity.ObjParam = cboCalib5.Text;
-
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SettingsChemicalParameter, XmlUtility.Serializer(typeof(CommunicationEntity), communicationEntity));
             for (int i = 0; i < calibratorPro.Count; i++)
             {
                 if (cboCalib5.Text == calibratorPro[i].CalibName)
@@ -1553,12 +1174,6 @@ namespace BioA.UI
                 MessageBoxDraw.ShowMsg("您输入的校准品名称重复，请重新输入！", MsgType.Warning);
                 return;
             }
-            //CommunicationEntity communicationEntity = new CommunicationEntity();
-        
-            //    communicationEntity.StrmethodName = "QueryCalib";
-            //    communicationEntity.ObjParam = cboCalib6.Text;
-       
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SettingsChemicalParameter, XmlUtility.Serializer(typeof(CommunicationEntity), communicationEntity));
             for (int i = 0; i < calibratorPro.Count; i++)
             {
                 if (cboCalib6.Text == calibratorPro[i].CalibName)
@@ -1584,12 +1199,6 @@ namespace BioA.UI
                 MessageBoxDraw.ShowMsg("您输入的校准品名称重复，请重新输入！", MsgType.Warning);
                 return;
             }
-            //CommunicationEntity communicationEntity = new CommunicationEntity();
-
-            //    communicationEntity.StrmethodName = "QueryCalib";
-            //    communicationEntity.ObjParam = cboCalib7.Text;
-   
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SettingsChemicalParameter, XmlUtility.Serializer(typeof(CommunicationEntity), communicationEntity));
             for (int i = 0; i < calibratorPro.Count; i++)
             {
                 if (cboCalib7.Text == calibratorPro[i].CalibName)
@@ -1598,118 +1207,6 @@ namespace BioA.UI
                     txtCalibConc7.Text = calibratorPro[i].CalibConcentration.ToString();
                 }
             }
-        }
-
-        public void AddcalibrationCurveInfo(List<CalibrationCurveInfo> calibrationCurveInfo)
-        {
-            calibrationCurveInfo.Sort(delegate(CalibrationCurveInfo x, CalibrationCurveInfo y)
-            {
-                return x.CalibConcentration.CompareTo(y.CalibConcentration);
-            });
-            BeginInvoke(new Action(() =>
-            {
-
-                txtCalibConc1.Text = "";
-                txtCalibConc2.Text = "";
-                txtCalibConc3.Text = "";
-                txtCalibConc4.Text = "";
-                txtCalibConc5.Text = "";
-                txtCalibConc6.Text = "";
-                txtCalibConc7.Text = "";
-                cboCalib1.Text = "";
-                cboCalib2.Text = "";
-                cboCalib3.Text = "";
-                cboCalib4.Text = "";
-                cboCalib5.Text = "";
-                cboCalib6.Text = "";
-                cboCalib7.Text = "";
-                txtPos1.Text = "";
-                txtPos2.Text = "";
-                txtPos3.Text = "";
-                txtPos4.Text = "";
-                txtPos5.Text = "";
-                txtPos6.Text = "";
-                txtPos7.Text = "";
-                textEdit1.Text = "";
-                if (calibrationCurveInfo.Count == 7)
-                {
-                    txtCalibConc1.Text = calibrationCurveInfo[0].CalibConcentration.ToString();
-                    txtCalibConc2.Text = calibrationCurveInfo[1].CalibConcentration.ToString();
-                    txtCalibConc3.Text = calibrationCurveInfo[2].CalibConcentration.ToString();
-                    txtCalibConc4.Text = calibrationCurveInfo[3].CalibConcentration.ToString();
-                    txtCalibConc5.Text = calibrationCurveInfo[4].CalibConcentration.ToString();
-                    txtCalibConc6.Text = calibrationCurveInfo[5].CalibConcentration.ToString();
-                    txtCalibConc7.Text = calibrationCurveInfo[6].CalibConcentration.ToString();
-                    cboCalib1.Text = calibrationCurveInfo[0].CalibName;
-                    cboCalib2.Text = calibrationCurveInfo[1].CalibName;
-                    cboCalib3.Text = calibrationCurveInfo[2].CalibName;
-                    cboCalib4.Text = calibrationCurveInfo[3].CalibName;
-                    cboCalib5.Text = calibrationCurveInfo[4].CalibName;
-                    cboCalib6.Text = calibrationCurveInfo[5].CalibName;
-                    cboCalib7.Text = calibrationCurveInfo[6].CalibName;
-                    txtPos1.Text = calibrationCurveInfo[0].Pos;
-                    txtPos2.Text = calibrationCurveInfo[1].Pos;
-                    txtPos3.Text = calibrationCurveInfo[2].Pos;
-                    txtPos4.Text = calibrationCurveInfo[3].Pos;
-                    txtPos5.Text = calibrationCurveInfo[4].Pos;
-                    txtPos6.Text = calibrationCurveInfo[5].Pos;
-                    txtPos7.Text = calibrationCurveInfo[6].Pos;
-                }
-                else if (calibrationCurveInfo.Count == 2)
-                {
-                    txtCalibConc1.Text = calibrationCurveInfo[0].CalibConcentration.ToString();
-                    txtCalibConc2.Text = calibrationCurveInfo[1].CalibConcentration.ToString();
-                    txtCalibConc3.Text = "";
-                    txtCalibConc4.Text = "";
-                    txtCalibConc5.Text = "";
-                    txtCalibConc6.Text = "";
-                    txtCalibConc7.Text = "";
-                    cboCalib1.Text = calibrationCurveInfo[0].CalibName;
-                    cboCalib2.Text = calibrationCurveInfo[1].CalibName;
-                    cboCalib3.Text = "";
-                    cboCalib4.Text = "";
-                    cboCalib5.Text = "";
-                    cboCalib6.Text = "";
-                    cboCalib7.Text = "";
-                    txtPos1.Text = calibrationCurveInfo[0].Pos;
-                    txtPos2.Text = calibrationCurveInfo[1].Pos;
-                    txtPos3.Text = "";
-                    txtPos4.Text = "";
-                    txtPos5.Text = "";
-                    txtPos6.Text = "";
-                    txtPos7.Text = "";
-                }
-                else if (calibrationCurveInfo.Count == 1)
-                {
-                    txtCalibConc1.Text = calibrationCurveInfo[0].CalibConcentration.ToString();
-                    txtCalibConc2.Text = "";
-                    txtCalibConc3.Text = "";
-                    txtCalibConc4.Text = "";
-                    txtCalibConc5.Text = "";
-                    txtCalibConc6.Text = "";
-                    txtCalibConc7.Text = "";
-                    cboCalib1.Text = calibrationCurveInfo[0].CalibName;
-                    cboCalib2.Text = "";
-                    cboCalib3.Text = "";
-                    cboCalib4.Text = "";
-                    cboCalib5.Text = "";
-                    cboCalib6.Text = "";
-                    cboCalib7.Text = "";
-                    txtPos1.Text = calibrationCurveInfo[0].Pos;
-                    txtPos2.Text = "";
-                    txtPos3.Text = "";
-                    txtPos4.Text = "";
-                    txtPos5.Text = "";
-                    txtPos6.Text = "";
-                    txtPos7.Text = "";
-                    textEdit1.Text = calibrationCurveInfo[0].Factor.ToString();
-                }
-                else if (calibrationCurveInfo.Count == 0)
-                {
-                    cboCalibMethod.Text = "请选择";
-                }
-
-            }));
         }
     }
 }

@@ -44,39 +44,39 @@ namespace BioA.UI
             List<string> lstCalibrationName = new List<string>();
             if (calibrationResultInfoAndTimeCUVNO.Count > 0)
             {
-                this.Invoke(new EventHandler(delegate
+                foreach (CalibrationResultinfo calibrationResultInfo in calibrationResultInfoAndTimeCUVNO)
                 {
-                    foreach (CalibrationResultinfo calibrationResultInfo in calibrationResultInfoAndTimeCUVNO)
+                    lstCalibrationResultInfo.Add(calibrationResultInfo);
+                    lstCalibrationName.Add(calibrationResultInfo.CalibratorName);
+                    if (c == null || c.CalibrationDT == null || c.CalibrationDT != calibrationResultInfo.CalibrationDT)
                     {
-                        lstCalibrationResultInfo.Add(calibrationResultInfo);
-                        lstCalibrationName.Add(calibrationResultInfo.CalibratorName);
-                        if (c == null || c.CalibrationDT == null || c.CalibrationDT != calibrationResultInfo.CalibrationDT)
-                        {
-                            c = new CalibrationResultinfo();
-                            textEditProName.Text = c.ProjectName = calibrationResultInfo.ProjectName;
-                            textEditSamType.Text = c.SampleType = calibrationResultInfo.SampleType;
-                            c.CalibMethod = calibrationResultInfo.CalibMethod;
-                            c.CalibrationDT = calibrationResultInfo.CalibrationDT;
-                            lstCalibReuslt.Add(c);
-                        }
+                        c = new CalibrationResultinfo();
+                        textEditProName.Text = c.ProjectName = calibrationResultInfo.ProjectName;
+                        textEditSamType.Text = c.SampleType = calibrationResultInfo.SampleType;
+                        c.CalibMethod = calibrationResultInfo.CalibMethod;
+                        c.CalibrationDT = calibrationResultInfo.CalibrationDT;
+                        lstCalibReuslt.Add(c);
                     }
-                    comBoxEditCalibName.Properties.Items.AddRange(lstCalibrationName.Distinct().ToList());
-                    if (lstCalibReuslt.Count > 1)
+                }
+                comBoxEditCalibName.Properties.Items.AddRange(lstCalibrationName.Distinct().ToList());
+                if (lstCalibReuslt.Count > 1)
+                {
+                    int i;
+                    for (i = 0; i < lstCalibReuslt.Count; i++)
                     {
-                        int i;
-                        for (i = 0; i < lstCalibReuslt.Count; i++)
-                        {
-                            comboBoxCalibTime.Properties.Items.Add(lstCalibReuslt[i].CalibrationDT);
-                        }
-                        comboBoxCalibTime.Text = lstCalibReuslt[i - 1].CalibrationDT.ToString();
+                        comboBoxCalibTime.Properties.Items.Add(lstCalibReuslt[i].CalibrationDT);
                     }
-                    else
-                    {
-                        comboBoxCalibTime.Properties.Items.Add(lstCalibReuslt[0].CalibrationDT);
-                        comboBoxCalibTime.Text = lstCalibReuslt[0].CalibrationDT.ToString();
-                    }
+                    comboBoxCalibTime.Text = lstCalibReuslt[i - 1].CalibrationDT.ToString();
+                }
+                else
+                {
+                    comboBoxCalibTime.Properties.Items.Add(lstCalibReuslt[0].CalibrationDT);
+                    comboBoxCalibTime.Text = lstCalibReuslt[0].CalibrationDT.ToString();
+                }
+                if (comBoxEditCalibName.SelectedIndex == -1)
                     comBoxEditCalibName.SelectedIndex = 0;
-                }));
+                else
+                    comBoxEditCalibName_SelectedIndexChanged(null,null);
             }
         }
 
@@ -180,27 +180,21 @@ namespace BioA.UI
                     if (sampleReactionInfo.Cuv43Wm != 0)
                         series.Points.Add(new SeriesPoint(43, ((sampleReactionInfo.Cuv43Wm - sampleReactionInfo.CuvBlkWm) - (sampleReactionInfo.Cuv43Ws - sampleReactionInfo.CuvBlkWs)).ToString("#0.0000")));
 
-                    this.Invoke(new EventHandler(delegate
-                    {
-                        LineSeriesView lineSeriesView1 = new LineSeriesView();
-                        lineSeriesView1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(85)))), ((int)(((byte)(85)))));
-                        lineSeriesView1.LineMarkerOptions.Color = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(85)))), ((int)(((byte)(85)))));
-                        lineSeriesView1.LineMarkerOptions.Kind = DevExpress.XtraCharts.MarkerKind.Circle;
-                        lineSeriesView1.LineMarkerOptions.Size = 7;
-                        //是否显示圆点标注
-                        //lineSeriesView1.MarkerVisibility = DevExpress.Utils.DefaultBoolean.True;
-                        series.View = lineSeriesView1;
-                        List<Series> list = new List<Series>() { series };
-                        chartControl1.Series.AddRange(list.ToArray());
-                        //chartControl1.Series.Add(series);
-                    }));
+                    LineSeriesView lineSeriesView1 = new LineSeriesView();
+                    lineSeriesView1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(85)))), ((int)(((byte)(85)))));
+                    lineSeriesView1.LineMarkerOptions.Color = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(85)))), ((int)(((byte)(85)))));
+                    lineSeriesView1.LineMarkerOptions.Kind = DevExpress.XtraCharts.MarkerKind.Circle;
+                    lineSeriesView1.LineMarkerOptions.Size = 7;
+                    //是否显示圆点标注
+                    //lineSeriesView1.MarkerVisibility = DevExpress.Utils.DefaultBoolean.True;
+                    series.View = lineSeriesView1;
+                    List<Series> list = new List<Series>() { series };
+                    chartControl1.Series.AddRange(list.ToArray());
+                    //chartControl1.Series.Add(series);
                 }
-                this.Invoke(new EventHandler(delegate
-                {
-                    this.comBoxEditCalibName.Enabled = true;
-                    this.comboBoxCalibTime.Enabled = true;
-                    this.comBoxProcessNumValue.Enabled = true;
-                }));
+                this.comBoxEditCalibName.Enabled = true;
+                this.comboBoxCalibTime.Enabled = true;
+                this.comBoxProcessNumValue.Enabled = true;
             }
         }
         /// <summary>
@@ -212,15 +206,17 @@ namespace BioA.UI
         {
             //根据下拉选择的时间更新对应的比色杯编号
             comBoxProcessNumValue.Properties.Items.Clear();
-            comBoxProcessNumValue.SelectedIndex = -1;
             foreach (CalibrationResultinfo cuvno in lstCalibrationResultInfo)
             {
-                if (comboBoxCalibTime.Text == cuvno.CalibrationDT.ToString())
+                if (comboBoxCalibTime.Text == cuvno.CalibrationDT.ToString() && comBoxEditCalibName.Text.Trim() == cuvno.CalibratorName)
                 {
                     comBoxProcessNumValue.Properties.Items.Add(cuvno.TCNO);
                 }
             }
-            comBoxProcessNumValue.SelectedIndex = 0;
+            if (comBoxProcessNumValue.SelectedIndex == -1)
+                comBoxProcessNumValue.SelectedIndex = 0;
+            else
+                comboBoxEditCuveNum_SelectedIndexChanged(null, null);
             
 
         }
@@ -275,11 +271,18 @@ namespace BioA.UI
                     comBoxProcessNumValue.Properties.Items.Add(lstCalibrationResultInfo[i].TCNO);
                 }
             }
-            comBoxProcessNumValue.SelectedIndex = 0;
+            if (comBoxProcessNumValue.SelectedIndex == -1)
+                comBoxProcessNumValue.SelectedIndex = 0;
+            else
+                comboBoxEditCuveNum_SelectedIndexChanged(null,null);
+            
         }
 
-        private void ReactionProcessCB_Load(object sender, EventArgs e)
+        public void ReactionProcessCB_Load(object sender, EventArgs e)
         {
+            lstCalibrationResultInfo.Clear();
+            comBoxEditCalibName.Properties.Items.Clear();
+            comboBoxCalibTime.Properties.Items.Clear();
             Calibrator calibrator = new Calibrator();
             calibrationResultInfoAndTimeCUVNOAdd(calibrator.QueryCalibrationResultInfoAndTimeCUVNO("QueryCalibrationResultInfoAndTimeCUVNO", calibrationResult));
         }

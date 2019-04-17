@@ -33,27 +33,27 @@
       bePollutedProName=#BePollutedPro# and BePollutedProType=#BePollutedProType#
     </select>
     <insert id="AddReagentNeedle" parameterClass="System.Collections.IDictionary">
-      insert into ReagentNeedleAntifoulingStrategyTb (ReagentNeedle,polluteProName,PolluteProType,bePollutedProName,BePollutedProType,CleaningLiquidName,CleaningLiquidUseVol,CleanTimes)
-      values (#ReagentNeedle#,#PolluteSourcePro#,#PolluteProType#,#BePollutedPro#,#BePollutedProType#,#CleaningLiquidName#,#CleaningLiquidUseVol#,#CleanTimes#)
+      insert into ReagentNeedleAntifoulingStrategyTb (ReagentNeedle,PolluteProName,PolluteProType,BePollutedProName,BePollutedProType,CleaningLiquidName,CleaningLiquidUseVol,CleanTimes)
+      values (#ReagentNeedle#,#PolluteProName#,#PolluteProType#,#BePollutedProName#,#BePollutedProType#,#CleaningLiquidName#,#CleaningLiquidUseVol#,#CleanTimes#)
     </insert>
     <update id="UpdataReagentNeedle" parameterClass="System.Collections.IDictionary" resultClass="int">
       update ReagentNeedleAntifoulingStrategyTb
       set ReagentNeedle=#ReagentNeedle# ,
-      polluteProName=#PolluteSourcePro#,
+      PolluteProName=#PolluteProName#,
       PolluteProType=#PolluteProType#,
-      bePollutedProName=#BePollutedPro#,
+      BePollutedProName=#BePollutedProName#,
       BePollutedProType=#BePollutedProType#,
       CleaningLiquidName=#CleaningLiquidName#,
       CleaningLiquidUseVol=#CleaningLiquidUseVol#,
       CleanTimes=#CleanTimes#
       where ReagentNeedle=#ReagentNeedleOld# and
-      PolluteSourcePro=#PolluteSourceProOld# and PolluteProType=#PolluteProTypeOld# and
-      BePollutedPro=#BePollutedProOld# and BePollutedProType=#BePollutedProTypeOld#
+      PolluteProName=#PolluteProNameOld# and PolluteProType=#PolluteProTypeOld# and
+      BePollutedProName=#BePollutedProNameOld# and BePollutedProType=#BePollutedProTypeOld#
     </update>
     <delete id="DeleteReagentNeedle" resultClass="int" parameterClass="System.Collections.IDictionary" >
       delete from ReagentNeedleAntifoulingStrategyTb where ReagentNeedle=#ReagentNeedle# and
-      polluteProName=#PolluteSourcePro# and PolluteProType=#PolluteProType# and
-      bePollutedProName=#BePollutedPro# and BePollutedProType=#BePollutedProType#
+      PolluteProName=#PolluteProName# and PolluteProType=#PolluteProType# and
+      BePollutedProName=#BePollutedProName# and BePollutedProType=#BePollutedProType#
     </delete>
     <select id="QueryWashingLiquid" resultClass="string">
       select ReagentName from reagentsettingstb where ReagentType='清洗剂'

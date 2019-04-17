@@ -52,6 +52,7 @@
             // 
             this.gridView1.GridControl = this.lstCalcProjectInfo;
             this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsBehavior.Editable = false;
             this.gridView1.OptionsBehavior.EditingMode = DevExpress.XtraGrid.Views.Grid.GridEditingMode.EditFormInplaceHideCurrentRow;
             this.gridView1.OptionsCustomization.AllowFilter = false;
             this.gridView1.OptionsCustomization.AllowSort = false;
@@ -103,7 +104,7 @@
             this.Controls.Add(this.lstCalcProjectInfo);
             this.Name = "CalcProject";
             this.Size = new System.Drawing.Size(1749, 933);
-            this.Load += new System.EventHandler(this.CalcProject_Load);
+            //this.Load += new System.EventHandler(this.CalcProject_Load);
             ((System.ComponentModel.ISupportInitialize)(this.lstCalcProjectInfo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             this.ResumeLayout(false);

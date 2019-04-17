@@ -27,7 +27,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryMaxSampleNum(string StrmethodName)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryMaxSampleNum(string StrmethodName)==" + e.ToString(), Module.WorkingArea);
             }
 
             return intResult;
@@ -77,7 +77,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryProNameForApplyTask(string StrmethodName, string sampleType)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryProNameForApplyTask(string StrmethodName, string sampleType)==" + e.ToString(), Module.WorkingArea);
             }
 
             return lstProjectNames;
@@ -100,7 +100,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryApplyTaskLsvt(string StrmethodName)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryApplyTaskLsvt(string StrmethodName)==" + e.ToString(), Module.WorkingArea);
             }
 
             return lstSampleInfo;
@@ -157,7 +157,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("AddTask(string strMethodName, SampleInfo sampleInfo, List<TaskInfo> lstSampleInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("AddTask(string strMethodName, SampleInfo sampleInfo, List<TaskInfo> lstSampleInfo)==" + e.ToString(), Module.WorkingArea);
             }
 
             return strResult;
@@ -196,7 +196,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryTaskInfoBySampleNum(string strMethodName, string SampleNum)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryTaskInfoBySampleNum(string strMethodName, string SampleNum)==" + e.ToString(), Module.WorkingArea);
             }
 
             return lstTaskInfo;
@@ -216,7 +216,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryPatientInfoBySampleNum(string strMethodName, int sampleNum)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryPatientInfoBySampleNum(string strMethodName, int sampleNum)==" + e.ToString(), Module.WorkingArea);
             }
 
             return patientInfo;
@@ -232,7 +232,7 @@ namespace BioA.SqlMaps
             List<TaskInfo> lstTaskInfos = new List<TaskInfo>();
             try
             {
-                List<TaskInfo> lstTaskInfo = (List<TaskInfo>)ism_SqlMap.QueryForList<TaskInfo>("WorkAreaApplyTask." + strMethodName, string.Format("select t.*,s.Barcode from tasktb t,sampletb s where t.SampleNum = s.SampleNum and s.PanelNum = {0} and s.CreateTime between '{1}' and '{2}'", panelNum, DateTime.Now.Date, DateTime.Now.Date.AddDays(1)));
+                List<TaskInfo> lstTaskInfo = (List<TaskInfo>)ism_SqlMap.QueryForList<TaskInfo>("WorkAreaApplyTask." + strMethodName, string.Format("select t.*,s.Barcode,s.SamplePos from tasktb t,sampletb s where t.SampleNum = s.SampleNum and s.PanelNum = {0} and s.CreateTime between '{1}' and '{2}'", panelNum, DateTime.Now.Date, DateTime.Now.Date.AddDays(1)));
                 foreach (TaskInfo task in lstTaskInfo)
                 {
                     if (lstTaskInfos.Count > 0)
@@ -366,7 +366,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdatePatientInfo(string strMethodName, PatientInfo patientInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdatePatientInfo(string strMethodName, PatientInfo patientInfo)==" + e.ToString(), Module.WorkingArea);
                 str = "更新失败！";
             }
             return str;
@@ -385,7 +385,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryApplyApartment(string strMethodName)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryApplyApartment(string strMethodName)==" + e.ToString(), Module.WorkingArea);
             }
             return lstApplyDepartment;
         }
@@ -405,7 +405,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryApplyDoctor(string strMethodName)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryApplyDoctor(string strMethodName)==" + e.ToString(), Module.WorkingArea);
             }
             return lstApplyDoctor;
         }
@@ -421,7 +421,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryCheckDoctor(string strMethodName)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryCheckDoctor(string strMethodName)==" + e.ToString(), Module.WorkingArea);
             }
             return lstCheckDoctor;
         }
@@ -435,7 +435,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryInspectDoctor(string strMethodName)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryInspectDoctor(string strMethodName)==" + e.ToString(), Module.WorkingArea);
             }
             return lstInspectDoctor;
         }
@@ -452,7 +452,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryPatientInfos(string strMethodName)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryPatientInfos(string strMethodName)==" + e.ToString(), Module.WorkingArea);
             }
 
             return lstPatientInfo;
@@ -525,7 +525,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryCommonSampleData(string strMethodName)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryCommonSampleData(string strMethodName)==" + e.ToString(), Module.WorkingArea);
             }
 
             return lstSampleInfo;
@@ -547,7 +547,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryProjectResultBySampleNum(string strMethodName, string[] strConditions)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryProjectResultBySampleNum(string strMethodName, string[] strConditions)==" + e.ToString(), Module.WorkingArea);
             }
 
             return lstSampleResultInfo;
@@ -575,7 +575,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("DeleteCommonSampleBySampleNum(string strMethodName, string[] strConditions)" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("DeleteCommonSampleBySampleNum(string strMethodName, string[] strConditions)" + e.ToString(), Module.WorkingArea);
                 strResult = "删除失败！";
             }
 
@@ -612,7 +612,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("ReviewCheck(string strMethodName, string[] strConditions)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("ReviewCheck(string strMethodName, string[] strConditions)==" + e.ToString(), Module.WorkingArea);
                 strResult = "复查任务添加失败！";
             }
 
@@ -642,7 +642,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("AuditSampleTest(string strMethodName, string[] strConditions)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("AuditSampleTest(string strMethodName, string[] strConditions)==" + e.ToString(), Module.WorkingArea);
                 strResult = "审核失败！";
             }
 
@@ -677,7 +677,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryCommonTaskReaction(string strMethodName, SampleResultInfo sampleResInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryCommonTaskReaction(string strMethodName, SampleResultInfo sampleResInfo)==" + e.ToString(), Module.WorkingArea);
             }
 
             return null;
@@ -700,7 +700,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("BatchAuditSampleTest(string strMethodName, List<string[]> lstBatchAuditParam)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("BatchAuditSampleTest(string strMethodName, List<string[]> lstBatchAuditParam)==" + e.ToString(), Module.WorkingArea);
                 strResult = "审核失败！";
             }
 
@@ -726,7 +726,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("ConfirmCommonTask(string strMethodName, List<string[]> lstConfirmInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("ConfirmCommonTask(string strMethodName, List<string[]> lstConfirmInfo)==" + e.ToString(), Module.WorkingArea);
                 strResult = "确认失败！";
             }
 
@@ -759,7 +759,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("CalibCurveBeExistByProNameAndType(string strMethodName, string[] strParams)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("CalibCurveBeExistByProNameAndType(string strMethodName, string[] strParams)==" + e.ToString(), Module.WorkingArea);
             }
 
             return bExist;
@@ -783,7 +783,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("" + e.ToString(), Module.WorkingArea);
             }
             return calbMethod;
         }
@@ -802,7 +802,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QuerySampleInfoByPosAndPanel(string strMethodName, string[] paramInfos)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QuerySampleInfoByPosAndPanel(string strMethodName, string[] paramInfos)==" + e.ToString(), Module.WorkingArea);
             }
 
             return sampleInfo;
@@ -825,7 +825,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetSample(int sampleNum, DateTime sampleCreateTime)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetSample(int sampleNum, DateTime sampleCreateTime)==" + e.ToString(), Module.WorkingArea);
             }
 
             return sampleInfo;
@@ -846,7 +846,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetSampleTaskDilutionType(SampleResultInfo samResultInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetSampleTaskDilutionType(SampleResultInfo samResultInfo)==" + e.ToString(), Module.WorkingArea);
             }
 
             return dilutionType;
@@ -875,7 +875,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateCurrentNORResult(SampleResultInfo samResultInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateCurrentNORResult(SampleResultInfo samResultInfo)==" + e.ToString(), Module.WorkingArea);
             }
         }
 
@@ -890,7 +890,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateNorTaskState(string ProjectName, string sampleType)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateNorTaskState(string ProjectName, string sampleType)==" + e.ToString(), Module.WorkingArea);
             }
         }
 
@@ -908,7 +908,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateNORResultRunLog(SampleResultInfo samResInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateNORResultRunLog(SampleResultInfo samResInfo)==" + e.ToString(), Module.WorkingArea);
             }
         }
 

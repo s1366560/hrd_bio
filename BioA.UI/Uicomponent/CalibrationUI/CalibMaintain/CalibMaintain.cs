@@ -48,9 +48,18 @@ namespace BioA.UI
             gridView2.Appearance.HeaderPanel.Font = font;
             gridView2.Appearance.Row.Font = font;            
             gridView2.Appearance.FocusedRow.Font = font;
-            calibAddAndEdit = new CalibAddAndEdit();
-            calibAddAndEdit.DataHandleEvent+=calibAddAndEdit_DataHandleEvent;
-            calibAddAndEdit.CalibrationSaveOrEnditSuccessEvent += calibAddAndEdit_SaveOrEnditSuccessEvent;
+            
+            dtCalib.Columns.Add("校准品名称");
+            dtCalib.Columns.Add("装载位置");
+            dtCalib.Columns.Add("批号");
+            dtCalib.Columns.Add("失效日期");
+            dtCalib.Columns.Add("生产厂家");
+            lstvCalibInfo.DataSource = dtCalib;
+
+            dtProject.Columns.Add("项目名称");
+            dtProject.Columns.Add("样本类型");
+            dtProject.Columns.Add("校准品浓度");
+            lstvDetectionProject.DataSource = dtProject;
         }
         /// <summary>
         /// 校准品保存成功后被触发的事件
@@ -66,7 +75,7 @@ namespace BioA.UI
                 {
                     calibratorProjectinfo.Add(calibProIfo);
                 }
-                DisplayCalibrationInfo(calibratorinfo);
+                this.Invoke(new EventHandler(delegate { DisplayCalibrationInfo(calibratorinfo); }));
             }
             else
             {
@@ -78,7 +87,7 @@ namespace BioA.UI
                     calibratorProjectinfo.RemoveAll(x => x.ProjectName == calibProIfo.ProjectName && x.CalibName == calibProIfo.CalibName);
                     calibratorProjectinfo.Add(calibProIfo);
                 }
-                DisplayCalibrationInfo(calibratorinfo);
+                this.Invoke(new EventHandler(delegate { DisplayCalibrationInfo(calibratorinfo); }));
             }
 
         }
@@ -93,12 +102,7 @@ namespace BioA.UI
         /// <param name="sender"></param>
         private void CalibrationMaintainSend(Dictionary<string, object[]> sender)
         {
-            var calibMainThread = new Thread(() =>
-            {
-                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.CalibrationMaintain, sender);
-            });
-            calibMainThread.IsBackground = true;
-            calibMainThread.Start();
+            Task.Run(() => { CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.CalibrationMaintain, sender); });
             
         }
         private void CalibrationMaintainLoad()
@@ -111,10 +115,7 @@ namespace BioA.UI
             //获取所有校准品信息
             //calibMainDictionary.Add("QueryCalibrationMaintain", new object[] { "" });
             calibratorinfo = calibrator.QueryCalibratorinfo("QueryCalibrationMaintain", "");
-            BeginInvoke(new Action(() =>
-            {
-                DisplayCalibrationInfo(calibratorinfo);
-            }));
+            DisplayCalibrationInfo(calibratorinfo);
             //获取所有生化项目信息
             //calibMainDictionary.Add("QueryAssayProAllInfo", null);
             lisassayProjectInfo = new SettingsChemicalParameter().QueryAssayProAllInfo("QueryAssayProAllInfo", null);
@@ -129,13 +130,24 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            calibAddAndEdit.clear();
             if (lisassayProjectInfo != null)
             {
+                if (calibAddAndEdit == null)
+                {
+                    calibAddAndEdit = new CalibAddAndEdit();
+                    calibAddAndEdit.DataHandleEvent += calibAddAndEdit_DataHandleEvent;
+                    calibAddAndEdit.CalibrationSaveOrEnditSuccessEvent += calibAddAndEdit_SaveOrEnditSuccessEvent;
+                    calibAddAndEdit.StartPosition = FormStartPosition.CenterScreen;
+                }
+                else
+                {
+                    calibAddAndEdit.clear();
+                    calibAddAndEdit.ClearCalibAddAndEditParamer();
+                }
+
                 calibAddAndEdit.LisassayProjectInfo = lisassayProjectInfo;
                 calibAddAndEdit.Text = "装载校准品";
-                this.BeginInvoke(new Action(AddOrEditCalibPos));
-                calibAddAndEdit.StartPosition = FormStartPosition.CenterScreen;
+                this.AddOrEditCalibPos();
                 calibAddAndEdit.ShowDialog();
             }
         }
@@ -165,6 +177,17 @@ namespace BioA.UI
         {
             if (gridView1.SelectedRowsCount > 0)
             {
+                if (calibAddAndEdit == null)
+                {
+                    calibAddAndEdit = new CalibAddAndEdit();
+                    calibAddAndEdit.DataHandleEvent += calibAddAndEdit_DataHandleEvent;
+                    calibAddAndEdit.CalibrationSaveOrEnditSuccessEvent += calibAddAndEdit_SaveOrEnditSuccessEvent;
+                    calibAddAndEdit.StartPosition = FormStartPosition.CenterScreen;
+                }
+                else
+                {
+                    calibAddAndEdit.ClearCalibAddAndEditParamer();
+                }
                 Calibratorinfo calibratorinfo = new Calibratorinfo();
                 int selectedHandle = this.gridView1.GetSelectedRows()[0];
                 calibratorinfo.CalibName = this.gridView1.GetRowCellValue(selectedHandle, "校准品名称").ToString();
@@ -177,10 +200,9 @@ namespace BioA.UI
                 calibAddAndEdit.LisassayProjectInfo = lisassayProjectInfo;
                 //显示校准品包含的项目信息
                 calibAddAndEdit.LstCalibrationCorrespondingProInfo = lstCalibrationCorrespondingProInfo;
-                this.BeginInvoke(new Action(AddOrEditCalibPos));
+                this.AddOrEditCalibPos();
                 calibAddAndEdit.Calibratorinfo_Load(calibratorinfo);
                 calibAddAndEdit.Text = "编辑校准品";
-                calibAddAndEdit.StartPosition = FormStartPosition.CenterScreen;
                 calibAddAndEdit.ShowDialog();
             }
             else
@@ -201,29 +223,24 @@ namespace BioA.UI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void CalibMaintain_Load(object sender, EventArgs e)
+        public void CalibMaintain_Load(object sender, EventArgs e)
         {
-            BeginInvoke(new Action(CalibrationMaintainLoad));
+            CalibrationMaintainLoad();
 
-            dtCalib.Columns.Add("校准品名称");
-            dtCalib.Columns.Add("装载位置");
-            dtCalib.Columns.Add("批号");
-            dtCalib.Columns.Add("失效日期");
-            dtCalib.Columns.Add("生产厂家");
-            lstvCalibInfo.DataSource = dtCalib;
-            this.gridView1.Columns[0].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[1].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[2].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[3].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[4].OptionsColumn.AllowEdit = false;
+        }
+        /// <summary>
+        /// 清除本类成员属性
+        /// </summary>
+        public void ClearCalibMaintainParamer()
+        {
 
-            dtProject.Columns.Add("项目名称");
-            dtProject.Columns.Add("样本类型");
-            dtProject.Columns.Add("校准品浓度");
-            lstvDetectionProject.DataSource = dtProject;
-            this.gridView2.Columns[0].OptionsColumn.AllowEdit = false;
-            this.gridView2.Columns[1].OptionsColumn.AllowEdit = false;
-            this.gridView2.Columns[2].OptionsColumn.AllowEdit = false;
+            _LstCalibratorPos.Clear();
+            calibMainDictionary.Clear();
+            lstCalibrationCorrespondingProInfo.Clear();
+            lisassayProjectInfo.Clear();
+            calibratorProjectinfo.Clear();
+            calibratorinfo.Clear();
+            lstCalibProjectInfo = null;
         }
 
         /// <summary>
@@ -273,10 +290,8 @@ namespace BioA.UI
                             calibratorProjectinfo.RemoveAll(x => x.ProjectName == lstCalibProjectInfo[i].ProjectName && x.SampleType == lstCalibProjectInfo[i].SampleType);
                         }
                         BeginInvoke(new Action(() => { DisplayCalibrationInfo(calibratorinfo); }));
-                        MessageBox.Show(strResult);
                     }
-                    else
-                        MessageBox.Show(strResult);
+                    this.Invoke(new EventHandler(delegate { MessageBox.Show(strResult); }));
                     break;
 
                 case "EditCalibratorinfo":
@@ -296,8 +311,6 @@ namespace BioA.UI
         /// <param name="lstcalibInfo"></param>
         private void DisplayCalibrationInfo(List<Calibratorinfo> lstcalibInfo)
         {
-            this.Invoke(new EventHandler(delegate 
-            { 
                 lstvCalibInfo.RefreshDataSource();
                 dtCalib.Rows.Clear();
                 foreach (Calibratorinfo calibInfo in lstcalibInfo)
@@ -309,7 +322,6 @@ namespace BioA.UI
                     gridView1.SelectRow(0);
                     gridControl1_Click(null, null);
                 }
-            }));
         }
 
         /// <summary>

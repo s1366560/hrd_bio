@@ -60,9 +60,13 @@ namespace BioA.UI
             }
         }
 
-        private void CleaningMaintenance_Load(object sender, EventArgs e)
+        public void CleaningMaintenance_Load(object sender, EventArgs e)
         {
-            BeginInvoke(new Action(loadCleaningMaintenance));
+            rtxtCleanSampleNeedle.Text = "";
+            rtxtCleanSystem.Text = "";
+            rtxtCleanSystemWarn.Text = "";
+            rtxtWaterExchange.Text = "";
+            this.loadCleaningMaintenance();
         }
         private void loadCleaningMaintenance()
         {

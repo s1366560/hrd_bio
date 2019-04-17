@@ -154,8 +154,8 @@ namespace BioA.Service
                         strMethodParam.Add(kvp.Key, intMaxNum);
                         break;
                     case "QuerySampleDiluteRatio":
-                        List<string> lisQueryDilutionRatio = settingsDataConfig.QueryDilutionRatio(kvp.Key);
-                        strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<string>), lisQueryDilutionRatio));
+                        List<float> lisQueryDilutionRatio = settingsDataConfig.QueryDilutionRatio(kvp.Key);
+                        strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<float>), lisQueryDilutionRatio));
                         break;
                     case "QueryProNameForApplyTask":
                         List<string[]> lstProName = workAreaApplyTask.QueryProNameForApplyTask(kvp.Key, kvp.Value[0].ToString());
@@ -904,10 +904,6 @@ namespace BioA.Service
                             AssayProjectParamInfo assayProjectParamInfo = settingsChemicalParam.AddAssayProject(kvp.Key, assProInfo);
                             strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(AssayProjectParamInfo), assayProjectParamInfo));
                             break;
-                        //case "QueryAssayProjectParamInfoAll":
-                        //    List<AssayProjectParamInfo> assayProParamInfo = settingsChemicalParam.QueryAssayProjectParamInfoAll(kvp.Key);
-                        //    strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<AssayProjectParamInfo>), assayProParamInfo));
-                        //    break;
                         case "QueryProjectResultUnits":
                             List<string> lstUnits = settingsChemicalParam.QueryProjectResultUnits(kvp.Key);
                             strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<string>), lstUnits));
@@ -940,14 +936,14 @@ namespace BioA.Service
                             LogInfo.WriteProcessLog(lstAssayProInfosForCalibparam.Count.ToString(), Module.WindowsService);
                             break;
                         case "QueryCalibParamInfoAll": // 通过项目名称和项目类型获取项目校准参数
-                            List<AssayProjectCalibrationParamInfo> calibParam = settingsChemicalParam.QueryCalibParamInfoAll(kvp.Key);
-                            strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<AssayProjectCalibrationParamInfo>), calibParam));
+                            //List<AssayProjectCalibrationParamInfo> calibParam = settingsChemicalParam.QueryCalibParamInfoAll(kvp.Key);
+                            //strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<AssayProjectCalibrationParamInfo>), calibParam));
                             break;
-                        case "UpdateCalibParamByProNameAndType":    // 通过项目名称和类型更新校准参数
-                            AssayProjectCalibrationParamInfo sender = XmlUtility.Deserialize(typeof(AssayProjectCalibrationParamInfo), kvp.Value[0].ToString()) as AssayProjectCalibrationParamInfo;
-                            int intCalibResult = settingsChemicalParam.UpdateCalibParamByProNameAndType(kvp.Key, sender);
-                            strMethodParam.Add(kvp.Key, intCalibResult);
-                            break;
+                        //case "UpdateCalibParamByProNameAndType":    // 通过项目名称和类型更新校准参数
+                        //    AssayProjectCalibrationParamInfo sender = XmlUtility.Deserialize(typeof(AssayProjectCalibrationParamInfo), kvp.Value[0].ToString()) as AssayProjectCalibrationParamInfo;
+                        //    int intCalibResult = settingsChemicalParam.UpdateCalibParamByProNameAndType(kvp.Key, sender);
+                        //    strMethodParam.Add(kvp.Key, intCalibResult);
+                        //    break;
                         //case "QueryRangeParamByProNameAndType": // 通过项目名称和项目类型获取项目范围参数
                         //    assProInfo = XmlUtility.Deserialize(typeof(AssayProjectInfo), kvp.Value[0].ToString()) as AssayProjectInfo;
                         //    AssayProjectRangeParamInfo rangeParam = settingsChemicalParam.QueryRangeParamByProNameAndType(kvp.Key, assProInfo);
@@ -965,17 +961,18 @@ namespace BioA.Service
                             LogInfo.WriteProcessLog(lstAssayProInfosForRangeparam.Count.ToString(), Module.WindowsService);
                             break;
                         case "QueryCalibratorProinfo":
-                            List<CalibratorProjectinfo> lisCalibratorProjectinfo = settingsChemicalParam.QueryCalibratorProjectinfo(kvp.Key, kvp.Value[0].ToString(),kvp.Value[1].ToString());
-                            strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<CalibratorProjectinfo>), lisCalibratorProjectinfo));
+                            //List<CalibratorProjectinfo> lisCalibratorProjectinfo = settingsChemicalParam.QueryCalibratorProjectinfo(kvp.Key, kvp.Value[0].ToString(),kvp.Value[1].ToString());
+                            //strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<CalibratorProjectinfo>), lisCalibratorProjectinfo));
                             break;
                         case "QueryCalib":
                             List<Calibratorinfo> lisCalibratorinfo = settingsChemicalParam.QueryCalib(kvp.Key, kvp.Value[0].ToString());
                             strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<Calibratorinfo>), lisCalibratorinfo));
                             break;
-                        case "AddCalibrationCurveInfo":
-                            List<CalibrationCurveInfo> calibrationCurveInfo = XmlUtility.Deserialize(typeof(List<CalibrationCurveInfo>), kvp.Value[0].ToString()) as List<CalibrationCurveInfo>;
-                            string strCurveInfo = settingsChemicalParam.AddCalibrationCurveInfo(kvp.Key, calibrationCurveInfo);
-                            strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(string), strCurveInfo));
+                        case "UpdateCalibParamByProNameAndType":
+                            AssayProjectCalibrationParamInfo assayProject = XmlUtility.Deserialize(typeof(AssayProjectCalibrationParamInfo), kvp.Value[0].ToString()) as AssayProjectCalibrationParamInfo;
+                            List<CalibrationCurveInfo> calibrationCurveInfo = XmlUtility.Deserialize(typeof(List<CalibrationCurveInfo>), kvp.Value[1].ToString()) as List<CalibrationCurveInfo>;
+                            string strCurveInfo = settingsChemicalParam.IUpdateCalibParamerterAndAddCalibCurveInfo(kvp.Key, assayProject, calibrationCurveInfo);
+                            strMethodParam.Add(kvp.Key, strCurveInfo);
                             break;
                         case "QueryCalibrationCurve":
                             List<CalibrationCurveInfo> lisCalibrationCurveInfo = settingsChemicalParam.QueryCalibrationCurveInfo(kvp.Key, kvp.Value[0].ToString());
@@ -1014,18 +1011,18 @@ namespace BioA.Service
                         break;
                     case "AddCombProjectName":
                         CombProjectInfo combProInfo = (CombProjectInfo)XmlUtility.Deserialize(typeof(CombProjectInfo), kvp.Value[0].ToString());
-                        int strResult = combProjectParam.AddCombProjectName(kvp.Key, combProInfo);
-                        strMethodParam.Add(kvp.Key, strResult);
+                        string sResult = combProjectParam.AddCombProjectName(kvp.Key, combProInfo);
+                        strMethodParam.Add(kvp.Key, sResult);
                         break;
                     case "DeleteCombProjectName":
                         List<CombProjectInfo> lstInfos = (List<CombProjectInfo>)XmlUtility.Deserialize(typeof(List<CombProjectInfo>), kvp.Value[0].ToString());
-                        int intResult = combProjectParam.DeleteCombProjectName(kvp.Key, lstInfos);
-                        strMethodParam.Add(kvp.Key, intResult);
+                        string sDeletResult = combProjectParam.DeleteCombProjectName(kvp.Key, lstInfos);
+                        strMethodParam.Add(kvp.Key, sDeletResult);
                         break;
                     case "UpdateCombProjectName":
                         CombProjectInfo combProInfoNew = (CombProjectInfo)XmlUtility.Deserialize(typeof(CombProjectInfo), kvp.Value[1].ToString());
-                        int intUpdateResult = combProjectParam.UpdateCombProjectName(kvp.Key, kvp.Value[0].ToString(), combProInfoNew);
-                        strMethodParam.Add(kvp.Key, intUpdateResult);
+                        string sUpdateResult = combProjectParam.UpdateCombProjectName(kvp.Key, kvp.Value[0].ToString(), combProInfoNew);
+                        strMethodParam.Add(kvp.Key, sUpdateResult);
                         break;
                     case "ProjectPageinfo":     // 获取生化项目信息
                         List<string> assayProInfos = settingsChemicalParam.QueryAssayProAllInfoByDistinctProName("QueryAssayProAllInfoByDistinctProName");
@@ -1062,18 +1059,18 @@ namespace BioA.Service
                         break;
                     case "DeleteCalcProject":
                         List<CalcProjectInfo> lstInfos = (List<CalcProjectInfo>)XmlUtility.Deserialize(typeof(List<CalcProjectInfo>), kvp.Value[0].ToString());
-                        int intResult = calcProjectParam.DeleteCalcProject(kvp.Key, lstInfos);
-                        strMethodParam.Add(kvp.Key, intResult);
+                        string sDeleteResult = calcProjectParam.DeleteCalcProject(kvp.Key, lstInfos);
+                        strMethodParam.Add(kvp.Key, sDeleteResult);
                         break;
                     case "UpdateCalcProject":
                         CalcProjectInfo calcProInfoOld = (CalcProjectInfo)XmlUtility.Deserialize(typeof(CalcProjectInfo), kvp.Value[0].ToString());
                         CalcProjectInfo calcProInfoNew = (CalcProjectInfo)XmlUtility.Deserialize(typeof(CalcProjectInfo), kvp.Value[1].ToString());
-                        int intUpdateResult = calcProjectParam.UpdateCalcProject(kvp.Key, calcProInfoOld, calcProInfoNew);
-                        strMethodParam.Add(kvp.Key, intUpdateResult);
+                        string sUpdateResult = calcProjectParam.UpdateCalcProject(kvp.Key, calcProInfoOld, calcProInfoNew);
+                        strMethodParam.Add(kvp.Key, sUpdateResult);
                         break;
                     case "QueryProjectResultUnits":
-                        List<string> lstUnits = settingsChemicalParam.QueryProjectResultUnits(kvp.Key);
-                        strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<string>), lstUnits));
+                        //List<string> lstUnits = settingsChemicalParam.QueryProjectResultUnits(kvp.Key);
+                        //strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<string>), lstUnits));
                         break;
                     case "ProjectPageinfoForCalc":         // 获取生化项目信息
                         List<string> assayProInfos = calcProjectParam.ProjectPageinfoForCalc(kvp.Key, kvp.Value[0].ToString());
@@ -1142,8 +1139,8 @@ namespace BioA.Service
                         break;
                     case "DeleteReagentNeedle":
                         reagentNeedleAntifoulingStrategyInfo = XmlUtility.Deserialize(typeof(ReagentNeedleAntifoulingStrategyInfo), kvp.Value[0].ToString()) as ReagentNeedleAntifoulingStrategyInfo;
-                        int intDeleteCount = settingsReagentNeedle.ReagentNeedleDelete(kvp.Key, reagentNeedleAntifoulingStrategyInfo);
-                        strMethodParam.Add(kvp.Key, intDeleteCount);
+                        string sDeleteResult= settingsReagentNeedle.ReagentNeedleDelete(kvp.Key, reagentNeedleAntifoulingStrategyInfo);
+                        strMethodParam.Add(kvp.Key, sDeleteResult);
                         break;
                     case "UpdataReagentNeedle":
                         ReagentNeedleAntifoulingStrategyInfo reagentNeedleAntifoulingStrategyInfoOld = new ReagentNeedleAntifoulingStrategyInfo();
@@ -1189,16 +1186,16 @@ namespace BioA.Service
                         strMethodParam.Add(kvp.Key, strInfo);
                         break;
                     case "UpdataDataConfig":
-                        int UpdataCount = settingsDataConfig.UpdataDataConfig(kvp.Key, kvp.Value[0].ToString(), kvp.Value[1].ToString());
-                        strMethodParam.Add(kvp.Key, UpdataCount);
+                        string sUpdataResult = settingsDataConfig.UpdataDataConfig(kvp.Key, kvp.Value[0].ToString(), kvp.Value[1].ToString());
+                        strMethodParam.Add(kvp.Key, sUpdataResult);
                         break;
                     case "DeleteDataConfig":
-                        int DeteleCount = settingsDataConfig.DeleteDataConfig(kvp.Key, kvp.Value[0].ToString());
-                        strMethodParam.Add(kvp.Key, DeteleCount);
+                        string sDeteleResult = settingsDataConfig.DeleteDataConfig(kvp.Key, kvp.Value[0].ToString());
+                        strMethodParam.Add(kvp.Key, sDeteleResult);
                         break;
                     case "QueryDilutionRatio":
-                        List<string> lisQueryDilutionRatio = settingsDataConfig.QueryDilutionRatio(kvp.Key);
-                        strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<string>), lisQueryDilutionRatio));
+                        List<float> lisQueryDilutionRatio = settingsDataConfig.QueryDilutionRatio(kvp.Key);
+                        strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<float>), lisQueryDilutionRatio));
                         break;
 
                     case "DilutionRatioAdd":
@@ -1207,13 +1204,13 @@ namespace BioA.Service
                         break;
 
                     case "UpdataDilutionRatio":
-                        int UpdataDilutionRatioCount = settingsDataConfig.UpdataDilutionRatio(kvp.Key, kvp.Value[0].ToString(), kvp.Value[1].ToString());
-                        strMethodParam.Add(kvp.Key, UpdataDilutionRatioCount);
+                        string sDilutionUpdataResult = settingsDataConfig.UpdataDilutionRatio(kvp.Key, kvp.Value[0].ToString(), kvp.Value[1].ToString());
+                        strMethodParam.Add(kvp.Key, sDilutionUpdataResult);
                         break;
 
                     case "DeleteDilutionRatio":
-                        int DeteleDilutionRatioCount = settingsDataConfig.DeleteDilutionRatio(kvp.Key, kvp.Value[0].ToString());
-                        strMethodParam.Add(kvp.Key, DeteleDilutionRatioCount);
+                        string sDilutionDeteleResult = settingsDataConfig.DeleteDilutionRatio(kvp.Key, kvp.Value[0].ToString());
+                        strMethodParam.Add(kvp.Key, sDilutionDeteleResult);
                         break;
                     default:
                         break;
@@ -1314,8 +1311,8 @@ namespace BioA.Service
                         strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<UserInfo>), lisUserInfo));
                         break;
                     case "QueryUserCeation":
-                        List<UserInfo> lisCeation = systemUserManagement.QueryUserCeation(kvp.Key, kvp.Value[0].ToString());
-                        strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<UserInfo>), lisCeation));
+                        UserInfo lisCeation = systemUserManagement.QueryUserCeation(kvp.Key, kvp.Value[0].ToString());
+                        strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(UserInfo), lisCeation));
                         break;
                     case "AddUserInfo":
                         userInfo = XmlUtility.Deserialize(typeof(UserInfo), kvp.Value[0].ToString()) as UserInfo;

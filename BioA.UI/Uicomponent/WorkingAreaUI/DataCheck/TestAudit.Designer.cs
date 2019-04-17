@@ -260,7 +260,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "TestAudit";
             this.Text = "测试审核";
-            this.Load += new System.EventHandler(this.TestAudit_Load);
+            //this.Load += new System.EventHandler(this.TestAudit_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grcCheckResult)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvCheckResult)).EndInit();

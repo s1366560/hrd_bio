@@ -11,6 +11,7 @@ using DevExpress.XtraEditors;
 using BioA.Common;
 using BioA.Common.IO;
 using System.Threading;
+using BioA.Service;
 
 namespace BioA.UI
 {
@@ -67,20 +68,18 @@ namespace BioA.UI
             dtpValidDate.DateTime = DateTime.Now.AddMonths(1);
         }
 
-        private void frmLoadingReagent_Load(object sender, EventArgs e)
+        public void frmLoadingReagent_Load(object sender, EventArgs e)
         {
             //异步方法调用
-            BeginInvoke(new Action(loadFrmReagent));
+            this.loadFrmReagent();
 
         }
 
         private void loadFrmReagent()
         {
-            frmLoadingReagentDic.Clear();
-            //获取所有生化项目信息
-            frmLoadingReagentDic.Add("QueryAssayProAllInfo", new object[]{""});
-            SendInfoToService(frmLoadingReagentDic);
             cboProjectCheck.Text = "请选择";
+            //获取所有生化项目信息
+            AssayProjectInfo = new SettingsChemicalParameter().QueryAssayProAllInfo("QueryAssayProAllInfo", null);
         }
 
         public void LoadingReagentData()
@@ -123,60 +122,54 @@ namespace BioA.UI
         /// <param name="lstAssayProInfos"></param>
         public void comBoxAdd(List<AssayProjectInfo> lstAssayProInfos)
         {
-            if (this.IsHandleCreated)
+            this.cboProjectCheck.Properties.Items.Clear();
+            List<string> listProName = new List<string>();
+            if (cboReagentType.Text == "血清")
             {
-                this.Invoke(new EventHandler(delegate
+                cboProjectCheck.Enabled = true;
+                for (int i = 0; i < lstAssayProInfos.Count; i++)
                 {
-                    this.cboProjectCheck.Properties.Items.Clear();
-                    List<string> listProName = new List<string>();
-                    if (cboReagentType.Text == "血清")
-                    {
-                        cboProjectCheck.Enabled = true;
-                        for (int i = 0; i < lstAssayProInfos.Count; i++)
-                        {
-                            if (lstAssayProInfos[i].SampleType == "血清")
-                            {
-
-                                listProName.Add(lstAssayProInfos[i].ProjectName);
-
-                            }
-                        }
-                        listProName.RemoveAll(i => lstProjectName.Contains(i));
-                        this.cboProjectCheck.Properties.Items.AddRange(listProName);
-                    }
-                    if (cboReagentType.Text == "尿液")
-                    {
-                        cboProjectCheck.Enabled = true;
-                        for (int i = 0; i < lstAssayProInfos.Count; i++)
-                        {
-                            if (lstAssayProInfos[i].SampleType == "尿液")
-                            {
-                                listProName.Add(lstAssayProInfos[i].ProjectName);
-                            }
-                        }
-                        listProName.RemoveAll(i => lstProjectName.Contains(i));
-                        this.cboProjectCheck.Properties.Items.AddRange(listProName);
-                    }
-                    if (cboReagentType.Text == "清洗剂")
+                    if (lstAssayProInfos[i].SampleType == "血清")
                     {
 
-                        cboProjectCheck.Enabled = false;
+                        listProName.Add(lstAssayProInfos[i].ProjectName);
 
                     }
-                    if (cboReagentType.Text == "")
+                }
+                listProName.RemoveAll(i => lstProjectName.Contains(i));
+                this.cboProjectCheck.Properties.Items.AddRange(listProName);
+            }
+            if (cboReagentType.Text == "尿液")
+            {
+                cboProjectCheck.Enabled = true;
+                for (int i = 0; i < lstAssayProInfos.Count; i++)
+                {
+                    if (lstAssayProInfos[i].SampleType == "尿液")
                     {
-                        cboProjectCheck.Enabled = true;
-                        for (int i = 0; i < lstAssayProInfos.Count; i++)
-                        {
-                            if (lstAssayProInfos[i].SampleType == "")
-                            {
-                                listProName.Add(lstAssayProInfos[i].ProjectName);
-                            }
-                        }
-                        listProName.RemoveAll(i => lstProjectName.Contains(i));
-                        this.cboProjectCheck.Properties.Items.AddRange(listProName);
+                        listProName.Add(lstAssayProInfos[i].ProjectName);
                     }
-                }));
+                }
+                listProName.RemoveAll(i => lstProjectName.Contains(i));
+                this.cboProjectCheck.Properties.Items.AddRange(listProName);
+            }
+            if (cboReagentType.Text == "清洗剂")
+            {
+
+                cboProjectCheck.Enabled = false;
+
+            }
+            if (cboReagentType.Text == "")
+            {
+                cboProjectCheck.Enabled = true;
+                for (int i = 0; i < lstAssayProInfos.Count; i++)
+                {
+                    if (lstAssayProInfos[i].SampleType == "")
+                    {
+                        listProName.Add(lstAssayProInfos[i].ProjectName);
+                    }
+                }
+                listProName.RemoveAll(i => lstProjectName.Contains(i));
+                this.cboProjectCheck.Properties.Items.AddRange(listProName);
             }
         }
         private void btnCancel_Click(object sender, EventArgs e)
@@ -189,14 +182,10 @@ namespace BioA.UI
             txtBatchNum.Text = "";
 
         }
-        /// <summary>
-        /// 私有变量，存储试剂保存信息
-        /// </summary>
-        private ReagentSettingsInfo reagentSettingsInfo;
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            reagentSettingsInfo = new ReagentSettingsInfo();
+            ReagentSettingsInfo reagentSettingsInfo = new ReagentSettingsInfo();
             reagentSettingsInfo.Barcode = txtBarcode.Text;
             reagentSettingsInfo.BatchNum = txtBatchNum.Text;
 
@@ -263,6 +252,8 @@ namespace BioA.UI
                     GetsReagentEvent(reagentDisk, reagentSettingsInfo);
                 }
             }
+            this.btnSave.Enabled = true;
+            this.btnCancel.Enabled = true;
             this.Close();
         }
 
@@ -272,19 +263,19 @@ namespace BioA.UI
             {
                 if (this.cboReagentVol.Text == "20ml" || this.cboReagentVol.Text == "40ml")
                 {
-                    this.cboReagentPos.Properties.Items.Clear();
-                    this.cboReagentPos.Properties.Items.AddRange(RunConfigureUtility.Reagentpos);
+                    //this.cboReagentPos.Properties.Items.Clear();
+                    //this.cboReagentPos.Properties.Items.AddRange(RunConfigureUtility.Reagentpos);
                     cboReagentPos.SelectedIndex = 0;
                 }
                 if (this.cboReagentVol.Text == "70ml")
                 {
-                    this.cboReagentPos.Properties.Items.Clear();
+                    //this.cboReagentPos.Properties.Items.Clear();
                     //List<string> str = new List<string>();
                     //for (int i = 0; i < 50; i++)
                     //{
                     //    str.Add(RunConfigureUtility.Reagentpos[i]);
                     //}
-                    this.cboReagentPos.Properties.Items.AddRange(RunConfigureUtility.Reagentpos);
+                    //this.cboReagentPos.Properties.Items.AddRange(RunConfigureUtility.Reagentpos);
                     cboReagentPos.SelectedIndex = 0;
                 }
             }
@@ -292,19 +283,19 @@ namespace BioA.UI
             {
                 if (this.cboReagentVol.Text == "20ml" || this.cboReagentVol.Text == "40ml")
                 {
-                    this.cboReagentPos.Properties.Items.Clear();
-                    this.cboReagentPos.Properties.Items.AddRange(RunConfigureUtility.Reagentpos2);
+                    //this.cboReagentPos.Properties.Items.Clear();
+                    //this.cboReagentPos.Properties.Items.AddRange(RunConfigureUtility.Reagentpos2);
                     cboReagentPos.SelectedIndex = 0;
                 }
                 if (this.cboReagentVol.Text == "70ml")
                 {
-                    this.cboReagentPos.Properties.Items.Clear();
+                    //this.cboReagentPos.Properties.Items.Clear();
                     //List<string> str = new List<string>();
                     //for (int i = 0; i < 50; i++)
                     //{
                     //    str.Add(RunConfigureUtility.Reagentpos2[i]);
                     //}
-                    this.cboReagentPos.Properties.Items.AddRange(RunConfigureUtility.Reagentpos2);
+                    //this.cboReagentPos.Properties.Items.AddRange(RunConfigureUtility.Reagentpos2);
                     cboReagentPos.SelectedIndex = 0;
                 }
             }

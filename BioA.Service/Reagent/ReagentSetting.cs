@@ -46,33 +46,8 @@ namespace BioA.Service
        /// <returns></returns>
         public string AddreagentSettingInfo(int disk, ReagentSettingsInfo rs)
         {
-            string str = "";
             //保存试剂信息
-            str = myBatis.AddreagentSettingInfo(disk, rs);
-
-            //// 保存或更新试剂状态信息
-            //if (rs.ReagentType != "清洗剂")
-            //{
-            //    if (str == "试剂R1装载成功！")
-            //    {
-            //        ReagentStateInfoR1R2 reagentState = myBatis.QueryReagentStateInfoByProjectName("QueryReagentStateInfoByProjectName", rs);
-            //        if (reagentState == null)
-            //        {
-            //            myBatis.SaveReagentR1AndR2Info(disk, rs, 0);
-            //        }
-            //        else
-            //        {
-            //            myBatis.UpdateReagentR1AndR2Info(disk, rs, 0);
-            //        }
-            //    }
-            //    else
-            //        return str;
-            //}
-            //else
-            //{
-            //    myBatis.SaveReagentR1AndR2Info(disk, rs, 0);
-            //}
-            return str;
+            return myBatis.AddreagentSettingInfo(disk, rs);
         }
 
         /// <summary>

@@ -23,6 +23,8 @@ namespace BioA.UI
         public WaterBlankCheck()
         {
             InitializeComponent();
+            textEdit1.BackColor = Color.Yellow;
+            textEdit2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
         }
 
         private List<CuvetteBlankInfo> lstCuvBlk = new List<CuvetteBlankInfo>();
@@ -32,7 +34,6 @@ namespace BioA.UI
             set 
             { 
                 lstCuvBlk = value;
-                BeginInvoke(new Action(() => {
                     if (lstCuvBlk.Count > 0 && lstCuvBlk[0] != null)
                     {
                         if (textEdit2.Text == "" || textEdit1.Text == "")
@@ -363,7 +364,6 @@ namespace BioA.UI
                         GBA(txtOld159, lstCuvBlk[1].Cuv159Blk.ToString("#0.0000"));
                         GBA(txtOld160, lstCuvBlk[1].Cuv160Blk.ToString("#0.0000"));
                     }
-                }));
             }
         }
 
@@ -433,12 +433,12 @@ namespace BioA.UI
             }
         }
 
-        public void WaterBlankCheck_Load(object sender, EventArgs e)
+        public void WaterBlankCheck_Load()
         {
-            BeginInvoke(new Action(loadQueryAllCuvetteValue));
+            loadQueryAllCuvetteValue();
         }
 
-        private void loadQueryAllCuvetteValue()
+        public void loadQueryAllCuvetteValue()
         {
             List<Subsystem> lstConfigureInfo = MachineInfo.SubsystemList;
             foreach (Subsystem sub in lstConfigureInfo)
@@ -455,9 +455,11 @@ namespace BioA.UI
                 textEdit2.Text = mm[0];
                 textEdit1.Text = mm[1];
             }
-            textEdit1.BackColor = Color.Yellow;
-            textEdit2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
-            //CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.SystemMaintenance, new Dictionary<string, object[]>() { { "QueryWaterBlankValueByWave", null } });
+            if (this.lstCuvBlk != null)
+            {
+                this.lstCuvBlk = null;
+            }
+            
             List<CuvetteBlankInfo> LstCuvetteBlankInfo = new SystemMaintenance().QueryWaterBlankValueByWave("QueryWaterBlankValueByWave", "340");
             this.LstCuvBlk = LstCuvetteBlankInfo;
         }
@@ -468,17 +470,6 @@ namespace BioA.UI
             List<CuvetteBlankInfo> lstCuv = new List<CuvetteBlankInfo>();
             SimpleButton button = (SimpleButton)sender;
             string but = (button.Text).Substring(0,3); ;
-            //for (int i = 0; i < listCuveBlankInfo.Count; i++)
-            //{
-            //    if (listCuveBlankInfo[i].WaveLength.ToString() == but)
-            //    {
-            //        lstCuv.Add(listCuveBlankInfo[i]);
-            //    }
-            //}
-            //if (lstCuv.Count > 0)
-            //{
-            //    LstCuvBlk = lstCuv;
-            //}
             List<CuvetteBlankInfo> LstCuvetteBlankInfo = new SystemMaintenance().QueryWaterBlankValueByWave("QueryWaterBlankValueByWave", but);
             this.LstCuvBlk = LstCuvetteBlankInfo;
         }

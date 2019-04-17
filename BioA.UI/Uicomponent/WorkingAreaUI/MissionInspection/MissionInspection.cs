@@ -23,22 +23,23 @@ namespace BioA.UI
         public delegate void SMPBarcodeSignal();
         public event SMPBarcodeSignal SMPBarcodeSignalEvent;
 
+        SampleDisk sampleDisk = new SampleDisk();
         public MissionInspection()
         {
             InitializeComponent();
+            sampleDisk.getOPID += GetOPIDEvent;
+            sampleDisk.ScanBarcodePostEvent += ScanBarcodePostEvent_Event;
+            sampleDisk.SMPBarcodeSignalEvent += SMPBarcodeSignalEvent_Event;
+            xtraTabPage1.Controls.Add(sampleDisk);
         }
         /// <summary>
         /// 样本盘界面加载
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MissionInspection_Load(object sender, EventArgs e)
+        public void MissionInspection_Load(object sender, EventArgs e)
         {
-            SampleDisk sampleDisk = new SampleDisk();
-            sampleDisk.getOPID += GetOPIDEvent;
-            sampleDisk.ScanBarcodePostEvent += ScanBarcodePostEvent_Event;
-            sampleDisk.SMPBarcodeSignalEvent += SMPBarcodeSignalEvent_Event;
-            xtraTabPage1.Controls.Add(sampleDisk);
+            sampleDisk.SampleDisk_Load(null,null);
         }
         /// <summary>
         /// 获取机器状态

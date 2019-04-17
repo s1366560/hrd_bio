@@ -29,7 +29,6 @@ namespace BioA.UI
         public LISSetting()
         {
             InitializeComponent();
-            this.cboSerialPort.Properties.Items.AddRange(SerialPort.GetPortNames());
         }
         /// <summary>
         /// 通讯方式值改变事件
@@ -96,8 +95,9 @@ namespace BioA.UI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void LISSetting_Load(object sender, EventArgs e)
+        public void LISSetting_Load(object sender, EventArgs e)
         {
+            this.cboSerialPort.Properties.Items.AddRange(SerialPort.GetPortNames());
             object[] lis = service.QueryLISSettingInfo() as object[];
             if (lis[0] as LISSettingInfo == null)
             {

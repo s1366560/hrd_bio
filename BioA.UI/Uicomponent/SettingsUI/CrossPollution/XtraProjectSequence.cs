@@ -40,8 +40,9 @@ namespace BioA.UI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void XtraProjectSequence_Load(object sender, EventArgs e)
+        public void XtraProjectSequence_Load(object sender, EventArgs e)
         {
+            lstProjectNames.Clear();
             lstProjectNames = new SettingsReagentNeedle().QueryAllProjectRunSequenceInfo("QueryAllProjectRunSequenceInfo");
             ShowProjectSequence(lstProjectNames);
         }
@@ -194,8 +195,11 @@ namespace BioA.UI
         {
             SettingsReagentNeedle settingReagentNeedle = new SettingsReagentNeedle();
             settingReagentNeedle.DeleteAllProjectRunSequenceInfo("DeleteAllProjectRunSequenceInfo");
-            settingReagentNeedle.SaveProjectRunSequenceInfo("SaveProjectRunSequenceInfo", lstProjectNames);
-
+            string result = settingReagentNeedle.SaveProjectRunSequenceInfo("SaveProjectRunSequenceInfo", lstProjectNames);
+            if (result != null)
+            {
+                this.Invoke(new EventHandler(delegate { MessageBox.Show(result); }));
+            }
         }
     }
 }

@@ -62,6 +62,7 @@
             // 
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsBehavior.Editable = false;
             this.gridView1.OptionsCustomization.AllowFilter = false;
             this.gridView1.OptionsCustomization.AllowSort = false;
             this.gridView1.OptionsView.AllowHtmlDrawHeaders = true;
@@ -86,6 +87,7 @@
             // 
             this.gridView2.GridControl = this.gridControl2;
             this.gridView2.Name = "gridView2";
+            this.gridView2.OptionsBehavior.Editable = false;
             this.gridView2.OptionsCustomization.AllowFilter = false;
             this.gridView2.OptionsCustomization.AllowSort = false;
             this.gridView2.OptionsView.ShowGroupPanel = false;
@@ -164,7 +166,7 @@
             this.Controls.Add(this.gridControl1);
             this.Name = "ReagentSetting";
             this.Size = new System.Drawing.Size(1774, 944);
-            this.Load += new System.EventHandler(this.ReagentSetting_Load);
+            //this.Load += new System.EventHandler(this.ReagentSetting_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView3)).EndInit();

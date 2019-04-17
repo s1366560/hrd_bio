@@ -20,7 +20,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetWorkingDisk()==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetWorkingDisk()==" + e.ToString(), Module.PLCData);
             }
 
             return d;
@@ -66,7 +66,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetSingleWorkingEmgAssayScheduleNoRgtLock(int disk, int count)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetSingleWorkingEmgAssayScheduleNoRgtLock(int disk, int count)==" + e.ToString(), Module.PLCData);
             }
 
             return Schedules;
@@ -94,7 +94,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetSingleWorkingNorAssayScheduleNoRgtLock(int disk, int count)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetSingleWorkingNorAssayScheduleNoRgtLock(int disk, int count)==" + e.ToString(), Module.PLCData);
             }
 
             return Schedules;
@@ -116,7 +116,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("TroubleLogSave(string strMethodName, TroubleLog troubleLog)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("TroubleLogSave(string strMethodName, TroubleLog troubleLog)==" + e.ToString(), Module.PLCData);
             }
         }
 
@@ -131,7 +131,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateLatestWaterState(string strMethodName, byte[] bInfos)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateLatestWaterState(string strMethodName, byte[] bInfos)==" + e.ToString(), Module.PLCData);
             }
         }
         public void UpdateLatestCUVPanelTemperature(string strMethodName, float t)
@@ -142,7 +142,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateLatestWaterState(string strMethodName, byte[] bInfos)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateLatestWaterState(string strMethodName, byte[] bInfos)==" + e.ToString(), Module.PLCData);
             }
         }
 
@@ -156,7 +156,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetTempOffset(string strMethodName)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetTempOffset(string strMethodName)==" + e.ToString(), Module.PLCData);
             }
 
             return r;
@@ -170,7 +170,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateLatestCUVPanelTemperature(float t)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateLatestCUVPanelTemperature(float t)==" + e.ToString(), Module.PLCData);
             }
         }
 
@@ -186,7 +186,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("SaveCuvNumber(int wn, int cuvno)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("SaveCuvNumber(int wn, int cuvno)==" + e.ToString(), Module.PLCData);
             }
         }
 
@@ -199,7 +199,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryRealTimeCUVDataTC(int wn)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryRealTimeCUVDataTC(int wn)==" + e.ToString(), Module.PLCData);
             }
 
             return realTImeData;
@@ -218,7 +218,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryCalibResultInfo(string assay, string sampleType, int TCNO)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryCalibResultInfo(string assay, string sampleType, int TCNO)==" + e.ToString(), Module.PLCData);
             }
             return calibResult;
         }
@@ -234,7 +234,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateRealTimeState(int cuvPoint, int workNo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateRealTimeState(int cuvPoint, int workNo)==" + e.ToString(), Module.PLCData);
             }
         }
 
@@ -251,7 +251,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateBlkABSData(long t, float pw, float sw)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateBlkABSData(long t, float pw, float sw)==" + e.ToString(), Module.PLCData);
             }
         }
         /// <summary>
@@ -277,7 +277,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateABSData(long t, int p, float pw, float sw)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateABSData(long t, int p, float pw, float sw)==" + e.ToString(), Module.PLCData);
             }
         }
         /// <summary>
@@ -300,7 +300,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateSMPScheduleFinishCount(string smp, string assay, int count)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateSMPScheduleFinishCount(string smp, string assay, int count)==" + e.ToString(), Module.PLCData);
             }
         }
 
@@ -321,7 +321,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetSMPScheduleFinishCount(string smp, string assay)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetSMPScheduleFinishCount(string smp, string assay)==" + e.ToString(), Module.PLCData);
             }
 
             return FinishCount;
@@ -341,7 +341,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetSMPSchedule(string smp, string assay)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetSMPSchedule(string smp, string assay)==" + e.ToString(), Module.PLCData);
             }
 
             return taskInfo;
@@ -360,7 +360,7 @@ namespace BioA.SqlMaps
         //    }
         //    catch (Exception e)
         //    {
-        //        LogInfo.WriteErrorLog("UpdteTaskState(string sn, string assay)==" + e.ToString(), Module.DAO);
+        //        LogInfo.WriteErrorLog("UpdteTaskState(string sn, string assay)==" + e.ToString(), Module.PLCData);
         //    }
         //}
         /// <summary>
@@ -385,7 +385,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetSDTScheduleFinishCount(string smp, string assay)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetSDTScheduleFinishCount(string smp, string assay)==" + e.ToString(), Module.PLCData);
             }
 
             return FinishCount;
@@ -411,7 +411,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateSDTScheduleFinishCount(string smp, string assay, int count)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateSDTScheduleFinishCount(string smp, string assay, int count)==" + e.ToString(), Module.PLCData);
             }
         }
         /// <summary>
@@ -435,7 +435,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetSDTSchedule(string smp, string assay)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetSDTSchedule(string smp, string assay)==" + e.ToString(), Module.PLCData);
             }
 
             return taskInfo;
@@ -454,7 +454,7 @@ namespace BioA.SqlMaps
         //    }
         //    catch (Exception e)
         //    {
-        //        LogInfo.WriteErrorLog("ClearSDTSchedules(string sn, string assay)==" + e.ToString(), Module.DAO);
+        //        LogInfo.WriteErrorLog("ClearSDTSchedules(string sn, string assay)==" + e.ToString(), Module.PLCData);
         //    }
         //}
         /// <summary>
@@ -476,7 +476,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateSDTTaskState(string sampleNum, string projectName)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateSDTTaskState(string sampleNum, string projectName)==" + e.ToString(), Module.PLCData);
             }
         }
 
@@ -494,7 +494,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateQCScheduleFinishCount(string smp, string assay, int count)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateQCScheduleFinishCount(string smp, string assay, int count)==" + e.ToString(), Module.PLCData);
             }
         }
 
@@ -512,7 +512,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetQCScheduleFinishCount(string smp, string assay)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetQCScheduleFinishCount(string smp, string assay)==" + e.ToString(), Module.PLCData);
             }
 
             return FinishCount;
@@ -532,7 +532,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetQCSchedule(string smp, string assay)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetQCSchedule(string smp, string assay)==" + e.ToString(), Module.PLCData);
             }
 
             return taskInfo;
@@ -555,7 +555,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("ClearQCSchedules(string sn, string assay)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("ClearQCSchedules(string sn, string assay)==" + e.ToString(), Module.PLCData);
             }
         }
 
@@ -577,7 +577,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateQCTaksState(string SampleNum, string ProjectName)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateQCTaksState(string SampleNum, string ProjectName)==" + e.ToString(), Module.PLCData);
             }
 
         }
@@ -590,7 +590,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("DeleteRealTimeCUVData(int w)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("DeleteRealTimeCUVData(int w)==" + e.ToString(), Module.PLCData);
             }
         }
 
@@ -605,7 +605,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateLatestWaterState(int state1, int state2)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateLatestWaterState(int state1, int state2)==" + e.ToString(), Module.PLCData);
             }
         }
         /// <summary>
@@ -626,7 +626,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetNORResult(RealTimeCUVDataInfo realTimeData)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetNORResult(RealTimeCUVDataInfo realTimeData)==" + e.ToString(), Module.PLCData);
             }
 
             return result;
@@ -649,7 +649,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetQCResult(RealTimeCUVDataInfo realTimeData)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetQCResult(RealTimeCUVDataInfo realTimeData)==" + e.ToString(), Module.PLCData);
             }
 
             return result;
@@ -683,7 +683,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetTimeCourse(int TCNO, DateTime createTime)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetTimeCourse(int TCNO, DateTime createTime)==" + e.ToString(), Module.PLCData);
             }
 
             return tcInfo;
@@ -698,7 +698,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetRealTimeCUVDataByWorkNo(int workNo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetRealTimeCUVDataByWorkNo(int workNo)==" + e.ToString(), Module.PLCData);
             }
 
             return realCUVData;
@@ -716,7 +716,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("AssayProjectCalibrationParamInfo GetCalibParamBySDTTask()==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("AssayProjectCalibrationParamInfo GetCalibParamBySDTTask()==" + e.ToString(), Module.PLCData);
             }
 
             return CalibParamInfo;
@@ -737,7 +737,7 @@ namespace BioA.SqlMaps
             }
             catch(Exception e)
             {
-                LogInfo.WriteErrorLog("GetCalibInfoTaskByCalibTaskState()==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetCalibInfoTaskByCalibTaskState()==" + e.ToString(), Module.PLCData);
             }
             return calibTasks;
         }
@@ -762,7 +762,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetCalibTasksByProject(string projectName, string sampleType)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetCalibTasksByProject(string projectName, string sampleType)==" + e.ToString(), Module.PLCData);
             }
 
             return calibTasks;
@@ -786,7 +786,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateSDTSchedulePerform(CalibratorinfoTask calibTask, CalibState calibState)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateSDTSchedulePerform(CalibratorinfoTask calibTask, CalibState calibState)==" + e.ToString(), Module.PLCData);
             }
         }
         /// <summary>
@@ -809,7 +809,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateSDTResultState(CalibratorinfoTask calibResult, int calibState)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateSDTResultState(CalibratorinfoTask calibResult, int calibState)==" + e.ToString(), Module.PLCData);
             }
         }
 
@@ -826,7 +826,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryProjectRunSequenceByProject(AssayProjectInfo assayProInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryProjectRunSequenceByProject(AssayProjectInfo assayProInfo)==" + e.ToString(), Module.PLCData);
             }
 
             return proRunSequence;
@@ -841,7 +841,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetRGTDilutePosition()==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetRGTDilutePosition()==" + e.ToString(), Module.PLCData);
             }
 
             return pos;
@@ -855,7 +855,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetSDTSMPContainerType()==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetSDTSMPContainerType()==" + e.ToString(), Module.PLCData);
             }
 
             return container;
@@ -870,7 +870,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("SMPContainerType(string container)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("SMPContainerType(string container)==" + e.ToString(), Module.PLCData);
             }
 
             return containerTypeInfo;
@@ -893,7 +893,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("SetCalibratingCurveState(string projectName, string sampleType)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("SetCalibratingCurveState(string projectName, string sampleType)==" + e.ToString(), Module.PLCData);
             }
         }
         /// <summary>
@@ -914,7 +914,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetQCParamByQCTask(int count)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetQCParamByQCTask(int count)==" + e.ToString(), Module.PLCData);
             }
             return lstQCTaskInfo;
         }
@@ -932,7 +932,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateQCSchedulePerform(QCTaskInfo qcTask, TaskState taskState)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateQCSchedulePerform(QCTaskInfo qcTask, TaskState taskState)==" + e.ToString(), Module.PLCData);
             }
         }
         public QualityControlInfo QueryQCInfoByQCID(int qcID)
@@ -946,7 +946,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryQCInfoByQCID(int qcID)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryQCInfoByQCID(int qcID)==" + e.ToString(), Module.PLCData);
             }
 
             return qcInfo;
@@ -964,7 +964,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateTaskStatePerform(TaskInfo qcTask, TaskState taskState)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateTaskStatePerform(TaskInfo qcTask, TaskState taskState)==" + e.ToString(), Module.PLCData);
             }
         }
 
@@ -1002,7 +1002,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateSampleStatePerform(TaskInfo qcTask, TaskState taskState)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateSampleStatePerform(TaskInfo qcTask, TaskState taskState)==" + e.ToString(), Module.PLCData);
             }
         }
         
@@ -1019,7 +1019,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QuerySampleInfoByQCID(int sampleNum)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QuerySampleInfoByQCID(int sampleNum)==" + e.ToString(), Module.PLCData);
             }
 
             return sampleInfo;
@@ -1034,7 +1034,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("BAutoFreezeTaskByReagentVolWarning()==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("BAutoFreezeTaskByReagentVolWarning()==" + e.ToString(), Module.PLCData);
             }
 
             return bFreezeTask;
@@ -1053,7 +1053,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetNOStartTaskByWorkDisk(int curdisk)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetNOStartTaskByWorkDisk(int curdisk)==" + e.ToString(), Module.PLCData);
             }
 
             return count;
@@ -1067,7 +1067,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateWorkingDisk(int curDisk)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateWorkingDisk(int curDisk)==" + e.ToString(), Module.PLCData);
             }
         }
         /// <summary>
@@ -1086,7 +1086,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("ClearNotTodaySchedule()==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("ClearNotTodaySchedule()==" + e.ToString(), Module.PLCData);
             }
         }
         /// <summary>
@@ -1106,7 +1106,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("SetUnfinishedScheduleContinue()==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("SetUnfinishedScheduleContinue()==" + e.ToString(), Module.PLCData);
             }
         }
         
@@ -1120,7 +1120,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetRunningDate()==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetRunningDate()==" + e.ToString(), Module.PLCData);
             }
 
             return dateTime;
@@ -1140,7 +1140,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("InitRunningState()==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("InitRunningState()==" + e.ToString(), Module.PLCData);
             }
 
         }
@@ -1155,7 +1155,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("ClearRTData()==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("ClearRTData()==" + e.ToString(), Module.PLCData);
             }
         }
         /// <summary>
@@ -1170,7 +1170,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateIsRunning(bool bRunning)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateIsRunning(bool bRunning)==" + e.ToString(), Module.PLCData);
             }
         }
         /// <summary>
@@ -1186,7 +1186,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("InitSMPCalItems()==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("InitSMPCalItems()==" + e.ToString(), Module.PLCData);
             }
         }
         public int GetLastestTC()
@@ -1198,7 +1198,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetLastestTC()==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetLastestTC()==" + e.ToString(), Module.PLCData);
             }
 
             return t;
@@ -1212,7 +1212,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("DeleteRealTimeCUVData(RealTimeCUVDataInfo realTimeInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("DeleteRealTimeCUVData(RealTimeCUVDataInfo realTimeInfo)==" + e.ToString(), Module.PLCData);
             }
         }
 
@@ -1224,7 +1224,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("SaveRealTimeCUVData(RealTimeCUVDataInfo realTimeInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("SaveRealTimeCUVData(RealTimeCUVDataInfo realTimeInfo)==" + e.ToString(), Module.PLCData);
             }
         }
         
@@ -1244,7 +1244,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("SaveTimeCourseByTCNO(TimeCourseInfo tcInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("SaveTimeCourseByTCNO(TimeCourseInfo tcInfo)==" + e.ToString(), Module.PLCData);
             }
         }
 
@@ -1257,7 +1257,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateLatestTC(int t)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateLatestTC(int t)==" + e.ToString(), Module.PLCData);
             }
         }
 
@@ -1274,7 +1274,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetSMPScheduleSendCount(int sampleNum, string projectName, string sampleType)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetSMPScheduleSendCount(int sampleNum, string projectName, string sampleType)==" + e.ToString(), Module.PLCData);
             }
 
             return count;
@@ -1291,7 +1291,7 @@ namespace BioA.SqlMaps
             }
             catch(Exception e)
             {
-                LogInfo.WriteErrorLog("SetNorResultNA()==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("SetNorResultNA()==" + e.ToString(), Module.PLCData);
             }
         }
 
@@ -1317,7 +1317,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetSDTScheduleSendCount(int sampleNum, string projectName, string sampleType)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetSDTScheduleSendCount(int sampleNum, string projectName, string sampleType)==" + e.ToString(), Module.PLCData);
             }
 
             return count;
@@ -1336,7 +1336,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetQCScheduleSendCount(int sampleNum, string projectName, string sampleType)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetQCScheduleSendCount(int sampleNum, string projectName, string sampleType)==" + e.ToString(), Module.PLCData);
             }
 
             return count;
@@ -1361,7 +1361,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateSMPScheduleSendCount(int sampleNum, string projectName, string sampleType)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateSMPScheduleSendCount(int sampleNum, string projectName, string sampleType)==" + e.ToString(), Module.PLCData);
             }
 
         }
@@ -1386,7 +1386,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateSDTScheduleSendCount(int sampleNum, string projectName, string sampleType)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateSDTScheduleSendCount(int sampleNum, string projectName, string sampleType)==" + e.ToString(), Module.PLCData);
             }
 
         }
@@ -1410,7 +1410,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateQCScheduleSendCount(int sampleNum, string projectName, string sampleType)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateQCScheduleSendCount(int sampleNum, string projectName, string sampleType)==" + e.ToString(), Module.PLCData);
             }
 
         }
@@ -1427,7 +1427,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryRunSequenceByProject(string projectName, string SampleType)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryRunSequenceByProject(string projectName, string SampleType)==" + e.ToString(), Module.PLCData);
             }
 
             return iSequence;
@@ -1445,7 +1445,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateVoltageValue(float v)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateVoltageValue(float v)==" + e.ToString(), Module.PLCData);
             }
         }
         /// <summary>
@@ -1473,7 +1473,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateSampleResultTCNO(string sampleNum, string projectName, string sampleType, int TCNO)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateSampleResultTCNO(string sampleNum, string projectName, string sampleType, int TCNO)==" + e.ToString(), Module.PLCData);
             }
         }
         /// <summary>
@@ -1497,7 +1497,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateQualityControlResultTCNO(string sampleNum, string projectName, string sampleType, int TCNO)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateQualityControlResultTCNO(string sampleNum, string projectName, string sampleType, int TCNO)==" + e.ToString(), Module.PLCData);
             }
         }
         /// <summary>
@@ -1522,7 +1522,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateSDTResultTCNO(string sampleNum, string projectName, string sampleType, int TCNO)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateSDTResultTCNO(string sampleNum, string projectName, string sampleType, int TCNO)==" + e.ToString(), Module.PLCData);
             }
         }
         /// <summary>
@@ -1547,7 +1547,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryCalibCurveInfoByCalibNameAndProName(string sampNO, string projectName, string sampType, string calibName)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryCalibCurveInfoByCalibNameAndProName(string sampNO, string projectName, string sampType, string calibName)==" + e.ToString(), Module.PLCData);
             }
             return calibCurveInfo;
         }
@@ -1576,7 +1576,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("AddSDTResult(CalibrationCurveInfo c, DateTime calibDate, int TCNO, string sampNum)" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("AddSDTResult(CalibrationCurveInfo c, DateTime calibDate, int TCNO, string sampNum)" + e.ToString(), Module.PLCData);
             }
         }
 

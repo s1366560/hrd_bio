@@ -11,14 +11,14 @@ namespace BioA.Common
     /// </summary>
     public class ReagentResidualInfo
     {
-        private float validPercent;
-        private float validPercent2;
+        private int validPercent;
+        private int validPercent2;
         private int reagentVol;
 
         /// <summary>
         /// 剩余容量R1
         /// </summary>
-        public float ValidPercent
+        public int ValidPercent
         {
             get { return validPercent; }
             set { validPercent = value; }
@@ -26,7 +26,7 @@ namespace BioA.Common
         /// <summary>
         /// 剩余容量R2
         /// </summary>
-        public float ValidPercent2
+        public int ValidPercent2
         {
             get { return validPercent2; }
             set { validPercent2 = value; }

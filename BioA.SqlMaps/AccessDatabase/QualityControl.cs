@@ -58,7 +58,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("AddQualityControl(string strDBMethod, QualityControlInfo qcInfo, List<QCRelationProjectInfo> lstQCRelationProInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("AddQualityControl(string strDBMethod, QualityControlInfo qcInfo, List<QCRelationProjectInfo> lstQCRelationProInfo)==" + e.ToString(), Module.QualityControl);
             }
 
             return strResult;
@@ -178,7 +178,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("EditQualityControl(string strDBMethod, QualityControlInfo oldQCInfo, QualityControlInfo newQCInfo, List<QCRelationProjectInfo> lstQCRelationProInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("EditQualityControl(string strDBMethod, QualityControlInfo oldQCInfo, QualityControlInfo newQCInfo, List<QCRelationProjectInfo> lstQCRelationProInfo)==" + e.ToString(), Module.QualityControl);
                 return strResult = "质控品和项目信息修改失败！";
             }
             return strResult;
@@ -200,7 +200,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryQCTaskByProjectAndSamType(string strMethodName, QCinfoTask QCTask)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryQCTaskByProjectAndSamType(string strMethodName, QCinfoTask QCTask)==" + e.ToString(), Module.QualityControl);
             }
             return QCTaskCount;
         }
@@ -219,7 +219,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryQCPosition(string strDBMethod)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryQCPosition(string strDBMethod)==" + e.ToString(), Module.QualityControl);
             }
 
             return lstQCPosition;
@@ -234,7 +234,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryQCAllInfo(string strDBMethod)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryQCAllInfo(string strDBMethod)==" + e.ToString(), Module.QualityControl);
             }
             return lstQCInfos;
         }
@@ -260,7 +260,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryRelativelyProjectByQCInfo(string strDBMethod, QualityControlInfo qcInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryRelativelyProjectByQCInfo(string strDBMethod, QualityControlInfo qcInfo)==" + e.ToString(), Module.QualityControl);
             }
             return qCRelatePros;
         }
@@ -286,7 +286,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("EditQCRelateProInfo(string strDBMethod, QualityControlInfo QCInfo, List<QCRelationProjectInfo> lstQCRelationProInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("EditQCRelateProInfo(string strDBMethod, QualityControlInfo QCInfo, List<QCRelationProjectInfo> lstQCRelationProInfo)==" + e.ToString(), Module.QualityControl);
             }
 
             return strResult;
@@ -301,7 +301,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("LockQualityControl(string strDBMethod, QualityControlInfo QCInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("LockQualityControl(string strDBMethod, QualityControlInfo QCInfo)==" + e.ToString(), Module.QualityControl);
             }
 
             return strResult;
@@ -316,7 +316,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UnLockQualityControl(string strDBMethod, QualityControlInfo QCInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UnLockQualityControl(string strDBMethod, QualityControlInfo QCInfo)==" + e.ToString(), Module.QualityControl);
             }
 
             return strResult;
@@ -369,7 +369,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("DeleteQualityControl(string strDBMethod, QualityControlInfo QCInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("DeleteQualityControl(string strDBMethod, QualityControlInfo QCInfo)==" + e.ToString(), Module.QualityControl);
             }
 
             return strResult;
@@ -439,7 +439,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryQCResultInfo(string strDBMethod, QCResultForUIInfo qCResForUIInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryQCResultInfo(string strDBMethod, QCResultForUIInfo qCResForUIInfo)==" + e.ToString(), Module.QualityControl);
             }
 
             return lstQcStateInfo;
@@ -455,7 +455,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryQCInfosForAddQCResult(string strDBMethod)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryQCInfosForAddQCResult(string strDBMethod)==" + e.ToString(), Module.QualityControl);
             }
 
             return lstQCInfos;
@@ -500,7 +500,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryProjectInfo(string strDBMethod)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryProjectInfo(string strDBMethod)==" + e.ToString(), Module.QualityControl);
             }
 
             return lstProjectNames;
@@ -548,7 +548,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("EditQCResultForManual(string strDBMethod, QCResultForUIInfo qcResOldInfo, QCResultForUIInfo qcResNewInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("EditQCResultForManual(string strDBMethod, QCResultForUIInfo qcResOldInfo, QCResultForUIInfo qcResNewInfo)==" + e.ToString(), Module.QualityControl);
             }
 
             return strResult;
@@ -625,7 +625,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("AddQCResultForManual(string strDBMethod, QCResultForUIInfo qcResNewInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("AddQCResultForManual(string strDBMethod, QCResultForUIInfo qcResNewInfo)==" + e.ToString(), Module.QualityControl);
             }
 
             return strResult;
@@ -671,7 +671,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("DeleteQCResult(string strDBMethod, QCResultForUIInfo qcResInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("DeleteQCResult(string strDBMethod, QCResultForUIInfo qcResInfo)==" + e.ToString(), Module.QualityControl);
             }
 
             return strResult;
@@ -706,7 +706,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryTimeCourseByQCInfo(string strDBMethod, QCResultForUIInfo qcResInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryTimeCourseByQCInfo(string strDBMethod, QCResultForUIInfo qcResInfo)==" + e.ToString(), Module.QualityControl);
             }
 
             return qCTimeCourse;
@@ -740,7 +740,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("Dictionary<string, List<float>> QueryQCResultForQCGraphics(string strDBMethod, QCResultForUIInfo qcResForUIInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("Dictionary<string, List<float>> QueryQCResultForQCGraphics(string strDBMethod, QCResultForUIInfo qcResForUIInfo)==" + e.ToString(), Module.QualityControl);
             }
 
             return lstQCResForUIInfo;
@@ -766,7 +766,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryBigestQCSampleNumForToday(string strDBMethod)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryBigestQCSampleNumForToday(string strDBMethod)==" + e.ToString(), Module.QualityControl);
             }
 
             return lstQCTaskInfo;
@@ -793,7 +793,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryProjectNameInfoByQC(string strDBMethod, QualityControlInfo qcInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryProjectNameInfoByQC(string strDBMethod, QualityControlInfo qcInfo)==" + e.ToString(), Module.QualityControl);
             }
             qcId = quanlityControlInfo.QCID;
             return lstResults;
@@ -842,7 +842,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("AddQCTask(string strDBMethod, List<QCTaskInfo> lstQCTaskInfos)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("AddQCTask(string strDBMethod, List<QCTaskInfo> lstQCTaskInfos)==" + e.ToString(), Module.QualityControl);
                 strResult = "添加质控任务失败！";
             }
 
@@ -863,7 +863,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryQCTaskForLstv(string strDBMethod)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryQCTaskForLstv(string strDBMethod)==" + e.ToString(), Module.QualityControl);
             }
 
             return lstQCTaskInfos;
@@ -911,7 +911,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryNextQCTaskBySampleNum(string strDBMethod, string SampleNum)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryNextQCTaskBySampleNum(string strDBMethod, string SampleNum)==" + e.ToString(), Module.QualityControl);
             }
 
             return qcTaskInfoQuery;
@@ -956,7 +956,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryAssayProNameAllInfo(string strDBMethod)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryAssayProNameAllInfo(string strDBMethod)==" + e.ToString(), Module.QualityControl);
             }
 
             return lstProjectNames;
@@ -1007,7 +1007,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryAssayProNameAllInfo(string strDBMethod)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryAssayProNameAllInfo(string strDBMethod)==" + e.ToString(), Module.QualityControl);
             }
 
             return lstProjectNames;
@@ -1035,7 +1035,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteProcessLog("QueryBigestCalibCTaskInfoForToday(string strDBMethod)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteProcessLog("QueryBigestCalibCTaskInfoForToday(string strDBMethod)==" + e.ToString(), Module.QualityControl);
             }
             return intSampleNum;
         }
@@ -1049,7 +1049,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryQCAllInfoForUnLocked(string strDBMethod)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryQCAllInfoForUnLocked(string strDBMethod)==" + e.ToString(), Module.QualityControl);
             }
 
             return lstQCInfos;
@@ -1080,12 +1080,12 @@ namespace BioA.SqlMaps
         //        }
         //        catch (Exception e)
         //        {
-        //            LogInfo.WriteErrorLog("InitMachineUpdateQCTaskState(string strDBMethod, string Empty)==" + e.ToString(), Module.DAO);
+        //            LogInfo.WriteErrorLog("InitMachineUpdateQCTaskState(string strDBMethod, string Empty)==" + e.ToString(), Module.QualityControl);
         //        }
         //    }
         //    catch (Exception e)
         //    {
-        //        LogInfo.WriteErrorLog("InitMachineUpdateQCTaskState(string strDBMethod, string Empty)" + e.ToString(), Module.DAO);
+        //        LogInfo.WriteErrorLog("InitMachineUpdateQCTaskState(string strDBMethod, string Empty)" + e.ToString(), Module.QualityControl);
         //    }
         //}
         
@@ -1101,7 +1101,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("DeleteDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("DeleteDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.QualityControl);
             }
         }
 
@@ -1114,7 +1114,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryCalibratorinfo(string strDBMethod, string p2)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryCalibratorinfo(string strDBMethod, string p2)==" + e.ToString(), Module.QualityControl);
             }
 
             return lstCalibratorinfo;
@@ -1129,7 +1129,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryCalibPos(string strDBMethod, string p2)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryCalibPos(string strDBMethod, string p2)==" + e.ToString(), Module.QualityControl);
             }
 
             return lstCalibratorinfo;
@@ -1147,7 +1147,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryCalibratorinfo(string strDBMethod)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryCalibratorinfo(string strDBMethod)==" + e.ToString(), Module.QualityControl);
             }
 
             return lstCalibratorProjectinfo;
@@ -1165,7 +1165,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryProjectItemsByCalibration(string strDBMethod, string calibratorinfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryProjectItemsByCalibration(string strDBMethod, string calibratorinfo)==" + e.ToString(), Module.QualityControl);
             }
 
             return lstCalibratorProjectinfo1;
@@ -1218,7 +1218,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("AddCalibratorinfo(string strDBMethod, Calibratorinfo dataConfig, List<CalibratorProjectinfo> dataConfig1)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("AddCalibratorinfo(string strDBMethod, Calibratorinfo dataConfig, List<CalibratorProjectinfo> dataConfig1)==" + e.ToString(), Module.QualityControl);
                 strResult = "添加校准品失败！";
             }
 
@@ -1251,7 +1251,7 @@ namespace BioA.SqlMaps
         //    }
         //    catch (Exception e)
         //    {
-        //        LogInfo.WriteErrorLog("EditCalibratorProjectinfo(string strDBMethod, List<CalibratorProjectinfo> dataConfig)==" + e.ToString(), Module.DAO);
+        //        LogInfo.WriteErrorLog("EditCalibratorProjectinfo(string strDBMethod, List<CalibratorProjectinfo> dataConfig)==" + e.ToString(), Module.QualityControl);
         //        strResult = "修改校准任务失败！";
         //    }
 
@@ -1300,7 +1300,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("DeleteCalibrationMaintain(string strDBMethod, List<CalibratorProjectinfo> lstCalibProjectInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("DeleteCalibrationMaintain(string strDBMethod, List<CalibratorProjectinfo> lstCalibProjectInfo)==" + e.ToString(), Module.QualityControl);
                 strReturn = "删除失败！";
             }
             return strReturn;
@@ -1444,7 +1444,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("EditCalibratorinfo(string strDBMethod, Calibratorinfo Editcalibratorinfo, string p2, List<CalibratorProjectinfo> lisEditCalibratorProjectinfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("EditCalibratorinfo(string strDBMethod, Calibratorinfo Editcalibratorinfo, string p2, List<CalibratorProjectinfo> lisEditCalibratorProjectinfo)==" + e.ToString(), Module.QualityControl);
                 return updateCalibResult = "校准品和项目信息修改失败！";
             }
             return updateCalibResult;
@@ -1580,7 +1580,7 @@ namespace BioA.SqlMaps
         //    }
         //    catch (Exception e)
         //    {
-        //        LogInfo.WriteErrorLog("EditQCResultForManual(string strDBMethod, QCResultForUIInfo qcResOldInfo, QCResultForUIInfo qcResNewInfo)==" + e.ToString(), Module.DAO);
+        //        LogInfo.WriteErrorLog("EditQCResultForManual(string strDBMethod, QCResultForUIInfo qcResOldInfo, QCResultForUIInfo qcResNewInfo)==" + e.ToString(), Module.QualityControl);
         //    }
         //    return intUpdate;
         //}
@@ -1623,7 +1623,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryCalibratorinfo(string strDBMethod)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryCalibratorinfo(string strDBMethod)==" + e.ToString(), Module.QualityControl);
             }
             return lstCalibrationResult;
         }
@@ -1646,7 +1646,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryCalibratorProinfo(string strDBMethod, string ProjectName, string SampleType)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryCalibratorProinfo(string strDBMethod, string ProjectName, string SampleType)==" + e.ToString(), Module.QualityControl);
             }
             return lstCalibratorProjectinfo;
         }
@@ -1662,7 +1662,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryCalibratorinfo(string strDBMethod)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryCalibratorinfo(string strDBMethod)==" + e.ToString(), Module.QualityControl);
             }
 
             return lstCalibratorinfo;
@@ -1675,80 +1675,82 @@ namespace BioA.SqlMaps
         /// <returns></returns>
         public string DeleteCalibrationCurveInfo(string strDBMethod, List<CalibrationCurveInfo> calibrationCurveInfo)
         {
-            int count = 0;
+            string success = "删除成功！";
             try
             {
                 Hashtable hashTable = new Hashtable();
                 hashTable.Add("ProjectName", calibrationCurveInfo[0].ProjectName);
                 //hashTable.Add("CalibType", calibrationCurveInfo[0].CalibType);
                 hashTable.Add("SampleType", calibrationCurveInfo[0].SampleType);
-                count = ism_SqlMap.Delete("Calibrator." + strDBMethod, hashTable);
+                ism_SqlMap.Delete("Calibrator." + strDBMethod, hashTable);
 
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("DeleteDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.DAO);
-            }
-            if (count > 0)
-            {
-                return "删除成功！";
-            }
-            else
-            {
+                LogInfo.WriteErrorLog("DeleteDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.QualityControl);
                 return "删除失败！";
             }
-
+            return success;
         }
         /// <summary>
-        /// 添加校准曲线
+        /// 跟新校准参数和添加校准曲线
         /// </summary>
         /// <param name="strDBMethod"></param>
         /// <param name="calibrationCurveInfo"></param>
         /// <returns></returns>
-        public string AddCalibrationCurveInfo(string strDBMethod, List<CalibrationCurveInfo> calibrationCurveInfo)
+        public string UpdateCalibParamerterAndAddCalibCurveInfo(string strDBMethod, AssayProjectCalibrationParamInfo assayProInfo, List<CalibrationCurveInfo> calibrationCurveInfo)
         {
-            string strResult = "添加任务成功！";
+            string strResult = "校准参数信息保存成功！";
 
             try
             {
-                Hashtable ht = new Hashtable();
-                if (calibrationCurveInfo.Count == 1)
+                int count = 0;
+                ism_SqlMap.BeginTransaction();
+                count = ism_SqlMap.Update("AssayProjectInfo." + strDBMethod, assayProInfo);
+                if (count > 0)
                 {
-                    ht.Add("CalibConcentration", calibrationCurveInfo[0].CalibConcentration);
-                    ht.Add("CalibName", calibrationCurveInfo[0].CalibName);
-                    ht.Add("ProjectName", calibrationCurveInfo[0].ProjectName);
-                    ht.Add("SampleType", calibrationCurveInfo[0].SampleType);
-                    ht.Add("Pos", calibrationCurveInfo[0].Pos);
-                    ht.Add("CalibTime", calibrationCurveInfo[0].CalibTime);
-                    ht.Add("CalibType", calibrationCurveInfo[0].CalibType);
-                    ht.Add("Factor", calibrationCurveInfo[0].Factor);
-
-                    ism_SqlMap.Insert("Calibrator.AddCalibrationIsKCurveInfo", ht);
-                }
-                else
-                {
-                    for (int i = 0; i < calibrationCurveInfo.Count; i++)
+                    Hashtable ht = new Hashtable();
+                    if (calibrationCurveInfo.Count == 1)
                     {
-                        ht.Clear();
-                        ht.Add("CalibConcentration", calibrationCurveInfo[i].CalibConcentration);
-                        ht.Add("CalibName", calibrationCurveInfo[i].CalibName);
-                        ht.Add("ProjectName", calibrationCurveInfo[i].ProjectName);
-                        ht.Add("SampleType", calibrationCurveInfo[i].SampleType);
-                        ht.Add("Pos", calibrationCurveInfo[i].Pos);
-                        ht.Add("CalibTime", calibrationCurveInfo[i].CalibTime);
-                        ht.Add("CalibType", calibrationCurveInfo[i].CalibType);
-                        //ht.Add("Factor", calibrationCurveInfo[i].Factor);
+                        ht.Add("CalibConcentration", calibrationCurveInfo[0].CalibConcentration);
+                        ht.Add("CalibName", calibrationCurveInfo[0].CalibName);
+                        ht.Add("ProjectName", calibrationCurveInfo[0].ProjectName);
+                        ht.Add("SampleType", calibrationCurveInfo[0].SampleType);
+                        ht.Add("Pos", calibrationCurveInfo[0].Pos);
+                        ht.Add("CalibTime", calibrationCurveInfo[0].CalibTime);
+                        ht.Add("CalibType", calibrationCurveInfo[0].CalibType);
+                        ht.Add("Factor", calibrationCurveInfo[0].Factor);
 
-                        ism_SqlMap.Insert("Calibrator." + strDBMethod, ht);
+                        ism_SqlMap.Insert("Calibrator.AddCalibrationIsKCurveInfo", ht);
+                    }
+                    else
+                    {
+                        for (int i = 0; i < calibrationCurveInfo.Count; i++)
+                        {
+                            ht.Clear();
+                            ht.Add("CalibConcentration", calibrationCurveInfo[i].CalibConcentration);
+                            ht.Add("CalibName", calibrationCurveInfo[i].CalibName);
+                            ht.Add("ProjectName", calibrationCurveInfo[i].ProjectName);
+                            ht.Add("SampleType", calibrationCurveInfo[i].SampleType);
+                            ht.Add("Pos", calibrationCurveInfo[i].Pos);
+                            ht.Add("CalibTime", calibrationCurveInfo[i].CalibTime);
+                            ht.Add("CalibType", calibrationCurveInfo[i].CalibType);
+                            //ht.Add("Factor", calibrationCurveInfo[i].Factor);
+
+                            ism_SqlMap.Insert("Calibrator." + "AddCalibrationCurveInfo", ht);
+                        }
                     }
                 }
+                else
+                    strResult = "校准参数保存失败！";
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("AddQCTask(string strDBMethod, List<QCTaskInfo> lstQCTaskInfos)==" + e.ToString(), Module.DAO);
-                strResult = "添加任务失败！";
+                LogInfo.WriteErrorLog("UpdateCalibParamerterAndAddCalibCurveInfo(string strDBMethod, AssayProjectRangeParamInfo assayProInfo, List<CalibrationCurveInfo> calibrationCurveInfo)==" + e.Message, Module.QualityControl);
+                strResult = "校准参数保存失败！";
+                ism_SqlMap.RollBackTransaction();
             }
-
+            ism_SqlMap.CommitTransaction();
             return strResult;
         }
 
@@ -1770,7 +1772,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryCalibratorinfo(string strDBMethod)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryCalibratorinfo(string strDBMethod)==" + e.ToString(), Module.QualityControl);
             }
 
             return lstCalibratorinfo;
@@ -1804,7 +1806,7 @@ namespace BioA.SqlMaps
                 }
                 catch (Exception e)
                 {
-                    LogInfo.WriteErrorLog("SelectCalibrationCurveInfo" + e.ToString(), Module.DAO);
+                    LogInfo.WriteErrorLog("SelectCalibrationCurveInfo" + e.ToString(), Module.QualityControl);
                 }
 
                 try
@@ -1963,7 +1965,7 @@ namespace BioA.SqlMaps
                 }
                 catch (Exception e)
                 {
-                    LogInfo.WriteErrorLog("AddCalibratorinfoTask" + e.ToString(), Module.DAO);
+                    LogInfo.WriteErrorLog("AddCalibratorinfoTask" + e.ToString(), Module.QualityControl);
 
                 }
             }
@@ -1980,7 +1982,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryListCalibrationCurveInfo(string strDBMethod, List<CalibratorinfoTask> calibratorinfoTask)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryListCalibrationCurveInfo(string strDBMethod, List<CalibratorinfoTask> calibratorinfoTask)==" + e.ToString(), Module.QualityControl);
             }
 
             return listcalibratorinfoTask;
@@ -2019,7 +2021,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("CreateTaskInfo(AssayProjectCalibrationParamInfo assyCalibInfo, CalibrationResultinfo calibResultInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("CreateTaskInfo(AssayProjectCalibrationParamInfo assyCalibInfo, CalibrationResultinfo calibResultInfo)==" + e.ToString(), Module.QualityControl);
             }
         }
 
@@ -2035,7 +2037,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryCalibProjectInfo(string strDBMethod, string lstCalibProinfo, string strSampleType)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryCalibProjectInfo(string strDBMethod, string lstCalibProinfo, string strSampleType)==" + e.ToString(), Module.QualityControl);
             }
             return lstResults;
         }
@@ -2060,7 +2062,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog(strDBMethod + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog(strDBMethod + e.ToString(), Module.QualityControl);
             }
 
 
@@ -2095,7 +2097,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("AddSDTTableItem(string strDBMethod, SDTTableItem dataConfig)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("AddSDTTableItem(string strDBMethod, SDTTableItem dataConfig)==" + e.ToString(), Module.QualityControl);
                 return strResult = "校准曲线保存异常！";
             }
             return strResult;
@@ -2160,7 +2162,7 @@ namespace BioA.SqlMaps
             //}
             //catch (Exception e)
             //{
-            //    LogInfo.WriteErrorLog("AddQCTask(string strDBMethod, List<QCTaskInfo> lstQCTaskInfos)==" + e.ToString(), Module.DAO);
+            //    LogInfo.WriteErrorLog("AddQCTask(string strDBMethod, List<QCTaskInfo> lstQCTaskInfos)==" + e.ToString(), Module.QualityControl);
             //    return strResult = "校准曲线保存失败！";
             //}
 
@@ -2187,7 +2189,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryCalibratorinfo(string strDBMethod)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryCalibratorinfo(string strDBMethod)==" + e.ToString(), Module.QualityControl);
             }
 
             return lstCalibrationResultinfo;
@@ -2217,7 +2219,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryCalibratorinfo(string strDBMethod)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryCalibratorinfo(string strDBMethod)==" + e.ToString(), Module.QualityControl);
             }
 
             return timeCourseInfoResult;
@@ -2253,7 +2255,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryCalibrationResultInfoAndTimeCUVNO(string strDBMethod, CalibrationResultinfo calibrationResultinfoAndTimeCUVNO)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryCalibrationResultInfoAndTimeCUVNO(string strDBMethod, CalibrationResultinfo calibrationResultinfoAndTimeCUVNO)==" + e.ToString(), Module.QualityControl);
             }
 
             return lstCalibrationResultinfoAndTimeCUVNO;
@@ -2273,7 +2275,7 @@ namespace BioA.SqlMaps
         //    }
         //    catch (Exception e)
         //    {
-        //        LogInfo.WriteErrorLog("GetQCResult(RealTimeCUVDataInfo realTimeData)==" + e.ToString(), Module.DAO);
+        //        LogInfo.WriteErrorLog("GetQCResult(RealTimeCUVDataInfo realTimeData)==" + e.ToString(), Module.QualityControl);
         //    }
 
         //    return result;
@@ -2299,7 +2301,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateQCResult(QualityControlResultInfo qcResInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateQCResult(QualityControlResultInfo qcResInfo)==" + e.ToString(), Module.QualityControl);
             }
         }
 
@@ -2314,7 +2316,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateQCTaskState(string ProjectName, string sampleType)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateQCTaskState(string ProjectName, string sampleType)==" + e.ToString(), Module.QualityControl);
             }
         }
 
@@ -2332,7 +2334,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateQCResultRunLog(QualityControlResultInfo QCResInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateQCResultRunLog(QualityControlResultInfo QCResInfo)==" + e.ToString(), Module.QualityControl);
             }
         }
         /// <summary>

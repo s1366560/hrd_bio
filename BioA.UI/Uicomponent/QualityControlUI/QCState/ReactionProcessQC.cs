@@ -21,6 +21,7 @@ namespace BioA.UI
         {
             InitializeComponent();
             this.ControlBox = false;
+            cboMeasurePoint.Properties.Items.AddRange(RunConfigureUtility.ReactionPoints);
         }
         private QCResultForUIInfo qCResInfo = new QCResultForUIInfo();
 
@@ -124,7 +125,7 @@ namespace BioA.UI
             this.Close();
         }
 
-        private void ReactionProcessQC_Load(object sender, EventArgs e)
+        public void ReactionProcessQC_Load(object sender, EventArgs e)
         {
             chartQCReaction.Series.Clear();
             btnClose.Enabled = false;
@@ -135,18 +136,13 @@ namespace BioA.UI
             txtLotNum.Text = qCResInfo.LotNum;
             txtManufacturer.Text = qCResInfo.Manufacturer;
             txtLevelConc.Text = qCResInfo.HorizonLevel;
-            cboMeasurePoint.Properties.Items.Clear();
-            cboMeasurePoint.Properties.Items.AddRange(RunConfigureUtility.ReactionPoints);
-            if (this.IsHandleCreated)
-            {
-                BeginInvoke(new Action(loadReactionProcessQC));
-            }
+
+            this.loadReactionProcessQC();
         }
 
         private void loadReactionProcessQC()
         {
-            CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.QCResult, new Dictionary<string, object[]>()
-            { { "QueryTimeCourseByQCInfo", new object[] { XmlUtility.Serializer(typeof(QCResultForUIInfo), qCResInfo), strDateTime } } });
+            CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.QCResult, new Dictionary<string, object[]>() { { "QueryTimeCourseByQCInfo", new object[] { XmlUtility.Serializer(typeof(QCResultForUIInfo), qCResInfo), strDateTime } } });
         }
 
         private void cboMeasurePoint_SelectedIndexChanged(object sender, EventArgs e)

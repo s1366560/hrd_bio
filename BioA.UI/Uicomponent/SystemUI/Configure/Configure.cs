@@ -27,7 +27,7 @@ namespace BioA.UI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void FunctionConfig_Load(object sender, EventArgs e)
+        public void FunctionConfig_Load(object sender, EventArgs e)
         {
             this.DisplayReagentConfig(ReagentConfigInfoConstrunction.ReagentStateInfo, ReagentConfigInfoConstrunction.ReagentConfig);
         }

@@ -57,6 +57,7 @@
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.IndicatorWidth = 35;
             this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsBehavior.Editable = false;
             this.gridView1.OptionsCustomization.AllowFilter = false;
             this.gridView1.OptionsCustomization.AllowSort = false;
             this.gridView1.OptionsSelection.MultiSelect = true;
@@ -148,7 +149,6 @@
             this.Controls.Add(this.gridControl1);
             this.Name = "Alertlog";
             this.Size = new System.Drawing.Size(1632, 843);
-            this.Load += new System.EventHandler(this.Alertlog_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             this.ResumeLayout(false);

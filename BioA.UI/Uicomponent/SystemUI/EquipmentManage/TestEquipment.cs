@@ -30,7 +30,6 @@ namespace BioA.UI
         {
             InitializeComponent();
 
-
             reactionDiskDebug = new ReactionDiskDebug();
             reactionDiskDebug.SendNetworkEvent += SendNetwork_Event;
             xtrReactionTrayDebug.Controls.Add(reactionDiskDebug);
@@ -57,73 +56,76 @@ namespace BioA.UI
         {
             if (xtrEquipmentDebug.SelectedTabPageIndex == 0)
             {
-                xtrReactionTrayDebug.Controls.Clear();
-
-                if (reactionDiskDebug != null)
-                    reactionDiskDebug.SendNetworkEvent -= SendNetwork_Event;
-                reactionDiskDebug = new ReactionDiskDebug();
-                reactionDiskDebug.SendNetworkEvent += SendNetwork_Event;
-                xtrReactionTrayDebug.Controls.Add(reactionDiskDebug);
+                if (!xtrReactionTrayDebug.Contains(reactionDiskDebug))
+                    xtrReactionTrayDebug.Controls.Add(reactionDiskDebug);
             }
             else if (xtrEquipmentDebug.SelectedTabPageIndex == 1)
             {
-                xtrReagentTrayDebug.Controls.Clear();
-
-                if (reagentPanelDebug != null)
-                    reagentPanelDebug.SendNetworkEvent -= SendNetwork_Event;
-                reagentPanelDebug = new ReagentPanelDebug();
-                reagentPanelDebug.SendNetworkEvent += SendNetwork_Event;
-                xtrReagentTrayDebug.Controls.Add(reagentPanelDebug);
+                if (reagentPanelDebug == null)
+                {
+                    reagentPanelDebug = new ReagentPanelDebug();
+                    reagentPanelDebug.SendNetworkEvent += SendNetwork_Event;
+                    xtrReagentTrayDebug.Controls.Add(reagentPanelDebug);
+                }
+                if(!xtrReagentTrayDebug.Contains(reagentPanelDebug))
+                    xtrReagentTrayDebug.Controls.Add(reagentPanelDebug);
             }
             else if (xtrEquipmentDebug.SelectedTabPageIndex == 2)
             {
-                xtrSampTrayDebug.Controls.Clear();
-
-                if (samplePanelDebug != null)
-                    samplePanelDebug.SendNetworkEvent -= SendNetwork_Event;
-                samplePanelDebug = new SamplePanelDebug();
-                samplePanelDebug.SendNetworkEvent += SendNetwork_Event;
-                xtrSampTrayDebug.Controls.Add(samplePanelDebug);
+                if (samplePanelDebug == null)
+                {
+                    samplePanelDebug = new SamplePanelDebug();
+                    samplePanelDebug.SendNetworkEvent += SendNetwork_Event;
+                    xtrSampTrayDebug.Controls.Add(samplePanelDebug);
+                }
+                if(!xtrSampTrayDebug.Contains(samplePanelDebug))
+                    xtrSampTrayDebug.Controls.Add(samplePanelDebug);
             }
             else if (xtrEquipmentDebug.SelectedTabPageIndex == 3)
             {
-                xtrAbsorberDebug.Controls.Clear();
 
-                if (absorberDebug != null)
-                    absorberDebug.SendNetworkEvent -= SendNetwork_Event;
-                absorberDebug = new AbsorberDebug();
-                absorberDebug.SendNetworkEvent += SendNetwork_Event;
-                xtrAbsorberDebug.Controls.Add(absorberDebug);
+                if (absorberDebug == null)
+                {
+                    absorberDebug = new AbsorberDebug();
+                    absorberDebug.SendNetworkEvent += SendNetwork_Event;
+                    xtrAbsorberDebug.Controls.Add(absorberDebug);
+                }
+                if (!xtrAbsorberDebug.Contains(absorberDebug))
+                    xtrAbsorberDebug.Controls.Add(absorberDebug);
             }
             else if (xtrEquipmentDebug.SelectedTabPageIndex == 4)
             {
-                xtrTreaterDebug.Controls.Clear();
-
-                if (agitatorAdjustment != null)
-                    agitatorAdjustment.SendNetworkEvent -= SendNetwork_Event;
-                agitatorAdjustment = new AgitatorAdjustment();
-                agitatorAdjustment.SendNetworkEvent += SendNetwork_Event;
-                xtrTreaterDebug.Controls.Add(agitatorAdjustment);
+                if (agitatorAdjustment == null)
+                {
+                    agitatorAdjustment = new AgitatorAdjustment();
+                    agitatorAdjustment.SendNetworkEvent += SendNetwork_Event;
+                    xtrTreaterDebug.Controls.Add(agitatorAdjustment);
+                }
+                if (!xtrTreaterDebug.Contains(agitatorAdjustment))
+                    xtrTreaterDebug.Controls.Add(agitatorAdjustment);
             }
             else if (xtrEquipmentDebug.SelectedTabPageIndex == 5)
             {
-                xtrLiquidCircuitDebug.Controls.Clear();
-
-                if (liquidRoadDebug != null)
-                    liquidRoadDebug.SendNetworkEvent -= SendNetwork_Event;
-                liquidRoadDebug = new LiquidRoadDebug();
-                liquidRoadDebug.SendNetworkEvent += SendNetwork_Event;
-                xtrLiquidCircuitDebug.Controls.Add(liquidRoadDebug);
+                if (liquidRoadDebug == null)
+                {
+                    liquidRoadDebug = new LiquidRoadDebug();
+                    liquidRoadDebug.SendNetworkEvent += SendNetwork_Event;
+                    xtrLiquidCircuitDebug.Controls.Add(liquidRoadDebug);
+                }
+                if (!xtrLiquidCircuitDebug.Contains(liquidRoadDebug))
+                    xtrLiquidCircuitDebug.Controls.Add(liquidRoadDebug);
             }
             else if (xtrEquipmentDebug.SelectedTabPageIndex == 6)
             {
-                xtrOpticalPathDebug.Controls.Clear();
-
-                if (lightSystem != null)
-                    lightSystem.SendNetworkEvent -= SendNetwork_Event;
-                lightSystem = new LightSystem();
-                lightSystem.SendNetworkEvent += SendNetwork_Event;
-                xtrOpticalPathDebug.Controls.Add(lightSystem);
+                if (lightSystem == null)
+                {
+                    lightSystem = new LightSystem();
+                    lightSystem.SendNetworkEvent += SendNetwork_Event;
+                    xtrOpticalPathDebug.Controls.Add(lightSystem);
+                }
+                if (!xtrOpticalPathDebug.Contains(lightSystem))
+                    xtrOpticalPathDebug.Controls.Add(lightSystem);
+                lightSystem.LightSystem_Load(null,null);
             }
         }
 

@@ -235,7 +235,7 @@
             this.Controls.Add(this.lblQCName);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "QualityControlAddAndEdit";
-            this.Load += new System.EventHandler(this.QualityControlAddAndEdit_Load);
+            //this.Load += new System.EventHandler(this.QualityControlAddAndEdit_Load);
             ((System.ComponentModel.ISupportInitialize)(this.lstvQCMaintainInfos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtQCName.Properties)).EndInit();

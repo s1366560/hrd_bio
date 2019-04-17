@@ -643,7 +643,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "CalibrationCurve";
             this.Text = "校准曲线";
-            this.Load += new System.EventHandler(this.CalibrationCurve_Load);
+            //this.Load += new System.EventHandler(this.CalibrationCurve_Load);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             this.groupControl1.PerformLayout();

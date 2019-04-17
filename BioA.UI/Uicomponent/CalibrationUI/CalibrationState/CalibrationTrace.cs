@@ -32,6 +32,7 @@ namespace BioA.UI
 
          public void CalibrationAdd(CalibrationResultinfo calibrationResultinfo)
         {
+            results.Clear();
             txtCheckPro.Text = calibrationResultinfo.ProjectName;
             txtSampleType.Text = calibrationResultinfo.SampleType;
             txtReagentName.Text = calibrationResultinfo.CalibratorName;

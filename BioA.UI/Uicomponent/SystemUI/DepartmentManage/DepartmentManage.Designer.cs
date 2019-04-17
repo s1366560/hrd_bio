@@ -185,7 +185,6 @@
             this.grdAuditDoctor.TabIndex = 7;
             this.grdAuditDoctor.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView4});
-            this.grdAuditDoctor.Click += new System.EventHandler(this.gridControl4_Click);
             // 
             // gridView4
             // 
@@ -336,7 +335,6 @@
             this.comboBoxEdit1.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.comboBoxEdit1.Size = new System.Drawing.Size(184, 24);
             this.comboBoxEdit1.TabIndex = 26;
-            this.comboBoxEdit1.SelectedIndexChanged += new System.EventHandler(this.comboBoxEdit1_SelectedIndexChanged);
             // 
             // labelControl1
             // 
@@ -390,7 +388,7 @@
             this.Controls.Add(this.lblApplicationDepartment);
             this.Name = "DepartmentManage";
             this.Size = new System.Drawing.Size(1702, 936);
-            this.Load += new System.EventHandler(this.DepartmentManage_Load);
+            //this.Load += new System.EventHandler(this.DepartmentManage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grdApplyDepartments)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdApplyDoctor)).EndInit();

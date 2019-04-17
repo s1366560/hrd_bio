@@ -21,7 +21,6 @@ namespace BioA.UI
         ReactionProcessCB reactionProcessCB;
 
         CalibrationTrace calibrationTrace;
-
         /// <summary>
         /// 存储客户端发送信息给服务器的参数集合
         /// </summary>
@@ -31,6 +30,15 @@ namespace BioA.UI
             InitializeComponent();
             Font font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             gridView1.Appearance.FocusedRow.Font = font;
+            dt.Columns.Add("检测项目");
+            dt.Columns.Add("样本类型");
+            dt.Columns.Add("检测方法");
+            //dt.Columns.Add("空白吸光度");
+            //dt.Columns.Add("K斜率");
+            //dt.Columns.Add("A因数");
+            //dt.Columns.Add("B因数");
+            //dt.Columns.Add("C因数");
+            gridControl1.DataSource = dt;
         }
 
         private void calibrationCurve_CalibrationEvent(Dictionary<string, object[]> sender)
@@ -46,23 +54,22 @@ namespace BioA.UI
 
         private void btnCalibCurve_Click(object sender, EventArgs e)
         {
-            calibrationCurve = new CalibrationCurve();
-            calibrationCurve.CalibrationEvent += calibrationCurve_CalibrationEvent;
-            CalibrationCurveInfo calibrationCurveInfo = new CalibrationCurveInfo();
             if (gridView1.SelectedRowsCount > 0)
             {
+                if (calibrationCurve == null)
+                {
+                    calibrationCurve = new CalibrationCurve();
+                    calibrationCurve.CalibrationEvent += calibrationCurve_CalibrationEvent;
+                    calibrationCurve.StartPosition = FormStartPosition.CenterScreen;
+                }
+                CalibrationCurveInfo calibrationCurveInfo = new CalibrationCurveInfo();
                 int selectedHandle = this.gridView1.GetSelectedRows()[0];
                 calibrationCurveInfo.CalibType = this.gridView1.GetRowCellValue(selectedHandle, "检测方法").ToString();
                 calibrationCurveInfo.ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "检测项目").ToString();
                 calibrationCurveInfo.SampleType = this.gridView1.GetRowCellValue(selectedHandle, "样本类型").ToString();
                 calibrationCurve.AddCalibrationCurve(calibrationCurveInfo);
-                calibStateDictionary.Clear();
-                //calibStateDictionary.Add("QueryCalibrationCurveInfo", new object[] { XmlUtility.Serializer(typeof(CalibrationCurveInfo), calibrationCurveInfo) });
-               // CalibrationStateSend(calibStateDictionary);
-                calibrationCurve.StartPosition = FormStartPosition.CenterScreen;
-                calibrationCurve.ShowDialog();  
-                //Calibrator calibrator = new Calibrator();
-                //calibrationCurve.SelectedlistCalibrationCurve(calibrator.QueryCalibrationCurveInfo("QueryCalibrationCurveInfo", calibrationCurveInfo));
+                calibrationCurve.CalibrationCurve_Load(null,null);
+                calibrationCurve.ShowDialog();
             }
         }
 
@@ -73,10 +80,14 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void btnCalibTrace_Click(object sender, EventArgs e)
         {
-            calibrationTrace = new CalibrationTrace();
-            CalibrationResultinfo calibrationResultinfo = new CalibrationResultinfo();
             if (gridView1.SelectedRowsCount > 0)
             {
+                if (calibrationTrace == null)
+                {
+                    calibrationTrace = new CalibrationTrace();
+                    calibrationTrace.StartPosition = FormStartPosition.CenterScreen;
+                }
+                CalibrationResultinfo calibrationResultinfo = new CalibrationResultinfo();
                 int selectedHandle = this.gridView1.GetSelectedRows()[0];
                 calibrationResultinfo.CalibMethod= this.gridView1.GetRowCellValue(selectedHandle, "检测方法").ToString();
                 calibrationResultinfo.ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "检测项目").ToString();
@@ -84,11 +95,10 @@ namespace BioA.UI
                 calibStateDictionary.Clear();
                 calibStateDictionary.Add("QueryCalibrationResultinfo", new object[] { XmlUtility.Serializer(typeof(CalibrationResultinfo), calibrationResultinfo) });
                 CalibrationStateSend(calibStateDictionary);
-                Thread.Sleep(1000);
                 calibrationTrace.CalibrationAdd(calibrationResultinfo);
+                calibrationTrace.ShowDialog();
             }
-            calibrationTrace.StartPosition = FormStartPosition.CenterScreen;
-            calibrationTrace.ShowDialog();
+            
         }
         
         /// <summary>
@@ -98,29 +108,24 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void btnReactionProcess_Click(object sender, EventArgs e)
         {
-            CalibrationResultinfo calibrationResultinfo = new CalibrationResultinfo();
-            reactionProcessCB = new ReactionProcessCB();
-            reactionProcessCB.CalibrationTimeCoursetEvent += calibrationCurve_CalibrationEvent;
             if (gridView1.SelectedRowsCount > 0)
             {
+                if (reactionProcessCB == null)
+                {
+                    reactionProcessCB = new ReactionProcessCB();
+                    reactionProcessCB.CalibrationTimeCoursetEvent += calibrationCurve_CalibrationEvent;
+                    reactionProcessCB.StartPosition = FormStartPosition.CenterScreen;
+                }
+                CalibrationResultinfo calibrationResultinfo = new CalibrationResultinfo();
                 int selectedHandle = this.gridView1.GetSelectedRows()[0];
                 calibrationResultinfo.CalibMethod = this.gridView1.GetRowCellValue(selectedHandle, "检测方法").ToString();
                 calibrationResultinfo.ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "检测项目").ToString();
                 calibrationResultinfo.SampleType = this.gridView1.GetRowCellValue(selectedHandle, "样本类型").ToString();
-                //calibStateDictionary.Clear();
-                //calibStateDictionary.Add("QueryCalibrationResultInfoAndTimeCUVNO",new object[]{ XmlUtility.Serializer(typeof(CalibrationResultinfo), calibrationResultinfo) });
-                //CalibrationStateSend(calibStateDictionary);
+
                 reactionProcessCB.calibrationResult = calibrationResultinfo;
-                reactionProcessCB.StartPosition = FormStartPosition.CenterScreen;
+                reactionProcessCB.ReactionProcessCB_Load(null,null);
                 reactionProcessCB.ShowDialog();
             }
-
-        }
-
-        private void CalibrationStateLoad()
-        {
-            calibStateDictionary.Add("QueryCalibrationState", new object[] { "" });
-            CalibrationStateSend(calibStateDictionary);
 
         }
 
@@ -138,43 +143,18 @@ namespace BioA.UI
         /// 存储校准品状态信息
         /// </summary>
         DataTable dt = new DataTable();
-        private void CalibrationState_Load(object sender, EventArgs e)
+        public void CalibrationState_Load(object sender, EventArgs e)
         {
-            //BeginInvoke(new Action(CalibrationStateLoad));
-          
-            dt.Columns.Add("检测项目");
-            dt.Columns.Add("样本类型");
-            dt.Columns.Add("检测方法");
-            //dt.Columns.Add("空白吸光度");
-            //dt.Columns.Add("K斜率");
-            //dt.Columns.Add("A因数");
-            //dt.Columns.Add("B因数");
-            //dt.Columns.Add("C因数");
-            gridControl1.DataSource = dt;
-            this.gridView1.Columns[0].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[1].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[2].OptionsColumn.AllowEdit = false;
-            //this.gridView1.Columns[3].OptionsColumn.AllowEdit = false;
-            //this.gridView1.Columns[4].OptionsColumn.AllowEdit = false;
-            //this.gridView1.Columns[5].OptionsColumn.AllowEdit = false;
-            //this.gridView1.Columns[6].OptionsColumn.AllowEdit = false;
-            //this.gridView1.Columns[7].OptionsColumn.AllowEdit = false; 
             AddCalibrationState(new Calibrator().QueryCalibrationState("QueryCalibrationState", ""));
         }
 
         void AddCalibrationState(List<CalibrationResultinfo> calibratorinfo)
         {
-             BeginInvoke(new Action(() =>
+            dt.Rows.Clear();
+            foreach (CalibrationResultinfo calibrationResultinfo in calibratorinfo)
             {
-                // dt.Columns.Add("状态");
-                foreach (CalibrationResultinfo calibrationResultinfo in calibratorinfo)
-                {
-                    //dt.Rows.Add(new object[] { calibrationResultinfo.ProjectName,calibrationResultinfo.SampleType, calibrationResultinfo .CalibMethod,
-                    //calibrationResultinfo.BlankAbs,calibrationResultinfo.KFactor,calibrationResultinfo.AFactor,calibrationResultinfo.BFactor,
-                    //calibrationResultinfo.CFactor});
-                    dt.Rows.Add(new object[] { calibrationResultinfo.ProjectName,calibrationResultinfo.SampleType, calibrationResultinfo .CalibMethod});
-                }
-            }));
+                dt.Rows.Add(new object[] { calibrationResultinfo.ProjectName,calibrationResultinfo.SampleType, calibrationResultinfo .CalibMethod});
+            }
         }
 
         List<CalibrationResultinfo> Resultinfo = new List<CalibrationResultinfo>();

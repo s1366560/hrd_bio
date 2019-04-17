@@ -38,6 +38,8 @@ namespace BioA.UI
             this.textEdit1.Enabled = true;
             textEdit1.Text = "";
             textEdit2.Text = "";
+            textEdit3.Text = "";
+            textEdit4.Text = "";
         }
         /// <summary>
         /// 编辑用户
@@ -49,6 +51,8 @@ namespace BioA.UI
             labelControl2.Text = "* 输入不能为空！";
             labelControl3.Text = "* 输入不能为空！";
             textEdit1.Enabled = false;
+            textEdit3.Text = "";
+            textEdit4.Text = "";
         }
         //UserInfo userInfo = new UserInfo();
 
@@ -497,10 +501,10 @@ namespace BioA.UI
             this.Close();
         }
 
-        private void UserCeation_Load(object sender, EventArgs e)
+        public void UserCeation_Load(object sender, EventArgs e)
         {
-            BeginInvoke(new Action(loadUserCeation));
-           
+            this.loadUserCeation();
+            this.xtraTabControl1.SelectedTabPageIndex = 0;
         }
         private void loadUserCeation()
         {

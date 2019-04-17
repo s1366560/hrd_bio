@@ -16,13 +16,16 @@ namespace BioA.UI
 {
     public partial class PatientInfoEdit : DevExpress.XtraEditors.XtraUserControl
     {
-        private int intSelectedNum = 0;
 
         /// <summary>
         /// 存储客户端发送信息给服务器的集合
         /// </summary>
         private Dictionary<string, object[]> patientDictionary = new Dictionary<string, object[]>();
 
+        private int intSelectedNum = 0;
+        /// <summary>
+        /// 样本编号
+        /// </summary>
         public int IntSelectedNum
         {
             get { return intSelectedNum; }
@@ -30,6 +33,9 @@ namespace BioA.UI
         }
 
         private List<int> lstSampleNum = new List<int>();
+        /// <summary>
+        /// 所有项目样本编号
+        /// </summary>
         public List<int> LstSampleNum
         {
             get { return lstSampleNum; }
@@ -43,6 +49,9 @@ namespace BioA.UI
 
 
         private List<string> lstApplyDepartment;
+        /// <summary>
+        /// 部门/科室
+        /// </summary>
         public List<string> LstApplyDepartment
         {
             get { return lstApplyDepartment; }
@@ -51,6 +60,7 @@ namespace BioA.UI
                 lstApplyDepartment = value;
                 this.Invoke(new EventHandler(delegate
                     {
+                        this.combApplyDepartment.Properties.Items.Clear();
                         if (lstApplyDepartment != null)
                         {
                             combApplyDepartment.Properties.Items.AddRange(lstApplyDepartment);
@@ -61,6 +71,9 @@ namespace BioA.UI
             }
         }
         private List<string> lstApplyDoctor;
+        /// <summary>
+        /// 申请医生
+        /// </summary>
         public List<string> LstApplyDoctor
         {
             get { return lstApplyDoctor; }
@@ -69,6 +82,7 @@ namespace BioA.UI
                 lstApplyDoctor = value;
                 this.Invoke(new EventHandler(delegate
                 {
+                    this.combApplyDoctor.Properties.Items.Clear();
                     if (lstApplyDoctor != null)
                     {
                         combApplyDoctor.Properties.Items.AddRange(lstApplyDoctor);
@@ -79,6 +93,9 @@ namespace BioA.UI
             }
         }
         private List<string> lstCheckDoctor;
+        /// <summary>
+        /// 审核医生
+        /// </summary>
         public List<string> LstCheckDoctor
         {
             get { return lstCheckDoctor; }
@@ -87,6 +104,7 @@ namespace BioA.UI
                 lstCheckDoctor = value;
                 this.Invoke(new EventHandler(delegate
                 {
+                    this.combCheckDoctor.Properties.Items.Clear();
                     if (lstCheckDoctor != null)
                     {
                         combCheckDoctor.Properties.Items.AddRange(lstCheckDoctor);
@@ -97,6 +115,9 @@ namespace BioA.UI
             }
         }
         private List<string> lstInspectDoctor;
+        /// <summary>
+        /// 检验医生
+        /// </summary>
         public List<string> LstInspectDoctor
         {
             get { return lstInspectDoctor; }
@@ -105,6 +126,7 @@ namespace BioA.UI
                 lstInspectDoctor = value;
                 this.Invoke(new EventHandler(delegate
                 {
+                    combInspectDoctor.Properties.Items.Clear();
                     if (lstInspectDoctor != null)
                     {
                         combInspectDoctor.Properties.Items.AddRange(lstInspectDoctor);
@@ -153,7 +175,10 @@ namespace BioA.UI
                     }));
             }
         }
-
+        /// <summary>
+        /// 病人参数信息数据表
+        /// </summary>
+        DataTable dt = new DataTable();
         private List<PatientInfo> lstPatientInfo = new List<PatientInfo>();
         public List<PatientInfo> LstPatientInfo
         {
@@ -165,12 +190,7 @@ namespace BioA.UI
                 {
                     this.Invoke(new EventHandler(delegate
                         {
-
-                            DataTable dt = new DataTable();
-                            dt.Columns.Add("样本编号");
-                            dt.Columns.Add("样本ID");
-                            dt.Columns.Add("姓名");
-                            dt.Columns.Add("申请科室");
+                            dt.Rows.Clear();
 
                             foreach (PatientInfo patientInfo in lstPatientInfo)
                             {
@@ -256,6 +276,13 @@ namespace BioA.UI
         {
             InitializeComponent();
             this.Dock = DockStyle.Fill;
+
+
+            dt.Columns.Add("样本编号");
+            dt.Columns.Add("样本ID");
+            dt.Columns.Add("姓名");
+            dt.Columns.Add("申请科室");
+            lstvPatientInfo.DataSource = dt;
         }
         /// <summary>
         /// 发送信息给服务端
@@ -298,8 +325,6 @@ namespace BioA.UI
                 patient.ClinicalDiagnosis = txtClinicalDiagnosis.Text;
                 patient.Remarks = txtRemarks.Text;
 
-                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity),
-                //    new CommunicationEntity("UpdatePatientInfo", XmlUtility.Serializer(typeof(PatientInfo), patient))));
                 patientDictionary.Clear();
                 //修改病人信息
                 patientDictionary.Add("UpdatePatientInfo", new object[] { XmlUtility.Serializer(typeof(PatientInfo), patient) });
@@ -318,9 +343,9 @@ namespace BioA.UI
             }  
         }
 
-        private void PatientInfoEdit_Load(object sender, EventArgs e)
+        public void PatientInfoEdit_Load(object sender, EventArgs e)
         {
-            BeginInvoke(new Action(loadInputPatientInfo));
+            this.loadInputPatientInfo();
             
         }
         /// <summary>
@@ -352,10 +377,10 @@ namespace BioA.UI
             if (this.gridView1.GetSelectedRows().Count() > 0)
             {
                 selectedHandle = this.gridView1.GetSelectedRows()[0];
-                intSelectedNum = System.Convert.ToInt32(this.gridView1.GetRowCellValue(selectedHandle, "样本编号").ToString());
-                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity),
-                //new CommunicationEntity("QueryPatientInfoBySampleNum", intSelectedNum.ToString())));
-                //CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaApplyTask, new Dictionary<string, List<object>>() { { "QueryPatientInfoBySampleNum", new List<object>() { intSelectedNum.ToString() } } });
+                IntSelectedNum = System.Convert.ToInt32(this.gridView1.GetRowCellValue(selectedHandle, "样本编号").ToString());
+                //this.PatientInfoEdit_Load(null,null);
+
+                PatientInfoByNum = lstPatientInfo.SingleOrDefault(p => p.SampleNum == intSelectedNum);
             }
         }
     }

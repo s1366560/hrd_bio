@@ -21,7 +21,6 @@ namespace BioA.UI
         public delegate void CalibrationDelegate(Dictionary<string, object[]> sender);
         public event CalibrationDelegate CalibrationEvent;
 
-        List<CalibrationCurveInfo> listCalibrationCurveInfo = new List<CalibrationCurveInfo>();
         public CalibrationCurve()
         {
             InitializeComponent();
@@ -43,10 +42,10 @@ namespace BioA.UI
                 }));
             }
         }
-        CalibrationCurveInfo calibrationCurve = null;
+        CalibrationCurveInfo calibrationCurveStateInfo = null;
         public void AddCalibrationCurve(CalibrationCurveInfo calibrationCurveInfo)
         {
-            calibrationCurve = calibrationCurveInfo;
+            calibrationCurveStateInfo = calibrationCurveInfo;
             textEditProjectName.Text = calibrationCurveInfo.ProjectName;
             textEditSampleType.Text = calibrationCurveInfo.SampleType;
             textEditCalibMethod.Text = calibrationCurveInfo.CalibType;
@@ -141,8 +140,8 @@ namespace BioA.UI
             //    return x.BlkConc.CompareTo(y.BlkAbs);
             //});
 
-            this.Invoke(new EventHandler(delegate
-            {
+            //this.Invoke(new EventHandler(delegate
+            //{
                 float f = 0.0f;
                 if (listCalibrationCurve != null )
                 {
@@ -243,7 +242,7 @@ namespace BioA.UI
                         this.textEditFactor6.Text = float.IsNaN(f) == true ? "0.00" : f.ToString("#0.00");
                     }
                 }
-            }));
+            //}));
 
 
         }
@@ -253,23 +252,27 @@ namespace BioA.UI
         {
             //List<DateTime> str = new List<DateTime>();
 
-             this.Invoke(new EventHandler(delegate
+             //this.Invoke(new EventHandler(delegate
+             //   {
+            
+            int i;
+            for (i = 0; i < listCalibrationCurve.Count; i++)
+            {
+                lisCalibrationCurve.Add(listCalibrationCurve[i]);
+                comBoxEditCalibTime.Properties.Items.Add(listCalibrationCurve[i].DrawDate);
+                if(listCalibrationCurve[i].IsUsed == true)
                 {
-                    int i;
-                    for (i = 0; i < listCalibrationCurve.Count; i++)
-                    {
-                        lisCalibrationCurve.Add(listCalibrationCurve[i]);
-                        comBoxEditCalibTime.Properties.Items.Add(listCalibrationCurve[i].DrawDate);
-                        if(listCalibrationCurve[i].IsUsed == true)
-                        {
-                            comBoxEditCalibTime.SelectedIndex = i;
-                        }
-                    }
-                    if(comBoxEditCalibTime.Text == "" && listCalibrationCurve.Count > 0)
-                    {
-                        comBoxEditCalibTime.SelectedIndex = i - 1;
-                    }
-                }));           
+                    if (comBoxEditCalibTime.SelectedIndex == -1)
+                        comBoxEditCalibTime.SelectedIndex = i;
+                    else
+                        comBoxEditCalibTime_SelectedIndexChanged(null,null);
+                }
+            }
+            if(comBoxEditCalibTime.Text == "" && listCalibrationCurve.Count > 0)
+            {
+                comBoxEditCalibTime.SelectedIndex = i - 1;
+            }
+                //}));           
         }
 
         private void comBoxEditCalibTime_SelectedIndexChanged(object sender, EventArgs e)
@@ -345,10 +348,12 @@ namespace BioA.UI
 
         }
 
-        private void CalibrationCurve_Load(object sender, EventArgs e)
+        public void CalibrationCurve_Load(object sender, EventArgs e)
         {
+            this.lisCalibrationCurve.Clear();
+            comBoxEditCalibTime.Properties.Items.Clear();
             Calibrator calibrator = new Calibrator();
-            SelectedlistCalibrationCurve(calibrator.QueryCalibrationCurveInfo("QueryCalibrationCurveInfo", calibrationCurve));
+            SelectedlistCalibrationCurve(calibrator.QueryCalibrationCurveInfo("QueryCalibrationCurveInfo", calibrationCurveStateInfo));
         }
 
       

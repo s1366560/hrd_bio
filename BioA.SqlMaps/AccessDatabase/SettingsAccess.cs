@@ -29,7 +29,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog(e.ToString(), Module.WindowsService);
+                LogInfo.WriteErrorLog("SelectAssayProCountByNameAndType(string strAccessDBMethod, AssayProjectInfo assayProject) == "+e.ToString(), Module.Setting);
             }
             return resultCout;
         }
@@ -45,7 +45,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog(e.ToString(), Module.WindowsService);
+                LogInfo.WriteErrorLog("DeleteAssayProCountByNameAndType(string strAccessDBMethod, AssayProjectInfo assayProject) ==" +e.ToString(), Module.WindowsService);
             }
             return deletecount;
         }
@@ -91,7 +91,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog(e.ToString(), Module.WindowsService);
+                LogInfo.WriteErrorLog("UpdateAssayProCountByNameAndType(string strAccessDBMethod, AssayProjectInfo assayProInfoOld, AssayProjectInfo assayProject2) == " + e.ToString(), Module.WindowsService);
             }
             return iResult;
         }
@@ -126,7 +126,7 @@ namespace BioA.SqlMaps
             }
             catch(Exception e)
             {
-                LogInfo.WriteErrorLog("AssayProjectParamInfo AddAssayProject(string strAccessDBMethod, AssayProjectInfo assayProject) ==" + e.Message.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("AssayProjectParamInfo AddAssayProject(string strAccessDBMethod, AssayProjectInfo assayProject) ==" + e.Message.ToString(), Module.Setting);
             }
             return assayProjectParamInfo;
         }
@@ -200,9 +200,8 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("SettingsAccess.cs_QueryAssayProAllInfo(string strDBMethod, AssayProjectInfo assayProInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("SettingsAccess.cs_QueryAssayProAllInfo(string strDBMethod, AssayProjectInfo assayProInfo)==" + e.ToString(), Module.Setting);
             }
-            LogInfo.WriteProcessLog(lstAssayProInfos.Count.ToString(), Module.DAO);
             return lstProjectInfo;
         }
 
@@ -280,7 +279,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("SettingsAccess_GetAssayProjectParamInfoByNameAndType(string strDBMethod, AssayProjectInfo assayProInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("SettingsAccess_GetAssayProjectParamInfoByNameAndType(string strDBMethod, AssayProjectInfo assayProInfo)==" + e.ToString(), Module.Setting);
             }
             return assayProParam;
         }
@@ -343,7 +342,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("SettingsAccess_GetAssayProjectParamInfoByNameAndType(string strDBMethod, AssayProjectInfo assayProInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("SettingsAccess_GetAssayProjectParamInfoByNameAndType(string strDBMethod, AssayProjectInfo assayProInfo)==" + e.ToString(), Module.Setting);
             }
             return lstAssayProParamsResult;
         }
@@ -362,7 +361,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("SettingsAccess_QueryProjectResultUnits(string strDBMethod, object sender)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("SettingsAccess_QueryProjectResultUnits(string strDBMethod, object sender)==" + e.ToString(), Module.Setting);
             }
 
             return lstUnits;
@@ -384,7 +383,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateAssayProjectParamInfo(string strDBMethod, AssayProjectParamInfo assayProParamInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateAssayProjectParamInfo(string strDBMethod, AssayProjectParamInfo assayProParamInfo)==" + e.ToString(), Module.Setting);
             }
             return i;
         }
@@ -404,7 +403,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryCalibParamByProNameAndType(string strDBMethod, AssayProjectInfo assayProInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryCalibParamByProNameAndType(string strDBMethod, AssayProjectInfo assayProInfo)==" + e.ToString(), Module.Setting);
             }
 
             return calibParamInfo;
@@ -425,31 +424,10 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryCalibParamByProNameAndType(string strDBMethod, AssayProjectInfo assayProInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryCalibParamByProNameAndType(string strDBMethod, AssayProjectInfo assayProInfo)==" + e.ToString(), Module.Setting);
             }
 
             return lstCalibParamInfo;
-        }
-
-        /// <summary>
-        /// 通过项目名称和项目类型更新项目校准参数
-        /// </summary>
-        /// <param name="strDBMethod"></param>
-        /// <param name="assayProInfo"></param>
-        /// <returns></returns>
-        public int UpdateCalibParamByProNameAndType(string strDBMethod, AssayProjectCalibrationParamInfo assayProInfo)
-        {
-            int intResult = 0;
-            try
-            {
-                intResult = ism_SqlMap.Update("AssayProjectInfo." + strDBMethod, assayProInfo);
-            }
-            catch (Exception e)
-            {
-                LogInfo.WriteErrorLog("UpdateCalibParamByProNameAndType(string strDBMethod, AssayProjectCalibrationParamInfo assayProInfo)==" + e.ToString(), Module.DAO);
-            }
-
-            return intResult;
         }
 
         /// <summary>
@@ -468,7 +446,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryRangeParam(string strDBMethod, AssayProjectInfo assayProInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryRangeParam(string strDBMethod, AssayProjectInfo assayProInfo)==" + e.ToString(), Module.Setting);
             }
 
             return lstRangeParamInfo;
@@ -510,7 +488,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateRangeParamByProNameAndType(string strDBMethod, AssayProjectRangeParamInfo assayProInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateRangeParamByProNameAndType(string strDBMethod, AssayProjectRangeParamInfo assayProInfo)==" + e.ToString(), Module.Setting);
             }
 
             return intResult;
@@ -538,7 +516,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryAssayProAllInfoByDistinctProName(string strDBMethod, object ObjParam)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryAssayProAllInfoByDistinctProName(string strDBMethod, object ObjParam)==" + e.ToString(), Module.Setting);
             }
 
             return assayProInfos;
@@ -560,7 +538,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("ProjectPageinfoForCalc(string strDBMethod, object ObjParam)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("ProjectPageinfoForCalc(string strDBMethod, object ObjParam)==" + e.ToString(), Module.Setting);
             }
 
             return assayProInfos;
@@ -593,7 +571,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryCombProjectAllInfo(string strDBMethod)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryCombProjectAllInfo(string strDBMethod)==" + e.ToString(), Module.Setting);
             }
 
             return lstCombProInfos;
@@ -615,7 +593,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryProjectByCombProName(string strDBMethod, string CombProName)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryProjectByCombProName(string strDBMethod, string CombProName)==" + e.ToString(), Module.Setting);
             }
 
             return lstProNames;
@@ -635,7 +613,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryProjectByCombProName(string strDBMethod, string CombProName)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryProjectByCombProName(string strDBMethod, string CombProName)==" + e.ToString(), Module.Setting);
             }
 
             return lstProjectAndCombProName;
@@ -646,16 +624,16 @@ namespace BioA.SqlMaps
         /// </summary>
         /// <param name="strDBMethod"></param>
         /// <param name="combProjectInfo"></param>
-        public int AddCombProjectName(string strDBMethod, CombProjectInfo combProjectInfo)
+        public string AddCombProjectName(string strDBMethod, CombProjectInfo combProjectInfo)
         {
-            int intResult = 0;
+            string sResult = "添加组合项目成功！";
             try
             {
                 Hashtable hash = new Hashtable();
                 hash.Add("CombProjectName", combProjectInfo.CombProjectName);
                 hash.Add("CombProjectCount", combProjectInfo.CombProjectCount);
-                LogInfo.WriteErrorLog(combProjectInfo.CombProjectCount.ToString(), Module.DAO);
                 hash.Add("Remarks", combProjectInfo.Remarks);
+                ism_SqlMap.BeginTransaction();
                 ism_SqlMap.Insert("CombProjectInfo." + strDBMethod, combProjectInfo);
                 foreach (string strPro in combProjectInfo.ProjectNames)
                 {
@@ -666,14 +644,16 @@ namespace BioA.SqlMaps
 
                     ism_SqlMap.Insert("CombProjectInfo.AddCombProject", ht);
                 }
-                intResult = 1;
                 
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("AddCombProject(string strDBMethod, CombProjectInfo combProjectInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("AddCombProject(string strDBMethod, CombProjectInfo combProjectInfo)==" + e.ToString(), Module.Setting);
+                sResult = "添加组合项目失败！";
+                ism_SqlMap.RollBackTransaction();
             }
-            return intResult;
+            ism_SqlMap.CommitTransaction();
+            return sResult;
         }
         /// <summary>
         /// 通过组合项目名称获取条数
@@ -690,7 +670,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("CombProjectCountByCombProName(string strDBMethod, string strCombProName)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("CombProjectCountByCombProName(string strDBMethod, string strCombProName)==" + e.ToString(), Module.Setting);
             }
 
             return intResult;
@@ -701,23 +681,26 @@ namespace BioA.SqlMaps
         /// <param name="strDBMethod"></param>
         /// <param name="combProjectInfo"></param>
         /// <returns></returns>
-        public int DeleteCombProjectName(string strDBMethod, List<CombProjectInfo> combProjectInfos)
+        public string DeleteCombProjectName(string strDBMethod, List<CombProjectInfo> combProjectInfos)
         {
-            int intResult = 0;
+            string sDeleteResult = "删除组合项目成功！";
             try
             {
+                ism_SqlMap.BeginTransaction();
                 foreach (CombProjectInfo proInfo in combProjectInfos)
                 {
-                    intResult += ism_SqlMap.Delete("CombProjectInfo." + strDBMethod, proInfo.CombProjectName);
+                    ism_SqlMap.Delete("CombProjectInfo." + strDBMethod, proInfo.CombProjectName);
                     ism_SqlMap.Delete("CombProjectInfo.DeleteCombProject", proInfo.CombProjectName);
                 }
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("DeleteCombProject(string strDBMethod, CombProjectInfo combProjectInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("DeleteCombProject(string strDBMethod, CombProjectInfo combProjectInfo)==" + e.ToString(), Module.Setting);
+                sDeleteResult = "删除组合项目失败！";
+                ism_SqlMap.RollBackTransaction();
             }
-
-            return intResult;
+            ism_SqlMap.CommitTransaction();
+            return sDeleteResult;
         }
         /// <summary>
         /// 更新组合项目
@@ -725,9 +708,9 @@ namespace BioA.SqlMaps
         /// <param name="strDBMethod">访问数据库方法名</param>
         /// <param name="combProjectInfo">更新参数</param>
         /// <returns>更新条数</returns>
-        public int UpdateCombProjectName(string strDBMethod, string combProjectInfoOld, CombProjectInfo combProInfoNew)
+        public string UpdateCombProjectName(string strDBMethod, string combProjectInfoOld, CombProjectInfo combProInfoNew)
         {
-            int intResult = 0;
+            string sResult = "修改组合项目成功！";
             try
             {
                 Hashtable hash = new Hashtable();
@@ -736,7 +719,8 @@ namespace BioA.SqlMaps
                 hash.Add("CombProjectCountNew", combProInfoNew.CombProjectCount);
                 hash.Add("RemarksNew", combProInfoNew.Remarks);
 
-                intResult = ism_SqlMap.Update("CombProjectInfo." + strDBMethod, hash);
+                ism_SqlMap.BeginTransaction();
+                ism_SqlMap.Update("CombProjectInfo." + strDBMethod, hash);
 
                 // 删除组合项目对应项目列表
                 ism_SqlMap.Delete("CombProjectInfo.DeleteCombProject", combProjectInfoOld);
@@ -751,10 +735,12 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateCombProject(string strDBMethod, CombProjectInfo combProjectInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateCombProjectName(string strDBMethod, string combProjectInfoOld, CombProjectInfo combProInfoNew)==" + e.ToString(), Module.Setting);
+                sResult = "修改组合项目失败！";
+                ism_SqlMap.RollBackTransaction();
             }
-
-            return intResult;
+            ism_SqlMap.CommitTransaction();
+            return sResult;
         }
 
         /// <summary>
@@ -772,7 +758,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryCalcProjectAllInfo(string strDBMethod)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryCalcProjectAllInfo(string strDBMethod)==" + e.ToString(), Module.Setting);
             }
 
             return lstCalcProInfos;
@@ -783,16 +769,19 @@ namespace BioA.SqlMaps
         /// </summary>
         /// <param name="strDBMethod"></param>
         /// <param name="combProjectInfo"></param>
-        public void AddCalcProject(string strDBMethod, CalcProjectInfo calcProjectInfo)
+        public string AddCalcProject(string strDBMethod, CalcProjectInfo calcProjectInfo)
         {
+            string sAddResult = "计算项目添加成功！";
             try
             {
                 ism_SqlMap.Insert("CalcProjectInfo." + strDBMethod, calcProjectInfo);
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("AddCalcProject(string strDBMethod, CalcProjectInfo calcProjectInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("AddCalcProject(string strDBMethod, CalcProjectInfo calcProjectInfo)==" + e.ToString(), Module.Setting);
+                sAddResult = "计算项目添加失败！";
             }
+            return sAddResult;
         }
 
         /// <summary>
@@ -801,22 +790,23 @@ namespace BioA.SqlMaps
         /// <param name="strDBMethod"></param>
         /// <param name="combProjectInfo"></param>
         /// <returns></returns>
-        public int DeleteCalcProject(string strDBMethod, List<CalcProjectInfo> calcProjectInfos)
+        public string DeleteCalcProject(string strDBMethod, List<CalcProjectInfo> calcProjectInfos)
         {
-            int intResult = 0;
+            string sDeleteResult = "计算项目删除成功！";
             try
             {
                 foreach (CalcProjectInfo proInfo in calcProjectInfos)
                 {
-                    intResult += ism_SqlMap.Delete("CalcProjectInfo." + strDBMethod, proInfo);
+                    ism_SqlMap.Delete("CalcProjectInfo." + strDBMethod, proInfo);
                 }
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("DeleteCalcProject(string strDBMethod, List<CalcProjectInfo> calcProjectInfos)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("DeleteCalcProject(string strDBMethod, List<CalcProjectInfo> calcProjectInfos)==" + e.ToString(), Module.Setting);
+                sDeleteResult = "计算项目删除失败！";
             }
 
-            return intResult;
+            return sDeleteResult;
         }
         /// <summary>
         /// 更新计算项目
@@ -824,9 +814,9 @@ namespace BioA.SqlMaps
         /// <param name="strDBMethod">访问数据库方法名</param>
         /// <param name="combProjectInfo">更新参数</param>
         /// <returns>更新条数</returns>
-        public int UpdateCalcProject(string strDBMethod, CalcProjectInfo calcProjectInfoOld, CalcProjectInfo calcProInfoNew)
+        public string UpdateCalcProject(string strDBMethod, CalcProjectInfo calcProjectInfoOld, CalcProjectInfo calcProInfoNew)
         {
-            int intResult = 0;
+            string sResult = "更新计算项目成功！";
             try
             {
                 Hashtable hash = new Hashtable();
@@ -840,14 +830,15 @@ namespace BioA.SqlMaps
                 hash.Add("ReferenceRangeHigh", calcProInfoNew.ReferenceRangeHigh);
                 hash.Add("CalcFormula", calcProInfoNew.CalcFormula);
 
-                intResult = ism_SqlMap.Update("CalcProjectInfo." + strDBMethod, hash);
+                ism_SqlMap.Update("CalcProjectInfo." + strDBMethod, hash);
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateCalcProject(string strDBMethod, CalcProjectInfo calcProjectInfoOld, CalcProjectInfo calcProInfoNew)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateCalcProject(string strDBMethod, CalcProjectInfo calcProjectInfoOld, CalcProjectInfo calcProInfoNew)==" + e.ToString(), Module.Setting);
+                sResult = "更新计算项目失败！";
             }
 
-            return intResult;
+            return sResult;
         }
         /// <summary>
         /// 获取计算项目条数通过计算项目名称
@@ -868,7 +859,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("ProjectCountByCalcProName(string strDBMethod, CalcProjectInfo calcProjectInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("ProjectCountByCalcProName(string strDBMethod, CalcProjectInfo calcProjectInfo)==" + e.ToString(), Module.Setting);
             }
 
             return intResult;
@@ -898,7 +889,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateEnvironmentParamInfo(string strDBMethod, EnvironmentParamInfo environmentParamInfo, RunningStateInfo running)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateEnvironmentParamInfo(string strDBMethod, EnvironmentParamInfo environmentParamInfo, RunningStateInfo running)==" + e.ToString(), Module.Setting);
             }
 
             return intResult;
@@ -915,9 +906,9 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("SettingsAccess.cs_QueryAssayProAllInfo(string strDBMethod, AssayProjectInfo assayProInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("SettingsAccess.cs_QueryAssayProAllInfo(string strDBMethod, AssayProjectInfo assayProInfo)==" + e.ToString(), Module.Setting);
             }
-            LogInfo.WriteProcessLog(lstLISCommunicateInfos.Count.ToString(), Module.DAO);
+            LogInfo.WriteProcessLog(lstLISCommunicateInfos.Count.ToString(), Module.Setting);
             return lstLISCommunicateInfos;
         }
         /// <summary>
@@ -935,9 +926,9 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("SettingsAccess.cs_QueryAssayProAllInfo(string strDBMethod, AssayProjectInfo assayProInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("SettingsAccess.cs_QueryAssayProAllInfo(string strDBMethod, AssayProjectInfo assayProInfo)==" + e.ToString(), Module.Setting);
             }
-            LogInfo.WriteProcessLog(lstLISCommunicateInfos.Count.ToString(), Module.DAO);
+            LogInfo.WriteProcessLog(lstLISCommunicateInfos.Count.ToString(), Module.Setting);
             return lstLISCommunicateInfos;
         }
 
@@ -957,7 +948,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateLISCommunicateInfo(string strDBMethod, EnvironmentParamInfo environmentParamInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateLISCommunicateInfo(string strDBMethod, EnvironmentParamInfo environmentParamInfo)==" + e.ToString(), Module.Setting);
             }
 
             return intResult;
@@ -979,7 +970,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateLISCommunicateInfo(string strDBMethod, EnvironmentParamInfo environmentParamInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateLISCommunicateInfo(string strDBMethod, EnvironmentParamInfo environmentParamInfo)==" + e.ToString(), Module.Setting);
             }
 
             return intResult;
@@ -1001,25 +992,25 @@ namespace BioA.SqlMaps
 
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.Setting);
             }
            
             return lstQueryDataConfig;
         }
 
-        public void DataConfigadd(string strDBMethod, string dataConfig)
+        public string DataConfigadd(string strDBMethod, string dataConfig)
         {
-            Hashtable hashTable = new Hashtable();
-            hashTable.Add("dataConfig", dataConfig);
+            string sAddResult = "新增结果单位成功！";
             try
             {
-                ism_SqlMap.Insert("DataConfig." + strDBMethod, hashTable);
+                ism_SqlMap.Insert("DataConfig." + strDBMethod, dataConfig);
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("AddDataConfig(string strDBMethod, CalcProjectInfo calcProjectInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("AddDataConfig(string strDBMethod, CalcProjectInfo calcProjectInfo)==" + e.ToString(), Module.Setting);
+                sAddResult = "新增结果单位失败！";
             }
-            
+            return sAddResult;
         }
 
         public int SelectDataConfig(string strDBMethod, string dataConfig)
@@ -1027,50 +1018,47 @@ namespace BioA.SqlMaps
             int intResult = 0;
             try
             {
-                Hashtable hashTable = new Hashtable();
-                hashTable.Add("dataConfig", dataConfig);
-                intResult= (int)ism_SqlMap.QueryForObject("DataConfig." + strDBMethod, hashTable);
+                intResult = (int)ism_SqlMap.QueryForObject("DataConfig." + strDBMethod, dataConfig);
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("public int SelectDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("public int SelectDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.Setting);
             }
             return intResult;
         }
 
-        public int UpdateDataConfig(string strDBMethod, string dataConfig, string dataConfigOld)
+        public string UpdateDataConfig(string strDBMethod, string dataConfig, string dataConfigOld)
         {
-            int intResult = 0;
+            string sUpdateResult = "修改结果单位成功！";
             try
             {
                 Hashtable hashTable = new Hashtable();
                 hashTable.Add("dataConfig", dataConfig);
                 hashTable.Add("dataConfigOld", dataConfigOld);
 
-                intResult = (int)ism_SqlMap.Update("DataConfig." + strDBMethod, hashTable);
+                ism_SqlMap.Update("DataConfig." + strDBMethod, hashTable);
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateDataConfig(string strDBMethod, string dataConfig, string dataConfigOld)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateDataConfig(string strDBMethod, string dataConfig, string dataConfigOld)==" + e.ToString(), Module.Setting);
+                sUpdateResult = "修改结果单位失败！";
             }
-
-            return intResult;
+            return sUpdateResult;
         }
 
-        public int DeleteDataConfig(string strDBMethod, string dataConfig)
+        public string DeleteDataConfig(string strDBMethod, string dataConfig)
         {
-            int intResult = 0;
+            string sDeleteResult = "删除结果单位成功！";
             try
             {
-                Hashtable hashTable = new Hashtable();
-                hashTable.Add("dataConfig", dataConfig);
-                intResult = (int)ism_SqlMap.Delete("DataConfig." + strDBMethod, hashTable);
+                ism_SqlMap.Delete("DataConfig." + strDBMethod, dataConfig);
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("DeleteDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("DeleteDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.Setting);
+                sDeleteResult = "删除结果单位失败！";
             }
-            return intResult;
+            return sDeleteResult;
         }
 
         public int SelectReagentNeedle(string strDBMethod, ReagentNeedleAntifoulingStrategyInfo reagentNeedleAntifoulingStrategyInfo)
@@ -1091,18 +1079,24 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("public int SelectReagentNeedle(string strDBMethod, ReagentNeedleAntifoulingStrategyInfo reagentNeedleAntifoulingStrategyInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("public int SelectReagentNeedle(string strDBMethod, ReagentNeedleAntifoulingStrategyInfo reagentNeedleAntifoulingStrategyInfo)==" + e.ToString(), Module.Setting);
             }
             return intResult;
         }
-
-        public void ReagentNeedleadd(string strDBMethod, ReagentNeedleAntifoulingStrategyInfo reagentNeedleAntifoulingStrategyInfo)
+        /// <summary>
+        /// 新增试剂针反交叉污染策略
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <param name="reagentNeedleAntifoulingStrategyInfo"></param>
+        /// <returns></returns>
+        public string ReagentNeedleadd(string strDBMethod, ReagentNeedleAntifoulingStrategyInfo reagentNeedleAntifoulingStrategyInfo)
         {
+            string sAddResult = "试剂针防污策略创建成功！";
             Hashtable hashTable = new Hashtable();
             hashTable.Add("ReagentNeedle", reagentNeedleAntifoulingStrategyInfo.ReagentNeedle);
-            hashTable.Add("PolluteSourcePro", reagentNeedleAntifoulingStrategyInfo.PolluteProName);
+            hashTable.Add("PolluteProName", reagentNeedleAntifoulingStrategyInfo.PolluteProName);
             hashTable.Add("PolluteProType", reagentNeedleAntifoulingStrategyInfo.PolluteProType);
-            hashTable.Add("BePollutedPro", reagentNeedleAntifoulingStrategyInfo.BePollutedProName);
+            hashTable.Add("BePollutedProName", reagentNeedleAntifoulingStrategyInfo.BePollutedProName);
             hashTable.Add("BePollutedProType", reagentNeedleAntifoulingStrategyInfo.BePollutedProType);
             hashTable.Add("CleaningLiquidName", reagentNeedleAntifoulingStrategyInfo.CleaningLiquidName);
             hashTable.Add("CleaningLiquidUseVol", reagentNeedleAntifoulingStrategyInfo.CleaningLiquidUseVol);
@@ -1113,8 +1107,10 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("public void ReagentNeedleadd(string strDBMethod, ReagentNeedleAntifoulingStrategyInfo reagentNeedleAntifoulingStrategyInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("public void ReagentNeedleadd(string strDBMethod, ReagentNeedleAntifoulingStrategyInfo reagentNeedleAntifoulingStrategyInfo)==" + e.ToString(), Module.Setting);
+                sAddResult = "试剂针防污策略创建失败，请联系管理员！";
             }
+            return sAddResult;
             
         }
         /// <summary>
@@ -1132,7 +1128,7 @@ namespace BioA.SqlMaps
 
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.Setting);
             }
 
             return lstQueryReagentNeedle;
@@ -1148,33 +1144,34 @@ namespace BioA.SqlMaps
 
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.Setting);
             }
 
             return lstQueryReagentNeedle;
         }
 
-        public int DeleteReagentNeedle(string strDBMethod, ReagentNeedleAntifoulingStrategyInfo reagentNeedleAntifoulingStrategyInfo)
+        public string DeleteReagentNeedle(string strDBMethod, ReagentNeedleAntifoulingStrategyInfo reagentNeedleAntifoulingStrategyInfo)
         {
-            int intResult = 0;
+            string sDeleteResult = "试剂针防污策略刹删除成功！";
+            Hashtable hashTable = new Hashtable();
+            hashTable.Add("ReagentNeedle", reagentNeedleAntifoulingStrategyInfo.ReagentNeedle);
+            hashTable.Add("PolluteProName", reagentNeedleAntifoulingStrategyInfo.PolluteProName);
+            hashTable.Add("PolluteProType", reagentNeedleAntifoulingStrategyInfo.PolluteProType);
+            hashTable.Add("BePollutedProName", reagentNeedleAntifoulingStrategyInfo.BePollutedProName);
+            hashTable.Add("BePollutedProType", reagentNeedleAntifoulingStrategyInfo.BePollutedProType);
+            hashTable.Add("CleaningLiquidName", reagentNeedleAntifoulingStrategyInfo.CleaningLiquidName);
+            hashTable.Add("CleaningLiquidUseVol", reagentNeedleAntifoulingStrategyInfo.CleaningLiquidUseVol);
+            hashTable.Add("CleanTimes", reagentNeedleAntifoulingStrategyInfo.CleanTimes);
             try
             {
-                Hashtable hashTable = new Hashtable();
-                hashTable.Add("ReagentNeedle", reagentNeedleAntifoulingStrategyInfo.ReagentNeedle);
-                hashTable.Add("PolluteSourcePro", reagentNeedleAntifoulingStrategyInfo.PolluteProName);
-                hashTable.Add("PolluteProType", reagentNeedleAntifoulingStrategyInfo.PolluteProType);
-                hashTable.Add("BePollutedPro", reagentNeedleAntifoulingStrategyInfo.BePollutedProName);
-                hashTable.Add("BePollutedProType", reagentNeedleAntifoulingStrategyInfo.BePollutedProType);
-                hashTable.Add("CleaningLiquidName", reagentNeedleAntifoulingStrategyInfo.CleaningLiquidName);
-                hashTable.Add("CleaningLiquidUseVol", reagentNeedleAntifoulingStrategyInfo.CleaningLiquidUseVol);
-                hashTable.Add("CleanTimes", reagentNeedleAntifoulingStrategyInfo.CleanTimes);
-                intResult = (int)ism_SqlMap.Delete("ReagentNeedleInfo." + strDBMethod, hashTable);
+                ism_SqlMap.Delete("ReagentNeedleInfo." + strDBMethod, hashTable);
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("DeleteDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("DeleteDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.Setting);
+                sDeleteResult = "试剂针防污策略刹删除失败！";
             }
-            return intResult;
+            return sDeleteResult;
         }
 
         public string UpdateReagentNeedle(string strDBMethod, ReagentNeedleAntifoulingStrategyInfo reagentNeedleAntifoulingStrategyInfo, ReagentNeedleAntifoulingStrategyInfo reagentNeedleAntifoulingStrategyInfoOld)
@@ -1184,39 +1181,33 @@ namespace BioA.SqlMaps
             {
                 Hashtable hash = new Hashtable();
                 hash.Add("ReagentNeedle", reagentNeedleAntifoulingStrategyInfo.ReagentNeedle);
-                hash.Add("PolluteSourcePro", reagentNeedleAntifoulingStrategyInfo.PolluteProName);
+                hash.Add("PolluteProName", reagentNeedleAntifoulingStrategyInfo.PolluteProName);
                 hash.Add("PolluteProType", reagentNeedleAntifoulingStrategyInfo.PolluteProType);
-                hash.Add("BePollutedPro", reagentNeedleAntifoulingStrategyInfo.BePollutedProName);
+                hash.Add("BePollutedProName", reagentNeedleAntifoulingStrategyInfo.BePollutedProName);
                 hash.Add("BePollutedProType", reagentNeedleAntifoulingStrategyInfo.BePollutedProType);
                 hash.Add("CleaningLiquidName", reagentNeedleAntifoulingStrategyInfo.CleaningLiquidName);
                 hash.Add("CleaningLiquidUseVol", reagentNeedleAntifoulingStrategyInfo.CleaningLiquidUseVol);
                 hash.Add("CleanTimes", reagentNeedleAntifoulingStrategyInfo.CleanTimes);
                 hash.Add("ReagentNeedleOld", reagentNeedleAntifoulingStrategyInfoOld.ReagentNeedle);
-                hash.Add("PolluteSourceProOld", reagentNeedleAntifoulingStrategyInfoOld.PolluteProName);
+                hash.Add("PolluteProNameOld", reagentNeedleAntifoulingStrategyInfoOld.PolluteProName);
                 hash.Add("PolluteProTypeOld", reagentNeedleAntifoulingStrategyInfoOld.PolluteProType);
-                hash.Add("BePollutedProOld", reagentNeedleAntifoulingStrategyInfoOld.BePollutedProName);
+                hash.Add("BePollutedProNameOld", reagentNeedleAntifoulingStrategyInfoOld.BePollutedProName);
                 hash.Add("BePollutedProTypeOld", reagentNeedleAntifoulingStrategyInfoOld.BePollutedProType);
 
-                int i = SelectReagentNeedle("QueryReagentNeedleAdd", reagentNeedleAntifoulingStrategyInfo);
-                if (i > 0)
-                {
-                    strResult = "该试剂针防污策略已存在，保存失败！";
-                    return strResult;
-                }
                 int iUpdate = ism_SqlMap.Update("ReagentNeedleInfo." + strDBMethod, hash);
 
                 if (iUpdate > 0)
                 {
-                    strResult = "保存成功！";
+                    strResult = "试剂针防污策略修改成功！";
                 }
                 else
                 {
-                    strResult = "保存失败！";
+                    strResult = "试剂针防污策略修改失败！";
                 }
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateReagentNeedle(string strDBMethod, CalcProjectInfo calcProjectInfoOld, CalcProjectInfo calcProInfoNew)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateReagentNeedle(string strDBMethod, CalcProjectInfo calcProjectInfoOld, CalcProjectInfo calcProInfoNew)==" + e.ToString(), Module.Setting);
             }
 
             return strResult;
@@ -1232,7 +1223,7 @@ namespace BioA.SqlMaps
 
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryEnvironmentParamInfo(string strDBMethod)" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryEnvironmentParamInfo(string strDBMethod)" + e.ToString(), Module.Setting);
             }
 
             return lstEnvironmentInfos;
@@ -1252,7 +1243,7 @@ namespace BioA.SqlMaps
 
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryRuningSateInfo(string strDBMethod)" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryRuningSateInfo(string strDBMethod)" + e.ToString(), Module.Setting);
             }
 
             return runningstateinfo;
@@ -1262,17 +1253,17 @@ namespace BioA.SqlMaps
         /// </summary>
         /// <param name="strDBMethod"></param>
         /// <returns></returns>
-        public List<string> QueryDilutionRatio(string strDBMethod)
+        public List<float> QueryDilutionRatio(string strDBMethod)
         {
-            List<string> lstQueryDilutionRatio = new List<string>();
+            List<float> lstQueryDilutionRatio = new List<float>();
             try
             {
-                lstQueryDilutionRatio = (List<string>)ism_SqlMap.QueryForList<string>("DataConfig.QueryDilutionRatio", null);
+                lstQueryDilutionRatio = (List<float>)ism_SqlMap.QueryForList<float>("DataConfig.QueryDilutionRatio", null);
             }
 
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.Setting);
             }
 
             return lstQueryDilutionRatio;
@@ -1283,13 +1274,11 @@ namespace BioA.SqlMaps
             int intResult = 0;
             try
             {
-                Hashtable hashTable = new Hashtable();
-                hashTable.Add("DilutionRatio", dataConfig);
-                intResult = (int)ism_SqlMap.QueryForObject("DataConfig." + strDBMethod, hashTable);
+                intResult = (int)ism_SqlMap.QueryForObject("DataConfig." + strDBMethod, dataConfig);
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("public int SelectDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("public int SelectDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.Setting);
             }
             return intResult;
         }
@@ -1298,18 +1287,19 @@ namespace BioA.SqlMaps
         /// </summary>
         /// <param name="strDBMethod"></param>
         /// <param name="dataConfig"></param>
-        public void DilutionRatioadd(string strDBMethod, string dataConfig)
+        public string DilutionRatioadd(string strDBMethod, string dataConfig)
         {
-            Hashtable hashTable = new Hashtable();
-            hashTable.Add("DilutionRatio", dataConfig);
+            string sAddResult = "稀释比例创建成功！";
             try
             {
-                ism_SqlMap.Insert("DataConfig." + strDBMethod, hashTable);
+                ism_SqlMap.Insert("DataConfig." + strDBMethod, dataConfig);
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("AddDataConfig(string strDBMethod, CalcProjectInfo calcProjectInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("AddDataConfig(string strDBMethod, CalcProjectInfo calcProjectInfo)==" + e.ToString(), Module.Setting);
+                sAddResult = "稀释比例创建失败！";
             }
+            return sAddResult;
         }
         /// <summary>
         /// 获取打印设置
@@ -1352,39 +1342,38 @@ namespace BioA.SqlMaps
             }
             return intResult;
         }
-        public int UpdataDilutionRatio(string strDBMethod, string dataConfig, string dataConfigOld)
+        public string UpdataDilutionRatio(string strDBMethod, string dataConfig, string dataConfigOld)
         {
-            int intResult = 0;
+            string sUpdateResult = "稀释比例修改成功！";
             try
             {
                 Hashtable hashTable = new Hashtable();
                 hashTable.Add("DilutionRatio", dataConfig);
                 hashTable.Add("DilutionRatioOld", dataConfigOld);
-
-                intResult = (int)ism_SqlMap.Update("DataConfig." + strDBMethod, hashTable);
+                ism_SqlMap.Update("DataConfig." + strDBMethod, hashTable);
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateDataConfig(string strDBMethod, string dataConfig, string dataConfigOld)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateDataConfig(string strDBMethod, string dataConfig, string dataConfigOld)==" + e.ToString(), Module.Setting);
+                sUpdateResult = "稀释比例修改失败！";
             }
 
-            return intResult;
+            return sUpdateResult;
         }
 
-        public int DeleteDilutionRatio(string strDBMethod, string dataConfig)
+        public string DeleteDilutionRatio(string strDBMethod, string dataConfig)
         {
-            int intResult = 0;
+            string sDeleteResult = "稀释比例删除成功！";
             try
             {
-                Hashtable hashTable = new Hashtable();
-                hashTable.Add("DilutionRatio", dataConfig);
-                intResult = (int)ism_SqlMap.Delete("DataConfig." + strDBMethod, hashTable);
+                ism_SqlMap.Delete("DataConfig." + strDBMethod, dataConfig);
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("DeleteDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("DeleteDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.Setting);
+                sDeleteResult = "稀释比例删除失败！";
             }
-            return intResult;
+            return sDeleteResult;
         }
 
     
@@ -1401,7 +1390,7 @@ namespace BioA.SqlMaps
 
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.Setting);
             }
 
             return lstQueryUserManagement;
@@ -1513,7 +1502,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryUnitAndRangeByProject(string strDBMethod, Hashtable ht)" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryUnitAndRangeByProject(string strDBMethod, Hashtable ht)" + e.ToString(), Module.Setting);
             }
 
             return unitAndRange;
@@ -1635,7 +1624,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryUnitAndRangeByProject(string strDBMethod, Hashtable ht)" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryUnitAndRangeByProject(string strDBMethod, Hashtable ht)" + e.ToString(), Module.Setting);
             }
 
             return unitAndRange;
@@ -1660,7 +1649,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryCalibratorinfo(string strDBMethod)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryCalibratorinfo(string strDBMethod)==" + e.ToString(), Module.Setting);
             }
 
 
@@ -1680,7 +1669,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-
+                LogInfo.WriteErrorLog("QueryWashingLiquid(string strDBMethod)=="+ e.Message, Module.Setting);
             }
             return lstResult;
         }
@@ -1699,7 +1688,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QuerySamplePanelState(string strMethodName, string Panel)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QuerySamplePanelState(string strMethodName, string Panel)==" + e.ToString(), Module.Setting);
             }
 
             return lstSampleInfo;
@@ -1713,7 +1702,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateRunningTaskWorDisk(string strMethodName, string panelNum)==" +e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateRunningTaskWorDisk(string strMethodName, string panelNum)==" +e.ToString(), Module.Setting);
             }
         }
 
@@ -1726,7 +1715,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("BackupLastestToHistory()==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("BackupLastestToHistory()==" + e.ToString(), Module.Setting);
             }
         }
 
@@ -1749,7 +1738,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("SavePreCuvBlkOfWave(List<CuvetteBlankInfo> blks) ==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("SavePreCuvBlkOfWave(List<CuvetteBlankInfo> blks) ==" + e.ToString(), Module.Setting);
             }
         }
 
@@ -1770,7 +1759,7 @@ namespace BioA.SqlMaps
             }
             catch(Exception e)
             {
-                LogInfo.WriteErrorLog("ClearupCuvNewBlk()==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("ClearupCuvNewBlk()==" + e.ToString(), Module.Setting);
             }
 
         }
@@ -1804,7 +1793,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("SaveLatestCuvBlkOfWaveAndCuvNO(int w, int cuv, float blk)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("SaveLatestCuvBlkOfWaveAndCuvNO(int w, int cuv, float blk)==" + e.ToString(), Module.Setting);
             }
         }
         /// <summary>
@@ -1820,7 +1809,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetRgtWarnCount()==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetRgtWarnCount()==" + e.ToString(), Module.Setting);
             }
 
             return fRgtWarnCount;        }
@@ -1837,7 +1826,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetRgtLeastCount()==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetRgtLeastCount()==" + e.ToString(), Module.Setting);
             }
 
             return fRgtLeastCount;
@@ -1880,8 +1869,9 @@ namespace BioA.SqlMaps
         /// </summary>
         /// <param name="strDBMethod"></param>
         /// <param name="lstProSunSequence"></param>
-        public void SaveProjectRunSequenceInfo(string strDBMethod, ProjectRunSequenceInfo ProSunSequence)
+        public int SaveProjectRunSequenceInfo(string strDBMethod, ProjectRunSequenceInfo ProSunSequence)
         {
+            int resultCount = 0;
             Hashtable ht = new Hashtable();
             ht.Add("projectName", ProSunSequence.ProjectName);
             ht.Add("sampleType", ProSunSequence.SampleType);
@@ -1889,12 +1879,14 @@ namespace BioA.SqlMaps
             try
             {
                 ism_SqlMap.Insert("PLCDataInfo." + strDBMethod, ht);
+                resultCount +=1;
                 
             }
             catch (Exception ex)
             {
                 LogInfo.WriteErrorLog("SaveProjectRunSequenceInfo(string strDBMethod, List<ProjectRunSequenceInfo> lstProSunSequence)", Module.Setting);
             }
+            return resultCount;
         }
     }
      

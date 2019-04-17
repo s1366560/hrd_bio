@@ -92,12 +92,10 @@ namespace BioA.UI
             set
             {
                 selectedProjects = value;
-
-                ResetControlState();
-
+                this.ClearLastSelectedInfo();
                 foreach (Control control in this.Controls)
                 {
-                    if (control.GetType() == typeof(System.Windows.Forms.Button))
+                    if (!string.IsNullOrEmpty(control.Text.Trim()))
                     {
                         foreach (string[] str in selectedProjects)
                         {
@@ -140,6 +138,26 @@ namespace BioA.UI
                     }
                 }
             }
+        }
+        /// <summary>
+        /// 清除上一次缓存下的选种项目信息
+        /// </summary>
+        public void ClearLastSelectedInfo()
+        {
+            this.Invoke(new EventHandler(delegate
+            {
+                foreach (Control control in this.Controls)
+                {
+                    //if (control.Tag != null)
+                    //    if (control.Text != "" && control.Tag != null)
+                    if (control.Tag != null && !string.IsNullOrEmpty(control.Text.Trim()))
+                    {
+                        control.Tag = "0";
+                        control.ForeColor = Color.Black;
+                        control.Enabled = false;
+                    }
+                }
+            }));
         }
 
         private List<string> taskProjects = new List<string>();

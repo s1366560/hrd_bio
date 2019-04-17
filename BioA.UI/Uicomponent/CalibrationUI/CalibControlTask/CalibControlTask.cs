@@ -17,14 +17,13 @@ namespace BioA.UI
     public partial class CalibControlTask : DevExpress.XtraEditors.XtraUserControl
     {
         //校准项目第一页~~四页窗体
-        private CalibProjectPage1 projectPage1 = new CalibProjectPage1();
-        private CalibProjectPage2 projectPage2 = new CalibProjectPage2();
-        private CalibProjectPage3 projectPage3 = new CalibProjectPage3();
-        private CalibProjectPage4 projectPage4 = new CalibProjectPage4();
+        private CalibProjectPage1 projectPage1 = new CalibProjectPage1();// Insert.Insert1();
+        private CalibProjectPage2 projectPage2 = new CalibProjectPage2();// Insert.Insert2();
+        private CalibProjectPage3 projectPage3 = new CalibProjectPage3();// Insert.Insert3();
+        private CalibProjectPage4 projectPage4 = new CalibProjectPage4();// Insert.Insert4();
         //校准组合项目第一二页窗体
-        private CalibProCombPage2 calibProCombPage2 = new CalibProCombPage2();
-        private CalibProCombPage1 calibProCombPage1 = new CalibProCombPage1();
-        private List<string> lstAssayProInfos = new List<string>();
+        private CalibProCombPage2 calibProCombPage2 = new CalibProCombPage2();// Insert.CalibProCombPage2();
+        private CalibProCombPage1 calibProCombPage1 = new CalibProCombPage1();// Insert.CalibProCombPage1();
         private List<string[]> lstQCRelateProject = new List<string[]>();
         //private List<string[]> lstQCRelateProject1 = new List<string[]>();
         /// <summary>
@@ -52,23 +51,6 @@ namespace BioA.UI
         public CalibControlTask()
         {
             InitializeComponent();
-            
-            
-        }
-        //加载页面
-        private void CalibControlTask_Load(object sender, EventArgs e)
-        {
-            BeginInvoke(new Action(CalibControlTaskInit));
-            
-        }
-        private void CalibControlTaskInit()
-        {
-            //projectPage1 = new CalibProjectPage1();
-            //projectPage2 = new CalibProjectPage2();
-            //projectPage3 = new CalibProjectPage3();
-            //projectPage4 = new CalibProjectPage4();
-            //calibProCombPage1 = new CalibProCombPage1();
-            //calibProCombPage2 = new CalibProCombPage2();
             calibProCombPage1.clickCombProNameEvent += HandleClickCombProNameEvent;
             calibProCombPage2.clickCombProNamePage2Event += HandleClickCombProNameEvent;
             xtraTabPage1.Controls.Add(projectPage1);
@@ -78,8 +60,40 @@ namespace BioA.UI
             xtraTabPage5.Controls.Add(calibProCombPage1);
             xtraTabPage6.Controls.Add(calibProCombPage2);
             combSampleType.Properties.Items.AddRange(RunConfigureUtility.SampleTypes);
-            combSampleType.SelectedIndex = 1;
             
+            
+        }
+        //加载页面
+        public void CalibControlTask_Load(object sender, EventArgs e)
+        {
+            CalibControlTaskInit();
+            
+        }
+        public void Clear()
+        {
+            lstQCRelateProject.Clear();
+            lstProjects.Clear();
+            lstCombProInfo.Clear();
+            intPos = 0;
+            calibDictionary.Clear();
+            isAddCalibTask = true;
+            lstSerumProject.Clear();
+            lstUrinePeoject.Clear();
+            lstBlankProject.Clear();
+            lstCombProName.Clear();
+            sampleBlank = null;
+            sampleSerum = null;
+            sampleUrine = null;
+        }
+        private void CalibControlTaskInit()
+        {
+            
+
+            if (combSampleType.SelectedIndex != 1)
+                combSampleType.SelectedIndex = 1;
+            else
+                combSampleType_SelectedIndexChanged(null,null);
+
             ////获取任务信息
             //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibControlTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryCalibratorinfoTask", null)));
             ////获取所有组合项目信息
@@ -638,6 +652,73 @@ namespace BioA.UI
                     }
                 }
             }
+        }
+    }
+
+    public class Insert
+    {
+        static CalibProjectPage1 projectPage1 = null;
+
+        public static CalibProjectPage1 Insert1()
+        {
+            if (projectPage1 == null)
+            {
+                projectPage1 = new CalibProjectPage1();
+            }
+            return projectPage1;
+        }
+
+        static CalibProjectPage2 projectPage2 = null;
+
+        public static CalibProjectPage2 Insert2()
+        {
+            if (projectPage2 == null)
+            {
+                projectPage2 = new CalibProjectPage2();
+            }
+            return projectPage2;
+        }
+
+        static CalibProjectPage3 projectPage3 = null;
+
+        public static CalibProjectPage3 Insert3()
+        {
+            if (projectPage3 == null)
+            {
+                projectPage3 = new CalibProjectPage3();
+            }
+            return projectPage3;
+        }
+
+        static CalibProjectPage4 projectPage4 = null;
+
+        public static CalibProjectPage4 Insert4()
+        {
+            if (projectPage4 == null)
+            {
+                projectPage4 = new CalibProjectPage4();
+            }
+            return projectPage4;
+        }
+
+        static CalibProCombPage1 calibProCombPage1 = null;
+        public static CalibProCombPage1 CalibProCombPage1()
+        {
+            if (calibProCombPage1 == null)
+            {
+                calibProCombPage1 = new CalibProCombPage1();
+            }
+            return calibProCombPage1;
+        }
+
+        static CalibProCombPage2 calibProCombPage2 = null;
+        public static CalibProCombPage2 CalibProCombPage2()
+        {
+            if (calibProCombPage2 == null)
+            {
+                calibProCombPage2 = new CalibProCombPage2();
+            }
+            return calibProCombPage2;
         }
     }
 }

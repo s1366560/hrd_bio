@@ -129,6 +129,14 @@ namespace BioA.Common
             get { return isReRun; }
             set { isReRun = value; }
         }
+        private int samplePos;
+        /// <summary>
+        /// 样本位置
+        /// </summary>
+        public int SamplePos {
+            get { return samplePos; }
+            set { samplePos = value; }
+        }
 
         private int iD;
         private int sampleNum;

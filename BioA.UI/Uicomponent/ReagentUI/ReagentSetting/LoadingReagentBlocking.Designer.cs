@@ -317,7 +317,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "LoadingReagentBlocking";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LoadingReagentBlocking_FormClosing);
-            this.Load += new System.EventHandler(this.LoadingReagentBlocking_Load);
+            //this.Load += new System.EventHandler(this.LoadingReagentBlocking_Load);
             ((System.ComponentModel.ISupportInitialize)(this.txtBarcode.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtReagentName.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtBatchNum.Properties)).EndInit();

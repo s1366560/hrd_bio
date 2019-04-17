@@ -124,6 +124,7 @@
     <Compile Include="KeyManager.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LoadImagUtility.cs" />
     <Compile Include="LOG\LogInfo.cs" />
     <Compile Include="Machine\CommandProtocol.cs" />
     <Compile Include="Machine\CommandService.cs" />

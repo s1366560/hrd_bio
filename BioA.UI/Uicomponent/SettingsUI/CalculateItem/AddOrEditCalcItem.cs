@@ -13,15 +13,16 @@ using System.Text.RegularExpressions;
 using BioA.Common.IO;
 using BioA.Common;
 using System.Threading;
+using BioA.Service;
 
 namespace BioA.UI
 {
     public partial class AddOrEditCalcItem : DevExpress.XtraEditors.XtraForm
     {
-        CalcProjectPage1 calcProjectPage1;
-        CalcProjectPage2 calcProjectPage2;
-        CalcProjectPage3 calcProjectPage3;
-        CalcProjectPage4 calcProjectPage4;
+        CalcProjectPage1 calcProjectPage1 = new CalcProjectPage1();
+        CalcProjectPage2 calcProjectPage2 = new CalcProjectPage2();
+        CalcProjectPage3 calcProjectPage3 = new CalcProjectPage3();
+        CalcProjectPage4 calcProjectPage4 = new CalcProjectPage4();
 
         /// <summary>
         /// 存储客户端发送信息给服务器的参数集合
@@ -38,7 +39,19 @@ namespace BioA.UI
             set
             {
                 calcProInfoForEdit = value;
-                
+                txtProjectName.Text = calcProInfoForEdit.CalcProjectName;
+                txtProjectFullName.Text = calcProInfoForEdit.CalcProjectFullName;
+                cboUnit.SelectedIndex = cboUnit.Properties.Items.IndexOf(calcProInfoForEdit.Unit);
+                cboSampleType.SelectedIndex = cboSampleType.Properties.Items.IndexOf(calcProInfoForEdit.SampleType);
+                if (calcProInfoForEdit.ReferenceRangeLow != 100000000)
+                    txtReferenceRangeLow.Text = calcProInfoForEdit.ReferenceRangeLow.ToString();
+                else
+                    txtReferenceRangeLow.Text = "";
+                if (calcProInfoForEdit.ReferenceRangeHigh != 100000000)
+                    txtReferenceRangeHigh.Text = calcProInfoForEdit.ReferenceRangeHigh.ToString();
+                else
+                    txtReferenceRangeHigh.Text = "";
+                txtCalcFormula.Text = calcProInfoForEdit.CalcFormula;
             }
         }
 
@@ -48,6 +61,13 @@ namespace BioA.UI
 
             this.ControlBox = false;
 
+            calcProjectPage1.ProjectCallbackInfoEvent += ProjectCallbackInfo_Event;
+            calcProjectPage2.ProjectCallbackInfoEvent += ProjectCallbackInfo_Event;
+            calcProjectPage3.ProjectCallbackInfoEvent += ProjectCallbackInfo_Event;
+            calcProjectPage4.ProjectCallbackInfoEvent += ProjectCallbackInfo_Event;
+
+            cboSampleType.Properties.Items.AddRange(RunConfigureUtility.SampleTypes);
+
             
         }
 
@@ -55,30 +75,6 @@ namespace BioA.UI
         {
             txtCalcFormula.Text += "[" + strProInfo + "]";
         }
-
-        public void LoadData()
-        {
-            addOrEditItemDic.Clear();
-            addOrEditItemDic.Add("QueryProjectResultUnits", null);
-            SendService(addOrEditItemDic);
-
-        }
-
-        private List<string> units = new List<string>();
-
-        public List<string> Units
-        {
-            get { return units; }
-            set
-            {
-                units = value;
-
-                this.Invoke(new EventHandler(delegate {
-                    cboUnit.Properties.Items.AddRange(units);
-                }));
-            }
-        }
-
 
         private List<string> projectNames = new List<string>();
 
@@ -88,46 +84,37 @@ namespace BioA.UI
             set
             {
                 projectNames = value;
-
-                calcProjectPage1.LstAssayProInfos = projectNames;
             }
         }
 
-        private void AddOrEditCalcItem_Load(object sender, EventArgs e)
+        public void AddOrEditCalcItem_Load(object sender, EventArgs e)
         {
-            BeginInvoke(new Action(loadAddOrEditCalcItem));
+            if (this.Text == "添加计算项目")
+                cboSampleType.SelectedIndex = 1;
+            else
+                cboSampleType_SelectedIndexChanged(null, null);
+            this.loadAddOrEditCalcItem();
             
         }
         private void loadAddOrEditCalcItem()
         {
-            calcProjectPage1 = new CalcProjectPage1();
-            calcProjectPage2 = new CalcProjectPage2();
-            calcProjectPage3 = new CalcProjectPage3();
-            calcProjectPage4 = new CalcProjectPage4();
-            calcProjectPage1.ProjectCallbackInfoEvent += ProjectCallbackInfo_Event;
-            calcProjectPage2.ProjectCallbackInfoEvent += ProjectCallbackInfo_Event;
-            calcProjectPage3.ProjectCallbackInfoEvent += ProjectCallbackInfo_Event;
-            calcProjectPage4.ProjectCallbackInfoEvent += ProjectCallbackInfo_Event;
-
-
-            foreach (string sampleType in RunConfigureUtility.SampleTypes)
-            {
-                cboSampleType.Properties.Items.Add(sampleType);
-            }
-            //txtProjectName.Text = calcProInfoForEdit.CalcProjectName;
-            //txtProjectFullName.Text = calcProInfoForEdit.CalcProjectFullName;
-            //cboUnit.SelectedItem = calcProInfoForEdit.Unit;
-            //cboSampleType.SelectedItem = calcProInfoForEdit.SampleType;
-            //txtReferenceRangeLow.Text = calcProInfoForEdit.ReferenceRangeLow == 100000000 ? "" : calcProInfoForEdit.ReferenceRangeLow.ToString();
-            //txtReferenceRangeHigh.Text = calcProInfoForEdit.ReferenceRangeHigh == 100000000 ? "" : calcProInfoForEdit.ReferenceRangeHigh.ToString();
-            //txtCalcFormula.Text = calcProInfoForEdit.CalcFormula;
-            if (this.Text == "添加计算项目")
-                cboSampleType.SelectedIndex = 1;
-            //SendService(new CommunicationEntity("ProjectPageinfoForCalc", cboSampleType.SelectedItem.ToString()));
-            xtraTabControl1.SelectedTabPageIndex = 0;
-            xtraTabPage1.Controls.Add(calcProjectPage1);
-
+            cboUnit.Properties.Items.Clear();
+            cboUnit.Properties.Items.AddRange(new SettingsChemicalParameter().QueryProjectResultUnits("QueryProjectResultUnits"));
             
+            if (xtraTabControl1.SelectedTabPageIndex == 0)
+                xtraTabControl1_SelectedPageChanged(null, null);
+            else
+                xtraTabControl1.SelectedTabPageIndex = 0;
+        }
+
+        public void ClearCalcProjectParameter()
+        {
+            txtProjectName.Text = "";
+            txtProjectFullName.Text = "";
+            cboUnit.SelectedIndex = -1;
+            txtReferenceRangeLow.Text = "";
+            txtReferenceRangeHigh.Text = "";
+            txtCalcFormula.Text = "";
         }
 
         private void SendService(Dictionary<string,object[]> sender)
@@ -474,7 +461,7 @@ namespace BioA.UI
             txtCalcFormula.Text = string.Empty;
         }
 
-        private void xtraTabControl1_Click(object sender, EventArgs e)
+        private void xtraTabControl1_SelectedPageChanged(object sender, DevExpress.XtraTab.TabPageChangedEventArgs e)
         {
             if (xtraTabControl1.SelectedTabPageIndex == 0)
             {
@@ -504,10 +491,13 @@ namespace BioA.UI
 
         private void cboSampleType_SelectedIndexChanged(object sender, EventArgs e)
         {   
-            addOrEditItemDic.Clear();
-            addOrEditItemDic.Add("ProjectPageinfoForCalc", new object[] { cboSampleType.SelectedItem.ToString() });
-            SendService(addOrEditItemDic);
+            //addOrEditItemDic.Clear();
+            //addOrEditItemDic.Add("ProjectPageinfoForCalc", new object[] { cboSampleType.SelectedItem.ToString() });
+            //SendService(addOrEditItemDic);
+            this.ProjectNames = new CalcProjectParameter().ProjectPageinfoForCalc("ProjectPageinfoForCalc", cboSampleType.SelectedItem.ToString());
             txtCalcFormula.Text = "";
         }
+
+        
     }
 }

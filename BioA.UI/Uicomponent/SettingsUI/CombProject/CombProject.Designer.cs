@@ -143,7 +143,7 @@
             this.xtraTabPage2,
             this.xtraTabPage3,
             this.xtraTabPage4});
-            this.xtraTabControl1.Click += new System.EventHandler(this.xtraTabControl1_Click);
+            this.xtraTabControl1.SelectedPageChanged += new DevExpress.XtraTab.TabPageChangedEventHandler(this.xtraTabControl1_SelectedPageChanged);
             // 
             // xtraTabPage1
             // 
@@ -218,7 +218,6 @@
             this.Controls.Add(this.lstvCombProject);
             this.Name = "CombProject";
             this.Size = new System.Drawing.Size(1736, 933);
-            this.Load += new System.EventHandler(this.CombProject_Load);
             ((System.ComponentModel.ISupportInitialize)(this.lstvCombProject)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtCombProjectName.Properties)).EndInit();

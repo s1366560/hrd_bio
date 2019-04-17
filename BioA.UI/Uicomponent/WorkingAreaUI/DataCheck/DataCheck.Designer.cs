@@ -523,7 +523,7 @@
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "DataCheck";
             this.Size = new System.Drawing.Size(1767, 872);
-            this.Load += new System.EventHandler(this.DataCheck_Load);
+            //this.Load += new System.EventHandler(this.DataCheck_Load);
             ((System.ComponentModel.ISupportInitialize)(this.txtCaseNumber.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lstvInspectProInfo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();

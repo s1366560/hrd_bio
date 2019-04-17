@@ -32,21 +32,20 @@ namespace BioA.UI
         public UserManagement()
         {
             InitializeComponent();
-            userCeation = new UserCeation();
             Font font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             gridView1.Appearance.HeaderPanel.Font = font;
             gridView1.Appearance.Row.Font = font;
-            userCeation.DataHandleEvent += userCeation_DataHandleEvent;
             
             dt.Columns.Add("用户账户");
             dt.Columns.Add("用户名称");
             dt.Columns.Add("创建时间");
             dt.Columns.Add("拥有权限");
             this.gridControl1.DataSource = dt;
-            this.gridView1.Columns[0].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[1].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[2].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[3].OptionsColumn.AllowEdit = false;
+            gridView1.Columns[0].Width = 200;
+            gridView1.Columns[1].Width = 200;
+            gridView1.Columns[2].Width = 200;
+            gridView1.Columns[3].Width = 1000;
+
         }
         List<UserInfo> lstuserInfo = new List<UserInfo>();
         public void DataTransfer_Event(string strMethod, object sender)
@@ -65,7 +64,6 @@ namespace BioA.UI
                     QueryUserInfo();
                     break;
                 case "DeleteUserInfo":
-                   // string str = (string)XmlUtility.Deserialize(typeof(string), sender as string);
                     int count = Convert.ToInt32(sender);
                     if (count!=0)
                     {
@@ -74,9 +72,9 @@ namespace BioA.UI
                     QueryUserInfo();
                     break;
                 case "QueryUserCeation":
-                    List<UserInfo> lstUserCeation = new List<UserInfo>();
-                    lstUserCeation = (List<UserInfo>)XmlUtility.Deserialize(typeof(List<UserInfo>), sender as string);
-                    userCeation.AddUserCeation(lstUserCeation[0]);
+                    UserInfo UserCeationInfo = new UserInfo();
+                    UserCeationInfo = (UserInfo)XmlUtility.Deserialize(typeof(UserInfo), sender as string);
+                    userCeation.AddUserCeation(UserCeationInfo);
                    
                     break;
                    
@@ -204,12 +202,16 @@ namespace BioA.UI
         
         private void btnUsercreation_Click(object sender, EventArgs e)
         {
-            
+            if (userCeation == null)
+            {
+                userCeation = new UserCeation();
+                userCeation.DataHandleEvent += userCeation_DataHandleEvent;
+                userCeation.StartPosition = FormStartPosition.CenterScreen;
+            }
             userCeation.Text = "用户创建";
             userCeation.lblNotesLoad1();
-            userCeation.StartPosition = FormStartPosition.CenterScreen;
+            userCeation.UserCeation_Load(null,null);
             userCeation.ShowDialog();
-           // userCeation.DataHandleEvent += userCeation_DataHandleEvent;
         }
         /// <summary>
         /// 委托事件执行的方法
@@ -220,19 +222,12 @@ namespace BioA.UI
         {
             if (str == "用户创建")
             {
-                //CommunicationEntity DataConfig = new CommunicationEntity();
-                //DataConfig.StrmethodName = "AddUserInfo";
-                //DataConfig.ObjParam = XmlUtility.Serializer(typeof(UserInfo), sender as UserInfo);
                 userManagementDic.Clear();
                 userManagementDic.Add("AddUserInfo", new object[] { XmlUtility.Serializer(typeof(UserInfo), sender as UserInfo) });
                 UserManagementSend(userManagementDic);
             }
             else
             {
-                //CommunicationEntity DataConfig = new CommunicationEntity();
-                //DataConfig.StrmethodName = "EditUserInfo";
-                //DataConfig.ObjParam = XmlUtility.Serializer(typeof(UserInfo), sender as UserInfo);
-                //DataConfig.ObjLastestParam = ID;
                 if (sender != null)
                 {
                     userManagementDic.Clear();
@@ -252,18 +247,21 @@ namespace BioA.UI
             int selectedHandle;
             if (this.gridView1.SelectedRowsCount > 0)
             {
+                if (userCeation == null)
+                {
+                    userCeation = new UserCeation();
+                    userCeation.DataHandleEvent += userCeation_DataHandleEvent;
+                    userCeation.StartPosition = FormStartPosition.CenterScreen;
+                }
                 selectedHandle = this.gridView1.GetSelectedRows()[0];
                 ID = this.gridView1.GetRowCellValue(selectedHandle, "用户账户").ToString();
-                //CommunicationEntity DataConfig = new CommunicationEntity();
-                //DataConfig.StrmethodName = "QueryUserCeation";
-                //DataConfig.ObjParam = ID;
                 userManagementDic.Clear();
                 userManagementDic.Add("QueryUserCeation", new object[] { ID });
-            
                 UserManagementSend(userManagementDic);
+
                 userCeation.Text = "用户编辑";
                 userCeation.lblNotesLoad2();
-                userCeation.StartPosition = FormStartPosition.CenterScreen;
+                userCeation.UserCeation_Load(null, null);
                 userCeation.ShowDialog();
             }
 
@@ -271,9 +269,6 @@ namespace BioA.UI
        
         private void QueryUserInfo()
         {
-            //CommunicationEntity DataConfig = new CommunicationEntity();
-            //DataConfig.StrmethodName = "QueryUserInfo";
-            //DataConfig.ObjParam = "";
             userManagementDic.Clear();
             userManagementDic.Add("QueryUserInfo", new object[] { "" });
             UserManagementSend(userManagementDic);
@@ -291,9 +286,10 @@ namespace BioA.UI
             userManagementThread.IsBackground = true;
             userManagementThread.Start();
         }
-        private void UserManagement_Load(object sender, EventArgs e)
+        public void UserManagement_Load(object sender, EventArgs e)
         {
-            BeginInvoke(new Action(QueryUserInfo));
+            this.QueryUserInfo();
+            this.ID = "";
         }
         /// <summary>
         /// 删除按钮
@@ -313,10 +309,6 @@ namespace BioA.UI
                 selectedHandle = this.gridView1.GetSelectedRows()[0];
                 ID = this.gridView1.GetRowCellValue(selectedHandle, "用户账户").ToString();
                 string UserName = this.gridView1.GetRowCellValue(selectedHandle, "用户名称").ToString();
-                //CommunicationEntity DataConfig = new CommunicationEntity();
-                //DataConfig.StrmethodName = "DeleteUserInfo";
-                //DataConfig.ObjParam = ID;
-                //DataConfig.ObjLastestParam = UserName;
                 userManagementDic.Clear();
                 userManagementDic.Add("DeleteUserInfo", new object[] { ID, UserName });
                 UserManagementSend(userManagementDic);

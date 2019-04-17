@@ -677,7 +677,6 @@ namespace BioA.Common
             }
         }
 
-
         static List<string> _SamplePanel;
         /// <summary>
         /// 获取样本盘号
@@ -703,6 +702,7 @@ namespace BioA.Common
                 }
 
                 return _SamplePanel;
+                
             }
         }
 

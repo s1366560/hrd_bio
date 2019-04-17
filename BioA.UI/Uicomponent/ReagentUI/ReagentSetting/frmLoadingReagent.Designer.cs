@@ -278,7 +278,7 @@
             this.Name = "frmLoadingReagent";
             this.Text = "装载试剂";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmLoadingReagent_FormClosing);
-            this.Load += new System.EventHandler(this.frmLoadingReagent_Load);
+            //this.Load += new System.EventHandler(this.frmLoadingReagent_Load);
             ((System.ComponentModel.ISupportInitialize)(this.txtBarcode.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtReagentName.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtBatchNum.Properties)).EndInit();

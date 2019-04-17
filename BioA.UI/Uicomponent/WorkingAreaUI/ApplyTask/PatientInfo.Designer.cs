@@ -95,7 +95,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "PatientInfoFrm";
             this.Text = "病人信息";
-            this.Load += new System.EventHandler(this.PatientInfo_Load);
+            //this.Load += new System.EventHandler(this.PatientInfo_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grpPatientInfoCheck)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

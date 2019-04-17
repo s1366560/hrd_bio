@@ -14,20 +14,19 @@ using BioA.Service;
 
 namespace BioA.UI
 {
-    public partial class ApplyQCTask : UserControl
+    public partial class ApplyQCTask : DevExpress.XtraEditors.XtraUserControl
     {
         // 项目页
-        private QCProjectPage1 projectPage1 = new QCProjectPage1();
-        private QCProjectPage2 projectPage2 = new QCProjectPage2();
-        private QCProjectPage3 projectPage3 = new QCProjectPage3();
+        private QCProjectPage1 projectPage1 = new QCProjectPage1();//QCPageLand.QCProjectPage1();
+        private QCProjectPage2 projectPage2 = new QCProjectPage2();//QCPageLand.QCProjectPage2();
+        private QCProjectPage3 projectPage3 = new QCProjectPage3();//QCPageLand.QCProjectPage3();
         // 质控品信息
         List<QualityControlInfo> lstQCInfos = new List<QualityControlInfo>();
         // 所有生化项目名称
         private List<string> lstAssayProInfos = new List<string>();
 
         private List<string[]> lstQCRelateProject = new List<string[]>();
-        // 生化任务
-        List<QCTaskInfo> lstQCSamples = new List<QCTaskInfo>();
+
         // 最大质控样本号
         int intMaxSamNum = 0;
 
@@ -51,9 +50,32 @@ namespace BioA.UI
         public ApplyQCTask()
         {
             InitializeComponent();
+            dt.Columns.Add("顺序号");
+            dt.Columns.Add("质控品位置");
+            dt.Columns.Add("项目名称");
+            dt.Columns.Add("任务状态");
+            this.lstvQCTask.DataSource = dt;
+            xtraTabPage1.Controls.Add(projectPage1);
+            xtraTabPage2.Controls.Add(projectPage2);
+            xtraTabPage3.Controls.Add(projectPage3);
+            combSampleType.Properties.Items.AddRange(RunConfigureUtility.SampleTypes);
             
         }
-    
+        /// <summary>
+        /// 清空类成员属性
+        /// </summary>
+        public void ClearApplyQCTaskParam()
+        {
+            lstQCInfos.Clear();
+            lstAssayProInfos.Clear();
+            lstQCRelateProject.Clear();
+            intMaxSamNum = 0;
+            qcTaskDictionary.Clear();
+            flag = false;
+            taskFlag = false;
+            lstprojectName.Clear();
+        }
+
         /// <summary>
         /// 加载
         /// </summary>
@@ -61,29 +83,17 @@ namespace BioA.UI
         /// <param name="e"></param>
         public void ApplyQCTask_Load(object sender, EventArgs e)
         {
-            BeginInvoke(new Action(loadApplyQCTask));
+            this.loadApplyQCTask();
             
         }
 
         private void loadApplyQCTask()
         {
-            //projectPage1 = new QCProjectPage1();
-            //projectPage2 = new QCProjectPage2();
-            //projectPage3 = new QCProjectPage3();
-            xtraTabPage1.Controls.Add(projectPage1);
-            xtraTabPage2.Controls.Add(projectPage2);
-            xtraTabPage3.Controls.Add(projectPage3);
-            combSampleType.Properties.Items.AddRange(RunConfigureUtility.SampleTypes);
-            qcTaskDictionary.Clear();
-            combSampleType.SelectedIndex = 1;
-            /**
-            //加载质控编号和质控任务
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryBigestQCTaskInfoForToday", null)));
-            //获取质控品信息
-            CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryQCAllInfoForUnLocked", null)));
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryAssayProNameAllInfo", combSampleType.SelectedItem.ToString())));
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryQCTaskForLstv", null)));
-           **/
+            if (combSampleType.SelectedIndex == -1)
+                combSampleType.SelectedIndex = 1;
+            else
+                combSampleType_SelectedIndexChanged(null,null);
+
             qcTaskDictionary.Add("QueryBigestQCTaskInfoForToday", new object[] { "" });
             qcTaskDictionary.Add("QueryQCAllInfoForUnLocked", new object[] { "" });
             ClientSendToServices(qcTaskDictionary);
@@ -127,44 +137,46 @@ namespace BioA.UI
                     //显示所有项目信息
                 case "QueryAssayProNameAllInfo":
                     lstAssayProInfos = (List<string>)XmlUtility.Deserialize(typeof(List<string>), sender as string);
+                    projectPage1.ClearLastSelectedInfo();
+                    projectPage2.ClearLastSelectedInfo();
+                    projectPage3.ClearLastSelectedInfo();
                     projectPage1.LstAssayProInfos = lstAssayProInfos;
                     projectPage2.LstAssayProInfos = lstAssayProInfos;
                     projectPage3.LstAssayProInfos = lstAssayProInfos;
                     break;
                     //质控品信息
                 case "QueryQCAllInfoForUnLocked":
-                    lstQCInfos.Clear();
                     lstQCInfos = (List<QualityControlInfo>)XmlUtility.Deserialize(typeof(List<QualityControlInfo>), sender as string);
                     this.Invoke(new EventHandler(delegate
+                    {
+                        combPosition.Properties.Items.Clear();
+                        if (lstQCInfos != null)
                         {
-                            combPosition.Properties.Items.Clear();
-
                             List<string> lstQCPos = new List<string>();
-
                             foreach (QualityControlInfo qcInfo in lstQCInfos)
                             {
                                 lstQCPos.Add(qcInfo.Pos);
                             }
-
                             lstQCPos.Sort();
                             combPosition.Properties.Items.AddRange(lstQCPos);
                             combPosition.Text = "请选择";
-                        }));                    
+                        }
+                    }));
                     break;
 
                 case "QueryProjectNameInfoByQC":
                     lstQCRelateProject = (List<string[]>)XmlUtility.Deserialize(typeof(List<string[]>), sender as string);
-                    this.Invoke(new EventHandler(delegate
+                    if (lstQCRelateProject != null)
+                    {
+                        this.Invoke(new EventHandler(delegate
                         {
-                            tabcProject.SelectedTabPageIndex = 0;
+                            if (tabcProject.SelectedTabPageIndex != 0)
+                                tabcProject.SelectedTabPageIndex = 0;
+                            else
+                                tabcProject_SelectedPageChanged(null, null);
                         }));
-                    
-                    projectPage1.ResetControlState();
-                    projectPage2.ResetControlState();
-                    projectPage3.ResetControlState();
-                    projectPage1.SelectedProjects = lstQCRelateProject;
-                    projectPage2.SelectedProjects = lstQCRelateProject;
-                    projectPage3.SelectedProjects = lstQCRelateProject;
+                    }
+
                     break;
                     //显示添加质控任务是否成功
                 case "AddQCTask":
@@ -268,17 +280,18 @@ namespace BioA.UI
             }
         }
         /// <summary>
+        /// 质控任务数据列表
+        /// </summary>
+        DataTable dt = new DataTable();
+        /// <summary>
         /// 显示质控任务信息
         /// </summary>
         /// <param name="lstQCTask"></param>
         private void DisplayTaskInfo(List<QCTaskInfo> lstQCTask)
         {
-            this.Invoke(new EventHandler(delegate { 
-                DataTable dt = new DataTable();
-                dt.Columns.Add("顺序号");
-                dt.Columns.Add("质控品位置");
-                dt.Columns.Add("项目名称");
-                dt.Columns.Add("任务状态");
+            this.Invoke(new EventHandler(delegate
+            {
+                dt.Rows.Clear();
                 foreach (QCTaskInfo qcTask in lstQCTask)
                 {
                     int sampNum = Convert.ToInt32(qcTask.SampleNum.Substring(1, 1));
@@ -302,7 +315,7 @@ namespace BioA.UI
                             strState = "被终止";
                             break;
                     }
-                    dt.Rows.Add(new object[] { qcTask.SampleNum, qcTask.Position,qcTask.ProjectName,strState});
+                    dt.Rows.Add(new object[] { qcTask.SampleNum, qcTask.Position, qcTask.ProjectName, strState });
                 }
                 this.lstvQCTask.DataSource = dt;
                 txtSumpleNum.Text = "C" + (intMaxSamNum + 1).ToString();
@@ -470,9 +483,9 @@ namespace BioA.UI
                 txtLotNum.Text = "";
                 txtQCConc.Text = "";
                 txtManufacturer.Text = "";
-                projectPage1.ResetControlState();
-                projectPage2.ResetControlState();
-                projectPage3.ResetControlState();
+                projectPage1.ClearLastSelectedInfo();
+                projectPage2.ClearLastSelectedInfo();
+                projectPage3.ClearLastSelectedInfo();
                 lstQCRelateProject.Clear();
             }));
         }
@@ -498,9 +511,6 @@ namespace BioA.UI
                             txtQCConc.Text = qcInfo.HorizonLevel;
                             txtManufacturer.Text = qcInfo.Manufacturer;
 
-                            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCTask,
-                            //    XmlUtility.Serializer(typeof(CommunicationEntity),
-                            //    new CommunicationEntity("QueryProjectNameInfoByQC", XmlUtility.Serializer(typeof(QualityControlInfo), qcInfo), combSampleType.SelectedItem.ToString())));
                             qcTaskDictionary.Add("QueryProjectNameInfoByQC", new object[] { XmlUtility.Serializer(typeof(QualityControlInfo), qcInfo), combSampleType.SelectedItem.ToString() });
                         }
                     }
@@ -509,9 +519,9 @@ namespace BioA.UI
             }
             else
             {
+                qcTaskDictionary.Clear();
                 if (combPosition.SelectedItem != null)
                 {
-                    qcTaskDictionary.Clear();
                     qcTaskDictionary.Add("QueryAssayProNameAllInfo", new object[] { combSampleType.SelectedItem.ToString() });
                     if (flag)
                         qcTaskDictionary.Add("QueryBigestQCTaskInfoForToday", null);
@@ -525,10 +535,6 @@ namespace BioA.UI
                                 txtLotNum.Text = qcInfo.LotNum;
                                 txtQCConc.Text = qcInfo.HorizonLevel;
                                 txtManufacturer.Text = qcInfo.Manufacturer;
-
-                                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCTask,
-                                //    XmlUtility.Serializer(typeof(CommunicationEntity),
-                                //    new CommunicationEntity("QueryProjectNameInfoByQC", XmlUtility.Serializer(typeof(QualityControlInfo), qcInfo), combSampleType.SelectedItem.ToString())));
                                 qcTaskDictionary.Add("QueryProjectNameInfoByQC", new object[] { XmlUtility.Serializer(typeof(QualityControlInfo), qcInfo), combSampleType.SelectedItem.ToString() });
                             }
                         }
@@ -576,7 +582,6 @@ namespace BioA.UI
                     projectPage1.LstAssayProInfos = lstAssayProInfos;
                 }
 
-
                 projectPage1.SelectedProjects = lstQCRelateProject;
             }
             else if (tabcProject.SelectedTabPageIndex == 1)
@@ -597,6 +602,39 @@ namespace BioA.UI
                 }
                 projectPage3.SelectedProjects = lstQCRelateProject;
             }
+        }
+    }
+
+    public class QCPageLand
+    {
+        static QCProjectPage1 qCProjectPage1 = null;
+        public static QCProjectPage1 QCProjectPage1()
+        {
+            if (qCProjectPage1 == null)
+            {
+                qCProjectPage1 = new QCProjectPage1();
+            }
+            return qCProjectPage1;
+        }
+
+        static QCProjectPage2 qCProjectPage2 = null;
+        public static QCProjectPage2 QCProjectPage2()
+        {
+            if (qCProjectPage2 == null)
+            {
+                qCProjectPage2 = new QCProjectPage2();
+            }
+            return qCProjectPage2;
+        }
+
+        static QCProjectPage3 qCProjectPage3 = null;
+        public static QCProjectPage3 QCProjectPage3()
+        {
+            if (qCProjectPage3 == null)
+            {
+                qCProjectPage3 = new QCProjectPage3();
+            }
+            return qCProjectPage3;
         }
     }
 }

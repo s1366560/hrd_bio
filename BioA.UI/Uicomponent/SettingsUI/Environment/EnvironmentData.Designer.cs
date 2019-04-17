@@ -389,7 +389,7 @@
             this.Controls.Add(this.lblReagentMV);
             this.Name = "EnvironmentData";
             this.Size = new System.Drawing.Size(1749, 933);
-            this.Load += new System.EventHandler(this.EnvironmentData_Load);
+            //this.Load += new System.EventHandler(this.EnvironmentData_Load);
             ((System.ComponentModel.ISupportInitialize)(this.chkReagentMarginLock.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHighCuvette.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtLowCuvette.Properties)).EndInit();

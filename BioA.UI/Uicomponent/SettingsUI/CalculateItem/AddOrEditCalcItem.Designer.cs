@@ -178,7 +178,7 @@
             this.xtraTabPage2,
             this.xtraTabPage3,
             this.xtraTabPage4});
-            this.xtraTabControl1.Click += new System.EventHandler(this.xtraTabControl1_Click);
+            this.xtraTabControl1.SelectedPageChanged += new DevExpress.XtraTab.TabPageChangedEventHandler(this.xtraTabControl1_SelectedPageChanged);
             // 
             // xtraTabPage1
             // 
@@ -506,7 +506,6 @@
             this.Controls.Add(this.lblProjectName);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "AddOrEditCalcItem";
-            this.Load += new System.EventHandler(this.AddOrEditCalcItem_Load);
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).EndInit();
             this.xtraTabControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.txtProjectName.Properties)).EndInit();

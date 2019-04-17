@@ -194,7 +194,7 @@
             this.Controls.Add(this.lblVersionInfo);
             this.Name = "VersionInformation";
             this.Size = new System.Drawing.Size(1717, 906);
-            this.Load += new System.EventHandler(this.XtraUserControl2_Load);
+            //this.Load += new System.EventHandler(this.XtraUserControl2_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

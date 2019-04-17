@@ -81,7 +81,6 @@ namespace BioA.Service
 
         public int UpdataDepartment(string strDBMethod, string dataConfig, string dataConfigOld)
         {
-            LogInfo.WriteProcessLog(strDBMethod + "zhuszihe33", Module.WindowsService);
             return myBatis.UpdataDepartment(strDBMethod, dataConfig, dataConfigOld);
            
         }

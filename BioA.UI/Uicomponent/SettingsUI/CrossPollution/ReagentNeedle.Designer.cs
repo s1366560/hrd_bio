@@ -81,7 +81,7 @@
             this.lstvCrossPollution.Location = new System.Drawing.Point(486, 50);
             this.lstvCrossPollution.MainView = this.gridView1;
             this.lstvCrossPollution.Name = "lstvCrossPollution";
-            this.lstvCrossPollution.Size = new System.Drawing.Size(1182, 789);
+            this.lstvCrossPollution.Size = new System.Drawing.Size(1182, 713);
             this.lstvCrossPollution.TabIndex = 22;
             this.lstvCrossPollution.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -101,7 +101,7 @@
             this.btnDelete.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDelete.Appearance.Options.UseFont = true;
             this.btnDelete.Image = ((System.Drawing.Image)(resources.GetObject("btnDelete.Image")));
-            this.btnDelete.Location = new System.Drawing.Point(393, 787);
+            this.btnDelete.Location = new System.Drawing.Point(613, 787);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(87, 52);
             this.btnDelete.TabIndex = 21;
@@ -113,11 +113,11 @@
             this.btnSave.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.Appearance.Options.UseFont = true;
             this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
-            this.btnSave.Location = new System.Drawing.Point(172, 787);
+            this.btnSave.Location = new System.Drawing.Point(486, 787);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(87, 52);
+            this.btnSave.Size = new System.Drawing.Size(109, 52);
             this.btnSave.TabIndex = 20;
-            this.btnSave.Text = "保存";
+            this.btnSave.Text = "保存修改";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnCancel
@@ -125,7 +125,7 @@
             this.btnCancel.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.Appearance.Options.UseFont = true;
             this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
-            this.btnCancel.Location = new System.Drawing.Point(284, 787);
+            this.btnCancel.Location = new System.Drawing.Point(166, 787);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(87, 52);
             this.btnCancel.TabIndex = 19;
@@ -261,7 +261,6 @@
             this.cboPollutedSource.Properties.Appearance.Options.UseFont = true;
             this.cboPollutedSource.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cboPollutedSource.Properties.ReadOnly = true;
             this.cboPollutedSource.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.cboPollutedSource.Size = new System.Drawing.Size(100, 24);
             this.cboPollutedSource.TabIndex = 25;
@@ -297,7 +296,6 @@
             this.cboPollutionSource.Properties.Appearance.Options.UseFont = true;
             this.cboPollutionSource.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cboPollutionSource.Properties.ReadOnly = true;
             this.cboPollutionSource.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.cboPollutionSource.Size = new System.Drawing.Size(100, 24);
             this.cboPollutionSource.TabIndex = 21;
@@ -395,9 +393,9 @@
             // 
             this.simpleButton2.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.simpleButton2.Appearance.Options.UseFont = true;
-            this.simpleButton2.Location = new System.Drawing.Point(193, 854);
+            this.simpleButton2.Location = new System.Drawing.Point(263, 787);
             this.simpleButton2.Name = "simpleButton2";
-            this.simpleButton2.Size = new System.Drawing.Size(161, 42);
+            this.simpleButton2.Size = new System.Drawing.Size(104, 52);
             this.simpleButton2.TabIndex = 23;
             this.simpleButton2.Text = "项目测试顺序";
             this.simpleButton2.Click += new System.EventHandler(this.simpleButton2_Click);
@@ -415,7 +413,6 @@
             this.Controls.Add(this.groupControl1);
             this.Name = "ReagentNeedle";
             this.Size = new System.Drawing.Size(1861, 962);
-            this.Load += new System.EventHandler(this.ReagentNeedle_Load);
             ((System.ComponentModel.ISupportInitialize)(this.lstvCrossPollution)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();

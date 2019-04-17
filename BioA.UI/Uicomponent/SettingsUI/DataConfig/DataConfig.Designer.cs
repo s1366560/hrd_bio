@@ -336,7 +336,7 @@
             this.Controls.Add(this.lblResultUnitInput);
             this.Name = "DataConfig";
             this.Size = new System.Drawing.Size(1749, 933);
-            this.Load += new System.EventHandler(this.DataConfig_Load);
+            //this.Load += new System.EventHandler(this.DataConfig_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();

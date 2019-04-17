@@ -31,15 +31,15 @@ namespace BioA.UI
         {
             InitializeComponent();
             this.ControlBox = false;
-            dtpValidDate.DateTime = DateTime.Now.AddMonths(1);
         }
 
-        private void LoadingReagentBlocking_Load(object sender, EventArgs e)
+        public void LoadingReagentBlocking_Load(object sender, EventArgs e)
         {
-            //异步方法调用
-            BeginInvoke(new Action(loadFrmReagent));
+            dtpValidDate.DateTime = DateTime.Now.AddMonths(1);
             rs= ReagentConfigInfoConstrunction.ReagentStateInfo;
             rc = ReagentConfigInfoConstrunction.ReagentConfig;
+            //异步方法调用
+            this.loadFrmReagent();
 
         }
         //存储已经分好类型<key> 对应项目名称<value>
@@ -96,17 +96,14 @@ namespace BioA.UI
         {
             if (dic.Count() > 0)
             {
-                this.Invoke(new EventHandler(delegate
-                {
-                    this.cboProjectCheck.Properties.Items.Clear();
-                    foreach (var item in dic)
-	                {
-                        if (item.Key == cboReagentType.Text)
-                        {
-                            cboProjectCheck.Properties.Items.AddRange(item.Value.FindAll(i => !LstProjectName.Contains(i)));
-                        }
-	                }
-                }));
+                this.cboProjectCheck.Properties.Items.Clear();
+                foreach (var item in dic)
+	            {
+                    if (item.Key == cboReagentType.Text)
+                    {
+                        cboProjectCheck.Properties.Items.AddRange(item.Value.FindAll(i => !LstProjectName.Contains(i)));
+                    }
+	            }
             }
         }
         private void btnCancel_Click(object sender, EventArgs e)
@@ -324,7 +321,7 @@ namespace BioA.UI
             }
         }
         /// <summary>
-        /// 文本框值发生改变事件
+        /// 手动条码扫码录入
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

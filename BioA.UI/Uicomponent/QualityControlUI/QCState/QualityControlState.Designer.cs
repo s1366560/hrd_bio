@@ -153,6 +153,7 @@
             this.gridView1.GridControl = this.lstQCResult;
             this.gridView1.IndicatorWidth = 40;
             this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsBehavior.Editable = false;
             this.gridView1.OptionsCustomization.AllowFilter = false;
             this.gridView1.OptionsCustomization.AllowSort = false;
             this.gridView1.OptionsSelection.CheckBoxSelectorColumnWidth = 40;
@@ -252,7 +253,7 @@
             this.Controls.Add(this.lblProName);
             this.Name = "QualityControlState";
             this.Size = new System.Drawing.Size(1721, 906);
-            this.Load += new System.EventHandler(this.QualityControlState_Load);
+            //this.Load += new System.EventHandler(this.QualityControlState_Load);
             ((System.ComponentModel.ISupportInitialize)(this.txtLotNum.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lstQCResult)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();

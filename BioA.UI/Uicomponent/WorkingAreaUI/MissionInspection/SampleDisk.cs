@@ -24,29 +24,32 @@ namespace BioA.UI
         public SampleDisk()
         {
             InitializeComponent();
+            ComSampleNum.Items.AddRange(RunConfigureUtility.SamplePanel.ToArray());
+
+            dt.Columns.Add("样本编号");
+            dt.Columns.Add("样本位置");
+            dt.Columns.Add("样本申请时间");
+            dt.Columns.Add("条码");
+            dt.Columns.Add("项目计划");
+            for (int i = 1; i < 120; i++)
+            {
+                dt.Rows.Add("", "", "", "");
+            }
+            this.gridControl1.DataSource = dt;
+            gridView1.Columns[0].Width = 30;
+            gridView1.Columns[1].Width = 80;
+            gridView1.Columns[2].Width = 80;
+            gridView1.Columns[3].Width = 100;
+            gridView1.Columns[4].Width = 480;
+            
         }
         /// <summary>
         /// 页面加载
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void SampleDisk_Load(object sender, EventArgs e)
+        public void SampleDisk_Load(object sender, EventArgs e)
         {
-            ComSampleNum.Items.AddRange(RunConfigureUtility.SamplePanel.ToArray());
-            
-            dt.Columns.Add("样本编号");
-            dt.Columns.Add("样本申请时间");
-            dt.Columns.Add("条码");
-            dt.Columns.Add("项目计划");
-            for (int i = 1; i < 120; i++)
-            {
-                dt.Rows.Add("","","","");
-            }
-            this.gridControl1.DataSource = dt;
-            gridView1.Columns[0].Width = 30;
-            gridView1.Columns[1].Width = 80;
-            gridView1.Columns[2].Width = 100;
-            gridView1.Columns[3].Width = 480;
             ComSampleNum.SelectedIndex = 0;
         }
         /// <summary>
@@ -57,21 +60,21 @@ namespace BioA.UI
         private void ComSampleNum_SelectedIndexChanged(object sender, EventArgs e)
         {
             List<TaskInfo> lstTaskInfos = new WorkAreaApplyTask().GetTaskInfo("GetTaskInfo",Convert.ToInt32(ComSampleNum.Text));
-                this.Invoke(new EventHandler(delegate 
-                {
+                //this.Invoke(new EventHandler(delegate 
+                //{
                     dt.Rows.Clear();
                     for (int i = 1; i <= 120; i++)
                     {
-                        TaskInfo task = lstTaskInfos.SingleOrDefault(s => s.SampleNum == i);
+                        TaskInfo task = lstTaskInfos.SingleOrDefault(s => s.SamplePos == i);
                         if (task != null)
                         {
-                            dt.Rows.Add(task.SampleNum, task.CreateDate.ToString("yyyy-MM-dd HH:mm:ss.fff"), task.Barcode, task.ProjectName);
+                            dt.Rows.Add(task.SampleNum,task.SamplePos, task.CreateDate.ToString("yyyy-MM-dd HH:mm:ss.fff"), task.Barcode, task.ProjectName);
                         }
                         else
-                            dt.Rows.Add("", "", "", "");
+                            dt.Rows.Add("", "", "", "", "");
                     }
                     this.gridControl1.DataSource = dt;
-                }));
+                //}));
             
         }
         /// <summary>
@@ -230,15 +233,24 @@ namespace BioA.UI
                 {
                     for (int i = 0; i < count.Length; i++)
                     {
-                        ScanBarcodePosInfo samp = new ScanBarcodePosInfo();
-                        samp.Disk = 1;
-                        samp.Position = count[i] + 1;
-                        //new Form1().SMPPositions.Enqueue(samp);
-                        ScanBarcodePostEvent(samp);
+                        if (count[i] <= 40)
+                        {
+                            ScanBarcodePosInfo samp = new ScanBarcodePosInfo();
+                            samp.Disk = 1;
+                            samp.Position = count[i] + 1;
+                            //new Form1().SMPPositions.Enqueue(samp);
+                            ScanBarcodePostEvent(samp);
+                        }
+                        else
+                        {
+
+                        }
                     }
                 }
-                else
+                else{
                     MessageBoxDraw.ShowMsg("请选择要扫描的位置！", MsgType.OK);
+                    return;
+                }
                 //new Form1().SMPBarcodeSignal.Set();
                 SMPBarcodeSignalEvent();
             }

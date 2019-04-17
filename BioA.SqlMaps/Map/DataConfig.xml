@@ -5,36 +5,36 @@
     <select id="QueryDataConfig" ResultClass="string" >
       select Unit from ResultUnitTb
     </select>
-    <select id="QueryDataConfigAdd" ResultClass="int" parameterClass="System.Collections.IDictionary">
+    <select id="QueryDataConfigAdd" ResultClass="int" parameterClass="string">
       select count(*) from ResultUnitTb where Unit=#dataConfig#
     </select>
-    <insert id="DataConfigAdd" parameterClass="System.Collections.IDictionary">
+    <insert id="DataConfigAdd" parameterClass="string">
       insert into ResultUnitTb (Unit) values (#dataConfig#)
     </insert>
-    <update id="UpdataDataConfig" parameterClass="System.Collections.IDictionary" resultClass="int">
+    <update id="UpdataDataConfig" parameterClass="System.Collections.IDictionary">
       update ResultUnitTb
       set Unit = #dataConfig#
       where Unit=#dataConfigOld#
     </update>
-    <delete id="DeleteDataConfig" resultClass="int" parameterClass="System.Collections.IDictionary" >
+    <delete id="DeleteDataConfig" parameterClass="string" >
       delete from ResultUnitTb where Unit=#dataConfig# 
     </delete>
-    <select id="QueryDilutionRatio" ResultClass="string" >
+    <select id="QueryDilutionRatio" ResultClass="float" >
       select DilutionRatio from DilutionRatioTb
     </select>
-    <select id="QueryDilutionRatioAdd" ResultClass="int" parameterClass="System.Collections.IDictionary">
-      select count(*) from DilutionRatioTb where DilutionRatio=#DilutionRatio#
+    <select id="QueryDilutionRatioAdd" ResultClass="int" parameterClass="string">
+      select count(*) from DilutionRatioTb where DilutionRatio=#dataConfig#
     </select>
-    <insert id="DilutionRatioAdd" parameterClass="System.Collections.IDictionary">
-      insert into DilutionRatioTb (DilutionRatio) values (#DilutionRatio#)
+    <insert id="DilutionRatioAdd" parameterClass="string">
+      insert into DilutionRatioTb (DilutionRatio) values (#dataConfig#)
     </insert>
     <update id="UpdataDilutionRatio" parameterClass="System.Collections.IDictionary" resultClass="int">
       update DilutionRatioTb
       set DilutionRatio = #DilutionRatio#
       where DilutionRatio=#DilutionRatioOld#
     </update>
-    <delete id="DeleteDilutionRatio" resultClass="int" parameterClass="System.Collections.IDictionary" >
-      delete from DilutionRatioTb where DilutionRatio=#DilutionRatio#
+    <delete id="DeleteDilutionRatio" resultClass="int" parameterClass="string" >
+      delete from DilutionRatioTb where DilutionRatio=#dataConfig#
     </delete>
     <!--查询打印设置数据-->
     <select id="QueryPrintSetting" ResultClass="string" >

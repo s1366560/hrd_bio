@@ -19,16 +19,7 @@ namespace BioA.Service
                 // 当count>0代表已存在此项目
                 if (count <= 0)
                 {
-                    myBatis.ReagentNeedleadd(strDBMethod, reagentNeedleAntifoulingStrategyInfo);
-                    count = myBatis.SelectReagentNeedle("QueryReagentNeedleAdd", reagentNeedleAntifoulingStrategyInfo);
-                    if (count > 0)
-                    {
-                        strInfo = "试剂针防污策略创建成功！";
-                    }
-                    else
-                    {
-                        strInfo = "试剂针防污策略创建失败，请联系管理员！";
-                    }
+                    strInfo = myBatis.ReagentNeedleadd(strDBMethod, reagentNeedleAntifoulingStrategyInfo);
                 }
                 else
                 {
@@ -51,7 +42,7 @@ namespace BioA.Service
             return lstQueryReagentNeedle;
         }
 
-        public int ReagentNeedleDelete(string strDBMethod, ReagentNeedleAntifoulingStrategyInfo reagentNeedleAntifoulingStrategyInfo)
+        public string ReagentNeedleDelete(string strDBMethod, ReagentNeedleAntifoulingStrategyInfo reagentNeedleAntifoulingStrategyInfo)
         {
           
             return myBatis.DeleteReagentNeedle(strDBMethod, reagentNeedleAntifoulingStrategyInfo);
@@ -93,16 +84,23 @@ namespace BioA.Service
         /// </summary>
         /// <param name="strDBMethod"></param>
         /// <param name="lstProSunSequence"></param>
-        public void SaveProjectRunSequenceInfo(string strDBMethod, List<ProjectRunSequenceInfo> lstProSunSequence)
+        public string SaveProjectRunSequenceInfo(string strDBMethod, List<ProjectRunSequenceInfo> lstProSunSequence)
         {
             ProjectRunSequenceInfo projectRunSequ = new ProjectRunSequenceInfo();
+            int resultCount = 0;
             for (int i = 0; i < lstProSunSequence.Count; i++)
             {
                 projectRunSequ.ProjectName = lstProSunSequence[i].ProjectName;
                 projectRunSequ.SampleType = lstProSunSequence[i].SampleType;
                 projectRunSequ.RunSequence = i + 1;
-                myBatis.SaveProjectRunSequenceInfo(strDBMethod, projectRunSequ);
+                resultCount += myBatis.SaveProjectRunSequenceInfo(strDBMethod, projectRunSequ);
             }
+            if (resultCount == lstProSunSequence.Count)
+            {
+                return "调整项目测试顺序保存成功！";
+            }
+            else
+                return null;
         }
     }
 }

@@ -68,10 +68,13 @@
             // 
             // gridView1
             // 
+            this.gridView1.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFullFocus;
             this.gridView1.GridControl = this.lstvCalibInfo;
             this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsBehavior.Editable = false;
             this.gridView1.OptionsCustomization.AllowFilter = false;
             this.gridView1.OptionsCustomization.AllowSort = false;
+            this.gridView1.OptionsSelection.EnableAppearanceFocusedCell = false;
             this.gridView1.OptionsView.ShowGroupPanel = false;
             // 
             // lblTestItem
@@ -134,8 +137,10 @@
             // 
             this.gridView2.GridControl = this.lstvDetectionProject;
             this.gridView2.Name = "gridView2";
+            this.gridView2.OptionsBehavior.Editable = false;
             this.gridView2.OptionsCustomization.AllowFilter = false;
             this.gridView2.OptionsCustomization.AllowSort = false;
+            this.gridView2.OptionsSelection.EnableAppearanceFocusedCell = false;
             this.gridView2.OptionsView.ShowGroupPanel = false;
             // 
             // CalibMaintain
@@ -151,7 +156,7 @@
             this.Controls.Add(this.lblCalibrator);
             this.Name = "CalibMaintain";
             this.Size = new System.Drawing.Size(1717, 906);
-            this.Load += new System.EventHandler(this.CalibMaintain_Load);
+            //this.Load += new System.EventHandler(this.CalibMaintain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.lstvCalibInfo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lstvDetectionProject)).EndInit();

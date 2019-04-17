@@ -120,6 +120,7 @@ namespace BioA.UI
         public LightSystem()
         {
             InitializeComponent();
+            cboWaveLength.Items.AddRange(RunConfigureUtility.WaveLengthList.ToArray());
         }
 
         private void btnCommand_Click(object sender, EventArgs e)
@@ -173,14 +174,15 @@ namespace BioA.UI
             }
         }
 
-        private void LightSystem_Load(object sender, EventArgs e)
+        public void LightSystem_Load(object sender, EventArgs e)
         {
             //异步方法调用要加载的数据
-            BeginInvoke(new Action(loadLightSystemInfo));            
+            this.loadLightSystemInfo();            
         }
 
         private void loadLightSystemInfo()
         {
+            this.lightSystenDic.Clear();
             txtMaxVoltage.Text = "10";
             txtMinVoltage.Text = "0";
 
@@ -194,7 +196,6 @@ namespace BioA.UI
                 }
             }
 
-            cboWaveLength.Items.AddRange(RunConfigureUtility.WaveLengthList.ToArray());
             lightSystenDic.Add("QueryManuOffsetGain", null);
             CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.SystemEquipmentManage, lightSystenDic);
         }

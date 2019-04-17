@@ -91,11 +91,11 @@ namespace BioA.UI
             {
                 selectedProjects = value;
 
-                ResetControlState();
-
+                //ResetControlState();
+                this.ClearLastSelectedInfo();
                 foreach (Control control in this.Controls)
                 {
-                    if (control.GetType() == typeof(System.Windows.Forms.Button))
+                    if (!string.IsNullOrEmpty(control.Text.Trim()))
                     {
                         foreach (string[] str in selectedProjects)
                         {
@@ -140,6 +140,27 @@ namespace BioA.UI
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// 清除上一次缓存下的选种项目信息
+        /// </summary>
+        public void ClearLastSelectedInfo()
+        {
+            this.Invoke(new EventHandler(delegate
+            {
+                foreach (Control control in this.Controls)
+                {
+                    //if (control.Tag != null)
+                    //    if (control.Text != "" && control.Tag != null)
+                    if (control.Tag != null && !string.IsNullOrEmpty(control.Text.Trim()))
+                    {
+                        control.Tag = "0";
+                        control.ForeColor = Color.Black;
+                        control.Enabled = false;
+                    }
+                }
+            }));
         }
 
         private List<string> taskProjects = new List<string>();
@@ -204,27 +225,24 @@ namespace BioA.UI
         /// </summary>
         public void ResetControlState()
         {
-            foreach (Control control in this.Controls)
+            this.Invoke(new EventHandler(delegate
             {
-                //if (control.Tag != null)
-                //    if (control.Text != "" && control.Tag != null)
-                if (control.Tag != null)
+                foreach (Control control in this.Controls)
                 {
-                    if (control.GetType() == typeof(System.Windows.Forms.Button))
+                    //if (control.Tag != null)
+                    //    if (control.Text != "" && control.Tag != null)
+                    if (control.Tag != null && !string.IsNullOrEmpty(control.Text.Trim()))
                     {
-                        if (control.Tag.ToString() == "1" || control.Tag.ToString() == "2")
+                        if (control.GetType() == typeof(System.Windows.Forms.Button))
                         {
                             control.Tag = "0";
-                            this.Invoke(new EventHandler(delegate
-                            {
-                                control.ForeColor = Color.Black;
-                                control.Enabled = false;
-                            }));
-
+                            control.Text = null;
+                            control.ForeColor = Color.Black;
+                            control.Enabled = false;
                         }
                     }
                 }
-            }
+            }));
         }
         /// <summary>
         /// 项目按钮点击事件

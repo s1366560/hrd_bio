@@ -1049,7 +1049,7 @@
             this.Controls.Add(this.lstvAssayProject);
             this.Name = "CalibrationParameter";
             this.Size = new System.Drawing.Size(1711, 900);
-            this.Load += new System.EventHandler(this.CalibrationParameter_Load);
+            //this.Load += new System.EventHandler(this.CalibrationParameter_Load);
             ((System.ComponentModel.ISupportInitialize)(this.lstvAssayProject)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkMarkFail)).EndInit();

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraGrid.GridLevelNode gridLevelNode2 = new DevExpress.XtraGrid.GridLevelNode();
+            DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QCMaintain));
             this.lblQCProducts = new DevExpress.XtraEditors.LabelControl();
             this.lblTestLtem = new DevExpress.XtraEditors.LabelControl();
@@ -70,9 +70,9 @@
             // 
             // lstvQCInfo
             // 
-            gridLevelNode2.RelationName = "Level1";
+            gridLevelNode1.RelationName = "Level1";
             this.lstvQCInfo.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
-            gridLevelNode2});
+            gridLevelNode1});
             this.lstvQCInfo.Location = new System.Drawing.Point(13, 70);
             this.lstvQCInfo.MainView = this.gridView1;
             this.lstvQCInfo.Name = "lstvQCInfo";
@@ -87,8 +87,10 @@
             // 
             this.gridView1.GridControl = this.lstvQCInfo;
             this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsBehavior.Editable = false;
             this.gridView1.OptionsCustomization.AllowFilter = false;
             this.gridView1.OptionsCustomization.AllowSort = false;
+            this.gridView1.OptionsSelection.EnableAppearanceFocusedCell = false;
             this.gridView1.OptionsView.ShowGroupPanel = false;
             // 
             // lstvQCRelativelyProject
@@ -105,8 +107,10 @@
             // 
             this.gridView2.GridControl = this.lstvQCRelativelyProject;
             this.gridView2.Name = "gridView2";
+            this.gridView2.OptionsBehavior.Editable = false;
             this.gridView2.OptionsCustomization.AllowFilter = false;
             this.gridView2.OptionsCustomization.AllowSort = false;
+            this.gridView2.OptionsSelection.EnableAppearanceFocusedCell = false;
             this.gridView2.OptionsView.ShowGroupPanel = false;
             // 
             // btnAdd
@@ -197,7 +201,7 @@
             this.Controls.Add(this.lblQCProducts);
             this.Name = "QCMaintain";
             this.Size = new System.Drawing.Size(1717, 906);
-            this.Load += new System.EventHandler(this.QCMaintain_Load);
+            //this.Load += new System.EventHandler(this.QCMaintain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.lstvQCInfo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lstvQCRelativelyProject)).EndInit();

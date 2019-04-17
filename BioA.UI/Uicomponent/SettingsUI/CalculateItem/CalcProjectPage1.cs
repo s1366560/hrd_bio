@@ -57,8 +57,8 @@ namespace BioA.UI
             set
             {
                 lstAssayProInfos = value;
-                this.Invoke(new EventHandler(delegate{
-                    ResetControlState();
+                //this.Invoke(new EventHandler(delegate{
+                    //ResetControlState();
                     simpleButton1.Text = lstAssayProInfos.Count >= 1 ? lstAssayProInfos[0] : "";
                     simpleButton2.Text = lstAssayProInfos.Count >= 2 ? lstAssayProInfos[1] : "";
                     simpleButton3.Text = lstAssayProInfos.Count >= 3 ? lstAssayProInfos[2] : "";
@@ -91,7 +91,7 @@ namespace BioA.UI
                     simpleButton30.Text = lstAssayProInfos.Count >= 30 ? lstAssayProInfos[29] : "";
                     simpleButton31.Text = lstAssayProInfos.Count >= 31 ? lstAssayProInfos[30] : "";
                     simpleButton32.Text = lstAssayProInfos.Count >= 32 ? lstAssayProInfos[31] : "";
-                }));
+                //}));
             }
                 
         }
@@ -200,10 +200,7 @@ namespace BioA.UI
                         if (control.Tag.ToString() == "1")
                         {
                             control.Tag = "0";
-                            this.Invoke(new EventHandler(delegate
-                            {
-                                control.ForeColor = Color.Black;
-                            }));
+                            control.ForeColor = Color.Black;
 
                         }
                     }

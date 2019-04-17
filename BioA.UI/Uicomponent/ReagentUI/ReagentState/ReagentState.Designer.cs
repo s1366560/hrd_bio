@@ -55,6 +55,7 @@
             // 
             this.gridView1.GridControl = this.gridReagentState;
             this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsBehavior.Editable = false;
             this.gridView1.OptionsCustomization.AllowFilter = false;
             this.gridView1.OptionsCustomization.AllowSort = false;
             this.gridView1.OptionsView.ShowGroupPanel = false;
@@ -134,7 +135,7 @@
             this.Controls.Add(this.gridReagentState);
             this.Name = "ReagentState";
             this.Size = new System.Drawing.Size(1745, 928);
-            this.Load += new System.EventHandler(this.ReagentState_Load);
+            //this.Load += new System.EventHandler(this.ReagentState_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridReagentState)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             this.ResumeLayout(false);

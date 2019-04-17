@@ -48,9 +48,18 @@ namespace BioA.UI
         /// 所有生化项目信息
         /// </summary>
         private List<AssayProjectInfo> lstAssayProInfo = new List<AssayProjectInfo>();
+        /// <summary>
+        /// 数据库访问层
+        /// </summary>
+        QCMaintian qcMaintian = new QCMaintian();
         public QCMaintain()
         {
             InitializeComponent();
+            Font font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            gridView1.Appearance.HeaderPanel.Font = font;
+            gridView1.Appearance.Row.Font = font;
+            gridView2.Appearance.HeaderPanel.Font = font;
+            gridView2.Appearance.Row.Font = font;
             dataTableProject.Columns.Add("项目名称");
             dataTableProject.Columns.Add("样本类型");
             dataTableProject.Columns.Add("靶值");
@@ -59,12 +68,6 @@ namespace BioA.UI
             dataTableProject.Columns.Add("3SD");
 
             lstvQCRelativelyProject.DataSource = dataTableProject;
-            this.gridView2.Columns[0].OptionsColumn.AllowEdit = false;
-            this.gridView2.Columns[1].OptionsColumn.AllowEdit = false;
-            this.gridView2.Columns[2].OptionsColumn.AllowEdit = false;
-            this.gridView2.Columns[3].OptionsColumn.AllowEdit = false;
-            this.gridView2.Columns[4].OptionsColumn.AllowEdit = false;
-            this.gridView2.Columns[5].OptionsColumn.AllowEdit = false;
 
             dataTableQC.Columns.Add("质控品名称");
             dataTableQC.Columns.Add("位置");
@@ -75,44 +78,35 @@ namespace BioA.UI
             dataTableQC.Columns.Add("冻结");
             dataTableQC.Columns.Add("质控品ID");
             lstvQCInfo.DataSource = dataTableQC;
-            this.gridView1.Columns[0].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[1].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[2].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[3].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[4].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[5].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[6].OptionsColumn.AllowEdit = false;
 
         }
 
-        private void QCMaintain_Load(object sender, EventArgs e)
+        public void QCMaintain_Load(object sender, EventArgs e)
         {
-            BeginInvoke(new Action(loadQCMaintain));
+            this.loadQCMaintain();
             
+        }
+        /// <summary>
+        /// 清空本类成员属性值
+        /// </summary>
+        public void ClearQCMaintainParam()
+        {
+            this.qcRelationProForEdit.Clear();
+            this.lstQualityControlInfo.Clear();
+            this.qcMaintainDic.Clear();
+            this.lstQCRelationProjectInfo.Clear();
+            this.lstAssayProInfo.Clear();
         }
         private void loadQCMaintain()
         {
-            Font font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            gridView1.Appearance.HeaderPanel.Font = font;
-            gridView1.Appearance.Row.Font = font;
-            gridView2.Appearance.HeaderPanel.Font = font;
-            gridView2.Appearance.Row.Font = font;
-            qualityControlAddAndEdit = new QualityControlAddAndEdit();
-            qualityControlAddAndEdit.TransmitQCAndTestProjectInfoEvent += Execute_TransmitQCAndTestProjectInfoEvent;
-            QCMaintian qcMaintian = new QCMaintian();
-            qcMaintainDic.Clear();
             //获取质控品信息对应的所有项目信息
-            //qcMaintainDic.Add("QueryRelativelyProjectByQCInfo", null);
             lstQCRelationProjectInfo = qcMaintian.QueryRelativelyProjectByQCInfo("QueryRelativelyProjectByQCInfo", null);
 
             //获取所有质控信息
-            //qcMaintainDic.Add("QueryQCAllInfo",null);
             lstQualityControlInfo = new QCGraphics().QueryQCAllInfo("QueryQCAllInfo");
             InitQCInfos(lstQualityControlInfo);
             //获取所有项目信息
-            //qcMaintainDic.Add("QueryAssayProAllInfo", new object[] { "" });
             lstAssayProInfo = qcMaintian.QueryAssayProAllInfo("QueryAssayProAllInfo", null);
-            //SendToServices(qcMaintainDic);
         }
         /// <summary>
         /// 发送信息给服务器
@@ -144,9 +138,13 @@ namespace BioA.UI
                         lstQCRelationProjectInfo.Add(value);
                     }
                 }
-                InitQCInfos(lstQualityControlInfo);
-                MessageBox.Show("质控品添加成功！");
-                this.Invoke(new EventHandler(delegate { qualityControlAddAndEdit.Close(); }));
+
+                this.Invoke(new EventHandler(delegate
+                {
+                    InitQCInfos(lstQualityControlInfo);
+                    MessageBox.Show("质控品添加成功！");
+                    qualityControlAddAndEdit.Close();
+                }));
             }
             else
             {
@@ -162,9 +160,13 @@ namespace BioA.UI
                             lstQCRelationProjectInfo.Add(value);
                         }
                     }
-                    InitQCInfos(lstQualityControlInfo);
-                    MessageBox.Show("质控品修改成功！");
-                    this.Invoke(new EventHandler(delegate { qualityControlAddAndEdit.Close(); }));
+
+                    this.Invoke(new EventHandler(delegate
+                    {
+                        InitQCInfos(lstQualityControlInfo);
+                        MessageBox.Show("质控品修改成功！");
+                        qualityControlAddAndEdit.Close();
+                    }));
                 }
             }
         }
@@ -182,13 +184,19 @@ namespace BioA.UI
                 {
                     MessageBox.Show("该质控品在激活条件下无法编辑，请冻结此质控品！");
                     return;
-                }                
+                }
+                if (qualityControlAddAndEdit == null)
+                {
+                    qualityControlAddAndEdit = new QualityControlAddAndEdit();
+                    qualityControlAddAndEdit.TransmitQCAndTestProjectInfoEvent += Execute_TransmitQCAndTestProjectInfoEvent;
+                    qualityControlAddAndEdit.StartPosition = FormStartPosition.CenterScreen;
+                }
                 qualityControlAddAndEdit.QCOldInfo = qCInfoForEdit;
                 qualityControlAddAndEdit.QCRelateProInfo = qcRelationProForEdit;
                 qualityControlAddAndEdit.Text = "编辑质控品";
                 qualityControlAddAndEdit.LstAssayProInfos = lstAssayProInfo;
                 qualityControlAddAndEdit.ListQualityControlInfo = lstQualityControlInfo;
-                qualityControlAddAndEdit.StartPosition = FormStartPosition.CenterScreen;
+                qualityControlAddAndEdit.QualityControlAddAndEdit_Load(null,null);
                 qualityControlAddAndEdit.ShowDialog();
             }
             
@@ -200,11 +208,16 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            if (qualityControlAddAndEdit == null)
+            {
+                qualityControlAddAndEdit = new QualityControlAddAndEdit();
+                qualityControlAddAndEdit.TransmitQCAndTestProjectInfoEvent += Execute_TransmitQCAndTestProjectInfoEvent;
+                qualityControlAddAndEdit.StartPosition = FormStartPosition.CenterScreen;
+            }
             qualityControlAddAndEdit.Text = "新增质控品";
-            qualityControlAddAndEdit.StartPosition = FormStartPosition.CenterScreen;
-
             qualityControlAddAndEdit.LstAssayProInfos = lstAssayProInfo;
             qualityControlAddAndEdit.ListQualityControlInfo = lstQualityControlInfo;
+            qualityControlAddAndEdit.QualityControlAddAndEdit_Load(null,null);
             qualityControlAddAndEdit.ShowDialog();
         }
 
@@ -228,7 +241,7 @@ namespace BioA.UI
                     break;
                 case "QueryQCAllInfo":
                     lstQualityControlInfo = (List<QualityControlInfo>)XmlUtility.Deserialize(typeof(List<QualityControlInfo>), sender as string);
-                    InitQCInfos(lstQualityControlInfo);
+                    this.Invoke(new EventHandler(delegate { InitQCInfos(lstQualityControlInfo); }));
                     break;
                 case "QueryRelativelyProjectByQCInfo":
                     lstQCRelationProjectInfo = (List<QCRelationProjectInfo>)XmlUtility.Deserialize(typeof(List<QCRelationProjectInfo>), sender as string);
@@ -309,22 +322,16 @@ namespace BioA.UI
 
         private void InitQCRelatePros(List<QCRelationProjectInfo> lstQCRelateProsInfo)
         {
-            qcRelationProForEdit = lstQCRelateProsInfo;
-
-            this.Invoke(new EventHandler(delegate
+            dataTableProject.Rows.Clear();
+            qcRelationProForEdit.Clear();
+            if (lstQCRelateProsInfo.Count > 0 || lstQCRelationProjectInfo != null)
+            {
+                foreach (QCRelationProjectInfo qcInfo in lstQCRelateProsInfo)
                 {
-                    lstvQCRelativelyProject.RefreshDataSource();
-                    dataTableProject.Clear();
-                    int i = 1;
-
-                    if (lstQCRelateProsInfo.Count != 0)
-                    {
-                        foreach (QCRelationProjectInfo qcRelatePro in lstQCRelateProsInfo)
-                        {
-                            dataTableProject.Rows.Add(new object[] { qcRelatePro.ProjectName, qcRelatePro.SampleType, qcRelatePro.TargetMean, qcRelatePro.TargetSD, qcRelatePro.Target2SD, qcRelatePro.Target3SD });
-                        }
-                    }
-                }));
+                    qcRelationProForEdit.Add(qcInfo);
+                    dataTableProject.Rows.Add(new object[] { qcInfo.ProjectName, qcInfo.SampleType, qcInfo.TargetMean, qcInfo.TargetSD, qcInfo.Target2SD, qcInfo.Target3SD });
+                }
+            }
         }
         /// <summary>
         /// 显示所有的质控品
@@ -332,24 +339,19 @@ namespace BioA.UI
         /// <param name="lstQCInfos"></param>
         private void InitQCInfos(List<QualityControlInfo> lstQCInfos)
         {
-                BeginInvoke(new Action(() =>
+            //gridControl1
+            if (lstQCInfos.Count != 0)
+            {
+                dataTableQC.Rows.Clear();
+                foreach (QualityControlInfo qcInfo in lstQCInfos)
                 {
-                    lstvQCInfo.RefreshDataSource();
-                    dataTableQC.Clear();
+                    dataTableQC.Rows.Add(new object[] { qcInfo.QCName, qcInfo.Pos, qcInfo.LotNum, qcInfo.HorizonLevel, qcInfo.InvalidDate.ToShortDateString(), qcInfo.Manufacturer, qcInfo.IsLocked == true ? "是" : "否",qcInfo.QCID });
+                }
+                this.gridView1.Columns["质控品ID"].Visible = false;
+            }
+            this.gridView1.ClearSelection();
 
-                    //gridControl1
-                    if (lstQCInfos.Count != 0)
-                    {
-                        foreach (QualityControlInfo qcInfo in lstQCInfos)
-                        {
-                            dataTableQC.Rows.Add(new object[] { qcInfo.QCName, qcInfo.Pos, qcInfo.LotNum, qcInfo.HorizonLevel, qcInfo.InvalidDate.ToShortDateString(), qcInfo.Manufacturer, qcInfo.IsLocked == true ? "是" : "否",qcInfo.QCID });
-                        }
-                        this.gridView1.Columns["质控品ID"].Visible = false;
-                    }
-                    this.gridView1.ClearSelection();
-
-                    lstvQCInfo_Click(null, null);
-                }));
+            lstvQCInfo_Click(null, null);
         }
         /// <summary>
         /// 质控品信息列表点击事件
@@ -371,17 +373,9 @@ namespace BioA.UI
                 qCInfoForEdit.Manufacturer = this.gridView1.GetRowCellValue(selectedHandle, "生产厂家").ToString();
                 qCInfoForEdit.IsLocked = this.gridView1.GetRowCellValue(selectedHandle, "冻结").ToString() == "是" ? true : false;
                 qCInfoForEdit.QCID = Convert.ToInt32(this.gridView1.GetRowCellValue(selectedHandle, "质控品ID").ToString());
-                this.lstvQCRelativelyProject.RefreshDataSource();
-                dataTableProject.Clear();
-                qcRelationProForEdit.Clear();
-                foreach (QCRelationProjectInfo qcInfo in lstQCRelationProjectInfo)
-                {
-                    if (qcInfo.QCID == qCInfoForEdit.QCID)
-                    {
-                        dataTableProject.Rows.Add(new object[] { qcInfo.ProjectName, qcInfo.SampleType, qcInfo.TargetMean, qcInfo.TargetSD, qcInfo.Target2SD, qcInfo.Target3SD });
-                        qcRelationProForEdit.Add(qcInfo);
-                    }
-                }
+
+
+                InitQCRelatePros(lstQCRelationProjectInfo.FindAll(s => s.QCID == qCInfoForEdit.QCID) == null ? null : lstQCRelationProjectInfo.FindAll(s => s.QCID == qCInfoForEdit.QCID));
             }
 
         }

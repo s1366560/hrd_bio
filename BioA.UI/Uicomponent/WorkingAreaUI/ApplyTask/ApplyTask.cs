@@ -24,19 +24,19 @@ namespace BioA.UI
     public partial class ApplyTask : DevExpress.XtraEditors.XtraUserControl
     {
         //项目第一页~~ 4页 窗体
-        private ProjectPage1 projectPage1 = new ProjectPage1();
+        private ProjectPage1 projectPage1 = new ProjectPage1(); 
         private ProjectPage2 projectPage2 = new ProjectPage2();
         private ProjectPage3 projectPage3 = new ProjectPage3();
-        private ProjectPage4 projectPage4 = new ProjectPage4();
+        private ProjectPage4 projectPage4 =new ProjectPage4();
         //组合项目第一页和第二页窗体
-        private ProCombPage1 proCombPage1 = new ProCombPage1();
-        private ProCombPage2 proCombPage2 = new ProCombPage2();
+        private ProCombPage1 proCombPage1 =new ProCombPage1();
+        private ProCombPage2 proCombPage2 =new ProCombPage2();
         // 最大样本号
         private int intMaxSampleNum = 0;
         // 任务列表信息存储
         List<SampleInfo> lstSampleInfo = new List<SampleInfo>();
         // 样本稀释比例
-        List<string> lstDilutionRatio = new List<string>();
+        List<float> lstDilutionRatio = new List<float>();
         
         // 项目稀释设置
         List<string[]> lstDiluteInfos = new List<string[]>();
@@ -49,7 +49,7 @@ namespace BioA.UI
         //批量录入信息窗体
         frmBatchInput batchInput = new frmBatchInput();
         //病人信息窗体
-        PatientInfoFrm patientInfofrm = new PatientInfoFrm();
+        PatientInfoFrm patientInfofrm;
         private MyBatis myBatis = new MyBatis();
         //申明一个获取任务状态的委托
         public delegate bool getOPID();
@@ -57,50 +57,55 @@ namespace BioA.UI
         public ApplyTask()
         {
             InitializeComponent();
-        }
-        /// <summary>
-        /// 加载事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ApplyTask_Load(object sender, EventArgs e)
-        {
-            BeginInvoke(new Action(ApplyTaskInit));
-        }
-        /// <summary>
-        /// 异步启动线程
-        /// </summary>
-        private void ApplyTaskInit()
-        {
-            //projectPage1 = new ProjectPage1();
-            //projectPage2 = new ProjectPage2();
-            //projectPage3 = new ProjectPage3();
-            //projectPage4 = new ProjectPage4();
-            //proCombPage1 = new ProCombPage1();
-            //proCombPage2 = new ProCombPage2();
-            proCombPage1.clickProCombNamePageEvent += HenderClickProCombNamePageEvent;
-            proCombPage2.clickProCombNamePage2Event += HenderClickProCombNamePageEvent;
-            Console.WriteLine("ApplyTaskINit " + DateTime.Now.Ticks);
             xtraTabPage1.Controls.Add(projectPage1);
             xtraTabPage2.Controls.Add(projectPage2);
             xtraTabPage3.Controls.Add(projectPage3);
             xtraTabPage4.Controls.Add(projectPage4);
             xtraTabPage5.Controls.Add(proCombPage1);
             xtraTabPage6.Controls.Add(proCombPage2);
+            proCombPage1.clickProCombNamePageEvent += HenderClickProCombNamePageEvent;
+            proCombPage2.clickProCombNamePage2Event += HenderClickProCombNamePageEvent;
             Font font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             gridView1.Appearance.HeaderPanel.Font = font;
             gridView1.Appearance.FocusedRow.ForeColor = Color.Red;
             gridView1.Appearance.Row.Font = font;
+
             combPanelNum.Properties.Items.AddRange(RunConfigureUtility.SamplePanel);
             combPosNum.Properties.Items.AddRange(RunConfigureUtility.SamplePosition);
             combSampleType.Properties.Items.AddRange(RunConfigureUtility.SampleTypes);
             combSampleContainer.Properties.Items.AddRange(RunConfigureUtility.SampleContainerList);
 
+
             
+        }
+        /// <summary>
+        /// 加载事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void ApplyTask_Load(object o, EventArgs e)
+        {
+            ApplyTaskInit();
+        }
+
+        public void ClearApplyTaskMemberVariable()
+        {
+            intMaxSampleNum = 0;
+            lstSampleInfo.Clear();
+            lstDiluteInfos.Clear();
+            dic.Clear();
+            lstDilutionRatio.Clear();
+            lstCombProInfo.Clear();
+            combSampleType.SelectedIndex = -1;
+            combSampleContainer.SelectedIndex = -1;
+        }
+        /// <summary>
+        /// 异步启动线程
+        /// </summary>
+        public void ApplyTaskInit()
+        {
             combSampleType.SelectedIndex = 1;
             combSampleContainer.SelectedIndex = 0;
-            Console.WriteLine("ApplyTaskInit End1" + DateTime.Now.Ticks);
-            Console.WriteLine("ApplyTaskInit CONN beg " + DateTime.Now.Ticks);
             //获取最大样本编号
             dic.Add("QueryMaxSampleNum", new object[] { "" });
             //获取所有结果单位
@@ -112,10 +117,7 @@ namespace BioA.UI
             //获取所有组合项目名和生化项目名
             dic.Add("QueryProjectAndCombProName", null);
             ClientSendToServices(dic);
-
             this.txtBarCode.Focus();
-            //CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaApplyTask, dic);
-            Console.WriteLine("ApplyTaskInit CONN End " + DateTime.Now.Ticks);
         }
 
         /// <summary>
@@ -163,13 +165,16 @@ namespace BioA.UI
                 {
                     return true;
                 }
-                //projectPage1.SelectedProjects = lstProNames;
-               // projectPage2.SelectedProjects = lstProNames;
-               // projectPage3.SelectedProjects = lstProNames;
-               // projectPage4.SelectedProjects = lstProNames;
             }
             return false;
         }
+        /// <summary>
+        /// 提示组合项目中出现有问题的项目提示
+        /// </summary>
+        /// <param name="selectedProjects"></param>
+        /// <param name="Controls"></param>
+        /// <param name="tag"></param>
+        /// <returns></returns>
         private bool setprojectpage(List<string> selectedProjects, ControlCollection Controls,string tag)
         {
             bool flag = true; 
@@ -258,11 +263,19 @@ namespace BioA.UI
                     projectPage2.LstAssayProInfos = lstProName;
                     projectPage3.LstAssayProInfos = lstProName;
                     projectPage4.LstAssayProInfos = lstProName;
+                    this.Invoke(new EventHandler(delegate
+                    {
+                        grpProject.SelectedTabPageIndex = 0;
+                    }));
                     break;
                 case "QueryCombProjectNameAllInfo":
                     List<string> lstCombProName = (List<string>)XmlUtility.Deserialize(typeof(List<string>), sender as string);
                     proCombPage1.LstProjectGroups = lstCombProName;
                     proCombPage2.LstAssayProInfos = lstCombProName;
+                    this.Invoke(new EventHandler(delegate
+                    {
+                        grpCombProject.SelectedTabPageIndex = 0;
+                    }));
                     break;
                 case "QueryApplyTaskLsvt":
                     lstSampleInfo = (List<SampleInfo>)XmlUtility.Deserialize(typeof(List<SampleInfo>), sender as string);
@@ -307,16 +320,8 @@ namespace BioA.UI
                         }));
                     break;
                 case "QuerySampleDiluteRatio":
-                    lstDilutionRatio = (List<string>)XmlUtility.Deserialize(typeof(List<string>), sender as string);
+                    lstDilutionRatio = (List<float>)XmlUtility.Deserialize(typeof(List<float>), sender as string);
                     break;
-                //case "QueryProjectByCombProName":
-                //    List<string> lstProjects = (List<string>)XmlUtility.Deserialize(typeof(List<string>), sender as string);
-                //    projectPage1.SelectedProjects = lstProjects;
-                //    projectPage2.SelectedProjects = lstProjects;
-                //    projectPage3.SelectedProjects = lstProjects;
-                //    projectPage4.SelectedProjects = lstProjects;
-                //    break;
-                case "QueryProjectAndCombProName":
                     lstCombProInfo = (List<CombProjectInfo>)XmlUtility.Deserialize(typeof(List<CombProjectInfo>), sender as string);
                     break;
                 case "QueryTaskInfoBySampleNum":
@@ -349,7 +354,6 @@ namespace BioA.UI
                     dic.Clear();
                     dic.Add("QueryApplyTaskLsvt", new object[] { "" });
                     ClientSendToServices(dic);
-                    //CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.WorkingAreaApplyTask, new Dictionary<string, List<object>>() { { "QueryApplyTaskLsvt", new List<object>() { "" } } });
                     lstDiluteInfos.Clear();
                     break;
                 case "QueryPatientInfoBySampleNum":
@@ -400,20 +404,19 @@ namespace BioA.UI
         {
             if (grpProject.SelectedTabPageIndex == 0)
             {
-
-                xtraTabPage1.Controls.Add(projectPage1);
+                //xtraTabPage1.Controls.Add(projectPage1);
             }
             else if (grpProject.SelectedTabPageIndex == 1)
             {
-                xtraTabPage2.Controls.Add(projectPage1);
+                //xtraTabPage2.Controls.Add(projectPage1);
             }
             else if (grpProject.SelectedTabPageIndex == 2)
             {
-                xtraTabPage3.Controls.Add(projectPage1);
+                //xtraTabPage3.Controls.Add(projectPage1);
             }
             else if (grpProject.SelectedTabPageIndex == 3)
             {
-                xtraTabPage4.Controls.Add(projectPage1);
+                //xtraTabPage4.Controls.Add(projectPage1);
             }
         }
 
@@ -421,21 +424,30 @@ namespace BioA.UI
         {
             if (grpCombProject.SelectedTabPageIndex == 0)
             {
-                xtraTabPage5.Controls.Add(proCombPage1);
+                //xtraTabPage5.Controls.Add(proCombPage1);
             }
             else if (grpCombProject.SelectedTabPageIndex == 1)
             {
-                xtraTabPage6.Controls.Add(proCombPage2);
+                //xtraTabPage6.Controls.Add(proCombPage2);
             }
         }
-
+        /// <summary>
+        /// 病人参数录入
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnPatientInfo_Click(object sender, EventArgs e)
         {
-            patientInfofrm.StartPosition = FormStartPosition.CenterScreen;
+            
             int selectedHandle;
 
             if (this.gridView1.GetSelectedRows().Count() > 0)
             {
+                if (patientInfofrm == null)
+                {
+                    patientInfofrm = new PatientInfoFrm();
+                    patientInfofrm.StartPosition = FormStartPosition.CenterScreen;
+                }
                 selectedHandle = this.gridView1.GetSelectedRows()[0];
                 int SampleNum = System.Convert.ToInt32(this.gridView1.GetRowCellValue(selectedHandle, "样本编号").ToString());
                 patientInfofrm.IntSelectedNum = SampleNum;
@@ -446,6 +458,7 @@ namespace BioA.UI
                     lstSampleNum.Add(s.SampleNum);
                 }
                 patientInfofrm.LstSampleNum = lstSampleNum;
+                patientInfofrm.PatientInfo_Load(null,null);
                 patientInfofrm.ShowDialog();
             }
             else
@@ -465,17 +478,15 @@ namespace BioA.UI
             txtSampleNum.Text = lstSamNum.Count > 0 ? (lstSamNum.Max() + 1).ToString() : (1).ToString();
 
             this.SamplePanelAndPosNum();
-            //projectPage1.ResetControlState();
-            //projectPage2.ResetControlState();
-            //projectPage3.ResetControlState();
-            //projectPage4.ResetControlState();
-            //proCombPage1.ResetControlState();
-            //proCombPage2.ResetControlState();
             SimpleButCancel_Click(null,null);
 
             lstDiluteInfos.Clear();
         }
-
+        /// <summary>
+        /// 稀释比例设置
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDilutionSetting_Click(object sender, EventArgs e)
         {
             frmDiluteSetting diluteForm = new frmDiluteSetting();
@@ -545,17 +556,20 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void combSampleType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (dic.Count == 6 || dic.Count == 1)
+            if (combSampleType.SelectedIndex != -1)
             {
-                dic.Clear();
-                dic.Add("QueryProNameForApplyTask", new object[] { combSampleType.SelectedItem.ToString() });
-                ClientSendToServices(dic);
+                if (dic.Count == 6 || dic.Count == 1)
+                {
+                    dic.Clear();
+                    dic.Add("QueryProNameForApplyTask", new object[] { combSampleType.SelectedItem.ToString() });
+                    ClientSendToServices(dic);
+                }
+                else
+                {
+                    dic.Add("QueryProNameForApplyTask", new object[] { combSampleType.SelectedItem.ToString() });
+                }
+                lstDiluteInfos.Clear();
             }
-            else
-            {
-                dic.Add("QueryProNameForApplyTask", new object[] { combSampleType.SelectedItem.ToString() });
-            }
-            lstDiluteInfos.Clear();
         }
         /// <summary>
         /// 点击保存项目事件
@@ -690,14 +704,6 @@ namespace BioA.UI
                 }
             }
 
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity),
-            //    new CommunicationEntity("AddTask",
-            //        XmlUtility.Serializer(typeof(SampleInfo), sampleInfo),
-            //        XmlUtility.Serializer(typeof(List<TaskInfo>), lstTaskInfo))));
-            //dic.Clear();
-            //dic.Add("AddTask", new object[] { XmlUtility.Serializer(typeof(SampleInfo), sampleInfo), XmlUtility.Serializer(typeof(List<TaskInfo>), lstTaskInfo) });
-            //ClientSendToServices(dic);
-            //Thread.Sleep(2000);
             string SaveIsSuccess = new WorkAreaApplyTask().AddTask("AddTask", sampleInfo, lstTaskInfo);
             if (SaveIsSuccess == "此样本任务已经存在，请重新录入！")
             {
@@ -729,9 +735,6 @@ namespace BioA.UI
                 selectedHandle = this.gridView1.GetSelectedRows()[0];
                 int SampleNum = System.Convert.ToInt32(this.gridView1.GetRowCellValue(selectedHandle, "样本编号").ToString());
                 int PanelNum = System.Convert.ToInt32(this.gridView1.GetRowCellValue(selectedHandle, "盘号").ToString());
-                //dic.Clear();
-                //dic.Add("QueryTaskInfoBySampleNum", new object[] { SampleNum.ToString() });
-                //ClientSendToServices(dic);
 
                 foreach (SampleInfo sampleInfo in lstSampleInfo)
                 {
@@ -790,12 +793,6 @@ namespace BioA.UI
                 MessageBox.Show("检测项目不能为空，请选择待检测项目，进行批量输入！");
                 return;
             }
-            //if (txtBoxDetectionNum.Text != "1")
-           // {
-           //     MessageBox.Show("批量录入项目的检测次数只能是1次！");
-           //     txtBoxDetectionNum.Text = "1";
-          //      return;
-           // }
 
             batchInput.clera();
 
@@ -816,7 +813,6 @@ namespace BioA.UI
         /// </summary>
         private void batchInput_EndBatchEvent()
         {
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryApplyTaskLsvt", null)));
             dic.Clear();
             dic.Add("QueryApplyTaskLsvt", new object[] { "" });
             ClientSendToServices(dic);
@@ -968,7 +964,12 @@ namespace BioA.UI
         AnologSamplePanel anologSamplePanel;
         private void BtnSampleDishState_Click(object sender, EventArgs e)
         {
-            anologSamplePanel = new AnologSamplePanel(combPanelNum.Text);
+            if (anologSamplePanel == null)
+            {
+                anologSamplePanel = new AnologSamplePanel();
+            }
+            anologSamplePanel.PanelNumber = combPanelNum.Text;
+            anologSamplePanel.AnologSamplePanel_Load(null, null);
             anologSamplePanel.ShowDialog();
         }
         /// <summary>
@@ -1066,14 +1067,6 @@ namespace BioA.UI
                 {
                     combPanelNum.SelectedItem = "1";
                 }
-                //List<string> lstPos = RunConfigureUtility.SamplePosition;
-                //combPosNum.Properties.Items.Clear();
-                //foreach (var item in lstPosition)
-                //{
-                //    lstPos.RemoveAll(x => x == item.ToString());
-                //}
-                //combPosNum.Properties.Items.AddRange(lstPos);
-                //combPosNum.SelectedIndex = 0;
                 combPosNum.SelectedItem = (iPosition + 1).ToString();
             }
             else if (iPosition == 120)

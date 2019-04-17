@@ -22,7 +22,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("public int SelectDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("public int SelectDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.System);
             }
             return intResult;
         }
@@ -65,7 +65,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("AddDataConfig(string strDBMethod, CalcProjectInfo calcProjectInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("AddDataConfig(string strDBMethod, CalcProjectInfo calcProjectInfo)==" + e.ToString(), Module.System);
             }
         }
 
@@ -109,7 +109,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateDataConfig(string strDBMethod, string dataConfig, string dataConfigOld)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateDataConfig(string strDBMethod, string dataConfig, string dataConfigOld)==" + e.ToString(), Module.System);
             }
 
             return intResult;
@@ -126,7 +126,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("DeleteDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("DeleteDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.System);
             }
             return intResult;
         }
@@ -140,7 +140,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.System);
             }
 
             return lstQueryDepartment;
@@ -160,7 +160,7 @@ namespace BioA.SqlMaps
 
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.System);
             }
 
             return lstQueryUserManagement;
@@ -176,7 +176,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("public int SelectDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("public int SelectDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.System);
             }
             return intResult;
         }
@@ -191,7 +191,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("AddDataConfig(string strDBMethod, CalcProjectInfo calcProjectInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("AddDataConfig(string strDBMethod, CalcProjectInfo calcProjectInfo)==" + e.ToString(), Module.System);
             }
         }
 
@@ -206,7 +206,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("DeleteDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("DeleteDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.System);
             }
             return intResult;
         }
@@ -222,11 +222,10 @@ namespace BioA.SqlMaps
                 hashTable.Add("DepartmentOld", dataConfigOld);
 
                 intResult = (int)ism_SqlMap.Update("DepartmentInfo." + strDBMethod, hashTable);
-                LogInfo.WriteProcessLog(strDBMethod + "zhuszihe33" + intResult, Module.WindowsService);
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateDataConfig(string strDBMethod, string dataConfig, string dataConfigOld)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateDataConfig(string strDBMethod, string dataConfig, string dataConfigOld)==" + e.ToString(), Module.System);
             }
 
             return intResult;
@@ -246,7 +245,7 @@ namespace BioA.SqlMaps
 
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.System);
             }
 
             return lstQueryApplyDoctor;
@@ -263,7 +262,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("AddDataConfig(string strDBMethod, CalcProjectInfo calcProjectInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("AddDataConfig(string strDBMethod, CalcProjectInfo calcProjectInfo)==" + e.ToString(), Module.System);
             }
         }
 
@@ -279,7 +278,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("public int SelectDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("public int SelectDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.System);
             }
             return intResult;
         }
@@ -296,7 +295,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("DeleteDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("DeleteDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.System);
             }
             return intResult;
         }
@@ -317,7 +316,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateDataConfig(string strDBMethod, string dataConfig, string dataConfigOld)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateDataConfig(string strDBMethod, string dataConfig, string dataConfigOld)==" + e.ToString(), Module.System);
             }
 
             return intResult;
@@ -336,7 +335,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.System);
             }
 
             return lstQueryAuditPhysician;
@@ -353,7 +352,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("public int SelectDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("public int SelectDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.System);
             }
             return intResult;
         }
@@ -368,7 +367,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("AddDataConfig(string strDBMethod, CalcProjectInfo calcProjectInfo)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("AddDataConfig(string strDBMethod, CalcProjectInfo calcProjectInfo)==" + e.ToString(), Module.System);
             }
         }
 
@@ -383,7 +382,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("DeleteDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("DeleteDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.System);
             }
             return intResult;
         }
@@ -402,7 +401,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UpdateDataConfig(string strDBMethod, string dataConfig, string dataConfigOld)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UpdateDataConfig(string strDBMethod, string dataConfig, string dataConfigOld)==" + e.ToString(), Module.System);
             }
 
             return intResult;
@@ -421,7 +420,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.System);
             }
 
             return lstQueryMaintenanceLogInfo;
@@ -444,7 +443,7 @@ namespace BioA.SqlMaps
 
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.System);
             }
 
             return lstQueryOperationLogInfo;
@@ -464,7 +463,7 @@ namespace BioA.SqlMaps
 
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.System);
             }
 
             return lstAlarmLogInfo;
@@ -489,7 +488,7 @@ namespace BioA.SqlMaps
 
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("SelectTroubleLogInfoByTimeQuantum(string strDBMethod, string logStateTime, string logEnditTime) ==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("SelectTroubleLogInfoByTimeQuantum(string strDBMethod, string logStateTime, string logEnditTime) ==" + e.ToString(), Module.System);
             }
 
             return lstTroubleLogInfo;
@@ -520,7 +519,7 @@ namespace BioA.SqlMaps
             }
             catch(Exception ex)
             {
-                LogInfo.WriteErrorLog("AffirmTroubleLogInfo(string strDBMethid, List<string> lstDrawDateTime) == " + ex.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("AffirmTroubleLogInfo(string strDBMethid, List<string> lstDrawDateTime) == " + ex.ToString(), Module.System);
             }
             return result;
         }
@@ -542,31 +541,30 @@ namespace BioA.SqlMaps
             }
             catch(Exception ex)
             {
-                LogInfo.WriteErrorLog("AffirmTroubleLogInfo(string strDBMethid, List<string> lstDrawDateTime) == " + ex.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("AffirmTroubleLogInfo(string strDBMethid, List<string> lstDrawDateTime) == " + ex.ToString(), Module.System);
             }
             return result;
         }      
-
-        public List<UserInfo> QueryUserCeation(string strDBMethod, string p2)
+        /// <summary>
+        /// 获取用户权限信息
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <param name="p2"></param>
+        /// <returns></returns>
+        public UserInfo QueryUserCeation(string strDBMethod, string p2)
         {
-            List<UserInfo> lstQueryUserCeation = new List<UserInfo>();
+            UserInfo QueryUserCeationInfo = new UserInfo();
             try
             {
-                
-                    Hashtable hashTable = new Hashtable();
-                    hashTable.Add("UserID", p2);
-
-                    lstQueryUserCeation = (List<UserInfo>)ism_SqlMap.QueryForList<UserInfo>("UserInfo." + strDBMethod, hashTable);
-                    LogInfo.WriteProcessLog(strDBMethod + "zhuszihe33" + lstQueryUserCeation, Module.WindowsService);
-               
+                QueryUserCeationInfo = (UserInfo)ism_SqlMap.QueryForObject("UserInfo." + strDBMethod, p2);
             }
 
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryDataConfig(string strDBMethod, string dataConfig)" + e.ToString(), Module.System);
             }
 
-            return lstQueryUserCeation;
+            return QueryUserCeationInfo;
         }
         public int SelectApplyDoctorDepartment(string strDBMethod, string dataConfig)
         {
@@ -579,7 +577,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("public int SelectDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("public int SelectDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.System);
             }
             return intResult;
         }
@@ -595,7 +593,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("public int SelectDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("public int SelectDataConfig(string strDBMethod, string dataConfig)==" + e.ToString(), Module.System);
             }
             return intResult;
         }
@@ -609,7 +607,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("ManuOffsetGain QueryManuOffsetGain(string strMethodName)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("ManuOffsetGain QueryManuOffsetGain(string strMethodName)==" + e.ToString(), Module.System);
             }
 
             return manu;
@@ -627,7 +625,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryWaterBlankValueByWave(string strMethodName, string strWave)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryWaterBlankValueByWave(string strMethodName, string strWave)==" + e.ToString(), Module.System);
             }
 
             return lstCuvBlk;
@@ -645,7 +643,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("getMaxMinforCuvette==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("getMaxMinforCuvette==" + e.ToString(), Module.System);
             }
             return result;
         }
@@ -675,7 +673,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("List<PhotometricGainInfo> QueryPhotemetricValue(string strMethodName)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("List<PhotometricGainInfo> QueryPhotemetricValue(string strMethodName)==" + e.ToString(), Module.System);
             }
 
             return lstNewAndOldPhotoGain;
@@ -694,7 +692,7 @@ namespace BioA.SqlMaps
         //    }
         //    catch (Exception e)
         //    {
-        //        LogInfo.WriteErrorLog("QueryOldPhotemetricValue(string strMethodName)==" + e.ToString(), Module.DAO);
+        //        LogInfo.WriteErrorLog("QueryOldPhotemetricValue(string strMethodName)==" + e.ToString(), Module.System);
         //    }
 
         //    return lstPhotoGain;
@@ -709,7 +707,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetLatestOffSetGain(int waveLength)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetLatestOffSetGain(int waveLength)==" + e.ToString(), Module.System);
             }
             return offSetGain;
         }
@@ -722,7 +720,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetLatestOffSetGain(int waveLength)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetLatestOffSetGain(int waveLength)==" + e.ToString(), Module.System);
             }
         }
 
@@ -734,7 +732,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("DeleteOldOffSetGain(int waveLength)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("DeleteOldOffSetGain(int waveLength)==" + e.ToString(), Module.System);
             }
         }
 
@@ -746,7 +744,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("AddOldOffSetGain(OffSetGain offSetGain)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("AddOldOffSetGain(OffSetGain offSetGain)==" + e.ToString(), Module.System);
             }
         }
 
@@ -758,7 +756,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("DeleteNewOffSetGain(int waveLength)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("DeleteNewOffSetGain(int waveLength)==" + e.ToString(), Module.System);
             }
         }
 
@@ -776,7 +774,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("InitialPhotometerManualCheck(string strMethodName, ManuOffsetGain manuOffsetGain)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("InitialPhotometerManualCheck(string strMethodName, ManuOffsetGain manuOffsetGain)==" + e.ToString(), Module.System);
             }
 
             return iResult;
@@ -795,7 +793,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("GetAllTasksCount(string strMethodName)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("GetAllTasksCount(string strMethodName)==" + e.ToString(), Module.System);
             }
             return taskCount;
         }

@@ -7519,7 +7519,7 @@
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.Name = "WaterBlankCheck";
             this.Size = new System.Drawing.Size(1845, 1025);
-            this.Load += new System.EventHandler(this.WaterBlankCheck_Load);
+            //this.Load += new System.EventHandler(this.WaterBlankCheck_Load);
             this.grpOldBlkValue.ResumeLayout(false);
             this.grpOldBlkValue.PerformLayout();
             this.grpNewBlkValue.ResumeLayout(false);

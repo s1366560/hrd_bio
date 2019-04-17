@@ -890,9 +890,9 @@ namespace BioA.UI
             g.Dispose();
         }
 
-        private void Form1_Paint(object sender, PaintEventArgs e)
+        public void Form1_Paint(object sender, PaintEventArgs e)
         {
-            BeginInvoke(new Action(init));
+            this.init();
         }
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)

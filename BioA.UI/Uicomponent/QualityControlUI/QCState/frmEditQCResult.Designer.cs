@@ -358,7 +358,7 @@
             this.Controls.Add(this.label1);
             this.Name = "frmEditQCResult";
             this.Text = "编辑质控结果";
-            this.Load += new System.EventHandler(this.frmEditQCResult_Load);
+            //this.Load += new System.EventHandler(this.frmEditQCResult_Load);
             ((System.ComponentModel.ISupportInitialize)(this.txtTargetMean.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtTargetSD.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtConcResult.Properties)).EndInit();

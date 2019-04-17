@@ -465,11 +465,9 @@
             // 
             // cboPanelNum
             // 
-            this.cboPanelNum.Enabled = false;
             this.cboPanelNum.Font = new System.Drawing.Font("SimSun", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cboPanelNum.FormattingEnabled = true;
             this.cboPanelNum.Items.AddRange(new object[] {
-            "请选择",
             "1",
             "2",
             "3",
@@ -1842,7 +1840,6 @@
             this.Name = "AnologSamplePanel";
             this.Text = "Form1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.AnologSamplePanel_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

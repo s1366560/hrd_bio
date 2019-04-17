@@ -19,10 +19,10 @@ namespace BioA.UI
 {
     public partial class CombProject : DevExpress.XtraEditors.XtraUserControl
     {
-        CombProjectPage1 combProjectPage1;
-        CombProjectPage2 combprojectPage2;
-        CombProjectPage3 combprojectPage3;
-        CombProjectPage4 combprojectPage4;
+        CombProjectPage1 combProjectPage1 = new CombProjectPage1();
+        CombProjectPage2 combprojectPage2 = new CombProjectPage2();
+        CombProjectPage3 combprojectPage3 = new CombProjectPage3();
+        CombProjectPage4 combprojectPage4 = new CombProjectPage4();
 
         /// <summary>
         /// 客户端发送信息给服务器的参数集合
@@ -39,7 +39,7 @@ namespace BioA.UI
         /// <summary>
         /// 保存所有组合项目名和项目名
         /// </summary>
-        List<CombProjectInfo> lstProjectAndCombProName;
+        List<CombProjectInfo> lstProjectAndCombProName = new List<CombProjectInfo>();
         /// <summary>
         /// 存储组合项目对应的项目名称
         /// </summary>
@@ -48,9 +48,13 @@ namespace BioA.UI
         {
             InitializeComponent();
             Font font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-           
             gridView1.Appearance.HeaderPanel.Font = font;
             gridView1.Appearance.Row.Font = font;
+
+            xtraTabPage1.Controls.Add(combProjectPage1);
+            xtraTabPage2.Controls.Add(combprojectPage2);
+            xtraTabPage3.Controls.Add(combprojectPage3);
+            xtraTabPage4.Controls.Add(combprojectPage4);
 
             dt.Columns.Add("编号");
             dt.Columns.Add("项目名称");
@@ -61,9 +65,6 @@ namespace BioA.UI
 
         private void AssayProInfoForComb(object sender)
         {
-            //string a = XmlUtility.Serializer(typeof(CommunicationEntity), sender as CommunicationEntity);
-            //serviceClient.ClientSendMsgToService(ModuleInfo.SettingsCombProject, XmlUtility.Serializer(typeof(CommunicationEntity), sender as CommunicationEntity));
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SettingsCombProject, XmlUtility.Serializer(typeof(CommunicationEntity), sender as CommunicationEntity));
             var combProThread = new Thread(() =>
             {
                 CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.SettingsCombProject, sender as Dictionary<string, object[]>);
@@ -87,74 +88,42 @@ namespace BioA.UI
                     break;
                 case "QueryProjectAndCombProName":
                     lstProjectAndCombProName = (List<CombProjectInfo>)XmlUtility.Deserialize(typeof(List<CombProjectInfo>), sender as string);
-                    //combProjectPage1.SelectedProjects = lstProjects;
-                    //combprojectPage2.SelectedProjects = lstProjects;
-                    //combprojectPage3.SelectedProjects = lstProjects;
-                    //combprojectPage4.SelectedProjects = lstProjects;
                     break;
                 case "AddCombProjectName":
-                    int strResult =(int)sender;
-                    if (strResult == 0)
+                    string sResult = (string)sender;
+                    if (sResult == "添加组合项目成功！")
                     {
-                        MessageBox.Show("添加失败！");
-                        return;
-                    }
-                    else
-                    {
-                        //AssayProInfoForComb(new CommunicationEntity("QueryCombProjectNameAllInfo", null));
-                        //InitialCombProInfos(lstAssayProInfos);
-                        //this.Invoke(new EventHandler(delegate { 
-                        //    txtCombProjectName.Text = string.Empty;
-                        //    txtRemark.Text = string.Empty;
-                        //}));
                         BeginInvoke(new Action(loadCombProject));
-                        MessageBox.Show("添加成功！");
-
                     }
+                    this.PromptMessage(sResult);
                     break;
                 case "UpdateCombProjectName":
-                    int intUpdateResult = (int)sender;
-                    if (intUpdateResult <= 0)
+                    string sUpdateResult = (string)sender;
+                    if (sUpdateResult == "修改组合项目成功！")
                     {
-                        MessageBox.Show("更新失败！");
-                    }
-                    else
-                    {
-                        //AssayProInfoForComb(new CommunicationEntity("QueryCombProjectNameAllInfo", null));
-                        //InitialCombProInfos(lstAssayProInfos);
-                        //this.Invoke(new EventHandler(delegate
-                        //{
-                        //    txtCombProjectName.Text = string.Empty;
-                        //    txtRemark.Text = string.Empty;
-                        //}));
                         BeginInvoke(new Action(loadCombProject));
-                        MessageBox.Show("更新成功！");
                     }
+                    this.PromptMessage(sUpdateResult);
                     break;
                 case "DeleteCombProjectName":
-                    int intResult = (int)sender;
-                    if (intResult <= 0)
+                    string sDeleteResult = (string)sender;
+                    if (sDeleteResult == "删除组合项目成功！")
                     {
-                        MessageBox.Show("删除失败！");
-                        return;
-                    }
-                    else
-                    {
-                        //AssayProInfoForComb(new CommunicationEntity("QueryCombProjectNameAllInfo", null));
-                        //InitialCombProInfos(lstAssayProInfos);
-                        //this.Invoke(new EventHandler(delegate
-                        //{
-                        //    txtCombProjectName.Text = string.Empty;
-                        //    txtRemark.Text = string.Empty;
-                        //}));
                         BeginInvoke(new Action(loadCombProject));
-                        MessageBox.Show("删除成功！");
                     }
+                    this.PromptMessage(sDeleteResult);
                     break;
                 default:
                     break;
             }
         }
+
+        private void PromptMessage(string msg)
+        {
+            this.Invoke(new EventHandler(delegate { MessageBox.Show(msg); }));
+        }
+
+
         /// <summary>
         /// 显示所有组合项目信息
         /// </summary>
@@ -162,9 +131,9 @@ namespace BioA.UI
         private void InitialCombProjectList(List<CombProjectInfo> lstCombProInfos)
         {
             //lstvCombProject
-            BeginInvoke(new Action(() =>
+            //lstvCombProject.RefreshDataSource();
+            this.Invoke(new EventHandler(delegate
             {
-                lstvCombProject.RefreshDataSource();
                 int i = 1;
                 dt.Rows.Clear();
                 if (lstCombProInfos.Count != 0)
@@ -176,9 +145,9 @@ namespace BioA.UI
                         i++;
                     }
                 }
-                
-                lstvCombProject_Click(null, null);
+                lstvCombProject.DataSource = dt;
             }));
+            //lstvCombProject_Click(null, null);
 
         }
         /// <summary>
@@ -187,81 +156,71 @@ namespace BioA.UI
         /// <param name="lstAssayProInfos"></param>
         private void InitialCombProInfos(List<string> lstAssayProInfos)
         {
-            combProjectPage1.ResetControlState();
-            combprojectPage2.ResetControlState();
-            combprojectPage3.ResetControlState();
-            combprojectPage4.ResetControlState();
-
-            combProjectPage1.LstAssayProInfos = lstAssayProInfos;
-            combprojectPage2.LstAssayProInfos = lstAssayProInfos;
-            combprojectPage3.LstAssayProInfos = lstAssayProInfos;
-            combprojectPage4.LstAssayProInfos = lstAssayProInfos;
-            this.Invoke(new EventHandler(delegate {
-                xtraTabControl1.SelectedTabPageIndex = 0;
-            }));
+            if (xtraTabControl1.SelectedTabPageIndex == 0)
+                xtraTabControl1_SelectedPageChanged(null, null);
+            else
+                this.Invoke(new EventHandler(delegate { xtraTabControl1.SelectedTabPageIndex = 0; }));
+            if (state)
+            {
+                combProjectPage1.ResetControlState();
+                combprojectPage2.ResetControlState();
+                combprojectPage3.ResetControlState();
+                combprojectPage4.ResetControlState();
+                state = false;
+            }
             
         }
+
+
         /// <summary>
-        /// 页面点击事件
+        /// 页面切换事件
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void xtraTabControl1_Click(object sender, EventArgs e)
+        private void xtraTabControl1_SelectedPageChanged(object sender, DevExpress.XtraTab.TabPageChangedEventArgs e)
         {
-            List<string> lstSelectInfo = new List<string>();
             if (xtraTabControl1.SelectedTabPageIndex == 0)
             {
                 if (!xtraTabPage1.Controls.Contains(combProjectPage1))
                     xtraTabPage1.Controls.Add(combProjectPage1);
-                lstSelectInfo = combProjectPage1.GetSelectedProjects();
+                //lstSelectInfo = combProjectPage1.GetSelectedProjects();
                 combProjectPage1.LstAssayProInfos = lstAssayProInfos;
-                combProjectPage1.SelectedProjects = lstSelectInfo;
+                //combProjectPage1.SelectedProjects = lstSelectInfo;
             }
             else if (xtraTabControl1.SelectedTabPageIndex == 1)
             {
                 if (!xtraTabPage2.Controls.Contains(combprojectPage2))
                     xtraTabPage2.Controls.Add(combprojectPage2);
-                lstSelectInfo = combprojectPage2.GetSelectedProjects();
+                //lstSelectInfo = combprojectPage2.GetSelectedProjects();
                 combprojectPage2.LstAssayProInfos = lstAssayProInfos;
-                combprojectPage2.SelectedProjects = lstSelectInfo;
+                //combprojectPage2.SelectedProjects = lstSelectInfo;
             }
             else if (xtraTabControl1.SelectedTabPageIndex == 2)
             {
                 if (!xtraTabPage3.Controls.Contains(combprojectPage3))
                     xtraTabPage3.Controls.Add(combprojectPage3);
-                lstSelectInfo = combprojectPage3.GetSelectedProjects();
+                //lstSelectInfo = combprojectPage3.GetSelectedProjects();
                 combprojectPage3.LstAssayProInfos = lstAssayProInfos;
-                combprojectPage3.SelectedProjects = lstSelectInfo;
+                //combprojectPage3.SelectedProjects = lstSelectInfo;
             }
             else if (xtraTabControl1.SelectedTabPageIndex == 3)
             {
                 if (!xtraTabPage4.Controls.Contains(combprojectPage4))
                     xtraTabPage4.Controls.Add(combprojectPage4);
-                lstSelectInfo = combprojectPage4.GetSelectedProjects();
+                //lstSelectInfo = combprojectPage4.GetSelectedProjects();
                 combprojectPage4.LstAssayProInfos = lstAssayProInfos;
-                combprojectPage4.SelectedProjects = lstSelectInfo;
+                //combprojectPage4.SelectedProjects = lstSelectInfo;
             }
         }
 
-        private void CombProject_Load(object sender, EventArgs e)
+        public void CombProject_Load(object sender, EventArgs e)
         {
-            combProjectPage1 = new CombProjectPage1();
-            combprojectPage2 = new CombProjectPage2();
-            combprojectPage3 = new CombProjectPage3();
-            combprojectPage4 = new CombProjectPage4();
-            xtraTabPage1.Controls.Add(combProjectPage1);
-            xtraTabPage2.Controls.Add(combprojectPage2);
-            xtraTabPage3.Controls.Add(combprojectPage3);
-            xtraTabPage4.Controls.Add(combprojectPage4);
-            BeginInvoke(new Action(loadCombProject));
+            this.loadCombProject();
         }
         private void loadCombProject()
         {
-            
-
-            //AssayProInfoForComb(new CommunicationEntity("ProjectPageinfo", null));
-            //AssayProInfoForComb(new CommunicationEntity("QueryCombProjectNameAllInfo", null));
             combProDic.Clear();
+            this.lstProjectAndCombProName.Clear();
             //获取所有项目信息
             combProDic.Add("ProjectPageinfo", null);
             //获取所有组合项目名称和项目名称
@@ -270,6 +229,8 @@ namespace BioA.UI
             combProDic.Add("QueryCombProjectNameAllInfo", null);
             AssayProInfoForComb(combProDic);
         }
+
+        bool state = false;
         /// <summary>
         /// 组合项目信息列表点击事件
         /// </summary>
@@ -279,6 +240,7 @@ namespace BioA.UI
         {
             if (this.gridView1.GetSelectedRows().Count() > 0)
             {
+                state = true;
                 combProjectPage1.ResetControlState();
                 combprojectPage2.ResetControlState();
                 combprojectPage3.ResetControlState();
@@ -305,10 +267,6 @@ namespace BioA.UI
                 combprojectPage2.SelectedProjects = lstProName;
                 combprojectPage3.SelectedProjects = lstProName;
                 combprojectPage4.SelectedProjects = lstProName;
-                //CommunicationEntity communicationEntity = new CommunicationEntity();
-                //communicationEntity.StrmethodName = "QueryProjectAndCombProName";
-                //communicationEntity.ObjParam = combProject;
-                //AssayProInfoForComb(communicationEntity);
             }
         }
         /// <summary>
@@ -360,9 +318,6 @@ namespace BioA.UI
                 combProInfo.CombProjectCount = combProInfo.ProjectNames.Count;
                 combProInfo.Remarks = txtRemark.Text.Trim();
 
-                //CommunicationEntity communicationEntity = new CommunicationEntity();
-                //communicationEntity.StrmethodName = "AddCombProjectName";
-                //communicationEntity.ObjParam = XmlUtility.Serializer(typeof(CombProjectInfo), combProInfo);
                 combProDic.Clear();
                 combProDic.Add("AddCombProjectName", new object[] { XmlUtility.Serializer(typeof(CombProjectInfo), combProInfo) });
                 AssayProInfoForComb(combProDic);
@@ -389,10 +344,6 @@ namespace BioA.UI
 
                     List<CombProjectInfo> lstCombProInfos = new List<CombProjectInfo>();
                     lstCombProInfos.Add(combProInfo);
-
-                    //CommunicationEntity communicationEntity = new CommunicationEntity();
-                    //communicationEntity.StrmethodName = "DeleteCombProjectName";
-                    //communicationEntity.ObjParam = XmlUtility.Serializer(typeof(List<CombProjectInfo>), lstCombProInfos);
                     combProDic.Clear();
                     combProDic.Add("DeleteCombProjectName", new object[] { XmlUtility.Serializer(typeof(List<CombProjectInfo>), lstCombProInfos) });
                     AssayProInfoForComb(combProDic);
@@ -440,10 +391,6 @@ namespace BioA.UI
                 combProInfo.CombProjectCount = combProInfo.ProjectNames.Count;
                 combProInfo.Remarks = txtRemark.Text.Trim();
                 string combProjectNameOld =this.gridView1.GetRowCellValue(this.gridView1.GetSelectedRows()[0], "项目名称").ToString();
-                //CommunicationEntity communicationEntity = new CommunicationEntity();
-                //communicationEntity.StrmethodName = "UpdateCombProjectName";
-                //communicationEntity.ObjParam = XmlUtility.Serializer(typeof(CombProjectInfo),new CombProjectInfo(){ CombProjectName = this.gridView1.GetRowCellValue(this.gridView1.GetSelectedRows()[0], "项目名称").ToString()});
-                //communicationEntity.ObjLastestParam = XmlUtility.Serializer(typeof(CombProjectInfo), combProInfo);
                 combProDic.Clear();
                 combProDic.Add("UpdateCombProjectName", new object[] { combProjectNameOld, XmlUtility.Serializer(typeof(CombProjectInfo), combProInfo) });
                 AssayProInfoForComb(combProDic);
@@ -456,19 +403,6 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            //int selectedHandle;
-            //selectedHandle = this.gridView1.GetSelectedRows()[0];
-            //this.Invoke(new EventHandler(delegate
-            //{
-            //    txtCombProjectName.Text = this.gridView1.GetRowCellValue(selectedHandle, "项目名称").ToString();
-            //    txtRemark.Text = this.gridView1.GetRowCellValue(selectedHandle, "备注").ToString();
-            //}));
-
-
-            //CommunicationEntity communicationEntity = new CommunicationEntity();
-            //communicationEntity.StrmethodName = "QueryProjectByCombProName";
-            //communicationEntity.ObjParam = this.gridView1.GetRowCellValue(selectedHandle, "项目名称").ToString();
-            //AssayProInfoForComb(communicationEntity);
             this.txtCombProjectName.Text = "";
             this.txtRemark.Text = "";
             combProjectPage1.ResetControlState();

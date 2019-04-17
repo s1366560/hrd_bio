@@ -30,7 +30,7 @@ namespace BioA.UI
         /// <summary>
         /// 存储父窗体样本信息结果
         /// </summary>
-        private List<SampleInfoForResult> sampleInfos = new List<SampleInfoForResult>();
+        public List<SampleInfoForResult> sampleInfos = new List<SampleInfoForResult>();
         /// <summary>
         /// 父窗体样本信息
         /// </summary>
@@ -159,10 +159,20 @@ namespace BioA.UI
             gridView1.Columns[6].OptionsColumn.AllowEdit = false;
         }
 
-        private void TestAudit_Load(object sender, EventArgs e)
+        public void TestAudit_Load(object sender, EventArgs e)
         {
-            BeginInvoke(new Action(loadTestAudit));
             this.lstResultSetInfo = QueryResultSetTb.QueryResultSetInfo;
+            loadTestAudit();
+        }
+
+        public void Clear()
+        {
+            testAudtiDic.Clear();
+            lstResultSetInfo = null;
+            sampleInfos.Clear();
+            sampleInfo = null;
+            lstSampleResInfo.Clear();
+            CurrentClickLineNumber = 0;
         }
         /// <summary>
         /// 测试审核信息
@@ -267,7 +277,7 @@ namespace BioA.UI
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.Hide();
         }
         /// <summary>
         /// 反应监控

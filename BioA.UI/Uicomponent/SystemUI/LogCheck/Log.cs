@@ -79,48 +79,22 @@ namespace BioA.UI
                     break;
             }
         }
-        /// <summary>
-        /// 标题点击事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void xtraTabControl1_Click(object sender, EventArgs e)
-        {
-            if (xtraTabControl1.SelectedTabPageIndex == 0)
-            {
-                xtraTabPage1.Controls.Clear();
-                troubleLog = new TroubleLogInfo();
-                troubleLog.TroubleLogEvent += alertlog_LogEvent;
-                xtraTabPage1.Controls.Add(troubleLog);
 
-            }            
-            else if (xtraTabControl1.SelectedTabPageIndex == 1)
-            {
-                xtraTabPage3.Controls.Clear();
-                Maintenancealertlog = new Alertlog(false);
-                Maintenancealertlog.LogEvent += alertlog_LogEvent;
-                xtraTabPage3.Controls.Add(Maintenancealertlog);
-            }
-            else if (xtraTabControl1.SelectedTabPageIndex == 2)
-            {
-                xtraTabPage4.Controls.Clear();
-                OperationLogInfo = new Alertlog(true);
-                //logDictionary.Clear();
-                OperationLogInfo.LogEvent += alertlog_LogEvent;
-                xtraTabPage4.Controls.Add(OperationLogInfo);
-            }
-           
-        }
-
-        private void Log_Load(object sender, EventArgs e)
+        public void Log_Load(object sender, EventArgs e)
         {
-            BeginInvoke(new Action(loadLog));
+            this.loadLog();
         }
         private void loadLog()
         {
-            troubleLog = new TroubleLogInfo();
-            troubleLog.TroubleLogEvent += alertlog_LogEvent;
-            xtraTabPage1.Controls.Add(troubleLog);
+            if (troubleLog == null)
+            {
+                troubleLog = new TroubleLogInfo();
+                xtraTabPage1.Controls.Add(troubleLog);
+            }
+            if (xtraTabControl1.SelectedTabPageIndex == 0)
+                xtraTabControl1_SelectedPageChanged(null, null);
+            else
+                xtraTabControl1.SelectedTabPageIndex = 0;
         }
         /// <summary>
         /// 关闭系统
@@ -140,6 +114,44 @@ namespace BioA.UI
                 }
                 this.Dispose();                
                 System.Environment.Exit(System.Environment.ExitCode);
+            }
+        }
+        /// <summary>
+        /// 页面切换事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void xtraTabControl1_SelectedPageChanged(object sender, DevExpress.XtraTab.TabPageChangedEventArgs e)
+        {
+            if (xtraTabControl1.SelectedTabPageIndex == 0)
+            {
+                if (!xtraTabPage1.Contains(troubleLog))
+                    xtraTabPage1.Controls.Add(troubleLog);
+                troubleLog.TroubleLogInfo_Load(null,null);
+            }
+            else if (xtraTabControl1.SelectedTabPageIndex == 1)
+            {
+                if (Maintenancealertlog == null)
+                {
+                    Maintenancealertlog = new Alertlog(false);
+                    Maintenancealertlog.LogEvent += alertlog_LogEvent;
+                    xtraTabPage3.Controls.Add(Maintenancealertlog);
+                }
+                if(!xtraTabPage3.Contains(Maintenancealertlog))
+                    xtraTabPage3.Controls.Add(Maintenancealertlog);
+                Maintenancealertlog.Alertlog_Load(null, null);
+            }
+            else if (xtraTabControl1.SelectedTabPageIndex == 2)
+            {
+                if (OperationLogInfo == null)
+                {
+                    OperationLogInfo = new Alertlog(true);
+                    OperationLogInfo.LogEvent += alertlog_LogEvent;
+                    xtraTabPage4.Controls.Add(OperationLogInfo);
+                }
+                if (!xtraTabPage4.Contains(OperationLogInfo))
+                    xtraTabPage4.Controls.Add(OperationLogInfo);
+                OperationLogInfo.Alertlog_Load(null, null);
             }
         }
        

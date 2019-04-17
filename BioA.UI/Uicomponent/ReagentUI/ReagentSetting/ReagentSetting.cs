@@ -44,7 +44,30 @@ namespace BioA.UI
         public ReagentSetting()
         {
             InitializeComponent();
-            
+            Font font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            gridView1.Appearance.HeaderPanel.Font = font;
+            gridView1.Appearance.Row.Font = font;
+            gridView2.Appearance.HeaderPanel.Font = font;
+            gridView2.Appearance.Row.Font = font;
+            dt1.Columns.Add("试剂名称");
+            dt1.Columns.Add("试剂类型");
+            dt1.Columns.Add("位置");
+            dt1.Columns.Add("检测项目");
+            dt1.Columns.Add("有效日期");
+            dt1.Columns.Add("容器");
+            dt1.Columns.Add("批号");
+            //试剂1
+            gridControl1.DataSource = dt1;
+
+            dt2.Columns.Add("试剂名称");
+            dt2.Columns.Add("试剂类型");
+            dt2.Columns.Add("位置");
+            dt2.Columns.Add("检测项目");
+            dt2.Columns.Add("有效日期");
+            dt2.Columns.Add("容器");
+            dt2.Columns.Add("批号");
+            //试剂2
+            gridControl2.DataSource = dt2;
         }
         
         private void ClientSendToServicer(Dictionary<string, object[]> sender)
@@ -57,59 +80,17 @@ namespace BioA.UI
             reagentSetThread.Start();
         }
 
-        private void ReagentSetting_Load(object sender, EventArgs e)
+        public void ReagentSetting_Load(object sender, EventArgs e)
         {
-            BeginInvoke(new Action(ReagentSettingLoad));
-            
-            dt1.Columns.Add("试剂名称");
-            dt1.Columns.Add("试剂类型");
-            dt1.Columns.Add("位置");
-            dt1.Columns.Add("检测项目");
-            dt1.Columns.Add("有效日期");
-            dt1.Columns.Add("容器");
-            dt1.Columns.Add("批号");
-            //试剂1
-            gridControl1.DataSource = dt1;
-            this.gridView1.Columns[0].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[1].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[2].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[3].OptionsColumn.AllowEdit = false;
-            //this.gridView1.Columns[4].OptionsColumn.AllowEdit = false;
-            //this.gridView1.Columns[5].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[4].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[5].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[6].OptionsColumn.AllowEdit = false;
-
-            dt2.Columns.Add("试剂名称");
-            dt2.Columns.Add("试剂类型");
-            dt2.Columns.Add("位置");
-            dt2.Columns.Add("检测项目");
-            dt2.Columns.Add("有效日期");
-            dt2.Columns.Add("容器");
-            dt2.Columns.Add("批号");
-            //试剂2
-            gridControl2.DataSource = dt2;
-            this.gridView2.Columns[0].OptionsColumn.AllowEdit = false;
-            this.gridView2.Columns[1].OptionsColumn.AllowEdit = false;
-            this.gridView2.Columns[2].OptionsColumn.AllowEdit = false;
-            this.gridView2.Columns[3].OptionsColumn.AllowEdit = false;
-            //this.gridView2.Columns[4].OptionsColumn.AllowEdit = false;
-            //this.gridView2.Columns[5].OptionsColumn.AllowEdit = false;
-            this.gridView2.Columns[4].OptionsColumn.AllowEdit = false;
-            this.gridView2.Columns[5].OptionsColumn.AllowEdit = false;
-            this.gridView2.Columns[6].OptionsColumn.AllowEdit = false;
-
+            lstReagentSettingsInfo.Clear();
+            lstReagentSettingsR2Info.Clear();
+            this.ReagentSettingLoad();
         }
         //试剂盘号
         private int Disk = 0;
 
         private void ReagentSettingLoad()
         {
-            Font font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            gridView1.Appearance.HeaderPanel.Font = font;
-            gridView1.Appearance.Row.Font = font;
-            gridView2.Appearance.HeaderPanel.Font = font;
-            gridView2.Appearance.Row.Font = font;
 
             lstReagentSettingsInfo = new BioA.Service.ReagentSetting().QueryReagentSettingsInfo("QueryReagentSetting1", "");
             //把获取到的数据绑定到gridControl1控件上,显示到界面
@@ -121,16 +102,23 @@ namespace BioA.UI
             rs = ReagentConfigInfoConstrunction.ReagentStateInfo;
             if (rs.ReagentStatusModule == 1)
             {
-                frmloadingReagent = new frmLoadingReagent();
-                frmloadingReagent.GetsReagentEvent += GeTheReagentAfterPreservationEvent;
-
+                if (frmloadingReagent == null)
+                {
+                    frmloadingReagent = new frmLoadingReagent();
+                    frmloadingReagent.StartPosition = FormStartPosition.CenterScreen;
+                    frmloadingReagent.GetsReagentEvent += GeTheReagentAfterPreservationEvent;
+                }
             }
             else if (rs.ReagentStatusModule == 2)
             {
-                lReagentBlock = new LoadingReagentBlocking();
-                lReagentBlock.ScannSingleReagentEvent +=OnScannSingleReagentEvent;
-                lReagentBlock.InputReagentBarcodeEvent += OnInputReagentBarcodeEvent;
-                lReagentBlock.RefreshReagentInfoEvent += GeTheReagentAfterPreservationEvent;
+                if (lReagentBlock == null)
+                {
+                    lReagentBlock = new LoadingReagentBlocking();
+                    lReagentBlock.StartPosition = FormStartPosition.CenterScreen;
+                    lReagentBlock.ScannSingleReagentEvent += OnScannSingleReagentEvent;
+                    lReagentBlock.InputReagentBarcodeEvent += OnInputReagentBarcodeEvent;
+                    lReagentBlock.RefreshReagentInfoEvent += GeTheReagentAfterPreservationEvent;
+                }
             }
 
         }
@@ -198,18 +186,15 @@ namespace BioA.UI
         /// <param name="lstReagentSettingsInfo"></param>
         private void InitialReagentInfos2(List<ReagentSettingsInfo> lstReagentSettingsInfo)
         {
-            this.Invoke(new EventHandler(delegate
+            gridControl2.RefreshDataSource();
+            dt2.Rows.Clear();
+            foreach (ReagentSettingsInfo reagentSettingsInfo in lstReagentSettingsInfo)
             {
-                gridControl2.RefreshDataSource();
-                dt2.Rows.Clear();
-                foreach (ReagentSettingsInfo reagentSettingsInfo in lstReagentSettingsInfo)
-                {
-                    dt2.Rows.Add(new object[] { reagentSettingsInfo.ReagentName,reagentSettingsInfo.ReagentType ,reagentSettingsInfo.Pos, reagentSettingsInfo.ProjectName
-                        //, reagentSettingsInfo.ResidualQuantity, reagentSettingsInfo.Measuredquantity
-                        ,reagentSettingsInfo.ValidDate.ToString("yyyy-MM-dd"),reagentSettingsInfo.ReagentContainer,reagentSettingsInfo.BatchNum
-                    });
-                }
-            }));
+                dt2.Rows.Add(new object[] { reagentSettingsInfo.ReagentName,reagentSettingsInfo.ReagentType ,reagentSettingsInfo.Pos, reagentSettingsInfo.ProjectName
+                    //, reagentSettingsInfo.ResidualQuantity, reagentSettingsInfo.Measuredquantity
+                    ,reagentSettingsInfo.ValidDate.ToString("yyyy-MM-dd"),reagentSettingsInfo.ReagentContainer,reagentSettingsInfo.BatchNum
+                });
+            }
         }
         /// <summary>
         /// 绑定数据后，显示试剂1信息
@@ -217,18 +202,15 @@ namespace BioA.UI
         /// <param name="lstReagentSettingsInfo"></param>
         private void InitialReagentInfos(List<ReagentSettingsInfo> lstReagentSettingsInfo)
         {
-            this.Invoke(new EventHandler(delegate
+            gridControl1.RefreshDataSource();
+            dt1.Rows.Clear();
+            foreach (ReagentSettingsInfo reagentSettingsInfo in lstReagentSettingsInfo)
             {
-                gridControl1.RefreshDataSource();
-                dt1.Rows.Clear();
-                foreach (ReagentSettingsInfo reagentSettingsInfo in lstReagentSettingsInfo)
-                {
-                    dt1.Rows.Add(new object[] { reagentSettingsInfo.ReagentName,reagentSettingsInfo.ReagentType ,reagentSettingsInfo.Pos, reagentSettingsInfo.ProjectName
-                        //, reagentSettingsInfo.ResidualQuantity, reagentSettingsInfo.Measuredquantity
-                       ,reagentSettingsInfo.ValidDate.ToString("yyyy-MM-dd"),reagentSettingsInfo.ReagentContainer,reagentSettingsInfo.BatchNum
-                    });
-                }
-            }));
+                dt1.Rows.Add(new object[] { reagentSettingsInfo.ReagentName,reagentSettingsInfo.ReagentType ,reagentSettingsInfo.Pos, reagentSettingsInfo.ProjectName
+                    //, reagentSettingsInfo.ResidualQuantity, reagentSettingsInfo.Measuredquantity
+                    ,reagentSettingsInfo.ValidDate.ToString("yyyy-MM-dd"),reagentSettingsInfo.ReagentContainer,reagentSettingsInfo.BatchNum
+                });
+            }
         }
         List<ReagentSettingsInfo> lstReagentSettingsInfo = new List<ReagentSettingsInfo>();
         List<ReagentSettingsInfo> lstReagentSettingsR2Info = new List<ReagentSettingsInfo>();
@@ -294,7 +276,6 @@ namespace BioA.UI
             }
             if (rs.ReagentStatusModule == 1)
             {
-                frmloadingReagent.StartPosition = FormStartPosition.CenterScreen;
                 frmloadingReagent.Text = "试剂装载R1";
 
                 frmloadingReagent.LstUsedPos.Clear();
@@ -302,15 +283,16 @@ namespace BioA.UI
                 frmloadingReagent.LstProjectName = lstProjectName;
                 frmloadingReagent.LstUsedPos = lstPos;
                 frmloadingReagent.LoadingReagentData();
+                frmloadingReagent.frmLoadingReagent_Load(null,null);
                 frmloadingReagent.ShowDialog();
             }
             if (rs.ReagentStatusModule == 2)
             {
                 lReagentBlock.ReagentDisk = this.Disk = 1;
-                lReagentBlock.StartPosition = FormStartPosition.CenterScreen;
                 lReagentBlock.Text = "试剂条码装载R1";
                 lReagentBlock.LstProjectName = lstProjectName;
                 lReagentBlock.LstPos = lstPos;
+                lReagentBlock.LoadingReagentBlocking_Load(null,null);
                 lReagentBlock.ShowDialog();
             }
         }
@@ -332,22 +314,23 @@ namespace BioA.UI
             }
             if (rs.ReagentStatusModule == 1)
             {
-                frmloadingReagent.StartPosition = FormStartPosition.CenterScreen;
+                
                 frmloadingReagent.Text = "试剂装载R2";
                 frmloadingReagent.LstUsedPos.Clear();
                 frmloadingReagent.LstProjectName.Clear();
                 frmloadingReagent.LstProjectName = lstProjectName;
                 frmloadingReagent.LstUsedPos = lstPos;
                 frmloadingReagent.LoadingReagentData();
+                frmloadingReagent.frmLoadingReagent_Load(null, null);
                 frmloadingReagent.ShowDialog();
             }
             else if (rs.ReagentStatusModule == 2)
             {
                 lReagentBlock.ReagentDisk = this.Disk = 2;
-                lReagentBlock.StartPosition = FormStartPosition.CenterScreen;
                 lReagentBlock.Text = "试剂条码装载R2";
                 lReagentBlock.LstProjectName = lstProjectName;
                 lReagentBlock.LstPos = lstPos;
+                lReagentBlock.LoadingReagentBlocking_Load(null, null);
                 lReagentBlock.ShowDialog();
             }
         }
@@ -378,16 +361,11 @@ namespace BioA.UI
                 reagentSettingsInfo.ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "检测项目").ToString();
                 reagentSettingsInfo.ReagentName = this.gridView1.GetRowCellValue(selectedHandle, "试剂名称").ToString();
                 reagentSettingsInfo.ReagentType = this.gridView1.GetRowCellValue(selectedHandle, "试剂类型").ToString();
-                if (reagentSettingsInfo.ReagentName != null)
-                {
-                    //DataConfig.StrmethodName = "DeleteReagentSettingsR1";
-                    //DataConfig.ObjParam = XmlUtility.Serializer(typeof(ReagentSettingsInfo), reagentSettingsInfo);
-                    reagentDictionary.Clear();
-                    reagentDictionary.Add("DeleteReagentSettingsR1", new object[] { XmlUtility.Serializer(typeof(ReagentSettingsInfo), reagentSettingsInfo) });
-                    ClientSendToServicer(reagentDictionary);
-                    dt1.Rows.Remove(dt1.Rows[selectedHandle]);
-                }
-
+                reagentSettingsInfo.Pos = this.gridView1.GetRowCellValue(selectedHandle, "位置").ToString();
+                reagentDictionary.Clear();
+                reagentDictionary.Add("DeleteReagentSettingsR1", new object[] { XmlUtility.Serializer(typeof(ReagentSettingsInfo), reagentSettingsInfo) });
+                ClientSendToServicer(reagentDictionary);
+                dt1.Rows.Remove(dt1.Rows[selectedHandle]);
             }
         }
         /// <summary>
@@ -415,13 +393,11 @@ namespace BioA.UI
                 reagentSettingsInfo.ProjectName = this.gridView2.GetRowCellValue(selectedHandle, "检测项目").ToString();
                 reagentSettingsInfo.ReagentName = this.gridView2.GetRowCellValue(selectedHandle, "试剂名称").ToString();
                 reagentSettingsInfo.ReagentType = this.gridView2.GetRowCellValue(selectedHandle, "试剂类型").ToString();
-                if (reagentSettingsInfo.ReagentName != null)
-                {
-                    reagentDictionary.Clear();
-                    reagentDictionary.Add("DeleteReagentSettingsR2", new object[] { XmlUtility.Serializer(typeof(ReagentSettingsInfo), reagentSettingsInfo) });
-                    ClientSendToServicer(reagentDictionary);
-                    dt1.Rows.Remove(dt2.Rows[selectedHandle]);
-                }
+                reagentSettingsInfo.Pos = this.gridView2.GetRowCellValue(selectedHandle, "位置").ToString();
+                reagentDictionary.Clear();
+                reagentDictionary.Add("DeleteReagentSettingsR2", new object[] { XmlUtility.Serializer(typeof(ReagentSettingsInfo), reagentSettingsInfo) });
+                ClientSendToServicer(reagentDictionary);
+                dt2.Rows.Remove(dt2.Rows[selectedHandle]);
             }
         }
     }

@@ -34,7 +34,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("UserLogin(string strMethodName, string[] strCommunicates)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("UserLogin(string strMethodName, string[] strCommunicates)==" + e.ToString(), Module.LogIn);
             }
 
             return strResult;
@@ -62,7 +62,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("QueryUserAuthority(string strMethodName, string UserName)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("QueryUserAuthority(string strMethodName, string UserName)==" + e.ToString(), Module.LogIn);
             }
             return userInfo;
         }
@@ -87,7 +87,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
-                LogInfo.WriteErrorLog("SaveUserExitInfo(string strMethodName, string UserName)==" + e.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("SaveUserExitInfo(string strMethodName, string UserName)==" + e.ToString(), Module.LogIn);
             }
 
         }
@@ -104,7 +104,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception ex)
             {
-                LogInfo.WriteErrorLog("SaveMaintenanceLogInfo(string strDBMethodParam, MaintenanceLogInfo maintenanceLogInfo) ==" + ex.ToString(), Module.DAO);
+                LogInfo.WriteErrorLog("SaveMaintenanceLogInfo(string strDBMethodParam, MaintenanceLogInfo maintenanceLogInfo) ==" + ex.ToString(), Module.LogIn);
             }
         }
     }

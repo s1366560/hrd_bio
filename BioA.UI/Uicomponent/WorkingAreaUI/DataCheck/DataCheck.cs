@@ -41,12 +41,12 @@ namespace BioA.UI
         // 审核界面
         TestAudit testAudit;
         //显示病人样本信息
-        List<SampleInfoForResult> sampleInfos = new List<SampleInfoForResult>();
+        private List<SampleInfoForResult> sampleInfos = new List<SampleInfoForResult>();
         //显示所有样本结果信息
         List<SampleResultInfo> lstSamResultInfo = new List<SampleResultInfo>();
         
         //结果设置表信息
-        private List<ResultSetInfo> lstResultSetInfo;
+        private List<ResultSetInfo> lstResultSetInfo = new List<ResultSetInfo>();
 
         //反应监控曲线窗体
         ReflectionMonitoring reflectionMonitoring;
@@ -55,6 +55,60 @@ namespace BioA.UI
         {
             InitializeComponent();
             this.Dock = DockStyle.Fill;
+            
+            gridView2.OptionsSelection.MultiSelect = true;
+            gridView2.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
+            gridView2.OptionsSelection.ResetSelectionClickOutsideCheckboxSelector = true;
+            CheckResultDT.Columns.Add("检测项目");
+            CheckResultDT.Columns.Add("检测结果");
+            CheckResultDT.Columns.Add("单位");
+            CheckResultDT.Columns.Add("范围参数");
+            CheckResultDT.Columns.Add("测试完成时间");
+            CheckResultDT.Columns.Add("进程编号");
+            CheckResultDT.Columns.Add("任务状态");
+            CheckResultDT.Columns.Add("复查");
+            CheckResultDT.Columns.Add("样本体积类型");
+            CheckResultDT.Columns.Add("发送");
+            CheckResultDT.Columns.Add("备注");
+            CheckResultDT.Columns.Add("确认", typeof(Boolean));
+            lstvInspectProInfo.DataSource = CheckResultDT;
+            gridView2.Columns[0].Width = 60;
+            gridView2.Columns[1].Width = 60;
+            gridView2.Columns[2].Width = 50;
+            gridView2.Columns[3].Width = 90;
+            gridView2.Columns[4].Width = 90;
+            gridView2.Columns[5].Width = 40;
+            gridView2.Columns[6].Width = 50;
+            gridView2.Columns[7].Width = 30;
+            gridView2.Columns[8].Width = 60;
+            gridView2.Columns[9].Width = 40;
+            gridView2.Columns[10].Width = 80;
+            gridView2.Columns[11].Width = 30;
+            gridView2.Columns[0].OptionsColumn.AllowEdit = false;
+            gridView2.Columns[1].OptionsColumn.AllowEdit = false;
+            gridView2.Columns[2].OptionsColumn.AllowEdit = false;
+            gridView2.Columns[3].OptionsColumn.AllowEdit = false;
+            gridView2.Columns[4].OptionsColumn.AllowEdit = false;
+            gridView2.Columns[5].OptionsColumn.AllowEdit = false;
+            gridView2.Columns[6].OptionsColumn.AllowEdit = false;
+            gridView2.Columns[7].OptionsColumn.AllowEdit = false;
+            gridView2.Columns[8].OptionsColumn.AllowEdit = false;
+            gridView2.Columns[9].OptionsColumn.AllowEdit = false;
+            gridView2.Columns[10].OptionsColumn.AllowEdit = false;
+            gridView2.Columns[11].OptionsColumn.AllowEdit = true;
+
+            dt.Columns.Add("样本编号");
+            dt.Columns.Add("样本ID");
+            dt.Columns.Add("样本类型");
+            dt.Columns.Add("患者名称");
+            dt.Columns.Add("性别");
+            dt.Columns.Add("年龄");
+            dt.Columns.Add("申请时间");
+            dt.Columns.Add("样本状态");
+            dt.Columns.Add("审核状态");
+            dt.Columns.Add("打印状态");
+            dt.Columns.Add("手动稀释");
+            lstvSampleInfo.DataSource = dt;
         }
         /// <summary>
         /// 根据时间段查找样本结果状态
@@ -212,27 +266,48 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void btnExamine_Click(object sender, EventArgs e)
         {
-            testAudit.SampleInfos = sampleInfos;
-
             if (this.gridView1.SelectedRowsCount > 0)
             {
-                SampleInfoForResult sampleInfo = new SampleInfoForResult();
-                int selectedNum = this.gridView1.GetSelectedRows()[0];
+                if (testAudit == null)
+                {
+                    testAudit = new TestAudit();
+                    testAudit.StartPosition = FormStartPosition.CenterScreen;
+                    this.ApplicationReview();
+                    testAudit.ShowDialog();
+                }
+                else
+                {
 
-                sampleInfo.SampleNum = System.Convert.ToInt32(this.gridView1.GetRowCellValue(selectedNum, "样本编号"));
-                sampleInfo.CreateTime = System.Convert.ToDateTime(this.gridView1.GetRowCellValue(selectedNum, "申请时间"));
-
-                testAudit.SampleInfo = sampleInfo;
-                testAudit.CurrentClickLineNumber =gridView1.FocusedRowHandle + 1;
-                testAudit.StartPosition = FormStartPosition.CenterScreen;
-                testAudit.ShowDialog();
+                    testAudit.Clear();
+                    this.ApplicationReview();
+                    testAudit.WindowState = FormWindowState.Normal;
+                    testAudit.ShowDialog();
+                }
             }
             else
             {
                 MessageBox.Show("请选择病人信息！");
                 return;
             }
+        }
 
+        private void ApplicationReview()
+        {
+            //testAudit.SampleInfos = sampleInfos;
+            testAudit.sampleInfos.AddRange(sampleInfos);
+            
+            SampleInfoForResult sampleInfo = new SampleInfoForResult();
+            int selectedNum = this.gridView1.GetSelectedRows()[0];
+
+            sampleInfo.SampleNum = System.Convert.ToInt32(this.gridView1.GetRowCellValue(selectedNum, "样本编号"));
+            sampleInfo.CreateTime = System.Convert.ToDateTime(this.gridView1.GetRowCellValue(selectedNum, "申请时间"));
+
+            testAudit.SampleInfo = sampleInfo;
+            testAudit.CurrentClickLineNumber = gridView1.FocusedRowHandle + 1;
+
+            testAudit.TestAudit_Load(null, null);
+                //testAudit.Show();
+            
         }
         /// <summary>
         /// 反应监控点击事件
@@ -269,21 +344,23 @@ namespace BioA.UI
 
         }
 
-        private void DataCheck_Load(object sender, EventArgs e)
+        public void DataCheck_Load(object sender, EventArgs e)
         {
             //chkFilterOpen.Checked = 
             //异步方法调用
-            BeginInvoke(new Action(loadDataCheck));
+            loadDataCheck();
             this.lstResultSetInfo = QueryResultSetTb.QueryResultSetInfo;
 
         }
         private void loadDataCheck()
         {
-            gridView2.OptionsSelection.MultiSelect = true;
-            gridView2.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
-            gridView2.OptionsSelection.ResetSelectionClickOutsideCheckboxSelector = true;
+            sampleInfos.Clear();
+            lstSamResultInfo.Clear();
+            lstSampleReuslt.Clear();
+            lstResultSetInfo.Clear();
+            sampleInfoForResult = null;
 
-            testAudit = new TestAudit();
+            //testAudit = new TestAudit();
             reflectionMonitoring = new ReflectionMonitoring(false);
             if ((RunConfigureUtility.ChkSampleTaskState)["FilterSwitch"])
             {
@@ -298,62 +375,9 @@ namespace BioA.UI
             dtpInspectTimeStart.Value = DateTime.Now;
             dtpInspectTimeOld.Value = DateTime.Now;
 
-
-
-            CheckResultDT.Columns.Add("检测项目");
-            CheckResultDT.Columns.Add("检测结果");
-            CheckResultDT.Columns.Add("单位");
-            CheckResultDT.Columns.Add("范围参数");
-            CheckResultDT.Columns.Add("测试完成时间");
-            CheckResultDT.Columns.Add("进程编号");
-            CheckResultDT.Columns.Add("任务状态");
-            CheckResultDT.Columns.Add("复查");
-            CheckResultDT.Columns.Add("样本体积类型");
-            CheckResultDT.Columns.Add("发送");
-            CheckResultDT.Columns.Add("备注");
-            CheckResultDT.Columns.Add("确认", typeof(Boolean));
-
-            lstvInspectProInfo.DataSource = CheckResultDT;
-            gridView2.Columns[0].Width = 60;
-            gridView2.Columns[1].Width = 60;
-            gridView2.Columns[2].Width = 50;
-            gridView2.Columns[3].Width = 90;
-            gridView2.Columns[4].Width = 90;
-            gridView2.Columns[5].Width = 40;
-            gridView2.Columns[6].Width = 50;
-            gridView2.Columns[7].Width = 30;
-            gridView2.Columns[8].Width = 60;
-            gridView2.Columns[9].Width = 40;
-            gridView2.Columns[10].Width = 80;
-            gridView2.Columns[11].Width = 30;
-            gridView2.Columns[0].OptionsColumn.AllowEdit = false;
-            gridView2.Columns[1].OptionsColumn.AllowEdit = false;
-            gridView2.Columns[2].OptionsColumn.AllowEdit = false;
-            gridView2.Columns[3].OptionsColumn.AllowEdit = false;
-            gridView2.Columns[4].OptionsColumn.AllowEdit = false;
-            gridView2.Columns[5].OptionsColumn.AllowEdit = false;
-            gridView2.Columns[6].OptionsColumn.AllowEdit = false;
-            gridView2.Columns[7].OptionsColumn.AllowEdit = false;
-            gridView2.Columns[8].OptionsColumn.AllowEdit = false;
-            gridView2.Columns[9].OptionsColumn.AllowEdit = false;
-            gridView2.Columns[10].OptionsColumn.AllowEdit = false;
-            gridView2.Columns[11].OptionsColumn.AllowEdit = true;
-
-            dt.Columns.Add("样本编号");
-            dt.Columns.Add("样本ID");
-            dt.Columns.Add("样本类型");
-            dt.Columns.Add("患者名称");
-            dt.Columns.Add("性别");
-            dt.Columns.Add("年龄");
-            dt.Columns.Add("申请时间");
-            dt.Columns.Add("样本状态");
-            dt.Columns.Add("审核状态");
-            dt.Columns.Add("打印状态");
-            dt.Columns.Add("手动稀释");
-            lstvSampleInfo.DataSource = dt;
-
             //异步线程调用
-            BeginInvoke(new Action(LoadCommonSampleData));
+            //BeginInvoke(new Action(LoadCommonSampleData));
+            this.LoadCommonSampleData();
         }
 
         /// <summary>
@@ -1153,9 +1177,9 @@ namespace BioA.UI
         
        
         //样本病人信息
-        SampleInfoForResult sampleInfoForResult = null;
+        SampleInfoForResult sampleInfoForResult = new SampleInfoForResult();
         //样本结果信息
-        List<SampleResultInfo> lstSampleReuslt = null;
+        List<SampleResultInfo> lstSampleReuslt = new List<SampleResultInfo>();
         /// <summary>
         /// 获取病人样本结果信息
         /// </summary>
@@ -1165,7 +1189,7 @@ namespace BioA.UI
         {
             lstSampleReuslt = new WorkingAreaDataCheck().GetSmpPrintValues(samp, dateTime, out sampleInfoForResult);
         }
-        MyBatis myBatis = null;
+        MyBatis myBatis = new MyBatis();
         SMPResultSend smprs = null;
         /// <summary>
         /// 发送结果数据给LIS服务
@@ -1181,7 +1205,6 @@ namespace BioA.UI
 
         public void SMPResultSendDelegateEvent_Event(string sender)
         {
-            myBatis = new MyBatis();
             if (sender == "1")
             {
                 if (this.gridView1.SelectedRowsCount > 0)

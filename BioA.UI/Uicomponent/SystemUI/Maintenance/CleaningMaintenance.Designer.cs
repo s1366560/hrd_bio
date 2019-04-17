@@ -126,7 +126,7 @@
             this.Controls.Add(this.rtxtCleanSampleNeedle);
             this.Name = "CleaningMaintenance";
             this.Size = new System.Drawing.Size(1762, 806);
-            this.Load += new System.EventHandler(this.CleaningMaintenance_Load);
+            //this.Load += new System.EventHandler(this.CleaningMaintenance_Load);
             this.ResumeLayout(false);
 
         }

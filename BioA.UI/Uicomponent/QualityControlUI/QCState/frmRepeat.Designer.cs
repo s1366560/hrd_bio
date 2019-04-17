@@ -336,7 +336,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmRepeat";
             this.Text = "重复性检查";
-            this.Load += new System.EventHandler(this.frmRepeat_Load);
+            //this.Load += new System.EventHandler(this.frmRepeat_Load);
             ((System.ComponentModel.ISupportInitialize)(this.txtProjectName.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtQCName.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtLotNum.Properties)).EndInit();

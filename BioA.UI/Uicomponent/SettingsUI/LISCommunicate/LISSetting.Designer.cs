@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
             this.grpSerialPortSetting = new DevExpress.XtraEditors.GroupControl();
             this.cboStopBits = new DevExpress.XtraEditors.ComboBoxEdit();
             this.cboBaudRate = new DevExpress.XtraEditors.ComboBoxEdit();
@@ -358,9 +356,6 @@
             "网络",
             "串口"});
             this.comBoxCommMode.Size = new System.Drawing.Size(88, 24);
-            toolTipTitleItem1.Text = "\r\n";
-            superToolTip1.Items.Add(toolTipTitleItem1);
-            this.comBoxCommMode.SuperTip = superToolTip1;
             this.comBoxCommMode.TabIndex = 1;
             this.comBoxCommMode.SelectedValueChanged += new System.EventHandler(this.comBoxCommMode_SelectedValueChanged);
             // 
@@ -411,7 +406,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "LISSetting";
             this.Text = "LIS设置";
-            this.Load += new System.EventHandler(this.LISSetting_Load);
+            //this.Load += new System.EventHandler(this.LISSetting_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grpSerialPortSetting)).EndInit();
             this.grpSerialPortSetting.ResumeLayout(false);
             this.grpSerialPortSetting.PerformLayout();

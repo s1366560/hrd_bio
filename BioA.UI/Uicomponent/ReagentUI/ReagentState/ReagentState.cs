@@ -21,10 +21,6 @@ namespace BioA.UI
     {
         List<ReagentStateInfoR1R2> lstReagentStateInfo = new List<ReagentStateInfoR1R2>();
         /// <summary>
-        /// 存储客户端给服务器传递信息集合
-        /// </summary>
-        private Dictionary<string, object[]> reagentDictionary = new Dictionary<string, object[]>();
-        /// <summary>
         /// 保存试剂信息
         /// </summary>
         DataTable dt = new DataTable();
@@ -39,36 +35,6 @@ namespace BioA.UI
             Font font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             gridView1.Appearance.HeaderPanel.Font = font;
             gridView1.Appearance.Row.Font = font;
-        }
-
-     
-        private void ReagentStateLoad()
-        {
-            //reagentDictionary.Clear();
-            //reagentDictionary.Add("QueryReagentState", new object[] { "" });
-            lstReagentStateInfo = new BioA.Service.ReagentState().QueryReagentStateInfo("QueryReagentState", "");
-            BeginInvoke(new Action(() =>
-            {
-                InitialReagentStateInfo(lstReagentStateInfo);
-            }));
-            //ReagentStateSend(reagentDictionary);
-            gridView1.OptionsSelection.MultiSelect = true;
-            gridView1.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
-            gridView1.OptionsSelection.ResetSelectionClickOutsideCheckboxSelector = true;
-        }
-
-        private void ReagentStateSend(Dictionary<string, object[]> sender)
-        {
-            var threadReagentState = new Thread(() =>
-            {
-                CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.ReagentState, sender);
-            });
-            threadReagentState.IsBackground = true;
-            threadReagentState.Start();
-        }
-        private void ReagentState_Load(object sender, EventArgs e)
-        {
-            BeginInvoke(new Action(ReagentStateLoad));
             dt.Columns.Add("项目名称");
             dt.Columns.Add("试剂1名称");
             dt.Columns.Add("试剂1位置");
@@ -85,20 +51,22 @@ namespace BioA.UI
             dt.Columns.Add("试剂2剩余容量%");
             dt.Columns.Add("是否锁定");
             gridReagentState.DataSource = dt;
-            this.gridView1.Columns[0].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[1].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[2].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[3].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[4].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[5].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[6].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[7].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[8].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[9].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[10].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[11].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[12].OptionsColumn.AllowEdit = false;
-            this.gridView1.Columns[13].OptionsColumn.AllowEdit = false;
+            gridView1.OptionsSelection.MultiSelect = true;
+            gridView1.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
+            gridView1.OptionsSelection.ResetSelectionClickOutsideCheckboxSelector = true;
+        }
+
+     
+        private void ReagentStateLoad()
+        {
+            lstReagentStateInfo = new BioA.Service.ReagentState().QueryReagentStateInfo("QueryReagentState", "");
+            this.InitialReagentStateInfo(lstReagentStateInfo);
+            
+        }
+        public void ReagentState_Load(object sender, EventArgs e)
+        {
+            this.lstReagentStateInfo.Clear();
+            this.ReagentStateLoad();
         }
 
      
@@ -145,9 +113,9 @@ namespace BioA.UI
             List<ReagentStateInfoR1R2> lisReagentStateInfo2 = new List<ReagentStateInfoR1R2>();
             List<ReagentStateInfoR1R2> lisReagentStateInfo3 = new List<ReagentStateInfoR1R2>();
 
-            for (int i = 0; i < ReagentStateInfo.Count;i++ )
+            for (int i = 0; i < ReagentStateInfo.Count; i++)
             {
-                if(ReagentStateInfo[i].ReagentType=="清洗剂")
+                if (ReagentStateInfo[i].ReagentType == "清洗剂")
                 {
                     lisReagentStateInfo1.Add(ReagentStateInfo[i]);
                 }
@@ -161,67 +129,42 @@ namespace BioA.UI
                 }
 
             }
-            this.Invoke(new EventHandler(delegate
-            {
-                gridReagentState.RefreshDataSource();
+            gridReagentState.RefreshDataSource();
 
-                dt.Rows.Clear();
-                foreach (ReagentStateInfoR1R2 reagentStateInfo in lisReagentStateInfo3)
+            dt.Rows.Clear();
+            foreach (ReagentStateInfoR1R2 reagentStateInfo in lisReagentStateInfo3)
+            {
+                if (reagentStateInfo.ReagentName == "" || reagentStateInfo.ReagentName == null)
                 {
-                    if (reagentStateInfo.ReagentName == "" || reagentStateInfo.ReagentName == null)
-                    {
-                        dt.Rows.Add(new object[] { reagentStateInfo.ProjectName, "", "", "", "", "","",
-                            reagentStateInfo.ReagentName2,
-                            reagentStateInfo.Pos2,
-                            reagentStateInfo.ReagentType2,
-                            //reagentStateInfo.BatchNum2,
-                            reagentStateInfo.ResidualQuantity2,
-                            reagentStateInfo.ReagentResidualVol2,
-                            reagentStateInfo.ValidPercent2 + "%",
-                            reagentStateInfo.Locked == true ? "锁定" : "未锁定" 
-                        });
-                    }
-                    else if (reagentStateInfo.ReagentName2 == "" || reagentStateInfo.ReagentName2 == null)
-                    {
-                        dt.Rows.Add(new object[] { 
-                            reagentStateInfo.ProjectName,
-                            reagentStateInfo.ReagentName,
-                            
-                            reagentStateInfo.Pos,
-                            reagentStateInfo.ReagentType,
-                            reagentStateInfo.ResidualQuantity,
-                            //reagentStateInfo.BatchNum,
-                            reagentStateInfo.ReagentResidualVol,
-                            reagentStateInfo.ValidPercent + "%",
-                            "", "", "", "", "", "", reagentStateInfo.Locked == true ? "锁定" : "未锁定"
-                        }); 
-                    }
-                    else
-                    {
-                        dt.Rows.Add(new object[] {
-                            reagentStateInfo.ProjectName,
-                            reagentStateInfo.ReagentName,
-                            reagentStateInfo.Pos,
-                            reagentStateInfo.ReagentType,
-                            //reagentStateInfo.BatchNum,
-                            reagentStateInfo.ResidualQuantity,
-                            reagentStateInfo.ReagentResidualVol,
-                            reagentStateInfo.ValidPercent + "%",
-                            reagentStateInfo.ReagentName2,
-                            reagentStateInfo.Pos2,
-                            reagentStateInfo.ReagentType2,
-                            //reagentStateInfo.BatchNum2,
-                            reagentStateInfo.ResidualQuantity2,
-                            reagentStateInfo.ReagentResidualVol2,
-                            reagentStateInfo.ValidPercent2 + "%",
-                            reagentStateInfo.Locked == true ? "锁定" : "未锁定"
-                        });   
-                    }
-                                  
+                    dt.Rows.Add(new object[] { reagentStateInfo.ProjectName, "", "", "", "", "","",
+                        reagentStateInfo.ReagentName2,
+                        reagentStateInfo.Pos2,
+                        reagentStateInfo.ReagentType2,
+                        //reagentStateInfo.BatchNum2,
+                        reagentStateInfo.ResidualQuantity2,
+                        reagentStateInfo.ReagentResidualVol2,
+                        reagentStateInfo.ValidPercent2 + "%",
+                        reagentStateInfo.Locked == true ? "锁定" : "未锁定" 
+                    });
                 }
-                foreach (ReagentStateInfoR1R2 reagentStateInfo in lisReagentStateInfo1)
+                else if (reagentStateInfo.ReagentName2 == "" || reagentStateInfo.ReagentName2 == null)
                 {
                     dt.Rows.Add(new object[] { 
+                        reagentStateInfo.ProjectName,
+                        reagentStateInfo.ReagentName,
+                            
+                        reagentStateInfo.Pos,
+                        reagentStateInfo.ReagentType,
+                        reagentStateInfo.ResidualQuantity,
+                        //reagentStateInfo.BatchNum,
+                        reagentStateInfo.ReagentResidualVol,
+                        reagentStateInfo.ValidPercent + "%",
+                        "", "", "", "", "", "", reagentStateInfo.Locked == true ? "锁定" : "未锁定"
+                    });
+                }
+                else
+                {
+                    dt.Rows.Add(new object[] {
                         reagentStateInfo.ProjectName,
                         reagentStateInfo.ReagentName,
                         reagentStateInfo.Pos,
@@ -230,13 +173,6 @@ namespace BioA.UI
                         reagentStateInfo.ResidualQuantity,
                         reagentStateInfo.ReagentResidualVol,
                         reagentStateInfo.ValidPercent + "%",
-                        "","","","","",
-                        "",reagentStateInfo.Locked == true ? "锁定" : "未锁定"                    });
-                }
-                foreach (ReagentStateInfoR1R2 reagentStateInfo in lisReagentStateInfo2)
-                {
-                    dt.Rows.Add(new object[] { "","","","",
-                        "","","",
                         reagentStateInfo.ReagentName2,
                         reagentStateInfo.Pos2,
                         reagentStateInfo.ReagentType2,
@@ -245,9 +181,39 @@ namespace BioA.UI
                         reagentStateInfo.ReagentResidualVol2,
                         reagentStateInfo.ValidPercent2 + "%",
                         reagentStateInfo.Locked == true ? "锁定" : "未锁定"
-                    });
+                        });
                 }
-            }));
+
+            }
+            foreach (ReagentStateInfoR1R2 reagentStateInfo in lisReagentStateInfo1)
+            {
+                dt.Rows.Add(new object[] { 
+                    reagentStateInfo.ProjectName,
+                    reagentStateInfo.ReagentName,
+                    reagentStateInfo.Pos,
+                    reagentStateInfo.ReagentType,
+                    //reagentStateInfo.BatchNum,
+                    reagentStateInfo.ResidualQuantity,
+                    reagentStateInfo.ReagentResidualVol,
+                    reagentStateInfo.ValidPercent + "%",
+                    "","","","","",
+                    "",reagentStateInfo.Locked == true ? "锁定" : "未锁定"
+                });
+            }
+            foreach (ReagentStateInfoR1R2 reagentStateInfo in lisReagentStateInfo2)
+            {
+                dt.Rows.Add(new object[] { "","","","",
+                    "","","",
+                    reagentStateInfo.ReagentName2,
+                    reagentStateInfo.Pos2,
+                    reagentStateInfo.ReagentType2,
+                    //reagentStateInfo.BatchNum2,
+                    reagentStateInfo.ResidualQuantity2,
+                    reagentStateInfo.ReagentResidualVol2,
+                    reagentStateInfo.ValidPercent2 + "%",
+                    reagentStateInfo.Locked == true ? "锁定" : "未锁定"
+                });
+            }
         }
 
         private void btnSelect_Click(object sender, EventArgs e)
@@ -292,16 +258,7 @@ namespace BioA.UI
                     dt.Rows[r][13] = "锁定";
                 }
                 gridReagentState.RefreshDataSource();
-            }
-                //BeginInvoke(new Action(() =>
-                //{
-                //   InitialReagentStateInfo(lstReagentStateInfo);
-                //}));
-
-            //reagentDictionary.Clear();
-            //reagentDictionary.Add("LockReagentState", new object[] { XmlUtility.Serializer(typeof(List<ReagentStateInfoR1R2>), ReagentStateInfo) });
-
-            //ReagentStateSend(reagentDictionary);           
+            }   
         }
         /// <summary>
         /// 解锁状态
@@ -342,14 +299,6 @@ namespace BioA.UI
                 }
                 gridReagentState.RefreshDataSource();
             }
-                //BeginInvoke(new Action(() =>
-                //{
-                //    InitialReagentStateInfo(lstReagentStateInfo);
-                //}));
-
-            //reagentDictionary.Clear();
-            //reagentDictionary.Add("UnlockReagentState", new object[] { XmlUtility.Serializer(typeof(List<ReagentStateInfoR1R2>), ReagentStateInfo) });
-            //ReagentStateSend(reagentDictionary);
         }
        
         private void btnReverseSelection_Click(object sender, EventArgs e)

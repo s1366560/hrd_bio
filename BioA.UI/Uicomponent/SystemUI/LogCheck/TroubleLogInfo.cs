@@ -17,78 +17,57 @@ namespace BioA.UI
 {
     public partial class TroubleLogInfo : DevExpress.XtraEditors.XtraUserControl
     {
-        public delegate void TroubleLogDelegate(Dictionary<string, object[]> sender);
-        public event TroubleLogDelegate TroubleLogEvent;
         //查询数据库的类
         SystemLogCheck systemLogCheck = new SystemLogCheck();
-        DataTable dt = new DataTable();
         /// <summary>
-        /// 存储客户端发送信息给服务器的参数集合
+        /// 信息提示数据列表
         /// </summary>
-        private Dictionary<string, object[]> troubleLogDic = new Dictionary<string, object[]>();
+        DataTable dt = new DataTable();
         public TroubleLogInfo()
         {
             InitializeComponent();
             Font font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             gridView1.Appearance.HeaderPanel.Font = font;
             gridView1.Appearance.Row.Font = font;
-            
-
-        }
-        private void TroubleLogInfo_Load(object sender, EventArgs e)
-        {
-            BeginInvoke(new Action(LoadTroubleLog));
-        }
-        private void LoadTroubleLog()
-        {
-            //dt.Columns.Add("确认", typeof(bool));
             dt.Columns.Add("故障编码");
             dt.Columns.Add("时间");
             dt.Columns.Add("故障类型");
             dt.Columns.Add("故障单元");
             dt.Columns.Add("故障日志详情");
             this.grdControlTrouble.DataSource = dt;
-            string logstartTime = dtpStartTime.Value.ToShortDateString();
-            string logEndTime = dtpEndTime.Value.AddDays(1).ToShortDateString();
-            TroubleLogInfoAdd(systemLogCheck.SelectTroubleLogInfoByTimeQuantum("SelectTroubleLogInfoByTimeQuantum", logstartTime, logEndTime));
+            this.gridView1.Columns[0].Width = 100;
+            this.gridView1.Columns[1].Width = 150;
+            this.gridView1.Columns[2].Width = 150;
+            this.gridView1.Columns[3].Width = 100;
+            this.gridView1.Columns[4].Width = 700;
+            
 
-            //获取保养日志信息
-            //troubleLogDic.Add("SelectTroubleLogInfoByTimeQuantum", new object[] { logstartTime, logEndTime });
-            //if (TroubleLogEvent != null)
-            //    TroubleLogEvent(troubleLogDic);
+        }
+        public void TroubleLogInfo_Load(object sender, EventArgs e)
+        {
+            this.LoadTroubleLog();
+        }
+        private void LoadTroubleLog()
+        {
+            dtpStartTime.Value = DateTime.Now.Date;
+            dtpEndTime.Value = DateTime.Now.Date;
+            TroubleLogInfoAdd(systemLogCheck.SelectTroubleLogInfoByTimeQuantum("SelectTroubleLogInfoByTimeQuantum", dtpStartTime.Value.ToString(), dtpEndTime.Value.AddDays(1).ToString()));
+
         }
 
 
 
         public void TroubleLogInfoAdd(List<TroubleLog> lstTroubleLogInfo)
         {
-            this.Invoke(new EventHandler(delegate
+            dt.Rows.Clear();
+            if (lstTroubleLogInfo.Count != 0)
             {
-                grdControlTrouble.RefreshDataSource();
-
-                dt.Rows.Clear();
-                if (lstTroubleLogInfo.Count != 0)
+                foreach (TroubleLog troubleLogInfo in lstTroubleLogInfo)
                 {
-                    foreach (TroubleLog troubleLogInfo in lstTroubleLogInfo)
-                    {
-                        dt.Rows.Add(new object[] { troubleLogInfo.TroubleCode, troubleLogInfo.DrawDate, troubleLogInfo.TroubleType, troubleLogInfo.TroubleUnit, troubleLogInfo.TroubleInfo });
-                    }
+                    dt.Rows.Add(new object[] { troubleLogInfo.TroubleCode, troubleLogInfo.DrawDate, troubleLogInfo.TroubleType, troubleLogInfo.TroubleUnit, troubleLogInfo.TroubleInfo });
                 }
-                if (dt.Rows.Count > 0)
-                {
-                    this.grdControlTrouble.DataSource = dt;
-                    this.gridView1.Columns[0].Width = 100;
-                    this.gridView1.Columns[1].Width = 150;
-                    this.gridView1.Columns[2].Width = 150;
-                    this.gridView1.Columns[3].Width = 100;
-                    this.gridView1.Columns[4].Width = 700;
-                    this.gridView1.Columns[0].OptionsColumn.AllowEdit = false;
-                    this.gridView1.Columns[1].OptionsColumn.AllowEdit = false;
-                    this.gridView1.Columns[2].OptionsColumn.AllowEdit = false;
-                    this.gridView1.Columns[3].OptionsColumn.AllowEdit = false;
-                    this.gridView1.Columns[4].OptionsColumn.AllowEdit = false;
-                }
-            }));
+            }
+            this.grdControlTrouble.DataSource = dt;
         }
         /// <summary>
         /// 搜索按钮

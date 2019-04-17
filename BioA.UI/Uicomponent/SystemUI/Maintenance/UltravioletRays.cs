@@ -112,9 +112,9 @@ namespace BioA.UI
             }
         }
 
-        private void UltravioletRays_Load(object sender, EventArgs e)
+        public void UltravioletRays_Load(object sender, EventArgs e)
         {
-            BeginInvoke(new Action(loadPhotometerDetection));
+            this.loadPhotometerDetection();
         }
 
         private void loadPhotometerDetection()
@@ -128,8 +128,6 @@ namespace BioA.UI
                 }
             }
 
-            //CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.SystemMaintenance, new Dictionary<string, object[]>(){{"QueryNewPhotemetricValue",null}});
-
 
             List<List<OffSetGain>> LstNewAndOldPhotoGain = new SystemMaintenance().QueryNewPhotemetricValue("QueryOldPhotemetricValue");
             if (LstNewAndOldPhotoGain != null)
@@ -137,7 +135,6 @@ namespace BioA.UI
                 this.LstNewPhotoGain = LstNewAndOldPhotoGain[0];
                 this.LstOldPhotoGain = LstNewAndOldPhotoGain[1];
             }
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.SystemMaintenance, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryOldPhotemetricValue")));
         }
     }
 }

@@ -259,7 +259,6 @@
             // gridView2
             // 
             this.gridView2.GridControl = this.lstvProject;
-            this.gridView2.IndicatorWidth = 40;
             this.gridView2.Name = "gridView2";
             this.gridView2.OptionsBehavior.Editable = false;
             this.gridView2.OptionsBehavior.EditingMode = DevExpress.XtraGrid.Views.Grid.GridEditingMode.EditFormInplaceHideCurrentRow;
@@ -1770,7 +1769,6 @@
             this.Controls.Add(this.lstvProject);
             this.Name = "ProjectParameter";
             this.Size = new System.Drawing.Size(1711, 900);
-            this.Load += new System.EventHandler(this.ProjectParameter_Load);
             ((System.ComponentModel.ISupportInitialize)(this.lstvProject)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();

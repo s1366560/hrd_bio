@@ -100,7 +100,7 @@ namespace BioA.SqlMaps
                     {
                         SQL2 = string.Format("update reagentstateinfor1r2tb set ReagentName2 = '{0}',Pos2 = '{1}', ReagentType2 = '{2}', ValidPercent2 = '{3}', ResidualQuantity2 = '{4}' where ProjectName = '{5}'", r.ReagentName, r.Pos, r.ReagentType, r.ValidPercent, r.ResidualQuantity, r.ProjectName);
                     }
-                    ism_SqlMap.Update("ReagentInfo.UpdateReagentR1AndR2Info", SQL);
+                    ism_SqlMap.Update("ReagentInfo.UpdateReagentR1AndR2Info", SQL2);
                 }
                 
             }
@@ -128,12 +128,12 @@ namespace BioA.SqlMaps
                 if (reagentNum == "R1")
                 {
                     ism_SqlMap.QueryForObject("ReagentInfo.deleteReagentStatInfo", string.Format("delete from ReagentStateInfoR1R2Tb where ReagentName = '{0}' and Pos = '{1}' ", r.ReagentName,r.Pos));
-                    result = (int)ism_SqlMap.Delete("ReagentInfo.deleteReagentSettingInfo", string.Format("delete from ReagentSettingsTb where ReagentName = '{0}' Pos = '{1}'", r.ReagentName, r.Pos));
+                    result = (int)ism_SqlMap.Delete("ReagentInfo.deleteReagentSettingInfo", string.Format("delete from ReagentSettingsTb where ReagentName = '{0}' and Pos = '{1}'", r.ReagentName, r.Pos));
                 }
                 else
                 {
                     ism_SqlMap.QueryForObject("ReagentInfo.deleteReagentStatInfo", string.Format("delete from ReagentStateInfoR1R2Tb where ReagentName2 = '{0}' Pos2 = '{1}'", r.ReagentName,r.Pos));
-                    result = (int)ism_SqlMap.Delete("ReagentInfo.deleteReagentSettingInfo", string.Format("delete from ReagentSettingsTbR2 where ReagentName = '{0}' Pos = '{1}'", r.ReagentName,r.Pos));
+                    result = (int)ism_SqlMap.Delete("ReagentInfo.deleteReagentSettingInfo", string.Format("delete from ReagentSettingsTbR2 where ReagentName = '{0}' and Pos = '{1}'", r.ReagentName,r.Pos));
                 }
             }
             catch (Exception ex)
@@ -704,7 +704,7 @@ namespace BioA.SqlMaps
                 r = ism_SqlMap.QueryForObject("ReagentInfo.GetAssayALLReagentByBarcode", string.Format(
                                                                @"select r.*,r1r2.ValidPercent from reagentsettingstb r left join reagentstateinfor1r2tb r1r2 on r.ProjectName = r1r2.ProjectName where Barcode = '{0}' 
                                                                   union 
-                                                               select r2.*,r1r2.ValidPercent2 from reagentsettingstbr2 r2 left join reagentstateinfor1r2tb r1r2 on r2.ProjectName = r1r2.ProjectName where Barcode = '{0}'", reagentBarcode)) as ReagentSettingsInfo;
+                                                               select r2.*,r1r2.ValidPercent2 from reagentsettingstbr2 r2 left join reagentstateinfor1r2tb r1r2 on r2.ProjectName = r1r2.ProjectName where Barcode = '{1}'", reagentBarcode, reagentBarcode)) as ReagentSettingsInfo;
             }
             catch (Exception ex)
             {

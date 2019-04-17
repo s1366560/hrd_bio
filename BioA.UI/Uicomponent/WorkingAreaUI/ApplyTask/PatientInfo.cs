@@ -20,6 +20,9 @@ namespace BioA.UI
         PatientInfoCheck patientInfoCheck = new PatientInfoCheck();
 
         private int intSelectedNum = 0;
+        /// <summary>
+        /// 项目列表点击选中的样本编号
+        /// </summary>
         public int IntSelectedNum
         {
             get { return intSelectedNum; }
@@ -31,6 +34,9 @@ namespace BioA.UI
         }
 
         private List<int> lstSampleNum = new List<int>();
+        /// <summary>
+        /// 所有生化项目样本编号
+        /// </summary>
         public List<int> LstSampleNum
         {
             get { return lstSampleNum; }
@@ -42,7 +48,9 @@ namespace BioA.UI
         }
 
         private PatientInfo patientInfoByNum = new PatientInfo();
-
+        /// <summary>
+        /// 显示病人参数信息
+        /// </summary>
         public PatientInfo PatientInfoByNum
         {
             get { return patientInfoByNum; }
@@ -54,6 +62,9 @@ namespace BioA.UI
         }
 
         private List<PatientInfo> lstPatientInfo = new List<PatientInfo>();
+        /// <summary>
+        /// 所有病人参数信息
+        /// </summary>
         public List<PatientInfo> LstPatientInfo
         {
             get { return lstPatientInfo; }
@@ -66,6 +77,9 @@ namespace BioA.UI
         }
 
         private List<string> lstApplyDepartment;
+        /// <summary>
+        /// 科室/部门信息
+        /// </summary>
         public List<string> LstApplyDepartment
         {
             get { return lstApplyDepartment; }
@@ -76,6 +90,9 @@ namespace BioA.UI
             }
         }
         private List<string> lstApplyDoctor;
+        /// <summary>
+        /// 医生信息
+        /// </summary>
         public List<string> LstApplyDoctor
         {
             get { return lstApplyDoctor; }
@@ -86,6 +103,9 @@ namespace BioA.UI
             }
         }
         private List<string> lstCheckDoctor;
+        /// <summary>
+        /// 审核医生信息
+        /// </summary>
         public List<string> LstCheckDoctor
         {
             get { return lstCheckDoctor; }
@@ -96,6 +116,9 @@ namespace BioA.UI
             }
         }
         private List<string> lstInspectDoctor;
+        /// <summary>
+        /// 检验医生信息
+        /// </summary>
         public List<string> LstInspectDoctor
         {
             get { return lstInspectDoctor; }
@@ -107,6 +130,9 @@ namespace BioA.UI
         }
 
         private string strUpdateInfo;
+        /// <summary>
+        /// 更新病人信息
+        /// </summary>
         public string StrUpdateInfo
         {
             get { return strUpdateInfo; }
@@ -121,44 +147,49 @@ namespace BioA.UI
         {
             InitializeComponent();
             this.ControlBox = false;
-            
-            
+            grpPatientInfoCheck.Controls.Add(patientInfoEdit);
         }
-
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
+        /// <summary>
+        /// 编辑病人信息点击事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnPatientInfoEdit_Click(object sender, EventArgs e)
         {
             grpPatientInfoCheck.Controls.Clear();
-            grpPatientInfoCheck.Controls.Add(patientInfoEdit);
-
-
+            if (!grpPatientInfoCheck.Contains(patientInfoEdit))
+                grpPatientInfoCheck.Controls.Add(patientInfoEdit);
+            patientInfoEdit.PatientInfoEdit_Load(null, null);
         }
-
+        /// <summary>
+        /// 查看所有病人信息点击事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnPatientInfoSelect_Click(object sender, EventArgs e)
         {
             grpPatientInfoCheck.Controls.Clear();
-            grpPatientInfoCheck.Controls.Add(patientInfoCheck);
+            if(!grpPatientInfoCheck.Contains(patientInfoCheck))
+                grpPatientInfoCheck.Controls.Add(patientInfoCheck);
             patientInfoCheck.LstPatientInfo = lstPatientInfo;
         }
-
-        private void PatientInfo_Load(object sender, EventArgs e)
+        /// <summary>
+        /// 页面加载
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void PatientInfo_Load(object sender, EventArgs e)
         {
-            BeginInvoke(new Action(LoadPatientInfo));
+            patientInfoEdit.PatientInfoEdit_Load(null, null);
+            this.LoadPatientInfo();
         }
 
         private void LoadPatientInfo()
         {
-            grpPatientInfoCheck.Controls.Clear();
-            grpPatientInfoCheck.Controls.Add(patientInfoEdit);
-
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask, XmlUtility.Serializer(typeof(CommunicationEntity),
-            //    new CommunicationEntity("QueryPatientInfoBySampleNum", intSelectedNum.ToString())));
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.WorkingAreaApplyTask,
-            //    XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryPatientInfos", null)));
             Dictionary<string, object[]> patientDictionary = new Dictionary<string, object[]>();
             var patientThread = new Thread(() =>
             {

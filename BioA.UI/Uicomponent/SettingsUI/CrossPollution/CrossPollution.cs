@@ -13,25 +13,21 @@ namespace BioA.UI
 {
     public partial class CrossPollution : DevExpress.XtraEditors.XtraUserControl
     {
-        CuvetteAntifouling cuvetteAntifouling;
-        ReagentNeedle reagentNeedle;
-        NeddleSamples neddleSamples;
+        CuvetteAntifouling cuvetteAntifouling = new CuvetteAntifouling();
+        ReagentNeedle reagentNeedle = new ReagentNeedle();
+        NeddleSamples neddleSamples = new NeddleSamples();
         public CrossPollution()
         {
             InitializeComponent();
-            cuvetteAntifouling = new CuvetteAntifouling();
-            reagentNeedle = new ReagentNeedle();
-            neddleSamples=new NeddleSamples ();
-            xtraTabPage1.Controls.Add(reagentNeedle);
         }
 
-        private void CrossPollution_Click(object sender, EventArgs e)
+
+        private void CrossPollution_Load(object sender, EventArgs e)
         {
-            
-           
+
         }
 
-        private void xtraTabControl1_Click(object sender, EventArgs e)
+        private void xtraTabControl1_SelectedPageChanged(object sender, DevExpress.XtraTab.TabPageChangedEventArgs e)
         {
             if (xtraTabControl1.SelectedTabPageIndex == 0)
             {
@@ -46,5 +42,6 @@ namespace BioA.UI
                 xtraTabPage3.Controls.Add(neddleSamples);
             }
         }
+
     }
 }

@@ -110,6 +110,7 @@
             // 
             // xtraTabPage1
             // 
+            this.xtraTabPage1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.xtraTabPage1.Name = "xtraTabPage1";
             this.xtraTabPage1.Size = new System.Drawing.Size(1149, 570);
             this.xtraTabPage1.TabPageWidth = 80;
@@ -313,7 +314,7 @@
             this.Controls.Add(this.lblSampleNum);
             this.Name = "ApplyQCTask";
             this.Size = new System.Drawing.Size(1619, 803);
-            this.Load += new System.EventHandler(this.ApplyQCTask_Load);
+            //this.Load += new System.EventHandler(this.ApplyQCTask_Load);
             ((System.ComponentModel.ISupportInitialize)(this.txtSumpleNum.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lstvQCTask)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();

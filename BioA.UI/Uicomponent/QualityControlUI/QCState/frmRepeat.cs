@@ -13,17 +13,22 @@ namespace BioA.UI
 {
     public partial class frmRepeat : Form
     {
-        public frmRepeat(QCResultForUIInfo qcResInfo, List<float> lstConcResult)
+        public frmRepeat()
+        {
+            InitializeComponent();
+        }
+
+        public void ClearFrmRepeatParam()
+        {
+            lstConcResults.Clear();
+            qcResultInfo = null;
+        }
+
+        public void frmRepeat_Load(QCResultForUIInfo qcResInfo, List<float> lstConcResult)
         {
             lstConcResults = lstConcResult;
             qcResultInfo = qcResInfo;
-            InitializeComponent();
-            
-        }
-
-        private void frmRepeat_Load(object sender, EventArgs e)
-        {
-            BeginInvoke(new Action(loadFrmRepeat));
+            this.loadFrmRepeat();
         }
 
         private List<float> lstConcResults = new List<float>();

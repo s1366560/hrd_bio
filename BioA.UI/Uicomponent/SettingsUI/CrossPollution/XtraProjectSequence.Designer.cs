@@ -128,7 +128,7 @@
             this.FormBorderEffect = DevExpress.XtraEditors.FormBorderEffect.None;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "XtraProjectSequence";
-            this.Load += new System.EventHandler(this.XtraProjectSequence_Load);
+            //this.Load += new System.EventHandler(this.XtraProjectSequence_Load);
             ((System.ComponentModel.ISupportInitialize)(this.lstProjectTestSequence)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             this.ResumeLayout(false);

@@ -49,8 +49,6 @@ namespace BioA.UI
                     {
                         CalibrationSaveOrEnditSuccessEvent("Add", _NewCalibratorinfo, liscalibratorProjectinfo);
                     }
-                    MessageBoxDraw.ShowMsg(strReturnInfo,MsgType.OK);
-                    this.Invoke(new EventHandler(delegate { this.Close(); }));
                 }
                 else if (strReturnInfo == "校准品和项目信息修改成功！")
                 {
@@ -58,20 +56,15 @@ namespace BioA.UI
                     {
                         CalibrationSaveOrEnditSuccessEvent("Update." + EditCalibratorName, _NewCalibratorinfo, liscalibratorProjectinfo);
                     }
-                    MessageBoxDraw.ShowMsg(strReturnInfo, MsgType.OK);
-                    this.Invoke(new EventHandler(delegate { this.Close(); }));
                 }
-                else
-                {
-                    MessageBoxDraw.ShowMsg(strReturnInfo, MsgType.OK);
-                    this.Invoke(new EventHandler(delegate { this.Close(); }));
-                }
+
+                this.Invoke(new EventHandler(delegate { MessageBoxDraw.ShowMsg(strReturnInfo, MsgType.OK); this.Close(); }));
             }
         }
         /// <summary>
         ///     校准品维护：
         ///         编辑界面
-        ///             （根据校准品名称查找对应的项目信息和没有关联的项目信息）
+        ///             （根据校准品名称查找对应的项目信息）
         /// </summary>
         List<CalibratorProjectinfo> lstCalibrationCorrespondingProInfo;
 
@@ -145,6 +138,14 @@ namespace BioA.UI
             this.ControlBox = false;
         }
 
+        public void ClearCalibAddAndEditParamer()
+        {
+            editDictionary.Clear();
+            lstCalibrationCorrespondingProInfo = null;
+            _OldCalibratorinfo = null;
+            _NewCalibratorinfo = null;
+        }
+
         public void clear()
         {
             cboCalibName.Text = "";
@@ -188,21 +189,18 @@ namespace BioA.UI
             set
             {
                 listcalibratorinfo = value;
-                this.Invoke(new EventHandler(delegate
+                cboCalibPosition.Properties.Items.Clear();
+                if (listcalibratorinfo.Count != 0)
                 {
-                    cboCalibPosition.Properties.Items.Clear();
-                    if (listcalibratorinfo.Count != 0)
-                    {
-                        List<string> calibPos = new List<string>();
+                    List<string> calibPos = new List<string>();
 
-                        calibPos.AddRange(RunConfigureUtility.CalibPosition);
+                    calibPos.AddRange(RunConfigureUtility.CalibPosition);
 
-                        calibPos.RemoveAll(x => listcalibratorinfo.Exists(y => y == x));
-                        cboCalibPosition.Properties.Items.AddRange(calibPos);
-                    }
-                    else
-                        cboCalibPosition.Properties.Items.AddRange(RunConfigureUtility.CalibPosition);
-                }));
+                    calibPos.RemoveAll(x => listcalibratorinfo.Exists(y => y == x));
+                    cboCalibPosition.Properties.Items.AddRange(calibPos);
+                }
+                else
+                    cboCalibPosition.Properties.Items.AddRange(RunConfigureUtility.CalibPosition);
             }
         }
         /// <summary>
@@ -279,7 +277,7 @@ namespace BioA.UI
                     return;
                 }
                 strReturnInfo = "校准品编辑中";
-                this.Invoke(new Action(() => { AddOrEnditCalibrationInfo(this.Text); }));
+                AddOrEnditCalibrationInfo(this.Text);
                 if (liscalibratorProjectinfo.Count == 0)
                 {
                     //str.Add(calibratorProjectinfo.CalibConcentration);
@@ -317,7 +315,6 @@ namespace BioA.UI
             _NewCalibratorinfo.LotNum = cboCalibBatchNumber.Text;
             _NewCalibratorinfo.Pos = cboCalibPosition.Text;
             _NewCalibratorinfo.Manufacturer = cboCalibTManufacturer.Text;
-            Thread.Sleep(500);
 
             liscalibratorProjectinfo = new List<CalibratorProjectinfo>();
             int count = gridView1.RowCount;

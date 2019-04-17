@@ -19,13 +19,10 @@ namespace BioA.UI
         /// 存储客户端发送信息给服务器
         /// </summary>
         private static Dictionary<string, object[]> anologSampDic = new Dictionary<string, object[]>();
-        public AnologSamplePanel(string PanelNumPanelNum)
+        public AnologSamplePanel()
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
-            labWorkDiskNum.Text = PanelNumPanelNum;
-            cboPanelNum.SelectedIndex = 0;
-            paintState();
             
         }
 
@@ -5683,14 +5680,15 @@ namespace BioA.UI
                     break;
             }
         }
-
-        private void AnologSamplePanel_Load(object sender, EventArgs e)
+        public string PanelNumber = "";
+        public void AnologSamplePanel_Load(object sender, EventArgs e)
         {
-            BeginInvoke(new Action(() =>
-            {
-                anologSampDic.Add("QuerySamplePanelState", new object[] { "1" });
-                SendToService(anologSampDic);
-            }));
+            anologSampDic.Clear();
+            labWorkDiskNum.Text = PanelNumber;
+            cboPanelNum.SelectedIndex = cboPanelNum.Items.IndexOf(PanelNumber);
+            paintState();
+            anologSampDic.Add("QuerySamplePanelState", new object[] { PanelNumber });
+            SendToService(anologSampDic);
         }
         /// <summary>
         /// 发送信息给服务器

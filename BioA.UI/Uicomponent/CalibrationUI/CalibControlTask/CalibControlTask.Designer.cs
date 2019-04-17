@@ -191,7 +191,7 @@
             this.Controls.Add(this.grpCombProject);
             this.Controls.Add(this.grpProject);
             this.Name = "CalibControlTask";
-            this.Load += new System.EventHandler(this.CalibControlTask_Load);
+            //this.Load += new System.EventHandler(this.CalibControlTask_Load);
             ((System.ComponentModel.ISupportInitialize)(this.lstvTask)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpCombProject)).EndInit();

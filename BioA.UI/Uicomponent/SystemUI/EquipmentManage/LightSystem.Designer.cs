@@ -236,7 +236,7 @@
             this.Controls.Add(this.lblWaveLength);
             this.Name = "LightSystem";
             this.Size = new System.Drawing.Size(1618, 957);
-            this.Load += new System.EventHandler(this.LightSystem_Load);
+            //this.Load += new System.EventHandler(this.LightSystem_Load);
             ((System.ComponentModel.ISupportInitialize)(this.txtMaxVoltage.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtVoltage.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtOffset.Properties)).EndInit();

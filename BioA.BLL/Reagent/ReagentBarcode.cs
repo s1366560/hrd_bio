@@ -190,15 +190,15 @@ namespace BioA.BLL
         private void SaveOrUpReagentStateR1R2Info(ReagentSettingsInfo r)
         {
             ReagentStateInfoR1R2 r1r2 = mybatis.SelectReagentStateForR1R2("SelectReagentStateForR1R2",r);
-            int microlitre = System.Convert.ToInt32(r.ReagentContainer.Substring(0, r.ReagentContainer.IndexOf("ml"))) * (Convert.ToInt32(this.Disk == 1 ? r.ValidPercent : r.ValidPercent2 ) - 3) * 1000 / 100;
+            int microlitre = int.Parse(r.ReagentContainer.Substring(0, r.ReagentContainer.IndexOf("ml"))) * ((int)(this.Disk == 1 ? r.ValidPercent : r.ValidPercent2) - 3) * 1000 / 100;
             int MeasurableNumber = r.ReagentVol == 0 ? 0 : microlitre / r.ReagentVol;
             if (r1r2 != null)
             {
-                mybatis.UpdateReagentR1AndR2Info(this.Disk, r, MeasurableNumber);
+                mybatis.UpdateReagentR1AndR2Info(this.Disk, r, MeasurableNumber < 1 ? 0: MeasurableNumber);
             }
             else
             {
-                mybatis.SaveReagentR1AndR2Info(this.Disk, r, MeasurableNumber);
+                mybatis.SaveReagentR1AndR2Info(this.Disk, r, MeasurableNumber < 1 ? 0 : MeasurableNumber);
             }
         }
 

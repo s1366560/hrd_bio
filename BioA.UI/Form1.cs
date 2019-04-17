@@ -24,7 +24,7 @@ namespace BioA.UI
     {
         DataCheck dadtCheck;
         CalibDataCheck calibDataCheck;
-        ApplyTask applyTask;
+        ApplyTask applyTask;// = new ApplyTask();
         MissionInspection missionInspection;
         ReagentState reagentState;
         ReagentSetting reagentSetting;
@@ -56,6 +56,8 @@ namespace BioA.UI
         LoginInterface login;
         ConfigurationScript configurationScript;
         FunctionConfig functionConfig;
+        CuvettePanel cuvettePanel;                  //试剂盘状态
+        LISSetting lisSetting;                      //LIS设置
 
         UserInfo userInfo = new UserInfo();
         //预计完成时间
@@ -65,12 +67,6 @@ namespace BioA.UI
         private MyBatis myBatis = new MyBatis();
 
         public float temp;
-        //获取当前运行程序的项目路径
-        private static string _FileName = (Directory.GetCurrentDirectory()).Substring(0, Directory.GetCurrentDirectory().IndexOf("b"));
-
-        //加载该项目下的图片
-        private Image images = System.Drawing.Image.FromFile(_FileName + "Resources\\Image\\zhixiang.png");
-        /// <summary>
         /// 初始化一个子控件元素集合
         /// </summary>
         private List<DevExpress.XtraBars.Navigation.AccordionControlElement> _Elements = new List<DevExpress.XtraBars.Navigation.AccordionControlElement>();
@@ -89,6 +85,7 @@ namespace BioA.UI
             this.MaximizeBox = false;                   //最大化按钮
             this.MinimizeBox = false;                   //最小化按钮
         }
+        bool click = true;
 
         public void Init()
         {
@@ -102,10 +99,13 @@ namespace BioA.UI
             //应该就是这个方法了
             // this.CLClient.ConnectServer();
 
-            var connThread = new Thread(CLClient.ConnectServer);//.Start();
-            connThread.IsBackground = true;
-            connThread.Start();
 
+            List<Task> taskList = new List<Task>();
+            TaskFactory taskFactory = new TaskFactory();
+            //var connThread = new Thread(CLClient.ConnectServer);//.Start();
+            //connThread.IsBackground = true;
+            //connThread.Start();
+            taskList.Add(taskFactory.StartNew(() => { CLClient.ConnectServer(); }));
             txtPrompt = new TextBox();
             txtPrompt.Font = new System.Drawing.Font("宋体", 14f);
             txtPrompt.ReadOnly = true;
@@ -124,19 +124,21 @@ namespace BioA.UI
             //异步连接LIS服务器
             this.AsyncConnectLis();
 
-            var analyzerDataQueueServiceThread = new Thread(AnalyzerDataQueueService);
-            analyzerDataQueueServiceThread.IsBackground = true;
-            analyzerDataQueueServiceThread.Start();
+            //var analyzerDataQueueServiceThread = new Thread(AnalyzerDataQueueService);
+            //analyzerDataQueueServiceThread.IsBackground = true;
+            //analyzerDataQueueServiceThread.Start();
             this.OPID = 0;
-
-            var machineTroubleThread = new Thread(this.MachineIsTrouble) { IsBackground = true };
-            machineTroubleThread.Start();
-
+            taskList.Add(taskFactory.StartNew(() => { this.AnalyzerDataQueueService();}));
+            //var machineTroubleThread = new Thread(this.MachineIsTrouble) { IsBackground = true };
+            //machineTroubleThread.Start();
+            taskList.Add(taskFactory.StartNew(() => { this.StateMachineWarningHint(); }));
             //试剂仓 条码扫描
-            Task.Run(() => { ScanReagentBarcodeService(); });
+            //Task.Run(() => { ScanReagentBarcodeService(); });
+            taskList.Add(taskFactory.StartNew(() => { this.ScanReagentBarcodeService(); }));
             //样本仓条码扫描
-            Task.Run(() => { ScanSampleBarcodeService(); });
-
+            //Task.Run(() => { ScanSampleBarcodeService(); });
+            taskList.Add(taskFactory.StartNew(() => { this.ScanSampleBarcodeService(); }));
+            
             this.barButtonItem17.AllowDrawArrow = true;
             pictureBox1.BackColor = Color.FromArgb(251, 248, 240);
             this.accordionControl1.Elements.Clear();
@@ -150,17 +152,17 @@ namespace BioA.UI
             BeginInvoke(new Action(() =>
             {
                 this.accordionControl1.Elements.AddRange(_Elements.ToArray());
+                this.WorkingAreaApplyTaskElement1.Image = LoadImagUtility.CheckMeun;
             }));
             if (userInfo.ApplyTask)
             {
                 if (pcThirdArea.Controls.Equals(applyTask) == false)
                 {
-                    this.WorkingAreaApplyTaskElement1.Image = this.images;
-                    pcThirdArea.Controls.Clear();
                     if (CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent != null)
                         CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent -= applyTask.DataTransfer_Event;
 
                     applyTask = new ApplyTask();
+                    applyTask.ApplyTask_Load(null, null);
                     applyTask.getopid += getOPIDEvent;
                     CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent += applyTask.DataTransfer_Event;
                     this.SMPBracodeCreateTaskEvent += applyTask.SMPScanBracodeCreateTask_Event;
@@ -176,6 +178,7 @@ namespace BioA.UI
                     }));
                 }
             }
+            Task.WaitAny(taskList.ToArray());
         }
 
 
@@ -353,7 +356,7 @@ namespace BioA.UI
                                     this.OPID = 0;
                                     if (this.barButtonItem13.Caption != "启动操作")
                                     {
-                                        this.barButtonItem13.LargeGlyph = Firing;
+                                        this.barButtonItem13.LargeGlyph = LoadImagUtility.Firing;
                                         this.barButtonItem13.Caption = "启动操作";
                                     }
                                     //this.CommandNameList.Clear();
@@ -421,15 +424,14 @@ namespace BioA.UI
                                     //this.CMDManager.OPMgr.OPCMDStr = null;
                                     //this.CMDManager.OPMgr.OPBTReset();
                                     this.OPID = 0;
-                                    this.barButtonItem13.LargeGlyph = Firing;
+                                    this.barButtonItem13.LargeGlyph = LoadImagUtility.Firing;
                                     this.barButtonItem13.Caption = "启动操作";
 
                                     break;
                                 case AnalyzeEvent.MACHINE_WILL_FINIFSHSCHEDULE://工作队列即将结束
                                     if (this.OPID == 1)
                                     {
-                                        var tasksStatusThread = new Thread(this.TaskStatusDeletection) { IsBackground = true };
-                                        tasksStatusThread.Start();
+                                        Task.Run(() => { this.TaskStatusDeletection(); });
                                     }
                                     break;
                                 case AnalyzeEvent.COMPLETED_SCAN_HWVersion://获取版本号
@@ -451,8 +453,7 @@ namespace BioA.UI
                                 case AnalyzeEvent.TASK_STATUS_DETECTION:
                                     if (this.OPID == 1)
                                     {
-                                        var tasksStatusThread = new Thread(this.TaskStatusDeletection) { IsBackground = true };
-                                        tasksStatusThread.Start();
+                                        Task.Run(() => { this.TaskStatusDeletection(); });
                                     }
                                     break;
                             }
@@ -506,7 +507,7 @@ namespace BioA.UI
                     break;
                 case "StartSchedule":
                     this.OPID = 1;
-                    this.barButtonItem13.LargeGlyph = Suspend;
+                    this.barButtonItem13.LargeGlyph = LoadImagUtility.Suspend;
                     this.barButtonItem13.Caption = "暂停操作";
                     break;
                 case "PauseSchedule":
@@ -539,7 +540,7 @@ namespace BioA.UI
             {
                 this.SendCommand("AbortDorun");
                 this.OPID = 0;
-                this.barButtonItem13.LargeGlyph = Firing;
+                this.barButtonItem13.LargeGlyph = LoadImagUtility.Firing;
                 this.barButtonItem13.Caption = "启动操作";
             }
         }
@@ -581,18 +582,18 @@ namespace BioA.UI
             while (true)
             {
                 this.ErrorFaultSignal.WaitOne();
-
-                this.Invoke(new Action(() => { this.pictureBox2.Image = this.pictureBox2.Image; }));
+                Task.Run(() => { this.pictureBox2.Image = LoadImagUtility.Normal; });
+                //this.Invoke(new Action(() => { this.pictureBox2.Image = LoadImagUtility.Normal; }));
                 Thread.Sleep(450);
-
-                this.Invoke(new Action(() => { this.pictureBox2.Image = this.pictureBox2.ErrorImage; }));
+                Task.Run(() => { this.pictureBox2.Image = LoadImagUtility.Erroring; });
+                //this.Invoke(new Action(() => { this.pictureBox2.Image = LoadImagUtility.Erroring; }));
                 Thread.Sleep(450);
-
-                this.Invoke(new Action(() => { this.pictureBox2.Image = System.Drawing.Image.FromFile(_FileName + "Resources\\Image\\WarnUn.png"); }));
+                Task.Run(() => { this.pictureBox2.Image = LoadImagUtility.Normal; });
+                //this.Invoke(new Action(() => { this.pictureBox2.Image = LoadImagUtility.Normal; }));
                 Thread.Sleep(450);
                 if (this.IsWarningInfoUIActivity == true)
                 {
-                    this.Invoke(new Action(() => { this.pictureBox2.Image = this.pictureBox2.InitialImage; }));
+                    this.Invoke(new Action(() => { this.pictureBox2.Image = LoadImagUtility.Warning; }));
                 }
             }
         }
@@ -603,13 +604,13 @@ namespace BioA.UI
         /// </summary>
         public void AsyncConnectLis()
         {
-            //new Thread(new ThreadStart(ConnectLisServer)).Start();
-            Task.Run(() => { ConnectLisServer(); });
+            new Thread(new ThreadStart(ConnectLisServer)).Start();
+            //Task.Run(() => { ConnectLisServer(); });
         }
 
         void ConnectLisServer()
         {
-            this.barButtonItem18.ImageUri = "E:\\HRD_BioA\\BioA.UI\\Resources\\Image\\LIS\\server.png";
+            this.barButtonItem18.LargeGlyph = LoadImagUtility.InitialiseLISServer;
 
             this._LISService.ConnectSuccessEvent -= new LISService.LISServiceHandler(OnLISConnectSuccessEvent);
             this._LISService.LisErrorEvent -= new LISService.LISServiceHandler(OnLISSerLisErrorEvent);
@@ -622,7 +623,7 @@ namespace BioA.UI
             this._LISService.SendLisResultDataOKEvent -= new LISService.LISServiceHandler(OnLISSerSendLisResultDataOKEvent);
             this._LISService.SendLisResultDataRunningEvent -= new LISService.LISServiceHandler(OnLISSerSendLisResultDataRunningEvent);
 
-            this.DisplayLISServiceTip("Resources\\Image\\LIS\\server_lightning.png", "清除LIS服务信息....");
+            this.DisplayLISServiceTip(LoadImagUtility.ClearLISServer, "清除LIS服务信息....");
             this._LISService.StopService();
             Thread.Sleep(1000 * 2);
 
@@ -638,9 +639,11 @@ namespace BioA.UI
             this._LISService.ApplySampleSuccessEvent += new LISService.LISServiceHandler(OnLISSerApplySampleSuccessEvent);
 
             this.IsLISflagRunning = true;
-            Task.Run(() => { this.LISRunningService(); });
+            //Task.Run(() => { this.LISRunningService(); });
+            new Thread(new ThreadStart(LISRunningService)).Start();
             Thread.Sleep(10000);
             this._LISService.StartService();
+            
 
         }
 
@@ -652,19 +655,23 @@ namespace BioA.UI
         {
             while (this.IsLISflagRunning == true)
             {
-                this.Invoke(new Action(() => { this.barButtonItem18.ImageUri = _FileName + "Resources\\Image\\LIS\\server.png"; }));
+                Task.Run(() => { this.barButtonItem18.LargeGlyph = LoadImagUtility.InitialiseLISServer; });
+                //this.Invoke(new Action(() => { this.barButtonItem18.LargeGlyph = LoadImagUtility.InitialiseLISServer; }));
 
                 Thread.Sleep(350);
-                this.Invoke(new Action(() => { this.barButtonItem18.ImageUri = _FileName + "Resources\\Image\\LIS\\server_lightning.png"; }));
+                Task.Run(() => { this.barButtonItem18.LargeGlyph = LoadImagUtility.ClearLISServer; });
+                //this.Invoke(new Action(() => { this.barButtonItem18.LargeGlyph = LoadImagUtility.ClearLISServer; }));
 
                 Thread.Sleep(350);
-                this.Invoke(new Action(() => { this.barButtonItem18.ImageUri = _FileName + "Resources\\Image\\LIS\\server.png"; }));
+                Task.Run(() => { this.barButtonItem18.LargeGlyph = LoadImagUtility.InitialiseLISServer; });
+                //this.Invoke(new Action(() => { this.barButtonItem18.LargeGlyph = LoadImagUtility.InitialiseLISServer; }));
 
                 Thread.Sleep(350);
             }
             if (this.IsLISflagRunning == false)
             {
-                this.Invoke(new Action(() => { this.barButtonItem18.ImageUri = _FileName + SFUrl; }));
+                //this.Invoke(new Action(() => { this.barButtonItem18.LargeGlyph = this.successAndFailureImage; }));
+                Task.Run(() => { this.barButtonItem18.LargeGlyph = this.successAndFailureImage; });
             }
         }
 
@@ -674,8 +681,8 @@ namespace BioA.UI
         /// <param name="sender"></param>
         void OnLISSerLisErrorEvent(object sender)
         {
-            this.SuccessAndFailureUrl("Resources\\Image\\LIS\\server_delete.png");
-            this.DisplayLISServiceTip("Resources\\Image\\LIS\\server_delete.png", sender.ToString());
+            this.SuccessAndFailure(LoadImagUtility.ConnectLISServerFailed);
+            this.DisplayLISServiceTip(LoadImagUtility.ConnectLISServerFailed, sender.ToString());
             //LIS连接失败
             Thread.Sleep(1000 * 60);
             this.AsyncConnectLis();
@@ -686,8 +693,8 @@ namespace BioA.UI
         /// <param name="sender"></param>
         private void OnLISConnectSuccessEvent(object sender)
         {
-            this.SuccessAndFailureUrl("Resources\\Image\\LIS\\server_add.png");
-            this.DisplayLISServiceTip("Resources\\Image\\LIS\\server_add.png", "LIS服务连接成功....");
+            this.SuccessAndFailure(LoadImagUtility.ConnectioLISServerSuccess);
+            this.DisplayLISServiceTip(LoadImagUtility.ConnectioLISServerSuccess, "LIS服务连接成功....");
         }
         /// <summary>
         /// 通过扫码创建项目任务委托事件
@@ -723,7 +730,7 @@ namespace BioA.UI
         void OnLISSerSMPCodeBarQueryEvent(object sender)
         {
             this.Invoke(new Action(() => { MessageBox.Show(sender.ToString()); }));
-            this.barButtonItem18.ImageUri = _FileName + "Resources\\Image\\LIS\\server_add.png";
+            this.barButtonItem18.LargeGlyph = LoadImagUtility.ConnectioLISServerSuccess;
             //Thread.Sleep(1000);
             SMPBarcodeSignal.Set();
         }
@@ -733,7 +740,7 @@ namespace BioA.UI
         /// <param name="sender"></param>
         private void OnLISSerNotHasLisDataEvent(object sender)
         {
-            this.DisplayLISServiceTip("Resources\\Image\\LIS\\server_add.png", sender.ToString());
+            this.DisplayLISServiceTip(LoadImagUtility.ConnectioLISServerSuccess, sender.ToString());
         }
         /// <summary>
         /// 正在发送数据给LIS
@@ -741,7 +748,7 @@ namespace BioA.UI
         /// <param name="sender"></param>
         private void OnLISSerSendLisResultDataRunningEvent(object sender)
         {
-            this.DisplayLISServiceTip("Resources\\Image\\LIS\\server_go.png", sender.ToString());
+            this.DisplayLISServiceTip(LoadImagUtility.SendDateToLISServer, sender.ToString());
         }
         /// <summary>
         /// 发送结果数据成功
@@ -749,7 +756,7 @@ namespace BioA.UI
         /// <param name="sender"></param>
         private void OnLISSerSendLisResultDataOKEvent(object sender)
         {
-            this.DisplayLISServiceTip("Resources\\Image\\LIS\\server_add.png",sender.ToString());
+            this.DisplayLISServiceTip(LoadImagUtility.ConnectioLISServerSuccess,sender.ToString());
         }
         /// <summary>
         /// 发送结果超时
@@ -757,29 +764,29 @@ namespace BioA.UI
         /// <param name="sender"></param>
         private void OnLISSerSendLisResultDataFailedEvent(object sender)
         {
-            this.DisplayLISServiceTip("Resources\\Image\\LIS\\server_delete.png", sender.ToString());
+            this.DisplayLISServiceTip(LoadImagUtility.ConnectLISServerFailed, sender.ToString());
         }
         /// <summary>
         /// 显示LIS连接、发送、接收数据提示信息
         /// </summary>
         /// <param name="Url"></param>
         /// <param name="displayInfo"></param>
-        private void DisplayLISServiceTip(string Url, string displayInfo)
+        private void DisplayLISServiceTip(Image image, string displayInfo)
         {
-            this.barButtonItem18.ImageUri = _FileName + Url; // "E:\\HRD_BioA\\BioA.UI\\Resources\\Image\\LIS\\server_add.png";
+            this.barButtonItem18.LargeGlyph = image; // "E:\\HRD_BioA\\BioA.UI\\Resources\\Image\\LIS\\server_add.png";
             this.barButtonItem18.SuperTip.Items.Clear();
             this.barButtonItem18.SuperTip.Items.AddTitle(displayInfo);
         }
 
-        string SFUrl = "";
+        Image successAndFailureImage;
 
         /// <summary>
         /// 成功、失败、没有数据发送
         /// </summary>
-        private void SuccessAndFailureUrl(string url)
+        private void SuccessAndFailure(Image image)
         {
             this.IsLISflagRunning = false;
-            this.SFUrl = url;
+            this.successAndFailureImage = image;
         }
 
         public Queue<ScanBarcodePosInfo> SMPPositions = new Queue<ScanBarcodePosInfo>();
@@ -945,10 +952,11 @@ namespace BioA.UI
             this.ScanReagentBarcodeSingler.Set();
 
         }
-
-        private void MachineIsTrouble()
+        /// <summary>
+        /// 启动机器状态警告提示信息线程
+        /// </summary>
+        private void StateMachineWarningHint()
         {
-            int i = 1;
             while (true)
             {
                 bool bol = myBatis.TroubleLogInfo();
@@ -963,11 +971,7 @@ namespace BioA.UI
                 }
                 else
                 {
-                    if (i == 1)
-                    {
-                        ErrorFaultSignal.Set();
-                        i++;
-                    }
+                    
                 }
             }
 
@@ -1008,29 +1012,29 @@ namespace BioA.UI
                 if (pcThirdArea.Controls.Equals(reagentState) == false)
                 {
                     this.FeatureListTagIcon(_Elements);
-                    this.ReagentStateElement4.Image = images;
+                    this.ReagentStateElement4.Image = LoadImagUtility.CheckMeun;
                     pcThirdArea.Controls.Clear();
-                    if (reagentState != null)
+                    if (reagentState == null)
                     {
-                        reagentState.SendNetworkCommandEvent -= SendCommand;
-                        CommunicationUI.notifyCallBack.ReagentStateDataTransferEvent -= reagentState.DataTransfer_Event;
+                        reagentState = new ReagentState();
+                        reagentState.SendNetworkCommandEvent += SendCommand;
                     }
-
-                    reagentState = new ReagentState();
+                    if (CommunicationUI.notifyCallBack.ReagentStateDataTransferEvent != null)
+                        CommunicationUI.notifyCallBack.ReagentStateDataTransferEvent -= reagentState.DataTransfer_Event;
                     CommunicationUI.notifyCallBack.ReagentStateDataTransferEvent += reagentState.DataTransfer_Event;
-                    reagentState.SendNetworkCommandEvent += SendCommand;
+                    reagentState.ReagentState_Load(null,null);
                     txtPrompt.Text = "您当前的操作：试剂——试剂状态";
                     pcThirdArea.Controls.Add(txtPrompt);
                     pcThirdArea.Controls.Add(reagentState);
                 }
             }
         }
+        
 
         private void barButtonItem3_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             this.CancelClickSign();
             this.barButtonItem3.AllowDrawArrow = true;
-            this.CalibTaskElement26.Image = this.images;
             this.accordionControl1.Elements.Clear();
             //List<DevExpress.XtraBars.Navigation.AccordionControlElement> _Elements = new List<DevExpress.XtraBars.Navigation.AccordionControlElement>();
             this._Elements.Clear();
@@ -1040,31 +1044,33 @@ namespace BioA.UI
                 _Elements.Add(this.CalibrationStateElement6);
             if (userInfo.CalibMaintain)
                 _Elements.Add(this.CalibrationMaintainElement7);
-            BeginInvoke(new Action(() =>
-            {
-                this.accordionControl1.Elements.AddRange(_Elements.ToArray());
-            }));
+            this.accordionControl1.Elements.AddRange(_Elements.ToArray());
             if (userInfo.CalibTask)
             {
                 if (pcThirdArea.Controls.Equals(calibControlTask) == false)
                 {
                     this.FeatureListTagIcon(_Elements);
-                    this.CalibTaskElement26.Image = images;
+                    this.CalibTaskElement26.Image = LoadImagUtility.CheckMeun;
                     pcThirdArea.Controls.Clear();
+                    if (calibControlTask == null)
+                        calibControlTask = new CalibControlTask();
+                    else
+                    {
+                        calibControlTask.Clear();
+                        calibControlTask.getopid -= getOPIDEvent;
+                    }
                     if (CommunicationUI.notifyCallBack.CalibControlTaskDataTransferEvent != null)
                         CommunicationUI.notifyCallBack.CalibControlTaskDataTransferEvent -= calibControlTask.DataTransfer_Event;
-
-                    calibControlTask = new CalibControlTask();
+                    //calibControlTask = new CalibControlTask();
                     calibControlTask.getopid += getOPIDEvent;
+                    calibControlTask.CalibControlTask_Load(null,null);
                     CommunicationUI.notifyCallBack.CalibControlTaskDataTransferEvent += calibControlTask.DataTransfer_Event;
                     txtPrompt.Text = "您当前的操作：校准——校准任务";
-                    BeginInvoke(new Action(() =>
-                    {
-                        pcThirdArea.Controls.Add(txtPrompt);
-                        pcThirdArea.Controls.Add(calibControlTask);
-                    }));
+                    pcThirdArea.Controls.Add(txtPrompt);
+                    pcThirdArea.Controls.Add(calibControlTask);
                 }
             }
+                
         }
 
         private void barButtonItem17_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -1085,11 +1091,16 @@ namespace BioA.UI
                 if (pcThirdArea.Controls.Equals(applyTask) == false)
                 {
                     this.FeatureListTagIcon(_Elements);
-                    this.WorkingAreaApplyTaskElement1.Image = images;
+                    this.WorkingAreaApplyTaskElement1.Image = LoadImagUtility.CheckMeun;
                     pcThirdArea.Controls.Clear();
+                    //applyTask = new ApplyTask();
+                    applyTask.getopid -= getOPIDEvent;
+                    this.SMPBracodeCreateTaskEvent -= applyTask.SMPScanBracodeCreateTask_Event;
+                    applyTask.SMPBracodInputEvent -= SMPBracodInputEvent_Event;
+                    applyTask.ClearApplyTaskMemberVariable();
+                    applyTask.ApplyTask_Load(null,null);
                     if (CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent != null)
                         CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent -= applyTask.DataTransfer_Event;
-                    applyTask = new ApplyTask();
                     applyTask.getopid += getOPIDEvent;
                     CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent += applyTask.DataTransfer_Event;
                     this.SMPBracodeCreateTaskEvent += applyTask.SMPScanBracodeCreateTask_Event;
@@ -1101,17 +1112,22 @@ namespace BioA.UI
             }
         }
 
+
         private void accordionControlElement2_Click(object sender, EventArgs e)
         {
             if (pcThirdArea.Controls.Equals(dadtCheck) == false)
             {
                 this.FeatureListTagIcon(_Elements);
-                this.WorkingAreaDataCheckElement2.Image = this.images;
+                this.WorkingAreaDataCheckElement2.Image = LoadImagUtility.CheckMeun;
                 pcThirdArea.Controls.Clear();
+                if (dadtCheck == null)
+                    dadtCheck = new DataCheck();
                 if (CommunicationUI.notifyCallBack.CommonSampleDataEvent != null)
                     CommunicationUI.notifyCallBack.CommonSampleDataEvent -= dadtCheck.DataTransfer_Event;
-
-                dadtCheck = new DataCheck();
+                
+                //dadtCheck = new DataCheck();
+                dadtCheck.SendSMPRsultInfoEvent -= this._LISService.ReceiveSampleResultEvent_Event;
+                dadtCheck.DataCheck_Load(null,null);
                 CommunicationUI.notifyCallBack.CommonSampleDataEvent += dadtCheck.DataTransfer_Event;
                 dadtCheck.SendSMPRsultInfoEvent += this._LISService.ReceiveSampleResultEvent_Event;
                 txtPrompt.Text = "您当前的操作：工作区——任务结果";
@@ -1121,14 +1137,19 @@ namespace BioA.UI
         }
         private void accordionControlElement1_Click(object sender, EventArgs e)
         {
+            pcThirdArea.Controls.Clear();
             if (pcThirdArea.Controls.Equals(applyTask) == false)
             {
                 this.FeatureListTagIcon(_Elements);
-                this.WorkingAreaApplyTaskElement1.Image = this.images;
-                pcThirdArea.Controls.Clear();
+                this.WorkingAreaApplyTaskElement1.Image = LoadImagUtility.CheckMeun;
                 if (CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent != null)
                     CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent -= applyTask.DataTransfer_Event;
-                applyTask = new ApplyTask();
+                //applyTask = new ApplyTask();
+                applyTask.getopid -= getOPIDEvent;
+                this.SMPBracodeCreateTaskEvent -= applyTask.SMPScanBracodeCreateTask_Event;
+                applyTask.SMPBracodInputEvent -= SMPBracodInputEvent_Event;
+                applyTask.ClearApplyTaskMemberVariable();
+                applyTask.ApplyTask_Load(null, null);
                 applyTask.getopid += getOPIDEvent;
                 CommunicationUI.notifyCallBack.ApplyTaskDataTransferEvent += applyTask.DataTransfer_Event;
                 this.SMPBracodeCreateTaskEvent += applyTask.SMPScanBracodeCreateTask_Event;
@@ -1142,48 +1163,37 @@ namespace BioA.UI
         private void accordionControlElement3_Click(object sender, EventArgs e)
         {
             this.FeatureListTagIcon(_Elements);
-            this.WorkingAreaMissionInspectionElement3.Image = this.images;
+            this.WorkingAreaMissionInspectionElement3.Image = LoadImagUtility.CheckMeun;
             pcThirdArea.Controls.Clear();
-            if (missionInspection != null)
+            if (missionInspection == null)
             {
-                missionInspection.GetOpidEvent -= this.getOPIDEvent;
-                missionInspection.ScanBarcodePostEvent -= ScanBarcodePostEvent_Event;
-                missionInspection.SMPBarcodeSignalEvent -= SMPBarcodeSignalEvent_Event;
+                missionInspection = new MissionInspection();
+
+                missionInspection.GetOpidEvent += this.getOPIDEvent;
+                missionInspection.ScanBarcodePostEvent += ScanBarcodePostEvent_Event;
+                missionInspection.SMPBarcodeSignalEvent += SMPBarcodeSignalEvent_Event;
             }
-            missionInspection = new MissionInspection();
-            missionInspection.GetOpidEvent += this.getOPIDEvent;
-            missionInspection.ScanBarcodePostEvent += ScanBarcodePostEvent_Event;
-            missionInspection.SMPBarcodeSignalEvent += SMPBarcodeSignalEvent_Event;
+            missionInspection.MissionInspection_Load(null,null);
             txtPrompt.Text = "您当前的操作：工作区——任务核查";
             pcThirdArea.Controls.Add(txtPrompt);
             pcThirdArea.Controls.Add(missionInspection);
         }
-        //private void accordionControlElement3_Click(object sender, EventArgs e)
-        //{
-        //    if (pcThirdArea.Controls.Equals(calibDataCheck) == false)
-        //    {
-        //        pcThirdArea.Controls.Clear();
-        //        calibDataCheck = new CalibDataCheck();
-        //        pcThirdArea.Controls.Add(calibDataCheck);
-
-        //    }   
-        //}
         private void accordionControlElement4_Click(object sender, EventArgs e)
         {
             if (pcThirdArea.Controls.Equals(reagentState) == false)
             {
                 this.FeatureListTagIcon(_Elements);
-                this.ReagentStateElement4.Image = images;
+                this.ReagentStateElement4.Image = LoadImagUtility.CheckMeun;
                 pcThirdArea.Controls.Clear();
-
-                if (reagentState != null)
+                if (reagentState == null)
                 {
-                    reagentState.SendNetworkCommandEvent -= SendCommand;
-                    CommunicationUI.notifyCallBack.ReagentStateDataTransferEvent -= reagentState.DataTransfer_Event;
+                    reagentState = new ReagentState();
+                    reagentState.SendNetworkCommandEvent += SendCommand;
                 }
-                reagentState = new ReagentState();
-                reagentState.SendNetworkCommandEvent += SendCommand;
+                if (CommunicationUI.notifyCallBack.ReagentStateDataTransferEvent != null)
+                    CommunicationUI.notifyCallBack.ReagentStateDataTransferEvent -= reagentState.DataTransfer_Event;
                 CommunicationUI.notifyCallBack.ReagentStateDataTransferEvent += reagentState.DataTransfer_Event;
+                reagentState.ReagentState_Load(null,null);
                 txtPrompt.Text = "您当前的操作：试剂——试剂状态";
                 pcThirdArea.Controls.Add(txtPrompt);
                 pcThirdArea.Controls.Add(reagentState);
@@ -1195,18 +1205,17 @@ namespace BioA.UI
             if (pcThirdArea.Controls.Equals(reagentSetting) == false)
             {
                 this.FeatureListTagIcon(_Elements);
-                this.ReagentSettingElement5.Image = images;
+                this.ReagentSettingElement5.Image = LoadImagUtility.CheckMeun;
                 pcThirdArea.Controls.Clear();
-
-                if (reagentSetting != null)
+                if (reagentSetting == null)
                 {
-                    CommunicationUI.notifyCallBack.ReagentSettingsDataTransferEvent -= reagentSetting.DataTransfer_Event;
-                    reagentSetting.SendeScannReagentEvent -= OnSendeScannReagentEvent;
+                    reagentSetting = new ReagentSetting();
+                    reagentSetting.SendeScannReagentEvent += OnSendeScannReagentEvent;
                 }
-                reagentSetting = new ReagentSetting();
-                pcThirdArea.Controls.Add(reagentSetting);
+                if (CommunicationUI.notifyCallBack.ReagentSettingsDataTransferEvent != null)
+                    CommunicationUI.notifyCallBack.ReagentSettingsDataTransferEvent -= reagentSetting.DataTransfer_Event;
                 CommunicationUI.notifyCallBack.ReagentSettingsDataTransferEvent += reagentSetting.DataTransfer_Event;
-                reagentSetting.SendeScannReagentEvent += OnSendeScannReagentEvent;
+                reagentSetting.ReagentSetting_Load(null,null);
                 txtPrompt.Text = "您当前的操作：试剂——试剂设置";
                 pcThirdArea.Controls.Add(txtPrompt);
                 pcThirdArea.Controls.Add(reagentSetting);
@@ -1218,11 +1227,18 @@ namespace BioA.UI
             if (pcThirdArea.Controls.Equals(calibMaintain) == false)
             {
                 this.FeatureListTagIcon(_Elements);
-                this.CalibrationMaintainElement7.Image = this.images;
+                this.CalibrationMaintainElement7.Image = LoadImagUtility.CheckMeun;
                 pcThirdArea.Controls.Clear();
+                if (calibMaintain == null)
+                    calibMaintain = new CalibMaintain();
+                else
+                {
+                    calibMaintain.ClearCalibMaintainParamer();
+                }
                 if (CommunicationUI.notifyCallBack.CalibMaintainDataTransferEvent != null)
                     CommunicationUI.notifyCallBack.CalibMaintainDataTransferEvent -= calibMaintain.DataTransfer_Event;
-                calibMaintain = new CalibMaintain();
+                
+                calibMaintain.CalibMaintain_Load(null,null);
                 CommunicationUI.notifyCallBack.CalibMaintainDataTransferEvent += calibMaintain.DataTransfer_Event;
                 txtPrompt.Text = "您当前的操作：校准——校准品维护";
                 pcThirdArea.Controls.Add(txtPrompt);
@@ -1236,12 +1252,20 @@ namespace BioA.UI
             if (pcThirdArea.Controls.Equals(calibControlTask) == false)
             {
                 this.FeatureListTagIcon(_Elements);
-                this.CalibTaskElement26.Image = this.images;
+                this.CalibTaskElement26.Image = LoadImagUtility.CheckMeun;
                 pcThirdArea.Controls.Clear();
+                if (calibControlTask == null)
+                    calibControlTask = new CalibControlTask();
+                else
+                {
+                    calibControlTask.Clear();
+                    calibControlTask.getopid -= getOPIDEvent;
+                }
                 if (CommunicationUI.notifyCallBack.CalibControlTaskDataTransferEvent != null)
                     CommunicationUI.notifyCallBack.CalibControlTaskDataTransferEvent -= calibControlTask.DataTransfer_Event;
-                calibControlTask = new CalibControlTask();
+                //calibControlTask = new CalibControlTask();
                 calibControlTask.getopid += getOPIDEvent;
+                calibControlTask.CalibControlTask_Load(null, null);
                 CommunicationUI.notifyCallBack.CalibControlTaskDataTransferEvent += calibControlTask.DataTransfer_Event;
                 txtPrompt.Text = "您当前的操作：校准——校准任务";
                 pcThirdArea.Controls.Add(txtPrompt);
@@ -1254,18 +1278,22 @@ namespace BioA.UI
             if (pcThirdArea.Controls.Equals(calibrationState) == false)
             {
                 this.FeatureListTagIcon(_Elements);
-                this.CalibrationStateElement6.Image = this.images;
+                this.CalibrationStateElement6.Image = LoadImagUtility.CheckMeun;
                 pcThirdArea.Controls.Clear();
+                if (calibrationState == null)
+                {
+                    calibrationState = new lstvCalibrationState();
+                }
                 if (CommunicationUI.notifyCallBack.CalibrationStateDataTransferEvent != null)
                     CommunicationUI.notifyCallBack.CalibrationStateDataTransferEvent -= calibrationState.DataTransfer_Event;
-                calibrationState = new lstvCalibrationState();
                 CommunicationUI.notifyCallBack.CalibrationStateDataTransferEvent += calibrationState.DataTransfer_Event;
+                calibrationState.CalibrationState_Load(null,null);
                 txtPrompt.Text = "您当前的操作：校准——校准状态";
                 pcThirdArea.Controls.Add(txtPrompt);
                 pcThirdArea.Controls.Add(calibrationState);
             }
         }
-
+        
         private void barButtonItem4_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             this.CancelClickSign();
@@ -1282,37 +1310,48 @@ namespace BioA.UI
             if (userInfo.QCGraphic)
                 _Elements.Add(this.QCGraphicElement24);
             this.accordionControl1.Elements.AddRange(_Elements.ToArray());
+
             if (userInfo.QCTask)
             {
                 if (pcThirdArea.Controls.Equals(applyQCTask) == false)
                 {
                     this.FeatureListTagIcon(_Elements);
-                    this.QCTaskElement25.Image = images;
+                    this.QCTaskElement25.Image = LoadImagUtility.CheckMeun;
                     pcThirdArea.Controls.Clear();
-                    applyQCTask = new ApplyQCTask();
-                    applyQCTask.getopid += getOPIDEvent;
+                    if (applyQCTask == null)
+                        applyQCTask = new ApplyQCTask();
+                    else
+                    {
+                        applyQCTask.getopid -= getOPIDEvent;
+                        applyQCTask.ClearApplyQCTaskParam();
+                    }
                     if (CommunicationUI.notifyCallBack.QCTaskDataTransferEvent != null)
                         CommunicationUI.notifyCallBack.QCTaskDataTransferEvent -= applyQCTask.DataTransfer_Event;
                     CommunicationUI.notifyCallBack.QCTaskDataTransferEvent += applyQCTask.DataTransfer_Event;
+                    applyQCTask.ApplyQCTask_Load(null,null);
+                    applyQCTask.getopid += getOPIDEvent;
                     txtPrompt.Text = "您当前的操作：质控——质控任务";
                     pcThirdArea.Controls.Add(txtPrompt);
                     pcThirdArea.Controls.Add(applyQCTask);
 
                 }
             }
-
         }
         private void accordionControlElement8_Click(object sender, EventArgs e)
         {
             if (pcThirdArea.Controls.Equals(qualityControlState) == false)
             {
                 this.FeatureListTagIcon(_Elements);
-                this.QCStateElement8.Image = images;
+                this.QCStateElement8.Image = LoadImagUtility.CheckMeun;
                 pcThirdArea.Controls.Clear();
-                qualityControlState = new QualityControlState();
+                if (qualityControlState == null)
+                    qualityControlState = new QualityControlState();
+                else
+                    qualityControlState.ClearQualityControlStateParam();
                 if (CommunicationUI.notifyCallBack.QCResultDataTransferEvent != null)
                     CommunicationUI.notifyCallBack.QCResultDataTransferEvent -= qualityControlState.DataTransfer_Event;
                 CommunicationUI.notifyCallBack.QCResultDataTransferEvent += qualityControlState.DataTransfer_Event;
+                qualityControlState.QualityControlState_Load(null,null);
                 txtPrompt.Text = "您当前的操作：质控——质控状态";
                 pcThirdArea.Controls.Add(txtPrompt);
                 pcThirdArea.Controls.Add(qualityControlState);
@@ -1324,12 +1363,16 @@ namespace BioA.UI
             if (pcThirdArea.Controls.Equals(qCMaintain) == false)
             {
                 this.FeatureListTagIcon(_Elements);
-                this.QCMaintainElement9.Image = images;
+                this.QCMaintainElement9.Image = LoadImagUtility.CheckMeun;
                 pcThirdArea.Controls.Clear();
+                if (qCMaintain == null)
+                    qCMaintain = new QCMaintain();
+                else
+                    qCMaintain.ClearQCMaintainParam();
                 if (CommunicationUI.notifyCallBack.QCMaintainDataTransferEvent != null)
                     CommunicationUI.notifyCallBack.QCMaintainDataTransferEvent -= qCMaintain.DataTransfer_Event;
-                qCMaintain = new QCMaintain();
                 CommunicationUI.notifyCallBack.QCMaintainDataTransferEvent += qCMaintain.DataTransfer_Event;
+                qCMaintain.QCMaintain_Load(null, null);
                 txtPrompt.Text = "您当前的操作：质控——质控品维护";
                 pcThirdArea.Controls.Add(txtPrompt);
                 pcThirdArea.Controls.Add(qCMaintain);
@@ -1341,7 +1384,7 @@ namespace BioA.UI
             if (pcThirdArea.Controls.Equals(qualityControlProfile) == false)
             {
                 this.FeatureListTagIcon(_Elements);
-                this.QCGraphicElement24.Image = images;
+                this.QCGraphicElement24.Image = LoadImagUtility.CheckMeun;
                 pcThirdArea.Controls.Clear();
                 if (CommunicationUI.notifyCallBack.QCGraphicsDataTransferEvent != null)
                     CommunicationUI.notifyCallBack.QCGraphicsDataTransferEvent -= qualityControlProfile.DataTransfer_Event;
@@ -1358,13 +1401,20 @@ namespace BioA.UI
             if (pcThirdArea.Controls.Equals(applyQCTask) == false)
             {
                 this.FeatureListTagIcon(_Elements);
-                this.QCTaskElement25.Image = images;
+                this.QCTaskElement25.Image = LoadImagUtility.CheckMeun;
                 pcThirdArea.Controls.Clear();
+                if (applyQCTask == null)
+                    applyQCTask = new ApplyQCTask();
+                else
+                {
+                    applyQCTask.getopid -= getOPIDEvent;
+                    applyQCTask.ClearApplyQCTaskParam();
+                }
                 if (CommunicationUI.notifyCallBack.QCTaskDataTransferEvent != null)
                     CommunicationUI.notifyCallBack.QCTaskDataTransferEvent -= applyQCTask.DataTransfer_Event;
-                applyQCTask = new ApplyQCTask();
-                applyQCTask.getopid += getOPIDEvent;
                 CommunicationUI.notifyCallBack.QCTaskDataTransferEvent += applyQCTask.DataTransfer_Event;
+                applyQCTask.ApplyQCTask_Load(null, null);
+                applyQCTask.getopid += getOPIDEvent;
                 txtPrompt.Text = "您当前的操作：质控——质控任务";
                 pcThirdArea.Controls.Add(txtPrompt);
                 pcThirdArea.Controls.Add(applyQCTask);
@@ -1376,12 +1426,16 @@ namespace BioA.UI
             if (pcThirdArea.Controls.Equals(chemicalParameter) == false)
             {
                 this.FeatureListTagIcon(_Elements);
-                this.ChemicalParameterElement10.Image = images;
+                this.ChemicalParameterElement10.Image = LoadImagUtility.CheckMeun;
                 pcThirdArea.Controls.Clear();
+                if (chemicalParameter == null)
+                    chemicalParameter = new ChemicalParameter();
+                else
+                    chemicalParameter.ClearChemicaParameterMemberPropertier();
                 if (CommunicationUI.notifyCallBack.ChemicalParamDataTransferEvent != null)
                     CommunicationUI.notifyCallBack.ChemicalParamDataTransferEvent -= chemicalParameter.DataTransfer_Event;
-                chemicalParameter = new ChemicalParameter();
                 CommunicationUI.notifyCallBack.ChemicalParamDataTransferEvent += chemicalParameter.DataTransfer_Event;
+                chemicalParameter.ChemicalParameter_Load(null,null);
                 txtPrompt.Text = "您当前的操作：系统设置——化学参数";
                 pcThirdArea.Controls.Add(txtPrompt);
                 pcThirdArea.Controls.Add(chemicalParameter);
@@ -1392,12 +1446,14 @@ namespace BioA.UI
             if (pcThirdArea.Controls.Equals(combProject) == false)
             {
                 this.FeatureListTagIcon(_Elements);
-                this.CombProjectElement11.Image = images;
+                this.CombProjectElement11.Image = LoadImagUtility.CheckMeun;
                 pcThirdArea.Controls.Clear();
+                if (combProject == null)
+                    combProject = new CombProject();
                 if (CommunicationUI.notifyCallBack.CombProjectDataTransferEvent != null)
                     CommunicationUI.notifyCallBack.CombProjectDataTransferEvent -= combProject.DataTransfer_Event;
-                combProject = new CombProject();
                 CommunicationUI.notifyCallBack.CombProjectDataTransferEvent += combProject.DataTransfer_Event;
+                combProject.CombProject_Load(null,null);
                 txtPrompt.Text = "您当前的操作：系统设置——组合项目";
                 pcThirdArea.Controls.Add(txtPrompt);
                 pcThirdArea.Controls.Add(combProject);
@@ -1409,13 +1465,15 @@ namespace BioA.UI
             if (pcThirdArea.Controls.Equals(computationlItem) == false)
             {
                 this.FeatureListTagIcon(_Elements);
-                this.CalcProjectElement12.Image = images;
+                this.CalcProjectElement12.Image = LoadImagUtility.CheckMeun;
                 pcThirdArea.Controls.Clear();
+                if(computationlItem == null)
+                    computationlItem = new CalcProject();
                 if (CommunicationUI.notifyCallBack.CalcProjectDataTransferEvent != null)
                     CommunicationUI.notifyCallBack.CalcProjectDataTransferEvent -= computationlItem.CalcProjectDataTransfer_Event;
-                computationlItem = new CalcProject();
 
                 CommunicationUI.notifyCallBack.CalcProjectDataTransferEvent += computationlItem.CalcProjectDataTransfer_Event;
+                computationlItem.CalcProject_Load(null, null);
                 txtPrompt.Text = "您当前的操作：系统设置——计算项目";
                 pcThirdArea.Controls.Add(txtPrompt);
                 pcThirdArea.Controls.Add(computationlItem);
@@ -1427,12 +1485,14 @@ namespace BioA.UI
             if (pcThirdArea.Controls.Equals(environments) == false)
             {
                 this.FeatureListTagIcon(_Elements);
-                this.EnvironmentElement13.Image = images;
+                this.EnvironmentElement13.Image = LoadImagUtility.CheckMeun;
                 pcThirdArea.Controls.Clear();
+                if (environments == null)
+                    environments = new EnvironmentData();
                 if (CommunicationUI.notifyCallBack.EnvironmentDataTransferEvent != null)
                     CommunicationUI.notifyCallBack.EnvironmentDataTransferEvent -= environments.DataTransfer_Event;
-                environments = new EnvironmentData();
                 CommunicationUI.notifyCallBack.EnvironmentDataTransferEvent += environments.DataTransfer_Event;
+                environments.EnvironmentData_Load(null,null);
                 txtPrompt.Text = "您当前的操作：系统设置——环境参数";
                 pcThirdArea.Controls.Add(txtPrompt);
                 pcThirdArea.Controls.Add(environments);
@@ -1444,12 +1504,15 @@ namespace BioA.UI
             if (pcThirdArea.Controls.Equals(reagentNeedle) == false)
             {
                 this.FeatureListTagIcon(_Elements);
-                this.CrossPollutionElement14.Image = images;
+                this.CrossPollutionElement14.Image = LoadImagUtility.CheckMeun;
                 pcThirdArea.Controls.Clear();
+                if (reagentNeedle == null) 
+                    reagentNeedle = new ReagentNeedle();
+
                 if (CommunicationUI.notifyCallBack.ReagentNeedleDataTransferEvent != null)
                     CommunicationUI.notifyCallBack.ReagentNeedleDataTransferEvent -= reagentNeedle.DataTransfer_Event;
-                reagentNeedle = new ReagentNeedle();
                 CommunicationUI.notifyCallBack.ReagentNeedleDataTransferEvent += reagentNeedle.DataTransfer_Event;
+                reagentNeedle.ReagentNeedle_Load(null,null);
                 txtPrompt.Text = "您当前的操作：系统设置——防污策略";
                 pcThirdArea.Controls.Add(txtPrompt);
                 pcThirdArea.Controls.Add(reagentNeedle);
@@ -1461,12 +1524,16 @@ namespace BioA.UI
             if (pcThirdArea.Controls.Equals(dataConfig) == false)
             {
                 this.FeatureListTagIcon(_Elements);
-                this.DataConfigElement15.Image = images;
+                this.DataConfigElement15.Image = LoadImagUtility.CheckMeun;
                 pcThirdArea.Controls.Clear();
+                if (dataConfig == null)
+                {
+                    dataConfig = new DataConfig();
+                }
                 if (CommunicationUI.notifyCallBack.DataConfigDataTransferEvent != null)
                     CommunicationUI.notifyCallBack.DataConfigDataTransferEvent -= dataConfig.DataTransfer_Event;
-                dataConfig = new DataConfig();
                 CommunicationUI.notifyCallBack.DataConfigDataTransferEvent += dataConfig.DataTransfer_Event;
+                dataConfig.DataConfig_Load(null,null);
                 txtPrompt.Text = "您当前的操作：系统设置——数据配置";
                 pcThirdArea.Controls.Add(txtPrompt);
                 pcThirdArea.Controls.Add(dataConfig);
@@ -1478,7 +1545,7 @@ namespace BioA.UI
             if (pcThirdArea.Controls.Equals(lISCommunicate) == false)
             {
                 this.FeatureListTagIcon(_Elements);
-                this.LISCommunicateElement16.Image = images;
+                this.LISCommunicateElement16.Image = LoadImagUtility.CheckMeun;
                 pcThirdArea.Controls.Clear();
                 if (CommunicationUI.notifyCallBack.LISCommunicateDataTransferEvent != null)
                     CommunicationUI.notifyCallBack.LISCommunicateDataTransferEvent -= lISCommunicate.DataTransfer_Event;
@@ -1493,7 +1560,9 @@ namespace BioA.UI
 
         private void barButtonItem16_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            CuvettePanel cuvettePanel = new CuvettePanel();
+            if(cuvettePanel == null)
+                cuvettePanel = new CuvettePanel();
+            cuvettePanel.Form1_Paint(null,null);
             cuvettePanel.ShowDialog();
         }
         private void barButtonItem11_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -1521,12 +1590,16 @@ namespace BioA.UI
             if (pcThirdArea.Controls.Equals(chemicalParameter) == false)
             {
                 this.FeatureListTagIcon(_Elements);
-                this.ChemicalParameterElement10.Image = images;
+                this.ChemicalParameterElement10.Image = LoadImagUtility.CheckMeun;
                 pcThirdArea.Controls.Clear();
+                if (chemicalParameter == null)
+                    chemicalParameter = new ChemicalParameter();
+                else
+                    chemicalParameter.ClearChemicaParameterMemberPropertier();
                 if (CommunicationUI.notifyCallBack.ChemicalParamDataTransferEvent != null)
                     CommunicationUI.notifyCallBack.ChemicalParamDataTransferEvent -= chemicalParameter.DataTransfer_Event;
-                chemicalParameter = new ChemicalParameter();
                 CommunicationUI.notifyCallBack.ChemicalParamDataTransferEvent += chemicalParameter.DataTransfer_Event;
+                chemicalParameter.ChemicalParameter_Load(null,null);
                 txtPrompt.Text = "您当前的操作：系统设置——化学参数";
                 pcThirdArea.Controls.Add(txtPrompt);
                 pcThirdArea.Controls.Add(chemicalParameter);
@@ -1562,16 +1635,17 @@ namespace BioA.UI
                 if (pcThirdArea.Controls.Equals(rMThirdMenu) == false)
                 {
                     this.FeatureListTagIcon(_Elements);
-                    this.MaintenanceElement17.Image = images;
+                    this.MaintenanceElement17.Image = LoadImagUtility.CheckMeun;
                     pcThirdArea.Controls.Clear();
-                    if (rMThirdMenu != null)
+                    if (rMThirdMenu == null)
                     {
-                        rMThirdMenu.SendNetworkEvent -= SendCommand;
-                        CommunicationUI.notifyCallBack.SystemMaintenanceDataTransferEvent -= rMThirdMenu.DataTransfer_Event;
+                        rMThirdMenu = new RMThirdMenu(userInfo.UserName);
+                        rMThirdMenu.SendNetworkEvent += SendCommand;
                     }
-                    rMThirdMenu = new RMThirdMenu(userInfo.UserName);
-                    rMThirdMenu.SendNetworkEvent += SendCommand;
+                    if (CommunicationUI.notifyCallBack.SystemMaintenanceDataTransferEvent != null)
+                        CommunicationUI.notifyCallBack.SystemMaintenanceDataTransferEvent -= rMThirdMenu.DataTransfer_Event;
                     CommunicationUI.notifyCallBack.SystemMaintenanceDataTransferEvent += rMThirdMenu.DataTransfer_Event;
+                    rMThirdMenu.RMThirdMenu_Load(null,null);
                     txtPrompt.Text = "您当前的操作：安全管理——常规保养";
                     pcThirdArea.Controls.Add(txtPrompt);
                     pcThirdArea.Controls.Add(rMThirdMenu);
@@ -1584,14 +1658,17 @@ namespace BioA.UI
             if (pcThirdArea.Controls.Equals(rMThirdMenu) == false)
             {
                 this.FeatureListTagIcon(_Elements);
-                this.MaintenanceElement17.Image = this.images;
+                this.MaintenanceElement17.Image = LoadImagUtility.CheckMeun;
                 pcThirdArea.Controls.Clear();
-                if (rMThirdMenu != null)
-                    rMThirdMenu.SendNetworkEvent -= SendCommand;
-                CommunicationUI.notifyCallBack.SystemMaintenanceDataTransferEvent -= rMThirdMenu.DataTransfer_Event;
-                rMThirdMenu = new RMThirdMenu(userInfo.UserName);
-                rMThirdMenu.SendNetworkEvent += SendCommand;
+                if (rMThirdMenu == null)
+                {
+                    rMThirdMenu = new RMThirdMenu(userInfo.UserName);
+                    rMThirdMenu.SendNetworkEvent += SendCommand;
+                }
+                if (CommunicationUI.notifyCallBack.SystemMaintenanceDataTransferEvent != null)
+                    CommunicationUI.notifyCallBack.SystemMaintenanceDataTransferEvent -= rMThirdMenu.DataTransfer_Event;
                 CommunicationUI.notifyCallBack.SystemMaintenanceDataTransferEvent += rMThirdMenu.DataTransfer_Event;
+                rMThirdMenu.RMThirdMenu_Load(null, null);
                 txtPrompt.Text = "您当前的操作：安全管理——常规保养";
                 pcThirdArea.Controls.Add(txtPrompt);
                 pcThirdArea.Controls.Add(rMThirdMenu);
@@ -1604,15 +1681,15 @@ namespace BioA.UI
             if (pcThirdArea.Controls.Equals(testEquipment) == false)
             {
                 this.FeatureListTagIcon(_Elements);
-                this.EquipmentManageElement18.Image = this.images;
+                this.EquipmentManageElement18.Image = LoadImagUtility.CheckMeun;
                 pcThirdArea.Controls.Clear();
-                if (testEquipment != null)
+                if (testEquipment == null)
                 {
-                    testEquipment.SendNetworkEvent -= SendCommand;
-                    CommunicationUI.notifyCallBack.SystemTestEquipmentEvent -= testEquipment.DataTransfer_Event;
+                    testEquipment = new TestEquipment();
+                    testEquipment.SendNetworkEvent += SendCommand;
                 }
-                testEquipment = new TestEquipment();
-                testEquipment.SendNetworkEvent += SendCommand;
+                if (CommunicationUI.notifyCallBack.SystemTestEquipmentEvent != null)
+                    CommunicationUI.notifyCallBack.SystemTestEquipmentEvent -= testEquipment.DataTransfer_Event;
                 CommunicationUI.notifyCallBack.SystemTestEquipmentEvent += testEquipment.DataTransfer_Event;
                 txtPrompt.Text = "您当前的操作：安全管理——设备调试";
                 pcThirdArea.Controls.Add(txtPrompt);
@@ -1626,12 +1703,16 @@ namespace BioA.UI
             if (pcThirdArea.Controls.Equals(userManagement) == false)
             {
                 this.FeatureListTagIcon(_Elements);
-                this.UserManagementElement19.Image = images;
+                this.UserManagementElement19.Image = LoadImagUtility.CheckMeun;
                 pcThirdArea.Controls.Clear();
+                if (userManagement == null)
+                {
+                    userManagement = new UserManagement();
+                }
                 if (CommunicationUI.notifyCallBack.UserManagementDataTransferEvent != null)
                     CommunicationUI.notifyCallBack.UserManagementDataTransferEvent -= userManagement.DataTransfer_Event;
-                userManagement = new UserManagement();
                 CommunicationUI.notifyCallBack.UserManagementDataTransferEvent += userManagement.DataTransfer_Event;
+                userManagement.UserManagement_Load(null,null);
                 txtPrompt.Text = "您当前的操作：安全管理——用户管理";
                 pcThirdArea.Controls.Add(txtPrompt);
                 pcThirdArea.Controls.Add(userManagement);
@@ -1644,12 +1725,14 @@ namespace BioA.UI
             if (pcThirdArea.Controls.Equals(departmentManage) == false)
             {
                 this.FeatureListTagIcon(_Elements);
-                this.DepartmentManageElement20.Image = this.images;
+                this.DepartmentManageElement20.Image = LoadImagUtility.CheckMeun;
                 pcThirdArea.Controls.Clear();
+                if(departmentManage == null)
+                    departmentManage = new DepartmentManage();
                 if (CommunicationUI.notifyCallBack.DepartmentManageDataTransferEvent != null)
                     CommunicationUI.notifyCallBack.DepartmentManageDataTransferEvent -= departmentManage.DataTransfer_Event;
-                departmentManage = new DepartmentManage();
                 CommunicationUI.notifyCallBack.DepartmentManageDataTransferEvent += departmentManage.DataTransfer_Event;
+                departmentManage.DepartmentManage_Load(null,null);
                 txtPrompt.Text = "您当前的操作：安全管理——科室管理";
                 pcThirdArea.Controls.Add(txtPrompt);
                 pcThirdArea.Controls.Add(departmentManage);
@@ -1661,7 +1744,7 @@ namespace BioA.UI
             if (pcThirdArea.Controls.Equals(configurationScript) == false)
             {
                 this.FeatureListTagIcon(_Elements);
-                this.ConfigurationScriptElement.Image = this.images;
+                this.ConfigurationScriptElement.Image = LoadImagUtility.CheckMeun;
                 pcThirdArea.Controls.Clear();
                 configurationScript = new ConfigurationScript();
                 txtPrompt.Text = "您当前的操作：安全管理——脚本配置";
@@ -1677,9 +1760,11 @@ namespace BioA.UI
         private void FunctionConfigureElement_Click(object sender, EventArgs e)
         {
             this.FeatureListTagIcon(_Elements);
-            this.FunctionConfigureElement.Image = this.images;
+            this.FunctionConfigureElement.Image = LoadImagUtility.CheckMeun;
             pcThirdArea.Controls.Clear();
-            functionConfig = new FunctionConfig();
+            if(functionConfig == null)
+                functionConfig = new FunctionConfig();
+            functionConfig.FunctionConfig_Load(null,null);
             txtPrompt.Text = "您当前的操作：安全管理——功能配置";
             pcThirdArea.Controls.Add(txtPrompt);
             pcThirdArea.Controls.Add(functionConfig);
@@ -1690,13 +1775,15 @@ namespace BioA.UI
             if (pcThirdArea.Controls.Equals(log) == false)
             {
                 this.FeatureListTagIcon(_Elements);
-                this.LogCheckElement22.Image = this.images;
+                this.LogCheckElement22.Image = LoadImagUtility.CheckMeun;
                 pcThirdArea.Controls.Clear();
+                if (log == null)
+                    log = new Log();
                 if (CommunicationUI.notifyCallBack.LogDataTransferEvent != null)
                     CommunicationUI.notifyCallBack.LogDataTransferEvent -= log.DataTransfer_Event;
-                log = new Log();
                 log.UserName = labUserName.Text;
                 CommunicationUI.notifyCallBack.LogDataTransferEvent += log.DataTransfer_Event;
+                log.Log_Load(null,null);
                 txtPrompt.Text = "您当前的操作：安全管理——日志查看";
                 pcThirdArea.Controls.Add(txtPrompt);
                 pcThirdArea.Controls.Add(log);
@@ -1709,9 +1796,10 @@ namespace BioA.UI
             if (pcThirdArea.Controls.Equals(versionInformation) == false)
             {
                 this.FeatureListTagIcon(_Elements);
-                this.VersionInfomationElement23.Image = this.images;
+                this.VersionInfomationElement23.Image = LoadImagUtility.CheckMeun;
                 pcThirdArea.Controls.Clear();
-                versionInformation = new VersionInformation();
+                if(versionInformation == null)
+                    versionInformation = new VersionInformation();
                 txtPrompt.Text = "您当前的操作：安全管理——版本信息";
                 pcThirdArea.Controls.Add(txtPrompt);
                 pcThirdArea.Controls.Add(versionInformation);
@@ -1727,7 +1815,7 @@ namespace BioA.UI
                 {
                     pauseTime = DateTime.Now;
                     SendCommand("PauseSchedule");
-                    this.barButtonItem13.LargeGlyph = Firing;
+                    this.barButtonItem13.LargeGlyph = LoadImagUtility.Firing;
                     this.barButtonItem13.Caption = "启动操作";
                 }
             }
@@ -1738,7 +1826,7 @@ namespace BioA.UI
                     TimeSpan ts = finishTime - pauseTime;
                     labfinishTime.Text = "预计完成时间: " + DateTime.Now.AddDays(ts.Days).AddHours(ts.Hours).AddMinutes(ts.Minutes).AddSeconds(ts.Seconds + getFinishTime() * 4.5).ToLongTimeString();
                     SendCommand("StartSchedule");
-                    this.barButtonItem13.LargeGlyph = Suspend;
+                    this.barButtonItem13.LargeGlyph = LoadImagUtility.Suspend;
                     this.barButtonItem13.Caption = "暂停操作";
                 }
             }
@@ -1775,11 +1863,6 @@ namespace BioA.UI
             }
 
         }
-
-        //暂停
-        private Image Suspend = System.Drawing.Image.FromFile(_FileName + "Resources\\Image\\Tempstoping.png");
-        //启动
-        private Image Firing = System.Drawing.Image.FromFile(_FileName + "Resources\\Image\\Execing.png");
 
         /// <summary>
         /// 启动按钮
@@ -1828,16 +1911,6 @@ namespace BioA.UI
             }
         }
 
-        private void pcThirdArea_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void accordionControl1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void Timer1_Timer(object sender, EventArgs e)
         {
             textEdit2.Text = DateTime.Now.ToString();
@@ -1868,11 +1941,13 @@ namespace BioA.UI
                 if (pcThirdArea.Controls.Equals(log) == false)
                 {
                     pcThirdArea.Controls.Clear();
+                    if (log == null)
+                        log = new Log();
                     if (CommunicationUI.notifyCallBack.LogDataTransferEvent != null)
                         CommunicationUI.notifyCallBack.LogDataTransferEvent -= log.DataTransfer_Event;
-                    log = new Log();
                     log.UserName = labUserName.Text;
                     CommunicationUI.notifyCallBack.LogDataTransferEvent += log.DataTransfer_Event;
+                    log.Log_Load(null, null);
                     txtPrompt.Text = "您当前的操作：安全管理——日志查看";
                     pcThirdArea.Controls.Add(txtPrompt);
                     pcThirdArea.Controls.Add(log);
@@ -1902,7 +1977,7 @@ namespace BioA.UI
             if (this.IsWarningInfoUIActivity == true)
             {
                 this.IsWarningInfoUIActivity = false;
-                this.Invoke(new Action(() => { this.pictureBox2.Image = System.Drawing.Image.FromFile(_FileName + "Resources\\Image\\WarnUn.png"); }));
+                this.Invoke(new Action(() => { this.pictureBox2.Image = LoadImagUtility.Normal; }));
             }
         }
         /// <summary>
@@ -1969,10 +2044,14 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void barButtonItem18_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            LISSetting LIS = new LISSetting();
-            LIS.StartPosition = FormStartPosition.CenterScreen;
-            LIS.LISApplyEvent += this.AsyncConnectLis;
-            LIS.ShowDialog();
+            if (lisSetting == null)
+            {
+                lisSetting = new LISSetting();
+                lisSetting.StartPosition = FormStartPosition.CenterScreen;
+                lisSetting.LISApplyEvent += this.AsyncConnectLis;
+            }
+            lisSetting.LISSetting_Load(null,null);
+            lisSetting.ShowDialog();
         }
         /// <summary>
         /// 获取预计完成时间

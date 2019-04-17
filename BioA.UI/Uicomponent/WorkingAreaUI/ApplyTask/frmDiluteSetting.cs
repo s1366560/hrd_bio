@@ -29,8 +29,8 @@ namespace BioA.UI
         //    set { lstSelectedProName = value; }
         //}
 
-        public List<string> lstDiluteRatio = new List<string>();
-        public List<string> LstDiluteRatio
+        public List<float> lstDiluteRatio = new List<float>();
+        public List<float> LstDiluteRatio
         {
             get { return lstDiluteRatio; }
             set { lstDiluteRatio = value; }

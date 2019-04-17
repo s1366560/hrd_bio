@@ -56,32 +56,9 @@ namespace BioA.Service
         /// <param name="strDBMethod"></param>
         /// <param name="combProjectInfo"></param>
         /// <returns></returns>
-        public int AddCombProjectName(string strDBMethod, CombProjectInfo combProjectInfo)
+        public string AddCombProjectName(string strDBMethod, CombProjectInfo combProjectInfo)
         {
-            //string strResult = string.Empty;
-
-            //int intResult = myBatis.CombProjectCountByCombProName("CombProjectCountByCombProName", combProjectInfo.CombProjectName);
-
-            //if (intResult == 0)
-            //{
-            int strResult = myBatis.AddCombProjectName(strDBMethod, combProjectInfo);
-            //    intResult = myBatis.CombProjectCountByCombProName("CombProjectCountByCombProName", combProjectInfo.CombProjectName);
-            //    if (intResult == 0)
-            //    {
-            //        strResult = "添加失败";
-            //    }
-            //    else
-            //    {
-            //        strResult = "添加成功";
-            //    }
-            //}
-            //else
-            //{
-            //    strResult = "项目已存在！";
-            //}
-            //LogInfo.WriteProcessLog("public string AddCombProject(string strDBMethod, CombProjectInfo combProjectInfo) == " + strResult.ToString(), Module.WindowsService);
-
-            return strResult;
+            return myBatis.AddCombProjectName(strDBMethod, combProjectInfo);
         }
         /// <summary>
         /// 删除组合项目
@@ -89,12 +66,9 @@ namespace BioA.Service
         /// <param name="strDBMethod"></param>
         /// <param name="combProjectInfos"></param>
         /// <returns></returns>
-        public int DeleteCombProjectName(string strDBMethod, List<CombProjectInfo> combProjectInfos)
+        public string DeleteCombProjectName(string strDBMethod, List<CombProjectInfo> combProjectInfos)
         {
-            int intResult = myBatis.DeleteCombProjectName(strDBMethod, combProjectInfos);
-            LogInfo.WriteProcessLog("public int DeleteCombProject(string strDBMethod, List<CombProjectInfo> combProjectInfos) == " + intResult.ToString(), Module.WindowsService);
-
-            return intResult;
+            return myBatis.DeleteCombProjectName(strDBMethod, combProjectInfos);
         }
         /// <summary>
         /// 更新组合项目
@@ -102,12 +76,9 @@ namespace BioA.Service
         /// <param name="strDBMethod"></param>
         /// <param name="combProjectInfo"></param>
         /// <returns></returns>
-        public int UpdateCombProjectName(string strDBMethod, string combProjectInfoOld, CombProjectInfo combProInfoNew)
+        public string UpdateCombProjectName(string strDBMethod, string combProjectInfoOld, CombProjectInfo combProInfoNew)
         {
-            int intResult = myBatis.UpdateCombProjectName(strDBMethod, combProjectInfoOld, combProInfoNew);
-            LogInfo.WriteProcessLog("public int UpdateCombProject(string strDBMethod, CombProjectInfo combProjectInfoOld, CombProjectInfo combProInfoNew) == " + intResult.ToString(), Module.WindowsService);
-
-            return intResult;
+            return myBatis.UpdateCombProjectName(strDBMethod, combProjectInfoOld, combProInfoNew);
         }
     }
 }
