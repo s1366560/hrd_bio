@@ -1862,5 +1862,12 @@
         RealTiimeSampleResults bit Null
       )
     </statement>
+    <!-- 打印设置表 -->
+    <statement id="CreatePrintSettingtb">
+      create table PrintSettingtb(
+      IsChecker bit NULL,
+      IsAuditor bit NULL,
+      PaperType varchar(10) NULL
+    </statement>
   </statements>
 </sqlMap>
