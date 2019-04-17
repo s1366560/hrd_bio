@@ -136,6 +136,8 @@ namespace BioA.UI
         /// <param name="sender"></param>
         private bool HenderClickProCombNamePageEvent(string sender, string tag)
         {
+
+            exceptionItemInfoList.Clear();
             //存储项目名称
             List<string> lstProNames = new List<string>();
             foreach (CombProjectInfo combProInfo in lstCombProInfo)
@@ -154,7 +156,11 @@ namespace BioA.UI
                 bool ret3 = setprojectpage(lstProNames, projectPage3.Controls, tag);
 
                 bool ret4 = setprojectpage(lstProNames, projectPage4.Controls, tag);
-
+                if (exceptionItemInfoList.Count > 0)
+                {
+                    string resultInfo = string.Join(",",exceptionItemInfoList.Select(s => "[" + s + "]"));
+                    this.Invoke(new EventHandler(delegate { MessageBox.Show(resultInfo + "项目参数有误！"); }));
+                }
                 if (ret1 == false && ret2 == false && ret3 == false && ret4 == false)
                 {
                     return false;
@@ -163,13 +169,11 @@ namespace BioA.UI
                 {
                     return true;
                 }
-                //projectPage1.SelectedProjects = lstProNames;
-                // projectPage2.SelectedProjects = lstProNames;
-                // projectPage3.SelectedProjects = lstProNames;
-                // projectPage4.SelectedProjects = lstProNames;
             }
             return false;
         }
+        private List<string> exceptionItemInfoList = new List<string>();
+
         /// <summary>
         /// 提示组合项目中出现有问题的项目提示
         /// </summary>
@@ -210,8 +214,7 @@ namespace BioA.UI
                             }
                             else if (control.ForeColor == Color.Orange && tag == "0")
                             {
-                                MessageBox.Show("项目:" + control.Text + "参数存在问题，不可下任务！");
-                                //flag = false;
+                                exceptionItemInfoList.Add(control.Text);
                             }
                         }
                     }
@@ -265,19 +268,11 @@ namespace BioA.UI
                     projectPage2.LstAssayProInfos = lstProName;
                     projectPage3.LstAssayProInfos = lstProName;
                     projectPage4.LstAssayProInfos = lstProName;
-                    this.Invoke(new EventHandler(delegate
-                    {
-                        grpProject.SelectedTabPageIndex = 0;
-                    }));
                     break;
                 case "QueryCombProjectNameAllInfo":
                     List<string> lstCombProName = (List<string>)XmlUtility.Deserialize(typeof(List<string>), sender as string);
                     proCombPage1.LstProjectGroups = lstCombProName;
                     proCombPage2.LstAssayProInfos = lstCombProName;
-                    this.Invoke(new EventHandler(delegate
-                    {
-                        grpCombProject.SelectedTabPageIndex = 0;
-                    }));
                     break;
                 case "QueryApplyTaskLsvt":
                     lstSampleInfo = (List<SampleInfo>)XmlUtility.Deserialize(typeof(List<SampleInfo>), sender as string);
@@ -324,6 +319,7 @@ namespace BioA.UI
                 case "QuerySampleDiluteRatio":
                     lstDilutionRatio = (List<float>)XmlUtility.Deserialize(typeof(List<float>), sender as string);
                     break;
+                case "QueryProjectAndCombProName":
                     lstCombProInfo = (List<CombProjectInfo>)XmlUtility.Deserialize(typeof(List<CombProjectInfo>), sender as string);
                     break;
                 case "QueryTaskInfoBySampleNum":
