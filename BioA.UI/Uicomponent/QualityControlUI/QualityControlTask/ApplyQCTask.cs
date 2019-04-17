@@ -143,6 +143,7 @@ namespace BioA.UI
                     projectPage1.LstAssayProInfos = lstAssayProInfos;
                     projectPage2.LstAssayProInfos = lstAssayProInfos;
                     projectPage3.LstAssayProInfos = lstAssayProInfos;
+                    this.BeginInvoke(new EventHandler(delegate { tabcProject.SelectedTabPageIndex = 0; }));
                     break;
                     //质控品信息
                 case "QueryQCAllInfoForUnLocked":
@@ -202,23 +203,6 @@ namespace BioA.UI
                         BeginInvoke(new Action(() =>
                         {
                             List<QCTaskInfo> lstQCTaskInfo = (List<QCTaskInfo>)XmlUtility.Deserialize(typeof(List<QCTaskInfo>), sender as string);
-
-                            //foreach (QCTaskInfo qctask in lstQCTaskInfo)
-                            //{
-                            //    bool isExist = false;
-                            //    foreach (QCTaskInfo qcSample in lstQCSamples)
-                            //    {
-                            //        if (qcSample.SampleNum == qctask.SampleNum)
-                            //        {
-                            //            isExist = true;
-                            //        }
-                            //    }
-
-                            //    if (isExist == false)
-                            //    {
-                            //        lstQCSamples.Add(qctask);
-                            //    }
-                            //}
                             DataTable dt = new DataTable();
                             dt.Columns.Add("顺序号");
                             dt.Columns.Add("质控品位置");
@@ -263,13 +247,9 @@ namespace BioA.UI
                             txtQCConc.Text = qCTaskInfoQuery.LevelConc;
                             txtManufacturer.Text = qCTaskInfoQuery.Manufacturer;
 
-                            //projectPage1.ResetControlState();
-                            //projectPage2.ResetControlState();
-                            //projectPage3.ResetControlState();
-
-                            projectPage1.TaskProjects = lstprojectName;// qCTaskInfoQuery.Projects;
-                            projectPage2.TaskProjects = lstprojectName;// qCTaskInfoQuery.Projects;
-                            projectPage3.TaskProjects = lstprojectName;// qCTaskInfoQuery.Projects;
+                            projectPage1.TaskProjects = lstprojectName;
+                            projectPage2.TaskProjects = lstprojectName;
+                            projectPage3.TaskProjects = lstprojectName;
 
                         }));
                         taskFlag = false;
@@ -437,24 +417,9 @@ namespace BioA.UI
                                 txtQCConc.Text = qcInfo.HorizonLevel;
                                 txtManufacturer.Text = qcInfo.Manufacturer;
 
-                                //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCTask,
-                                //    XmlUtility.Serializer(typeof(CommunicationEntity),
-                                //    new CommunicationEntity("QueryProjectNameInfoByQC", XmlUtility.Serializer(typeof(QualityControlInfo), qcInfo), combSampleType.SelectedItem.ToString())));
                                 qcTaskDictionary.Clear();
                                 qcTaskDictionary.Add("QueryProjectNameInfoByQC", new object[] { XmlUtility.Serializer(typeof(QualityControlInfo), qcInfo), combSampleType.SelectedItem.ToString() });
                                 ClientSendToServices(qcTaskDictionary);
-                                //lstQCRelateProject = new QCTask().QueryProjectNameInfoByQC("QueryProjectNameInfoByQC",qcInfo, combSampleType.SelectedItem.ToString());
-                                //this.Invoke(new EventHandler(delegate
-                                //{
-                                //    tabcProject.SelectedTabPageIndex = 0;
-                                //}));
-
-                                //projectPage1.ResetControlState();
-                                //projectPage2.ResetControlState();
-                                //projectPage3.ResetControlState();
-                                //projectPage1.SelectedProjects = lstQCRelateProject;
-                                //projectPage2.SelectedProjects = lstQCRelateProject;
-                                //projectPage3.SelectedProjects = lstQCRelateProject;
                             }
                         }
                     }
@@ -496,7 +461,6 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void combSampleType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryAssayProNameAllInfo", combSampleType.SelectedItem.ToString())));
             if (taskFlag)
             {
                 qcTaskDictionary.Add("QueryAssayProNameAllInfo", new object[] { combSampleType.SelectedItem.ToString() });
@@ -564,8 +528,6 @@ namespace BioA.UI
                 string projectName = this.gridView1.GetRowCellValue(selectedHandle, "项目名称").ToString();
                 lstprojectName.Clear();
                 lstprojectName.Add(projectName);        
-                //communicationEntity.StrmethodName = "QueryQCTaskBySampleNum";
-                //communicationEntity.ObjParam = strTaskNum;
                 qcTaskDictionary.Clear();
                 qcTaskDictionary.Add("QueryQCTaskBySampleNum", new object[] { strTaskNum });
                 ClientSendToServices(qcTaskDictionary);
@@ -602,39 +564,6 @@ namespace BioA.UI
                 }
                 projectPage3.SelectedProjects = lstQCRelateProject;
             }
-        }
-    }
-
-    public class QCPageLand
-    {
-        static QCProjectPage1 qCProjectPage1 = null;
-        public static QCProjectPage1 QCProjectPage1()
-        {
-            if (qCProjectPage1 == null)
-            {
-                qCProjectPage1 = new QCProjectPage1();
-            }
-            return qCProjectPage1;
-        }
-
-        static QCProjectPage2 qCProjectPage2 = null;
-        public static QCProjectPage2 QCProjectPage2()
-        {
-            if (qCProjectPage2 == null)
-            {
-                qCProjectPage2 = new QCProjectPage2();
-            }
-            return qCProjectPage2;
-        }
-
-        static QCProjectPage3 qCProjectPage3 = null;
-        public static QCProjectPage3 QCProjectPage3()
-        {
-            if (qCProjectPage3 == null)
-            {
-                qCProjectPage3 = new QCProjectPage3();
-            }
-            return qCProjectPage3;
         }
     }
 }

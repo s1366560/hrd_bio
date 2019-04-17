@@ -779,8 +779,8 @@
     <statement id="CreateNetworkCommunicationTb">
       create table NetworkCommunicationTb
       (
-      IPAddress char(20) Null,
-      NetworkPort char(10) Null,
+      IPAddress varchar(20) Null,
+      NetworkPort varchar(10) Null,
       StartingUp tinyint Not Null,
       Reconnection tinyint Not Null,
       RealTimeSendResult tinyint Not Null
@@ -790,11 +790,11 @@
     <statement id="CreateSerialCommunicationTb">
       create table SerialCommunicationTb
       (
-      SerialName char(10) Null,
-      BaudRate int Null,
-      DataBits int Null,
-      StopBits int Null,
-      Parity int Null,
+      SerialName varchar(10) Not Null,
+      BaudRate int Not Null,
+      DataBits int Not Null,
+      StopBits varchar(5) Not Null,
+      Parity varchar(10) Not Null,
       CommunicateionType char(10) Null,
       CommunicateionOvertime  float Null,
       ReConnectionTime float Null,
@@ -1252,9 +1252,9 @@
       Locked tinyint Not Null
       )
     </statement>
-     <!--试剂状态表-->
-     <statement id="CreateReagentStateinfor1r2">
-       create table ReagentStateinfor1r2
+     <!--试剂R1R2余量探测状态表-->
+     <statement id="CreateReagentStateinfor1r2Tb">
+       create table ReagentStateinfor1r2Tb
        (
        ProjectName char(20) Null,
        Locked tinyint Not Null,
@@ -1277,7 +1277,45 @@
        ValidPercent2 int null
        )
      </statement>
-    
+    <!-- 试剂项目参数信息 -->
+    <statement id="CreateReagentItemTb">
+      create table ReagentItemTb
+      (
+        [Code] [int] NULL,
+        [ItemName] [varchar](50) NULL,
+        [LongName] [varchar](50) NULL,
+        [FactoryName] [varchar](255) NULL,
+        [AnalyzeMethod] [varchar](50) NULL,
+        [FirstPointS] [int] NULL,
+        [FirstPointE] [int] NULL,
+        [SecondPointS] [int] NULL,
+        [SecondPointE] [int] NULL,
+        [MainWaveLength] [int] NULL,
+        [SubWaveLength] [int] NULL,
+        [DoCount] [int] NULL,
+        [QCSpace] [int] NULL,
+        [SDTCount] [int] NULL,
+        [R1Vol] [int] NULL,
+        [R2Vol] [int] NULL,
+        [R3Vol] [int] NULL,
+        [R4Vol] [int] NULL,
+        [IncreaseVol] [real] NULL,
+        [NormalVol] [real] NULL,
+        [DecreaseVol] [real] NULL,
+        [SDTVol] [real] NULL,
+        [ReacteDirect] [int] NULL,
+        [Unit] [varchar](50) NULL,
+        [RadixPointNum] [int] NULL,
+        [ReagentAbsMin] [real] NULL,
+        [ReagentAbsMax] [real] NULL,
+        [LineSerumLimitMax] [real] NULL,
+        [LineSerumLimitMin] [real] NULL,
+        [SerumPanicLimitMax] [real] NULL,
+        [SerumPanicLimitMin] [real] NULL,
+        [Stiring1Force] [int] NULL,
+        [Stiring2Force] [int] NULL
+      )
+    </statement>
      
     <!--项目对应试剂表-->
     <!--<statement id="CreateProjectReagentStateTb">
@@ -1296,19 +1334,39 @@
       R2SurplusQuantity int Null
       )
     </statement>-->
+    <!-- 试剂条码扫码参数表 -->
+    <statement id="CreateReagentBarcodeParamTb">
+      create table ReagentBarcodeParamTb
+      (
+        [Barcode] [varchar](30) NULL,
+        [ValidPercent] [int] NULL,
+        [ExchangeDatetime] [datetime] NULL
+      )
+    </statement>
+    
+    <!-- 条码开放配制参数表 -->
+    <statement id="CreateReagentConfigTb">
+      create table ReagentConfigTb
+      (
+        [IsSampBarcodeOpen] [bit] NOT NULL DEFAULT ((0)),
+        [IsReagentBarcodeOpen] [bit] NOT NULL DEFAULT ((0)),
+        [IsHandheldBarcodeOpen] [bit] NOT NULL DEFAULT ((0)),
+        [SampleBracodeLength] [tinyint] NOT NULL DEFAULT ((0)),
+        [ReagentBarcodeLength] [tinyint] NOT NULL DEFAULT ((0))
+      )
+    </statement>
+    
     <!--试剂状态表-->
-    <!--<statement id="CreateReagentStateTb">
+    <statement id="CreateReagentStateTb">
       create table ReagentStateTb
       (
-      ReagentPos char(10) Not Null,
-      ReagentChamber char(20) Not Null,
-      ReagentName char(20) Null,
-      ReagentType char(20) null,
-      ProjectName char(20) Null,
-      ReagentUsedVol float Null,
-      ReagentSurplusVol float null
+      <!-- 试剂开放和半封闭状态 -->
+      ReagentStatusModule Not Null,
+      <!-- 通道号 -->
+      ReagentChannelNum1 Not Null,
+      ReagentChannelNum2 Not Null
       )
-    </statement>-->
+    </statement>
     <!--病人信息表-->
     <statement id="CreatePatientInfoTb">
       create table PatientInfoTb
@@ -1372,6 +1430,7 @@
       SampleCompletionStatus NULL,<!-- 任务完成状态 -->
       Remarks char(128) Null,
       IsResurvey tinyint Not Null Default 0,
+      IsSend bit Null,
       Confirm tinyint Null,
       ResultVolType varchar(20) null
       )
@@ -1864,10 +1923,12 @@
     </statement>
     <!-- 打印设置表 -->
     <statement id="CreatePrintSettingtb">
-      create table PrintSettingtb(
-      IsChecker bit NULL,
-      IsAuditor bit NULL,
-      PaperType varchar(10) NULL
+      create table PrintSettingtb
+      (
+        IsChecker bit NULL,
+        IsAuditor bit NULL,
+        PaperType varchar(10) NULL
+      ）
     </statement>
   </statements>
 </sqlMap>

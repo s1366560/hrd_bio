@@ -268,11 +268,13 @@ namespace BioA.UI
                     projectPage2.LstAssayProInfos = lstProName;
                     projectPage3.LstAssayProInfos = lstProName;
                     projectPage4.LstAssayProInfos = lstProName;
+                    this.BeginInvoke(new EventHandler(delegate{grpProject.SelectedTabPageIndex = 0 ;}));
                     break;
                 case "QueryCombProjectNameAllInfo":
                     List<string> lstCombProName = (List<string>)XmlUtility.Deserialize(typeof(List<string>), sender as string);
                     proCombPage1.LstProjectGroups = lstCombProName;
                     proCombPage2.LstAssayProInfos = lstCombProName;
+                    this.BeginInvoke(new EventHandler(delegate { grpCombProject.SelectedTabPageIndex = 0; }));
                     break;
                 case "QueryApplyTaskLsvt":
                     lstSampleInfo = (List<SampleInfo>)XmlUtility.Deserialize(typeof(List<SampleInfo>), sender as string);
@@ -323,24 +325,6 @@ namespace BioA.UI
                     lstCombProInfo = (List<CombProjectInfo>)XmlUtility.Deserialize(typeof(List<CombProjectInfo>), sender as string);
                     break;
                 case "QueryTaskInfoBySampleNum":
-                    List<TaskInfo> lstTaskInfos = XmlUtility.Deserialize(typeof(List<TaskInfo>), sender as string) as List<TaskInfo>;
-                    lstDiluteInfos.Clear();
-                    List<string> lstProjects1 = new List<string>();
-                    foreach (TaskInfo t in lstTaskInfos)
-                    {
-                        string[] strTaskInfo = new string[3];
-                        strTaskInfo[0] = t.ProjectName;
-                        strTaskInfo[1] = t.SampleDilute;
-                        strTaskInfo[2] = t.DilutedRatio.ToString();
-                        txtBoxDetectionNum.Text = t.InspectTimes.ToString();
-                        lstDiluteInfos.Add(strTaskInfo);
-                        lstProjects1.Add(t.ProjectName);
-                    }
-                    projectPage1.SelectedProjects = lstProjects1;
-                    projectPage2.SelectedProjects = lstProjects1;
-                    projectPage3.SelectedProjects = lstProjects1;
-                    projectPage4.SelectedProjects = lstProjects1;
-
                     break;
                 case "AddTask":
                     string strAddTaskInfo = sender as string;
