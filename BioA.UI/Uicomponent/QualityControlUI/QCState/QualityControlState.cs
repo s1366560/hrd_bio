@@ -207,6 +207,7 @@ namespace BioA.UI
                     break;
                 case "QueryProjectName":
                     List<string> lstProjectNames = (List<string>)XmlUtility.Deserialize(typeof(List<string>), sender as string);
+                    txtProjectName.Properties.Items.Clear();
                     this.Invoke(new EventHandler(delegate { txtProjectName.Properties.Items.AddRange(lstProjectNames); }));
                     break;
                 case "GetsQCRelationProInfo":

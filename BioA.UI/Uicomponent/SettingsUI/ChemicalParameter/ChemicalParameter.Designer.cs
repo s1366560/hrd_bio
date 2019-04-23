@@ -31,7 +31,6 @@
             this.xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
             this.xtraTabPage1 = new DevExpress.XtraTab.XtraTabPage();
             this.xtraTabPage2 = new DevExpress.XtraTab.XtraTabPage();
-            this.xtraTabPage3 = new DevExpress.XtraTab.XtraTabPage();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
             this.xtraTabControl1.SuspendLayout();
             this.SuspendLayout();
@@ -45,8 +44,7 @@
             this.xtraTabControl1.TabIndex = 0;
             this.xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.xtraTabPage1,
-            this.xtraTabPage2,
-            this.xtraTabPage3});
+            this.xtraTabPage2});
             this.xtraTabControl1.TabPageWidth = 80;
             this.xtraTabControl1.SelectedPageChanged += new DevExpress.XtraTab.TabPageChangedEventHandler(this.xtraTabControl1_SelectedPageChanged);
             // 
@@ -64,12 +62,6 @@
             this.xtraTabPage2.TabPageWidth = 80;
             this.xtraTabPage2.Text = "校准参数";
             // 
-            // xtraTabPage3
-            // 
-            this.xtraTabPage3.Name = "xtraTabPage3";
-            this.xtraTabPage3.Size = new System.Drawing.Size(1705, 838);
-            this.xtraTabPage3.Text = "范围参数";
-            // 
             // ChemicalParameter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -77,7 +69,6 @@
             this.Controls.Add(this.xtraTabControl1);
             this.Name = "ChemicalParameter";
             this.Size = new System.Drawing.Size(1717, 906);
-            //this.Load += new System.EventHandler(this.ChemicalParameter_Load);
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).EndInit();
             this.xtraTabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -89,6 +80,5 @@
         private DevExpress.XtraTab.XtraTabControl xtraTabControl1;
         private DevExpress.XtraTab.XtraTabPage xtraTabPage1;
         private DevExpress.XtraTab.XtraTabPage xtraTabPage2;
-        private DevExpress.XtraTab.XtraTabPage xtraTabPage3;
     }
 }

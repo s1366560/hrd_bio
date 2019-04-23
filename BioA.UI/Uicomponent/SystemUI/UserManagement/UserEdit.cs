@@ -61,6 +61,7 @@ namespace BioA.UI
             TxtAccount.ReadOnly = true;
             LabName.Text = "* 用户名称不能修改！";
             LabAccountPropmt.Text = "* 账号不能修改！";
+            this.ButCancel_Click(null,null);
         }
 
 

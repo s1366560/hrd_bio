@@ -218,7 +218,7 @@ namespace BioA.UI
             if (xtraTabControl1.SelectedTabPageIndex == 0)
             {
                 xtraTabPage2.Controls.Clear();
-                xtraTabPage3.Controls.Clear();
+                //xtraTabPage3.Controls.Clear();
                 if (projectParameter == null)
                 {
                     projectParameter = new ProjectParameter();
@@ -230,7 +230,7 @@ namespace BioA.UI
             else if (xtraTabControl1.SelectedTabPageIndex == 1)
             {
                 xtraTabPage1.Controls.Clear();
-                xtraTabPage3.Controls.Clear();
+                //xtraTabPage3.Controls.Clear();
                 if (calibrationParameter == null)
                 {
                     calibrationParameter = new CalibrationParameter();
@@ -243,21 +243,21 @@ namespace BioA.UI
                 calibrationParameter.CalibrationParameter_Load(null,null);
                 xtraTabPage2.Controls.Add(calibrationParameter);
             }
-            else if (xtraTabControl1.SelectedTabPageIndex == 2)
-            {
-                xtraTabPage1.Controls.Clear();
-                xtraTabPage2.Controls.Clear();
-                if (rangeParameter == null)
-                {
-                    rangeParameter = new RangeParameter();
-                    rangeParameter.AssayProInfoForRangeParamEvent += AssayProInfo_Event;
-                }
-                if (lstAssayProInfos.Count != 0)
-                {
-                    rangeParameter.ListAssayprojectInfos = lstAssayProInfos;
-                }
-                xtraTabPage3.Controls.Add(rangeParameter);
-            }
+            //else if (xtraTabControl1.SelectedTabPageIndex == 2)
+            //{
+            //    xtraTabPage1.Controls.Clear();
+            //    xtraTabPage2.Controls.Clear();
+            //    if (rangeParameter == null)
+            //    {
+            //        rangeParameter = new RangeParameter();
+            //        rangeParameter.AssayProInfoForRangeParamEvent += AssayProInfo_Event;
+            //    }
+            //    if (lstAssayProInfos.Count != 0)
+            //    {
+            //        rangeParameter.ListAssayprojectInfos = lstAssayProInfos;
+            //    }
+            //    xtraTabPage3.Controls.Add(rangeParameter);
+            //}
         }
     }
 }

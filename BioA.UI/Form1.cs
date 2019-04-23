@@ -1589,8 +1589,8 @@ namespace BioA.UI
                 _Elements.Add(this.CrossPollutionElement14);
             if (userInfo.DataConfiguration)
                 _Elements.Add(this.DataConfigElement15);
-            if (userInfo.LISCommunicate)
-                _Elements.Add(this.LISCommunicateElement16);
+            //if (userInfo.LISCommunicate)
+            //    _Elements.Add(this.LISCommunicateElement16);
             this.accordionControl1.Elements.AddRange(_Elements.ToArray());
             if (pcThirdArea.Controls.Equals(chemicalParameter) == false)
             {
