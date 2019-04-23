@@ -32,6 +32,7 @@ namespace BioA.UI
             set
             {
                 lstAssayProInfos = value;
+                this.ResetControlState();
                 this.BeginInvoke(new EventHandler(delegate
                 {
                     simpleButton1.Text = lstAssayProInfos.Count >= 17 ? lstAssayProInfos[16] : "";
@@ -129,16 +130,16 @@ namespace BioA.UI
         {
             foreach (Control control in this.Controls)
             {
-                if (control.GetType() == typeof(System.Windows.Forms.Button))
+                if (control.Tag != null)
                 {
-                    if (control.Tag.ToString() == "1")
+                    if (control.GetType() == typeof(System.Windows.Forms.Button))
                     {
-                        control.Tag = "0";
                         this.Invoke(new EventHandler(delegate
                         {
+                            control.Text = null;
+                            control.Tag = null;
                             control.ForeColor = Color.Black;
                         }));
-
                     }
                 }
             }

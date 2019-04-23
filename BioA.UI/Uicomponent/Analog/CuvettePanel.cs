@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -12,6 +13,8 @@ namespace BioA.UI
 {
     public partial class CuvettePanel : Form
     {
+        bool States = false;
+
         public CuvettePanel()
         {
             InitializeComponent();
@@ -20,8 +23,7 @@ namespace BioA.UI
             this.MinimizeBox = false;
             this.Text = "样本盘状态";
             this.StartPosition = FormStartPosition.CenterParent;
-        
-
+            States = true;
         }
         private void init()
         {
@@ -892,7 +894,17 @@ namespace BioA.UI
 
         public void Form1_Paint(object sender, PaintEventArgs e)
         {
-            this.init();
+            if (States)
+            {
+                Task.Delay(250).
+                    ContinueWith
+                    (
+                        t => { this.init(); }
+                    );
+                States = false;
+            }
+            else
+                this.init();
         }
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)

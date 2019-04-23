@@ -33,7 +33,7 @@ namespace BioA.Service
         private ReagentSetting reagentSetting;
         private ReagentState reagentState;
         private Calibrator calibrator;
-        private Login login;
+        private ILogin login;
         private SystemMaintenance systemMaintenance;
         private SystemEquipmentManage systemEquipmentManage;
         private MainTain mainTain;
@@ -60,7 +60,7 @@ namespace BioA.Service
             reagentSetting = new ReagentSetting();
             reagentState = new ReagentState();
             calibrator = new Calibrator();
-            login = new Login();
+            login = new ILogin();
             systemMaintenance = new SystemMaintenance();
             systemEquipmentManage = new SystemEquipmentManage();
             mainTain = new MainTain();
@@ -1307,7 +1307,7 @@ namespace BioA.Service
                 {
 
                     case "QueryUserInfo":
-                        List<UserInfo> lisUserInfo = systemUserManagement.QueryUserManagement(kvp.Key);
+                        List<UserInfo> lisUserInfo = systemUserManagement.QueryUserManagement(kvp.Key,Convert.ToBoolean(kvp.Value[0]));
                         strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<UserInfo>), lisUserInfo));
                         break;
                     case "QueryUserCeation":
@@ -1316,9 +1316,8 @@ namespace BioA.Service
                         break;
                     case "AddUserInfo":
                         userInfo = XmlUtility.Deserialize(typeof(UserInfo), kvp.Value[0].ToString()) as UserInfo;
-                        string strInfo = systemUserManagement.AddUserInfo(kvp.Key, userInfo);
+                        int strInfo = systemUserManagement.AddUserInfo(kvp.Key, userInfo);
                         strMethodParam.Add(kvp.Key, strInfo);
-                        LogInfo.WriteProcessLog(strInfo, Module.WindowsService);
                         break;
                     case "EditUserInfo":
                         userInfo = XmlUtility.Deserialize(typeof(UserInfo), kvp.Value[0].ToString()) as UserInfo;
@@ -1440,7 +1439,7 @@ namespace BioA.Service
                         LogInfo.WriteProcessLog(kvp.Key + ":" + UpdataDoctorInfoOldCount, Module.WindowsService);
                         break;
                     case "QueryUserInfo":
-                        List<UserInfo> lisUserInfo = systemUserManagement.QueryUserManagement(kvp.Key);
+                        List<UserInfo> lisUserInfo = systemUserManagement.QueryUserManagement(kvp.Key,false);
                         strMethodParam.Add(kvp.Key, XmlUtility.Serializer(typeof(List<UserInfo>), lisUserInfo));
                         break;
                     case "QueryAuditPhysician":

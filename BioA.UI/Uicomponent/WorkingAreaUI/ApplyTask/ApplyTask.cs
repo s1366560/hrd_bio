@@ -149,13 +149,13 @@ namespace BioA.UI
             }
             if (lstProNames.Count > 0)
             {
-                bool ret1 = setprojectpage(lstProNames, projectPage1.Controls, tag);
+                bool ret1 = SetProjectPage(lstProNames, projectPage1.Controls, tag);
 
-                bool ret2 = setprojectpage(lstProNames, projectPage2.Controls, tag);
+                bool ret2 = SetProjectPage(lstProNames, projectPage2.Controls, tag);
 
-                bool ret3 = setprojectpage(lstProNames, projectPage3.Controls, tag);
+                bool ret3 = SetProjectPage(lstProNames, projectPage3.Controls, tag);
 
-                bool ret4 = setprojectpage(lstProNames, projectPage4.Controls, tag);
+                bool ret4 = SetProjectPage(lstProNames, projectPage4.Controls, tag);
                 if (exceptionItemInfoList.Count > 0)
                 {
                     string resultInfo = string.Join(",",exceptionItemInfoList.Select(s => "[" + s + "]"));
@@ -181,7 +181,7 @@ namespace BioA.UI
         /// <param name="Controls"></param>
         /// <param name="tag"></param>
         /// <returns></returns>
-        private bool setprojectpage(List<string> selectedProjects, ControlCollection Controls, string tag)
+        private bool SetProjectPage(List<string> selectedProjects, ControlCollection Controls, string tag)
         {
             bool flag = false;
             foreach (Control control in Controls)
@@ -218,14 +218,10 @@ namespace BioA.UI
                             }
                         }
                     }
-
-
                 }
             }
             return flag;
         }
-
-
         /// <summary>
         /// 把客户端信息发送给服务器
         /// </summary>

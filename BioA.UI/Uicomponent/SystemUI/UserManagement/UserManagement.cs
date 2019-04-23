@@ -18,8 +18,10 @@ namespace BioA.UI
 {
     public partial class UserManagement : DevExpress.XtraEditors.XtraUserControl
     {
-        UserCeation userCeation ;
-
+        //管理员操作新增用户信息
+        UserCeation userCeation;
+        //不是管理员操作新增用户信息
+        //UserCommon userCommon;
         /// <summary>
         /// 存储客户端发送信息给服务器的参数集合
         /// </summary>
@@ -72,9 +74,7 @@ namespace BioA.UI
                     QueryUserInfo();
                     break;
                 case "QueryUserCeation":
-                    UserInfo UserCeationInfo = new UserInfo();
-                    UserCeationInfo = (UserInfo)XmlUtility.Deserialize(typeof(UserInfo), sender as string);
-                    userCeation.AddUserCeation(UserCeationInfo);
+                    userCeation.AddUserCeation((UserInfo)XmlUtility.Deserialize(typeof(UserInfo), sender as string));
                    
                     break;
                    
@@ -91,6 +91,8 @@ namespace BioA.UI
            {
                str += "任务结果,";
            }
+           if (userInfo.MissionVerification)
+               str += "任务核查,";
            if (userInfo.CalibDataCheck)
            {
                str += "校准审核,";
@@ -166,7 +168,7 @@ namespace BioA.UI
            }
            if (userInfo.Configuration)
            {
-               str += "配置,";
+               str += "功能配置,";
            }
            if (userInfo.LogCheck)
            {
@@ -176,6 +178,8 @@ namespace BioA.UI
            {
                str += "版本信息,";
            }
+           if (userInfo.ConfigurationScript)
+               str += "脚本配置";
             return str;
         }
         /// <summary>
@@ -199,19 +203,42 @@ namespace BioA.UI
                 }
             }));
         }
+        /// <summary>
+        /// 用户创建成功后展示数据
+        /// </summary>
+        /// <param name="userInfo"></param>
+        private void UserInfoDisplay_Event(UserInfo userInfo)
+        {
+            lstuserInfo.RemoveAll(u => u.UserID == userInfo.UserID);
+            lstuserInfo.Add(userInfo);
+            UserInfoAdd(lstuserInfo);
+        }
         
         private void btnUsercreation_Click(object sender, EventArgs e)
         {
-            if (userCeation == null)
+            if (!userLoginInfo.IsSuperAdmin)
             {
-                userCeation = new UserCeation();
-                userCeation.DataHandleEvent += userCeation_DataHandleEvent;
-                userCeation.StartPosition = FormStartPosition.CenterScreen;
+                UserCommon userCommon = new UserCommon();
+                userCommon.StartPosition = FormStartPosition.CenterScreen;
+                userCommon.PassUserInfoEvent += UserInfoDisplay_Event;
+
+                userCommon.ClearCache();
+                userCommon.userInfoList = lstuserInfo;
+                userCommon.ShowDialog();
             }
-            userCeation.Text = "用户创建";
-            userCeation.lblNotesLoad1();
-            userCeation.UserCeation_Load(null,null);
-            userCeation.ShowDialog();
+            else
+            {
+                if (userCeation == null)
+                {
+                    userCeation = new UserCeation();
+                    userCeation.DataHandleEvent += userCeation_DataHandleEvent;
+                    userCeation.StartPosition = FormStartPosition.CenterScreen;
+                }
+                userCeation.Text = "用户创建";
+                userCeation.lblNotesLoad1();
+                userCeation.UserCeation_Load(null, null);
+                userCeation.ShowDialog();
+            }
         }
         /// <summary>
         /// 委托事件执行的方法
@@ -244,33 +271,47 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void btnUsereditor_Click(object sender, EventArgs e)
         {
-            int selectedHandle;
-            if (this.gridView1.SelectedRowsCount > 0)
+            if (!userLoginInfo.IsSuperAdmin)
             {
-                if (userCeation == null)
+                UserEdit userEdit = new UserEdit();
+                userEdit.StartPosition = FormStartPosition.CenterScreen;
+                userEdit.PassUserInfoEditEvent += UserInfoDisplay_Event;
+                userEdit.ShowDialog();
+            }
+            else
+            {
+                int selectedHandle;
+                if (this.gridView1.SelectedRowsCount > 0)
                 {
-                    userCeation = new UserCeation();
-                    userCeation.DataHandleEvent += userCeation_DataHandleEvent;
-                    userCeation.StartPosition = FormStartPosition.CenterScreen;
-                }
-                selectedHandle = this.gridView1.GetSelectedRows()[0];
-                ID = this.gridView1.GetRowCellValue(selectedHandle, "用户账户").ToString();
-                userManagementDic.Clear();
-                userManagementDic.Add("QueryUserCeation", new object[] { ID });
-                UserManagementSend(userManagementDic);
+                    if (userCeation == null)
+                    {
+                        userCeation = new UserCeation();
+                        userCeation.DataHandleEvent += userCeation_DataHandleEvent;
+                        userCeation.StartPosition = FormStartPosition.CenterScreen;
+                    }
+                    selectedHandle = this.gridView1.GetSelectedRows()[0];
+                    ID = this.gridView1.GetRowCellValue(selectedHandle, "用户账户").ToString();
+                    userManagementDic.Clear();
+                    userManagementDic.Add("QueryUserCeation", new object[] { ID });
+                    UserManagementSend(userManagementDic);
 
-                userCeation.Text = "用户编辑";
-                userCeation.lblNotesLoad2();
-                userCeation.UserCeation_Load(null, null);
-                userCeation.ShowDialog();
+                    userCeation.Text = "用户编辑";
+                    userCeation.lblNotesLoad2();
+                    userCeation.UserCeation_Load(null, null);
+                    userCeation.ShowDialog();
+                }
             }
 
         }
-       
+        /// <summary>
+        /// 记录用户登录信息
+        /// </summary>
+        UserInfo userLoginInfo = UserLoginInfo.GetUserLoginInfo();
+
         private void QueryUserInfo()
         {
             userManagementDic.Clear();
-            userManagementDic.Add("QueryUserInfo", new object[] { "" });
+            userManagementDic.Add("QueryUserInfo", new object[] { userLoginInfo.IsSuperAdmin });
             UserManagementSend(userManagementDic);
         }
         /// <summary>
@@ -309,6 +350,11 @@ namespace BioA.UI
                 selectedHandle = this.gridView1.GetSelectedRows()[0];
                 ID = this.gridView1.GetRowCellValue(selectedHandle, "用户账户").ToString();
                 string UserName = this.gridView1.GetRowCellValue(selectedHandle, "用户名称").ToString();
+                if (ID == userLoginInfo.UserID)
+                {
+                    this.Invoke(new EventHandler(delegate { MessageBox.Show("该用户处于登录状态,不能移除！"); }));
+                    return;
+                }
                 userManagementDic.Clear();
                 userManagementDic.Add("DeleteUserInfo", new object[] { ID, UserName });
                 UserManagementSend(userManagementDic);

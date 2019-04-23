@@ -26,16 +26,24 @@ namespace BioA.SqlMaps
             }
             return intResult;
         }
-
-        public void AddUserInfo(string strDBMethod, UserInfo userInfo)
+        /// <summary>
+        /// 保存用户信息
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <param name="userInfo"></param>
+        /// <returns></returns>
+        public int AddUserInfo(string strDBMethod, UserInfo userInfo)
         {
+            int count = 1;
             Hashtable hashTable = new Hashtable();
             hashTable.Add("UserID", userInfo.UserID);
             hashTable.Add("UserName", userInfo.UserName);
             hashTable.Add("UserPassword", userInfo.UserPassword);
+            hashTable.Add("IsSuperAdmin", userInfo.IsSuperAdmin);
             hashTable.Add("CreateTime", userInfo.CreateTime);
             hashTable.Add("ApplyTask", userInfo.ApplyTask);
             hashTable.Add("DataCheck", userInfo.DataCheck);
+            hashTable.Add("MissionVerification", userInfo.MissionVerification);
             hashTable.Add("CalibDataCheck", userInfo.CalibDataCheck);
             hashTable.Add("ReagentSetting", userInfo.ReagentSetting);
             hashTable.Add("ReagentState", userInfo.ReagentState);
@@ -57,53 +65,58 @@ namespace BioA.SqlMaps
             hashTable.Add("Configuration", userInfo.Configuration);
             hashTable.Add("LogCheck", userInfo.LogCheck);
             hashTable.Add("VersionInfo", userInfo.VersionInfo);
+            hashTable.Add("ConfigurationScript", userInfo.ConfigurationScript);
 
             try
             {
-                LogInfo.WriteProcessLog(strDBMethod + "zhuszihe666" + userInfo.DataConfiguration, Module.WindowsService);
                 ism_SqlMap.Insert("UserInfo." + strDBMethod, hashTable);
             }
             catch (Exception e)
             {
                 LogInfo.WriteErrorLog("AddDataConfig(string strDBMethod, CalcProjectInfo calcProjectInfo)==" + e.ToString(), Module.System);
+                count = 0;
             }
+            return count;
         }
 
         public int EditUserInfoUpDate(string strDBMethod, UserInfo userInfo, string OldUserId)
         {
             int intResult = 0;
+            Hashtable hashTable = new Hashtable();
+            hashTable.Add("UserID", userInfo.UserID);
+            hashTable.Add("UserName", userInfo.UserName);
+            hashTable.Add("UserPassword", userInfo.UserPassword);
+            hashTable.Add("IsSuperAdmin", userInfo.IsSuperAdmin);
+            hashTable.Add("CreateTime", userInfo.CreateTime);
+            hashTable.Add("ApplyTask", userInfo.ApplyTask);
+            hashTable.Add("DataCheck", userInfo.DataCheck);
+            hashTable.Add("MissionVerification", userInfo.MissionVerification);
+            hashTable.Add("CalibDataCheck", userInfo.CalibDataCheck);
+            hashTable.Add("ReagentSetting", userInfo.ReagentSetting);
+            hashTable.Add("ReagentState", userInfo.ReagentState);
+            hashTable.Add("CalibState", userInfo.CalibState);
+            hashTable.Add("CalibMaintain", userInfo.CalibMaintain);
+            hashTable.Add("QCMaintain", userInfo.QCMaintain);
+            hashTable.Add("QCState", userInfo.QCState);
+            hashTable.Add("ChemistryParam", userInfo.ChemistryParam);
+            hashTable.Add("CombProject", userInfo.CombProject);
+            hashTable.Add("CalcProject", userInfo.CalcProject);
+            hashTable.Add("EnvironmentParam", userInfo.EnvironmentParam);
+            hashTable.Add("CrossPollute", userInfo.CrossPollute);
+            hashTable.Add("LISCommunicate", userInfo.LISCommunicate);
+            hashTable.Add("DataConfiguration", userInfo.DataConfiguration);
+            hashTable.Add("RouMaintain", userInfo.RouMaintain);
+            hashTable.Add("EquipDebug", userInfo.EquipDebug);
+            hashTable.Add("UserManage", userInfo.UserManage);
+            hashTable.Add("DepartManage", userInfo.DepartManage);
+            hashTable.Add("Configuration", userInfo.Configuration);
+            hashTable.Add("LogCheck", userInfo.LogCheck);
+            hashTable.Add("VersionInfo", userInfo.VersionInfo);
+            hashTable.Add("ConfigurationScript", userInfo.ConfigurationScript);
+
+            hashTable.Add("UserIDOld", OldUserId);
             try
             {
-                Hashtable hashTable = new Hashtable();
-                hashTable.Add("UserID", userInfo.UserID);
-                hashTable.Add("UserName", userInfo.UserName);
-                hashTable.Add("UserPassword", userInfo.UserPassword);
-                hashTable.Add("CreateTime", userInfo.CreateTime);
-                hashTable.Add("ApplyTask", userInfo.ApplyTask);
-                hashTable.Add("DataCheck", userInfo.DataCheck);
-                hashTable.Add("CalibDataCheck", userInfo.CalibDataCheck);
-                hashTable.Add("ReagentSetting", userInfo.ReagentSetting);
-                hashTable.Add("ReagentState", userInfo.ReagentState);
-                hashTable.Add("CalibState", userInfo.CalibState);
-                hashTable.Add("CalibMaintain", userInfo.CalibMaintain);
-                hashTable.Add("QCMaintain", userInfo.QCMaintain);
-                hashTable.Add("QCState", userInfo.QCState);
-                hashTable.Add("ChemistryParam", userInfo.ChemistryParam);
-                hashTable.Add("CombProject", userInfo.CombProject);
-                hashTable.Add("CalcProject", userInfo.CalcProject);
-                hashTable.Add("EnvironmentParam", userInfo.EnvironmentParam);
-                hashTable.Add("CrossPollute", userInfo.CrossPollute);
-                hashTable.Add("LISCommunicate", userInfo.LISCommunicate);
-                hashTable.Add("DataConfiguration", userInfo.DataConfiguration);
-                hashTable.Add("RouMaintain", userInfo.RouMaintain);
-                hashTable.Add("EquipDebug", userInfo.EquipDebug);
-                hashTable.Add("UserManage", userInfo.UserManage);
-                hashTable.Add("DepartManage", userInfo.DepartManage);
-                hashTable.Add("Configuration", userInfo.Configuration);
-                hashTable.Add("LogCheck", userInfo.LogCheck);
-                hashTable.Add("VersionInfo", userInfo.VersionInfo);
-
-                hashTable.Add("UserIDOld", OldUserId);
 
                 intResult = (int)ism_SqlMap.Update("UserInfo." + strDBMethod, hashTable);
             }
@@ -114,6 +127,28 @@ namespace BioA.SqlMaps
 
             return intResult;
         }
+
+
+        /// <summary>
+        /// 修改普通用户信息
+        /// </summary>
+        /// <param name="u"></param>
+        /// <returns></returns>
+        public int UpdateCommonUserInfo(UserInfo u)
+        {
+            int iCount = 0;
+            string sql = string.Format("update UserInfoTb set UserPassword = '{0}' where UserID='{1}'", u.UserPassword, u.UserID);
+            try
+            {
+                iCount = (int)ism_SqlMap.Update("UserInfo.UpdateCommonUserInfo", sql);
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("UpdateCommonUserInfo(UserInfo u) ==" + ex.Message, Module.System);
+            }
+            return iCount;
+        }
+
 
         public int DeleteUserInfo(string strDBMethod, string dataConfig)
         {
@@ -150,12 +185,18 @@ namespace BioA.SqlMaps
         /// </summary>
         /// <param name="strDBMethod"></param>
         /// <returns></returns>
-        public List<UserInfo> QueryUserManagement(string strDBMethod)
+        public List<UserInfo> QueryUserManagement(string strDBMethod,bool bol)
         {
             List<UserInfo> lstQueryUserManagement = new List<UserInfo>();
+            string SQL = "";
+            if (bol)
+                SQL = string.Format(@"SELECT * FROM UserInfoTb");
+            else
+                SQL = string.Format(@"SELECT * FROM UserInfoTb where IsSuperAdmin = '{0}'", bol);
             try
             {
-                lstQueryUserManagement = (List<UserInfo>)ism_SqlMap.QueryForList<UserInfo>("UserInfo." + strDBMethod, null);
+
+                lstQueryUserManagement = (List<UserInfo>)ism_SqlMap.QueryForList<UserInfo>("UserInfo." + strDBMethod, SQL);
             }
 
             catch (Exception e)

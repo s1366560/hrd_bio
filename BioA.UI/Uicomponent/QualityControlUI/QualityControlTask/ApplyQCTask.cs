@@ -17,9 +17,9 @@ namespace BioA.UI
     public partial class ApplyQCTask : DevExpress.XtraEditors.XtraUserControl
     {
         // 项目页
-        private QCProjectPage1 projectPage1 = new QCProjectPage1();//QCPageLand.QCProjectPage1();
-        private QCProjectPage2 projectPage2 = new QCProjectPage2();//QCPageLand.QCProjectPage2();
-        private QCProjectPage3 projectPage3 = new QCProjectPage3();//QCPageLand.QCProjectPage3();
+        private QCProjectPage1 projectPage1 = new QCProjectPage1();
+        private QCProjectPage2 projectPage2 = new QCProjectPage2();
+        private QCProjectPage3 projectPage3 = new QCProjectPage3();
         // 质控品信息
         List<QualityControlInfo> lstQCInfos = new List<QualityControlInfo>();
         // 所有生化项目名称
@@ -190,9 +190,6 @@ namespace BioA.UI
                     }
                     else
                     {
-                        //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryBigestQCTaskInfoForToday", null)));
-
-                        //intMaxSamNum = intMaxSamNum + 1;
                         List<QCTaskInfo> lstQCTaskInfo = new QCTask().QueryBigestQCTaskInfoForToday("QueryBigestQCTaskInfoForToday");
                         this.DisplayTaskInfo(lstQCTaskInfo);
                         this.btnApply_Click(null,null);
@@ -200,36 +197,6 @@ namespace BioA.UI
                     break;
                     //获取质控任务。UI端已注释
                 case "QueryQCTaskForLstv":
-                        BeginInvoke(new Action(() =>
-                        {
-                            List<QCTaskInfo> lstQCTaskInfo = (List<QCTaskInfo>)XmlUtility.Deserialize(typeof(List<QCTaskInfo>), sender as string);
-                            DataTable dt = new DataTable();
-                            dt.Columns.Add("顺序号");
-                            dt.Columns.Add("质控品位置");
-                            dt.Columns.Add("任务状态");
-                            foreach (QCTaskInfo qctask in lstQCTaskInfo)
-                            {
-                                string strState = "";
-                                switch (qctask.TaskState)
-                                {
-                                    case 0:
-                                        strState = "待测";
-                                        break;
-                                    case 1:
-                                        strState = "执行中";
-                                        break;
-                                    case 2:
-                                        strState = "已完成";
-                                        break;
-                                    case 3:
-                                        strState = "被终止";
-                                        break;
-                                }
-                                dt.Rows.Add(new object[] { qctask.SampleNum, qctask.Position, strState });
-                            }
-
-                            this.lstvQCTask.DataSource = dt;
-                        }));
                     break;
                 case "QueryQCTaskBySampleNum":
                     QCTaskInfoQuery qCTaskInfoQuery = (QCTaskInfoQuery)XmlUtility.Deserialize(typeof(QCTaskInfoQuery), sender as string);

@@ -105,7 +105,7 @@ namespace BioA.UI
         {
             if (MessageBoxDraw.ShowMsg("确认要关闭系统吗？", MsgType.Question) == System.Windows.Forms.DialogResult.OK)
             {
-                Login login = new Login();
+                ILogin login = new ILogin();
                 login.SaveUserExitInfo("QueryUserAuthority", UserName);
                 System.Diagnostics.Process[] ps = Process.GetProcessesByName("BioA.PLCController");
                 foreach (System.Diagnostics.Process p in ps)

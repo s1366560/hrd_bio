@@ -34,6 +34,7 @@ namespace BioA.Common
             userName = string.Empty;
             userPassword = string.Empty;
             createTime = System.DateTime.Now;
+            missionVerification = true;
             isSuperAdmin = false;
             isServeEngineer = false;
             isPermitDelete = false;
@@ -58,13 +59,13 @@ namespace BioA.Common
             dataConfiguration = true;
             lISCommunicate = true;
             rouMaintain = true;
-            equipDebug = true;
             userManage = true;
             departManage = true;
-            configuration = true;
             logCheck = true;
             versionInfo = true;
-
+            equipDebug = false;
+            configuration = false;
+            configurationScript = false;
         }
         /// <summary>
         /// 用户账户
@@ -163,6 +164,17 @@ namespace BioA.Common
             get { return dataCheck; }
             set { dataCheck = value; }
         }
+
+        private bool missionVerification;
+        /// <summary>
+        /// 任务核查
+        /// </summary>
+        public bool MissionVerification
+        {
+            get { return missionVerification; }
+            set { missionVerification = value; }
+        }
+
         private bool calibDataCheck;
         /// <summary>
         /// 校准审核
@@ -208,7 +220,9 @@ namespace BioA.Common
             get { return calibMaintain; }
             set { calibMaintain = value; }
         }
-
+        /// <summary>
+        /// 校准任务
+        /// </summary>
         public bool CalibTask
         {
             get { return calibTask; }
@@ -347,7 +361,7 @@ namespace BioA.Common
         }
         private bool configuration;
         /// <summary>
-        /// 配置
+        /// 试剂开放和扫描配置
         /// </summary>
         public bool Configuration
         {
@@ -373,6 +387,15 @@ namespace BioA.Common
             set { versionInfo = value; }
         }
 
+        private bool configurationScript;
+        /// <summary>
+        /// 脚本配置
+        /// </summary>
+        public bool ConfigurationScript
+        {
+            get { return configurationScript; }
+            set { configurationScript = value; }
+        }
 
     }
 }

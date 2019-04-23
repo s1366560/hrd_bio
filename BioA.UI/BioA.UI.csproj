@@ -650,6 +650,18 @@
     <Compile Include="Uicomponent\SystemUI\Maintenance\WaterBlankCheck.Designer.cs">
       <DependentUpon>WaterBlankCheck.cs</DependentUpon>
     </Compile>
+    <Compile Include="Uicomponent\SystemUI\UserManagement\UserCommon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\UserManagement\UserCommon.Designer.cs">
+      <DependentUpon>UserCommon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\UserManagement\UserEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\UserManagement\UserEdit.Designer.cs">
+      <DependentUpon>UserEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Uicomponent\SystemUI\UserManagement\UserManagementCallBack.cs" />
     <Compile Include="Uicomponent\SystemUI\UserManagement\UserCeation.cs">
       <SubType>Form</SubType>
@@ -1065,6 +1077,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\SystemUI\UserManagement\UserCeation.resx">
       <DependentUpon>UserCeation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SystemUI\UserManagement\UserCommon.resx">
+      <DependentUpon>UserCommon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SystemUI\UserManagement\UserEdit.resx">
+      <DependentUpon>UserEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\SystemUI\UserManagement\UserManagement.resx">
       <DependentUpon>UserManagement.cs</DependentUpon>

@@ -7,7 +7,7 @@ using BioA.Common;
 
 namespace BioA.Service
 {
-    public class Login : DataTransmit
+    public class ILogin : DataTransmit
     {
         public string UserLogin(string strMethodName, string userName, string password)
         {

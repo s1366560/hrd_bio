@@ -68,189 +68,129 @@ namespace BioA.UI
                 textEdit2.Text= userInfo.UserName ;
            
                 if ( userInfo.ApplyTask)
-                {
                     chkApplyTask.Checked = true;
-                }
                 else
-                {
                     chkApplyTask.Checked = false;
-                }
+
                 if (userInfo.DataCheck)
-                {
                     chkDataCheck.Checked = true;
-                }
                 else
-                {
                     chkDataCheck.Checked = false;
-                }
-                if ( userInfo.CalibDataCheck)
-                {
-                    chkCalibDataCheck.Checked  = true;
-                }
+
+                if ( userInfo.MissionVerification)
+                    chkMissionVerification.Checked  = true;
                 else
-                {
-                    chkCalibDataCheck.Checked  = false;
-                }
+                    chkMissionVerification.Checked  = false;
+
                 if ( userInfo.ReagentSetting)
-                {
                     chkReagentSetting.Checked = true;
-                }
                 else
-                {
                     chkReagentSetting.Checked = false;
-                }
+
                 if (userInfo.ReagentState)
-                {
                     chkReagentState.Checked = true;
-                }
                 else
-                {
                     chkReagentState.Checked = false;
-                }
+
                 if ( userInfo.CalibState)
-                {
                     chkCalibState.Checked = true;
-                }
                 else
-                {
                     chkCalibState.Checked= false;
-                }
+
                 if (userInfo.CalibMaintain)
-                {
                     chkCalibMaintain.Checked = true;
-                }
                 else
-                {
                     chkCalibMaintain.Checked = false;
-                }
+
+                if (userInfo.CalibDataCheck)
+                    cheCalibVerification.Checked = true;
+                else
+                    cheCalibVerification.Checked = false;
+
                 if ( userInfo.QCState)
-                {
                     chkQCState.Checked = true;
-                }
                 else
-                {
                     chkQCState.Checked = false;
-                }
+
                 if ( userInfo.QCMaintain)
-                {
                     chkQCMaintain.Checked  = true;
-                }
                 else
-                {
                     chkQCMaintain.Checked  = false;
-                }
+
                 if ( userInfo.ChemistryParam )
-                {
                     chkChemistryParam.Checked = true;
-                }
                 else
-                {
                     chkChemistryParam.Checked = false;
-                }
+
                 if ( userInfo.CombProject)
-                {
                     chkCombProject.Checked = true;
-                }
                 else
-                {
                     chkCombProject.Checked = false;
-                }
+
                 if ( userInfo.CalcProject)
-                {
                     chkCalcProject.Checked= true;
-                }
                 else
-                {
                     chkCalcProject.Checked = false;
-                }
+
                 if ( userInfo.EnvironmentParam)
-                {
                     chkEnvironmentParam.Checked = true;
-                }
                 else
-                {
                     chkEnvironmentParam.Checked = false;
-                }
+
                 if ( userInfo.CrossPollute)
-                {
                     chkCrossPollute.Checked = true;
-                }
                 else
-                {
                     chkCrossPollute.Checked = false;
-                }
+
                 if (userInfo.DataConfiguration)
-                {
                     chkDataConfiguration.Checked = true;
-                }
                 else
-                {
                     chkDataConfiguration.Checked = false;
-                }
+
                 if ( userInfo.LISCommunicate)
-                {
                     chkLISCommunicate.Checked= true;
-                }
                 else
-                {
                     chkLISCommunicate.Checked = false;
-                }
+
                 if ( userInfo.RouMaintain)
-                {
                     chkRouMaintain.Checked = true;
-                }
                 else
-                {
                     chkRouMaintain.Checked = false;
-                }
+
                 if ( userInfo.EquipDebug)
-                {
                     chkEquipDebug.Checked = true;
-                }
                 else
-                {
                     chkEquipDebug.Checked = false;
-                }
+
                 if ( userInfo.UserManage)
-                {
                     chkUserManage.Checked= true;
-                }
                 else
-                {
                     chkUserManage.Checked = false;
-                }
+
                 if ( userInfo.DepartManage)
-                {
                     chkDepartManage.Checked = true;
-                }
                 else
-                {
                     chkDepartManage.Checked = false;
-                }
+
                 if ( userInfo.Configuration)
-                {
                     chkConfiguration.Checked = true;
-                }
                 else
-                {
                     chkConfiguration.Checked = false;
-                }
+
                 if ( userInfo.LogCheck)
-                {
                     chkLogCheck.Checked = true;
-                }
                 else
-                {
                     chkLogCheck.Checked = false;
-                }
+
                 if ( userInfo.VersionInfo)
-                {
                     chkVersionInfo.Checked = true;
-                }
                 else
-                {
                     chkVersionInfo.Checked = false;
-                }
+
+                if (userInfo.ConfigurationScript)
+                    CheckConfigurationScript.Checked = true;
+                else
+                    CheckConfigurationScript.Checked = false;
             }));
         }
         /// <summary>
@@ -270,6 +210,7 @@ namespace BioA.UI
             {
                 return null;
             }
+            userInfo.IsSuperAdmin = false;
             if(chkApplyTask.Checked)
             {
                 userInfo.ApplyTask = true;
@@ -286,13 +227,13 @@ namespace BioA.UI
             {
                 userInfo.DataCheck = false;
             }
-            if (chkCalibDataCheck.Checked)
+            if (chkMissionVerification.Checked)
             {
-                userInfo.CalibDataCheck = true;
+                userInfo.MissionVerification = true;
             }
             else
             {
-                userInfo.CalibDataCheck = false;
+                userInfo.MissionVerification = false;
             }
             if (chkReagentSetting.Checked)
             {
@@ -326,6 +267,10 @@ namespace BioA.UI
             {
                 userInfo.CalibMaintain = false;
             }
+            if (cheCalibVerification.Checked)
+                userInfo.CalibDataCheck = true;
+            else
+                userInfo.CalibDataCheck = false;
             if (chkQCState.Checked)
             {
                 userInfo.QCState = true;
@@ -454,6 +399,10 @@ namespace BioA.UI
             {
                 userInfo.VersionInfo = false;
             }
+            if (CheckConfigurationScript.Checked)
+                userInfo.ConfigurationScript = true;
+            else
+                userInfo.ConfigurationScript = false;
             return userInfo;
         }
         /// <summary>
@@ -529,11 +478,11 @@ namespace BioA.UI
                 }
                 if (RunConfigureUtility.UserAuthorityInitial["校准审核"])
                 {
-                    chkCalibDataCheck.Checked = true;
+                    chkMissionVerification.Checked = true;
                 }
                 else
                 {
-                    chkCalibDataCheck.Checked = false;
+                    chkMissionVerification.Checked = false;
                 }
                 if (RunConfigureUtility.UserAuthorityInitial["设置"])
                 {

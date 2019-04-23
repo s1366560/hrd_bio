@@ -7,40 +7,29 @@ using System.Threading.Tasks;
 
 namespace BioA.Service
 {
-    class SystemUserManagement : DataTransmit
+    public class SystemUserManagement : DataTransmit
     {
-        public List<UserInfo> QueryUserManagement(string strDBMethod)
+        public List<UserInfo> QueryUserManagement(string strDBMethod, bool bol)
         {
-            List<UserInfo> lstQueryUserManagement = new List<UserInfo>();
-            lstQueryUserManagement = myBatis.QueryUserManagement(strDBMethod);
-            return lstQueryUserManagement;
+            return myBatis.QueryUserManagement(strDBMethod, bol);
         }
-
-
-
-        public string AddUserInfo(string strDBMethod, UserInfo userInfo)
+        /// <summary>
+        /// 保存用户信息
+        /// </summary>
+        /// <param name="strDBMethod"></param>
+        /// <param name="userInfo"></param>
+        /// <returns></returns>
+        public int AddUserInfo(string strDBMethod, UserInfo userInfo)
         {
-            string strInfo = string.Empty;
+            int iResult = 0;
             try
             {
                 int count = myBatis.SelectUserInfo("SelectUserInfo", userInfo);
                 // 当count>0代表已存在此项目
                 if (count <= 0)
                 {
-                    myBatis.AddUserInfo(strDBMethod, userInfo);
-                    count = myBatis.SelectUserInfo("SelectUserInfo", userInfo);
-                    if (count > 0)
-                    {
-                        strInfo = "项目创建成功！";
-                    }
-                    else
-                    {
-                        strInfo = "项目创建失败，请联系管理员！";
-                    }
-                }
-                else
-                {
-                    strInfo = "该项目已存在，请重新录入。";
+                    iResult = myBatis.AddUserInfo(strDBMethod, userInfo);
+                    
                 }
             }
             catch (Exception e)
@@ -48,7 +37,7 @@ namespace BioA.Service
                 LogInfo.WriteErrorLog("DataConfigAdd(string strDBMethod, string dataConfig)==" + e.ToString(), Module.WindowsService);
             }
 
-            return strInfo;
+            return iResult;
         }
 
         public int EditUserInfoUpDate(string strDBMethod, UserInfo dataConfig, string OldUserId)
@@ -83,10 +72,18 @@ namespace BioA.Service
             return count;
             
         }
-
         public UserInfo QueryUserCeation(string strDBMethod, string p2)
         {
             return myBatis.QueryUserCeation(strDBMethod, p2);
+        }
+        /// <summary>
+        /// 修改普通用户信息
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <returns></returns>
+        public int IUpdateCommonUserInfo(UserInfo userInfo)
+        {
+            return myBatis.UpdateCommonUserInfo(userInfo);
         }
     }
 }

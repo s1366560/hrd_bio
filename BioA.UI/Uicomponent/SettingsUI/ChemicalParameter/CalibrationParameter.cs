@@ -873,16 +873,19 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            AssayProjectInfo assayProInfo = new AssayProjectInfo();
-            int selectedHandle;
-            selectedHandle = this.gridView1.GetSelectedRows()[0];
-            assayProInfo.ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "项目名称").ToString();
-            assayProInfo.SampleType = this.gridView1.GetRowCellValue(selectedHandle, "类型").ToString();
-            foreach (AssayProjectCalibrationParamInfo assayProParamInfo in lstCalibParamInfo)
+            if (this.gridView1.GetSelectedRows().Count() > 0)
             {
-                if (assayProParamInfo.ProjectName == assayProInfo.ProjectName && assayProParamInfo.SampleType == assayProInfo.SampleType)
+                AssayProjectInfo assayProInfo = new AssayProjectInfo();
+                int selectedHandle;
+                selectedHandle = this.gridView1.GetSelectedRows()[0];
+                assayProInfo.ProjectName = this.gridView1.GetRowCellValue(selectedHandle, "项目名称").ToString();
+                assayProInfo.SampleType = this.gridView1.GetRowCellValue(selectedHandle, "类型").ToString();
+                foreach (AssayProjectCalibrationParamInfo assayProParamInfo in lstCalibParamInfo)
                 {
-                    this.CalibParamInfo = assayProParamInfo;
+                    if (assayProParamInfo.ProjectName == assayProInfo.ProjectName && assayProParamInfo.SampleType == assayProInfo.SampleType)
+                    {
+                        this.CalibParamInfo = assayProParamInfo;
+                    }
                 }
             }
         }

@@ -32,7 +32,7 @@
             this.xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
             this.xtraTabPage1 = new DevExpress.XtraTab.XtraTabPage();
             this.chkDataCheck = new DevExpress.XtraEditors.CheckEdit();
-            this.chkCalibDataCheck = new DevExpress.XtraEditors.CheckEdit();
+            this.chkMissionVerification = new DevExpress.XtraEditors.CheckEdit();
             this.chkApplyTask = new DevExpress.XtraEditors.CheckEdit();
             this.xtraTabPage2 = new DevExpress.XtraTab.XtraTabPage();
             this.chkReagentSetting = new DevExpress.XtraEditors.CheckEdit();
@@ -74,11 +74,13 @@
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
+            this.cheCalibVerification = new DevExpress.XtraEditors.CheckEdit();
+            this.CheckConfigurationScript = new DevExpress.XtraEditors.CheckEdit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
             this.xtraTabControl1.SuspendLayout();
             this.xtraTabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chkDataCheck.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkCalibDataCheck.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkMissionVerification.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkApplyTask.Properties)).BeginInit();
             this.xtraTabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chkReagentSetting.Properties)).BeginInit();
@@ -109,6 +111,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.textEdit3.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cheCalibVerification.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CheckConfigurationScript.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // xtraTabControl1
@@ -129,7 +133,7 @@
             // xtraTabPage1
             // 
             this.xtraTabPage1.Controls.Add(this.chkDataCheck);
-            this.xtraTabPage1.Controls.Add(this.chkCalibDataCheck);
+            this.xtraTabPage1.Controls.Add(this.chkMissionVerification);
             this.xtraTabPage1.Controls.Add(this.chkApplyTask);
             this.xtraTabPage1.Name = "xtraTabPage1";
             this.xtraTabPage1.Size = new System.Drawing.Size(592, 226);
@@ -146,15 +150,15 @@
             this.chkDataCheck.Size = new System.Drawing.Size(168, 21);
             this.chkDataCheck.TabIndex = 32;
             // 
-            // chkCalibDataCheck
+            // chkMissionVerification
             // 
-            this.chkCalibDataCheck.Location = new System.Drawing.Point(177, 136);
-            this.chkCalibDataCheck.Name = "chkCalibDataCheck";
-            this.chkCalibDataCheck.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCalibDataCheck.Properties.Appearance.Options.UseFont = true;
-            this.chkCalibDataCheck.Properties.Caption = "校准审核";
-            this.chkCalibDataCheck.Size = new System.Drawing.Size(168, 21);
-            this.chkCalibDataCheck.TabIndex = 31;
+            this.chkMissionVerification.Location = new System.Drawing.Point(177, 136);
+            this.chkMissionVerification.Name = "chkMissionVerification";
+            this.chkMissionVerification.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkMissionVerification.Properties.Appearance.Options.UseFont = true;
+            this.chkMissionVerification.Properties.Caption = "任务核查";
+            this.chkMissionVerification.Size = new System.Drawing.Size(168, 21);
+            this.chkMissionVerification.TabIndex = 31;
             // 
             // chkApplyTask
             // 
@@ -197,6 +201,7 @@
             // 
             // xtraTabPage3
             // 
+            this.xtraTabPage3.Controls.Add(this.cheCalibVerification);
             this.xtraTabPage3.Controls.Add(this.chkCalibMaintain);
             this.xtraTabPage3.Controls.Add(this.chkCalibState);
             this.xtraTabPage3.Name = "xtraTabPage3";
@@ -206,7 +211,7 @@
             // 
             // chkCalibMaintain
             // 
-            this.chkCalibMaintain.Location = new System.Drawing.Point(168, 129);
+            this.chkCalibMaintain.Location = new System.Drawing.Point(168, 100);
             this.chkCalibMaintain.Name = "chkCalibMaintain";
             this.chkCalibMaintain.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkCalibMaintain.Properties.Appearance.Options.UseFont = true;
@@ -216,7 +221,7 @@
             // 
             // chkCalibState
             // 
-            this.chkCalibState.Location = new System.Drawing.Point(168, 77);
+            this.chkCalibState.Location = new System.Drawing.Point(168, 55);
             this.chkCalibState.Name = "chkCalibState";
             this.chkCalibState.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkCalibState.Properties.Appearance.Options.UseFont = true;
@@ -339,6 +344,7 @@
             // 
             // xtraTabPage6
             // 
+            this.xtraTabPage6.Controls.Add(this.CheckConfigurationScript);
             this.xtraTabPage6.Controls.Add(this.chkVersionInfo);
             this.xtraTabPage6.Controls.Add(this.chkRouMaintain);
             this.xtraTabPage6.Controls.Add(this.chkDepartManage);
@@ -387,7 +393,7 @@
             this.chkConfiguration.Name = "chkConfiguration";
             this.chkConfiguration.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkConfiguration.Properties.Appearance.Options.UseFont = true;
-            this.chkConfiguration.Properties.Caption = "配置";
+            this.chkConfiguration.Properties.Caption = "功能配置";
             this.chkConfiguration.Size = new System.Drawing.Size(168, 21);
             this.chkConfiguration.TabIndex = 45;
             // 
@@ -577,6 +583,26 @@
             this.labelControl3.Size = new System.Drawing.Size(0, 17);
             this.labelControl3.TabIndex = 35;
             // 
+            // cheCalibVerification
+            // 
+            this.cheCalibVerification.Location = new System.Drawing.Point(168, 143);
+            this.cheCalibVerification.Name = "cheCalibVerification";
+            this.cheCalibVerification.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cheCalibVerification.Properties.Appearance.Options.UseFont = true;
+            this.cheCalibVerification.Properties.Caption = "校准审核";
+            this.cheCalibVerification.Size = new System.Drawing.Size(168, 21);
+            this.cheCalibVerification.TabIndex = 35;
+            // 
+            // CheckConfigurationScript
+            // 
+            this.CheckConfigurationScript.Location = new System.Drawing.Point(302, 165);
+            this.CheckConfigurationScript.Name = "CheckConfigurationScript";
+            this.CheckConfigurationScript.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CheckConfigurationScript.Properties.Appearance.Options.UseFont = true;
+            this.CheckConfigurationScript.Properties.Caption = "脚本配置";
+            this.CheckConfigurationScript.Size = new System.Drawing.Size(168, 21);
+            this.CheckConfigurationScript.TabIndex = 49;
+            // 
             // UserCeation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -604,7 +630,7 @@
             this.xtraTabControl1.ResumeLayout(false);
             this.xtraTabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chkDataCheck.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkCalibDataCheck.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkMissionVerification.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkApplyTask.Properties)).EndInit();
             this.xtraTabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chkReagentSetting.Properties)).EndInit();
@@ -635,6 +661,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.textEdit3.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cheCalibVerification.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CheckConfigurationScript.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -659,7 +687,7 @@
         private DevExpress.XtraEditors.LabelControl lblPassword;
         private DevExpress.XtraEditors.LabelControl labAccount;
         private DevExpress.XtraEditors.CheckEdit chkDataCheck;
-        private DevExpress.XtraEditors.CheckEdit chkCalibDataCheck;
+        private DevExpress.XtraEditors.CheckEdit chkMissionVerification;
         private DevExpress.XtraEditors.CheckEdit chkApplyTask;
         private DevExpress.XtraEditors.CheckEdit chkReagentSetting;
         private DevExpress.XtraEditors.CheckEdit chkReagentState;
@@ -687,5 +715,7 @@
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraEditors.LabelControl labelControl2;
         private DevExpress.XtraEditors.LabelControl labelControl3;
+        private DevExpress.XtraEditors.CheckEdit cheCalibVerification;
+        private DevExpress.XtraEditors.CheckEdit CheckConfigurationScript;
     }
 }

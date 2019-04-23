@@ -1012,7 +1012,7 @@ namespace BioA.UI
             this.lblSampleContainer.Name = "lblSampleContainer";
             this.lblSampleContainer.Size = new System.Drawing.Size(131, 61);
             this.lblSampleContainer.TabIndex = 34;
-            this.lblSampleContainer.Text = "孵育温度：";
+            this.lblSampleContainer.Text = "水浴温度：";
             // 
             // pictureEdit2
             // 

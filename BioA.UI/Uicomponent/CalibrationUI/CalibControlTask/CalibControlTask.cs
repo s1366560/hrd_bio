@@ -17,15 +17,14 @@ namespace BioA.UI
     public partial class CalibControlTask : DevExpress.XtraEditors.XtraUserControl
     {
         //校准项目第一页~~四页窗体
-        private CalibProjectPage1 projectPage1 = new CalibProjectPage1();// Insert.Insert1();
-        private CalibProjectPage2 projectPage2 = new CalibProjectPage2();// Insert.Insert2();
-        private CalibProjectPage3 projectPage3 = new CalibProjectPage3();// Insert.Insert3();
-        private CalibProjectPage4 projectPage4 = new CalibProjectPage4();// Insert.Insert4();
+        private CalibProjectPage1 projectPage1 = new CalibProjectPage1();
+        private CalibProjectPage2 projectPage2 = new CalibProjectPage2();
+        private CalibProjectPage3 projectPage3 = new CalibProjectPage3();
+        private CalibProjectPage4 projectPage4 = new CalibProjectPage4();
         //校准组合项目第一二页窗体
-        private CalibProCombPage2 calibProCombPage2 = new CalibProCombPage2();// Insert.CalibProCombPage2();
-        private CalibProCombPage1 calibProCombPage1 = new CalibProCombPage1();// Insert.CalibProCombPage1();
+        private CalibProCombPage2 calibProCombPage2 = new CalibProCombPage2();
+        private CalibProCombPage1 calibProCombPage1 = new CalibProCombPage1();
         private List<string[]> lstQCRelateProject = new List<string[]>();
-        //private List<string[]> lstQCRelateProject1 = new List<string[]>();
         /// <summary>
         /// 存储所有组合项目对应的生化项目信息
         /// </summary>
@@ -36,7 +35,10 @@ namespace BioA.UI
         private List<CombProjectInfo> lstCombProInfo = new List<CombProjectInfo>();
         //样本编号
         int intPos = 0;
-
+        /// <summary>
+        /// 校准任务数据表
+        /// </summary>
+        DataTable dt = new DataTable();
         /// <summary>
         /// 传递访问数据的方法名和参数个数的泛型集合
         /// </summary>
@@ -60,8 +62,13 @@ namespace BioA.UI
             xtraTabPage5.Controls.Add(calibProCombPage1);
             xtraTabPage6.Controls.Add(calibProCombPage2);
             combSampleType.Properties.Items.AddRange(RunConfigureUtility.SampleTypes);
-            
-            
+
+            dt.Columns.Add("顺序号");
+            dt.Columns.Add("项目名称");
+            dt.Columns.Add("校准品名");
+            dt.Columns.Add("重复次数");
+            dt.Columns.Add("状态");
+            this.lstvTask.DataSource = dt;
         }
         //加载页面
         public void CalibControlTask_Load(object sender, EventArgs e)
@@ -87,17 +94,10 @@ namespace BioA.UI
         }
         private void CalibControlTaskInit()
         {
-            
-
             if (combSampleType.SelectedIndex != 1)
                 combSampleType.SelectedIndex = 1;
             else
                 combSampleType_SelectedIndexChanged(null,null);
-
-            ////获取任务信息
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibControlTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryCalibratorinfoTask", null)));
-            ////获取所有组合项目信息
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibControlTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryCombProjectNameAllInfo", null)));
             //获取所有任务信息
             calibDictionary.Add("QueryCalibratorinfoTask", new object[] { "" });
             //获取所有组合项目信息
@@ -130,29 +130,6 @@ namespace BioA.UI
         }
 
         /// <summary>
-        /// 处理组合页面委托事件传递过来的数据
-        /// </summary>
-        /// <param name="sender"></param>
-        private void HandleClickCombProNameEvent(string sender)
-        {
-            lstProjects.Clear();
-            foreach (CombProjectInfo combProInfo in lstCombProInfo)
-            {
-                if (combProInfo.CombProjectName == sender)
-                {
-                    lstProjects.Add(combProInfo.ProjectName);
-                }
-            }
-            if (lstProjects.Count > 0)
-            {
-                projectPage1.SelectedProjects = lstProjects;
-                projectPage2.SelectedProjects = lstProjects;
-                projectPage3.SelectedProjects = lstProjects;
-                projectPage4.SelectedProjects = lstProjects;
-            }
-        }
-
-        /// <summary>
         /// 处理组合项目名点击事件
         /// </summary>
         /// <param name="sender"></param>
@@ -160,6 +137,7 @@ namespace BioA.UI
         {
             //存储项目名称
             lstProjects.Clear();
+            exceptionItemInfoList.Clear();
             foreach (CombProjectInfo combProInfo in lstCombProInfo)
             {
                 if (combProInfo.CombProjectName == sender)
@@ -169,16 +147,21 @@ namespace BioA.UI
             }
             if (lstProjects.Count > 0)
             {
-                bool ret1 = setprojectpage(lstProjects, projectPage1.Controls, tag);
+                bool ret1 = SetProjectPage(lstProjects, projectPage1.Controls, tag);
                 if (ret1 == false)
                     return ret1;
-                bool ret2 = setprojectpage(lstProjects, projectPage2.Controls, tag);
+                bool ret2 = SetProjectPage(lstProjects, projectPage2.Controls, tag);
                 if (ret2 == false)
                     return ret2;
-                bool ret3 = setprojectpage(lstProjects, projectPage3.Controls, tag);
+                bool ret3 = SetProjectPage(lstProjects, projectPage3.Controls, tag);
                 if (ret3 == false)
                     return ret3;
-                bool ret4 = setprojectpage(lstProjects, projectPage4.Controls, tag);
+                bool ret4 = SetProjectPage(lstProjects, projectPage4.Controls, tag);
+                if (exceptionItemInfoList.Count > 0)
+                {
+                    string resultInfo = string.Join(",", exceptionItemInfoList.Select(s => "[" + s + "]"));
+                    this.Invoke(new EventHandler(delegate { MessageBox.Show(resultInfo + "项目参数有误！"); }));
+                }
                 if (ret4 == false)
                 {
                     return ret4;
@@ -187,14 +170,10 @@ namespace BioA.UI
                 {
                     return true;
                 }
-                //projectPage1.SelectedProjects = lstProNames;
-                // projectPage2.SelectedProjects = lstProNames;
-                // projectPage3.SelectedProjects = lstProNames;
-                // projectPage4.SelectedProjects = lstProNames;
             }
             return false;
         }
-        private bool setprojectpage(List<string> selectedProjects, ControlCollection Controls, string tag)
+        private bool SetProjectPage(List<string> selectedProjects, ControlCollection Controls, string tag)
         {
             bool flag = true;
             foreach (Control control in Controls)
@@ -227,8 +206,7 @@ namespace BioA.UI
                             }
                             else if (control.ForeColor == Color.Orange && tag == "0")
                             {
-                                MessageBox.Show("项目:" + control.Text + "参数存在问题，不可下任务！");
-                                flag = false;
+                                exceptionItemInfoList.Add(control.Text);
                             }
                         }
                     }
@@ -238,8 +216,10 @@ namespace BioA.UI
             }
             return flag;
         }
-
-
+        /// <summary>
+        /// 组合项目中的项目参数有误
+        /// </summary>
+        private List<string> exceptionItemInfoList = new List<string>();
 
 
         /// <summary>
@@ -284,16 +264,10 @@ namespace BioA.UI
         /// </summary>
         /// <param name="lstCalibrationCurveInfo"></param>
         private void GridAdd(List<CalibratorinfoTask> lstCalibrationCurveInfo)
-        {           
-            lstvTask.RefreshDataSource();
+        {
             this.BeginInvoke(new EventHandler(delegate
             {
-                DataTable dt = new DataTable();
-                dt.Columns.Add("顺序号");
-                dt.Columns.Add("项目名称");
-                dt.Columns.Add("校准品名");
-                dt.Columns.Add("重复次数");
-                dt.Columns.Add("状态");
+                dt.Rows.Clear();
                 foreach (CalibratorinfoTask task in lstCalibrationCurveInfo)
                 {
                     string tasks = string.Empty;
@@ -315,10 +289,6 @@ namespace BioA.UI
                     dt.Rows.Add(new object[] { task.SampleNum,task.ProjectName, task.CalibName, task.InspectTimes, tasks});
                 }
                 this.lstvTask.DataSource = dt;
-                this.gridView1.Columns[0].OptionsColumn.AllowEdit = false;
-                this.gridView1.Columns[1].OptionsColumn.AllowEdit = false;
-                this.gridView1.Columns[2].OptionsColumn.AllowEdit = false;
-                this.gridView1.Columns[3].OptionsColumn.AllowEdit = false; 
             }));
         }
         #region 接收样本类型获取到的所有项目名称
@@ -362,47 +332,16 @@ namespace BioA.UI
                     }));
                     
                     GridAdd(lstCalibrationCurveInfo);
-                    //保存任务之后加载校准品编号
-                    
-                    //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibControlTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryBigestCalibCTaskInfoForToday", null)));
-                    ////保存任务之后加载项目信息
-                    //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibControlTask, XmlUtility.Serializer(typeof(CommunicationEntity),
-                    //        new CommunicationEntity("QueryProjectNameInfoByCalib", combSampleType.SelectedItem.ToString())));
                     break;
-                //case "QueryAssayProNameAllInfo":
-                //    lstAssayProInfos = (List<string>)XmlUtility.Deserialize(typeof(List<string>), sender as string);
-                //    projectPage1.LstAssayProInfos = lstAssayProInfos;
-                //    projectPage2.LstAssayProInfos = lstAssayProInfos;
-                //    projectPage3.LstAssayProInfos = lstAssayProInfos;
-                //    projectPage4.LstAssayProInfos = lstAssayProInfos;
-                //    //获取项目是否可用，不能用就（提示错误信息），能用显示（黑字体）
-                //    CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibControlTask, XmlUtility.Serializer(typeof(CommunicationEntity),
-                //            new CommunicationEntity("QueryProjectNameInfoByCalib", combSampleType.SelectedItem.ToString())));
-                //    break;
                 case "QueryCombProjectNameAllInfo":
                     lstCombProName = (List<string>)XmlUtility.Deserialize(typeof(List<string>), sender as string);
                     calibProCombPage1.LstProjectGroups = lstCombProName;
                     calibProCombPage2.LstAssayProInfos = lstCombProName;
-
+                    grpCombProject.SelectedTabPageIndex = 0;
                     break;
-                //case "QueryProjectByCombProName":
-                //    lstProjects = (List<string>)XmlUtility.Deserialize(typeof(List<string>), sender as string);
-                //    projectPage1.SelectedProjects = lstProjects;
-                //    projectPage2.SelectedProjects = lstProjects;
-                //    projectPage3.SelectedProjects = lstProjects;
-                //    projectPage4.SelectedProjects = lstProjects;
-                //    break;
                 case "QueryProjectAndCombProName":
                     lstCombProInfo = (List<CombProjectInfo>)XmlUtility.Deserialize(typeof(List<CombProjectInfo>), sender as string);
                     break;
-                //case "QueryAssayProNameAll":
-                //    List<CalibratorinfoTask> lstCalibrationInfo = (List<CalibratorinfoTask>)XmlUtility.Deserialize(typeof(List<CalibratorinfoTask>), sender as string);
-                //    GridAdd(lstCalibrationInfo);
-                //    break;
-                //case "QueryBigestCalibCTaskInfoForToday":
-                //    intPos = (int)sender;
-                //    this.Invoke(new EventHandler(delegate { txtSumpleNum.Text = "S" + (intPos + 1).ToString(); }));
-                //    break;
                 case "QueryProjectNameInfoByCalib":
                     lstQCRelateProject = (List<string[]>)XmlUtility.Deserialize(typeof(List<string[]>), sender as string);
 
@@ -445,7 +384,6 @@ namespace BioA.UI
                     return;
                 }
             }
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.CalibControlTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("QueryCalibrationCurveInfo", "血清")));
             this.btnSave.Enabled = false;
             if (projectPage1.GetSelectedProjects().Count == 0 && 
                 projectPage2.GetSelectedProjects().Count == 0 &&
@@ -652,73 +590,6 @@ namespace BioA.UI
                     }
                 }
             }
-        }
-    }
-
-    public class Insert
-    {
-        static CalibProjectPage1 projectPage1 = null;
-
-        public static CalibProjectPage1 Insert1()
-        {
-            if (projectPage1 == null)
-            {
-                projectPage1 = new CalibProjectPage1();
-            }
-            return projectPage1;
-        }
-
-        static CalibProjectPage2 projectPage2 = null;
-
-        public static CalibProjectPage2 Insert2()
-        {
-            if (projectPage2 == null)
-            {
-                projectPage2 = new CalibProjectPage2();
-            }
-            return projectPage2;
-        }
-
-        static CalibProjectPage3 projectPage3 = null;
-
-        public static CalibProjectPage3 Insert3()
-        {
-            if (projectPage3 == null)
-            {
-                projectPage3 = new CalibProjectPage3();
-            }
-            return projectPage3;
-        }
-
-        static CalibProjectPage4 projectPage4 = null;
-
-        public static CalibProjectPage4 Insert4()
-        {
-            if (projectPage4 == null)
-            {
-                projectPage4 = new CalibProjectPage4();
-            }
-            return projectPage4;
-        }
-
-        static CalibProCombPage1 calibProCombPage1 = null;
-        public static CalibProCombPage1 CalibProCombPage1()
-        {
-            if (calibProCombPage1 == null)
-            {
-                calibProCombPage1 = new CalibProCombPage1();
-            }
-            return calibProCombPage1;
-        }
-
-        static CalibProCombPage2 calibProCombPage2 = null;
-        public static CalibProCombPage2 CalibProCombPage2()
-        {
-            if (calibProCombPage2 == null)
-            {
-                calibProCombPage2 = new CalibProCombPage2();
-            }
-            return calibProCombPage2;
         }
     }
 }

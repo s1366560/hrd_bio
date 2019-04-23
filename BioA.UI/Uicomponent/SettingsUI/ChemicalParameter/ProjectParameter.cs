@@ -223,17 +223,19 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void btnDetele_Click(object sender, EventArgs e)
         {
-            AssayProjectInfo assayProInfo = new AssayProjectInfo();
-            CommunicationEntity communicationEntity = new CommunicationEntity();
-            int selectedHandle;
-            selectedHandle = this.gridView2.GetSelectedRows()[0];
-            assayProInfo.ProjectName = this.gridView2.GetRowCellValue(selectedHandle, "项目名称").ToString();
-            assayProInfo.SampleType = this.gridView2.GetRowCellValue(selectedHandle, "类型").ToString();
-            foreach (AssayProjectParamInfo assayProParam in lstAssayProParamInfoAll)
+            if (this.gridView2.GetSelectedRows().Count() > 0)
             {
-                if (assayProParam.ProjectName == assayProInfo.ProjectName && assayProParam.SampleType == assayProInfo.SampleType)
+                AssayProjectInfo assayProInfo = new AssayProjectInfo();
+                int selectedHandle;
+                selectedHandle = this.gridView2.GetSelectedRows()[0];
+                assayProInfo.ProjectName = this.gridView2.GetRowCellValue(selectedHandle, "项目名称").ToString();
+                assayProInfo.SampleType = this.gridView2.GetRowCellValue(selectedHandle, "类型").ToString();
+                foreach (AssayProjectParamInfo assayProParam in lstAssayProParamInfoAll)
                 {
-                    this.AssProParamInfoList = assayProParam;
+                    if (assayProParam.ProjectName == assayProInfo.ProjectName && assayProParam.SampleType == assayProInfo.SampleType)
+                    {
+                        this.AssProParamInfoList = assayProParam;
+                    }
                 }
             }
         }

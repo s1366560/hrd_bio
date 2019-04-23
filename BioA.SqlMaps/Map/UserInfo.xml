@@ -53,8 +53,8 @@
       select USERNAME from UserInfoTb
     </select>
     <!--查找所有用户信息-->
-    <select id="QueryUserInfo" resultClass="UserInfo">
-      SELECT * FROM UserInfoTb
+    <select id="QueryUserInfo" parameterClass="string" resultClass="UserInfo">
+      $value$
     </select>
     <select id="QueryUserCeation" resultClass="UserInfo">
       SELECT * FROM UserInfoTb where UserID = #UserID#
@@ -68,27 +68,31 @@
     <!--修改用户信息(包括密码、权限等)-->
     <update id="EditUserInfo" parameterClass="System.Collections.IDictionary" resultClass="int">
       update UserInfoTb
-      set UserPassword = #UserPassword# , UserName = #UserName# , CreateTime=#CreateTime# ,ApplyTask = #ApplyTask#,
+      set UserPassword = #UserPassword# , UserName = #UserName# , IsSuperAdmin = #IsSuperAdmin#, CreateTime=#CreateTime# ,ApplyTask = #ApplyTask#,MissionVerification = #MissionVerification#,
       DataCheck = #DataCheck# , CalibDataCheck = #CalibDataCheck# , ReagentSetting=#ReagentSetting# ,ReagentState = #ReagentState#,
       CalibState = #CalibState# , CalibMaintain = #CalibMaintain# , QCState=#QCState# ,QCMaintain = #QCMaintain#,
       ChemistryParam = #ChemistryParam# , CombProject = #CombProject# , CalcProject=#CalcProject# ,EnvironmentParam = #EnvironmentParam#,
       CrossPollute = #CrossPollute# , DataConfiguration = #DataConfiguration# , LISCommunicate=#LISCommunicate# ,RouMaintain = #RouMaintain#,
       EquipDebug = #EquipDebug# , UserManage = #UserManage# , DepartManage=#DepartManage# ,Configuration = #Configuration#,
-      LogCheck = #LogCheck# , VersionInfo = #VersionInfo#
+      LogCheck = #LogCheck# , VersionInfo = #VersionInfo#,ConfigurationScript = #ConfigurationScript#
       where UserID=#UserIDOld#
     </update>
     <insert id="AddUserInfo" parameterClass="System.Collections.IDictionary">
-      insert into UserInfoTb (UserID,UserName,UserPassword,CreateTime,ApplyTask,DataCheck,
+      insert into UserInfoTb (UserID,UserName,UserPassword,IsSuperAdmin,CreateTime,ApplyTask,DataCheck,MissionVerification,
       CalibDataCheck,ReagentSetting,ReagentState,CalibState,CalibMaintain,QCState,QCMaintain,
       ChemistryParam,CombProject,CalcProject,EnvironmentParam,CrossPollute,DataConfiguration,
-      LISCommunicate,RouMaintain,EquipDebug,UserManage,DepartManage,Configuration,LogCheck,VersionInfo)
-      values (#UserID#,#UserName#,#UserPassword#,#CreateTime#,#ApplyTask#,#DataCheck#,
+      LISCommunicate,RouMaintain,EquipDebug,UserManage,DepartManage,Configuration,LogCheck,VersionInfo,ConfigurationScript)
+      values (#UserID#,#UserName#,#UserPassword#,#IsSuperAdmin#,#CreateTime#,#ApplyTask#,#DataCheck#,#MissionVerification#,
       #CalibDataCheck#,#ReagentSetting#,#ReagentState#,#CalibState#,#CalibMaintain#,#QCState#,#QCMaintain#,
       #ChemistryParam#,#CombProject#,#CalcProject#,#EnvironmentParam#,#CrossPollute#,#DataConfiguration#,
       #LISCommunicate#,#RouMaintain#,#EquipDebug#,#UserManage#,#DepartManage#,#Configuration#,
-      #LogCheck#,#VersionInfo#
+      #LogCheck#,#VersionInfo#,#ConfigurationScript#
       )
     </insert>
+    <!-- 修改普通用户信息 -->
+    <statement id="UpdateCommonUserInfo" parameterClass="string" resultClass ="int">
+      $value$
+    </statement>
     <!--通过用户名查找用户信息
     <select id="QueryUserInfoByUserName" resultMap="UserInfoResult" parameterClass="string">
       SELECT * FROM USERTB WHERE USERNAME=#value#

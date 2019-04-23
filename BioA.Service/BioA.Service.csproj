@@ -53,7 +53,7 @@
     <Compile Include="IBioAService.cs" />
     <Compile Include="LIS\LISService.cs" />
     <Compile Include="LIS\LISSettingService.cs" />
-    <Compile Include="Login\Login.cs" />
+    <Compile Include="Login\ILogin.cs" />
     <Compile Include="MainTains\MainTain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BioAService.cs" />

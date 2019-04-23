@@ -148,7 +148,8 @@ namespace BioA.UI
                 _Elements.Add(this.WorkingAreaApplyTaskElement1);
             if (userInfo.DataCheck)
                 _Elements.Add(this.WorkingAreaDataCheckElement2);
-            _Elements.Add(this.WorkingAreaMissionInspectionElement3);
+            if(userInfo.MissionVerification)
+                _Elements.Add(this.WorkingAreaMissionInspectionElement3);
             BeginInvoke(new Action(() =>
             {
                 this.accordionControl1.Elements.AddRange(_Elements.ToArray());
@@ -981,7 +982,7 @@ namespace BioA.UI
         private void Form1_Load(object sender, EventArgs e)
         {
             // BeginInvoke(new Action(Init));
-            userInfo = Program.userInfo;
+            userInfo = UserLoginInfo.GetUserLoginInfo();
             this.labUserName.Text = userInfo.UserName;
 
             var displayThread = new Thread(DisplayHavingError);
@@ -1084,7 +1085,8 @@ namespace BioA.UI
                 _Elements.Add(this.WorkingAreaApplyTaskElement1);
             if (userInfo.DataCheck)
                 _Elements.Add(this.WorkingAreaDataCheckElement2);
-            _Elements.Add(this.WorkingAreaMissionInspectionElement3);
+            if(userInfo.MissionVerification)
+                _Elements.Add(this.WorkingAreaMissionInspectionElement3);
             this.accordionControl1.Elements.AddRange(_Elements.ToArray());
             if (userInfo.ApplyTask)
             {
@@ -1562,7 +1564,10 @@ namespace BioA.UI
         {
             if(cuvettePanel == null)
                 cuvettePanel = new CuvettePanel();
-            cuvettePanel.Form1_Paint(null,null);
+            this.BeginInvoke(new Action(() =>
+            {
+                cuvettePanel.Form1_Paint(null, null);
+            }));
             cuvettePanel.ShowDialog();
         }
         private void barButtonItem11_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -1627,8 +1632,10 @@ namespace BioA.UI
                 _Elements.Add(this.LogCheckElement22);
             if (userInfo.VersionInfo)
                 _Elements.Add(this.VersionInfomationElement23);
-            _Elements.Add(this.ConfigurationScriptElement);
-            _Elements.Add(this.FunctionConfigureElement);
+            if(userInfo.ConfigurationScript)
+                _Elements.Add(this.ConfigurationScriptElement);
+            if(userInfo.Configuration)
+                _Elements.Add(this.FunctionConfigureElement);
             this.accordionControl1.Elements.AddRange(_Elements.ToArray());
             if (userInfo.RouMaintain)
             {

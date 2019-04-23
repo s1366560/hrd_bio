@@ -32,10 +32,8 @@ namespace BioA.UI
             InitializeComponent();
             this.txtUserName.Text = "用户名/账号";
             this.txtUserName.ForeColor = Color.Gray;
-            this.txtPassword.Text = "  密码";
+            this.txtPassword.Text = "****";
             this.txtPassword.ForeColor = Color.Gray;
-            //progBarLogin.Visible = false;
-            Type type= CommunicationUI.ServiceClient.State.GetType();
             
         }
 
@@ -45,7 +43,8 @@ namespace BioA.UI
             {
                 if(txtUserName.Text == "用户名/账号" || (txtUserName.Text == "" && txtUserName.Text == string.Empty))
                 {
-                    MessageBoxDraw.ShowMsg("用户名输入不能为空", "警告", MsgType.Warning);
+                    this.lblStarting.Text = "* 用户名不能为空！";
+                    this.txtUserName.Focus();
                     return;
                 }
             }
@@ -54,7 +53,8 @@ namespace BioA.UI
             {
                 if (txtPassword.Text == "  密码" || (txtPassword.Text == "" && txtPassword.Text == string.Empty))
                 {
-                    MessageBoxDraw.ShowMsg("密码输入不能为空", "警告", MsgType.Warning);
+                    this.lblStarting.Text = "* 密码输入不能为空!";
+                    this.txtPassword.Focus();
                     return;
                 }
             }
@@ -118,7 +118,8 @@ namespace BioA.UI
                     break;
                 case "QueryUserAuthority":
                     UserInfo userInfo = XmlUtility.Deserialize(typeof(UserInfo), sender as string) as UserInfo;
-                    Program.userInfo = userInfo;
+                    //Program.userInfo = userInfo;
+                    UserLoginInfo.SetUserLogInfo(userInfo);
                     break;
             }
         }
@@ -263,6 +264,36 @@ namespace BioA.UI
                     textBox.Text = "";
                 textBox.ForeColor = Color.Black;
             }
+        }
+    }
+
+    public class UserLoginInfo
+    {
+        private static UserInfo userInfo= null;
+
+        public UserLoginInfo()
+        {
+        }
+        /// <summary>
+        /// 获取用户参数
+        /// </summary>
+        /// <returns></returns>
+        public static UserInfo GetUserLoginInfo()
+        {
+            if (userInfo == null)
+            {
+                userInfo = new UserInfo();
+            }
+            return userInfo;
+        }
+        /// <summary>
+        /// 设置用户参数
+        /// </summary>
+        /// <param name="user"></param>
+        public static void SetUserLogInfo(UserInfo user)
+        {
+            userInfo = null;
+            userInfo = user;
         }
     }
 }

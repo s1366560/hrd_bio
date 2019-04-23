@@ -32,6 +32,7 @@ namespace BioA.UI
             set
             {
                 lstProjectGroups = value;
+                this.ResetControlState();
                 this.BeginInvoke(new EventHandler(delegate
                 {
                     simpleButton1.Text = lstProjectGroups.Count >= 1 ? lstProjectGroups[0] : "";
@@ -128,13 +129,14 @@ namespace BioA.UI
         {
             foreach (Control control in this.Controls)
             {
-                if (control.GetType() == typeof(System.Windows.Forms.Button))
+                if (control.Tag != null)
                 {
-                    if (control.Tag.ToString() == "1")
+                    if (control.GetType() == typeof(System.Windows.Forms.Button))
                     {
-                        control.Tag = "0";
                         this.Invoke(new EventHandler(delegate
                         {
+                            control.Text = null;
+                            control.Tag = null;
                             control.ForeColor = Color.Black;
                         }));
                     }
