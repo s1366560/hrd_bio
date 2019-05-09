@@ -24,7 +24,6 @@ using System.Windows.Xps;
 using System.Drawing.Printing;
 using BioA.SqlMaps;
 using BioA.Service;
-using BioA.UI.ServiceReference1;
 
 namespace BioA.UI
 {
@@ -84,17 +83,6 @@ namespace BioA.UI
             gridView2.Columns[9].Width = 40;
             gridView2.Columns[10].Width = 80;
             gridView2.Columns[11].Width = 30;
-            gridView2.Columns[0].OptionsColumn.AllowEdit = false;
-            gridView2.Columns[1].OptionsColumn.AllowEdit = false;
-            gridView2.Columns[2].OptionsColumn.AllowEdit = false;
-            gridView2.Columns[3].OptionsColumn.AllowEdit = false;
-            gridView2.Columns[4].OptionsColumn.AllowEdit = false;
-            gridView2.Columns[5].OptionsColumn.AllowEdit = false;
-            gridView2.Columns[6].OptionsColumn.AllowEdit = false;
-            gridView2.Columns[7].OptionsColumn.AllowEdit = false;
-            gridView2.Columns[8].OptionsColumn.AllowEdit = false;
-            gridView2.Columns[9].OptionsColumn.AllowEdit = false;
-            gridView2.Columns[10].OptionsColumn.AllowEdit = false;
             gridView2.Columns[11].OptionsColumn.AllowEdit = true;
 
             dt.Columns.Add("样本编号");
@@ -328,6 +316,7 @@ namespace BioA.UI
                 int selectNum = gridView2.GetSelectedRows()[0];
                 SampleResultInfo sampleRes = new SampleResultInfo();
                 sampleRes.ProjectName = gridView2.GetRowCellValue(selectNum, "检测项目") as string;
+                sampleRes.SampleType = gridView1.GetFocusedRowCellValue("样本类型").ToString();
                 sampleRes.ConcResult = (float)System.Convert.ToDouble(gridView2.GetRowCellValue(selectNum, "检测结果"));
                 sampleRes.SampleCompletionTime = System.Convert.ToDateTime(gridView2.GetRowCellValue(selectNum, "测试完成时间"));
                 reflectionMonitoring.SampleResInfo = sampleRes;
@@ -597,9 +586,6 @@ namespace BioA.UI
             DateTime dt = Convert.ToDateTime(gridView1.GetFocusedRowCellValue("申请时间")).Date;
             string sampleType = gridView1.GetFocusedRowCellValue("样本类型").ToString();
             string[] lstTaskResult = new string[] { sampleNum, dt.ToString(), sampleType };
-            //dataCheckDic.Clear();
-            //dataCheckDic.Add("QueryProjectResultBySampleNum", new object[] { XmlUtility.Serializer(typeof(string[]), lstTaskResult) });
-            //SendToServices(dataCheckDic);
             
             lstSamResultInfo = new WorkingAreaDataCheck().QueryProjectResultBySampleNum("QueryProjectResultBySampleNum", lstTaskResult);
             BeginInvoke(new Action(() =>
@@ -711,16 +697,11 @@ namespace BioA.UI
                     List<string[]> lstCommunicate = new List<string[]>();
                     foreach (int i in this.gridView1.GetSelectedRows())
                     {
-                        //2018/9/2 21:46 注释掉
-                        //string sampleState = this.gridView1.GetRowCellValue(i, "样本状态") as string;
-                        //if (sampleState == "已完成")
-                        //{
                         string[] strCommunicate = new string[2];
                         strCommunicate[0] = this.gridView1.GetRowCellValue(i, "样本编号") as string;
                         strCommunicate[1] = this.gridView1.GetRowCellValue(i, "申请时间") as string;
 
                         lstCommunicate.Add(strCommunicate);
-                        //}
 
                     }
                     if (lstCommunicate.Count > 0)
@@ -743,9 +724,7 @@ namespace BioA.UI
                 communicates[1] = gridView1.GetRowCellValue(selectedCount, "申请时间") as string;
                 selectedCount = gridView2.GetSelectedRows()[0];
                 communicates[2] = gridView2.GetRowCellValue(selectedCount, "检测项目") as string;
-                //2018/9/2 注释掉
-                //string taskState = gridView2.GetRowCellValue(selectedCount, "任务状态") as string;  
-                if (/* taskState == "已完成" && */System.Convert.ToDateTime(communicates[1]) > DateTime.Now.Date)
+                if (System.Convert.ToDateTime(communicates[1]) > DateTime.Now.Date)
                 {
                     dataCheckDic.Clear();
                     dataCheckDic.Add("ReviewCheck", new object[] { XmlUtility.Serializer(typeof(string[]), communicates) });
@@ -755,10 +734,6 @@ namespace BioA.UI
                 {
                     MessageBox.Show("仅能对当天已完成检测的任务进行复查操作！");
                 }
-                //else if (taskState != "已完成")
-                //{
-                //    MessageBox.Show("当样本状态为" + taskState + "时，不能进行复查操作！");
-                //}
             }
         }
 
@@ -771,13 +746,6 @@ namespace BioA.UI
                 List<string> lstProjectName = new List<string>();
                 foreach (int i in gridView2.GetSelectedRows())
                 {
-                    /* 2018/9/2 
-                    if ((this.gridView2.GetRowCellValue(i, "任务状态") as string) != "已完成")
-                    {
-                        MessageBox.Show("确认复查项目必须为已完成状态，请重新选择！");
-                        return;
-                    }
-                    */
                     lstProjectName.Add(this.gridView2.GetRowCellValue(i, "检测项目") as string);
                 }
 
@@ -835,6 +803,9 @@ namespace BioA.UI
                 e.Info.DisplayText = (e.RowHandle + 1).ToString();
             }
         }
+
+        private int iHandle = 1;
+
         //私有成员变量
         private int hotTrackRow = DevExpress.XtraGrid.GridControl.InvalidRowHandle;
         /// <summary>
@@ -849,14 +820,20 @@ namespace BioA.UI
             set
             {
                 if (hotTrackRow != value)
-
                 {
                     int prevHotTrackRow = hotTrackRow;
 
                     hotTrackRow = value;
-                    gridView1.RefreshRow(prevHotTrackRow);
-
-                    gridView1.RefreshRow(hotTrackRow);
+                    if (iHandle == 1)
+                    {
+                        gridView1.RefreshData();
+                        gridView1.RefreshRow(hotTrackRow);
+                    }
+                    else
+                    {
+                        gridView2.RefreshData();
+                        gridView2.RefreshRow(hotTrackRow);
+                    }
                     if (hotTrackRow >= 0)
                         lstvSampleInfo.Cursor = Cursors.Hand;
 
@@ -865,15 +842,32 @@ namespace BioA.UI
                 }
             }
         }
-        //鼠标滑过gridview时，鼠标所指行显示浅蓝色
+        //鼠标滑过gridview1/gridview2时，鼠标所指行显示浅蓝色
         private void gridView1_RowCellStyle(object sender, RowCellStyleEventArgs e)
         {
             if (e.RowHandle == HotTrackRow)
 
                 e.Appearance.BackColor = Color.CornflowerBlue;
         }
-        //获取指定点的gridview视图坐标信息
+        //获取指定点的gridview1视图坐标信息
         private void gridView1_MouseMove(object sender, MouseEventArgs e)
+        {
+            this.iHandle = 1;
+            QuerMouseMove(sender, e);
+        }
+
+        //获取指定点的gridview2视图坐标信息
+        private void gridView2_MouseMove(object sender, MouseEventArgs e)
+        {
+            this.iHandle = 2;
+            QuerMouseMove(sender, e);
+        }
+        /// <summary>
+        /// get gridview2视图坐标信息/gridview1视图坐标信息
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void QuerMouseMove(object sender, MouseEventArgs e)
         {
             GridView view = sender as GridView;
             GridHitInfo info = view.CalcHitInfo(new Point(e.X, e.Y));
@@ -882,6 +876,7 @@ namespace BioA.UI
             else
                 HotTrackRow = DevExpress.XtraGrid.GridControl.InvalidRowHandle;
         }
+
         /// <summary>
         /// 反选
         /// </summary>
@@ -917,10 +912,6 @@ namespace BioA.UI
                 List<float> resultValues = new List<float>();
                 foreach (int i in this.gridView2.GetSelectedRows())
                 {
-                    // 2018/9/2
-                    //string sampleState = this.gridView2.GetRowCellValue(i, "样本状态") as string;
-                    //if (sampleState == "已完成")
-                    //{
                     float result = 0;
                     string resultQuery = this.gridView2.GetRowCellValue(i, "检测结果") as string;
                     try
@@ -933,7 +924,6 @@ namespace BioA.UI
                     }
 
                     resultValues.Add(result);
-                    //}
                 }
                 DiscreteStatisticalInfo discreteStatisticalInfo = new DiscreteStatisticalInfo(sampleNum, resultValues);
                 DiscreteStatisticsVM discreteStatisticsVM = new DiscreteStatisticsVM(discreteStatisticalInfo);
@@ -1275,17 +1265,7 @@ namespace BioA.UI
             rd.SampleInfo = myBatis.GetSample(sample, dt);
             rd.PatientInfo = myBatis.AccordingSampNumGetPatientInfo(sample, dt);
 
-            //string SQL = null;
-            //if (day.Date == DateTime.Now.Date)
-            //{
-            //    SQL = string.Format(@"select * from NORResultTb where SMPNO='{0}' and IsReMoveFlag='{1}' and DateDiff(dd,DrawDate,'{2}')=0",sn, false,day);
-            //}
-            //else
-            //{
-            //    SQL = string.Format(@"select * from NORResultBackUpTb where SMPNO='{0}' and IsReMoveFlag='{1}' and DateDiff(dd,DrawDate,'{2}')=0", sn, false, day);
-            //}
             List<SampleResultInfo> results = myBatis.QueryProjectResultBySampleNum("QueryProjectResultBySampleNum", new string[] {sample.ToString(),dt.Date.ToString(),rd.SampleInfo.SampleType });
-            //List<CLItem> results = new ResultService().GetNORResults(SQL);
             rd.Results = new List<SampleResultInfo>();
             foreach (SampleResultInfo r in results)
             {

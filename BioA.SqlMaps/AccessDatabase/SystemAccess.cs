@@ -826,11 +826,7 @@ namespace BioA.SqlMaps
             int taskCount = 0;
             try
             {
-                List<int> taskList = (List<int>)ism_SqlMap.QueryForList<int>("PLCDataInfo." + strMethodName, null);
-                foreach (int t in taskList)
-                {
-                    taskCount += t;
-                }
+                taskCount = (int)ism_SqlMap.QueryForObject("PLCDataInfo." + strMethodName, null);
             }
             catch (Exception e)
             {

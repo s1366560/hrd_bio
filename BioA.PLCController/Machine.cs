@@ -11,6 +11,7 @@ using BioA.Common;
 using BioA.Common.Machine;
 using BioA.SqlMaps;
 using BioA.UI;
+using System.Threading.Tasks;
 
 namespace BioA.PLCController
 {
@@ -305,21 +306,15 @@ namespace BioA.PLCController
             LoadMoveNode(MachineXmlNode);
 
             LoadCommandFlows(MachineXmlNode);
-
-            Thread TaskQueueServiceThread = new Thread(new ThreadStart(TaskQueueService));
-            TaskQueueServiceThread.Priority = ThreadPriority.Lowest;
-            TaskQueueServiceThread.Start();
-
-            Thread MachineMessageBagServiceThread = new Thread(new ThreadStart(MachineMessageBagService));
-            MachineMessageBagServiceThread.Priority = ThreadPriority.Highest;
-            MachineMessageBagServiceThread.Start();
-
-            Thread ParseAnalyzeDataServiceThread = new Thread(new ThreadStart(ParseAnalyzeDataService));
-            ParseAnalyzeDataServiceThread.Priority = ThreadPriority.BelowNormal;
-            ParseAnalyzeDataServiceThread.Start();
+            TaskFactory taskFactory = new TaskFactory();
+            List<Task> taskList = new List<Task>();
+            taskList.Add(taskFactory.StartNew(() => { this.TaskQueueService(); }));
+            taskList.Add(taskFactory.StartNew(() => { this.MachineMessageBagService(); }));
+            taskList.Add(taskFactory.StartNew(() => { this.ParseAnalyzeDataService(); }));
+            taskList.Add(taskFactory.StartNew(() => {this.InitMachineData();}));
+            Task.WaitAny(taskList.ToArray());//阻塞当前线程，等待所有任务完成
             
-            this.InitMachineData();
-            
+            //this.InitMachineData();
 
         }
 
@@ -502,9 +497,6 @@ namespace BioA.PLCController
         void InitMachineData()
         {
             Console.WriteLine(@"Initializing data...");
-
-            Thread.Sleep(1000);
-            
             this.IsPauseSchedule = false;
             myBatis.SetNorResultNA();//标记状态为1，把Rmarks字段改为（ "任务测试中断'）
             InitSDTSchedule();
@@ -546,9 +538,11 @@ namespace BioA.PLCController
             //    Thread.Sleep(100);
             //    new ScheduleService().SetSchedulePerformFalseFlag();
             //}
-            CheckSDTTableItemValidDay();
-            CheckDrugValidDay();
-
+            Task task = Task.Delay(6000).ContinueWith(t =>
+            {
+                CheckSDTTableItemValidDay();
+                CheckDrugValidDay();
+            });
             //new RGTPOSManager().MakeAllRgtMutiPositionEnable();
 
             //if (MachineInfo.ISEEnable == true)
@@ -567,7 +561,6 @@ namespace BioA.PLCController
             myBatis.UpdateWorkingDisk(1);
 
             //new AssayRunParaService().DeleteinvalidDisplaySQ();
-
             Console.WriteLine(@"Finish initializing data!");
         }
         /// <summary>
@@ -927,6 +920,9 @@ namespace BioA.PLCController
         }
         ManualResetEvent MachineMessageBagSignal = new ManualResetEvent(false);
         Queue<List<byte>> MachineMessageBagQueue = new Queue<List<byte>>();
+        /// <summary>
+        /// 处理下位返回的数据线程
+        /// </summary>
         void MachineMessageBagService()
         {
             while (true)
@@ -951,6 +947,9 @@ namespace BioA.PLCController
 
         ManualResetEvent AnalyzeDataSignal = new ManualResetEvent(false);
         Queue<List<byte>> AnalyzeDataBagQueue = new Queue<List<byte>>();
+        /// <summary>
+        /// 解析下位机返回的数据包线程
+        /// </summary>
         void ParseAnalyzeDataService()
         {
             while (true)
@@ -2067,7 +2066,7 @@ namespace BioA.PLCController
                     ReagentSettingsInfo R1SettingInfo = myBatis.GetReagentSettingsInfo(T.ASSAY, T.SAMPLETYPE);
                     if (R1SettingInfo != null && reagentState != null && assayProParam != null)
                     {
-                        v = System.Convert.ToInt32(R1SettingInfo.ReagentContainer.Substring(0, R1SettingInfo.ReagentContainer.IndexOf("ml"))) * reagentState.ValidPercent * 1000 / 100;
+                        v = int.Parse(R1SettingInfo.ReagentContainer.Substring(0, R1SettingInfo.ReagentContainer.IndexOf("ml"))) * reagentState.ValidPercent * 1000 / 100;
 
                         T.R1POS = int.Parse(reagentState.Pos);
 
@@ -2095,7 +2094,7 @@ namespace BioA.PLCController
                             R2Flag = false;//试剂2
                         }
 
-                        if (c2 < 5 && c2 > 3)
+                        if (c2 < 6 && c2 > 3)
                         {
                             TroubleLog trouble = new TroubleLog();
                             trouble.TroubleCode = @"0000775";
@@ -2209,6 +2208,9 @@ namespace BioA.PLCController
         }
         
         int ScheduleSignalCount = 0;
+        /// <summary>
+        /// 获取任务数据线程
+        /// </summary>
         void TaskQueueService()
         {
             List<TASK> tasks = null;

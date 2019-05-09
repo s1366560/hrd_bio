@@ -39,6 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IManchine\IManchineState.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="IReagent\IReagentStateSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IReagent\IReagentBarcode.cs" />

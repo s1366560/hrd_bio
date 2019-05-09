@@ -375,7 +375,6 @@
     <Compile Include="Uicomponent\SettingsUI\CalculateItem\AddOrEditCalcItem.Designer.cs">
       <DependentUpon>AddOrEditCalcItem.cs</DependentUpon>
     </Compile>
-    <Compile Include="Uicomponent\SettingsUI\CalculateItem\CalcProjectNotifyCallBack.cs" />
     <Compile Include="Uicomponent\SettingsUI\CalculateItem\CalcProjectPage1.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -412,7 +411,6 @@
     <Compile Include="Uicomponent\SettingsUI\ChemicalParameter\ChemicalParameter.Designer.cs">
       <DependentUpon>ChemicalParameter.cs</DependentUpon>
     </Compile>
-    <Compile Include="Uicomponent\SettingsUI\ChemicalParameter\ChemicalParamNotifyCallBack.cs" />
     <Compile Include="Uicomponent\SettingsUI\ChemicalParameter\CheProjectAddOrEdit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -431,7 +429,6 @@
     <Compile Include="Uicomponent\SettingsUI\ChemicalParameter\RangeParameter.Designer.cs">
       <DependentUpon>RangeParameter.cs</DependentUpon>
     </Compile>
-    <Compile Include="Uicomponent\SettingsUI\CombProject\CombProjectNotifyCallBack.cs" />
     <Compile Include="Uicomponent\SettingsUI\CombProject\CombProjectPage1.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -456,7 +453,6 @@
     <Compile Include="Uicomponent\SettingsUI\CombProject\CombProjectPage4.designer.cs">
       <DependentUpon>CombProjectPage4.cs</DependentUpon>
     </Compile>
-    <Compile Include="Uicomponent\SettingsUI\CrossPollution\ReagentNeedleCallBack.cs" />
     <Compile Include="Uicomponent\SettingsUI\CrossPollution\CrossPollution.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -487,21 +483,18 @@
     <Compile Include="Uicomponent\SettingsUI\CrossPollution\XtraProjectSequence.Designer.cs">
       <DependentUpon>XtraProjectSequence.cs</DependentUpon>
     </Compile>
-    <Compile Include="Uicomponent\SettingsUI\DataConfig\DataConfigNotifyCallBack.cs" />
     <Compile Include="Uicomponent\SettingsUI\DataConfig\DataConfig.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Uicomponent\SettingsUI\DataConfig\DataConfig.Designer.cs">
       <DependentUpon>DataConfig.cs</DependentUpon>
     </Compile>
-    <Compile Include="Uicomponent\SettingsUI\Environment\EnvironmentDataCallBack.cs" />
     <Compile Include="Uicomponent\SettingsUI\Environment\EnvironmentData.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Uicomponent\SettingsUI\Environment\EnvironmentData.Designer.cs">
       <DependentUpon>EnvironmentData.cs</DependentUpon>
     </Compile>
-    <Compile Include="Uicomponent\SettingsUI\LISCommunicate\LISCommunicateNotifyCallBack.cs" />
     <Compile Include="Uicomponent\SettingsUI\LISCommunicate\LISCommunicate.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -540,7 +533,6 @@
     <Compile Include="Uicomponent\SystemUI\Configure\WaitForm1.Designer.cs">
       <DependentUpon>WaitForm1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Uicomponent\SystemUI\DepartmentManage\DepartmentManageCallBack.cs" />
     <Compile Include="Uicomponent\SystemUI\DepartmentManage\DepartmentManage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -607,7 +599,6 @@
     <Compile Include="Uicomponent\SystemUI\LogCheck\Alertlog.Designer.cs">
       <DependentUpon>Alertlog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Uicomponent\SystemUI\LogCheck\LogCallBack.cs" />
     <Compile Include="Uicomponent\SystemUI\LogCheck\Log.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -662,7 +653,6 @@
     <Compile Include="Uicomponent\SystemUI\UserManagement\UserEdit.Designer.cs">
       <DependentUpon>UserEdit.cs</DependentUpon>
     </Compile>
-    <Compile Include="Uicomponent\SystemUI\UserManagement\UserManagementCallBack.cs" />
     <Compile Include="Uicomponent\SystemUI\UserManagement\UserCeation.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -687,8 +677,6 @@
     <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\ApplyTask.Designer.cs">
       <DependentUpon>ApplyTask.cs</DependentUpon>
     </Compile>
-    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\ApplyTaskDataCallBack.cs" />
-    <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\dictionary.cs" />
     <Compile Include="Uicomponent\WorkingAreaUI\ApplyTask\frmBatchInput.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1162,6 +1150,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="ClassDiagram2.cd" />
+    <None Include="ClassDiagram3.cd" />
     <None Include="Properties\DataSources\BioA.Service.CompositeType.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -1258,16 +1247,16 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <None Include="Resources\barButtonItem18.LargeGlyph.jpg" />
-    <Content Include="RunConfigure.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="Service References\ServiceReference1\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Service References\ServiceReference1\configuration.svcinfo" />
     <None Include="Service References\ServiceReference1\configuration91.svcinfo" />
+    <None Include="Resources\barButtonItem18.LargeGlyph.jpg" />
+    <Content Include="RunConfigure.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\ShowInfo.jpg" />
     <None Include="Resources\ttt.png" />
     <None Include="Resources\Yellow.png" />

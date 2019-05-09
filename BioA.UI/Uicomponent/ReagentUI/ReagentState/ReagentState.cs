@@ -6,8 +6,7 @@ using System.Data;
 using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using BioA.UI.ServiceReference1;
+using System.Windows.Forms; 
 using BioA.Common;
 using BioA.Common.IO;
 using BioA.Common.Machine;
@@ -437,17 +436,13 @@ namespace BioA.UI
             set
             {
                 if (hotTrackRow != value)
-
                 {
                     int prevHotTrackRow = hotTrackRow;
-
                     hotTrackRow = value;
                     gridView1.RefreshRow(prevHotTrackRow);
-
                     gridView1.RefreshRow(hotTrackRow);
                     if (hotTrackRow >= 0)
                         gridReagentState.Cursor = Cursors.Hand;
-
                     else
                         gridReagentState.Cursor = Cursors.Default;
                 }
@@ -458,20 +453,6 @@ namespace BioA.UI
         {
             if (e.RowHandle == HotTrackRow)
                 e.Appearance.BackColor = Color.CornflowerBlue;
-            int hand = e.RowHandle;//行号
-            if (hand < 0)
-            {
-                return;
-            }
-            DataRow dr = gridView1.GetDataRow(hand);
-            if (dr == null)
-                return;
-            string str = gridView1.GetRowCellValue(hand, "是否锁定").ToString();
-            if (str == "True")
-            {
-                e.Appearance.ForeColor = Color.Red;//字体颜色
-                e.Appearance.BackColor = Color.Linen;//行背景颜色
-            }
         }
         //获取指定点的gridview视图坐标信息
         private void gridView1_MouseMove(object sender, MouseEventArgs e)

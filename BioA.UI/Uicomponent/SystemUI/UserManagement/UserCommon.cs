@@ -50,6 +50,13 @@ namespace BioA.UI
                 this.TxtName.Focus();
                 return;
             }
+            if (System.Text.Encoding.Default.GetBytes(TxtName.Text).Length >= 15)
+            {
+                this.LabName.Text = "* 账号名称长度不能超过14位！";
+                this.LabName.ForeColor = c;
+                this.TxtName.Focus();
+                return;
+            }
             if (System.Text.Encoding.Default.GetBytes(TxtAccount.Text.Trim()).Length < 4)
             {
                 this.LabAccountPropmt.Text = "* 账号长度不能小于4位！";
@@ -57,14 +64,14 @@ namespace BioA.UI
                 this.TxtAccount.Focus();
                 return;
             }
-            if (TxtAccount.Text.Trim().Length == 18)
+            if (TxtAccount.Text.Trim().Length >= 19)
             {
                 this.LabAccountPropmt.Text = "* 账号长度不能超过18位！";
                 this.LabAccountPropmt.ForeColor = c;
                 this.TxtAccount.Focus();
                 return;
             }
-            if (TxtPassword.Text.Trim().Length == 22)
+            if (TxtPassword.Text.Trim().Length >= 23)
             {
                 this.LabUserPassword.Text = "* 密码长度不能超过22位！";
                 this.LabUserPassword.ForeColor = c;
@@ -135,9 +142,11 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void TxtAccount_EditValueChanged(object sender, EventArgs e)
         {
-            if (TxtAccount.Text.Trim().Length == 18)
+            if (TxtAccount.Text.Trim().Length >= 19)
             {
                 this.LabAccountPropmt.Text = "* 账号长度不能超过18位！";
+                this.LabAccountPropmt.ForeColor = c;
+                this.TxtAccount.Focus();
             }
             else if (TxtAccount.Text.Trim() == "")
             {
@@ -154,9 +163,11 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void TxtPassword_EditValueChanged(object sender, EventArgs e)
         {
-            if (TxtPassword.Text.Trim().Length == 22)
+            if (TxtPassword.Text.Trim().Length >= 23)
             {
-                this.LabUserPassword.Text = "* 密码长度不能超过22位！";
+                this.LabUserPassword.Text = "* 密码长度不能超过23位！";
+                this.LabUserPassword.ForeColor = c;
+                this.TxtPassword.Focus();
             }
             else if (TxtPassword.Text.Trim() == "")
             {
@@ -173,9 +184,11 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void TxtAffirmPassword_EditValueChanged(object sender, EventArgs e)
         {
-            if (TxtAffirmPassword.Text.Trim().Length == 22)
+            if (TxtAffirmPassword.Text.Trim().Length >= 23)
             {
                 this.LabAffirmPassw.Text = "* 密码长度不能超过22位！";
+                this.LabAffirmPassw.ForeColor = c;
+                this.TxtAffirmPassword.Focus();
             }
             else if (TxtAffirmPassword.Text.Trim() == "")
             {
@@ -192,9 +205,11 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void TxtName_EditValueChanged(object sender, EventArgs e)
         {
-            if (System.Text.Encoding.Default.GetBytes(TxtName.Text).Length == 14)
+            if (System.Text.Encoding.Default.GetBytes(TxtName.Text).Length >= 15)
             {
                 this.LabName.Text = "* 账号名称超过限定长度！";
+                this.LabName.ForeColor = c;
+                this.TxtName.Focus();
             }
             else if (TxtName.Text.Trim() == "")
             {

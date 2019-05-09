@@ -1,12 +1,13 @@
 ﻿using BioA.BLL;
+using BioA.BLL.Manchine;
 using BioA.Common;
 using BioA.Common.Communication;
 using BioA.Common.IO;
 using BioA.Common.Machine;
 using BioA.IBLL;
+using BioA.IBLL.IManchine;
 using BioA.Service;
 using BioA.SqlMaps;
-using BioA.UI.ServiceReference1;
 using BioA.UI.Uicomponent;
 using BioA.UI.Uicomponent.Analog;
 using System;
@@ -59,12 +60,13 @@ namespace BioA.UI
         CuvettePanel cuvettePanel;                  //试剂盘状态
         LISSetting lisSetting;                      //LIS设置
 
+        IManchineState manchine = new ManchineState();
+
         UserInfo userInfo = new UserInfo();
         //预计完成时间
         DateTime finishTime;
         //暂停的时间
         DateTime pauseTime;
-        private MyBatis myBatis = new MyBatis();
 
         public float temp;
         /// 初始化一个子控件元素集合
@@ -102,9 +104,6 @@ namespace BioA.UI
 
             List<Task> taskList = new List<Task>();
             TaskFactory taskFactory = new TaskFactory();
-            //var connThread = new Thread(CLClient.ConnectServer);//.Start();
-            //connThread.IsBackground = true;
-            //connThread.Start();
             taskList.Add(taskFactory.StartNew(() => { CLClient.ConnectServer(); }));
             txtPrompt = new TextBox();
             txtPrompt.Font = new System.Drawing.Font("宋体", 14f);
@@ -113,36 +112,23 @@ namespace BioA.UI
             txtPrompt.Top = 5;
             txtPrompt.Width = 1720;
 
-            //login = new Login();
-            //login.LoginEvent += login_LoginEvent;
-            //CommunicationUI.notifyCallBack.LoginDataTransferEvent += login.DataTransfer_Event;
-            //CommunicationUI.ServiceClient.ClientSendMsgToService(ModuleInfo.QCTask, XmlUtility.Serializer(typeof(CommunicationEntity), new CommunicationEntity("InitMachineUpdateQCTaskState",null)));
             CommunicationUI.notifyCallBack.StartTestTaskDataTransferEvent += DataTransfer_Event;
-            //var loginThread = new Thread(StartLogin);
-            //loginThread.IsBackground = true;
-            //loginThread.Start();
             //异步连接LIS服务器
             this.AsyncConnectLis();
 
-            //var analyzerDataQueueServiceThread = new Thread(AnalyzerDataQueueService);
-            //analyzerDataQueueServiceThread.IsBackground = true;
-            //analyzerDataQueueServiceThread.Start();
             this.OPID = 0;
             taskList.Add(taskFactory.StartNew(() => { this.AnalyzerDataQueueService();}));
-            //var machineTroubleThread = new Thread(this.MachineIsTrouble) { IsBackground = true };
-            //machineTroubleThread.Start();
-            taskList.Add(taskFactory.StartNew(() => { this.StateMachineWarningHint(); }));
+
+            //taskList.Add(taskFactory.StartNew(() => { this.StateMachineWarningHint(); }));
             //试剂仓 条码扫描
-            //Task.Run(() => { ScanReagentBarcodeService(); });
             taskList.Add(taskFactory.StartNew(() => { this.ScanReagentBarcodeService(); }));
+
             //样本仓条码扫描
-            //Task.Run(() => { ScanSampleBarcodeService(); });
             taskList.Add(taskFactory.StartNew(() => { this.ScanSampleBarcodeService(); }));
             
             this.barButtonItem17.AllowDrawArrow = true;
             pictureBox1.BackColor = Color.FromArgb(251, 248, 240);
             this.accordionControl1.Elements.Clear();
-            //List<DevExpress.XtraBars.Navigation.AccordionControlElement> _Elements = new List<DevExpress.XtraBars.Navigation.AccordionControlElement>();
             this._Elements.Clear();
             if (userInfo.ApplyTask)
                 _Elements.Add(this.WorkingAreaApplyTaskElement1);
@@ -169,12 +155,10 @@ namespace BioA.UI
                     this.SMPBracodeCreateTaskEvent += applyTask.SMPScanBracodeCreateTask_Event;
                     applyTask.SMPBracodInputEvent += SMPBracodInputEvent_Event;
                     txtPrompt.Text = "您当前的操作：工作区——任务申请";
-                    //initializationLoad = new InitializationLoad();
 
                     BeginInvoke(new Action(() =>
                     {
                         pcThirdArea.Controls.Add(txtPrompt);
-                        //pcThirdArea.Controls.Add(initializationLoad);
                         pcThirdArea.Controls.Add(applyTask);
                     }));
                 }
@@ -298,7 +282,7 @@ namespace BioA.UI
                                 {
                                     if (machineState.State == "超时")
                                     {
-                                        lblSampleContainer.Text = "孵育温度" + temp + "°C";
+                                        lblSampleContainer.Text = "水浴温度" + temp + "°C";
                                     }
                                     else
                                     {
@@ -310,12 +294,8 @@ namespace BioA.UI
                                         {
 
                                         }
-                                        lblSampleContainer.Text = "孵育温度" + temp + "°C";
+                                        lblSampleContainer.Text = "水浴温度" + temp + "°C";
                                     }
-                                }
-                                if (machineState.Fired == AnalyzeEvent.MACHINE_WILL_FINIFSHSCHEDULE)
-                                {
-                                    labfinishTime.Text = "";//任务即将结束时清除预计完成时间提示                                            
                                 }
                                 txtInfoPrompt.Text = machineState.State;
                             }));
@@ -432,7 +412,11 @@ namespace BioA.UI
                                 case AnalyzeEvent.MACHINE_WILL_FINIFSHSCHEDULE://工作队列即将结束
                                     if (this.OPID == 1)
                                     {
-                                        Task.Run(() => { this.TaskStatusDeletection(); });
+                                        Task.Run(() => 
+                                        { 
+                                            this.TaskStatusDeletection(); 
+                                            labfinishTime.Text = "";//任务即将结束时清除预计完成时间提示
+                                        });
                                     }
                                     break;
                                 case AnalyzeEvent.COMPLETED_SCAN_HWVersion://获取版本号
@@ -605,8 +589,7 @@ namespace BioA.UI
         /// </summary>
         public void AsyncConnectLis()
         {
-            new Thread(new ThreadStart(ConnectLisServer)).Start();
-            //Task.Run(() => { ConnectLisServer(); });
+            Task.Run(() => { ConnectLisServer(); });
         }
 
         void ConnectLisServer()
@@ -710,9 +693,10 @@ namespace BioA.UI
         /// <param name="sender"></param>
         void OnLISSerApplySampleSuccessEvent(object sender)
         {
+            IReagentBarcode reagentBarcode = new ReagentBarcode();
             string code = sender as string;
 
-            SampleInfo Sample = myBatis.GetSampleByBarcode(code, DateTime.Now);
+            SampleInfo Sample = reagentBarcode.GetSampleByBarcode(code, DateTime.Now);
             BeginInvoke(new Action(() =>
             {
                 if (this.txtPrompt.Text == "您当前的操作：工作区——任务申请")
@@ -930,15 +914,16 @@ namespace BioA.UI
         //试剂条码处理
         void OnProcessRgtBarcode(string v)
         {
+            IReagentBarcode reagentBarcode = new ReagentBarcode();
             string[] vs = v.Split('|');
 
-            string info = new ReagentBarcode().GetRgBracodePara(int.Parse(vs[0]), vs[1], vs[2]) as string;
+            string info = reagentBarcode.GetRgBracodePara(int.Parse(vs[0]), vs[1], vs[2]) as string;
             if (info == null)
             {
             }
             else
             {
-                new ReagentBarcode().BarcodeScanningFailed(int.Parse(vs[0]), vs[1]);
+                reagentBarcode.BarcodeScanningFailed(int.Parse(vs[0]), vs[1]);
             }
 
             //Application.Current.Dispatcher.Invoke(new Action(() =>
@@ -960,7 +945,7 @@ namespace BioA.UI
         {
             while (true)
             {
-                bool bol = myBatis.TroubleLogInfo();
+                bool bol = manchine.GetManchineIsTroubleLogInfo();
                 if (bol == true)
                 {
                     if (this.IsWarningInfoUIActivity == true)
@@ -981,6 +966,7 @@ namespace BioA.UI
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            Task.Run(() => { this.StateMachineWarningHint(); });
             // BeginInvoke(new Action(Init));
             userInfo = UserLoginInfo.GetUserLoginInfo();
             this.labUserName.Text = userInfo.UserName;
@@ -1037,7 +1023,6 @@ namespace BioA.UI
             this.CancelClickSign();
             this.barButtonItem3.AllowDrawArrow = true;
             this.accordionControl1.Elements.Clear();
-            //List<DevExpress.XtraBars.Navigation.AccordionControlElement> _Elements = new List<DevExpress.XtraBars.Navigation.AccordionControlElement>();
             this._Elements.Clear();
             if (userInfo.CalibTask)
                 _Elements.Add(this.CalibTaskElement26);
@@ -1301,7 +1286,6 @@ namespace BioA.UI
             this.CancelClickSign();
             this.barButtonItem4.AllowDrawArrow = true;
             this.accordionControl1.Elements.Clear();
-            //List<DevExpress.XtraBars.Navigation.AccordionControlElement> _Elements = new List<DevExpress.XtraBars.Navigation.AccordionControlElement>();
             this._Elements.Clear();
             if (userInfo.QCTask)
                 _Elements.Add(this.QCTaskElement25);
@@ -1575,7 +1559,6 @@ namespace BioA.UI
             this.CancelClickSign();
             this.barButtonItem11.AllowDrawArrow = true;
             this.accordionControl1.Elements.Clear();
-            //List<DevExpress.XtraBars.Navigation.AccordionControlElement> _Elements = new List<DevExpress.XtraBars.Navigation.AccordionControlElement>();
             this._Elements.Clear();
             if (userInfo.ChemistryParam)
                 _Elements.Add(this.ChemicalParameterElement10);
@@ -1618,7 +1601,6 @@ namespace BioA.UI
             this.CancelClickSign();
             this.barButtonItem12.AllowDrawArrow = true;
             this.accordionControl1.Elements.Clear();
-            //List<DevExpress.XtraBars.Navigation.AccordionControlElement> elements = new List<DevExpress.XtraBars.Navigation.AccordionControlElement>();
             this._Elements.Clear();
             if (userInfo.RouMaintain)
                 _Elements.Add(this.MaintenanceElement17);
@@ -1844,7 +1826,7 @@ namespace BioA.UI
             }
             else
             {
-                int lstResult = myBatis.GetAllTasksCount("GetAllTasksCount");
+                int lstResult = manchine.GetAllTaskCount("GetAllTasksCount");
                 if (lstResult != 0)
                 {
                     if (this.OPID == 0)
@@ -1863,10 +1845,6 @@ namespace BioA.UI
                     MessageBox.Show("没有测试任务！");
                     return;
                 }
-                //BeginInvoke(new Action(() =>
-                //{
-                //    CommunicationUI.ServiceClient.ClientSendMsgToServiceMethod(ModuleInfo.MainTain, new Dictionary<string, object[]> { { "GetAllTasksCount", null } });
-                //}));
             }
 
         }
@@ -1938,7 +1916,6 @@ namespace BioA.UI
         {
             this.pictureBox2.MouseClick += this.ChangeiconEvent;
             this.accordionControl1.Elements.Clear();
-            //List<DevExpress.XtraBars.Navigation.AccordionControlElement> _Elements = new List<DevExpress.XtraBars.Navigation.AccordionControlElement>();
             this._Elements.Clear();
             if (userInfo.LogCheck)
                 _Elements.Add(this.LogCheckElement22);
@@ -2066,7 +2043,7 @@ namespace BioA.UI
         /// <returns></returns>
         public int getFinishTime()
         {
-            return myBatis.getFinishTime();
+            return manchine.GetAllTaskNumberTimes();
         }
         // private void ribbonControl1_Click(object sender, EventArgs e)
         // {

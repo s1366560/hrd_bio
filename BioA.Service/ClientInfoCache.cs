@@ -18,7 +18,7 @@ namespace BioA.Service
         private List<ClientRegisterInfo> clientList;
 
         /// <summary>
-        /// 去除初始化，返回静态对象
+        /// 实例化客户端缓存对象，唯一，只被实例化一次
         /// </summary>
         public static ClientInfoCache Instance
         {

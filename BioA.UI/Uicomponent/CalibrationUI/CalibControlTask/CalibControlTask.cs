@@ -227,7 +227,7 @@ namespace BioA.UI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void grpProject_Click(object sender, EventArgs e)   
+        private void grpProject_SelectedPageChanged(object sender, DevExpress.XtraTab.TabPageChangedEventArgs e)
         {
             if (grpProject.SelectedTabPageIndex == 0)
             {
@@ -337,7 +337,7 @@ namespace BioA.UI
                     lstCombProName = (List<string>)XmlUtility.Deserialize(typeof(List<string>), sender as string);
                     calibProCombPage1.LstProjectGroups = lstCombProName;
                     calibProCombPage2.LstAssayProInfos = lstCombProName;
-                    grpCombProject.SelectedTabPageIndex = 0;
+                    this.BeginInvoke(new EventHandler(delegate { grpCombProject.SelectedTabPageIndex = 0; }));
                     break;
                 case "QueryProjectAndCombProName":
                     lstCombProInfo = (List<CombProjectInfo>)XmlUtility.Deserialize(typeof(List<CombProjectInfo>), sender as string);
@@ -345,11 +345,11 @@ namespace BioA.UI
                 case "QueryProjectNameInfoByCalib":
                     lstQCRelateProject = (List<string[]>)XmlUtility.Deserialize(typeof(List<string[]>), sender as string);
 
-                    grpProject.SelectedTabPageIndex = 0;
                     projectPage1.LstAssayProInfos = lstQCRelateProject;
                     projectPage2.LstAssayProInfos = lstQCRelateProject;
                     projectPage3.LstAssayProInfos = lstQCRelateProject;
                     projectPage4.LstAssayProInfos = lstQCRelateProject;
+                    this.Invoke(new EventHandler(delegate { grpProject.SelectedTabPageIndex = 0; }));
                     if (combSampleType.SelectedItem.ToString() == sampleSerum)
                     {
                         lstSerumProject = lstQCRelateProject;
@@ -442,9 +442,9 @@ namespace BioA.UI
             sampleBlank = null;
             sampleSerum = null;
             sampleUrine = null;
-            lstBlankProject = null;
-            lstUrinePeoject = null;
-            lstSerumProject = null;
+            lstBlankProject.Clear();
+            lstUrinePeoject.Clear();
+            lstSerumProject.Clear();
             calibDictionary.Clear();
             //保存任务信息
             calibDictionary.Add("QueryCalibratorinfoTask", new object[] { XmlUtility.Serializer(typeof(List<CalibratorinfoTask>), lstCalibratorinfoTask) });
@@ -457,7 +457,7 @@ namespace BioA.UI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void grpCombProject_Click(object sender, EventArgs e)
+        private void grpCombProject_SelectedPageChanged(object sender, DevExpress.XtraTab.TabPageChangedEventArgs e)
         {
             if (grpCombProject.SelectedTabPageIndex == 0)
             {

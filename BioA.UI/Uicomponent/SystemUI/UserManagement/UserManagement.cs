@@ -8,7 +8,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
-using BioA.UI.ServiceReference1;
 using System.ServiceModel;
 using BioA.Common.IO;
 using BioA.Common;

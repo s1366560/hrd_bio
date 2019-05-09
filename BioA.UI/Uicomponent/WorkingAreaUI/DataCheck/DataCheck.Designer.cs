@@ -220,12 +220,15 @@
             this.gridView2.GridControl = this.lstvInspectProInfo;
             this.gridView2.IndicatorWidth = 40;
             this.gridView2.Name = "gridView2";
+            this.gridView2.OptionsBehavior.Editable = false;
             this.gridView2.OptionsCustomization.AllowFilter = false;
             this.gridView2.OptionsCustomization.AllowSort = false;
             this.gridView2.OptionsSelection.CheckBoxSelectorColumnWidth = 40;
             this.gridView2.OptionsView.ShowGroupPanel = false;
             this.gridView2.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridView2_CustomDrawRowIndicator);
+            this.gridView2.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gridView1_RowCellStyle);
             this.gridView2.CellValueChanging += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.gridView2_CellValueChanging);
+            this.gridView2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.gridView2_MouseMove);
             // 
             // txtSampleNumber
             // 
@@ -523,7 +526,6 @@
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "DataCheck";
             this.Size = new System.Drawing.Size(1767, 872);
-            //this.Load += new System.EventHandler(this.DataCheck_Load);
             ((System.ComponentModel.ISupportInitialize)(this.txtCaseNumber.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lstvInspectProInfo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();

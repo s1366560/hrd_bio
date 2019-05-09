@@ -41,6 +41,7 @@
             this.lblStarting = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.LoginInput = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
             this.LoginInput.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -100,13 +101,17 @@
             // 
             // btnLogin
             // 
+            this.btnLogin.BackColor = System.Drawing.SystemColors.Control;
+            this.btnLogin.Font = new System.Drawing.Font("STKaiti", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnLogin.Location = new System.Drawing.Point(370, 57);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(99, 87);
             this.btnLogin.TabIndex = 0;
-            this.btnLogin.Text = "登录";
-            this.btnLogin.UseVisualStyleBackColor = true;
+            this.btnLogin.Text = "登 录";
+            this.btnLogin.UseVisualStyleBackColor = false;
             this.btnLogin.Click += new System.EventHandler(this.BtnLogin_Click);
+            this.btnLogin.MouseLeave += new System.EventHandler(this.btnLogin_MouseLeave);
+            this.btnLogin.MouseMove += new System.Windows.Forms.MouseEventHandler(this.btnLogin_MouseMove);
             // 
             // label1
             // 
@@ -134,10 +139,11 @@
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("KaiTi", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label3.Font = new System.Drawing.Font("STXinwei", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label3.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label3.Location = new System.Drawing.Point(16, 12);
+            this.label3.Location = new System.Drawing.Point(1096, 683);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(444, 33);
             this.label3.TabIndex = 10;
@@ -149,7 +155,7 @@
             this.LoginInput.BackgroundImage = global::BioA.UI.Properties.Resources.RGTContainer;
             this.LoginInput.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.LoginInput.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.LoginInput.Controls.Add(this.label3);
+            this.LoginInput.Controls.Add(this.label4);
             this.LoginInput.Controls.Add(this.lblStarting);
             this.LoginInput.Controls.Add(this.label1);
             this.LoginInput.Controls.Add(this.btnLogin);
@@ -157,10 +163,22 @@
             this.LoginInput.Controls.Add(this.label2);
             this.LoginInput.Controls.Add(this.txtUserName);
             this.LoginInput.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.LoginInput.Location = new System.Drawing.Point(715, 430);
+            this.LoginInput.Location = new System.Drawing.Point(715, 392);
             this.LoginInput.Name = "LoginInput";
             this.LoginInput.Size = new System.Drawing.Size(487, 218);
             this.LoginInput.TabIndex = 5;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("STXinwei", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label4.ForeColor = System.Drawing.Color.Navy;
+            this.label4.Location = new System.Drawing.Point(104, 9);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(269, 30);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "NT-800生化分析仪";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // LoginInterface
             // 
@@ -169,6 +187,7 @@
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1552, 741);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.simpleButton1);
             this.Controls.Add(this.LoginInput);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -179,6 +198,7 @@
             this.LoginInput.ResumeLayout(false);
             this.LoginInput.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -190,11 +210,12 @@
         private System.Windows.Forms.TextBox txtUserName;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtPassword;
-        private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblStarting;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel LoginInput;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnLogin;
     }
 }
 

@@ -50,11 +50,11 @@ namespace BioA.Service
                     {
                         projectInfo[3] = "该项目没有对应试剂！";
                     }
-                    else if (reagentState.ReagentName == "" && reagentState.ReagentName == null && reagentState.ValidPercent < 3)
+                    else if (reagentState.ReagentName == "" || reagentState.ReagentName == null || reagentState.ValidPercent < 3)
                     {
                         projectInfo[3] = "此项目对应的试剂1余量不足！";
                     }
-                    else if (reagentState.ReagentName2 == "" && reagentState.ReagentName2 == null && reagentState.ValidPercent2 < 3)
+                    else if (reagentState.ReagentName2 == "" || reagentState.ReagentName2 == null || reagentState.ValidPercent2 < 3)
                     {
                         projectInfo[3] = "此项目对应的试剂2余量不足！";
                     }

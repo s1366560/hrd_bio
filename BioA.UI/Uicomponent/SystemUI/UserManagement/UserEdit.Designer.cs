@@ -68,7 +68,7 @@
             this.TxtAffirmPassword.Name = "TxtAffirmPassword";
             this.TxtAffirmPassword.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtAffirmPassword.Properties.Appearance.Options.UseFont = true;
-            this.TxtAffirmPassword.Properties.MaxLength = 22;
+            this.TxtAffirmPassword.Properties.MaxLength = 25;
             this.TxtAffirmPassword.Properties.UseSystemPasswordChar = true;
             this.TxtAffirmPassword.Size = new System.Drawing.Size(164, 24);
             this.TxtAffirmPassword.TabIndex = 5;
@@ -83,7 +83,7 @@
             this.TxtPassword.Name = "TxtPassword";
             this.TxtPassword.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtPassword.Properties.Appearance.Options.UseFont = true;
-            this.TxtPassword.Properties.MaxLength = 22;
+            this.TxtPassword.Properties.MaxLength = 25;
             this.TxtPassword.Properties.UseSystemPasswordChar = true;
             this.TxtPassword.Size = new System.Drawing.Size(164, 24);
             this.TxtPassword.TabIndex = 4;
@@ -192,6 +192,7 @@
             // 
             // ButSave
             // 
+            this.ButSave.Cursor = System.Windows.Forms.Cursors.Default;
             this.ButSave.Location = new System.Drawing.Point(94, 306);
             this.ButSave.Name = "ButSave";
             this.ButSave.Size = new System.Drawing.Size(81, 37);
@@ -208,7 +209,7 @@
             this.TxtOldPassword.Name = "TxtOldPassword";
             this.TxtOldPassword.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtOldPassword.Properties.Appearance.Options.UseFont = true;
-            this.TxtOldPassword.Properties.MaxLength = 22;
+            this.TxtOldPassword.Properties.MaxLength = 25;
             this.TxtOldPassword.Properties.UseSystemPasswordChar = true;
             this.TxtOldPassword.Size = new System.Drawing.Size(164, 24);
             this.TxtOldPassword.TabIndex = 3;

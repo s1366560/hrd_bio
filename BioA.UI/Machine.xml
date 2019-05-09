@@ -221,7 +221,7 @@
         <Command Name="ReagentArm1CheckWashingValve" FullName="检测试剂针1冲洗阀" />
         <Command Name="ReagentArm2CheckWashingValve" FullName="检测试剂针2冲洗阀" />
       </Componet>
-      <Componet Name="八节清洗液路">
+      <Componet Name="八阶清洗液路">
         <Command Name="CUVWasherCheckSuckingValve" FullName="检测吸液阀" />
         <Command Name="CUVWasherCheckDistributingValve" FullName="检测分液阀" />
       </Componet>

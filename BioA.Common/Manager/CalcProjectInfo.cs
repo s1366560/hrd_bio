@@ -17,8 +17,8 @@ namespace BioA.Common
             calcProjectFullName = string.Empty;
             unit = string.Empty;
             sampleType = string.Empty;
-            referenceRangeLow = 100000000;
-            referenceRangeHigh = 100000000;
+            referenceRangeLow = -1;
+            referenceRangeHigh = -1;
             calcFormula = string.Empty;
         }
 

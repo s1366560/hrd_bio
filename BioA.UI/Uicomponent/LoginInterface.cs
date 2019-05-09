@@ -93,7 +93,7 @@ namespace BioA.UI
                         var serialThread = new Thread(LoadProcess);
                         serialThread.IsBackground = true;
                         serialThread.Start();
-                        Thread.Sleep(5000);
+                        Thread.Sleep(3000);
                         this.Invoke(new EventHandler(delegate
                             {
                                 //lblStarting.Text = "登录成功！";
@@ -264,6 +264,15 @@ namespace BioA.UI
                     textBox.Text = "";
                 textBox.ForeColor = Color.Black;
             }
+        }
+        private void btnLogin_MouseMove(object sender, MouseEventArgs e)
+        {
+            btnLogin.BackColor = Color.Gainsboro;
+        }
+
+        private void btnLogin_MouseLeave(object sender, EventArgs e)
+        {
+            btnLogin.BackColor = SystemColors.Control;
         }
     }
 

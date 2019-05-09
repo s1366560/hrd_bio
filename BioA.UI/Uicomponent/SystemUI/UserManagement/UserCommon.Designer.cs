@@ -168,7 +168,7 @@
             this.TxtPassword.Name = "TxtPassword";
             this.TxtPassword.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtPassword.Properties.Appearance.Options.UseFont = true;
-            this.TxtPassword.Properties.MaxLength = 22;
+            this.TxtPassword.Properties.MaxLength = 25;
             this.TxtPassword.Properties.UseSystemPasswordChar = true;
             this.TxtPassword.Size = new System.Drawing.Size(164, 24);
             this.TxtPassword.TabIndex = 3;
@@ -181,7 +181,7 @@
             this.TxtAffirmPassword.Name = "TxtAffirmPassword";
             this.TxtAffirmPassword.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtAffirmPassword.Properties.Appearance.Options.UseFont = true;
-            this.TxtAffirmPassword.Properties.MaxLength = 22;
+            this.TxtAffirmPassword.Properties.MaxLength = 25;
             this.TxtAffirmPassword.Properties.UseSystemPasswordChar = true;
             this.TxtAffirmPassword.Size = new System.Drawing.Size(164, 24);
             this.TxtAffirmPassword.TabIndex = 4;

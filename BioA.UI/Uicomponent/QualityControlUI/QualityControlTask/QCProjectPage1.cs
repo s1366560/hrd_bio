@@ -93,6 +93,7 @@ namespace BioA.UI
 
                 //ResetControlState();
                 this.ClearLastSelectedInfo();
+                this.toolTip1.RemoveAll();
                 foreach (Control control in this.Controls)
                 {
                     if (!string.IsNullOrEmpty(control.Text.Trim()))
@@ -236,7 +237,6 @@ namespace BioA.UI
                         if (control.GetType() == typeof(System.Windows.Forms.Button))
                         {
                             control.Tag = "0";
-                            control.Text = null;
                             control.ForeColor = Color.Black;
                             control.Enabled = false;
                         }

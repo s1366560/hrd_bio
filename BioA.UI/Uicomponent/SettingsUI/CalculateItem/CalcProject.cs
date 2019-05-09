@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using BioA.UI;
-using BioA.UI.ServiceReference1;
 using System.ServiceModel;
 using BioA.Common.IO;
 using System.Threading;
@@ -115,8 +114,8 @@ namespace BioA.UI
                 foreach (CalcProjectInfo calcProInfo in lstCalcProInfos)
                 {
                     string range = "";
-                    if (calcProInfo.ReferenceRangeLow != 100000000 && calcProInfo.ReferenceRangeHigh != 100000000)
-                        range = (calcProInfo.ReferenceRangeLow == 100000000 ? "" : calcProInfo.ReferenceRangeLow.ToString()) + " - " + (calcProInfo.ReferenceRangeHigh == 100000000 ? "" : calcProInfo.ReferenceRangeHigh.ToString());
+                    if (calcProInfo.ReferenceRangeLow != -1 && calcProInfo.ReferenceRangeHigh != -1)
+                        range = (calcProInfo.ReferenceRangeLow == -1 ? "" : calcProInfo.ReferenceRangeLow.ToString()) + " - " + (calcProInfo.ReferenceRangeHigh == -1 ? "" : calcProInfo.ReferenceRangeHigh.ToString());
                     dt.Rows.Add(new object[] { i, calcProInfo.CalcProjectName, calcProInfo.CalcProjectFullName, calcProInfo.Unit, calcProInfo.SampleType, calcProInfo.CalcFormula, range });
                 }
                 lstCalcProjectInfo.DataSource = dt;

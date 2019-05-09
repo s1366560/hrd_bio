@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BioA.UI
@@ -23,9 +24,8 @@ namespace BioA.UI
                 {
                     serviceClient = new BioAServiceClient(new InstanceContext(notifyCallBack));
                     // 注册客户端
-                    serviceClient.RegisterClient("BioA.UI");        
+                    serviceClient.RegisterClient("BioA.UI");
                 }
-
                 if (serviceClient.State == CommunicationState.Faulted)
                 {
                     serviceClient.Abort();
@@ -33,6 +33,7 @@ namespace BioA.UI
                     serviceClient = new BioAServiceClient(new InstanceContext(notifyCallBack));
                     // 注册客户端
                     serviceClient.RegisterClient("BioA.UI");
+                    Thread.Sleep(300);
                 }
 
                 if (serviceClient.State == CommunicationState.Closed)
@@ -41,9 +42,9 @@ namespace BioA.UI
                     serviceClient = new BioAServiceClient(new InstanceContext(notifyCallBack));
                     // 注册客户端
                     serviceClient.RegisterClient("BioA.UI");
+                    Thread.Sleep(300);
                     //serviceClient.Open();
                 }
-
                 return serviceClient;
             }
 

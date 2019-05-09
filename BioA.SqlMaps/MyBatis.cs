@@ -41,21 +41,7 @@ namespace BioA.SqlMaps
         //public ISqlMapper ism_SqlMap;
         public MyBatis()
         {
-            //try
-            //{
-            //    // 加载sqlmap.config文件
-            //    Assembly assembly = Assembly.Load("BioA.SqlMaps");
-            //    Stream stream = assembly.GetManifestResourceStream("BioA.SqlMaps.SqlMap.config");
 
-            //    // 初始化访问数据库对象
-            //    DomSqlMapBuilder builder = new DomSqlMapBuilder();
-            //    ism_SqlMap = builder.Configure(stream);
-            //    //CreateTables();
-            //}
-            //catch (Exception e)
-            //{
-            //    LogInfo.WriteErrorLog("MyBatis.cs_MyBatis()==" + e.ToString(), Common.Module.DAO);
-            //}
         }
 
         private static readonly object SqlMapperLock = new object();

@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using DevExpress.UserSkins;
 using DevExpress.Skins;
 using BioA.Common;
+using BioA.UI.ServiceReference1;
 
 namespace BioA.UI
 {
@@ -24,6 +25,8 @@ namespace BioA.UI
             DevExpress.LookAndFeel.UserLookAndFeel.Default.SetSkinStyle("Coffee");
             try
             {
+                //客户端创建
+                BioAServiceClient client = CommunicationUI.ServiceClient;
                 //显示登录窗体
                 LoginInterface login = new LoginInterface();
                 //login.LoginEvent += login_LoginEvent;

@@ -94,6 +94,7 @@ namespace BioA.UI
                 selectedProjects = value;
 
                 this.ClearLastSelectedInfo();
+                this.toolTip1.RemoveAll();
                 foreach (Control control in this.Controls)
                 {
                     if (!string.IsNullOrEmpty(control.Text.Trim()))

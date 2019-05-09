@@ -11,7 +11,6 @@ using DevExpress.XtraEditors;
 using BioA.Common;
 using BioA.Common.IO;
 using BioA.UI;
-using BioA.UI.ServiceReference1;
 using System.ServiceModel;
 using System.Threading;
 

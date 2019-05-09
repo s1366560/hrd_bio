@@ -94,7 +94,7 @@
             this.grpCombProject.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.xtraTabPage5,
             this.xtraTabPage6});
-            this.grpCombProject.Click += new System.EventHandler(this.grpCombProject_Click);
+            this.grpCombProject.SelectedPageChanged += new DevExpress.XtraTab.TabPageChangedEventHandler(this.grpCombProject_SelectedPageChanged);
             // 
             // xtraTabPage5
             // 
@@ -116,7 +116,7 @@
             this.xtraTabPage2,
             this.xtraTabPage3,
             this.xtraTabPage4});
-            this.grpProject.Click += new System.EventHandler(this.grpProject_Click);
+            this.grpProject.SelectedPageChanged += new DevExpress.XtraTab.TabPageChangedEventHandler(this.grpProject_SelectedPageChanged);
             // 
             // xtraTabPage1
             // 

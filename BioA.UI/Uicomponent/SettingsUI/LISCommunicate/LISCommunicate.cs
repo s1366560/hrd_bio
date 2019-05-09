@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using BioA.Common;
 using BioA.Common.IO;
-using BioA.UI.ServiceReference1;
 using System.ServiceModel;
 using BioA.UI;
 using System.IO.Ports;

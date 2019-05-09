@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using BioA.Common;
 using BioA.Service;
+using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 
 namespace BioA.UI
 {
@@ -50,7 +52,10 @@ namespace BioA.UI
         /// <param name="e"></param>
         public void SampleDisk_Load(object sender, EventArgs e)
         {
-            ComSampleNum.SelectedIndex = 0;
+            if (ComSampleNum.SelectedIndex == 0)
+                ComSampleNum_SelectedIndexChanged(null, null);
+            else
+                ComSampleNum.SelectedIndex = 0;
         }
         /// <summary>
         /// 盘符改变事件
@@ -89,6 +94,58 @@ namespace BioA.UI
             {
                 e.Info.DisplayText = (e.RowHandle + 1).ToString();
             }
+        }
+
+        //私有成员变量
+        private int hotTrackRow = DevExpress.XtraGrid.GridControl.InvalidRowHandle;
+        /// <summary>
+        /// 存储测试点下面每一行的句柄
+        /// </summary>
+        private int HotTrackRow
+        {
+            get
+            {
+                return hotTrackRow;
+            }
+            set
+            {
+                if (hotTrackRow != value)
+                {
+                    int prevHotTrackRow = hotTrackRow;
+
+                    hotTrackRow = value;
+                    gridView1.RefreshRow(prevHotTrackRow);
+                    gridView1.RefreshRow(hotTrackRow);
+                    if (hotTrackRow >= 0)
+                        gridControl1.Cursor = Cursors.Hand;
+                    else
+                        gridControl1.Cursor = Cursors.Default;
+                }
+            }
+        }
+        /// <summary>
+        /// 鼠标移动到哪一行，背景色就为浅蓝色
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void gridView1_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
+        {
+            if (e.RowHandle == this.HotTrackRow)
+                e.Appearance.BackColor = Color.CornflowerBlue;
+        }
+        /// <summary>
+        /// 鼠标停下来获取到的行号的焦点
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void gridView1_MouseMove(object sender, MouseEventArgs e)
+        {
+            GridView gridview = sender as GridView;
+            GridHitInfo info = gridview.CalcHitInfo(new Point(e.X, e.Y));
+            if (info.InRowCell)
+                this.HotTrackRow = info.RowHandle;
+            else
+                this.HotTrackRow = DevExpress.XtraGrid.GridControl.InvalidRowHandle;
         }
         /// <summary>
         /// 全选
@@ -180,37 +237,45 @@ namespace BioA.UI
             }
             else
             {
-                int[] rows = this.gridView1.GetSelectedRows();
-                List<TaskInfo> lstTaskInfo = new List<TaskInfo>();
-                TaskInfo task;
-                for (int i = 0; i < rows.Length; i++)
+                try
                 {
-                    string samplelNum = this.gridView1.GetRowCellValue(rows[i], "样本编号").ToString();
-                    if (samplelNum != "" && samplelNum != null)
+                    int[] rows = this.gridView1.GetSelectedRows();
+                    List<TaskInfo> lstTaskInfo = new List<TaskInfo>();
+                    TaskInfo task;
+                    for (int i = 0; i < rows.Length; i++)
                     {
-                        task = new TaskInfo();
-                        task.SampleNum = Convert.ToInt32(samplelNum);
-                        task.CreateDate = Convert.ToDateTime(this.gridView1.GetRowCellValue(i, "样本申请时间"));
-                        lstTaskInfo.Add(task);
+                        string samplelNum = this.gridView1.GetRowCellValue(rows[i], "样本编号").ToString();
+                        if (samplelNum != "" && samplelNum != null)
+                        {
+                            task = new TaskInfo();
+                            task.SampleNum = Convert.ToInt32(samplelNum);
+
+                            task.CreateDate = Convert.ToDateTime(this.gridView1.GetRowCellValue(rows[i], "样本申请时间"));
+                            lstTaskInfo.Add(task);
+                        }
+                    }
+                    if (lstTaskInfo.Count > 0)
+                    {
+                        string result = new WorkAreaApplyTask().DeleteTaskAndSampleInfo("DeleteTaskAndSampleInfo", lstTaskInfo);
+                        if (result.Substring(0, 1) == "1")
+                        {
+                            result = "选取样本信息清除成功!";
+                            ComSampleNum_SelectedIndexChanged(null, null);
+                        }
+                        else if (result.Substring(0, 1) == "2")
+                        {
+                            result = result.Remove(0, 1) + ":样本信息清除成功！";
+                            ComSampleNum_SelectedIndexChanged(null, null);
+                        }
+                        else
+                            result = result.Remove(0, 1);
+                        MessageBoxDraw.ShowMsg(result, MsgType.OK);
+
                     }
                 }
-                if (lstTaskInfo.Count > 0)
+                catch (FormatException fx)
                 {
-                    string result = new WorkAreaApplyTask().DeleteTaskAndSampleInfo("DeleteTaskAndSampleInfo", lstTaskInfo);
-                    if (result.Substring(0, 1) == "1")
-                    {
-                        result = "选取样本信息清除成功!";
-                        ComSampleNum_SelectedIndexChanged(null, null);
-                    }
-                    else if (result.Substring(0, 1) == "2")
-                    {
-                        result = result.Remove(0, 1) + ":样本信息清除成功！";
-                        ComSampleNum_SelectedIndexChanged(null, null);
-                    }
-                    else
-                        result = result.Remove(0, 1);
-                    MessageBoxDraw.ShowMsg(result, MsgType.OK);
-
+                    Console.WriteLine(fx.Message);
                 }
             }
         }

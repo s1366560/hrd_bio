@@ -194,7 +194,7 @@ namespace BioA.PLCController.Service
             }
             if (table != null /*&& table.SDTCurve != "Absolute"*/)//
             {
-                float k1 = SdtVol / (SdtVol + assayProParam.Reagent1Vol + assayProParam.Reagent2Vol) * (SampleVol + assayProParam.Reagent1Vol + assayProParam.Reagent2Vol) / SampleVol;
+                float k1 = SdtVol / (SdtVol + (assayProParam.Reagent1Vol == 100000000 ? 0 : assayProParam.Reagent1Vol) + (assayProParam.Reagent2Vol == 100000000 ? 0 : assayProParam.Reagent2Vol)) * (SampleVol + (assayProParam.Reagent1Vol == 100000000 ? 0 : assayProParam.Reagent1Vol) + (assayProParam.Reagent2Vol == 100000000 ? 0 : assayProParam.Reagent2Vol)) / SampleVol; 
                 c = c * k1;
             }
 

@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using BioA.UI;
-using BioA.UI.ServiceReference1;
 using BioA.Common.IO;
 using BioA.Common;
 using System.ServiceModel;

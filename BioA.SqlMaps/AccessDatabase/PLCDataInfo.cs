@@ -1604,9 +1604,9 @@ namespace BioA.SqlMaps
             int count2 = 0;
             try
             {
-                count = (int)ism_SqlMap.QueryForObject("PLCDataInfo.GetTroubleInfoCount", DateTime.Now.ToShortDateString());
+                count = (int)ism_SqlMap.QueryForObject("PLCDataInfo.GetTroubleInfoCount", DateTime.Now.Date);
                 Thread.Sleep(5 * 1000);
-                count2 = (int)ism_SqlMap.QueryForObject("PLCDataInfo.GetTroubleInfoCount", DateTime.Now.ToShortDateString());
+                count2 = (int)ism_SqlMap.QueryForObject("PLCDataInfo.GetTroubleInfoCount", DateTime.Now.Date);
             }catch(Exception ex)
             {
                 LogInfo.WriteErrorLog("TroubleLogInfo()==" + ex.ToString(), Module.PLCData);

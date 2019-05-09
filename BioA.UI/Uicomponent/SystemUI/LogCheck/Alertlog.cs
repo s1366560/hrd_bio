@@ -137,7 +137,6 @@ namespace BioA.UI
                 gridView1.UnselectRow(aaa[i]);
             }
         }
-        int[] rows;
         /// <summary>
         /// 删除操作日志
         /// </summary>
@@ -145,6 +144,7 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void simpleButton1_Click(object sender, EventArgs e)
         {
+            int[] rows;
             List<string> lstDrawDateTime = new List<string>();
             if (this.gridView1.GetSelectedRows().Count() > 0)
             {
@@ -157,11 +157,7 @@ namespace BioA.UI
                 int count = systemLogCheck.DeleteOperationLogInfo("DeleteOperationLogInfo", lstDrawDateTime);
                 if (count > 0)
                 {
-                    foreach (int r in rows)
-                    {
-                        dt.Rows.RemoveAt(r);
-                    }
-                    gridControl1.RefreshDataSource();
+                    MaintenanceLogInfoAdd(systemLogCheck.QueryOperationLogInfo("QueryOperationLogInfo", dtpStartTime.Value.ToString(), dtpEndTime.Value.AddDays(1).ToString()));
                 }                              
             }
         }

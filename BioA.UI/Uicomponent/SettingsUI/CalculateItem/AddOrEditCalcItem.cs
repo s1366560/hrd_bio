@@ -43,11 +43,11 @@ namespace BioA.UI
                 txtProjectFullName.Text = calcProInfoForEdit.CalcProjectFullName;
                 cboUnit.SelectedIndex = cboUnit.Properties.Items.IndexOf(calcProInfoForEdit.Unit);
                 cboSampleType.SelectedIndex = cboSampleType.Properties.Items.IndexOf(calcProInfoForEdit.SampleType);
-                if (calcProInfoForEdit.ReferenceRangeLow != 100000000)
+                if (calcProInfoForEdit.ReferenceRangeLow != -1)
                     txtReferenceRangeLow.Text = calcProInfoForEdit.ReferenceRangeLow.ToString();
                 else
                     txtReferenceRangeLow.Text = "";
-                if (calcProInfoForEdit.ReferenceRangeHigh != 100000000)
+                if (calcProInfoForEdit.ReferenceRangeHigh != -1)
                     txtReferenceRangeHigh.Text = calcProInfoForEdit.ReferenceRangeHigh.ToString();
                 else
                     txtReferenceRangeHigh.Text = "";

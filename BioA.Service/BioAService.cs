@@ -1526,22 +1526,13 @@ namespace BioA.Service
             {
                 ClientRegisterInfo client = null;
                 client = ClientInfoCache.Instance.Clients.Find(x => x.ClientName == "BioA.UI");
-                if (client == null)
-                {
-                    this.RegisterClient("BioA.UI");
-                    client = ClientInfoCache.Instance.Clients.Find(x => x.ClientName == "BioA.UI");
-                }
-                //LogInfo.WriteProcessLog(kvp.ToString(), Module.WindowsService);
-                int i = ClientInfoCache.Instance.Clients.Count;
                 switch (sendClientName)
                 {
                     case ModuleInfo.Login://UserLogin
                         HandleLogins(ModuleInfo.Login, client, param);
                         break;
                     case ModuleInfo.WorkingAreaApplyTask:
-                        Console.WriteLine("WorkingAreaApplyTask begin " + DateTime.Now.Ticks);
                         new Thread(() => { HandleWorkingAreaApplyTasks(ModuleInfo.WorkingAreaApplyTask, client, param); }) { IsBackground = true }.Start();
-                        Console.WriteLine("WorkingAreaApplyTask End   " + DateTime.Now.Ticks);
                         break;
                     case ModuleInfo.WorkingAreaDataCheck:
                         HandleWorkingAreaDataChecks(ModuleInfo.WorkingAreaDataCheck, client, param);

@@ -78,7 +78,7 @@ namespace BioA.UI
                 this.TxtOldPassword.Focus();
                 return;
             }
-            if (TxtPassword.Text.Trim().Length == 22)
+            if (TxtPassword.Text.Trim().Length >= 23)
             {
                 this.LabUserPassword.Text = "* 新密码长度不能超过22位！";
                 this.LabUserPassword.ForeColor = c;
@@ -143,9 +143,11 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void TxtOldPassword_EditValueChanged(object sender, EventArgs e)
         {
-            if (TxtOldPassword.Text.Trim().Length == 22)
+            if (TxtOldPassword.Text.Trim().Length >= 23)
             {
                 this.LabOldPswDisplay.Text = "* 密码长度不能超过22位！";
+                this.LabOldPswDisplay.ForeColor = c;
+                this.TxtOldPassword.Focus();
             }
             else if (TxtOldPassword.Text.Trim() == "")
             {
@@ -162,9 +164,11 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void TxtPassword_EditValueChanged(object sender, EventArgs e)
         {
-            if (TxtPassword.Text.Trim().Length == 22)
+            if (TxtPassword.Text.Trim().Length >= 23)
             {
                 this.LabUserPassword.Text = "* 密码长度不能超过22位！";
+                this.LabUserPassword.ForeColor = c;
+                this.TxtPassword.Focus();
             }
             else if (TxtPassword.Text.Trim() == "")
             {
@@ -181,9 +185,11 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void TxtAffirmPassword_EditValueChanged(object sender, EventArgs e)
         {
-            if (TxtAffirmPassword.Text.Trim().Length == 22)
+            if (TxtAffirmPassword.Text.Trim().Length >= 23)
             {
                 this.LabAffirmPassw.Text = "* 密码长度不能超过22位！";
+                this.LabAffirmPassw.ForeColor = c;
+                this.TxtAffirmPassword.Focus();
             }
             else if (TxtAffirmPassword.Text.Trim() == "")
             {

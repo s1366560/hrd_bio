@@ -189,16 +189,21 @@ namespace BioA.BLL
         /// <param name="r">试剂（R1 or R2）参数信息</param>
         private void SaveOrUpReagentStateR1R2Info(ReagentSettingsInfo r)
         {
+            int MeasurableNumber = 0;
             ReagentStateInfoR1R2 r1r2 = mybatis.SelectReagentStateForR1R2("SelectReagentStateForR1R2",r);
-            int microlitre = int.Parse(r.ReagentContainer.Substring(0, r.ReagentContainer.IndexOf("ml"))) * ((int)(this.Disk == 1 ? r.ValidPercent : r.ValidPercent2) - 3) * 1000 / 100;
-            int MeasurableNumber = r.ReagentVol == 0 ? 0 : microlitre / r.ReagentVol;
+            int validPercent = (int)(this.Disk == 1 ? r.ValidPercent : r.ValidPercent2);
+            if (validPercent > 3)
+            {
+                int microlitre = int.Parse(r.ReagentContainer.Substring(0, r.ReagentContainer.IndexOf("ml"))) * (validPercent - 3) * 1000 / 100;
+                MeasurableNumber = r.ReagentVol == 0 ? 0 : microlitre / r.ReagentVol;
+            }
             if (r1r2 != null)
             {
-                mybatis.UpdateReagentR1AndR2Info(this.Disk, r, MeasurableNumber < 1 ? 0: MeasurableNumber);
+                mybatis.UpdateReagentR1AndR2Info(this.Disk, r, MeasurableNumber);
             }
             else
             {
-                mybatis.SaveReagentR1AndR2Info(this.Disk, r, MeasurableNumber < 1 ? 0 : MeasurableNumber);
+                mybatis.SaveReagentR1AndR2Info(this.Disk, r, MeasurableNumber);
             }
         }
 
@@ -704,5 +709,15 @@ namespace BioA.BLL
             ReagentStateInfoR1R2 r = mybatis.GetReagentStateInfoR1R2(disk, pos);
             this.ReagentStateInfoHandle(r, new ReagentSettingsInfo() { ProjectName = r.ProjectName});
         }
+        /// <summary>
+        /// 获取样本条码信息
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public SampleInfo GetSampleByBarcode(string code, DateTime dt)
+        {
+            return mybatis.GetSampleByBarcode(code, dt);
+        } 
     }
 }

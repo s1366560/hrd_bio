@@ -16,6 +16,8 @@ using BioA.Service;
 using BioA.IBLL;
 using BioA.BLL;
 using System.Collections.Generic;
+using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 
 
 namespace BioA.UI
@@ -212,6 +214,88 @@ namespace BioA.UI
                 });
             }
         }
+
+        private int iHandle = 1;
+
+        //私有成员变量
+        private int hotTrackRow = DevExpress.XtraGrid.GridControl.InvalidRowHandle;
+        /// <summary>
+        /// 存储测试点下面每一行的句柄
+        /// </summary>
+        private int HotTrackRow
+        {
+            get
+            {
+                return hotTrackRow;
+            }
+            set
+            {
+                if (hotTrackRow != value)
+                {
+                    int prevHotTrackRow = hotTrackRow;
+
+                    hotTrackRow = value;
+                    if (iHandle == 1)
+                    {
+                        gridView1.RefreshData();
+                        gridView1.RefreshRow(hotTrackRow);
+                    }
+                    else
+                    {
+                        gridView2.RefreshData();
+                        gridView2.RefreshRow(hotTrackRow);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 获取gridView1视图指定的坐标
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void gridView1_MouseMove(object sender, MouseEventArgs e)
+        {
+            this.iHandle = 1;
+            QuerMouseMove(sender, e);
+        }
+        /// <summary>
+        /// 获取gridView2视图指定的坐标
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void gridView2_MouseMove(object sender, MouseEventArgs e)
+        {
+            this.iHandle = 2;
+            QuerMouseMove(sender, e);
+        }
+        /// <summary>
+        /// 鼠标滑过gridview1/gridview2时，鼠标所指行显示浅蓝色
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void gridView1_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
+        {
+            if (e.RowHandle == HotTrackRow)
+
+                e.Appearance.BackColor = Color.CornflowerBlue;
+
+        }
+        /// <summary>
+        /// get gridview2视图坐标信息/gridview1视图坐标信息
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void QuerMouseMove(object sender, MouseEventArgs e)
+        {
+            GridView view = sender as GridView;
+            GridHitInfo info = view.CalcHitInfo(new Point(e.X, e.Y));
+            if (info.InRowCell)
+                HotTrackRow = info.RowHandle;
+            else
+                HotTrackRow = DevExpress.XtraGrid.GridControl.InvalidRowHandle;
+        }
+
         List<ReagentSettingsInfo> lstReagentSettingsInfo = new List<ReagentSettingsInfo>();
         List<ReagentSettingsInfo> lstReagentSettingsR2Info = new List<ReagentSettingsInfo>();
         public void DataTransfer_Event(string strMethod, object sender)
@@ -220,35 +304,27 @@ namespace BioA.UI
             {
                 case "QueryReagentSetting1":
                     lstReagentSettingsInfo = (List<ReagentSettingsInfo>)XmlUtility.Deserialize(typeof(List<ReagentSettingsInfo>), sender as string);
-                    //把获取到的数据绑定到gridControl1控件上,显示到界面
-                    //this.Invoke(new EventHandler(delegate { gridControl1.DataSource = lstReagentSettingsInfo; }));
                     InitialReagentInfos(lstReagentSettingsInfo);
                     break;
                 case "QueryReagentSetting2":
                     lstReagentSettingsR2Info = (List<ReagentSettingsInfo>)XmlUtility.Deserialize(typeof(List<ReagentSettingsInfo>), sender as string);
-                    //把获取到的数据绑定到gridControl2控件上,显示到界面
-                    //this.Invoke(new EventHandler(delegate { gridControl2.DataSource = lstReagentSettingsR2Info; });
                     InitialReagentInfos2(lstReagentSettingsR2Info);
                     break;
                 case "DeleteReagentSettingsR1":
                     if ((int)sender > 0)
                     {
                         lstReagentSettingsInfo.RemoveAll(x => x.ProjectName == reagentSettingsInfo.ProjectName && x.ReagentName == reagentSettingsInfo.ReagentName);
-                        //InitialReagentInfos(lstReagentSettingsInfo);
                     }
                     else
                         MessageBox.Show("试剂1卸载失败！");
-                    //ReagentSettingLoad();
                     break;
                 case "DeleteReagentSettingsR2":
                     if ((int)sender > 0)
                     {
                         lstReagentSettingsR2Info.RemoveAll(x => x.ProjectName == reagentSettingsInfo.ProjectName && x.ReagentName == reagentSettingsInfo.ReagentName);
-                        //InitialReagentInfos2(lstReagentSettingsR2Info);
                     }
                     else
                         MessageBox.Show("试剂2卸载失败！");
-                    //ReagentSettingLoad();
                     break;
                 case "QueryAssayProAllInfo":
                     lstAssayProInfos = (List<AssayProjectInfo>)XmlUtility.Deserialize(typeof(List<AssayProjectInfo>), sender as string);
@@ -400,5 +476,6 @@ namespace BioA.UI
                 dt2.Rows.Remove(dt2.Rows[selectedHandle]);
             }
         }
+
     }
 }
