@@ -191,7 +191,7 @@ namespace BioA.UI
                         age = s.Age.ToString();
                     }
 
-                    dt.Rows.Add(new object[] { s.SampleNum, s.SampleID, s.SampleType, s.PatientName, s.Sex, age, s.CreateTime.ToString("yyyy-MM-dd HH:mm:ss.fff"), sampleState, s.IsAudit == false ? "未审核" : "已审核", s.PrintState == "" ? "未打印" : s.PrintState, s.IsOperateDilution ? "是" : "否", s.SampPos });
+                    dt.Rows.Add(new object[] { s.SampleNum, s.SampleID, s.SampleType, s.PatientName, s.Sex, age, s.CreateTime.ToString("yyyy-MM-dd HH:mm:ss.fff"), sampleState, s.IsAudit == false ? "未审核" : "已审核", s.PrintState == "" ? "未打印" : s.PrintState, s.IsOperateDilution ? "是" : "否", s.SamplePos });
                 }
                 if (dt.Rows.Count > 0)
                 {
@@ -738,32 +738,38 @@ namespace BioA.UI
             {
                 int selectedCount = gridView1.GetSelectedRows()[0];
                 string dateTime = gridView1.GetRowCellValue(selectedCount, "申请时间") as string;
-                if (dateTime.Substring(0, 10) != DateTime.Now.ToString().Substring(0, 10))
+                if (gridView1.GetRowCellValue(selectedCount, "样本状态").ToString() == "已完成")
                 {
-                    SampleInfoForResult samp = new SampleInfoForResult();
-                    samp.SampPos =int.Parse(gridView1.GetRowCellValue(selectedCount, "位置").ToString());
-                    samp.SampleNum = int.Parse(gridView1.GetRowCellValue(selectedCount, "样本编号").ToString());
-                    samp.SampleType = gridView1.GetRowCellValue(selectedCount, "样本类型").ToString();
-                    samp.CreateTime = DateTime.Parse(dateTime);
-                    int[] resultCout = gridView2.GetSelectedRows();
-                    List<string[]> proAndPoitOut = new List<string[]>();
-                    for (int i = 0; i < resultCout.Count(); i++)
+                    if (dateTime.Substring(0, 10) == DateTime.Now.ToString().Substring(0, 10))
                     {
-                        string[] strNum = new string[2];
-                        strNum[0] = gridView2.GetRowCellValue(resultCout[i], "检测项目").ToString();
-                        strNum[1] = gridView2.GetRowCellValue(resultCout[i], "提示").ToString();
-                        proAndPoitOut.Add(strNum);
+                        SampleInfoForResult samp = new SampleInfoForResult();
+                        samp.SamplePos = int.Parse(gridView1.GetRowCellValue(selectedCount, "位置").ToString());
+                        samp.SampleNum = int.Parse(gridView1.GetRowCellValue(selectedCount, "样本编号").ToString());
+                        samp.SampleType = gridView1.GetRowCellValue(selectedCount, "样本类型").ToString();
+                        samp.CreateTime = DateTime.Parse(dateTime);
+                        int[] resultCout = gridView2.GetSelectedRows();
+                        List<string[]> proAndPoitOut = new List<string[]>();
+                        for (int i = 0; i < resultCout.Count(); i++)
+                        {
+                            string[] strNum = new string[2];
+                            strNum[0] = gridView2.GetRowCellValue(resultCout[i], "检测项目").ToString();
+                            strNum[1] = gridView2.GetRowCellValue(resultCout[i], "提示").ToString();
+                            proAndPoitOut.Add(strNum);
+                        }
+                        ReviewProjectSettings reviewProject = new ReviewProjectSettings();
+                        reviewProject.ReviewProjectName = proAndPoitOut;
+                        reviewProject.SamplePatientInfo = samp;
+                        reviewProject.StartPosition = FormStartPosition.CenterScreen;
+                        reviewProject.ShowDialog();
                     }
-                    ReviewProjectSettings reviewProject = new ReviewProjectSettings();
-                    reviewProject.ReviewProjectName = proAndPoitOut;
-                    reviewProject.SamplePatientInfo = samp;
-                    reviewProject.StartPosition = FormStartPosition.CenterScreen;
-                    reviewProject.ShowDialog();
+                    else
+                    {
+                        MessageBox.Show("仅能对当天已完成检测的任务进行复查操作！");
+                    }
                 }
                 else
-                {
-                    MessageBox.Show("仅能对当天已完成检测的任务进行复查操作！");
-                }
+                    MessageBox.Show("项目没有测试或者正在测试中，不能进行复查！");
+                
                 //string[] communicates = new string[3];
                 //communicates[0] = gridView1.GetRowCellValue(selectedCount, "样本编号") as string;
                 //communicates[1] = gridView1.GetRowCellValue(selectedCount, "申请时间") as string;
@@ -782,7 +788,7 @@ namespace BioA.UI
             }
             else
             {
-                MessageBox.Show("项目没有测试或者正在测试中，不能进行复查！");
+                MessageBox.Show("请选择要复查的项目！");
             }
         }
 

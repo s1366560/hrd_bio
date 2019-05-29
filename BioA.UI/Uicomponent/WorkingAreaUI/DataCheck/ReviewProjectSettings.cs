@@ -79,7 +79,7 @@ namespace BioA.UI
                         break;
 
                 }
-                dt.Rows.Add(new object[]{ samplePatientInfo.SampleNum,reviewProjectName[i][0], samplePatientInfo.SampPos,reviewReasons});
+                dt.Rows.Add(new object[]{ samplePatientInfo.SampleNum,reviewProjectName[i][0], samplePatientInfo.SamplePos,reviewReasons});
             }
             GridReviewProjectControl.DataSource = dt;
             GridReviewProjectControl_Click(null,null);
@@ -118,14 +118,14 @@ namespace BioA.UI
             else if (reviewResult == "浓度结果超出界限范围参数最大值")
             {
                 this.CheBoxNormal.CheckState = CheckState.Unchecked;
-                this.CheBoxIncrement.CheckState = CheckState.Checked;
-                this.CheBoxDecrement.CheckState = CheckState.Unchecked;
+                this.CheBoxIncrement.CheckState = CheckState.Unchecked;
+                this.CheBoxDecrement.CheckState = CheckState.Checked;
             }
             else if (reviewResult == "浓度结果低于界限范围参数最小值")
             {
                 this.CheBoxNormal.CheckState = CheckState.Unchecked;
-                this.CheBoxIncrement.CheckState = CheckState.Unchecked;
-                this.CheBoxDecrement.CheckState = CheckState.Checked;
+                this.CheBoxIncrement.CheckState = CheckState.Checked;
+                this.CheBoxDecrement.CheckState = CheckState.Unchecked;
             }
 
         }
