@@ -50,7 +50,7 @@ namespace BioA.Service
         /// <param name="e"></param>
         private void OnChannelFault(object sender, EventArgs e)
         {
-            Console.WriteLine("client Fault " + this.ClientName);
+            LogInfo.WriteErrorLog("client Fault " + this.ClientName, Module.WindowsService);
 
             ClientInfoCache.Instance.Remove(this);
         }
@@ -62,7 +62,7 @@ namespace BioA.Service
         /// <param name="e"></param>
         private void OnChannelClose(object sender, EventArgs e)
         {
-            Console.WriteLine("client channel close " + this.ClientName);
+            LogInfo.WriteErrorLog("client channel close " + this.ClientName, Module.WindowsService);
             ClientInfoCache.Instance.Remove(this);
         }
 

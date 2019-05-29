@@ -48,9 +48,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Manchine\ManchineState.cs" />
+    <Compile Include="ProjectParam\ProjectParam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reagent\ReagentBarcode.cs" />
     <Compile Include="Reagent\ReagentStateSetting.cs" />
+    <Compile Include="TaskInfo\TaskParamInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BioA.Common\BioA.Common.csproj">

@@ -582,13 +582,23 @@ namespace BioA.PLCController
                 }
                 else
                 {
-                    if (e.IsUsed == true && DateTime.Today > e.CalibDate + new TimeSpan(calibParam.CalibCurveValidDay, 0, 0, 0))
+                    int time = this.GetExpirationDays(e.CalibDate + new TimeSpan(calibParam.CalibCurveValidDay, 0, 0, 0));
+                    if (e.IsUsed == true && time == 1 || time == 0)
                     {
                         TroubleLog trouble = new TroubleLog();
                         trouble.TroubleCode = @"00009";
                         trouble.TroubleType = TROUBLETYPE.WARN;
                         trouble.TroubleUnit = @"标准";
-                        trouble.TroubleInfo = string.Format(e.ProjectName + "定标曲线过期，建议该项目定标. ");
+                        trouble.TroubleInfo = string.Format(e.ProjectName + "定标曲线即将过期，建议该项目重新定标. ");
+                        myBatis.TroubleLogSave("TroubleLogSave", trouble);
+                    }
+                    else
+                    {
+                        TroubleLog trouble = new TroubleLog();
+                        trouble.TroubleCode = @"00009";
+                        trouble.TroubleType = TROUBLETYPE.WARN;
+                        trouble.TroubleUnit = @"标准";
+                        trouble.TroubleInfo = string.Format(e.ProjectName + "定标曲线已过期，建议该项目定标. ");
                         myBatis.TroubleLogSave("TroubleLogSave", trouble);
                     }
                 }
@@ -610,13 +620,23 @@ namespace BioA.PLCController
                 }
                 else
                 {
-                    if (DateTime.Today > reagentInfo1.ValidDate)
+                    int time = this.GetExpirationDays(reagentInfo1.ValidDate);
+                    if (time == 1 || time == 0)
                     {
                         TroubleLog trouble = new TroubleLog();
                         trouble.TroubleCode = @"00009";
                         trouble.TroubleType = TROUBLETYPE.WARN;
                         trouble.TroubleUnit = @"试剂";
-                        trouble.TroubleInfo = string.Format("试剂1中" + reagentInfo1.ReagentName + "过期. ");
+                        trouble.TroubleInfo = string.Format("试剂1中" + reagentInfo1.ReagentName + "即将过期. ");
+                        myBatis.TroubleLogSave("TroubleLogSave", trouble);
+                    }
+                    else
+                    {
+                        TroubleLog trouble = new TroubleLog();
+                        trouble.TroubleCode = @"00009";
+                        trouble.TroubleType = TROUBLETYPE.WARN;
+                        trouble.TroubleUnit = @"试剂";
+                        trouble.TroubleInfo = string.Format("试剂1中" + reagentInfo1.ReagentName + "已过期. ");
                         myBatis.TroubleLogSave("TroubleLogSave", trouble);
                     }
                 }
@@ -629,13 +649,23 @@ namespace BioA.PLCController
                 }
                 else
                 {
-                    if (DateTime.Today > ReagentInfo2.ValidDate)
+                    int time = this.GetExpirationDays(ReagentInfo2.ValidDate);
+                    if (time == 1 || time == 0)
                     {
                         TroubleLog trouble = new TroubleLog();
                         trouble.TroubleCode = @"00009";
                         trouble.TroubleType = TROUBLETYPE.WARN;
                         trouble.TroubleUnit = @"试剂";
-                        trouble.TroubleInfo = string.Format("试剂2中" + ReagentInfo2.ReagentName + "过期. ");
+                        trouble.TroubleInfo = string.Format("试剂1中" + ReagentInfo2.ReagentName + "即将过期. ");
+                        myBatis.TroubleLogSave("TroubleLogSave", trouble);
+                    }
+                    else
+                    {
+                        TroubleLog trouble = new TroubleLog();
+                        trouble.TroubleCode = @"00009";
+                        trouble.TroubleType = TROUBLETYPE.WARN;
+                        trouble.TroubleUnit = @"试剂";
+                        trouble.TroubleInfo = string.Format("试剂2中" + ReagentInfo2.ReagentName + "已过期. ");
                         myBatis.TroubleLogSave("TroubleLogSave", trouble);
                     }
                 }
@@ -644,13 +674,23 @@ namespace BioA.PLCController
             List<QualityControlInfo> lstQCInfo = myBatis.QueryQCAllInfo("QueryQCAllInfo");
             foreach (QualityControlInfo qcInfo in lstQCInfo)
             {
-                if (DateTime.Today > qcInfo.InvalidDate)
+                int time = this.GetExpirationDays(qcInfo.InvalidDate);
+                if (time == 1 || time == 0)
                 {
                     TroubleLog trouble = new TroubleLog();
                     trouble.TroubleCode = @"00009";
                     trouble.TroubleType = TROUBLETYPE.WARN;
                     trouble.TroubleUnit = @"质控";
-                    trouble.TroubleInfo = string.Format("质控品" + qcInfo.QCName + "过期. ");
+                    trouble.TroubleInfo = string.Format("质控品" + qcInfo.QCName + "即将过期. ");
+                    myBatis.TroubleLogSave("TroubleLogSave", trouble);
+                }
+                else
+                {
+                    TroubleLog trouble = new TroubleLog();
+                    trouble.TroubleCode = @"00009";
+                    trouble.TroubleType = TROUBLETYPE.WARN;
+                    trouble.TroubleUnit = @"质控";
+                    trouble.TroubleInfo = string.Format("质控品" + qcInfo.QCName + "已过期. ");
                     myBatis.TroubleLogSave("TroubleLogSave", trouble);
                 }
             }
@@ -658,17 +698,46 @@ namespace BioA.PLCController
             List<Calibratorinfo> lstCalibInfo = myBatis.QueryCalibratorinfo("QueryCalibrationMaintain", null);
             foreach (Calibratorinfo calibInfo in lstCalibInfo)
             {
-                if (DateTime.Today > calibInfo.InvalidDate)
+                int time = this.GetExpirationDays(calibInfo.InvalidDate);
+                if (time == 1 || time == 0)
                 {
                     TroubleLog trouble = new TroubleLog();
                     trouble.TroubleCode = @"00009";
                     trouble.TroubleType = TROUBLETYPE.WARN;
                     trouble.TroubleUnit = @"标准";
-                    trouble.TroubleInfo = string.Format("标准品" + calibInfo.CalibName + "过期. ");
+                    trouble.TroubleInfo = string.Format("标准品" + calibInfo.CalibName + "即将过期. ");
+                    myBatis.TroubleLogSave("TroubleLogSave", trouble);
+                }
+                else 
+                {
+                    TroubleLog trouble = new TroubleLog();
+                    trouble.TroubleCode = @"00009";
+                    trouble.TroubleType = TROUBLETYPE.WARN;
+                    trouble.TroubleUnit = @"标准";
+                    trouble.TroubleInfo = string.Format("标准品" + calibInfo.CalibName + "已过期. ");
                     myBatis.TroubleLogSave("TroubleLogSave", trouble);
                 }
             }
         }
+        /// <summary>
+        /// 获取过期时间（天）
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        protected int GetExpirationDays(DateTime dt)
+        {
+            int time = 0;
+            try
+            {
+                time = int.Parse((dt - DateTime.Today).ToString().Substring(0, 2));
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("获取过期天数异常:GetExpirationDays(DateTime dt) == " + ex.ToString(), Common.Module.PLCData);
+            }
+            return time;
+        }
+
         /// <summary>
         /// 删除校准任务
         /// </summary>

@@ -582,28 +582,30 @@ namespace BioA.SqlMaps
             return strResult;
         }
 
-        public string ReviewCheck(string strMethodName, string[] strConditions)
+        public string ReviewCheck(string strMethodName, TaskInfo task)
         {
             string strResult = string.Empty;
             try
             {
                 Hashtable ht = new Hashtable();
-                ht.Add("SampleNum", strConditions[0]);
-                ht.Add("ApplyTime", strConditions[1]);
-                ht.Add("ProjectName", strConditions[2]);
+                ht.Add("SampleNum", task.SampleNum);
+                ht.Add("ApplyTime", task.CreateDate);
+                ht.Add("ProjectName", task.ProjectName);
 
                 TaskInfo taskInfo = (TaskInfo)ism_SqlMap.QueryForObject("WorkAreaApplyTask.QueryCheckProjectTaskState", ht);
-                if (taskInfo.TaskState == 2 && taskInfo.CreateDate > DateTime.Now.Date && taskInfo.CreateDate < DateTime.Now.AddDays(1).Date)
+                if (taskInfo.TaskState == 2 && taskInfo.CreateDate.Date > DateTime.Now.Date && taskInfo.CreateDate.Date < DateTime.Now.AddDays(1).Date)
                 {
-                    taskInfo.TaskState = 0;
-                    taskInfo.CreateDate = DateTime.Now;
+                    task.TaskState = 0;
+                    //task.CreateDate = DateTime.Now;
                     ht.Add("IsResurvey", 1);
+                    ism_SqlMap.BeginTransaction();
                     ism_SqlMap.Update("CommonDataCheck.UpdateIsResurvey", ht);
-                    ism_SqlMap.Insert("WorkAreaApplyTask.AddTask", taskInfo);
+                    ism_SqlMap.Insert("WorkAreaApplyTask.AddTask", task);
                     ht.Add("SampleCreateTime", taskInfo.CreateDate);
-                    ism_SqlMap.Insert("WorkAreaApplyTask.AddSampleResult", ht);
-                    ht.Add("SampleState", 5);
+                    //ism_SqlMap.Insert("WorkAreaApplyTask.AddSampleResult", ht);
+                    ht.Add("SampleState", 1);
                     ism_SqlMap.Update("WorkAreaApplyTask.UpdateSampleState", ht);
+                    ism_SqlMap.CommitTransaction();
                 }
                 else
                 {
@@ -612,6 +614,7 @@ namespace BioA.SqlMaps
             }
             catch (Exception e)
             {
+                ism_SqlMap.RollBackTransaction();
                 LogInfo.WriteErrorLog("ReviewCheck(string strMethodName, string[] strConditions)==" + e.ToString(), Module.WorkingArea);
                 strResult = "复查任务添加失败！";
             }

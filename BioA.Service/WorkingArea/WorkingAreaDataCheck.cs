@@ -56,7 +56,8 @@ namespace BioA.Service
         /// <returns></returns>
         public string ReviewCheck(string strMethodName, string[] strConditions)
         {
-            return myBatis.ReviewCheck(strMethodName, strConditions);
+            //return myBatis.ReviewCheck(strMethodName, strConditions);
+            return null;
         }
 
         public string AuditSampleTest(string strMethodName, string[] strConditions)

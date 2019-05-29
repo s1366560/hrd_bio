@@ -533,6 +533,7 @@
             this.txtSerumWomanConsHigh.Properties.Appearance.Options.UseForeColor = true;
             this.txtSerumWomanConsHigh.Size = new System.Drawing.Size(52, 24);
             this.txtSerumWomanConsHigh.TabIndex = 87;
+            this.txtSerumWomanConsHigh.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSerumManConsLow_KeyPress);
             // 
             // txtSerumWomanConsLow
             // 
@@ -545,6 +546,7 @@
             this.txtSerumWomanConsLow.Properties.Appearance.Options.UseForeColor = true;
             this.txtSerumWomanConsLow.Size = new System.Drawing.Size(52, 24);
             this.txtSerumWomanConsLow.TabIndex = 85;
+            this.txtSerumWomanConsLow.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSerumManConsLow_KeyPress);
             // 
             // labelControl13
             // 
@@ -618,6 +620,7 @@
             this.txtSerumManConsHigh.Properties.Appearance.Options.UseForeColor = true;
             this.txtSerumManConsHigh.Size = new System.Drawing.Size(52, 24);
             this.txtSerumManConsHigh.TabIndex = 35;
+            this.txtSerumManConsHigh.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSerumManConsLow_KeyPress);
             // 
             // txtSerumManConsLow
             // 
@@ -630,6 +633,7 @@
             this.txtSerumManConsLow.Properties.Appearance.Options.UseForeColor = true;
             this.txtSerumManConsLow.Size = new System.Drawing.Size(52, 24);
             this.txtSerumManConsLow.TabIndex = 33;
+            this.txtSerumManConsLow.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSerumManConsLow_KeyPress);
             // 
             // labelControl19
             // 

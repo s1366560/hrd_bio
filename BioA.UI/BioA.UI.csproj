@@ -755,6 +755,12 @@
     <Compile Include="Uicomponent\WorkingAreaUI\DataCheck\DataCheck.Designer.cs">
       <DependentUpon>DataCheck.cs</DependentUpon>
     </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\DataCheck\ReviewProjectSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\WorkingAreaUI\DataCheck\ReviewProjectSettings.Designer.cs">
+      <DependentUpon>ReviewProjectSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Uicomponent\WorkingAreaUI\DataCheck\SMPResultSend.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1121,6 +1127,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\WorkingAreaUI\DataCheck\DataCheck.resx">
       <DependentUpon>DataCheck.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\WorkingAreaUI\DataCheck\ReviewProjectSettings.resx">
+      <DependentUpon>ReviewProjectSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\WorkingAreaUI\DataCheck\SMPResultSend.resx">
       <DependentUpon>SMPResultSend.cs</DependentUpon>

@@ -141,6 +141,11 @@ namespace BioA.UI
             cboStirring2Intensity.Properties.Items.AddRange(RunConfigureUtility.StirStrengthList);
             cboStirring2Intensity.SelectedIndex = 1;
             //cheProjectAddOrEdit.StartPosition = FormStartPosition.CenterScreen;
+
+            this.txtSerumManConsLow.LostFocus += SerumManConsLowMaxAndMinValue;
+            this.txtSerumManConsHigh.LostFocus += SerumManConsHighMaxAndMinValue;
+            this.txtSerumWomanConsLow.LostFocus += SerumWomanConsLowMaxAndMinValue;
+            this.txtSerumWomanConsHigh.LostFocus += SerumWomanConsHighMaxAndMinValue;
         }
 
 
@@ -438,6 +443,7 @@ namespace BioA.UI
         /// </summary>
         private void LoandProjectRangeParam(List<AssayProjectRangeParamInfo> lstrangeParam)
         {
+            CloseRangeParameInfo();
             dtRange.Rows.Clear();
             foreach (AssayProjectRangeParamInfo r in lstrangeParam)
             {
@@ -1009,8 +1015,23 @@ namespace BioA.UI
             if (Regex.IsMatch(txtReagent1VolSettings.Text.Trim(), @"^\d+(\.\d+)?$") &&
                 Regex.IsMatch(txtReagent2VolSettings.Text.Trim(), @"^\d+(\.\d+)?$"))
             {
-                saveProParamInfo.Reagent1VolSettings = System.Convert.ToInt32(txtReagent1VolSettings.Text);
-                saveProParamInfo.Reagent2VolSettings = System.Convert.ToInt32(txtReagent2VolSettings.Text);
+                if (int.Parse(txtReagent1VolSettings.Text.Trim().ToString()) < 10 || int.Parse(txtReagent1VolSettings.Text.Trim().ToString()) > 300)
+                {
+                    MessageBox.Show("试剂体积设定限制在10~300，请重新输入！");
+                    this.txtReagent1VolSettings.Focus();
+                    return;
+                }
+                else if (int.Parse(txtReagent2VolSettings.Text.Trim().ToString()) < 10 || int.Parse(txtReagent2VolSettings.Text.Trim().ToString()) > 180)
+                {
+                    MessageBox.Show("试剂体积设定限制在10~180，请重新输入！");
+                    this.txtReagent2VolSettings.Focus();
+                    return;
+                }
+                else
+                {
+                    saveProParamInfo.Reagent1VolSettings = System.Convert.ToInt32(txtReagent1VolSettings.Text);
+                    saveProParamInfo.Reagent2VolSettings = System.Convert.ToInt32(txtReagent2VolSettings.Text);
+                }
             }
             else
             {
@@ -1233,40 +1254,14 @@ namespace BioA.UI
                 return;
             }
 
-            // 当输入了对应年龄，则男、女值不为空时，值不能为非数字，男、女范围如果填写，则最大最小值需全填写，如果年龄未输入，则不允许输入男、女值（第一行除外）
-            if (txtSerumManConsLow.Text.Trim() != "" && !Regex.IsMatch(txtSerumManConsLow.Text.Trim(), @"^(-?\d+)(\.\d+)?$") ||
-                txtSerumManConsHigh.Text.Trim() != "" && !Regex.IsMatch(txtSerumManConsHigh.Text.Trim(), @"^(-?\d+)(\.\d+)?$"))
+            if (float.Parse(this.txtSerumManConsHigh.Text.ToString()) < float.Parse(this.txtSerumManConsLow.Text.ToString()))
             {
-                MessageBox.Show("范围参数(男：)浓度值输入有误，请重新输入！");
+                MessageBox.Show(string.Format("男：高浓度值不能小于低浓度的值，如（低浓度等于：{0}；高浓度必须大于等于{1}）！", this.txtSerumManConsLow.Text, this.txtSerumManConsLow.Text));
                 return;
             }
-            else if (txtSerumManConsLow.Text.Trim() != "" && txtSerumManConsHigh.Text.Trim() == "" ||
-                txtSerumManConsLow.Text.Trim() != "" && txtSerumManConsHigh.Text.Trim() == "")
+            if (float.Parse(this.txtSerumWomanConsHigh.Text.ToString()) < float.Parse(this.txtSerumWomanConsLow.Text.ToString()))
             {
-                MessageBox.Show("范围参数(男：)浓度值输入有误，请重新输入！");
-                return;
-            }
-            else if (txtSerumManConsLow.Text.Trim() != "" && txtSerumManConsHigh.Text.Trim() == "" && System.Convert.ToDouble(txtSerumManConsLow.Text) > System.Convert.ToDouble(txtSerumManConsHigh.Text))
-            {
-                MessageBox.Show("范围参数(男：)浓度值输入有误，请重新输入！");
-                return;
-            }
-
-            if (txtSerumWomanConsLow.Text.Trim() != "" && !Regex.IsMatch(txtSerumWomanConsLow.Text.Trim(), @"^(-?\d+)(\.\d+)?$") ||
-                txtSerumWomanConsHigh.Text.Trim() != "" && !Regex.IsMatch(txtSerumWomanConsHigh.Text.Trim(), @"^(-?\d+)(\.\d+)?$"))
-            {
-                MessageBox.Show("范围参数(女：)浓度值输入有误，请重新输入！");
-                return;
-            }
-            else if (txtSerumWomanConsLow.Text.Trim() != "" && txtSerumWomanConsHigh.Text.Trim() == "" ||
-                txtSerumWomanConsLow.Text.Trim() != "" && txtSerumWomanConsHigh.Text.Trim() == "")
-            {
-                MessageBox.Show("范围参数(女：)浓度值输入有误，请重新输入！");
-                return;
-            }
-            else if (txtSerumWomanConsLow.Text.Trim() != "" && txtSerumWomanConsHigh.Text.Trim() == "" && System.Convert.ToDouble(txtSerumWomanConsLow.Text) > System.Convert.ToDouble(txtSerumWomanConsHigh.Text))
-            {
-                MessageBox.Show("范围参数(女：)浓度值输入有误，请重新输入！");
+                MessageBox.Show(string.Format("女：高浓度值不能小于低浓度的值，如（低浓度等于：{0}；高浓度必须大于等于{1}）！", this.txtSerumWomanConsLow.Text, this.txtSerumWomanConsLow.Text));
                 return;
             }
             if (this.gridView3.RowCount > 0)
@@ -1340,6 +1335,147 @@ namespace BioA.UI
             this.txtSerumManConsHigh.Text = "0";
             this.txtSerumWomanConsLow.Text = "0";
             this.txtSerumWomanConsHigh.Text = "0";
+        }
+        /// <summary>
+        /// 范围参数浓度输入限制
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtSerumManConsLow_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            try
+            {
+                if (!(((e.KeyChar >= '0') && (e.KeyChar <= '9')) || e.KeyChar <= 31))
+                {
+                    if (e.KeyChar == '.')
+                    {
+                        if (((TextEdit)sender).Text.Trim().IndexOf('.') > -1)
+                            e.Handled = true;
+                    }
+                    else
+                        e.Handled = true;
+                }
+                else
+                {
+                    if (e.KeyChar <= 31)
+                    {
+                        e.Handled = false;
+                    }
+                    else if (((TextEdit)sender).Text.Trim().IndexOf('.') > -1)
+                    {
+                        if (((TextEdit)sender).Text.Trim().Substring(((TextEdit)sender).Text.Trim().IndexOf('.') + 1).Length >= 4)
+                            e.Handled = true;
+                    }
+                    else if (((TextEdit)sender).Text.Trim().Length == 1)
+                    {
+                        if (e.KeyChar != '.' && ((TextEdit)sender).Text.Trim() == "0")
+                            e.Handled = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("txtSerumManConsLow_KeyPress(object sender, KeyPressEventArgs e) ==" + ex.Message, Module.Setting);
+            }
+        }
+        /// <summary>
+        /// 男：低浓度值
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SerumManConsLowMaxAndMinValue(object sender, EventArgs e)
+        {
+            if (this.txtSerumManConsLow.Text.ToString() == "")
+            {
+                this.txtSerumManConsLow.Text = "0";
+            }
+            else
+            {
+                if (float.Parse(this.txtSerumManConsLow.Text.ToString()) == 0)
+                {
+                    this.txtSerumManConsLow.Text = "0";
+                }
+                else if (float.Parse(this.txtSerumManConsLow.Text.ToString()) > 100000f)
+                {
+                    MessageBox.Show("男：低浓度值不能超过100000");
+                    this.txtSerumManConsLow.Text = "0";
+                    return;
+                }
+            }
+        }
+        /// <summary>
+        /// 男：高浓度值
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SerumManConsHighMaxAndMinValue(object sender, EventArgs e)
+        {
+            if (this.txtSerumManConsHigh.Text.ToString() == "")
+            {
+                this.txtSerumManConsHigh.Text = "0";
+            }
+            else
+            {
+                if (float.Parse(this.txtSerumManConsHigh.Text.ToString()) == 0)
+                {
+                    this.txtSerumManConsHigh.Text = "0";
+                }
+                else if (float.Parse(this.txtSerumManConsHigh.Text.ToString()) > 100000f)
+                {
+                    MessageBox.Show("男：高浓度值不能超过100000");
+                    this.txtSerumManConsHigh.Text = "0";
+                    return;
+                }            }
+        }
+        /// <summary>
+        /// 女：低浓度值
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SerumWomanConsLowMaxAndMinValue(object sender, EventArgs e)
+        {
+            if (this.txtSerumWomanConsLow.Text.ToString() == "")
+            {
+                this.txtSerumWomanConsLow.Text = "0";
+            }
+            else
+            {
+                if (float.Parse(this.txtSerumWomanConsLow.Text.ToString()) == 0)
+                {
+                    this.txtSerumWomanConsLow.Text = "0";
+                }
+                else if (float.Parse(this.txtSerumWomanConsLow.Text.ToString()) > 100000f)
+                {
+                    MessageBox.Show("女：低浓度值不能超过100000");
+                    this.txtSerumWomanConsLow.Text = "0";
+                    return;
+                }
+            }
+        }
+        /// <summary>
+        /// 女：高浓度值
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SerumWomanConsHighMaxAndMinValue(object sender, EventArgs e)
+        {
+            if (this.txtSerumWomanConsHigh.Text.ToString() == "")
+            {
+                this.txtSerumWomanConsHigh.Text = "0";
+            }
+            else
+            {
+                if (float.Parse(this.txtSerumWomanConsHigh.Text.ToString()) == 0)
+                {
+                    this.txtSerumWomanConsHigh.Text = "0";
+                }
+                else if (float.Parse(this.txtSerumWomanConsHigh.Text.ToString()) > 100000f)
+                {
+                    MessageBox.Show("女：高浓度值不能超过100000");
+                    this.txtSerumWomanConsHigh.Text = "0";
+                    return;
+                }
+            }
         }
 
     }

@@ -7,7 +7,7 @@
   </alias>
   <statements>
     <select id="QueryCommonSampleData" parameterClass="System.Collections.IDictionary" resultClass="SampleInfoForResult">
-      <![CDATA[select t1.SampleNum, t1.SampleType, t1.CreateTime, t1.IsOperateDilution, t1.SampleState, t1.IsAudit, t1.IsPrinted, t2.SampleID, t2.PatientName, t2.Sex, t2.Age from
+      <![CDATA[select t1.SampleNum, t1.SampleType,t1.SamplePos, t1.CreateTime, t1.IsOperateDilution, t1.SampleState, t1.IsAudit, t1.IsPrinted, t2.SampleID, t2.PatientName, t2.Sex, t2.Age from
       SampleTb t1 left join PatientInfoTb t2 on t1.SampleNum = t2.SampleNum and t1.CreateTime = t2.InputTime]]>
       <dynamic prepend="where">
         <isNotEmpty prepend="and" property="Completed">

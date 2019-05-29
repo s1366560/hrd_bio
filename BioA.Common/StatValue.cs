@@ -13,7 +13,7 @@ namespace BioA.Common
         /// <summary>
         /// 次数统计
         /// </summary>
-        public long N { get; set; }
+        public int N { get; set; }
         /// <summary>
         /// 平均值
         /// </summary>
@@ -64,7 +64,7 @@ namespace BioA.Common
                 }
                 Sum += value;
             }
-            V.MEAN = Sum / V.N;
+            V.MEAN = (float)(((int)(Sum / V.N * 10000 )) / 10000.0000);
             if (V.N <= 1)
             {
                 V.SD = 0;
@@ -76,9 +76,9 @@ namespace BioA.Common
                 float TSum = 0;
                 foreach (float value in values)
                 {
-                    TSum += (value - V.MEAN) * (value - V.MEAN);
+                    TSum = (float)(((int)(((float)((int)((value - V.MEAN) * 10000) / 10000.0000) * (float)((int)((value - V.MEAN) * 10000) / 10000.0000)) * 10000)) / 10000.0000) + (float)((int)(TSum * 10000) / 10000.0000);
                 }
-                V.SD = (float)Math.Sqrt(TSum / (V.N - 1));
+                V.SD = (float)((int)(Math.Sqrt(TSum / (V.N - 1)) * 10000) / 10000.0000);
                 V.CV = V.SD / V.MEAN;
                 V.R = Max - Min;
             }

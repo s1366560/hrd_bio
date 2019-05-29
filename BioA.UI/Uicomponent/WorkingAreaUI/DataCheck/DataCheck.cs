@@ -62,6 +62,7 @@ namespace BioA.UI
             CheckResultDT.Columns.Add("检测结果");
             CheckResultDT.Columns.Add("单位");
             CheckResultDT.Columns.Add("范围参数");
+            CheckResultDT.Columns.Add("提示");
             CheckResultDT.Columns.Add("测试完成时间");
             CheckResultDT.Columns.Add("进程编号");
             CheckResultDT.Columns.Add("任务状态");
@@ -70,20 +71,23 @@ namespace BioA.UI
             CheckResultDT.Columns.Add("发送");
             CheckResultDT.Columns.Add("备注");
             CheckResultDT.Columns.Add("确认", typeof(Boolean));
+            CheckResultDT.Columns.Add("小数位");
             lstvInspectProInfo.DataSource = CheckResultDT;
             gridView2.Columns[0].Width = 60;
             gridView2.Columns[1].Width = 60;
             gridView2.Columns[2].Width = 50;
             gridView2.Columns[3].Width = 90;
-            gridView2.Columns[4].Width = 90;
-            gridView2.Columns[5].Width = 40;
-            gridView2.Columns[6].Width = 50;
-            gridView2.Columns[7].Width = 30;
-            gridView2.Columns[8].Width = 60;
-            gridView2.Columns[9].Width = 40;
-            gridView2.Columns[10].Width = 80;
-            gridView2.Columns[11].Width = 30;
-            gridView2.Columns[11].OptionsColumn.AllowEdit = true;
+            gridView2.Columns[4].Width = 40;
+            gridView2.Columns[5].Width = 90;
+            gridView2.Columns[6].Width = 40;
+            gridView2.Columns[7].Width = 50;
+            gridView2.Columns[8].Width = 30;
+            gridView2.Columns[9].Width = 60;
+            gridView2.Columns[10].Width = 40;
+            gridView2.Columns[11].Width = 80;
+            gridView2.Columns[12].Width = 30;
+            gridView2.Columns[12].OptionsColumn.AllowEdit = true;
+            gridView2.Columns[13].Visible = false;
 
             dt.Columns.Add("样本编号");
             dt.Columns.Add("样本ID");
@@ -96,7 +100,9 @@ namespace BioA.UI
             dt.Columns.Add("审核状态");
             dt.Columns.Add("打印状态");
             dt.Columns.Add("手动稀释");
+            dt.Columns.Add("位置");
             lstvSampleInfo.DataSource = dt;
+            gridView1.Columns[11].Visible = false;
         }
         /// <summary>
         /// 根据时间段查找样本结果状态
@@ -185,7 +191,7 @@ namespace BioA.UI
                         age = s.Age.ToString();
                     }
 
-                    dt.Rows.Add(new object[] { s.SampleNum, s.SampleID, s.SampleType, s.PatientName, s.Sex, age, s.CreateTime.ToString("yyyy-MM-dd HH:mm:ss.fff"), sampleState, s.IsAudit == false ? "未审核" : "已审核", s.PrintState == "" ? "未打印" : s.PrintState, s.IsOperateDilution ? "是" : "否" });
+                    dt.Rows.Add(new object[] { s.SampleNum, s.SampleID, s.SampleType, s.PatientName, s.Sex, age, s.CreateTime.ToString("yyyy-MM-dd HH:mm:ss.fff"), sampleState, s.IsAudit == false ? "未审核" : "已审核", s.PrintState == "" ? "未打印" : s.PrintState, s.IsOperateDilution ? "是" : "否", s.SampPos });
                 }
                 if (dt.Rows.Count > 0)
                 {
@@ -608,7 +614,7 @@ namespace BioA.UI
         /// <param name="s"></param>
         private void DisplaySampleResultInfo(SampleResultInfo s)
         {
-            ResultSetInfo ss = lstResultSetInfo.SingleOrDefault(v => v.ProjectName == s.ProjectName) as ResultSetInfo;
+            ResultSetInfo rs = lstResultSetInfo.SingleOrDefault(v => v.ProjectName == s.ProjectName) as ResultSetInfo;
             string taskState = string.Empty;
             string VolType = string.Empty;
             switch (s.SampleCompletionStatus)
@@ -640,7 +646,19 @@ namespace BioA.UI
                     VolType = "定标体积";
                     break;
             }
-            CheckResultDT.Rows.Add(new object[] { s.ProjectName, Math.Round(s.ConcResult, ss != null && ss.RadixPointNum != 100000000 ? ss.RadixPointNum : 4), s.UnitAndRange, s.RangeParameter, s.SampleCompletionTime.ToString(), s.TCNO, taskState, s.IsResurvey == true ? "是" : "否", VolType, s.IsSend == true ? "是" : "否", s.Remarks, s.Confirm });
+            string pointOut = "";
+            double resultABS = Math.Round(s.ConcResult, rs != null && rs.RadixPointNum != 100000000 ? rs.RadixPointNum : 4);
+            if (s.RangeParameter != null && s.RangeParameter != "")
+            {
+                string[] rangeParam = s.RangeParameter.Split('—');
+                double d = double.Parse(rangeParam[0]);
+                if (resultABS < d)
+                    pointOut = "↓";
+                else if (resultABS > double.Parse(rangeParam[1]))
+                    pointOut = "↑";
+            }
+            CheckResultDT.Rows.Add(new object[] { s.ProjectName, resultABS, s.UnitAndRange, s.RangeParameter, pointOut, s.SampleCompletionTime.ToString(), s.TCNO, taskState, s.IsResurvey == true ? "是" : "否", VolType, s.IsSend == true ? "是" : "否", s.Remarks, s.Confirm, rs != null && rs.RadixPointNum != 100000000 ? rs.RadixPointNum : 4 });
+            this.gridView2.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.gridView2_CustomDrawCell);
                 
         }
 
@@ -718,22 +736,53 @@ namespace BioA.UI
         {
             if (gridView1.GetSelectedRows().Count() > 0 && gridView2.GetSelectedRows().Count() > 0)
             {
-                string[] communicates = new string[3];
                 int selectedCount = gridView1.GetSelectedRows()[0];
-                communicates[0] = gridView1.GetRowCellValue(selectedCount, "样本编号") as string;
-                communicates[1] = gridView1.GetRowCellValue(selectedCount, "申请时间") as string;
-                selectedCount = gridView2.GetSelectedRows()[0];
-                communicates[2] = gridView2.GetRowCellValue(selectedCount, "检测项目") as string;
-                if (System.Convert.ToDateTime(communicates[1]) > DateTime.Now.Date)
+                string dateTime = gridView1.GetRowCellValue(selectedCount, "申请时间") as string;
+                if (dateTime.Substring(0, 10) != DateTime.Now.ToString().Substring(0, 10))
                 {
-                    dataCheckDic.Clear();
-                    dataCheckDic.Add("ReviewCheck", new object[] { XmlUtility.Serializer(typeof(string[]), communicates) });
-                    SendToServices(dataCheckDic);
+                    SampleInfoForResult samp = new SampleInfoForResult();
+                    samp.SampPos =int.Parse(gridView1.GetRowCellValue(selectedCount, "位置").ToString());
+                    samp.SampleNum = int.Parse(gridView1.GetRowCellValue(selectedCount, "样本编号").ToString());
+                    samp.SampleType = gridView1.GetRowCellValue(selectedCount, "样本类型").ToString();
+                    samp.CreateTime = DateTime.Parse(dateTime);
+                    int[] resultCout = gridView2.GetSelectedRows();
+                    List<string[]> proAndPoitOut = new List<string[]>();
+                    for (int i = 0; i < resultCout.Count(); i++)
+                    {
+                        string[] strNum = new string[2];
+                        strNum[0] = gridView2.GetRowCellValue(resultCout[i], "检测项目").ToString();
+                        strNum[1] = gridView2.GetRowCellValue(resultCout[i], "提示").ToString();
+                        proAndPoitOut.Add(strNum);
+                    }
+                    ReviewProjectSettings reviewProject = new ReviewProjectSettings();
+                    reviewProject.ReviewProjectName = proAndPoitOut;
+                    reviewProject.SamplePatientInfo = samp;
+                    reviewProject.StartPosition = FormStartPosition.CenterScreen;
+                    reviewProject.ShowDialog();
                 }
-                else if (System.Convert.ToDateTime(communicates[1]) < DateTime.Now.Date)
+                else
                 {
                     MessageBox.Show("仅能对当天已完成检测的任务进行复查操作！");
                 }
+                //string[] communicates = new string[3];
+                //communicates[0] = gridView1.GetRowCellValue(selectedCount, "样本编号") as string;
+                //communicates[1] = gridView1.GetRowCellValue(selectedCount, "申请时间") as string;
+                //selectedCount = gridView2.GetSelectedRows()[0];
+                //communicates[2] = gridView2.GetRowCellValue(selectedCount, "检测项目") as string;
+                //if (true)
+                //{
+                //    dataCheckDic.Clear();
+                //    dataCheckDic.Add("ReviewCheck", new object[] { XmlUtility.Serializer(typeof(string[]), communicates) });
+                //    SendToServices(dataCheckDic);
+                //}
+                //else if (System.Convert.ToDateTime(communicates[1]) < DateTime.Now.Date)
+                //{
+                    
+                //}
+            }
+            else
+            {
+                MessageBox.Show("项目没有测试或者正在测试中，不能进行复查！");
             }
         }
 
@@ -1273,6 +1322,32 @@ namespace BioA.UI
             }
 
             SendSMPRsultInfoEvent(rd);
+        }
+        /// <summary>
+        /// 结果浓度超标或者没达标的提示
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void gridView2_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
+        {
+            if (e.Column.FieldName == "提示")
+            {
+                GridCellInfo GridCellInfo = e.Cell as GridCellInfo;
+                if (GridCellInfo.IsDataCell && GridCellInfo.CellValue.ToString() == "↓")
+                {
+                    e.Appearance.BackColor = Color.Orange;
+                    e.Appearance.ForeColor = Color.Red;
+                    e.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+                }
+                else if (GridCellInfo.IsDataCell && GridCellInfo.CellValue.ToString() == "↑")
+                {
+                    e.Appearance.BackColor = Color.Yellow;
+                    e.Appearance.ForeColor = Color.Red;
+                    e.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+                }
+                else if (GridCellInfo.IsDataCell && GridCellInfo.CellValue.ToString() == "")
+                    e.Appearance.BackColor = Color.White;
+            }
         }
     }
 }

@@ -38,6 +38,7 @@ namespace BioA.Common
         private DateTime startTime;
         private DateTime endTime;
         private int sampleState;
+        private int sampPos;
         /// <summary>
         /// 样本编号
         /// </summary>
@@ -141,6 +142,24 @@ namespace BioA.Common
         {
             get { return sampleState; }
             set { sampleState = value; }
+        }
+        /// <summary>
+        /// 样本位置
+        /// </summary>
+        public int SampPos
+        {
+            get { return sampPos; }
+            set { sampPos = value; }
+        }
+
+        private List<SampleResultInfo> sampResultList;
+        /// <summary>
+        /// 一个样本对应多个结果
+        /// </summary>
+        public List<SampleResultInfo> SampResultList
+        {
+            get { return sampResultList; }
+            set { sampResultList = value; }
         }
     }
 }

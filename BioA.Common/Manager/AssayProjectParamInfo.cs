@@ -154,21 +154,27 @@ namespace BioA.Common
             set { instrumentFactorB = value; }
         }
         private float comStosteVol;
-
+        /// <summary>
+        /// 原液体积
+        /// </summary>
         public float ComStosteVol
         {
             get { return comStosteVol; }
             set { comStosteVol = value; }
         }
         private float comSamVol;
-
+        /// <summary>
+        /// 稀释液和原液稀释后体积
+        /// </summary>
         public float ComSamVol
         {
             get { return comSamVol; }
             set { comSamVol = value; }
         }
         private float comDilutionVol;
-
+        /// <summary>
+        /// 稀释体积
+        /// </summary>
         public float ComDilutionVol
         {
             get { return comDilutionVol; }

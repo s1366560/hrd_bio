@@ -84,7 +84,7 @@
             this.ButPrintState.Name = "ButPrintState";
             this.ButPrintState.Size = new System.Drawing.Size(88, 32);
             this.ButPrintState.TabIndex = 9;
-            this.ButPrintState.Text = "开始打印";
+            this.ButPrintState.Text = "发送";
             this.ButPrintState.UseVisualStyleBackColor = true;
             this.ButPrintState.Click += new System.EventHandler(this.ButPrintState_Click);
             // 

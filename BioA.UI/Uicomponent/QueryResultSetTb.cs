@@ -25,7 +25,7 @@ namespace BioA.UI
         {
             get 
             {
-                if (lstResult == null)
+                if (lstResult == null || lstResult.Count == 0)
                 {
                     lstResult = new WorkAreaApplyTask().QueryResultSetInfos("QueryResultSetInfo");
                 }
