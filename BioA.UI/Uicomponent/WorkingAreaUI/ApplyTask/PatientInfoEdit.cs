@@ -311,6 +311,12 @@ namespace BioA.UI
                 patient.SampleNum = System.Convert.ToInt32(txtSampleNum.Text);
                 patient.SampleID = txtSampleID.Text;
                 patient.PatientName = txtName.Text;
+                if (txtAge.Text == "" || int.Parse(txtAge.Text.Trim()) > 200 || int.Parse(txtAge.Text.Trim()) < 1)
+                {
+                    MessageBox.Show("年龄格式输入异常！");
+                    txtAge.Focus();
+                    return;
+                }
                 patient.Age = txtAge.Text != "" ? System.Convert.ToInt32(txtAge.Text) : 0;
                 patient.Sex = combSex.SelectedItem != null ? combSex.SelectedItem.ToString() : "";
                 patient.PatientType = combPatientType.SelectedItem != null ? combPatientType.SelectedItem.ToString() : "";
@@ -343,7 +349,7 @@ namespace BioA.UI
             }  
         }
 
-        public void PatientInfoEdit_Load(object sender, EventArgs e)
+        private void PatientInfoEdit_Load_1(object sender, EventArgs e)
         {
             this.loadInputPatientInfo();
             

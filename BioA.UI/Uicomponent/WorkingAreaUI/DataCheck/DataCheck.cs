@@ -1055,39 +1055,46 @@ namespace BioA.UI
         {
             printSetting = new BioA.SqlMaps.MyBatis().QueryPrintSetting().Split('|');
             printDocument1 = new PrintDocument();
-            if (printSetting[0].Trim() == "A5")
+            try
             {
-                PaperSize p = new PaperSize();
-                foreach (PaperSize ps in printDocument1.PrinterSettings.PaperSizes)
+                if (printSetting[0].Trim() == "A5")
                 {
-                    if (ps.Kind.Equals(PaperKind.A5))
+                    PaperSize p = new PaperSize();
+                    foreach (PaperSize ps in printDocument1.PrinterSettings.PaperSizes)
                     {
-                        p = ps;
-                        break;
+                        if (ps.Kind.Equals(PaperKind.A5))
+                        {
+                            p = ps;
+                            break;
+                        }
                     }
+                    if (!p.Kind.Equals(PaperKind.A5))
+                    {
+                        MessageBoxDraw.Show("打印异常，打印服务中不存在A5设置");
+                        return;
+                    }
+                    printDocument1.DefaultPageSettings.PaperSize = p;
+                    printDocument1.DefaultPageSettings.Landscape = true;    //横向打印
                 }
-                if (!p.Kind.Equals(PaperKind.A5))
+                else
                 {
-                    MessageBoxDraw.Show("打印异常，打印服务中不存在A5设置");
-                    return;
+                    printDocument1.DefaultPageSettings.Landscape = false;//纵向打印
                 }
-                printDocument1.DefaultPageSettings.PaperSize = p;
-                printDocument1.DefaultPageSettings.Landscape = true;    //横向打印
+
+                this.printDocument1.PrintPage += new PrintPageEventHandler(this.MyPrintDocument_PrintPage);
+                this.printDocument1.Print();
+
+                printPreviewDialog1 = new PrintPreviewDialog();
+
+                //将写好的格式给打印预览控件以便预览
+                printPreviewDialog1.Document = printDocument1;
+                //printPreviewDialog1.Document.DefaultPageSettings.Landscape = true;
+                DialogResult result = printPreviewDialog1.ShowDialog();
             }
-            else
+            catch (Exception ex)
             {
-                printDocument1.DefaultPageSettings.Landscape = false;//纵向打印
+                LogInfo.WriteErrorLog("打印服务异常，CreatePrintFile() == " + ex.ToString(), BioA.Common.Module.WorkingArea);
             }
-
-            this.printDocument1.PrintPage += new PrintPageEventHandler(this.MyPrintDocument_PrintPage);
-            this.printDocument1.Print();
-
-            printPreviewDialog1 = new PrintPreviewDialog();
-            
-            //将写好的格式给打印预览控件以便预览
-            printPreviewDialog1.Document = printDocument1;
-            //printPreviewDialog1.Document.DefaultPageSettings.Landscape = true;
-            DialogResult result = printPreviewDialog1.ShowDialog();
         }
 
         //记录已打印的行数

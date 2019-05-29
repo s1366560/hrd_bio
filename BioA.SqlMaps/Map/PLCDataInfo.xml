@@ -417,7 +417,7 @@
       select count(*) from QCTaskTb where TaskState != 2
     </statement>
     <statement id ="GetHasSmpWorkDisk" parameterClass ="System.Collections.IDictionary" ResultClass ="int">
-      select SampleTb.PanelNum from SampleTb  where PanelNum != #PanelNum# and CreateTime between #BeginTime# and #EndTime#
+      select SampleTb.PanelNum from SampleTb  where PanelNum != #PanelNum# and CreateTime between #BeginTime# and #EndTime# and SampleState = 0 ORDER BY PanelNum
     </statement>
     <statement id="QueryTimeCourse" parameterClass="string" ResultClass="TimeCourseInfo">
       <!--select * from TimeCourseTb where TimeCourseNO=#TimeCourseNO# and DrawDate between #BeginTime# and #EndTime#-->

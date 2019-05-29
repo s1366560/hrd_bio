@@ -18,36 +18,36 @@ namespace BioA.UI
 
         public static BioAServiceClient ServiceClient
         {
-            get 
+            get
             {
-                if (serviceClient == null)
+                lock (notifyCallBack)
                 {
-                    serviceClient = new BioAServiceClient(new InstanceContext(notifyCallBack));
-                    // 注册客户端
-                    serviceClient.RegisterClient("BioA.UI");
-                }
-                if (serviceClient.State == CommunicationState.Faulted)
-                {
-                    serviceClient.Abort();
+                    if (serviceClient == null)
+                    {
+                        serviceClient = new BioAServiceClient(new InstanceContext(notifyCallBack));
+                        // 注册客户端
+                        serviceClient.RegisterClient("BioA.UI");
+                    }
+                    if (serviceClient.State == CommunicationState.Faulted)
+                    {
+                        serviceClient.Abort();
 
-                    serviceClient = new BioAServiceClient(new InstanceContext(notifyCallBack));
-                    // 注册客户端
-                    serviceClient.RegisterClient("BioA.UI");
-                    Thread.Sleep(300);
-                }
+                        serviceClient = new BioAServiceClient(new InstanceContext(notifyCallBack));
+                        // 注册客户端
+                        serviceClient.RegisterClient("BioA.UI");
+                    }
 
-                if (serviceClient.State == CommunicationState.Closed)
-                {
-                    serviceClient.Abort();
-                    serviceClient = new BioAServiceClient(new InstanceContext(notifyCallBack));
-                    // 注册客户端
-                    serviceClient.RegisterClient("BioA.UI");
-                    Thread.Sleep(300);
-                    //serviceClient.Open();
+                    if (serviceClient.State == CommunicationState.Closed)
+                    {
+                        serviceClient.Abort();
+                        serviceClient = new BioAServiceClient(new InstanceContext(notifyCallBack));
+                        // 注册客户端
+                        serviceClient.RegisterClient("BioA.UI");
+                        //serviceClient.Open();
+                    }
                 }
                 return serviceClient;
             }
-
         }
     }
 }

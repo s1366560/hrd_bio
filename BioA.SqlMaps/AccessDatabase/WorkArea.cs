@@ -208,8 +208,8 @@ namespace BioA.SqlMaps
             try
             {
                 Hashtable ht = new Hashtable();
-                ht.Add("starttime", DateTime.Now.ToShortDateString());
-                ht.Add("endtime", DateTime.Now.AddDays(1).ToShortDateString());
+                ht.Add("starttime", DateTime.Now.Date);
+                ht.Add("endtime", DateTime.Now.Date.AddDays(1));
                 ht.Add("SampleNum", sampleNum);
 
                 patientInfo = (PatientInfo)ism_SqlMap.QueryForObject("WorkAreaApplyTask." + strMethodName, ht);
@@ -322,9 +322,9 @@ namespace BioA.SqlMaps
                     }
                     else
                     {
-                        ism_SqlMap.Delete("WorkAreaApplyTask." + strMethodName, string.Format("delete s from sampletb s where s.SampleNum = {0} and CONVERT(varchar(50),s.CreateTime, 120) like '%{1}%'", task.SampleNum, task.CreateDate.ToString("yyyy-MM-dd")));
-                        ism_SqlMap.Delete("WorkAreaApplyTask." + strMethodName, string.Format("delete from tasktb where SampleNum = {0} and CONVERT(varchar(50),CreateDate, 120) like '%{1}%' and TaskState = 0", task.SampleNum, task.CreateDate.ToString("yyyy-MM-dd")));
-                        success += task.SampleNum +",";
+                        ism_SqlMap.Delete("WorkAreaApplyTask." + strMethodName, string.Format("delete from sampletb where SampleNum = {0} and CONVERT(varchar(50),CreateTime, 120) like '%{1}%'", task.SampleNum, task.CreateDate.ToString("yyyy-MM-dd HH:mm:ss")));
+                        ism_SqlMap.Delete("WorkAreaApplyTask." + strMethodName, string.Format("delete from tasktb where SampleNum = {0} and CONVERT(varchar(50),CreateDate, 120) like '%{1}%' and TaskState = 0", task.SampleNum,task.CreateDate.ToString("yyyy-MM-dd")));
+                        ism_SqlMap.Delete("WorkAreaApplyTask." + strMethodName, string.Format("delete from PatientInfoTb where SampleNum = {0} and CONVERT(varchar(50),InputTime, 120) like '{1}%'", task.SampleNum,task.CreateDate.ToString("yyyy-MM-dd HH:mm:ss"))); success += task.SampleNum + ",";
                         
                     }
                 }
@@ -347,11 +347,9 @@ namespace BioA.SqlMaps
             string str = "更新成功！";
             try
             {
-                patientInfo.InputTime = DateTime.Now;
-
                 Hashtable ht = new Hashtable();
-                ht.Add("starttime", DateTime.Now.ToShortDateString());
-                ht.Add("endtime", DateTime.Now.AddDays(1).ToShortDateString());
+                ht.Add("starttime", DateTime.Now.Date);
+                ht.Add("endtime", DateTime.Now.Date.AddDays(1));
                 ht.Add("SampleNum", patientInfo.SampleNum);
                 int count = (int)ism_SqlMap.QueryForObject("WorkAreaApplyTask.QueryPatientInfoCountByNum", ht);
 
@@ -445,9 +443,9 @@ namespace BioA.SqlMaps
             List<PatientInfo> lstPatientInfo = new List<PatientInfo>();
             try
             {
-                Hashtable ht = new Hashtable();
-                ht.Add("starttime", DateTime.Now.ToShortDateString());
-                ht.Add("endtime", DateTime.Now.AddDays(1).ToShortDateString());
+                Hashtable ht = new Hashtable(); 
+                ht.Add("starttime", DateTime.Now.Date);
+                ht.Add("endtime", DateTime.Now.Date.AddDays(1));
                 lstPatientInfo = (List<PatientInfo>)ism_SqlMap.QueryForList<PatientInfo>("WorkAreaApplyTask." + strMethodName, ht);
             }
             catch (Exception e)

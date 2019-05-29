@@ -11,6 +11,7 @@ using BioA.Common;
 using BioA.Common.IO;
 using System.Threading;
 using BioA.Service;
+using System.ServiceModel;
 
 namespace BioA.UI
 {
@@ -100,7 +101,7 @@ namespace BioA.UI
             
         }
 
-
+            
         private void ClientSendToServices(Dictionary<string, object[]> param)
         {
             var qcTaskThread = new Thread(() =>

@@ -177,7 +177,7 @@
       t2.Pos,t2.ReagentName,t2.ReagentType,t3.Pos Pos2,t3.ReagentName ReagentName2,t3.ReagentType ReagentType2
       from ReagentStateInfoR1R2Tb t1
       left join ReagentSettingsTb t2 on t1.ReagentName = t2.ReagentName
-      left join ReagentSettingsTbR2  t3 on t1.projectName = t3.projectName and  t3.ReagentName = '' where t1.ReagentType = '清洗剂'
+      left join ReagentSettingsTbR2  t3 on t1.projectName = t3.projectName and  t3.ReagentName = '' where t1.ReagentType = '清洗剂'  or t1.ReagentType = '稀释液'
       union
       select t1.projectName,t1.Locked,t1.ReagentResidualVol,t1.ReagentResidualVol2,t1.ResidualQuantity,t1.ResidualQuantity2,t1.ValidPercent,t1.ValidPercent2,
       t2.Pos,t2.ReagentName,t2.ReagentType,t3.Pos Pos2,t3.ReagentName ReagentName2,t3.ReagentType ReagentType2

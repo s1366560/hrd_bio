@@ -46,7 +46,7 @@ namespace BioA.UI
         /// </summary>
         private List<CombProjectInfo> lstCombProInfo = new List<CombProjectInfo>();
         //批量录入信息窗体
-        frmBatchInput batchInput = new frmBatchInput();
+        frmBatchInput batchInput = null;
         //病人信息窗体
         PatientInfoFrm patientInfofrm;
         private MyBatis myBatis = new MyBatis();
@@ -420,11 +420,10 @@ namespace BioA.UI
 
             if (this.gridView1.GetSelectedRows().Count() > 0)
             {
-                if (patientInfofrm == null)
-                {
-                    patientInfofrm = new PatientInfoFrm();
-                    patientInfofrm.StartPosition = FormStartPosition.CenterScreen;
-                }
+                if (patientInfofrm != null)
+                    patientInfofrm.Dispose();
+                patientInfofrm = new PatientInfoFrm();
+                patientInfofrm.StartPosition = FormStartPosition.CenterScreen;
                 selectedHandle = this.gridView1.GetSelectedRows()[0];
                 int SampleNum = System.Convert.ToInt32(this.gridView1.GetRowCellValue(selectedHandle, "样本编号").ToString());
                 patientInfofrm.IntSelectedNum = SampleNum;
@@ -435,7 +434,6 @@ namespace BioA.UI
                     lstSampleNum.Add(s.SampleNum);
                 }
                 patientInfofrm.LstSampleNum = lstSampleNum;
-                patientInfofrm.PatientInfo_Load(null,null);
                 patientInfofrm.ShowDialog();
             }
             else
@@ -771,18 +769,25 @@ namespace BioA.UI
                 return;
             }
 
-            batchInput.clera();
 
             List<int> lstSampleNum = new List<int>();
             foreach (SampleInfo s in lstSampleInfo)
             {
                 lstSampleNum.Add(s.SampleNum);
-            } 
+            }
+            if (batchInput == null)
+            {
+                batchInput = new frmBatchInput();
+                batchInput.DataTransferEvent += batchInput_DataTransferEvent;
+                batchInput.EndBatchEvent += batchInput_EndBatchEvent;
+                batchInput.StartPosition = FormStartPosition.CenterScreen;
+            }
+            else
+            {
+                batchInput.clera();
+            }
             batchInput.LstSampleNum = lstSampleNum;
             batchInput.SampleNum = txtSampleNum.Text;
-            batchInput.DataTransferEvent += batchInput_DataTransferEvent;
-            batchInput.EndBatchEvent += batchInput_EndBatchEvent;
-            batchInput.StartPosition = FormStartPosition.CenterScreen;
             batchInput.ShowDialog();
         }
         /// <summary>
@@ -934,8 +939,7 @@ namespace BioA.UI
             //添加批量录入的任务信息
             WorkAreaApplyTask workAreaApplyTask = new WorkAreaApplyTask();
             batchInput.LstReceiveInfo = workAreaApplyTask.BatchAddTask("AddTaskForBatch", inputDictionary);
-            MessageBox.Show("批量录入执行完成！");       
-            batchInput.DataTransferEvent -= batchInput_DataTransferEvent;
+            MessageBox.Show("批量录入执行完成！");
             batchInput.Close();
         }
         AnologSamplePanel anologSamplePanel;

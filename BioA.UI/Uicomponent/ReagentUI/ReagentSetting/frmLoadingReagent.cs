@@ -94,7 +94,7 @@ namespace BioA.UI
 
 
                 cboReagentType.Properties.Items.Clear();
-                cboReagentType.Properties.Items.AddRange(new object[] { "", "血清", "尿液", "清洗剂" });
+                cboReagentType.Properties.Items.AddRange(new object[] { "", "血清", "尿液", "清洗剂", "稀释液" });
                 cboReagentType.SelectedIndex = 1;
 
                 cboReagentVol.Properties.Items.Clear();
@@ -205,7 +205,7 @@ namespace BioA.UI
             {
                 reagentSettingsInfo.ProjectName = cboProjectCheck.Text;
             }
-            else if (cboReagentType.Text == "清洗剂")
+            else if (cboReagentType.Text == "清洗剂" || cboReagentType.Text == "稀释液")
             {
             }
             else

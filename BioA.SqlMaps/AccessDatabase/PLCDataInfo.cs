@@ -38,9 +38,9 @@ namespace BioA.SqlMaps
                 ht.Add("PanelNum", disk);
                 disks = (List<int>)ism_SqlMap.QueryForList<int>("PLCDataInfo.GetHasSmpWorkDisk",ht);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                LogInfo.WriteErrorLog("GetHasSchedulesWorkDisk(int disk) == " + ex.Message, Module.PLCData);
             }
             return disks;
         }
@@ -1122,8 +1122,7 @@ namespace BioA.SqlMaps
             {
                 LogInfo.WriteErrorLog("GetRunningDate()==" + e.ToString(), Module.PLCData);
             }
-
-            return dateTime;
+            return dateTime.Substring(0, 10);
         }
         /// <summary>
         /// 修改机器运行状态表中的样本编号、进程编号

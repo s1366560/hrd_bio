@@ -16,8 +16,8 @@ namespace BioA.UI
 {
     public partial class PatientInfoFrm : DevExpress.XtraEditors.XtraForm
     {
-        PatientInfoEdit patientInfoEdit = new PatientInfoEdit();
-        PatientInfoCheck patientInfoCheck = new PatientInfoCheck();
+        PatientInfoEdit patientInfoEdit;
+        PatientInfoCheck patientInfoCheck;
 
         private int intSelectedNum = 0;
         /// <summary>
@@ -29,7 +29,6 @@ namespace BioA.UI
             set 
             { 
                 intSelectedNum = value;
-                patientInfoEdit.IntSelectedNum = intSelectedNum;
             }
         }
 
@@ -43,7 +42,6 @@ namespace BioA.UI
             set 
             {
                 lstSampleNum = value;
-                patientInfoEdit.LstSampleNum = lstSampleNum;
             }
         }
 
@@ -72,7 +70,6 @@ namespace BioA.UI
             {
                 lstPatientInfo = value;
                 patientInfoEdit.LstPatientInfo = lstPatientInfo;
-                patientInfoCheck.LstPatientInfo = lstPatientInfo;
             }
         }
 
@@ -147,7 +144,6 @@ namespace BioA.UI
         {
             InitializeComponent();
             this.ControlBox = false;
-            grpPatientInfoCheck.Controls.Add(patientInfoEdit);
         }
         private void btnClose_Click(object sender, EventArgs e)
         {
@@ -163,7 +159,6 @@ namespace BioA.UI
             grpPatientInfoCheck.Controls.Clear();
             if (!grpPatientInfoCheck.Contains(patientInfoEdit))
                 grpPatientInfoCheck.Controls.Add(patientInfoEdit);
-            patientInfoEdit.PatientInfoEdit_Load(null, null);
         }
         /// <summary>
         /// 查看所有病人信息点击事件
@@ -173,21 +168,13 @@ namespace BioA.UI
         private void btnPatientInfoSelect_Click(object sender, EventArgs e)
         {
             grpPatientInfoCheck.Controls.Clear();
+            if (patientInfoCheck != null)
+                patientInfoCheck.Dispose();
+            patientInfoCheck = new PatientInfoCheck();
             if(!grpPatientInfoCheck.Contains(patientInfoCheck))
                 grpPatientInfoCheck.Controls.Add(patientInfoCheck);
             patientInfoCheck.LstPatientInfo = lstPatientInfo;
         }
-        /// <summary>
-        /// 页面加载
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void PatientInfo_Load(object sender, EventArgs e)
-        {
-            patientInfoEdit.PatientInfoEdit_Load(null, null);
-            this.LoadPatientInfo();
-        }
-
         private void LoadPatientInfo()
         {
             Dictionary<string, object[]> patientDictionary = new Dictionary<string, object[]>();
@@ -199,6 +186,19 @@ namespace BioA.UI
             });
             patientThread.IsBackground = true;
             patientThread.Start();
+        }
+        /// <summary>
+        /// 页面加载
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PatientInfoFrm_Load(object sender, EventArgs e)
+        {
+            patientInfoEdit = new PatientInfoEdit();
+            patientInfoEdit.IntSelectedNum = intSelectedNum;
+            patientInfoEdit.LstSampleNum = lstSampleNum;
+            grpPatientInfoCheck.Controls.Add(patientInfoEdit);
+            this.LoadPatientInfo();
         }
     }
 }

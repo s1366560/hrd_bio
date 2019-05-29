@@ -70,7 +70,6 @@ namespace BioA.UI
 
         public float temp;
         /// 初始化一个子控件元素集合
-        /// </summary>
         private List<DevExpress.XtraBars.Navigation.AccordionControlElement> _Elements = new List<DevExpress.XtraBars.Navigation.AccordionControlElement>();
 
         // 与下位机网口通信
@@ -1969,9 +1968,9 @@ namespace BioA.UI
         /// </summary>
         private void FeatureListTagIcon(List<DevExpress.XtraBars.Navigation.AccordionControlElement> _Elements)
         {
-            foreach (DevExpress.XtraBars.Navigation.AccordionControlElement accrodionElement in _Elements)
+            for (int i = _Elements.Count; i > 0; i--)
             {
-                accrodionElement.Image = null;
+                _Elements[i - 1].Image = null;
             }
         }
         /// <summary>

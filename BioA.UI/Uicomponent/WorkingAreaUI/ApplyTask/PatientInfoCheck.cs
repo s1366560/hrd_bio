@@ -25,18 +25,16 @@ namespace BioA.UI
             set
             {
                 lstPatientInfo = value;
-                this.Invoke(new EventHandler(delegate
+                
+                dt.Rows.Clear();
+                if (lstPatientInfo.Count > 0)
                 {
-                    dt.Rows.Clear();
-                    if (lstPatientInfo.Count > 0)
+                    foreach (PatientInfo p in lstPatientInfo)
                     {
-                        foreach (PatientInfo p in lstPatientInfo)
-                        {
-                            dt.Rows.Add(new object[] { p.SampleNum, p.SampleID, p.PatientType, p.PatientName, p.Sex, p.Age, p.ApplyDepartment, p.ApplyDoctor, p.BedNum, p.SamplingTime, p.Remarks });
-                        }
-                        gridControl1.DataSource = dt;
+                        dt.Rows.Add(new object[] { p.SampleNum, p.SampleID, p.PatientType, p.PatientName, p.Sex, p.Age, p.ApplyDepartment, p.ApplyDoctor, p.BedNum, p.SamplingTime, p.Remarks });
                     }
-                }));
+                    gridControl1.DataSource = dt;
+                }
             }
         }
         public PatientInfoCheck()
@@ -56,11 +54,6 @@ namespace BioA.UI
             dt.Columns.Add("备注");
 
             gridControl1.DataSource = dt;
-        }
-
-        public void PatientInfoCheck_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

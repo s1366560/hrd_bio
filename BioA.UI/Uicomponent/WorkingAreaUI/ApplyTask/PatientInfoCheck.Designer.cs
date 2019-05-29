@@ -62,7 +62,6 @@
             this.Controls.Add(this.gridControl1);
             this.Name = "PatientInfoCheck";
             this.Size = new System.Drawing.Size(1428, 680);
-            //this.Load += new System.EventHandler(this.PatientInfoCheck_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             this.ResumeLayout(false);

@@ -90,13 +90,20 @@ namespace BioA.Service
         /// <param name="clientName"></param>
         public void RegisterClient(string strClientName)
         {
-            lock (lockObj)
+            try
             {
-                ClientRegisterInfo client = new ClientRegisterInfo { ClientName = strClientName };
-                client.NotifyCallBack = OperationContext.Current.GetCallbackChannel<INotifyCallBack>();
-                client.NotifyCallBack.NotifyFunction("RegisterSuccess");
-                ClientInfoCache.Instance.Add(client);
-                LogInfo.WriteProcessLog("ClientInfoCache.Instance.Clients.Count" + ClientInfoCache.Instance.Clients.Count.ToString(), Module.WindowsService);
+                lock (lockObj)
+                {
+                    ClientRegisterInfo client = new ClientRegisterInfo { ClientName = strClientName };
+                    client.NotifyCallBack = OperationContext.Current.GetCallbackChannel<INotifyCallBack>();
+                    client.NotifyCallBack.NotifyFunction("RegisterSuccess");
+                    ClientInfoCache.Instance.Add(client);
+                    LogInfo.WriteProcessLog("ClientInfoCache.Instance.Clients.Count" + ClientInfoCache.Instance.Clients.Count.ToString(), Module.WindowsService);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("RegisterClient() == " + ex.Message, Module.WindowsService);
             }
         }
 
@@ -1522,90 +1529,102 @@ namespace BioA.Service
         /// <returns>0, 1; 0代表发送失败，1代表发送成功</returns>
         public void ClientSendMsgToServiceMethod(ModuleInfo sendClientName, Dictionary<string, object[]> param)
         {
-            lock (lockObj)
+            try
             {
-                ClientRegisterInfo client = null;
-                client = ClientInfoCache.Instance.Clients.Find(x => x.ClientName == "BioA.UI");
-                switch (sendClientName)
+                lock (lockObj)
                 {
-                    case ModuleInfo.Login://UserLogin
-                        HandleLogins(ModuleInfo.Login, client, param);
-                        break;
-                    case ModuleInfo.WorkingAreaApplyTask:
-                        new Thread(() => { HandleWorkingAreaApplyTasks(ModuleInfo.WorkingAreaApplyTask, client, param); }) { IsBackground = true }.Start();
-                        break;
-                    case ModuleInfo.WorkingAreaDataCheck:
-                        HandleWorkingAreaDataChecks(ModuleInfo.WorkingAreaDataCheck, client, param);
-                        break;
-                    case ModuleInfo.ReagentSetting:
-                        HandleReagentSettings(ModuleInfo.ReagentSetting, client, param);
-                        break;
-                    case ModuleInfo.ReagentState:
-                        HandleReagentStates(ModuleInfo.ReagentState, client, param);
-                        break;
-                    case ModuleInfo.CalibControlTask:
-                        HandleCalibControlTasks(ModuleInfo.CalibControlTask, client, param);
-                        break;
-                    case ModuleInfo.CalibrationMaintain:
-                        HandleCalibrationMaintains(ModuleInfo.CalibrationMaintain, client, param);
-                        break;
-                    case ModuleInfo.CalibrationState:
-                        HandleCalibrationStates(ModuleInfo.CalibrationState, client, param);
-                        break;
-                    case ModuleInfo.QCMaintain:
-                        HandleQCMaintains(ModuleInfo.QCMaintain, client, param);
-                        break;
-                    case ModuleInfo.QCResult:
-                        HandleQCResults(ModuleInfo.QCResult, client, param);
-                        break;
-                    case ModuleInfo.QCGraphic:
-                        HandleQCGraphics(ModuleInfo.QCGraphic, client, param);
-                        break;
-                    case ModuleInfo.QCTask:
-                        HandleQCTasks(ModuleInfo.QCTask, client, param);
-                        break;
-                    case ModuleInfo.SettingsChemicalParameter:
-                        HandleSettingsChemicalParams(ModuleInfo.SettingsChemicalParameter, client, param);
-                        break;
-                    case ModuleInfo.SettingsCombProject:
-                        HandleSettingsCombProjectInfos(ModuleInfo.SettingsCombProject, client, param);
-                        break;
-                    case ModuleInfo.SettingsCalculateItem:
-                        HandleSettingsCalcProjectInfos(ModuleInfo.SettingsCalculateItem, client, param);
-                        break;
-                    case ModuleInfo.SettingsEnvironment:
-                        HandleEnvironmentParamInfso(ModuleInfo.SettingsEnvironment, client, param);
-                        break;
-                    case ModuleInfo.SettingsCrossPollution:
-                        HandleSettingsCrossPollutions(ModuleInfo.SettingsCrossPollution, client, param);
-                        break;
-                    case ModuleInfo.SettingsDataConfig:
-                        HandleSettingsDataConfigs(ModuleInfo.SettingsDataConfig, client, param);
-                        break;
-                    case ModuleInfo.SettingsLISCommunicate:
-                        HandleSettingsLISCommunicates(ModuleInfo.SettingsLISCommunicate, client, param);
-                        break;
-                    case ModuleInfo.SystemMaintenance:
-                        HandleSystemMaintenances(ModuleInfo.SystemMaintenance, client, param);
-                        break;
-                    case ModuleInfo.SystemEquipmentManage:
-                        SystemEquipmentManages(ModuleInfo.SystemEquipmentManage, client, param);
-                        break;
-                    case ModuleInfo.SystemUserManagement:
-                        HandleSystemUserManagements(ModuleInfo.SystemUserManagement, client, param);
-                        break;
-                    case ModuleInfo.SystemDepartmentManage:
-                        HandleSystemDepartmentManages(ModuleInfo.SystemDepartmentManage, client, param);
-                        break;
-                    case ModuleInfo.SystemLogCheck:
-                        HandleSystemLogChecks(ModuleInfo.SystemLogCheck, client, param);
-                        break;
-                    case ModuleInfo.MainTain:
-                        HandleMainTains(ModuleInfo.MainTain, client, param);
-                        break;
-                    default:
-                        break;
+                    ClientRegisterInfo client = null;
+                    client = ClientInfoCache.Instance.Clients.Find(x => x.ClientName == "BioA.UI");
+                    if (client == null)
+                    {
+                        this.RegisterClient("BioA.UI");
+                        client = ClientInfoCache.Instance.Clients.Find(x => x.ClientName == "BioA.UI");
+                    }
+                    switch (sendClientName)
+                    {
+                        case ModuleInfo.Login://UserLogin
+                            HandleLogins(ModuleInfo.Login, client, param);
+                            break;
+                        case ModuleInfo.WorkingAreaApplyTask:
+                            new Thread(() => { HandleWorkingAreaApplyTasks(ModuleInfo.WorkingAreaApplyTask, client, param); }) { IsBackground = true }.Start();
+                            break;
+                        case ModuleInfo.WorkingAreaDataCheck:
+                            HandleWorkingAreaDataChecks(ModuleInfo.WorkingAreaDataCheck, client, param);
+                            break;
+                        case ModuleInfo.ReagentSetting:
+                            HandleReagentSettings(ModuleInfo.ReagentSetting, client, param);
+                            break;
+                        case ModuleInfo.ReagentState:
+                            HandleReagentStates(ModuleInfo.ReagentState, client, param);
+                            break;
+                        case ModuleInfo.CalibControlTask:
+                            HandleCalibControlTasks(ModuleInfo.CalibControlTask, client, param);
+                            break;
+                        case ModuleInfo.CalibrationMaintain:
+                            HandleCalibrationMaintains(ModuleInfo.CalibrationMaintain, client, param);
+                            break;
+                        case ModuleInfo.CalibrationState:
+                            HandleCalibrationStates(ModuleInfo.CalibrationState, client, param);
+                            break;
+                        case ModuleInfo.QCMaintain:
+                            HandleQCMaintains(ModuleInfo.QCMaintain, client, param);
+                            break;
+                        case ModuleInfo.QCResult:
+                            HandleQCResults(ModuleInfo.QCResult, client, param);
+                            break;
+                        case ModuleInfo.QCGraphic:
+                            HandleQCGraphics(ModuleInfo.QCGraphic, client, param);
+                            break;
+                        case ModuleInfo.QCTask:
+                            HandleQCTasks(ModuleInfo.QCTask, client, param);
+                            break;
+                        case ModuleInfo.SettingsChemicalParameter:
+                            HandleSettingsChemicalParams(ModuleInfo.SettingsChemicalParameter, client, param);
+                            break;
+                        case ModuleInfo.SettingsCombProject:
+                            HandleSettingsCombProjectInfos(ModuleInfo.SettingsCombProject, client, param);
+                            break;
+                        case ModuleInfo.SettingsCalculateItem:
+                            HandleSettingsCalcProjectInfos(ModuleInfo.SettingsCalculateItem, client, param);
+                            break;
+                        case ModuleInfo.SettingsEnvironment:
+                            HandleEnvironmentParamInfso(ModuleInfo.SettingsEnvironment, client, param);
+                            break;
+                        case ModuleInfo.SettingsCrossPollution:
+                            HandleSettingsCrossPollutions(ModuleInfo.SettingsCrossPollution, client, param);
+                            break;
+                        case ModuleInfo.SettingsDataConfig:
+                            HandleSettingsDataConfigs(ModuleInfo.SettingsDataConfig, client, param);
+                            break;
+                        case ModuleInfo.SettingsLISCommunicate:
+                            HandleSettingsLISCommunicates(ModuleInfo.SettingsLISCommunicate, client, param);
+                            break;
+                        case ModuleInfo.SystemMaintenance:
+                            HandleSystemMaintenances(ModuleInfo.SystemMaintenance, client, param);
+                            break;
+                        case ModuleInfo.SystemEquipmentManage:
+                            SystemEquipmentManages(ModuleInfo.SystemEquipmentManage, client, param);
+                            break;
+                        case ModuleInfo.SystemUserManagement:
+                            HandleSystemUserManagements(ModuleInfo.SystemUserManagement, client, param);
+                            break;
+                        case ModuleInfo.SystemDepartmentManage:
+                            HandleSystemDepartmentManages(ModuleInfo.SystemDepartmentManage, client, param);
+                            break;
+                        case ModuleInfo.SystemLogCheck:
+                            HandleSystemLogChecks(ModuleInfo.SystemLogCheck, client, param);
+                            break;
+                        case ModuleInfo.MainTain:
+                            HandleMainTains(ModuleInfo.MainTain, client, param);
+                            break;
+                        default:
+                            break;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                LogInfo.WriteErrorLog("ClientSendMsgToServiceMethod() == " + ex.Message, Module.WindowsService);
             }
         }
         /// <summary>

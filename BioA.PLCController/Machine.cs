@@ -503,7 +503,7 @@ namespace BioA.PLCController
             myBatis.ClearNotTodaySchedule();
             myBatis.SetUnfinishedScheduleContinue();
 
-            if (myBatis.GetRunningDate() != DateTime.Now.Date.ToString())
+            if (myBatis.GetRunningDate() != DateTime.Now.Date.ToString().Substring(0, 10))
             {
                 //SampleSer.BackUpYesterdaySamples();
                 //SampleSer.ClearYesterdaySamples();
@@ -524,6 +524,7 @@ namespace BioA.PLCController
                 //{
                 //SMPPOSMgr.ClearAllSMPPositions();
                 myBatis.InitRunningState();
+                myBatis.UpdateWorkingDisk(1);
                 //}
             }
 
@@ -557,8 +558,6 @@ namespace BioA.PLCController
             //        new RunAssaySQService().Save(r);
             //    }
             //}
-
-            myBatis.UpdateWorkingDisk(1);
 
             //new AssayRunParaService().DeleteinvalidDisplaySQ();
             Console.WriteLine(@"Finish initializing data!");
@@ -2387,7 +2386,8 @@ namespace BioA.PLCController
                 //手动切换逻辑盘
                 if (IsHavingNORTask == false)
                 {
-                    Console.WriteLine(DateTime.Now.ToString("HH:mm:ss.fff") + " 提醒切换逻辑盘...." + ScheduleSignalCount);
+                    //手动切换逻辑盘
+                    Console.WriteLine(DateTime.Now.ToString("HH:mm:ss.fff") + " 延迟2秒自动切换逻辑盘...." + ScheduleSignalCount);
 
                     //检查其他样本
                     // int timeout = new WorkDiskSetService().GetWorkDiskExchangeTimeout();
@@ -2397,14 +2397,25 @@ namespace BioA.PLCController
                         List<int> disks = myBatis.GetHasSchedulesWorkDisk(curdisk);
                         if (disks.Count > 0)
                         {
-                            string diskstr = "";
-                            foreach (int e in disks)
+                            //string diskstr = "";
+                            //foreach (int e in disks)
+                            //{
+                            //    diskstr += e + "|";
+                            //}
+
+                            myBatis.UpdateWorkingDisk(disks[0]);
+                            if (this.MachineState.Command != null)
                             {
-                                diskstr += e + "|";
+                                switch (this.MachineState.Command.Name)
+                                {
+                                    case "StartSchedule":
+                                        this.MachineState.State = "工作盘符切换至:" + disks[0].ToString();//string.Format(@"工作盘符切换至{0}", curdisk);
+                                        break;
+                                }
                             }
-                            this.MachineState.StateValue = diskstr;
-                            this.MachineState.Fired = AnalyzeEvent.HAS_SCHEDULE_WARNNING;
-                            this.MachineState.State = @"切换需要的工作盘";
+                            //this.MachineState.StateValue = diskstr;
+                            //this.MachineState.Fired = AnalyzeEvent.HAS_SCHEDULE_WARNNING;
+                            //this.MachineState.State = @"切换需要的工作盘";
 
                             this.MachineState.Fired = null;//消息驱动置空
                         }
@@ -2412,7 +2423,6 @@ namespace BioA.PLCController
                         ScheduleSignalCount = 0;
                     }
                 }
-                
             }
         }
         /// <summary>

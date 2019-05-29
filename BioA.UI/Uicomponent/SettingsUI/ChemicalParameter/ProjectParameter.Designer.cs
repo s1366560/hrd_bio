@@ -867,7 +867,7 @@
             this.labelControl12.Name = "labelControl12";
             this.labelControl12.Size = new System.Drawing.Size(92, 17);
             this.labelControl12.TabIndex = 73;
-            this.labelControl12.Text = "搅拌浆2强度：";
+            this.labelControl12.Text = "搅拌桨2强度：";
             // 
             // label18
             // 
@@ -1171,7 +1171,7 @@
             this.lblStirringIntensity.Name = "lblStirringIntensity";
             this.lblStirringIntensity.Size = new System.Drawing.Size(92, 17);
             this.lblStirringIntensity.TabIndex = 17;
-            this.lblStirringIntensity.Text = "搅拌浆1强度：";
+            this.lblStirringIntensity.Text = "搅拌桨1强度：";
             // 
             // grpReagentSetting
             // 

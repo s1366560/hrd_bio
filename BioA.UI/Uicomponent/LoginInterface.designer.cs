@@ -64,11 +64,11 @@
             // 
             // txtUserName
             // 
-            this.txtUserName.Font = new System.Drawing.Font("STZhongsong", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtUserName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtUserName.ForeColor = System.Drawing.SystemColors.WindowText;
             this.txtUserName.Location = new System.Drawing.Point(151, 57);
             this.txtUserName.Name = "txtUserName";
-            this.txtUserName.Size = new System.Drawing.Size(189, 29);
+            this.txtUserName.Size = new System.Drawing.Size(189, 26);
             this.txtUserName.TabIndex = 3;
             this.txtUserName.Enter += new System.EventHandler(this.txtUserNameOrPassword_Enter);
             this.txtUserName.Leave += new System.EventHandler(this.txtUserNameOrPassword_Leave);
@@ -102,7 +102,7 @@
             // btnLogin
             // 
             this.btnLogin.BackColor = System.Drawing.SystemColors.Control;
-            this.btnLogin.Font = new System.Drawing.Font("STKaiti", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnLogin.Location = new System.Drawing.Point(370, 57);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(99, 87);
@@ -141,7 +141,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("STXinwei", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label3.Font = new System.Drawing.Font("KaiTi", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.DarkBlue;
             this.label3.Location = new System.Drawing.Point(1096, 683);
             this.label3.Name = "label3";
@@ -171,13 +171,13 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("STXinwei", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label4.Font = new System.Drawing.Font("KaiTi", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label4.ForeColor = System.Drawing.Color.Navy;
-            this.label4.Location = new System.Drawing.Point(104, 9);
+            this.label4.Location = new System.Drawing.Point(70, 10);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(269, 30);
+            this.label4.Size = new System.Drawing.Size(357, 29);
             this.label4.TabIndex = 10;
-            this.label4.Text = "NT-800生化分析仪";
+            this.label4.Text = "HRD800全自动生化分析仪";
             this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // LoginInterface

@@ -477,7 +477,6 @@
             this.Controls.Add(this.chkManuallyDilute);
             this.Name = "ApplyTask";
             this.Size = new System.Drawing.Size(1794, 933);
-            //this.Load += new System.EventHandler(this.ApplyTask_Load);
             ((System.ComponentModel.ISupportInitialize)(this.chkManuallyDilute.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkEmergency.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpProject)).EndInit();
