@@ -51,10 +51,10 @@
             this.AddDoctor = new DevExpress.XtraEditors.SimpleButton();
             this.DeleteAuditDoctor = new DevExpress.XtraEditors.SimpleButton();
             this.AddAuditDoctor = new DevExpress.XtraEditors.SimpleButton();
-            this.textEdit1 = new DevExpress.XtraEditors.TextEdit();
+            this.TxtDepartmentName = new DevExpress.XtraEditors.TextEdit();
             this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.textEdit2 = new DevExpress.XtraEditors.TextEdit();
-            this.comboBoxEdit1 = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.TxtDoctorName = new DevExpress.XtraEditors.TextEdit();
+            this.ComBoxDepartment = new DevExpress.XtraEditors.ComboBoxEdit();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.comboBoxEdit2 = new DevExpress.XtraEditors.ComboBoxEdit();
             ((System.ComponentModel.ISupportInitialize)(this.grdApplyDepartments)).BeginInit();
@@ -65,9 +65,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridView3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdAuditDoctor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TxtDepartmentName.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TxtDoctorName.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ComBoxDepartment.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit2.Properties)).BeginInit();
             this.SuspendLayout();
             // 
@@ -202,19 +202,19 @@
             this.btnSPAdd.Image = ((System.Drawing.Image)(resources.GetObject("btnSPAdd.Image")));
             this.btnSPAdd.Location = new System.Drawing.Point(84, 91);
             this.btnSPAdd.Name = "btnSPAdd";
-            this.btnSPAdd.Size = new System.Drawing.Size(87, 49);
+            this.btnSPAdd.Size = new System.Drawing.Size(112, 49);
             this.btnSPAdd.TabIndex = 8;
-            this.btnSPAdd.Text = "添加";
+            this.btnSPAdd.Text = "添    加";
             this.btnSPAdd.Click += new System.EventHandler(this.btnSPAdd_Click);
             // 
             // btnSPCancel
             // 
             this.btnSPCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnSPCancel.Image")));
-            this.btnSPCancel.Location = new System.Drawing.Point(257, 147);
+            this.btnSPCancel.Location = new System.Drawing.Point(240, 147);
             this.btnSPCancel.Name = "btnSPCancel";
-            this.btnSPCancel.Size = new System.Drawing.Size(87, 49);
+            this.btnSPCancel.Size = new System.Drawing.Size(104, 49);
             this.btnSPCancel.TabIndex = 9;
-            this.btnSPCancel.Text = "取消";
+            this.btnSPCancel.Text = "取    消";
             this.btnSPCancel.Click += new System.EventHandler(this.btnSPCancel_Click);
             // 
             // btnSPSave
@@ -222,29 +222,29 @@
             this.btnSPSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSPSave.Image")));
             this.btnSPSave.Location = new System.Drawing.Point(84, 147);
             this.btnSPSave.Name = "btnSPSave";
-            this.btnSPSave.Size = new System.Drawing.Size(87, 49);
+            this.btnSPSave.Size = new System.Drawing.Size(112, 49);
             this.btnSPSave.TabIndex = 10;
-            this.btnSPSave.Text = "保存";
+            this.btnSPSave.Text = "保存修改";
             this.btnSPSave.Click += new System.EventHandler(this.btnSPSave_Click);
             // 
             // btnSPDelete
             // 
             this.btnSPDelete.Image = ((System.Drawing.Image)(resources.GetObject("btnSPDelete.Image")));
-            this.btnSPDelete.Location = new System.Drawing.Point(257, 92);
+            this.btnSPDelete.Location = new System.Drawing.Point(240, 92);
             this.btnSPDelete.Name = "btnSPDelete";
-            this.btnSPDelete.Size = new System.Drawing.Size(87, 49);
+            this.btnSPDelete.Size = new System.Drawing.Size(104, 49);
             this.btnSPDelete.TabIndex = 11;
-            this.btnSPDelete.Text = "删除";
+            this.btnSPDelete.Text = "删    除";
             this.btnSPDelete.Click += new System.EventHandler(this.btnSPDelete_Click);
             // 
             // DeleteDoctor
             // 
             this.DeleteDoctor.Image = ((System.Drawing.Image)(resources.GetObject("DeleteDoctor.Image")));
-            this.DeleteDoctor.Location = new System.Drawing.Point(654, 124);
+            this.DeleteDoctor.Location = new System.Drawing.Point(635, 124);
             this.DeleteDoctor.Name = "DeleteDoctor";
-            this.DeleteDoctor.Size = new System.Drawing.Size(87, 49);
+            this.DeleteDoctor.Size = new System.Drawing.Size(106, 49);
             this.DeleteDoctor.TabIndex = 15;
-            this.DeleteDoctor.Text = "删除";
+            this.DeleteDoctor.Text = "删    除";
             this.DeleteDoctor.Click += new System.EventHandler(this.simpleButton1_Click);
             // 
             // SaveDoctor
@@ -252,19 +252,19 @@
             this.SaveDoctor.Image = ((System.Drawing.Image)(resources.GetObject("SaveDoctor.Image")));
             this.SaveDoctor.Location = new System.Drawing.Point(481, 179);
             this.SaveDoctor.Name = "SaveDoctor";
-            this.SaveDoctor.Size = new System.Drawing.Size(87, 49);
+            this.SaveDoctor.Size = new System.Drawing.Size(104, 49);
             this.SaveDoctor.TabIndex = 14;
-            this.SaveDoctor.Text = "保存";
+            this.SaveDoctor.Text = "保存修改";
             this.SaveDoctor.Click += new System.EventHandler(this.simpleButton2_Click);
             // 
             // CancelDoctor
             // 
             this.CancelDoctor.Image = ((System.Drawing.Image)(resources.GetObject("CancelDoctor.Image")));
-            this.CancelDoctor.Location = new System.Drawing.Point(654, 179);
+            this.CancelDoctor.Location = new System.Drawing.Point(635, 179);
             this.CancelDoctor.Name = "CancelDoctor";
-            this.CancelDoctor.Size = new System.Drawing.Size(87, 49);
+            this.CancelDoctor.Size = new System.Drawing.Size(106, 49);
             this.CancelDoctor.TabIndex = 13;
-            this.CancelDoctor.Text = "取消";
+            this.CancelDoctor.Text = "取    消";
             this.CancelDoctor.Click += new System.EventHandler(this.simpleButton3_Click);
             // 
             // AddDoctor
@@ -274,9 +274,9 @@
             this.AddDoctor.Image = ((System.Drawing.Image)(resources.GetObject("AddDoctor.Image")));
             this.AddDoctor.Location = new System.Drawing.Point(481, 124);
             this.AddDoctor.Name = "AddDoctor";
-            this.AddDoctor.Size = new System.Drawing.Size(87, 49);
+            this.AddDoctor.Size = new System.Drawing.Size(104, 49);
             this.AddDoctor.TabIndex = 12;
-            this.AddDoctor.Text = "添加";
+            this.AddDoctor.Text = "添    加";
             this.AddDoctor.Click += new System.EventHandler(this.simpleButton4_Click);
             // 
             // DeleteAuditDoctor
@@ -301,40 +301,40 @@
             this.AddAuditDoctor.Text = "添加";
             this.AddAuditDoctor.Click += new System.EventHandler(this.simpleButton12_Click);
             // 
-            // textEdit1
+            // TxtDepartmentName
             // 
-            this.textEdit1.Location = new System.Drawing.Point(84, 61);
-            this.textEdit1.Name = "textEdit1";
-            this.textEdit1.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textEdit1.Properties.Appearance.Options.UseFont = true;
-            this.textEdit1.Size = new System.Drawing.Size(260, 24);
-            this.textEdit1.TabIndex = 24;
+            this.TxtDepartmentName.Location = new System.Drawing.Point(84, 61);
+            this.TxtDepartmentName.Name = "TxtDepartmentName";
+            this.TxtDepartmentName.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtDepartmentName.Properties.Appearance.Options.UseFont = true;
+            this.TxtDepartmentName.Size = new System.Drawing.Size(260, 24);
+            this.TxtDepartmentName.TabIndex = 24;
             // 
             // gridColumn5
             // 
             this.gridColumn5.Name = "gridColumn5";
             // 
-            // textEdit2
+            // TxtDoctorName
             // 
-            this.textEdit2.Location = new System.Drawing.Point(481, 61);
-            this.textEdit2.Name = "textEdit2";
-            this.textEdit2.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textEdit2.Properties.Appearance.Options.UseFont = true;
-            this.textEdit2.Size = new System.Drawing.Size(260, 24);
-            this.textEdit2.TabIndex = 25;
+            this.TxtDoctorName.Location = new System.Drawing.Point(481, 61);
+            this.TxtDoctorName.Name = "TxtDoctorName";
+            this.TxtDoctorName.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtDoctorName.Properties.Appearance.Options.UseFont = true;
+            this.TxtDoctorName.Size = new System.Drawing.Size(260, 24);
+            this.TxtDoctorName.TabIndex = 25;
             // 
-            // comboBoxEdit1
+            // ComBoxDepartment
             // 
-            this.comboBoxEdit1.EditValue = "请选择";
-            this.comboBoxEdit1.Location = new System.Drawing.Point(557, 91);
-            this.comboBoxEdit1.Name = "comboBoxEdit1";
-            this.comboBoxEdit1.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBoxEdit1.Properties.Appearance.Options.UseFont = true;
-            this.comboBoxEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.ComBoxDepartment.EditValue = "请选择";
+            this.ComBoxDepartment.Location = new System.Drawing.Point(557, 91);
+            this.ComBoxDepartment.Name = "ComBoxDepartment";
+            this.ComBoxDepartment.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComBoxDepartment.Properties.Appearance.Options.UseFont = true;
+            this.ComBoxDepartment.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.comboBoxEdit1.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.comboBoxEdit1.Size = new System.Drawing.Size(184, 24);
-            this.comboBoxEdit1.TabIndex = 26;
+            this.ComBoxDepartment.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.ComBoxDepartment.Size = new System.Drawing.Size(184, 24);
+            this.ComBoxDepartment.TabIndex = 26;
             // 
             // labelControl1
             // 
@@ -365,9 +365,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.comboBoxEdit2);
             this.Controls.Add(this.labelControl1);
-            this.Controls.Add(this.comboBoxEdit1);
-            this.Controls.Add(this.textEdit2);
-            this.Controls.Add(this.textEdit1);
+            this.Controls.Add(this.ComBoxDepartment);
+            this.Controls.Add(this.TxtDoctorName);
+            this.Controls.Add(this.TxtDepartmentName);
             this.Controls.Add(this.DeleteAuditDoctor);
             this.Controls.Add(this.AddAuditDoctor);
             this.Controls.Add(this.DeleteDoctor);
@@ -388,7 +388,6 @@
             this.Controls.Add(this.lblApplicationDepartment);
             this.Name = "DepartmentManage";
             this.Size = new System.Drawing.Size(1702, 936);
-            //this.Load += new System.EventHandler(this.DepartmentManage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grdApplyDepartments)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdApplyDoctor)).EndInit();
@@ -397,9 +396,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridView3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdAuditDoctor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TxtDepartmentName.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TxtDoctorName.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ComBoxDepartment.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit2.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -430,10 +429,10 @@
         private DevExpress.XtraEditors.SimpleButton AddDoctor;
         private DevExpress.XtraEditors.SimpleButton DeleteAuditDoctor;
         private DevExpress.XtraEditors.SimpleButton AddAuditDoctor;
-        private DevExpress.XtraEditors.TextEdit textEdit1;
+        private DevExpress.XtraEditors.TextEdit TxtDepartmentName;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn5;
-        private DevExpress.XtraEditors.TextEdit textEdit2;
-        private DevExpress.XtraEditors.ComboBoxEdit comboBoxEdit1;
+        private DevExpress.XtraEditors.TextEdit TxtDoctorName;
+        private DevExpress.XtraEditors.ComboBoxEdit ComBoxDepartment;
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraEditors.ComboBoxEdit comboBoxEdit2;
     }

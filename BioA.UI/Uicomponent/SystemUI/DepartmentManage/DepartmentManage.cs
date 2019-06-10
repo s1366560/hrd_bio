@@ -119,15 +119,18 @@ namespace BioA.UI
                    
                     break;
                 case "AddApplyDoctorInfo":
-                    MessageBoxDraw.ShowMsg(Convert.ToString(sender), MsgType.Exception);
+                    this.TxtDoctorName.Text = "";
+                    this.ComBoxDepartment.Text = "请选择";
                     QueryApplyDoctorInfo();
                     break;
                 case "DeleteApplyDoctorInfo":
-
+                    this.TxtDoctorName.Text = "";
+                    this.ComBoxDepartment.Text = "请选择";
                     QueryApplyDoctorInfo();
                     break;
                 case "UpdataApplyDoctorInfo":
-
+                    this.TxtDoctorName.Text = "";
+                    this.ComBoxDepartment.Text = "请选择";
                     QueryApplyDoctorInfo();
 
                     break;
@@ -261,11 +264,11 @@ namespace BioA.UI
           
              this.Invoke(new EventHandler(delegate
             {
-                this.comboBoxEdit1.Text = "请选择";
-                this.comboBoxEdit1.Properties.Items.Clear();
+                this.ComBoxDepartment.Text = "请选择";
+                this.ComBoxDepartment.Properties.Items.Clear();
                 foreach (string str in lstQueryDepartmentInfo)
                 {
-                    this.comboBoxEdit1.Properties.Items.AddRange(new object[] {str });
+                    this.ComBoxDepartment.Properties.Items.AddRange(new object[] {str });
             }
             }));
         }
@@ -351,12 +354,12 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void btnSPAdd_Click(object sender, EventArgs e)
         {
-            if (textEdit1.Text.Trim() != "")
+            if (TxtDepartmentName.Text.Trim() != "")
             {
                 dePartManageDic.Clear();
-                dePartManageDic.Add("AddDepartmentInfo", new object[] { textEdit1.Text });
+                dePartManageDic.Add("AddDepartmentInfo", new object[] { TxtDepartmentName.Text });
                 DepartmentManageSend(dePartManageDic);
-                textEdit1.Text = string.Empty;
+                TxtDepartmentName.Text = string.Empty;
             }
             else
             {
@@ -383,11 +386,11 @@ namespace BioA.UI
                 string str1 = this.gridView1.GetRowCellValue(selectedHandle, "科室名称").ToString();
                 if (str1 != null)
                 {
-                    textEdit1.Text = str1;
+                    TxtDepartmentName.Text = str1;
                     dePartManageDic.Clear();
                     dePartManageDic.Add("DeleteDepartment", new object[] { str1 });
                     DepartmentManageSend(dePartManageDic);
-                    textEdit1.Text = "";
+                    TxtDepartmentName.Text = "";
                 }
             }
            
@@ -403,9 +406,9 @@ namespace BioA.UI
             if (this.gridView1.GetSelectedRows().Count() > 0)
             {
                 dePartManageDic.Clear();
-                dePartManageDic.Add("UpDataDepartment", new object[] { textEdit1.Text,DataDepartment.ObjLastestParam });
+                dePartManageDic.Add("UpDataDepartment", new object[] { TxtDepartmentName.Text,DataDepartment.ObjLastestParam });
                 DepartmentManageSend(dePartManageDic);
-                textEdit1.Text = string.Empty;
+                TxtDepartmentName.Text = string.Empty;
             }
             else
             {
@@ -423,7 +426,7 @@ namespace BioA.UI
             {
                 int selectedHandle;
                 selectedHandle = this.gridView1.GetSelectedRows()[0];
-                DataDepartment.ObjLastestParam = this.gridView1.GetRowCellValue(selectedHandle, "科室名称").ToString();
+                TxtDepartmentName.Text = DataDepartment.ObjLastestParam = this.gridView1.GetRowCellValue(selectedHandle, "科室名称").ToString();
             }
         }
 
@@ -435,7 +438,7 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void btnSPCancel_Click(object sender, EventArgs e)
         {
-            textEdit1.Text = string.Empty;
+            TxtDepartmentName.Text = string.Empty;
         }
         
         /// <summary>
@@ -472,20 +475,20 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void simpleButton4_Click(object sender, EventArgs e)
         {
-            if (textEdit2.Text.Trim() == "")
+            if (TxtDoctorName.Text.Trim() == "")
             {
                 MessageBoxDraw.ShowMsg("请输入申请医师名称！", MsgType.OK);
                 return;
             }
-            if (comboBoxEdit1.SelectedIndex < 0)
+            if (ComBoxDepartment.SelectedIndex < 0)
             {
                 MessageBoxDraw.ShowMsg("请选择申请科室！", MsgType.OK);
                 return;
             }
 
             ApplyDoctorInfo applyDoctorInfo = new ApplyDoctorInfo();
-            applyDoctorInfo.Department = comboBoxEdit1.Text;
-            applyDoctorInfo.Doctor = textEdit2.Text;
+            applyDoctorInfo.Department = ComBoxDepartment.Text;
+            applyDoctorInfo.Doctor = TxtDoctorName.Text;
             dePartManageDic.Clear();
             dePartManageDic.Add("AddApplyDoctorInfo", new object[] { XmlUtility.Serializer(typeof(ApplyDoctorInfo), applyDoctorInfo) });
             DepartmentManageSend(dePartManageDic);
@@ -502,8 +505,8 @@ namespace BioA.UI
             {
                 int selectedHandle;
                 selectedHandle = this.gridView2.GetSelectedRows()[0];
-                applyDoctorInfoOld.Doctor = this.gridView2.GetRowCellValue(selectedHandle, "医生名称").ToString();
-                applyDoctorInfoOld.Department = this.gridView2.GetRowCellValue(selectedHandle, "申请科室").ToString();
+                TxtDoctorName.Text = applyDoctorInfoOld.Doctor = this.gridView2.GetRowCellValue(selectedHandle, "医生名称").ToString();
+                ComBoxDepartment.SelectedIndex = ComBoxDepartment.Properties.Items.IndexOf(applyDoctorInfoOld.Department = this.gridView2.GetRowCellValue(selectedHandle, "申请科室").ToString());
             }
         }
         /// <summary>
@@ -516,12 +519,12 @@ namespace BioA.UI
             if (this.gridView2.GetSelectedRows().Count() > 0)
             {
                 ApplyDoctorInfo applyDoctorInfo = new ApplyDoctorInfo();
-                applyDoctorInfo.Department = comboBoxEdit1.Text;
-                applyDoctorInfo.Doctor = textEdit2.Text;
+                applyDoctorInfo.Department = ComBoxDepartment.Text;
+                applyDoctorInfo.Doctor = TxtDoctorName.Text;
                 dePartManageDic.Clear();
                 dePartManageDic.Add("UpdataApplyDoctorInfo", new object[] { XmlUtility.Serializer(typeof(ApplyDoctorInfo), applyDoctorInfo), XmlUtility.Serializer(typeof(ApplyDoctorInfo), applyDoctorInfoOld) });
                 DepartmentManageSend(dePartManageDic);
-                textEdit2.Text = "";
+                TxtDoctorName.Text = "";
             }
             else
             {
@@ -535,7 +538,8 @@ namespace BioA.UI
         /// <param name="e"></param>
         private void simpleButton3_Click(object sender, EventArgs e)
         {
-            textEdit2.Text = "";
+            this.TxtDoctorName.Text = "";
+            this.ComBoxDepartment.Text = "请选择";
         }
         /// <summary>
         /// 审核医生（添加按钮）

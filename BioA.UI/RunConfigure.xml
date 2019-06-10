@@ -22,7 +22,8 @@
   <AnalizeMethods Values="一点终点法,二点终点法,速率A法,速率B法" />
   <BoundDirection Values="区间内,区间外" />
   <ReactionDirection Values="正反应,负反应" />
-  <CalibrationMethods Values="K系数法,2点线性法,多点线性法,折线法,对数法,指数法,多项式法,样条法,一次多项式法,二次多项式法,三次多项式法" />
+  <CalibrationMethods Values="K系数法,2点线性法,多点线性法,折线法,对数法,指数法,多项式法,样条法" />
+    <!-- ,一次多项式法,二次多项式法,三次多项式法 -->
   <CalibrationTimes Values="1,2,3" />
   <QCLevelConc Values="低,中,高" />
   <QCPosition Values="C1,C2,C3,C4,C5,C6,C7,C8,C9,C10" />

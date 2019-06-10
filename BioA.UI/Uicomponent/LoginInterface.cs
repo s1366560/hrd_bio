@@ -301,7 +301,6 @@ namespace BioA.UI
         /// <param name="user"></param>
         public static void SetUserLogInfo(UserInfo user)
         {
-            userInfo = null;
             userInfo = user;
         }
     }

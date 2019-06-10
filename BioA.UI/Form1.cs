@@ -10,10 +10,13 @@ using BioA.Service;
 using BioA.SqlMaps;
 using BioA.UI.Uicomponent;
 using BioA.UI.Uicomponent.Analog;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -88,6 +91,34 @@ namespace BioA.UI
         }
         bool click = true;
 
+
+        /// <summary>
+        /// 主窗体初始化后要加载的数据
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            //Hook_Start();
+
+            Task.Run(() => { this.StateMachineWarningHint(); });
+            // BeginInvoke(new Action(Init));
+            userInfo = UserLoginInfo.GetUserLoginInfo();
+            this.labUserName.Text = userInfo.UserName;
+
+            var displayThread = new Thread(DisplayHavingError);
+            displayThread.IsBackground = true;
+            displayThread.Start();
+
+            var initThread = new Thread(Init);
+            initThread.IsBackground = true;
+            initThread.Start();
+
+
+        }
+        /// <summary>
+        /// 初始化主窗体控件和数据
+        /// </summary>
         public void Init()
         {
             _LISService = new LISService();
@@ -228,6 +259,7 @@ namespace BioA.UI
         }
         #endregion
 
+        #region 手动切换工作盘
         public void OnHasSchedulesWarn(string v)
         {
             new Thread(new ParameterizedThreadStart(CreateHasSchedulesWarnDlg)).Start(v);
@@ -249,6 +281,9 @@ namespace BioA.UI
                 }
             }));
         }
+        #endregion
+
+
         #region 处理下位机发来的信息
         /// <summary>
         /// 处理下位机发来的信息
@@ -281,7 +316,7 @@ namespace BioA.UI
                                 {
                                     if (machineState.State == "超时")
                                     {
-                                        lblSampleContainer.Text = "水浴温度" + temp + "°C";
+                                        lblSampleContainer.Text = "水浴温：" + temp + "°C";
                                     }
                                     else
                                     {
@@ -293,7 +328,7 @@ namespace BioA.UI
                                         {
 
                                         }
-                                        lblSampleContainer.Text = "水浴温度" + temp + "°C";
+                                        lblSampleContainer.Text = "水浴温度：" + temp + "°C";
                                     }
                                 }
                                 txtInfoPrompt.Text = machineState.State;
@@ -451,6 +486,8 @@ namespace BioA.UI
             }
         }
         #endregion
+
+
         /// <summary>
         /// 获取任务状态
         /// </summary>
@@ -554,6 +591,33 @@ namespace BioA.UI
             //login.ShowDialog();
             SendCommand("CheckCommunication");
         }
+        #region 机器警告和错误信息提示
+        
+        /// <summary>
+        /// 启动机器状态警告提示信息线程
+        /// </summary>
+        private void StateMachineWarningHint()
+        {
+            while (true)
+            {
+                bool bol = manchine.GetManchineIsTroubleLogInfo();
+                if (bol == true)
+                {
+                    if (this.IsWarningInfoUIActivity == true)
+                    {
+
+                    }
+                    else
+                        ErrorFaultSignal.Set();
+                }
+                else
+                {
+
+                }
+            }
+
+        }
+
         /// <summary>
         /// 初始化改线程为阻塞
         /// </summary>
@@ -581,6 +645,10 @@ namespace BioA.UI
                 }
             }
         }
+
+        #endregion
+
+        #region LIS服务设置（试剂、样本）条码扫码和结果发送LIS数据处理
         private LISService _LISService = null;
 
         /// <summary>
@@ -622,10 +690,13 @@ namespace BioA.UI
             this._LISService.ApplySampleSuccessEvent += new LISService.LISServiceHandler(OnLISSerApplySampleSuccessEvent);
 
             this.IsLISflagRunning = true;
-            //Task.Run(() => { this.LISRunningService(); });
-            new Thread(new ThreadStart(LISRunningService)).Start();
-            Thread.Sleep(10000);
-            this._LISService.StartService();
+            Task.Run(() =>
+            {
+                this.LISRunningService();
+                //new Thread(new ThreadStart(LISRunningService)).Start();
+                Thread.Sleep(10000);
+                this._LISService.StartService();
+            });
             
 
         }
@@ -653,9 +724,58 @@ namespace BioA.UI
             }
             if (this.IsLISflagRunning == false)
             {
-                //this.Invoke(new Action(() => { this.barButtonItem18.LargeGlyph = this.successAndFailureImage; }));
-                Task.Run(() => { this.barButtonItem18.LargeGlyph = this.successAndFailureImage; });
+                this.Invoke(new Action(() => { this.barButtonItem18.LargeGlyph = this.successAndFailureImage; }));
+                //Task.Run(() => { this.barButtonItem18.LargeGlyph = this.successAndFailureImage; });
             }
+        }
+
+        /// <summary>
+        /// 委托事件传递数据存储到队列里
+        /// </summary>
+        /// <param name="s"></param>
+        public void ScanBarcodePostEvent_Event(ScanBarcodePosInfo s)
+        {
+            this.SMPPositions.Enqueue(s);
+        }
+        /// <summary>
+        /// 启动样本条码线程信号
+        /// </summary>
+        public void SMPBarcodeSignalEvent_Event()
+        {
+            this.SMPBarcodeSignal.Set();
+        }
+        /// <summary>
+        /// 样本条码输入触发事件
+        /// </summary>
+        /// <param name="sender"></param>
+        private void SMPBracodInputEvent_Event(string sender)
+        {
+            switch (this._LISService.LisSet.lisSettingInfo.CommunicationDirection)
+            {
+                case "双向":
+                    this._LISService.AddData(sender);
+                    BeginInvoke(new Action(() => { MessageBox.Show("样本条码正在向LIS申请任务，请稍等！"); }));
+                    break;
+                case "单向":
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// LIS设置
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void barButtonItem18_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (lisSetting == null)
+            {
+                lisSetting = new LISSetting();
+                lisSetting.StartPosition = FormStartPosition.CenterScreen;
+                lisSetting.LISApplyEvent += this.AsyncConnectLis;
+            }
+            lisSetting.LISSetting_Load(null, null);
+            lisSetting.ShowDialog();
         }
 
         /// <summary>
@@ -937,50 +1057,10 @@ namespace BioA.UI
             this.ScanReagentBarcodeSingler.Set();
 
         }
-        /// <summary>
-        /// 启动机器状态警告提示信息线程
-        /// </summary>
-        private void StateMachineWarningHint()
-        {
-            while (true)
-            {
-                bool bol = manchine.GetManchineIsTroubleLogInfo();
-                if (bol == true)
-                {
-                    if (this.IsWarningInfoUIActivity == true)
-                    {
-
-                    }
-                    else
-                        ErrorFaultSignal.Set();
-                }
-                else
-                {
-                    
-                }
-            }
-
-        }
+        #endregion
 
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            Task.Run(() => { this.StateMachineWarningHint(); });
-            // BeginInvoke(new Action(Init));
-            userInfo = UserLoginInfo.GetUserLoginInfo();
-            this.labUserName.Text = userInfo.UserName;
-
-            var displayThread = new Thread(DisplayHavingError);
-            displayThread.IsBackground = true;
-            displayThread.Start();
-
-            var initThread = new Thread(Init);
-            initThread.IsBackground = true;
-            initThread.Start();
-
-
-        }
-
+        #region 主界面的所有导航按钮和二级列表按钮
         private void barButtonItem2_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             this.CancelClickSign();
@@ -1795,6 +1875,100 @@ namespace BioA.UI
             }
         }
 
+        /// <summary>
+        /// 故障日志点击
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            this.pictureBox2.MouseClick += this.ChangeiconEvent;
+            this.accordionControl1.Elements.Clear();
+            this._Elements.Clear();
+            if (userInfo.LogCheck)
+                _Elements.Add(this.LogCheckElement22);
+            this.accordionControl1.Elements.AddRange(_Elements.ToArray());
+            if (userInfo.RouMaintain)
+            {
+                if (pcThirdArea.Controls.Equals(log) == false)
+                {
+                    pcThirdArea.Controls.Clear();
+                    if (log == null)
+                        log = new Log();
+                    if (CommunicationUI.notifyCallBack.LogDataTransferEvent != null)
+                        CommunicationUI.notifyCallBack.LogDataTransferEvent -= log.DataTransfer_Event;
+                    log.UserName = labUserName.Text;
+                    CommunicationUI.notifyCallBack.LogDataTransferEvent += log.DataTransfer_Event;
+                    log.Log_Load(null, null);
+                    txtPrompt.Text = "您当前的操作：安全管理——日志查看";
+                    pcThirdArea.Controls.Add(txtPrompt);
+                    pcThirdArea.Controls.Add(log);
+                }
+            }
+        }
+
+        #endregion
+
+
+        #region 用户关闭和注销
+
+        /// <summary>
+        /// 注销用户信息
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void barButtonItem14_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (MessageBox.Show("是否确认注销当前用户？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                UserInfo u = new UserInfo();
+                UserLoginInfo.SetUserLogInfo(u);
+                userInfo = UserLoginInfo.GetUserLoginInfo();
+                this.labUserName.Text = userInfo.UserName;
+                LogOutLogin l = new LogOutLogin();
+                l.LoginSuccessEvent += this.LoginSuccessEvent_Event;
+                l.StartPosition = FormStartPosition.CenterScreen;
+                l.ShowDialog();
+            }
+        }
+        /// <summary>
+        /// 被触发执行用户登录成功后加载用户信息事件
+        /// </summary>
+        private void LoginSuccessEvent_Event()
+        {
+            userInfo = UserLoginInfo.GetUserLoginInfo(); 
+            this.labUserName.Text = userInfo.UserName;
+            this.barButtonItem17_ItemClick(null, null);
+        }
+
+        /// <summary>
+        /// 关机
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void barButtonItem19_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (MessageBox.Show("是否确认关机？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                Hook_Clear();
+                //Process.Start("shutdown.exe", "-s");//关机
+                System.Diagnostics.Process myProcess = new System.Diagnostics.Process();
+                myProcess.StartInfo.FileName = "cmd.exe";//启动cmd命令
+                myProcess.StartInfo.UseShellExecute = false;//是否使用系统外壳程序启动进程
+                myProcess.StartInfo.RedirectStandardInput = true;//是否从流中读取
+                myProcess.StartInfo.RedirectStandardOutput = true;//是否写入流
+                myProcess.StartInfo.RedirectStandardError = true;//是否将错误信息写入流             
+                myProcess.StartInfo.CreateNoWindow = true;//是否在新窗口中启动进程
+                myProcess.Start();//启动进程
+                myProcess.StandardInput.WriteLine("shutdown -s -t 0");//执行关机命令
+            }
+            
+        }
+        #endregion
+
+
+        #region 启动任务和暂停任务、紧急停止
+
         private void barButtonItem13_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             if (this.OPID == 1)
@@ -1894,7 +2068,9 @@ namespace BioA.UI
                 SendCommand("AbortSchedule");
             }
         }
+        #endregion
 
+        #region 系统时间、关闭、功能标记、机器运行状态、预计完成时间
         private void Timer1_Timer(object sender, EventArgs e)
         {
             textEdit2.Text = DateTime.Now.ToString();
@@ -1906,37 +2082,7 @@ namespace BioA.UI
             this.Close();
             System.Environment.Exit(System.Environment.ExitCode);
         }
-        /// <summary>
-        /// 故障日志点击
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void pictureBox2_Click(object sender, EventArgs e)
-        {
-            this.pictureBox2.MouseClick += this.ChangeiconEvent;
-            this.accordionControl1.Elements.Clear();
-            this._Elements.Clear();
-            if (userInfo.LogCheck)
-                _Elements.Add(this.LogCheckElement22);
-            this.accordionControl1.Elements.AddRange(_Elements.ToArray());
-            if (userInfo.RouMaintain)
-            {
-                if (pcThirdArea.Controls.Equals(log) == false)
-                {
-                    pcThirdArea.Controls.Clear();
-                    if (log == null)
-                        log = new Log();
-                    if (CommunicationUI.notifyCallBack.LogDataTransferEvent != null)
-                        CommunicationUI.notifyCallBack.LogDataTransferEvent -= log.DataTransfer_Event;
-                    log.UserName = labUserName.Text;
-                    CommunicationUI.notifyCallBack.LogDataTransferEvent += log.DataTransfer_Event;
-                    log.Log_Load(null, null);
-                    txtPrompt.Text = "您当前的操作：安全管理——日志查看";
-                    pcThirdArea.Controls.Add(txtPrompt);
-                    pcThirdArea.Controls.Add(log);
-                }
-            }
-        }
+        
         //是否在故障界面信息上
         private bool IsWarningInfoUIActivity = false;
         private void ChangeiconEvent(object sender, MouseEventArgs e)
@@ -1988,54 +2134,7 @@ namespace BioA.UI
                 return false;
             }
         }
-        /// <summary>
-        /// 委托事件传递数据存储到队列里
-        /// </summary>
-        /// <param name="s"></param>
-        public void ScanBarcodePostEvent_Event(ScanBarcodePosInfo s)
-        {
-            this.SMPPositions.Enqueue(s);
-        }
-        /// <summary>
-        /// 启动样本条码线程信号
-        /// </summary>
-        public void SMPBarcodeSignalEvent_Event()
-        {
-            this.SMPBarcodeSignal.Set();
-        }
-        /// <summary>
-        /// 样本条码输入触发事件
-        /// </summary>
-        /// <param name="sender"></param>
-        private void SMPBracodInputEvent_Event(string sender)
-        {
-            switch (this._LISService.LisSet.lisSettingInfo.CommunicationDirection)
-            {
-                case "双向":
-                    this._LISService.AddData(sender);
-                    BeginInvoke(new Action(() => { MessageBox.Show("样本条码正在向LIS申请任务，请稍等！");}));
-                    break;
-                case "单向":
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// LIS设置
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void barButtonItem18_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {
-            if (lisSetting == null)
-            {
-                lisSetting = new LISSetting();
-                lisSetting.StartPosition = FormStartPosition.CenterScreen;
-                lisSetting.LISApplyEvent += this.AsyncConnectLis;
-            }
-            lisSetting.LISSetting_Load(null,null);
-            lisSetting.ShowDialog();
-        }
+        
         /// <summary>
         /// 获取预计完成时间
         /// </summary>
@@ -2044,6 +2143,142 @@ namespace BioA.UI
         {
             return manchine.GetAllTaskNumberTimes();
         }
+        #endregion
+
+
+        #region 安装钩子事件
+        //委托 
+        public delegate int HookProc(int nCode, int wParam, IntPtr lParam);
+        static int hHook = 0;
+        public const int WH_KEYBOARD_LL = 13;
+
+        //LowLevel键盘截获，如果是WH_KEYBOARD＝2，并不能对系统键盘截取，Acrobat Reader会在你截取之前获得键盘。 
+        static HookProc KeyBoardHookProcedure;
+
+        //键盘Hook结构函数 
+        [StructLayout(LayoutKind.Sequential)]
+        public class KeyBoardHookStruct
+        {
+            public int vkCode;
+            public int scanCode;
+            public int flags;
+            public int time;
+            public int dwExtraInfo;
+        }
+
+        #region [DllImport("user32.dll")]
+        //设置钩子 
+        [DllImport("user32.dll")]
+        public static extern int SetWindowsHookEx(int idHook, HookProc lpfn, IntPtr hInstance, int threadId);
+        //抽掉钩子 
+        [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+        public static extern bool UnhookWindowsHookEx(int idHook);
+        //调用下一个钩子 
+        [DllImport("user32.dll")]
+        public static extern int CallNextHookEx(int idHook, int nCode, int wParam, IntPtr lParam);
+
+        [DllImport("kernel32.dll")]
+        public static extern IntPtr GetModuleHandle(string name);
+        #endregion
+
+        #region 安装键盘钩子
+        /// <summary>
+        /// 安装键盘钩子
+        /// </summary>
+        public static void Hook_Start()
+        {
+            if (hHook == 0)
+            {
+                KeyBoardHookProcedure = new HookProc(KeyBoardHookProc);
+                hHook = SetWindowsHookEx(WH_KEYBOARD_LL, KeyBoardHookProcedure,
+                        GetModuleHandle(Process.GetCurrentProcess().MainModule.ModuleName), 0);
+                //如果设置钩子失败. 
+                if (hHook == 0)
+                    Hook_Clear();
+            }
+        }
+        #endregion
+
+        #region 取消钩子事件
+        /// <summary>
+        /// 取消钩子事件
+        /// </summary>
+        public static void Hook_Clear()
+        {
+            bool retKeyboard = true;
+            if (hHook != 0)
+            {
+                retKeyboard = UnhookWindowsHookEx(hHook);
+                hHook = 0;
+            }
+        }
+        #endregion
+
+
+        #region 屏蔽键盘
+        /// <summary>
+        /// 屏蔽键盘
+        /// </summary>
+        /// <param name="nCode"></param>
+        /// <param name="wParam"></param>
+        /// <param name="lParam"></param>
+        /// <returns></returns>
+        public static int KeyBoardHookProc(int nCode, int wParam, IntPtr lParam)
+        {
+            if (nCode >= 0)
+            {
+                KeyBoardHookStruct kbh = (KeyBoardHookStruct)Marshal.PtrToStructure(lParam, typeof(KeyBoardHookStruct));
+                // 屏蔽左"WIN"、右"Win"
+                if ((kbh.vkCode == (int)Keys.LWin) || (kbh.vkCode == (int)Keys.RWin))
+                    return 1;
+                //屏蔽Ctrl+Esc
+                if (kbh.vkCode == (int)Keys.Escape && (int)Control.ModifierKeys == (int)Keys.Control)
+                    return 1;
+                //屏蔽Alt+f4 
+                if (kbh.vkCode == (int)Keys.F4 && (int)Control.ModifierKeys == (int)Keys.Alt)
+                    return 1;
+                //屏蔽Alt+Esc
+                if (kbh.vkCode == (int)Keys.Escape && (int)Control.ModifierKeys == (int)Keys.Alt)
+                    return 1;
+                //屏蔽Alt+Tab 
+                if (kbh.vkCode == (int)Keys.Tab && (int)Control.ModifierKeys == (int)Keys.Alt)
+                    return 1;
+                //截获Ctrl+Shift+Esc 
+                if (kbh.vkCode == (int)Keys.Escape && (int)Control.ModifierKeys == (int)Keys.Control + (int)Keys.Shift)
+                    return 1;
+                //截获Ctrl+Alt+Delete 
+                if ((int)Control.ModifierKeys == (int)Keys.Control + (int)Keys.Alt + (int)Keys.Delete)
+                    return 1;
+            }
+            return CallNextHookEx(hHook, nCode, wParam, lParam);
+        }
+        #endregion
+
+        #region 是否屏蔽CTRL+ALT+DEL
+        /// <summary>
+        /// 是否屏蔽CTRL+ALT+DEL
+        /// </summary>
+        /// <param name="i">1=屏蔽 0=取消屏蔽</param>
+        public static void ShieldMissionTask(int i)
+        {
+            try
+            {
+                RegistryKey key = Registry.CurrentUser;
+                RegistryKey key1 = key.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Policies\System");
+                key1.SetValue("DisableTaskMgr", i, Microsoft.Win32.RegistryValueKind.DWord);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        #endregion
+        #endregion
+        //public static void Dispose()
+        //{
+        //    Hook_Clear();
+        //}
+
         // private void ribbonControl1_Click(object sender, EventArgs e)
         // {
 

@@ -17,6 +17,7 @@ namespace BioA.UI
             if (disposing && (components != null))
             {
                 components.Dispose();
+                Hook_Clear();
             }
             base.Dispose(disposing);
         }
@@ -49,6 +50,10 @@ namespace BioA.UI
             DevExpress.Utils.Animation.PushTransition pushTransition1 = new DevExpress.Utils.Animation.PushTransition();
             DevExpress.Utils.SuperToolTip superToolTip4 = new DevExpress.Utils.SuperToolTip();
             DevExpress.Utils.ToolTipTitleItem toolTipTitleItem4 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.SuperToolTip superToolTip5 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem5 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.SuperToolTip superToolTip6 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem6 = new DevExpress.Utils.ToolTipTitleItem();
             this.ribbonControl1 = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.galleryDropDown1 = new DevExpress.XtraBars.Ribbon.GalleryDropDown(this.components);
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
@@ -75,6 +80,8 @@ namespace BioA.UI
             this.barButtonItem16 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem17 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem18 = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItem14 = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItem19 = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -83,9 +90,11 @@ namespace BioA.UI
             this.ribbonPageGroup5 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup6 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup8 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.ribbonPageGroup10 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup11 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup10 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup12 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup9 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup13 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.accordionControl1 = new DevExpress.XtraBars.Navigation.AccordionControl();
             this.ReagentSettingElement5 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.ReagentStateElement4 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
@@ -119,7 +128,6 @@ namespace BioA.UI
             this.txtInfoPrompt = new DevExpress.XtraEditors.MemoEdit();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pcThirdArea = new DevExpress.XtraEditors.PanelControl();
-            this.pictureEdit3 = new DevExpress.XtraEditors.PictureEdit();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.schedulerStorage1 = new DevExpress.XtraScheduler.SchedulerStorage(this.components);
             this.textEdit2 = new DevExpress.XtraEditors.TextEdit();
@@ -137,7 +145,6 @@ namespace BioA.UI
             ((System.ComponentModel.ISupportInitialize)(this.txtInfoPrompt.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcThirdArea)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit3.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.schedulerStorage1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).BeginInit();
@@ -172,7 +179,9 @@ namespace BioA.UI
             this.barButtonItem15,
             this.barButtonItem16,
             this.barButtonItem17,
-            this.barButtonItem18});
+            this.barButtonItem18,
+            this.barButtonItem14,
+            this.barButtonItem19});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
             this.ribbonControl1.MaxItemId = 1;
             this.ribbonControl1.Name = "ribbonControl1";
@@ -425,6 +434,34 @@ namespace BioA.UI
             this.barButtonItem18.Name = "barButtonItem18";
             this.barButtonItem18.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem18_ItemClick);
             // 
+            // barButtonItem14
+            // 
+            this.barButtonItem14.ActAsDropDown = true;
+            this.barButtonItem14.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
+            this.barButtonItem14.AllowDrawArrow = false;
+            this.barButtonItem14.Caption = "  注  销  ";
+            this.barButtonItem14.Id = 1;
+            this.barButtonItem14.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem14.LargeGlyph")));
+            this.barButtonItem14.Name = "barButtonItem14";
+            toolTipTitleItem5.Text = "注销当前用户，重新登录";
+            superToolTip5.Items.Add(toolTipTitleItem5);
+            this.barButtonItem14.SuperTip = superToolTip5;
+            this.barButtonItem14.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem14_ItemClick);
+            // 
+            // barButtonItem19
+            // 
+            this.barButtonItem19.ActAsDropDown = true;
+            this.barButtonItem19.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
+            this.barButtonItem19.AllowDrawArrow = false;
+            this.barButtonItem19.Caption = "  关   机  ";
+            this.barButtonItem19.Id = 1;
+            this.barButtonItem19.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("barButtonItem19.LargeGlyph")));
+            this.barButtonItem19.Name = "barButtonItem19";
+            toolTipTitleItem6.Text = "关闭系统";
+            superToolTip6.Items.Add(toolTipTitleItem6);
+            this.barButtonItem19.SuperTip = superToolTip6;
+            this.barButtonItem19.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem19_ItemClick);
+            // 
             // ribbonPage1
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -435,9 +472,11 @@ namespace BioA.UI
             this.ribbonPageGroup5,
             this.ribbonPageGroup6,
             this.ribbonPageGroup8,
-            this.ribbonPageGroup10,
             this.ribbonPageGroup11,
-            this.ribbonPageGroup12});
+            this.ribbonPageGroup10,
+            this.ribbonPageGroup12,
+            this.ribbonPageGroup9,
+            this.ribbonPageGroup13});
             this.ribbonPage1.Image = ((System.Drawing.Image)(resources.GetObject("ribbonPage1.Image")));
             this.ribbonPage1.Name = "ribbonPage1";
             this.ribbonPage1.Text = "HRD800";
@@ -484,23 +523,35 @@ namespace BioA.UI
             this.ribbonPageGroup8.Name = "ribbonPageGroup8";
             this.ribbonPageGroup8.Text = "                               ";
             // 
-            // ribbonPageGroup10
-            // 
-            this.ribbonPageGroup10.ItemLinks.Add(this.barButtonItem15);
-            this.ribbonPageGroup10.Name = "ribbonPageGroup10";
-            this.ribbonPageGroup10.Text = "                                  ";
-            // 
             // ribbonPageGroup11
             // 
             this.ribbonPageGroup11.ItemLinks.Add(this.barButtonItem16);
             this.ribbonPageGroup11.Name = "ribbonPageGroup11";
             this.ribbonPageGroup11.Text = "                                ";
             // 
+            // ribbonPageGroup10
+            // 
+            this.ribbonPageGroup10.ItemLinks.Add(this.barButtonItem15);
+            this.ribbonPageGroup10.Name = "ribbonPageGroup10";
+            this.ribbonPageGroup10.Text = "                                  ";
+            // 
             // ribbonPageGroup12
             // 
             this.ribbonPageGroup12.ItemLinks.Add(this.barButtonItem18);
             this.ribbonPageGroup12.Name = "ribbonPageGroup12";
             this.ribbonPageGroup12.Text = "                                    ";
+            // 
+            // ribbonPageGroup9
+            // 
+            this.ribbonPageGroup9.ItemLinks.Add(this.barButtonItem14);
+            this.ribbonPageGroup9.Name = "ribbonPageGroup9";
+            this.ribbonPageGroup9.Text = "                            ";
+            // 
+            // ribbonPageGroup13
+            // 
+            this.ribbonPageGroup13.ItemLinks.Add(this.barButtonItem19);
+            this.ribbonPageGroup13.Name = "ribbonPageGroup13";
+            this.ribbonPageGroup13.Text = "                            ";
             // 
             // accordionControl1
             // 
@@ -925,24 +976,6 @@ namespace BioA.UI
             this.pcThirdArea.Size = new System.Drawing.Size(1501, 741);
             this.pcThirdArea.TabIndex = 16;
             // 
-            // pictureEdit3
-            // 
-            this.pictureEdit3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureEdit3.Cursor = System.Windows.Forms.Cursors.Default;
-            this.pictureEdit3.EditValue = global::BioA.UI.Properties.Resources.未标题3_1;
-            this.pictureEdit3.Location = new System.Drawing.Point(1505, 84);
-            this.pictureEdit3.MenuManager = this.ribbonControl1;
-            this.pictureEdit3.Name = "pictureEdit3";
-            this.pictureEdit3.Properties.Appearance.BackColor = System.Drawing.Color.FloralWhite;
-            this.pictureEdit3.Properties.Appearance.Options.UseBackColor = true;
-            this.pictureEdit3.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.pictureEdit3.Properties.ErrorImage = global::BioA.UI.Properties.Resources.未标题3_1;
-            this.pictureEdit3.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
-            this.pictureEdit3.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Stretch;
-            this.pictureEdit3.Properties.ZoomAccelerationFactor = 1D;
-            this.pictureEdit3.Size = new System.Drawing.Size(38, 63);
-            this.pictureEdit3.TabIndex = 28;
-            // 
             // pictureBox3
             // 
             this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -1008,9 +1041,9 @@ namespace BioA.UI
             this.lblSampleContainer.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.lblSampleContainer.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
             this.lblSampleContainer.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.lblSampleContainer.Location = new System.Drawing.Point(1558, 84);
+            this.lblSampleContainer.Location = new System.Drawing.Point(1526, 84);
             this.lblSampleContainer.Name = "lblSampleContainer";
-            this.lblSampleContainer.Size = new System.Drawing.Size(131, 61);
+            this.lblSampleContainer.Size = new System.Drawing.Size(163, 61);
             this.lblSampleContainer.TabIndex = 34;
             this.lblSampleContainer.Text = "水浴温度：";
             // 
@@ -1065,7 +1098,6 @@ namespace BioA.UI
             this.Controls.Add(this.labelControl1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblSampleContainer);
-            this.Controls.Add(this.pictureEdit3);
             this.Controls.Add(this.labUserName);
             this.Controls.Add(this.pictureEdit2);
             this.Controls.Add(this.textEdit2);
@@ -1092,7 +1124,6 @@ namespace BioA.UI
             ((System.ComponentModel.ISupportInitialize)(this.txtInfoPrompt.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcThirdArea)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit3.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.schedulerStorage1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).EndInit();
@@ -1190,7 +1221,6 @@ namespace BioA.UI
         private DevExpress.XtraScheduler.SchedulerStorage schedulerStorage1;
         private DevExpress.XtraBars.BarButtonItem barButtonItem18;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup12;
-        private DevExpress.XtraEditors.PictureEdit pictureEdit3;
         private System.Windows.Forms.Label labUserName;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private DevExpress.XtraBars.BarButtonItem barButtonItem3;
@@ -1202,6 +1232,10 @@ namespace BioA.UI
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraEditors.LabelControl lblSampleContainer;
         private System.Windows.Forms.Label labfinishTime;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem14;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup9;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem19;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup13;
     }
 }
 

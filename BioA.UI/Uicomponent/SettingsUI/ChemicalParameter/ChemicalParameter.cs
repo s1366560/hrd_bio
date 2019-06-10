@@ -99,7 +99,6 @@ namespace BioA.UI
                             AssayProInfo_Event(chemicalParamDic);
                             QueryResultSetTb queryRsult = new QueryResultSetTb(true);
                             List<ResultSetInfo> lstqueryResult = QueryResultSetTb.QueryResultSetInfo;
-                            MessageBoxDraw.ShowMsg("修改成功！", MsgType.OK);
                             projectParameter.LstAssayProParamInfoAll = new SettingsChemicalParameter().QueryAssayProjectParamInfoAll("QueryAssayProjectParamInfoAll", QueryResultSetTb.QueryResultSetInfo);
                         }));
                     }
@@ -119,7 +118,6 @@ namespace BioA.UI
                             AssayProInfo_Event(chemicalParamDic);
                             QueryResultSetTb queryRsult = new QueryResultSetTb(true);
                             List<ResultSetInfo> lstqueryResult = QueryResultSetTb.QueryResultSetInfo;
-                            MessageBoxDraw.ShowMsg("删除成功！", MsgType.OK);
                         }));
                     }
                     else

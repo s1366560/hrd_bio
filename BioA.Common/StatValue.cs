@@ -76,7 +76,10 @@ namespace BioA.Common
                 float TSum = 0;
                 foreach (float value in values)
                 {
-                    TSum = (float)(((int)(((float)((int)((value - V.MEAN) * 10000) / 10000.0000) * (float)((int)((value - V.MEAN) * 10000) / 10000.0000)) * 10000)) / 10000.0000) + (float)((int)(TSum * 10000) / 10000.0000);
+                    //float sun = (float)(((int)(((float)((int)(((float)(((int)(value * 10000)) / 10000.0000) - V.MEAN) * 10000) / 10000.0000) * (float)((int)(((float)(((int)(value * 10000)) / 10000.0000) - V.MEAN) * 10000) / 10000.0000)) * 10000)) / 10000.0000);
+                    //TSum = sun + (float)((int)(TSum * 10000) / 10000.0000);
+                    TSum += (value - V.MEAN) * (value - V.MEAN);
+
                 }
                 V.SD = (float)((int)(Math.Sqrt(TSum / (V.N - 1)) * 10000) / 10000.0000);
                 V.CV = V.SD / V.MEAN;

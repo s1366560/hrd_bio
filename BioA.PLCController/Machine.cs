@@ -591,7 +591,7 @@ namespace BioA.PLCController
                         trouble.TroubleInfo = string.Format(e.ProjectName + "定标曲线即将过期，建议该项目重新定标. ");
                         myBatis.TroubleLogSave("TroubleLogSave", trouble);
                     }
-                    else
+                    else if (time == -1)
                     {
                         TroubleLog trouble = new TroubleLog();
                         trouble.TroubleCode = @"00009";
@@ -629,7 +629,7 @@ namespace BioA.PLCController
                         trouble.TroubleInfo = string.Format("试剂1中" + reagentInfo1.ReagentName + "即将过期. ");
                         myBatis.TroubleLogSave("TroubleLogSave", trouble);
                     }
-                    else
+                    else if (time == -1)
                     {
                         TroubleLog trouble = new TroubleLog();
                         trouble.TroubleCode = @"00009";
@@ -655,10 +655,10 @@ namespace BioA.PLCController
                         trouble.TroubleCode = @"00009";
                         trouble.TroubleType = TROUBLETYPE.WARN;
                         trouble.TroubleUnit = @"试剂";
-                        trouble.TroubleInfo = string.Format("试剂1中" + ReagentInfo2.ReagentName + "即将过期. ");
+                        trouble.TroubleInfo = string.Format("试剂2中" + ReagentInfo2.ReagentName + "即将过期. ");
                         myBatis.TroubleLogSave("TroubleLogSave", trouble);
                     }
-                    else
+                    else if (time == -1)
                     {
                         TroubleLog trouble = new TroubleLog();
                         trouble.TroubleCode = @"00009";
@@ -683,7 +683,7 @@ namespace BioA.PLCController
                     trouble.TroubleInfo = string.Format("质控品" + qcInfo.QCName + "即将过期. ");
                     myBatis.TroubleLogSave("TroubleLogSave", trouble);
                 }
-                else
+                else if (time == -1)
                 {
                     TroubleLog trouble = new TroubleLog();
                     trouble.TroubleCode = @"00009";
@@ -707,7 +707,7 @@ namespace BioA.PLCController
                     trouble.TroubleInfo = string.Format("标准品" + calibInfo.CalibName + "即将过期. ");
                     myBatis.TroubleLogSave("TroubleLogSave", trouble);
                 }
-                else 
+                else if (time == -1)
                 {
                     TroubleLog trouble = new TroubleLog();
                     trouble.TroubleCode = @"00009";

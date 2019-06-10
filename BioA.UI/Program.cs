@@ -6,6 +6,9 @@ using DevExpress.UserSkins;
 using DevExpress.Skins;
 using BioA.Common;
 using BioA.UI.ServiceReference1;
+using Microsoft.Win32;
+using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 namespace BioA.UI
 {
@@ -47,7 +50,6 @@ namespace BioA.UI
                 LogInfo.WriteErrorLog("程序启动异常! error:" +ex.ToString(), Module.FramUI);
             }
         }
-
         public static UserInfo userInfo = null;
     }
 }

@@ -312,7 +312,7 @@ namespace BioA.SqlMaps
                         assayProParam.Reagent1Pos = reagent1.Pos;
                         assayProParam.Reagent1ValidDate = reagent1.ValidDate;
                     }
-                    ReagentSettingsInfo reagent2 = lstReagentSettings.SingleOrDefault(r2 => r2.ProjectName == assayProParam.ProjectName);
+                    ReagentSettingsInfo reagent2 = lstReagentSettings2.SingleOrDefault(r2 => r2.ProjectName == assayProParam.ProjectName);
                     if (reagent2 != null)
                     {
                         assayProParam.Reagent2Name = reagent2.ReagentName;

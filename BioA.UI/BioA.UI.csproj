@@ -587,6 +587,12 @@
     <Compile Include="Uicomponent\SystemUI\EquipmentManage\TestEquipment.Designer.cs">
       <DependentUpon>TestEquipment.cs</DependentUpon>
     </Compile>
+    <Compile Include="Uicomponent\SystemUI\LogCheck\LogOutLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uicomponent\SystemUI\LogCheck\LogOutLogin.Designer.cs">
+      <DependentUpon>LogOutLogin.cs</DependentUpon>
+    </Compile>
     <Compile Include="Uicomponent\SystemUI\LogCheck\TroubleLogInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -1041,6 +1047,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\SystemUI\EquipmentManage\TestEquipment.resx">
       <DependentUpon>TestEquipment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uicomponent\SystemUI\LogCheck\LogOutLogin.resx">
+      <DependentUpon>LogOutLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Uicomponent\SystemUI\LogCheck\TroubleLogInfo.resx">
       <DependentUpon>TroubleLogInfo.cs</DependentUpon>

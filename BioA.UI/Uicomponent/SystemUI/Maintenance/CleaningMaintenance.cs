@@ -30,19 +30,30 @@ namespace BioA.UI
 
             string strSender = "";
             Subsystem ConfigureInfo = MachineInfo.SubsystemList.Find(str => str.Name == "Common");
+            MessageBoxButtons but = MessageBoxButtons.OKCancel;
+            DialogResult result = DialogResult.No;
             switch (((SimpleButton)sender).Name)
             {
                 case "btnCleanSN":
                     strSender = ConfigureInfo.ComponetList.Find(componet => componet.Name == "Maintance").CommandList.Find(command => command.FullName == btnCleanSN.Text).Name;
+                    result = MessageBox.Show("确定进行清洗样本针吗?", "清洗样本针", but);
+                    if (result != DialogResult.OK)
+                    {
+                        return;
+                    }
                     break;
                 case "btnCleanSystem":
                     strSender = ConfigureInfo.ComponetList.Find(componet => componet.Name == "Maintance").CommandList.Find(command => command.FullName == btnCleanSystem.Text).Name;
+                    result = MessageBox.Show("确定进行系统清洗吗?", "清洗系统", but);
+                    if (result != DialogResult.OK)
+                    {
+                        return;
+                    }
                     break;
                 case "btnWaterExchange":
                     strSender = ConfigureInfo.ComponetList.Find(componet => componet.Name == "Maintance").CommandList.Find(command => command.FullName == btnWaterExchange.Text).Name;
-                    MessageBoxButtons messButton = MessageBoxButtons.OKCancel;
-                    DialogResult dr = MessageBox.Show("确定进行孵育槽水交换吗?", "孵育槽水交换确认", messButton);
-                    if (dr != DialogResult.OK)
+                    result = MessageBox.Show("确定进行孵育槽水交换吗?", "孵育槽水交换确认", but);
+                    if (result != DialogResult.OK)
                     {
                         return;
                     }
@@ -88,7 +99,7 @@ namespace BioA.UI
 
             rtxtWaterExchange.ReadOnly = true;
             rtxtWaterExchange.AppendText(
-            "步骤：\r\n\r\n    1、在试剂盘2的30号位置装载试剂。\r\n\r\n    2、水交换时间有点长，请勿随便关闭机器。\r\n\r\n    2、单击[开始水交换]按钮分析仪将开始执行水交换操作。");
+            "步骤：\r\n\r\n    1、在试剂盘2的30号位置装载抑菌剂。\r\n\r\n    2、水交换时间有点长，请勿随便关闭机器。\r\n\r\n    2、单击[开始水交换]按钮分析仪将开始执行水交换操作。");
 
             List<Subsystem> lstConfigureInfo = MachineInfo.SubsystemList;
             foreach (Subsystem sub in lstConfigureInfo)

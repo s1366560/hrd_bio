@@ -487,7 +487,7 @@ namespace BioA.UI
                         this.lstAssayProParamInfoAll.Add(_AssayProjectParamInfo);
                         List<AssayProjectInfo> lstProjectInfos = new SettingsChemicalParameter().QueryAssayProAllInfo("QueryAssayProAllInfo", null);
                         this.LstAssayProInfos = lstProjectInfos;
-                        MessageBox.Show("项目保存成功！");
+                        //MessageBox.Show("项目保存成功！");
                     }
                     else
                     {
@@ -495,7 +495,7 @@ namespace BioA.UI
                     }
 
                     cheProjectAddOrEdit.BeforeClearingTheData();
-                    cheProjectAddOrEdit.Close();
+                    //cheProjectAddOrEdit.Close();
                 }));
             }
         }
@@ -593,6 +593,9 @@ namespace BioA.UI
                 }
             }
         }
+
+
+        #region 保存生化项目参数信息
         /// <summary>
         /// 存储（保存生化项目参数信息）
         /// </summary>
@@ -1015,15 +1018,15 @@ namespace BioA.UI
             if (Regex.IsMatch(txtReagent1VolSettings.Text.Trim(), @"^\d+(\.\d+)?$") &&
                 Regex.IsMatch(txtReagent2VolSettings.Text.Trim(), @"^\d+(\.\d+)?$"))
             {
-                if (int.Parse(txtReagent1VolSettings.Text.Trim().ToString()) < 10 || int.Parse(txtReagent1VolSettings.Text.Trim().ToString()) > 300)
+                if (int.Parse(txtReagent1VolSettings.Text.Trim().ToString()) != 0 && int.Parse(txtReagent1VolSettings.Text.Trim().ToString()) < 10 || int.Parse(txtReagent1VolSettings.Text.Trim().ToString()) > 300)
                 {
-                    MessageBox.Show("试剂体积设定限制在10~300，请重新输入！");
+                    MessageBox.Show("试剂1体积设定限制在10~300，请重新输入！");
                     this.txtReagent1VolSettings.Focus();
                     return;
                 }
-                else if (int.Parse(txtReagent2VolSettings.Text.Trim().ToString()) < 10 || int.Parse(txtReagent2VolSettings.Text.Trim().ToString()) > 180)
+                else if (int.Parse(txtReagent2VolSettings.Text.Trim().ToString()) != 0 && int.Parse(txtReagent2VolSettings.Text.Trim().ToString()) < 10 || int.Parse(txtReagent2VolSettings.Text.Trim().ToString()) > 180)
                 {
-                    MessageBox.Show("试剂体积设定限制在10~180，请重新输入！");
+                    MessageBox.Show("试剂2体积设定限制在10~180，请重新输入！");
                     this.txtReagent2VolSettings.Focus();
                     return;
                 }
@@ -1086,7 +1089,6 @@ namespace BioA.UI
                 lstvProject_Click(null,null);
             }
         }
-
         /// <summary>
         /// 保存范围参数信息
         /// </summary>
@@ -1153,6 +1155,89 @@ namespace BioA.UI
             return parameterInfo;
         }
 
+        /// <summary>
+        /// 范围参数保存
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButSave_Click(object sender, EventArgs e)
+        {
+            List<AssayProjectRangeParamInfo> lstRange = new List<AssayProjectRangeParamInfo>();
+            AssayProjectRangeParamInfo parameter = new AssayProjectRangeParamInfo();
+            string sampleType = null;
+            if (this.gridView3.RowCount >= 4)
+            {
+                MessageBoxDraw.ShowMsg("范围参数设置不能超过4条！请选择列表中任意一行数据删除，然后再添加！", MsgType.OK);
+                return;
+            }
+            if (this.gridView2.GetSelectedRows().Count() > 0)
+            {
+                sampleType = this.gridView2.GetRowCellValue(this.gridView2.GetSelectedRows()[0], "类型").ToString();
+            }
+            // 最小和最大年龄范围只能输入数字
+            if (txtSerumAgeHigh1.Text.Trim() != "" && !Regex.IsMatch(txtSerumAgeHigh1.Text.Trim(), "^([0-9]{1,})$") ||
+                txtSerumAgeLow1.Text.Trim() != "" && !Regex.IsMatch(txtSerumAgeLow1.Text.Trim(), "^([0-9]{1,})$") ||
+                Convert.ToInt32(txtSerumAgeHigh1.Text.Trim()) > 200 || Convert.ToInt32(txtSerumAgeLow1.Text.Trim()) >= 200 ||
+                Convert.ToInt32(txtSerumAgeLow1.Text.Trim()) > Convert.ToInt32(txtSerumAgeHigh1.Text.Trim()))
+            {
+                MessageBox.Show("期望值中的年龄输入格式有误，请重新输入！");
+                return;
+            }
+
+            if (float.Parse(this.txtSerumManConsHigh.Text.ToString()) < float.Parse(this.txtSerumManConsLow.Text.ToString()))
+            {
+                MessageBox.Show(string.Format("男：高浓度值不能小于低浓度的值，如（低浓度等于：{0}；高浓度必须大于等于{1}）！", this.txtSerumManConsLow.Text, this.txtSerumManConsLow.Text));
+                return;
+            }
+            if (float.Parse(this.txtSerumWomanConsHigh.Text.ToString()) < float.Parse(this.txtSerumWomanConsLow.Text.ToString()))
+            {
+                MessageBox.Show(string.Format("女：高浓度值不能小于低浓度的值，如（低浓度等于：{0}；高浓度必须大于等于{1}）！", this.txtSerumWomanConsLow.Text, this.txtSerumWomanConsLow.Text));
+                return;
+            }
+            if (this.gridView3.RowCount > 0)
+            {
+
+                int rows = this.gridView3.RowCount;
+                for (int i = 0; i < rows; i++)
+                {
+                    string s = this.gridView3.GetRowCellValue(i, "年龄范围").ToString();
+                    string[] age = s.Replace(" ", "").Split('-');
+                    if (Convert.ToInt32(txtSerumAgeHigh1.Text.Trim()) <= Convert.ToInt32(age[1]) || Convert.ToInt32(txtSerumAgeLow1.Text.Trim()) <= Convert.ToInt32(age[1]))
+                    {
+                        MessageBoxDraw.ShowMsg("列表中已包含您输入的年龄！", MsgType.OK);
+                        return;
+                    }
+                    else
+                    {
+                        string man = this.gridView3.GetRowCellValue(i, "男（浓度范围）").ToString();
+                        string woMan = this.gridView3.GetRowCellValue(i, "女（浓度范围）").ToString();
+                        string[] mans = man.Replace(" ", "").Split('-');
+                        string[] woMans = woMan.Replace(" ", "").Split('-');
+                        AssayProjectRangeParamInfo rangeParam = new AssayProjectRangeParamInfo();
+                        rangeParam.SampleType = sampleType;
+                        rangeParam.AgeLow1 = Convert.ToInt32(age[0].Trim());
+                        rangeParam.AgeHigh1 = Convert.ToInt32(age[1].Trim());
+                        rangeParam.ManConsLow1 = float.Parse(mans[0].Trim());
+                        rangeParam.ManConsHigh1 = float.Parse(mans[1].Trim());
+                        rangeParam.WomanConsLow1 = float.Parse(woMans[0].Trim());
+                        rangeParam.WomanConsHigh1 = float.Parse(woMans[1].Trim());
+                        lstRange.Add(rangeParam);
+                    }
+                }
+            }
+            parameter.SampleType = sampleType;
+            parameter.AgeLow1 = System.Convert.ToInt32(txtSerumAgeLow1.Text.Trim());
+            parameter.AgeHigh1 = System.Convert.ToInt32(txtSerumAgeHigh1.Text.Trim());
+            parameter.ManConsLow1 = float.Parse(txtSerumManConsLow.Text.Trim());
+            parameter.ManConsHigh1 = float.Parse(txtSerumManConsHigh.Text.Trim());
+            parameter.WomanConsLow1 = float.Parse(txtSerumWomanConsLow.Text.Trim());
+            parameter.WomanConsHigh1 = float.Parse(txtSerumWomanConsHigh.Text.Trim());
+            lstRange.Add(parameter);
+            LoandProjectRangeParam(lstRange);
+            CloseRangeParameInfo();
+        }
+
+        #endregion
 
         private void cboAnalizeMethod_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1225,87 +1310,7 @@ namespace BioA.UI
             else
                 MessageBoxDraw.ShowMsg("请选择要删除的范围参数！",MsgType.OK);
         }
-        /// <summary>
-        /// 范围参数保存
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ButSave_Click(object sender, EventArgs e)
-        {
-            List<AssayProjectRangeParamInfo> lstRange = new List<AssayProjectRangeParamInfo>();
-            AssayProjectRangeParamInfo parameter = new AssayProjectRangeParamInfo();
-            string sampleType = null;
-            if (this.gridView3.RowCount >= 4)
-            {
-                MessageBoxDraw.ShowMsg("范围参数设置不能超过4条！请选择列表中任意一行数据删除，然后再添加！", MsgType.OK);
-                return;
-            }
-            if (this.gridView2.GetSelectedRows().Count() > 0)
-            {
-                sampleType = this.gridView2.GetRowCellValue(this.gridView2.GetSelectedRows()[0], "类型").ToString();
-            }
-            // 最小和最大年龄范围只能输入数字
-            if (txtSerumAgeHigh1.Text.Trim() != "" && !Regex.IsMatch(txtSerumAgeHigh1.Text.Trim(), "^([0-9]{1,})$") ||
-                txtSerumAgeLow1.Text.Trim() != "" && !Regex.IsMatch(txtSerumAgeLow1.Text.Trim(), "^([0-9]{1,})$")||
-                Convert.ToInt32(txtSerumAgeHigh1.Text.Trim()) > 200 || Convert.ToInt32(txtSerumAgeLow1.Text.Trim()) >= 200 ||
-                Convert.ToInt32(txtSerumAgeLow1.Text.Trim()) > Convert.ToInt32(txtSerumAgeHigh1.Text.Trim()))
-            {
-                MessageBox.Show("期望值中的年龄输入格式有误，请重新输入！");
-                return;
-            }
-
-            if (float.Parse(this.txtSerumManConsHigh.Text.ToString()) < float.Parse(this.txtSerumManConsLow.Text.ToString()))
-            {
-                MessageBox.Show(string.Format("男：高浓度值不能小于低浓度的值，如（低浓度等于：{0}；高浓度必须大于等于{1}）！", this.txtSerumManConsLow.Text, this.txtSerumManConsLow.Text));
-                return;
-            }
-            if (float.Parse(this.txtSerumWomanConsHigh.Text.ToString()) < float.Parse(this.txtSerumWomanConsLow.Text.ToString()))
-            {
-                MessageBox.Show(string.Format("女：高浓度值不能小于低浓度的值，如（低浓度等于：{0}；高浓度必须大于等于{1}）！", this.txtSerumWomanConsLow.Text, this.txtSerumWomanConsLow.Text));
-                return;
-            }
-            if (this.gridView3.RowCount > 0)
-            {
-
-                int rows = this.gridView3.RowCount;
-                for (int i = 0; i < rows; i++)
-                {
-                    string s = this.gridView3.GetRowCellValue(i, "年龄范围").ToString();
-                    string[] age = s.Replace(" ","").Split('-');
-                    if (Convert.ToInt32(txtSerumAgeHigh1.Text.Trim()) <= Convert.ToInt32(age[1]) || Convert.ToInt32(txtSerumAgeLow1.Text.Trim()) <= Convert.ToInt32(age[1]))
-                    {
-                        MessageBoxDraw.ShowMsg("列表中已包含您输入的年龄！", MsgType.OK);
-                        return;
-                    }
-                    else
-                    {
-                        string man = this.gridView3.GetRowCellValue(i, "男（浓度范围）").ToString();
-                        string woMan = this.gridView3.GetRowCellValue(i, "女（浓度范围）").ToString();
-                        string[] mans = man.Replace(" ", "").Split('-');
-                        string[] woMans = woMan.Replace(" ", "").Split('-');
-                        AssayProjectRangeParamInfo rangeParam = new AssayProjectRangeParamInfo();
-                        rangeParam.SampleType = sampleType;
-                        rangeParam.AgeLow1 = Convert.ToInt32(age[0].Trim());
-                        rangeParam.AgeHigh1 = Convert.ToInt32(age[1].Trim());
-                        rangeParam.ManConsLow1 = float.Parse(mans[0].Trim());
-                        rangeParam.ManConsHigh1 = float.Parse(mans[1].Trim());
-                        rangeParam.WomanConsLow1 = float.Parse(woMans[0].Trim());
-                        rangeParam.WomanConsHigh1 = float.Parse(woMans[1].Trim());
-                        lstRange.Add(rangeParam);
-                    }
-                }
-            }
-            parameter.SampleType = sampleType;
-            parameter.AgeLow1 =System.Convert.ToInt32(txtSerumAgeLow1.Text.Trim());
-            parameter.AgeHigh1 = System.Convert.ToInt32(txtSerumAgeHigh1.Text.Trim());
-            parameter.ManConsLow1 = float.Parse(txtSerumManConsLow.Text.Trim());
-            parameter.ManConsHigh1 = float.Parse(txtSerumManConsHigh.Text.Trim());
-            parameter.WomanConsLow1 = float.Parse(txtSerumWomanConsLow.Text.Trim());
-            parameter.WomanConsHigh1 = float.Parse(txtSerumWomanConsHigh.Text.Trim());
-            lstRange.Add(parameter);
-            LoandProjectRangeParam(lstRange);
-            CloseRangeParameInfo();
-        }
+        
         /// <summary>
         /// 反应方向下标改变事件
         /// </summary>
@@ -1336,6 +1341,9 @@ namespace BioA.UI
             this.txtSerumWomanConsLow.Text = "0";
             this.txtSerumWomanConsHigh.Text = "0";
         }
+
+
+        #region 限制用户输入的有效字符或者数字
         /// <summary>
         /// 范围参数浓度输入限制
         /// </summary>
@@ -1477,6 +1485,6 @@ namespace BioA.UI
                 }
             }
         }
-
+        #endregion
     }
 }
