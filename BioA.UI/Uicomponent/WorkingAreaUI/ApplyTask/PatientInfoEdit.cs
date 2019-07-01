@@ -154,6 +154,7 @@ namespace BioA.UI
                             txtSampleID.Text = patientInfoByNum.SampleID;
                             txtName.Text = patientInfoByNum.PatientName;
                             txtAge.Text = patientInfoByNum.Age.ToString();
+                            ComBoxUnitAge.SelectedIndex = ComBoxUnitAge.Properties.Items.IndexOf(patientInfoByNum.UnitAge);
                             combSex.SelectedItem = patientInfoByNum.Sex;
                             combPatientType.SelectedItem = patientInfoByNum.PatientType;
                             dtpApplyTime.Value = patientInfoByNum.ApplyTime;
@@ -317,6 +318,7 @@ namespace BioA.UI
                     txtAge.Focus();
                     return;
                 }
+                patient.UnitAge = ComBoxUnitAge.Text.Trim();
                 patient.Age = txtAge.Text != "" ? System.Convert.ToInt32(txtAge.Text) : 0;
                 patient.Sex = combSex.SelectedItem != null ? combSex.SelectedItem.ToString() : "";
                 patient.PatientType = combPatientType.SelectedItem != null ? combPatientType.SelectedItem.ToString() : "";

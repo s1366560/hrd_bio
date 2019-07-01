@@ -42,7 +42,8 @@
       <result property="InputTime" column="InputTime" />
       <result property="SampleID" column="SampleID" />             
       <result property="PatientName" column="PatientName" />      
-      <result property="BirthDate" column="BirthDate" />          
+      <result property="BirthDate" column="BirthDate" />
+      <result property="UnitAge" column="UnitAge" />
       <result property="Age" column="Age" />                
       <result property="Sex" column="Sex" />                
       <result property="PatientType" column="PatientType" />           
@@ -99,6 +100,7 @@
       SampleID=#SampleID#,
       PatientName=#PatientName#,
       BirthDate=#BirthDate#,
+      UnitAge=#UnitAge#,
       Age=#Age#,
       Sex=#Sex#,
       PatientType=#PatientType#,
@@ -116,9 +118,9 @@
       where SampleNum=#SampleNum# and ApplyTime=#ApplyTime#
     </statement>
     <statement id="AddPatientInfo" parameterClass="PatientInfo">
-      insert into PatientInfoTb (SampleNum, InputTime, SampleID, PatientName, BirthDate, Age, Sex, PatientType, InspectTime,
+      insert into PatientInfoTb (SampleNum, InputTime, SampleID, PatientName, BirthDate, Age, UnitAge, Sex, PatientType, InspectTime,
       MedicalRecordNum,BedNum, ApplyDepartment, ApplyDoctor, AuditDoctor, InspectDoctor, SamplingTime, ApplyTime, ClinicalDiagnosis, Remarks)
-      values (#SampleNum#, #InputTime#, #SampleID#, #PatientName#, #BirthDate#, #Age#, #Sex#, #PatientType#, #InspectTime#,
+      values (#SampleNum#, #InputTime#, #SampleID#, #PatientName#, #BirthDate#, #Age#, #UnitAge#, #Sex#, #PatientType#, #InspectTime#,
       #MedicalRecordNum#,#BedNum#, #ApplyDepartment#, #ApplyDoctor#, #AuditDoctor#, #InspectDoctor#, #SamplingTime#, #ApplyTime#, #ClinicalDiagnosis#, #Remarks#)
     </statement>
     <statement id="QueryPatientInfos" parameterClass="System.Collections.IDictionary" resultClass="PatientInfo">

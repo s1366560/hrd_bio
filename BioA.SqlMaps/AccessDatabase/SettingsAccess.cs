@@ -1574,77 +1574,50 @@ namespace BioA.SqlMaps
                 projectRangeInfo = projectRangeInfo == null ? new AssayProjectRangeParamInfo() : projectRangeInfo;
 
                 // 年龄、性别 判断范围
-                int age = patientInfo.Age;
-                string sex = patientInfo.Sex;
+                //int age = patientInfo.Age;
+                //string sex = patientInfo.Sex;
 
                 float lowestValue = -100000000, highest = 100000000;
-                if (age >= projectRangeInfo.AgeLow1 && age <= projectRangeInfo.AgeHigh1)
+                if(!string.IsNullOrEmpty(patientInfo.UnitAge))
                 {
-                    if (sex == "男")
+                    float[] f = new float[2];
+                    switch (patientInfo.UnitAge)
                     {
-                        lowestValue = projectRangeInfo.ManConsLow1;
-                        highest = projectRangeInfo.ManConsHigh1;
+                        case "岁":
+                            f = this.QueryRangeInfo(projectRangeInfo, patientInfo);
+                            break;
+                        case "月":
+                            f = this.QueryRangeInfo(projectRangeInfo, patientInfo);
+                            break;
+                        case "天":
+                            f = this.QueryRangeInfo(projectRangeInfo, patientInfo);
+                            break;
                     }
-                    else if (sex == "女")
-                    {
-                        lowestValue = projectRangeInfo.WomanConsLow1;
-                        highest = projectRangeInfo.WomanConsHigh1;
-                    }
-                    else
-                    {
-                        lowestValue = projectRangeInfo.ManConsLow1;
-                        highest = projectRangeInfo.ManConsHigh1;
-                    }
+                    lowestValue = f[0];
+                    highest = f[1];
                 }
-                else if (projectRangeInfo.AgeLow2 > -100000000)
+                else
                 {
-                    if (age >= projectRangeInfo.AgeLow2 && age <= projectRangeInfo.AgeHigh2)
+                    if (patientInfo.Age >= projectRangeInfo.AgeLow1 && patientInfo.Age <= projectRangeInfo.AgeHigh1)
                     {
-                        if (sex == "男")
+                        if (patientInfo.Sex == "男")
                         {
-                            lowestValue = projectRangeInfo.ManConsLow2;
-                            highest = projectRangeInfo.ManConsHigh2;
+                            lowestValue = projectRangeInfo.ManConsLow1;
+                            highest = projectRangeInfo.ManConsHigh1;
                         }
-                        else if (sex == "女")
+                        else if (patientInfo.Sex == "女")
                         {
-                            lowestValue = projectRangeInfo.WomanConsLow2;
-                            highest = projectRangeInfo.WomanConsHigh2;
+                            lowestValue = projectRangeInfo.WomanConsLow1;
+                            highest = projectRangeInfo.WomanConsHigh1;
                         }
-                    }
-                }
-                else if (projectRangeInfo.AgeLow3 > -100000000)
-                {
-                    if (age >= projectRangeInfo.AgeLow3 && age <= projectRangeInfo.AgeHigh3)
-                    {
-                        if (sex == "男")
+                        else
                         {
-                            lowestValue = projectRangeInfo.ManConsLow3;
-                            highest = projectRangeInfo.ManConsHigh3;
-                        }
-                        else if (sex == "女")
-                        {
-                            lowestValue = projectRangeInfo.WomanConsLow3;
-                            highest = projectRangeInfo.WomanConsHigh3;
+                            lowestValue = projectRangeInfo.ManConsLow1;
+                            highest = projectRangeInfo.ManConsHigh1;
                         }
                     }
                 }
-                else if (projectRangeInfo.AgeLow4 > -100000000)
-                {
-                    if (age >= projectRangeInfo.AgeLow4 && age <= projectRangeInfo.AgeHigh4)
-                    {
-                        if (sex == "男")
-                        {
-                            lowestValue = projectRangeInfo.ManConsLow4;
-                            highest = projectRangeInfo.ManConsHigh4;
-                        }
-                        else if (sex == "女")
-                        {
-                            lowestValue = projectRangeInfo.WomanConsLow4;
-                            highest = projectRangeInfo.WomanConsHigh4;
-                        }
-                    }
-                }
-
+                
 
                 if (lowestValue != -100000000 && highest != 100000000)
                 {
@@ -1663,6 +1636,106 @@ namespace BioA.SqlMaps
 
             return unitAndRange;
         }
+        /// <summary>
+        /// 获取项目范围参数
+        /// </summary>
+        /// <param name="projectRangeInfo"></param>
+        /// <param name="patientInfo"></param>
+        /// <returns></returns>
+        private float[] QueryRangeInfo(AssayProjectRangeParamInfo projectRangeInfo, PatientInfo patientInfo)
+        {
+            int age = patientInfo.Age;
+            string sex = patientInfo.Sex;
+            string unitAge = patientInfo.UnitAge;
+            float lowestValue = -100000000, highest = 100000000;
+            float[] f = new float[2];
+            if (unitAge == projectRangeInfo.UnitAge1 && age >= projectRangeInfo.AgeLow1 && age <= projectRangeInfo.AgeHigh1)
+            {
+                if (sex == "男")
+                {
+                    lowestValue = projectRangeInfo.ManConsLow1;
+                    highest = projectRangeInfo.ManConsHigh1;
+                }
+                else if (sex == "女")
+                {
+                    lowestValue = projectRangeInfo.WomanConsLow1;
+                    highest = projectRangeInfo.WomanConsHigh1;
+                }
+                else
+                {
+                    lowestValue = projectRangeInfo.ManConsLow1;
+                    highest = projectRangeInfo.ManConsHigh1;
+                }
+            }
+            else if (unitAge == projectRangeInfo.UnitAge2 && projectRangeInfo.AgeLow2 > -100000000)
+            {
+                if (age >= projectRangeInfo.AgeLow2 && age <= projectRangeInfo.AgeHigh2)
+                {
+                    if (sex == "男")
+                    {
+                        lowestValue = projectRangeInfo.ManConsLow2;
+                        highest = projectRangeInfo.ManConsHigh2;
+                    }
+                    else if (sex == "女")
+                    {
+                        lowestValue = projectRangeInfo.WomanConsLow2;
+                        highest = projectRangeInfo.WomanConsHigh2;
+                    }
+                    else
+                    {
+                        lowestValue = projectRangeInfo.ManConsLow2;
+                        highest = projectRangeInfo.ManConsHigh2;
+                    }
+                }
+            }
+            else if (unitAge == projectRangeInfo.UnitAge3 && projectRangeInfo.AgeLow3 > -100000000)
+            {
+                if (age >= projectRangeInfo.AgeLow3 && age <= projectRangeInfo.AgeHigh3)
+                {
+                    if (sex == "男")
+                    {
+                        lowestValue = projectRangeInfo.ManConsLow3;
+                        highest = projectRangeInfo.ManConsHigh3;
+                    }
+                    else if (sex == "女")
+                    {
+                        lowestValue = projectRangeInfo.WomanConsLow3;
+                        highest = projectRangeInfo.WomanConsHigh3;
+                    }
+                    else
+                    {
+                        lowestValue = projectRangeInfo.ManConsLow3;
+                        highest = projectRangeInfo.ManConsHigh3;
+                    }
+                }
+            }
+            else if (unitAge == projectRangeInfo.UnitAge4 && projectRangeInfo.AgeLow4 > -100000000)
+            {
+                if (age >= projectRangeInfo.AgeLow4 && age <= projectRangeInfo.AgeHigh4)
+                {
+                    if (sex == "男")
+                    {
+                        lowestValue = projectRangeInfo.ManConsLow4;
+                        highest = projectRangeInfo.ManConsHigh4;
+                    }
+                    else if (sex == "女")
+                    {
+                        lowestValue = projectRangeInfo.WomanConsLow4;
+                        highest = projectRangeInfo.WomanConsHigh4;
+                    }
+                    else
+                    {
+                        lowestValue = projectRangeInfo.ManConsLow4;
+                        highest = projectRangeInfo.ManConsHigh4;
+                    }
+                }
+            }
+            f[0] = lowestValue;
+            f[1] = highest;
+            return f;
+
+        }
+
         /// <summary>
         /// 该主函数没有被调用
         /// </summary>

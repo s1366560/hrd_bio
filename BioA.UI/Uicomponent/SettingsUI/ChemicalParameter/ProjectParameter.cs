@@ -112,6 +112,7 @@ namespace BioA.UI
             dt.Columns.Add("通道号");
             this.lstvProject.DataSource = dt;
             dtRange.Columns.Add("样本类型");
+            dtRange.Columns.Add("年龄单位");
             dtRange.Columns.Add("年龄范围");
             dtRange.Columns.Add("男（浓度范围）");
             dtRange.Columns.Add("女（浓度范围）");
@@ -450,19 +451,19 @@ namespace BioA.UI
                 chkAutoResurvey.Checked = r.AutoRerun;
                 if (r.AgeLow1 != -100000000 && r.AgeHigh1 != 100000000)
                 {
-                    dtRange.Rows.Add(r.SampleType, string.Format(r.AgeLow1 + " - " + r.AgeHigh1), string.Format(r.ManConsLow1.ToString() + " - " +  r.ManConsHigh1.ToString()), string.Format(r.WomanConsLow1.ToString() + " - " + r.WomanConsHigh1.ToString()));
+                    dtRange.Rows.Add(r.SampleType, r.UnitAge1, string.Format(r.AgeLow1 + " - " + r.AgeHigh1), string.Format(r.ManConsLow1.ToString() + " - " +  r.ManConsHigh1.ToString()), string.Format(r.WomanConsLow1.ToString() + " - " + r.WomanConsHigh1.ToString()));
                 }
                 if (r.AgeLow2 != -100000000 && r.AgeHigh2 != 100000000)
                 {
-                    dtRange.Rows.Add(r.SampleType, string.Format(r.AgeLow2 + " - " + r.AgeHigh2), string.Format(r.ManConsLow2.ToString() + " - " + r.ManConsHigh2.ToString()), string.Format(r.WomanConsLow2.ToString() + " - " + r.WomanConsHigh2.ToString()));
+                    dtRange.Rows.Add(r.SampleType,r.UnitAge2, string.Format(r.AgeLow2 + " - " + r.AgeHigh2), string.Format(r.ManConsLow2.ToString() + " - " + r.ManConsHigh2.ToString()), string.Format(r.WomanConsLow2.ToString() + " - " + r.WomanConsHigh2.ToString()));
                 } 
                 if (r.AgeLow3 != -100000000 && r.AgeHigh3 != 100000000)
                 {
-                    dtRange.Rows.Add(r.SampleType, string.Format(r.AgeLow3 + " - " + r.AgeHigh3), string.Format(r.ManConsLow3.ToString() + " - " + r.ManConsHigh3.ToString()), string.Format(r.WomanConsLow3.ToString() + " - " + r.WomanConsHigh3.ToString()));
+                    dtRange.Rows.Add(r.SampleType,r.UnitAge3, string.Format(r.AgeLow3 + " - " + r.AgeHigh3), string.Format(r.ManConsLow3.ToString() + " - " + r.ManConsHigh3.ToString()), string.Format(r.WomanConsLow3.ToString() + " - " + r.WomanConsHigh3.ToString()));
                 }
                 if (r.AgeLow4 != -100000000 && r.AgeHigh4 != 100000000)
                 {
-                    dtRange.Rows.Add(r.SampleType, string.Format(r.AgeLow4 + " - " + r.AgeHigh4), string.Format(r.ManConsLow4.ToString() + " - " + r.ManConsHigh4.ToString()), string.Format(r.WomanConsLow4.ToString() + " - " + r.WomanConsHigh4.ToString()));
+                    dtRange.Rows.Add(r.SampleType,r.UnitAge4, string.Format(r.AgeLow4 + " - " + r.AgeHigh4), string.Format(r.ManConsLow4.ToString() + " - " + r.ManConsHigh4.ToString()), string.Format(r.WomanConsLow4.ToString() + " - " + r.WomanConsHigh4.ToString()));
                 }
                 
             }
@@ -1110,11 +1111,13 @@ namespace BioA.UI
             {
                 for (int i = 0; i < this.gridView3.RowCount; i++)
                 {
+                    string unitAge = this.gridView3.GetRowCellValue(i, "年龄单位").ToString().Trim();
                     string[] age = this.gridView3.GetRowCellValue(i, "年龄范围").ToString().Replace(" ", "").Split('-');
                     string[] man = this.gridView3.GetRowCellValue(i, "男（浓度范围）").ToString().Replace(" ", "").Split('-');
                     string[] woMan = this.gridView3.GetRowCellValue(i, "女（浓度范围）").ToString().Replace(" ", "").Split('-');
                     if(i == 0)
                     {
+                        parameterInfo.UnitAge1 = unitAge;
                         parameterInfo.AgeLow1 = Convert.ToInt32(age[0]);
                         parameterInfo.AgeHigh1 = Convert.ToInt32(age[1]);
                         parameterInfo.ManConsLow1 = float.Parse(man[0]);
@@ -1124,6 +1127,7 @@ namespace BioA.UI
                     }
                     else if (i == 1)
                     {
+                        parameterInfo.UnitAge2 = unitAge;
                         parameterInfo.AgeLow2 = Convert.ToInt32(age[0]);
                         parameterInfo.AgeHigh2 = Convert.ToInt32(age[1]);
                         parameterInfo.ManConsLow2 = float.Parse(man[0]);
@@ -1133,6 +1137,7 @@ namespace BioA.UI
                     }
                     else if (i == 2)
                     {
+                        parameterInfo.UnitAge3 = unitAge;
                         parameterInfo.AgeLow3 = Convert.ToInt32(age[0]);
                         parameterInfo.AgeHigh3 = Convert.ToInt32(age[1]);
                         parameterInfo.ManConsLow3 = float.Parse(man[0]);
@@ -1142,6 +1147,7 @@ namespace BioA.UI
                     }
                     else if (i == 3)
                     {
+                        parameterInfo.UnitAge4 = unitAge;
                         parameterInfo.AgeLow4 = Convert.ToInt32(age[0]);
                         parameterInfo.AgeHigh4 = Convert.ToInt32(age[1]);
                         parameterInfo.ManConsLow4 = float.Parse(man[0]);
@@ -1200,9 +1206,10 @@ namespace BioA.UI
                 int rows = this.gridView3.RowCount;
                 for (int i = 0; i < rows; i++)
                 {
+                    string unitAge = this.gridView3.GetRowCellValue(i, "年龄单位").ToString().Trim();
                     string s = this.gridView3.GetRowCellValue(i, "年龄范围").ToString();
                     string[] age = s.Replace(" ", "").Split('-');
-                    if (Convert.ToInt32(txtSerumAgeHigh1.Text.Trim()) <= Convert.ToInt32(age[1]) || Convert.ToInt32(txtSerumAgeLow1.Text.Trim()) <= Convert.ToInt32(age[1]))
+                    if ((Convert.ToInt32(txtSerumAgeHigh1.Text.Trim()) <= Convert.ToInt32(age[1]) || Convert.ToInt32(txtSerumAgeLow1.Text.Trim()) <= Convert.ToInt32(age[0])) && unitAge == ComBoxUnitAge.Text.Trim())
                     {
                         MessageBoxDraw.ShowMsg("列表中已包含您输入的年龄！", MsgType.OK);
                         return;
@@ -1215,6 +1222,7 @@ namespace BioA.UI
                         string[] woMans = woMan.Replace(" ", "").Split('-');
                         AssayProjectRangeParamInfo rangeParam = new AssayProjectRangeParamInfo();
                         rangeParam.SampleType = sampleType;
+                        rangeParam.UnitAge1 = this.gridView3.GetRowCellValue(i, "年龄单位").ToString().Trim();
                         rangeParam.AgeLow1 = Convert.ToInt32(age[0].Trim());
                         rangeParam.AgeHigh1 = Convert.ToInt32(age[1].Trim());
                         rangeParam.ManConsLow1 = float.Parse(mans[0].Trim());
@@ -1226,6 +1234,7 @@ namespace BioA.UI
                 }
             }
             parameter.SampleType = sampleType;
+            parameter.UnitAge1 = ComBoxUnitAge.Text.Trim();
             parameter.AgeLow1 = System.Convert.ToInt32(txtSerumAgeLow1.Text.Trim());
             parameter.AgeHigh1 = System.Convert.ToInt32(txtSerumAgeHigh1.Text.Trim());
             parameter.ManConsLow1 = float.Parse(txtSerumManConsLow.Text.Trim());

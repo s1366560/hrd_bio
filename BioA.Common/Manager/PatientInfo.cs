@@ -84,6 +84,15 @@ namespace BioA.Common
             set { birthDate = value; }
         }
         /// <summary>
+        /// 年龄单位
+        /// </summary>
+        public string UnitAge
+        {
+            get { return unitAge; }
+            set { unitAge = value; }
+        }
+
+        /// <summary>
         /// 年龄
         /// </summary>
         public int Age
@@ -202,6 +211,7 @@ namespace BioA.Common
         private string sampleID;
         private string patientName;
         private DateTime birthDate;
+        private string unitAge;
         private int age;
         private string sex;
         private string patientType;

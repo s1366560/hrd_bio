@@ -79,14 +79,16 @@ namespace BioA.UI
             gridView2.Columns[3].Width = 90;
             gridView2.Columns[4].Width = 40;
             gridView2.Columns[5].Width = 90;
-            gridView2.Columns[6].Width = 40;
+            //gridView2.Columns[6].Width = 40;
             gridView2.Columns[7].Width = 50;
             gridView2.Columns[8].Width = 30;
-            gridView2.Columns[9].Width = 60;
+            //gridView2.Columns[9].Width = 60;
             gridView2.Columns[10].Width = 40;
             gridView2.Columns[11].Width = 80;
             gridView2.Columns[12].Width = 30;
             gridView2.Columns[12].OptionsColumn.AllowEdit = true;
+            gridView2.Columns[6].Visible = false;
+            gridView2.Columns[9].Visible = false;
             gridView2.Columns[13].Visible = false;
 
             dt.Columns.Add("样本编号");

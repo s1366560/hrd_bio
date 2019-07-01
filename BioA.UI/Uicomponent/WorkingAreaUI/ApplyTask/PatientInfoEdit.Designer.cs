@@ -61,11 +61,12 @@
             this.dtpSamplingTime = new System.Windows.Forms.DateTimePicker();
             this.dtpInspectTime = new System.Windows.Forms.DateTimePicker();
             this.combPatientType = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.combSex = new DevExpress.XtraEditors.ComboBoxEdit();
             this.lstvPatientInfo = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.comMedicalRecordNum = new DevExpress.XtraEditors.ComboBoxEdit();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            this.combSex = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.ComBoxUnitAge = new DevExpress.XtraEditors.ComboBoxEdit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSampleNum.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAge.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtName.Properties)).BeginInit();
@@ -78,10 +79,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtRemarks.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtClinicalDiagnosis.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.combPatientType.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.combSex.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lstvPatientInfo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.comMedicalRecordNum.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.combSex.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ComBoxUnitAge.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // lblSampleNum
@@ -246,11 +248,11 @@
             // 
             // txtAge
             // 
-            this.txtAge.Location = new System.Drawing.Point(119, 127);
+            this.txtAge.Location = new System.Drawing.Point(121, 127);
             this.txtAge.Name = "txtAge";
             this.txtAge.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAge.Properties.Appearance.Options.UseFont = true;
-            this.txtAge.Size = new System.Drawing.Size(100, 24);
+            this.txtAge.Size = new System.Drawing.Size(58, 24);
             this.txtAge.TabIndex = 23;
             this.txtAge.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAge_KeyPress);
             // 
@@ -289,6 +291,7 @@
             this.combInspectDoctor.Properties.Appearance.Options.UseFont = true;
             this.combInspectDoctor.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.combInspectDoctor.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.combInspectDoctor.Size = new System.Drawing.Size(100, 24);
             this.combInspectDoctor.TabIndex = 34;
             // 
@@ -300,6 +303,7 @@
             this.combCheckDoctor.Properties.Appearance.Options.UseFont = true;
             this.combCheckDoctor.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.combCheckDoctor.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.combCheckDoctor.Size = new System.Drawing.Size(100, 24);
             this.combCheckDoctor.TabIndex = 35;
             // 
@@ -311,6 +315,7 @@
             this.combApplyDoctor.Properties.Appearance.Options.UseFont = true;
             this.combApplyDoctor.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.combApplyDoctor.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.combApplyDoctor.Size = new System.Drawing.Size(100, 24);
             this.combApplyDoctor.TabIndex = 37;
             // 
@@ -322,6 +327,7 @@
             this.combApplyDepartment.Properties.Appearance.Options.UseFont = true;
             this.combApplyDepartment.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.combApplyDepartment.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.combApplyDepartment.Size = new System.Drawing.Size(100, 24);
             this.combApplyDepartment.TabIndex = 38;
             // 
@@ -401,19 +407,9 @@
             this.combPatientType.Properties.Appearance.Options.UseFont = true;
             this.combPatientType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.combPatientType.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.combPatientType.Size = new System.Drawing.Size(100, 24);
             this.combPatientType.TabIndex = 49;
-            // 
-            // combSex
-            // 
-            this.combSex.Location = new System.Drawing.Point(334, 129);
-            this.combSex.Name = "combSex";
-            this.combSex.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.combSex.Properties.Appearance.Options.UseFont = true;
-            this.combSex.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.combSex.Size = new System.Drawing.Size(100, 24);
-            this.combSex.TabIndex = 50;
             // 
             // lstvPatientInfo
             // 
@@ -443,6 +439,7 @@
             this.comMedicalRecordNum.Properties.Appearance.Options.UseFont = true;
             this.comMedicalRecordNum.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.comMedicalRecordNum.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.comMedicalRecordNum.Size = new System.Drawing.Size(100, 24);
             this.comMedicalRecordNum.TabIndex = 54;
             // 
@@ -456,10 +453,40 @@
             this.labelControl1.TabIndex = 53;
             this.labelControl1.Text = "病历号：";
             // 
+            // combSex
+            // 
+            this.combSex.Location = new System.Drawing.Point(334, 129);
+            this.combSex.Name = "combSex";
+            this.combSex.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.combSex.Properties.Appearance.Options.UseFont = true;
+            this.combSex.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.combSex.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.combSex.Size = new System.Drawing.Size(100, 24);
+            this.combSex.TabIndex = 50;
+            // 
+            // ComBoxUnitAge
+            // 
+            this.ComBoxUnitAge.EditValue = "岁";
+            this.ComBoxUnitAge.Location = new System.Drawing.Point(180, 127);
+            this.ComBoxUnitAge.Name = "ComBoxUnitAge";
+            this.ComBoxUnitAge.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComBoxUnitAge.Properties.Appearance.Options.UseFont = true;
+            this.ComBoxUnitAge.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.ComBoxUnitAge.Properties.Items.AddRange(new object[] {
+            "岁",
+            "月",
+            "天"});
+            this.ComBoxUnitAge.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.ComBoxUnitAge.Size = new System.Drawing.Size(40, 24);
+            this.ComBoxUnitAge.TabIndex = 55;
+            // 
             // PatientInfoEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.ComBoxUnitAge);
             this.Controls.Add(this.comMedicalRecordNum);
             this.Controls.Add(this.labelControl1);
             this.Controls.Add(this.lstvPatientInfo);
@@ -511,10 +538,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtRemarks.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtClinicalDiagnosis.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.combPatientType.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.combSex.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lstvPatientInfo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.comMedicalRecordNum.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.combSex.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ComBoxUnitAge.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -554,10 +582,11 @@
         private System.Windows.Forms.DateTimePicker dtpSamplingTime;
         private System.Windows.Forms.DateTimePicker dtpInspectTime;
         private DevExpress.XtraEditors.ComboBoxEdit combPatientType;
-        private DevExpress.XtraEditors.ComboBoxEdit combSex;
         private DevExpress.XtraGrid.GridControl lstvPatientInfo;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
         private DevExpress.XtraEditors.ComboBoxEdit comMedicalRecordNum;
         private DevExpress.XtraEditors.LabelControl labelControl1;
+        private DevExpress.XtraEditors.ComboBoxEdit combSex;
+        private DevExpress.XtraEditors.ComboBoxEdit ComBoxUnitAge;
     }
 }

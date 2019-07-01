@@ -83,6 +83,13 @@ namespace BioA.Common
             get { return repeatLimitHigh; }
             set { repeatLimitHigh = value; }
         }
+        
+        public string UnitAge1
+        {
+            get { return unitAge1; }
+            set { unitAge1 = value; }
+        }
+
         /// <summary>
         /// 血液年龄low1
         /// </summary>
@@ -131,6 +138,13 @@ namespace BioA.Common
             get { return womanConsHigh1; }
             set { womanConsHigh1 = value; }
         }
+
+        public string UnitAge2
+        {
+            get { return unitAge2; }
+            set { unitAge2 = value; }
+        }
+
         public int AgeLow2
         {
             get { return ageLow2; }
@@ -161,6 +175,13 @@ namespace BioA.Common
             get { return womanConsHigh2; }
             set { womanConsHigh2 = value; }
         }
+
+        public string UnitAge3
+        {
+            get { return unitAge3; }
+            set { unitAge3 = value; }
+        }
+
         public int AgeLow3
         {
             get { return ageLow3; }
@@ -191,6 +212,13 @@ namespace BioA.Common
             get { return womanConsHigh3; }
             set { womanConsHigh3 = value; }
         }
+
+        public string UnitAge4
+        {
+            get { return unitAge4; }
+            set { unitAge4 = value; }
+        }
+
         public int AgeLow4
         {
             get { return ageLow4; }
@@ -227,24 +255,28 @@ namespace BioA.Common
         private bool autoRerun;
         private int repeatLimitLow;
         private int repeatLimitHigh;
+        private string unitAge1;
         private int ageLow1;
         private int ageHigh1;
         private float manConsLow1;
         private float manConsHigh1;
         private float womanConsLow1;
         private float womanConsHigh1;
+        private string unitAge2;
         private int ageLow2;
         private int ageHigh2;
         private float manConsLow2;
         private float manConsHigh2;
         private float womanConsLow2;
         private float womanConsHigh2;
+        private string unitAge3;
         private int ageLow3;
         private int ageHigh3;
         private float manConsLow3;
         private float manConsHigh3;
         private float womanConsLow3;
         private float womanConsHigh3;
+        private string unitAge4;
         private int ageLow4;
         private int ageHigh4;
         private float manConsLow4;

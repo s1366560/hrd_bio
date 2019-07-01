@@ -103,6 +103,7 @@
             "1",
             "1.5",
             "2"});
+            this.cboStopBits.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.cboStopBits.Size = new System.Drawing.Size(100, 24);
             this.cboStopBits.TabIndex = 37;
             // 
@@ -118,6 +119,7 @@
             "9600",
             "14400",
             "19200"});
+            this.cboBaudRate.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.cboBaudRate.Size = new System.Drawing.Size(100, 24);
             this.cboBaudRate.TabIndex = 36;
             // 
@@ -155,6 +157,7 @@
             "Even",
             "Mark",
             "Space"});
+            this.cboParity.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.cboParity.Size = new System.Drawing.Size(100, 24);
             this.cboParity.TabIndex = 33;
             // 
@@ -171,6 +174,7 @@
             "6",
             "7",
             "8"});
+            this.cboDataBit.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.cboDataBit.Size = new System.Drawing.Size(100, 24);
             this.cboDataBit.TabIndex = 32;
             // 
@@ -182,6 +186,7 @@
             this.cboSerialPort.Properties.Appearance.Options.UseFont = true;
             this.cboSerialPort.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cboSerialPort.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.cboSerialPort.Size = new System.Drawing.Size(100, 24);
             this.cboSerialPort.TabIndex = 31;
             // 
@@ -331,6 +336,7 @@
             this.comBoxCommDirection.Properties.Items.AddRange(new object[] {
             "单向",
             "双向"});
+            this.comBoxCommDirection.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.comBoxCommDirection.Size = new System.Drawing.Size(88, 24);
             this.comBoxCommDirection.TabIndex = 5;
             // 
@@ -355,6 +361,7 @@
             this.comBoxCommMode.Properties.Items.AddRange(new object[] {
             "网络",
             "串口"});
+            this.comBoxCommMode.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.comBoxCommMode.Size = new System.Drawing.Size(88, 24);
             this.comBoxCommMode.TabIndex = 1;
             this.comBoxCommMode.SelectedValueChanged += new System.EventHandler(this.comBoxCommMode_SelectedValueChanged);
@@ -406,7 +413,6 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "LISSetting";
             this.Text = "LIS设置";
-            //this.Load += new System.EventHandler(this.LISSetting_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grpSerialPortSetting)).EndInit();
             this.grpSerialPortSetting.ResumeLayout(false);
             this.grpSerialPortSetting.PerformLayout();

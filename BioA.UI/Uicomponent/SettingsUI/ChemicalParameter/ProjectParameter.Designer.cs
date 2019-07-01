@@ -48,6 +48,7 @@
             this.txtProLowestBound = new DevExpress.XtraEditors.TextEdit();
             this.chkAutoResurvey = new DevExpress.XtraEditors.CheckEdit();
             this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
+            this.ComBoxUnitAge = new DevExpress.XtraEditors.ComboBoxEdit();
             this.butDelete = new System.Windows.Forms.Button();
             this.labelControl15 = new DevExpress.XtraEditors.LabelControl();
             this.labMan = new DevExpress.XtraEditors.LabelControl();
@@ -64,7 +65,6 @@
             this.labelControl19 = new DevExpress.XtraEditors.LabelControl();
             this.txtSerumAgeHigh1 = new DevExpress.XtraEditors.TextEdit();
             this.txtSerumAgeLow1 = new DevExpress.XtraEditors.TextEdit();
-            this.labelControl21 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl24 = new DevExpress.XtraEditors.LabelControl();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
             this.labReagentMaximum = new System.Windows.Forms.Label();
@@ -181,6 +181,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.chkAutoResurvey.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
             this.groupControl3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ComBoxUnitAge.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSerumWomanConsHigh.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSerumWomanConsLow.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpRangeParam)).BeginInit();
@@ -470,6 +471,7 @@
             // 
             // groupControl3
             // 
+            this.groupControl3.Controls.Add(this.ComBoxUnitAge);
             this.groupControl3.Controls.Add(this.butDelete);
             this.groupControl3.Controls.Add(this.labelControl15);
             this.groupControl3.Controls.Add(this.labMan);
@@ -483,13 +485,29 @@
             this.groupControl3.Controls.Add(this.labelControl19);
             this.groupControl3.Controls.Add(this.txtSerumAgeHigh1);
             this.groupControl3.Controls.Add(this.txtSerumAgeLow1);
-            this.groupControl3.Controls.Add(this.labelControl21);
             this.groupControl3.Controls.Add(this.labelControl24);
             this.groupControl3.Location = new System.Drawing.Point(701, 410);
             this.groupControl3.Name = "groupControl3";
             this.groupControl3.Size = new System.Drawing.Size(537, 234);
             this.groupControl3.TabIndex = 82;
             this.groupControl3.Text = "参考区间";
+            // 
+            // ComBoxUnitAge
+            // 
+            this.ComBoxUnitAge.EditValue = " 岁 ";
+            this.ComBoxUnitAge.Location = new System.Drawing.Point(60, 23);
+            this.ComBoxUnitAge.Name = "ComBoxUnitAge";
+            this.ComBoxUnitAge.Properties.Appearance.Font = new System.Drawing.Font("SimSun", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ComBoxUnitAge.Properties.Appearance.Options.UseFont = true;
+            this.ComBoxUnitAge.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.ComBoxUnitAge.Properties.Items.AddRange(new object[] {
+            " 岁 ",
+            " 月 ",
+            " 天 "});
+            this.ComBoxUnitAge.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.ComBoxUnitAge.Size = new System.Drawing.Size(55, 20);
+            this.ComBoxUnitAge.TabIndex = 91;
             // 
             // butDelete
             // 
@@ -668,16 +686,6 @@
             this.txtSerumAgeLow1.Properties.Appearance.Options.UseForeColor = true;
             this.txtSerumAgeLow1.Size = new System.Drawing.Size(51, 24);
             this.txtSerumAgeLow1.TabIndex = 3;
-            // 
-            // labelControl21
-            // 
-            this.labelControl21.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl21.Appearance.Options.UseFont = true;
-            this.labelControl21.Location = new System.Drawing.Point(66, 23);
-            this.labelControl21.Name = "labelControl21";
-            this.labelControl21.Size = new System.Drawing.Size(15, 17);
-            this.labelControl21.TabIndex = 25;
-            this.labelControl21.Text = "岁";
             // 
             // labelControl24
             // 
@@ -1791,6 +1799,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
             this.groupControl3.ResumeLayout(false);
             this.groupControl3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ComBoxUnitAge.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSerumWomanConsHigh.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSerumWomanConsLow.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpRangeParam)).EndInit();
@@ -1978,7 +1987,6 @@
         private DevExpress.XtraEditors.LabelControl labelControl19;
         private DevExpress.XtraEditors.TextEdit txtSerumAgeHigh1;
         private DevExpress.XtraEditors.TextEdit txtSerumAgeLow1;
-        private DevExpress.XtraEditors.LabelControl labelControl21;
         private DevExpress.XtraEditors.LabelControl labelControl24;
         private System.Windows.Forms.Button ButSave;
         private DevExpress.XtraGrid.GridControl grpRangeParam;
@@ -2001,5 +2009,6 @@
         private System.Windows.Forms.Label labSerumMin;
         private DevExpress.XtraEditors.TextEdit txtSerumMaxValue;
         private DevExpress.XtraEditors.TextEdit txtSerumMinValue;
+        private DevExpress.XtraEditors.ComboBoxEdit ComBoxUnitAge;
     }
 }
