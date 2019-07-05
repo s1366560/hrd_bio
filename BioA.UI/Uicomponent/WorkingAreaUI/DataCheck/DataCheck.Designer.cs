@@ -96,10 +96,10 @@
             this.btnDelete.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDelete.Appearance.Options.UseFont = true;
             this.btnDelete.Image = ((System.Drawing.Image)(resources.GetObject("btnDelete.Image")));
-            this.btnDelete.Location = new System.Drawing.Point(1489, 814);
+            this.btnDelete.Location = new System.Drawing.Point(1488, 817);
             this.btnDelete.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(101, 44);
+            this.btnDelete.Size = new System.Drawing.Size(101, 43);
             this.btnDelete.TabIndex = 56;
             this.btnDelete.Text = "删除结果";
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
@@ -122,7 +122,7 @@
             this.btnBatchExamine.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBatchExamine.Appearance.Options.UseFont = true;
             this.btnBatchExamine.Image = ((System.Drawing.Image)(resources.GetObject("btnBatchExamine.Image")));
-            this.btnBatchExamine.Location = new System.Drawing.Point(570, 817);
+            this.btnBatchExamine.Location = new System.Drawing.Point(580, 817);
             this.btnBatchExamine.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnBatchExamine.Name = "btnBatchExamine";
             this.btnBatchExamine.Size = new System.Drawing.Size(106, 44);
@@ -135,10 +135,10 @@
             this.btnReactionMonitoring.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReactionMonitoring.Appearance.Options.UseFont = true;
             this.btnReactionMonitoring.Image = ((System.Drawing.Image)(resources.GetObject("btnReactionMonitoring.Image")));
-            this.btnReactionMonitoring.Location = new System.Drawing.Point(1045, 816);
+            this.btnReactionMonitoring.Location = new System.Drawing.Point(1047, 817);
             this.btnReactionMonitoring.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnReactionMonitoring.Name = "btnReactionMonitoring";
-            this.btnReactionMonitoring.Size = new System.Drawing.Size(109, 44);
+            this.btnReactionMonitoring.Size = new System.Drawing.Size(109, 42);
             this.btnReactionMonitoring.TabIndex = 52;
             this.btnReactionMonitoring.Text = "反应监控";
             this.btnReactionMonitoring.Click += new System.EventHandler(this.btnReactionMonitoring_Click);
@@ -148,10 +148,10 @@
             this.btnReview.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReview.Appearance.Options.UseFont = true;
             this.btnReview.Image = ((System.Drawing.Image)(resources.GetObject("btnReview.Image")));
-            this.btnReview.Location = new System.Drawing.Point(1317, 815);
+            this.btnReview.Location = new System.Drawing.Point(1318, 817);
             this.btnReview.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnReview.Name = "btnReview";
-            this.btnReview.Size = new System.Drawing.Size(78, 44);
+            this.btnReview.Size = new System.Drawing.Size(78, 39);
             this.btnReview.TabIndex = 51;
             this.btnReview.Text = "复查";
             this.btnReview.Click += new System.EventHandler(this.btnReview_Click);
@@ -373,10 +373,10 @@
             this.btnReportPrint.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReportPrint.Appearance.Options.UseFont = true;
             this.btnReportPrint.Image = ((System.Drawing.Image)(resources.GetObject("btnReportPrint.Image")));
-            this.btnReportPrint.Location = new System.Drawing.Point(933, 817);
+            this.btnReportPrint.Location = new System.Drawing.Point(703, 817);
             this.btnReportPrint.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnReportPrint.Name = "btnReportPrint";
-            this.btnReportPrint.Size = new System.Drawing.Size(106, 44);
+            this.btnReportPrint.Size = new System.Drawing.Size(106, 41);
             this.btnReportPrint.TabIndex = 58;
             this.btnReportPrint.Text = "报告打印";
             this.btnReportPrint.Click += new System.EventHandler(this.btnReportPrint_Click);
@@ -406,9 +406,9 @@
             this.btnSave.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.Appearance.Options.UseFont = true;
             this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
-            this.btnSave.Location = new System.Drawing.Point(1402, 815);
+            this.btnSave.Location = new System.Drawing.Point(1402, 817);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(80, 43);
+            this.btnSave.Size = new System.Drawing.Size(80, 39);
             this.btnSave.TabIndex = 61;
             this.btnSave.Text = "保存";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -417,7 +417,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(1046, 776);
+            this.label1.Location = new System.Drawing.Point(1017, 782);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(488, 17);
             this.label1.TabIndex = 62;
@@ -459,9 +459,9 @@
             // btnSelect
             // 
             this.btnSelect.Image = ((System.Drawing.Image)(resources.GetObject("btnSelect.Image")));
-            this.btnSelect.Location = new System.Drawing.Point(1161, 816);
+            this.btnSelect.Location = new System.Drawing.Point(1162, 817);
             this.btnSelect.Name = "btnSelect";
-            this.btnSelect.Size = new System.Drawing.Size(74, 43);
+            this.btnSelect.Size = new System.Drawing.Size(74, 42);
             this.btnSelect.TabIndex = 63;
             this.btnSelect.Text = "全选";
             this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
@@ -469,9 +469,9 @@
             // btnReverseSelection
             // 
             this.btnReverseSelection.Image = ((System.Drawing.Image)(resources.GetObject("btnReverseSelection.Image")));
-            this.btnReverseSelection.Location = new System.Drawing.Point(1241, 816);
+            this.btnReverseSelection.Location = new System.Drawing.Point(1242, 817);
             this.btnReverseSelection.Name = "btnReverseSelection";
-            this.btnReverseSelection.Size = new System.Drawing.Size(70, 43);
+            this.btnReverseSelection.Size = new System.Drawing.Size(70, 41);
             this.btnReverseSelection.TabIndex = 64;
             this.btnReverseSelection.Text = "反选";
             this.btnReverseSelection.Click += new System.EventHandler(this.btnReverseSelection_Click);
@@ -481,9 +481,9 @@
             this.DiscreteStatistics.Appearance.Font = new System.Drawing.Font("Tahoma", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DiscreteStatistics.Appearance.Options.UseFont = true;
             this.DiscreteStatistics.Image = ((System.Drawing.Image)(resources.GetObject("DiscreteStatistics.Image")));
-            this.DiscreteStatistics.Location = new System.Drawing.Point(1595, 815);
+            this.DiscreteStatistics.Location = new System.Drawing.Point(1595, 817);
             this.DiscreteStatistics.Name = "DiscreteStatistics";
-            this.DiscreteStatistics.Size = new System.Drawing.Size(111, 43);
+            this.DiscreteStatistics.Size = new System.Drawing.Size(111, 41);
             this.DiscreteStatistics.TabIndex = 65;
             this.DiscreteStatistics.Text = "离 散 统 计";
             this.DiscreteStatistics.Click += new System.EventHandler(this.DiscreteStatistics_Click);
